@@ -1,0 +1,275 @@
+// Button CSS
+
+.btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // border: 1px solid;
+
+    .btn_container{
+        cursor: pointer;
+        display: flex;
+        width: 170px;
+        font-size: 13px;
+        font-weight: 500;
+        gap: 12px;
+        padding-left: 17px;
+        color: #697A8D;
+        height: 40px;
+        align-items: center;
+        border-radius: 5px;
+        margin-left: 17px;
+        // border: 1px solid;
+        
+        p{
+            width: 160px;
+            // border: 1px solid;
+        }
+
+
+
+        .btn_icon{
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;   
+            filter: invert(45%) sepia(42%) saturate(207%) hue-rotate(171deg) brightness(100%) contrast(86%);
+            
+            // border: 1px solid;
+        }
+        .dropdown_arrow{
+            -moz-transition: all .2s linear;
+            -webkit-transition: all .2s linear;
+            transition: all .2s linear;
+            filter: invert(45%) sepia(42%) saturate(207%) hue-rotate(171deg) brightness(100%) contrast(86%);
+            margin-left: -10px;
+            height: 10px;
+            width: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+    }
+    .right_border{
+        width: 4px;
+        height: 40px;
+        border-radius: 3px 0px 0px 3px;
+    }
+}
+
+// Group CSS
+
+.group{
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    height: 11px;
+    font-size: 12px;
+    font-weight:400;
+    color: #8E9CAA;
+    margin: 10px 0px;
+
+    p{
+        width: 200px;
+        transition: all 1s;
+    }
+    svg{
+        width: 16px;
+        height: 2px;
+        transition: all 1s;
+        rect{
+            width: 16px;
+            height: 2px;
+            fill: rgba(142,156,170,0.5019607843137255 );
+        }
+    }}
+
+// Dropdown button CSS
+
+.bullet{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: gray;
+}
+.bullet_box{
+    height: 18px;
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+
+.dropdown_item_container{
+    max-height: 0;
+    transition: max-height .3s ease-out ;
+    overflow: hidden;
+}
+.sub_dropdown{
+    // border: 1px solid;
+    width: 80%;
+    margin-left: 2%;
+}
+a{
+    text-decoration: none;
+}
+
+
+
+// active CSS
+.sidebar_mini{
+    .sidebar_item{
+        .active{
+            .btn{
+                background-color: rgba(0, 0, 0 ,0);
+                .plain{
+                    background-color: rgba(92, 90, 209, .1599);
+                    color: #5C5AD0;
+                    .btn_icon{
+                        filter: invert(35%) sepia(87%) saturate(1041%) hue-rotate(218deg) brightness(84%) contrast(92%);
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+.sidebar{
+    .active{
+        .normal{
+            background-color: rgba(92, 90, 209, .1599);
+            .plain{
+                // background-color: rgba(92, 90, 209, .1599);
+                color: #5C5AD0;
+                font-weight: 600;
+                .btn_icon{
+                    filter: invert(35%) sepia(87%) saturate(1041%) hue-rotate(218deg) brightness(84%) contrast(92%);
+                    
+                }
+            }
+            .right_border{
+                background-color: #5C5AD0;
+            }
+        }
+    }
+}
+
+
+.sidebar_mini{
+    .dropdownActive{
+        background-color: rgba(0, 0, 0 ,0);
+        .btn_container{
+            background-color: rgba(92, 90, 209, .1599);
+        }
+    }
+}
+.dropdownActive{
+    background-color: rgba(92, 90, 209, .1599);
+    .btn_container{
+        // background-color: rgba(92, 90, 209, .1599);
+            color: #5C5AD0;
+            font-weight: 600;
+            .btn_icon{
+                filter: invert(35%) sepia(87%) saturate(1041%) hue-rotate(218deg) brightness(84%) contrast(92%);
+                
+            }
+            .dropdown_arrow{
+                filter: invert(35%) sepia(87%) saturate(1041%) hue-rotate(218deg) brightness(84%) contrast(92%);
+            }
+    }
+    .right_border{
+        background-color: #5C5AD0;
+    }
+}
+
+
+
+
+.active{
+    .bullet_item{
+        // position: relative;
+        
+        .btn_container{
+            .bullet_box{
+                
+                .bullet_container{
+                    
+                    display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(92, 90, 209, .1599);
+            width: 12px;
+            height: 12px;
+            
+            .bullet{
+                background-color: #5C5AD0;
+            }
+                }
+        }
+        
+        }
+    }
+}
+
+
+// dropdown_open
+
+.btn{
+    .open{
+        .dropdown_arrow{
+            -moz-transform:rotate(90deg);
+            -webkit-transform:rotate(90deg);
+            transform:rotate(90deg);
+        }
+    }
+    .open>.dropdown_item_container{
+        height: max-content;
+    }
+}
+.open_dropdown{
+    // height: auto;
+    // padding-top: 10px;
+    max-height: 600px;
+    transition: max-height .4s ease-in;
+    // position: relative;
+    .v-line{
+        border-left: .5px solid #D1D1D1;
+        height: 40px;
+        // margin-left: 41.6px;
+        margin-left: 18.2%;
+        position: absolute;
+        z-index: 0;
+        // top: 20px;
+        // left: 41.40px;
+        // margin-left: 30px;
+    }
+    .first-v-line{
+        margin-top: 20px;
+    }
+    .last-v-line{
+        margin-top: -20px;
+    }
+
+}
+
+.openSubDropdown{
+    .bullet_box{
+                .bullet_container{
+                    display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: rgba(92, 90, 209, .1599);
+            width: 12px;
+            height: 12px;
+            .bullet{
+                background-color: #ffffff;
+            }
+                }
+        }
+}

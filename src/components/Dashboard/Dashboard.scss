@@ -1,0 +1,355 @@
+
+
+
+.dashboard_details{
+    // border: 1px solid;
+    
+    // width: 1122px;
+    width: 95%;
+    // min-width: 800px;
+    max-width: 2200px !important;
+
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 8px;
+    // background-color: #ffff;
+    // background-color: #5C5AD0;
+    height: 108px;
+    display: flex;
+    align-items: center;
+    // gap: 8px;
+    justify-content: center;
+    
+    overflow: wrap;
+
+    .dashboard_container{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        // border: 1px solid;
+        // min-width: 1100px;
+        max-width: 2200px;
+        justify-content: space-around;
+        background-color: #ffff;
+        border-radius: 8px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+  
+
+
+
+    
+
+    .sales_order{
+        padding: 14px 16px;
+        // border:1px solid red;
+        background-color: #ffff;
+        width: fit-content;
+        border-radius: 8px 0px 0px 8px;
+        // border-right: 5px solid #E8ECF1;
+        .container_dashboard_details{
+            // border: 1px solid;
+        width: 269px;
+        height: 81px;
+        }
+        
+    }
+    .invoices{
+        padding: 14px 16px;
+        // border:1px solid red;
+        background-color: #ffff;
+        // border-right: 5px solid #E8ECF1;
+        border-left: 5px solid #E8ECF1;
+        
+
+        .container_dashboard_details{
+            // border: 1px solid;
+        width: 269px;
+        height: 81px;
+        }
+        
+
+    }
+    .credit_notes{
+        padding: 14px 16px;
+        // border:1px solid red;
+        background-color: #ffff;
+        // border-right: 5px solid #E8ECF1;
+        border-left: 5px solid #E8ECF1;
+        .container_dashboard_details{
+            // border: 1px solid;
+            width: 140px;
+            height: 81px;
+        }
+       
+    }
+    .payments{
+        padding: 14px 16px;
+        // border:1px solid red;
+        background-color: #ffff;
+        border-radius: 0px 8px 8px 0px;
+        border-left: 5px solid #E8ECF1;
+        .container_dashboard_details{
+            // border: 1px solid;
+            width: 299px;
+            height: 81px;
+        }
+       
+
+    }
+}
+
+.container_dashboard_details{
+    .box_heading{
+        display: flex;
+        // border: 1px solid;
+        align-items: center;
+        margin-bottom: 20px;
+        h3{
+            font-size: 16px;
+        font-weight: 500;
+        color: #566A7F;
+        margin-right: 16px;
+        }
+        .number_count{
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #5c5ad133;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            span{
+                font-size: 12px;
+                font-weight: 500;
+                color: #5C5AD0;
+            }
+        }
+    }
+
+
+    
+    
+    
+}
+
+.amount_status{
+    display: flex;
+    gap: 12px;
+
+
+    .amount{
+        font-size: 13px;
+        font-weight: 800;
+        color: #2B3347;
+        margin-bottom: 10px;
+    }
+
+    .status{
+        font-size: 12px;
+        font-weight: 500;
+        color: #8E9CAA;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+
+        .dashboard_bullet{
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+        
+        .green_bullet{
+            background-color: #31A564;
+        }
+        .yellow_bullet{
+            background-color: #FFAB00;
+        }
+        .red_bullet{
+            background-color: #FF3E1D;
+        }
+       
+    }
+}
+
+
+
+
+@media only screen and (max-width:1439px) {
+
+    .dashboard_details{
+        width: 95%;
+        max-width: 750px !important;
+        // border: 1px solid;
+        margin: auto;
+        margin-top: 20px;
+        border-radius: 8px;
+
+
+        height: 80px;
+        display: flex;
+        align-items: center;
+
+        justify-content: center;
+        
+        overflow: wrap;
+    
+        .dashboard_container{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            // border: 1px solid;
+            // min-width: 1100px;
+            // max-width: 2200px;
+            justify-content: space-around;
+            background-color: #ffff;
+            border-radius: 8px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            width: 100%;
+            overflow: hidden;
+        }
+    
+      
+    
+    
+    
+        
+    
+        .sales_order{
+            padding: 8px 0px;
+            padding-left: 20px;
+            // border:1px solid red;
+            background-color: #ffff;
+            width: fit-content;
+            border-radius: 8px 0px 0px 8px;
+            // border-right: 5px solid #E8ECF1;
+            .container_dashboard_details{
+                // border: 1px solid;
+            width: 180px;
+            height: 61px;
+            }
+            
+        }
+        .invoices{
+            padding: 8px 10px;
+            // border:1px solid red;
+            background-color: #ffff;
+            // border-right: 5px solid #E8ECF1;
+            border-left: 5px solid #E8ECF1;
+            
+    
+            .container_dashboard_details{
+                // border: 1px solid;
+            width: 180px;
+            height: 61px;
+            }
+            
+    
+        }
+        .credit_notes{
+            padding: 8px 10px;
+            // border:1px solid red;
+            background-color: #ffff;
+            // border-right: 5px solid #E8ECF1;
+            border-left: 5px solid #E8ECF1;
+            .container_dashboard_details{
+                // border: 1px solid;
+                width: 100px;
+                height: 61px;
+            }
+           
+        }
+        .payments{
+            padding: 8px 10px;
+            // border:1px solid red;
+            background-color: #ffff;
+            border-radius: 0px 8px 8px 0px;
+            border-left: 5px solid #E8ECF1;
+            .container_dashboard_details{
+                // border: 1px solid;
+                width: 200px;
+                height: 61px;
+            }
+           
+    
+        }
+    }
+    
+    .container_dashboard_details{
+        .box_heading{
+            display: flex;
+            // border: 1px solid;
+            align-items: center;
+            margin-bottom: 14px;
+            h3{
+                font-size: 12px;
+            font-weight: 500;
+            color: #566A7F;
+            margin-right: 13px;
+            }
+            .number_count{
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #5c5ad133;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+    
+                span{
+                    font-size: 10px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                }
+            }
+        }
+    
+    
+        
+        
+        
+    }
+    
+    .amount_status{
+        display: flex;
+        gap: 5px;
+    
+    
+        .amount{
+            font-size: 10px;
+            font-weight: 800;
+            color: #2B3347;
+            margin-bottom: 6px;
+        }
+    
+        .status{
+            font-size: 8px;
+            font-weight: 500;
+            color: #8E9CAA;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+    
+            .dashboard_bullet{
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+            }
+            
+            .green_bullet{
+                background-color: #31A564;
+            }
+            .yellow_bullet{
+                background-color: #FFAB00;
+            }
+            .red_bullet{
+                background-color: #FF3E1D;
+            }
+           
+        }
+    }
+    
+   
+    }

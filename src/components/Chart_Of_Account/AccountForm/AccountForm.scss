@@ -1,0 +1,108 @@
+.accountsform
+{
+  //background-color: white;
+ height: 715px;
+ // width: 730px;
+  margin-top: -38px;
+  margin-left: 0px;
+  margin-right: 1px;
+ // scrollbar-width: none;
+  //border-radius: 8px;
+  overflow: scroll;
+}
+
+.accountsform::-webkit-scrollbar{
+      width: 0;
+    }
+
+
+    .accountform-left
+    {
+      //  width: 50%;
+      //  height:500px;
+    }
+.accountbox_heading1{
+    padding-top: 20px;
+    align-items: center;
+    margin-top: 0px;
+    display: flex;
+    margin-left: 24px;
+    //width: 130px;
+    color: #566A7F;
+    height: 24px;
+    font-weight: bold;
+    font-size: 18px;
+    position: sticky;
+   // top: 30;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    padding-bottom: 20px;
+}
+.accountform_heading{
+    margin-left: 30px;
+   margin-top: 29px;
+    .heading_parent{
+        color: #A1ACB8;
+        font-weight: 400;
+    }
+}
+.accountform_details{
+    display: flex;
+    padding: 10px 25px;
+}
+
+.accountformlabel
+{
+    font-size: 12px;
+    color:#566A7F;
+}
+
+.accountforminput
+{
+    border:1px solid;
+    height: 38px;
+    width: 330px;
+    border-radius: 5px;
+    margin-top: 4px;
+    display: flex;
+    margin-bottom: 18px;
+    border-color: #D9DEE3;
+}
+
+
+.accountformbutton_bottom
+{
+    display: flex;
+   // float: right;
+   // margin-right: 32px;
+   // margin-top: 109px;
+    gap: 24px;
+   // border-color: #D9DEE3;
+   margin-top: 40px;
+}
+.accountformcancelbutton
+{
+  border: 1px  solid #C2CAD2;
+   // border: none;
+    width: 79px;
+    height: 38px;
+    border-radius: 6px;
+    color: #8E9CAA;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    
+    //font-weight: semibold;
+}
+.accountformsavebutton
+{
+    border: none;
+    width: 81px;
+    height: 38px;
+    border-radius: 6px;
+    color: white;
+    background-color: #5C5AD0;
+    font-size: 12px;
+   // margin-right: 24px;
+   // font-weight: bold;
+}

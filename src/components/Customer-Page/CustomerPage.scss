@@ -1,0 +1,440 @@
+// Main Page Css 
+
+.customers-page{
+    // border: 1px solid;
+
+
+    margin: auto;
+    width: 95%;
+    max-width: 2200px;
+    min-width: 1150px;
+    // height: 680px;
+    height: 100vh;
+    // padding-bottom: 20px;
+    // margin-top: 30px;
+    overflow: scroll;
+
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    
+    .tableData{
+        // height: 495px;
+        max-width: 2220px;
+        // min-width: 100%;
+        // border: 1px solid;
+        // overflow: scroll;
+
+    }
+
+    .SearchBar-filter{
+        // margin-top: 10px;
+        padding: 5px;
+    }
+}
+
+// @media screen and (max-width: 600px) {
+//     .customer-dashboard{
+//         // border: 1px solid;
+//         width: 100%;
+//         display: block;
+//         background-color: #ffff;
+//         margin-bottom: 10px;
+//     }
+//   }
+
+// @media screen and (width:600px) {
+//     .customers-page{
+//         margin: auto;
+//         width: 95%;
+//      //   max-width: 1300px;
+//         min-width: 600px;
+//     //    height: 700px;
+//         margin-top: 30px;
+//         overflow: scroll;
+//     }
+
+    
+// }
+.customers-page::-webkit-scrollbar{
+    display: none;
+}
+
+
+// Customer Dashboard CSS 
+
+
+.customer-dashboard{
+    // border: 1px solid;
+    display: flex;
+    background-color: #ffff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8PX;
+    justify-content: space-around;
+    // justify-content: left;
+
+
+    .left-border{
+        border-left: 5px solid #E8ECF1;
+    }
+
+    // @media screen and (width: 50px) {
+    //     .customer-dashboard{
+    //         // border: 1px solid;
+    //         width: -700px;
+    //         display: flex;
+    //         background-color: #ffff;
+    //         margin-bottom: 10px;
+    //         .left-border{
+    //             border-left: 5px solid #E8ECF1;
+    //         }
+        
+    //     }
+    //   }
+
+    .customer-dashboard-card{
+        // border: 1px solid;
+        // width: 301px;
+        height: 81px;
+        margin: 14px 23px 13.4px 17px;
+
+
+        .customer-dashboard-card-heading{
+            // border: 1px solid;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+
+
+            div{
+                display: flex;
+                align-items: center;
+
+                h1{
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: #566A7F;
+                }
+                h3{
+                    width: 22px;
+                    height: 22px;
+                    background-color: #5c5ad133;
+                    border-radius: 50%;
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 16px;
+                }
+
+                .analytic-icon{
+                    width: 16.88px;
+                    height: 9px;
+                    margin-left: 65.5px;
+                }
+                p{
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #697A8D;
+                    margin-left: 6px;
+
+                }
+                .right-arrow{
+                    width: 6.5px;
+                    height: 10px;
+                    margin-left: 11px;
+                }
+            }
+        }
+
+        
+        .customer-dashboard-card-status{
+            display: flex;
+            // border: 1px solid;
+            min-width: 315px;
+            justify-content: space-between;
+
+            .card-status-margin{
+                margin-left: 30px;
+            }
+
+            div{
+
+                h4{
+                    font-size: 13px;
+                    font-weight: 800;
+                    color: #2B3347;
+                    margin-bottom: 11px;
+                }
+                div{
+                    display: flex;
+                    align-items: center;
+                    .green-bullet{
+                        height: 7px;
+                        width: 7px;
+                        background-color: #31A564;
+                        border-radius: 50%;
+
+                    }
+                    .yellow-bullet{
+                        height: 7px;
+                        width: 7px;
+                        background-color: #FFAB00;
+                        border-radius: 50%;
+                        // margin-left: 30px;
+
+                    }
+                    .red-bullet{
+                        height: 7px;
+                        width: 7px;
+                        background-color: #FF3E1D;
+                        border-radius: 50%;
+                        // margin-left: 30px;
+
+                    }
+                    h3{
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: #8E9CAA;
+                        margin-left: 2px;
+                    }
+                }
+            }
+        }
+    }
+
+   
+}
+
+
+// Customer Navbar CSS 
+
+.customer-page-navbar{
+    // border: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+
+
+    .customer-navbar{
+        // border: 1px solid;
+        border-bottom: 1px solid #A1ACB8;
+        // padding-bottom: 8px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+
+        div{
+            padding-bottom: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #566A7F;
+        }
+        .active{
+            border-bottom: 3px solid #2B3347;
+            padding-bottom: 9px;
+
+        }
+    }
+
+    
+}
+
+
+
+
+// customer table and customer details 
+
+
+.searchBarAndFilter{
+    // border: 1px solid;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffff;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.customers-page{
+    padding: 5px;
+    .table-customer-details{
+        padding-bottom: 30px;
+        display: flex;
+        // flex-direction: column;
+        padding: 5px;
+        gap: 20px;
+        justify-content: space-between;
+        // border: 1px solid;
+        max-width: 2200px;
+
+        .customer-table{
+            width: 730px;
+            // min-width: 1200px;
+          // width: 100%;
+            // max-width: 1200px;
+            // border: 1px solid;
+
+
+            .table-width{
+               width: 99%;
+               max-width: 1100px;
+            }
+        }
+
+        .customer-details{
+            min-width: 342px;
+            // border: 1px solid;
+            background-color: #ffff;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 8px;
+            padding-left: 14px;
+            max-width: 354px;
+
+            .customer-name-profile{
+                display: flex;
+                // border: 1px solid;
+                align-items: center;
+                margin: 13px 9px 15px 0px;
+
+                .customer-image{
+                    padding: 2px;
+                    border-radius: 50%;
+                    // width: 60px;
+                    // height: 60px;
+                    border: 1px solid #5C5AD0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    // img{
+
+                    // }
+                }
+            
+                .name-container{
+                    // border: 1px solid;
+                    margin-left: 13px;
+                    .business-name{
+                        font-size: 15px;
+                        font-weight: 700;
+                        color: #566A7F;
+                        margin-bottom: 7px;
+                    }
+                    .customer-name{
+                        font-size: 13px;
+                        font-weight: 500;
+                        color: #5C5AD0;
+                    }
+                }
+            }
+            hr{
+                width: 311px;
+                border: none;
+                border-bottom: 1px solid #A1ACB8;
+                
+            }
+
+            .customer-info{
+                .customer-info-heading{
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #8E9CAA;
+                    margin-top: 23.5px;
+                }
+
+                .customer-gst{
+                    display: flex;
+                    gap: 12.5px;
+                    margin-top: 17px;
+                    margin-bottom: 20px;
+
+                    h4{
+                        font-size: 13px;
+                        font-weight: 500;
+                        color: #566A7F;
+
+                        span{
+                            color: #697A8D;
+                        }
+                    }
+                }
+
+                .customer-email{
+                    display: flex;
+                    gap: 12.5px;
+                    margin-top: 17px;
+                    // margin-bottom: 20px;
+                    // align-items: baseline;
+                    // border: 1px solid;
+
+
+                    img{
+                        margin-top: -22px;
+                    }
+                    h4{
+                        font-size: 13px;
+                        font-weight: 500;
+                        color: #566A7F;
+                        margin-bottom: 6px;
+
+                        span{
+                            color: #697A8D;
+                        }
+                    }
+                }
+
+
+                .customer-address{
+                    display: flex;
+                    gap: 12.5px;
+                    margin-top: 17px;
+                    // margin-bottom: 
+                    // align-items: baseline;
+
+                    img{
+                        margin-top: -150px !important;
+                    }
+
+                    .address{
+                        h3{
+                            color: #697A8D;
+                            font-size: 13px;
+                        font-weight: 500;
+                        margin-bottom: 8px !important;
+                        // margin-top: 20px;
+                        }
+                        h4{
+                            color: #566A7F;
+                            margin-bottom: 6px;
+                            font-size: 13px;
+                        font-weight: 500;
+                        width: 80%;
+                        line-height: 25px;
+                        }
+
+                        .margin-top{
+                            margin-top: 17px;
+                        }
+                    }
+                }
+
+
+                .ownership{
+                    display: flex;
+                    gap: 12.5px;
+                    margin-top: 14px;
+                     h2{
+                        font-size: 13px;
+                    color: #566A7F;
+                    font-weight: 600;
+                     }
+                     margin-bottom: 26px;
+                }
+            }
+        }
+    }
+
+}

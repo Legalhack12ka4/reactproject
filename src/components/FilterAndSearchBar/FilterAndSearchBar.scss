@@ -1,0 +1,190 @@
+.table_nav{
+    display: flex;
+    height: 38px;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 2220px;
+    // position: fixed;
+    // position: -webkit-sticky;
+    // position: sticky;
+    top: 0;
+    
+
+    justify-content: space-between;
+
+    .search_customer{
+        display: flex;
+        align-items: center;
+        background-color: #ffff;
+        border-radius: 8px;
+        gap: 12px;
+        width: 350px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+        .searchbar_typehead{
+            // border: 1px solid;
+        }
+
+        .search_icon{
+            margin-left: 13px;
+            margin-top: 4px;
+        }
+        
+        
+        input{
+            height: 38px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            outline: none;
+        }
+        input::placeholder{
+            font-size: 13px;
+            font-weight: 400;
+            color: #697A8D;
+            
+        }
+    }
+
+    .tableBtn_container{
+        display: flex;
+        gap: 18px;
+        .tableBtn{
+            width: 86px;
+            height: 29px;
+            border: .5px solid;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #697A8D;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+            .active{
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                transition: .5s ease;
+            }
+            .inactive{
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: .5s ease;
+            }
+
+            .btn_icon{
+                margin-left: 8px;
+            }
+        }
+        .addNewBtn{
+            color: #ffff;
+            background-color: #5C5AD0;
+            // border: 1px solid red;
+            gap: 5px;
+            border: none;
+            width: auto;
+            padding: 0px 16px 0px 13px;
+            // justify-content: center;
+            display: flex;
+            align-items: center;
+            .addNewBtn_text{
+                // min-width: 90px;
+            }
+        }
+    }
+}
+
+.export{
+    position: relative;
+
+    .export_dropdown{
+        position: absolute;
+        width: 86px;
+        height: 113px;
+        overflow: hidden;
+        top: 37px;
+        background-color: #ffff;
+        border-radius: 8px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        left: 0;
+        z-index: 10;
+        padding: 7px 0px;
+        // display: flex;
+        
+        .export_dropdown_btn{
+            margin-left: 11px;
+            display: flex;
+            align-items:center;
+            margin-bottom: 15px;
+            cursor: pointer;
+
+            .export_icon{
+                width: 11px;
+                margin-right: 6px;
+            }
+        }
+    }
+}
+
+.csvLink{
+    text-decoration: none;
+    color: #697A8D;
+}
+
+.settings{
+    position: relative;
+    cursor: pointer;
+    .table_setting_dropdown{
+        width: 228px;
+        height: 440px;
+        position: absolute;
+        padding: 0px 17px 0px 15px;
+        z-index: 10;
+        right: 0;
+        top:44px;
+        background-color: #ffff;
+        border-radius: 8px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        font-size: 13px;
+        h5{
+            font-weight: 600;
+            color: #566a7f;
+            margin: 18px 0px 22px 67px ;
+        }
+
+        .columns_fields{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .chekbox_title{
+                display: flex;
+                gap: 11px;
+
+
+                span{
+                    color:#697a8d;
+                    font-weight: 400;
+                }
+            }
+        }
+        
+    }
+    .active{
+        opacity: 1;
+        visibility: visible;
+        // transform: translateY(0);
+        transition: .5s ease;
+    }
+    .inactive{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: .5s ease;
+    }
+}
+
