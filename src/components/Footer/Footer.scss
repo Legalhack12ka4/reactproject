@@ -1,0 +1,19 @@
+.Footer{
+   position: fixed;
+    bottom: 0;
+    left: 280px;
+    font-size: 15px;
+    color: #566A7F;
+    height: 52px;
+    display: flex;
+    width: 95%;
+    max-width: 1300px;
+    align-items: center;
+    // margin-left: 35px;
+    margin: auto;
+    // border: 1px solid;
+    span{
+        font-weight: 700;
+        margin-left: 5px;
+    }
+}

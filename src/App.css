@@ -1,0 +1,23 @@
+
+
+.App{
+  display: flex;
+}
+.main{
+  display: flex;
+  /* border: 1px solid; */
+  width: 100%;
+  }
+
+.rightScreen{
+  /* border: 1px solid; */
+  width: 100%;
+  /* overflow: scroll; */
+}
+
+
+@media screen and (width: 668px) {
+ .sidebar{
+  display: none;
+ }
+}
