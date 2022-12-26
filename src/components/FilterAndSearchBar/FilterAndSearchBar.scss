@@ -1,5 +1,6 @@
+
 .table_nav{
-    display: flex;
+   // display: flex;
     height: 38px;
     align-items: center;
     margin-bottom: 20px;
@@ -8,18 +9,19 @@
     // position: -webkit-sticky;
     // position: sticky;
     top: 0;
-    
-
     justify-content: space-between;
 
     .search_customer{
+        height: 39px;
+        //margin-left: 310.5px;
         display: flex;
         align-items: center;
         background-color: #ffff;
         border-radius: 8px;
         gap: 12px;
         width: 350px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border: 1px solid #C2CAD2;
+        // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
         .searchbar_typehead{
             // border: 1px solid;
@@ -48,12 +50,14 @@
 
     .tableBtn_container{
         display: flex;
+        justify-content: space-between;
         gap: 18px;
         .tableBtn{
-            width: 86px;
-            height: 29px;
+            margin-right: 20px;
+            width: 93.5px;
+            height: 39px;
             border: .5px solid;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -61,7 +65,8 @@
             gap: 8px;
             font-size: 13px;
             font-weight: 400;
-            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border: 1px solid #C2CAD2;
 
             .active{
                 opacity: 1;
@@ -77,7 +82,7 @@
             }
 
             .btn_icon{
-                margin-left: 8px;
+                margin-left: 20px;
             }
         }
         .addNewBtn{
@@ -109,7 +114,8 @@
         top: 37px;
         background-color: #ffff;
         border-radius: 8px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border: 1px solid #C2CAD2;
         left: 0;
         z-index: 10;
         padding: 7px 0px;
@@ -136,6 +142,7 @@
 }
 
 .settings{
+    margin-top: 7px;
     position: relative;
     cursor: pointer;
     .table_setting_dropdown{
@@ -148,7 +155,8 @@
         top:44px;
         background-color: #ffff;
         border-radius: 8px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border: 1px solid #C2CAD2;
         font-size: 13px;
         h5{
             font-weight: 600;

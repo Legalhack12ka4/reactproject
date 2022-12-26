@@ -218,6 +218,9 @@ const Customer = (props) => {
       fixed: "left",
       align: "left",
       width: 270,
+      onFilter: (value, record) => {
+        return record.business_name.includes(value)
+      }
     },
     {
       title: "Type",
