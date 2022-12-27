@@ -18,6 +18,7 @@ import { CgSearch } from "react-icons/cg";
 import { BiExport } from "react-icons/bi";
 import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
+import { event } from "jquery";
 
 
 const FilterAndSearchBar = (props) => {
@@ -34,6 +35,7 @@ const FilterAndSearchBar = (props) => {
   //       key: 'selection'
   //     }
   //   ]);
+
 
   const menuRef = useRef(null);
 
@@ -418,6 +420,17 @@ const FilterAndSearchBar = (props) => {
     // }),
   };
 
+  const [search, setSearch] = useState("");
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);    
+  }
+  props.onData(search);
+
+
+  // useEffect(() => {
+  //   handleChange();
+  // },[search])
   return (
     <>
       <div className="table_nav">
@@ -519,7 +532,7 @@ const FilterAndSearchBar = (props) => {
               <div className="search_icon">
                 <CgSearch size={23} color="#697A8D" />
               </div>
-              <input type="text" placeholder="Search Customer" />
+              <input type="text" placeholder="Search Customer" onChange={handleChange}/>
 
 
               {/* <div className="searchbar_typehead">
