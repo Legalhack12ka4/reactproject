@@ -231,12 +231,28 @@ const VendorsData = () => {
       .getElementById("searchbar_container")
       .classList.toggle("container_display");
   }
+
+
+   // search table functionality
+
+   const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className='Vendors-data'>
         <Page_heading  parent={"Business Account"} child={"Vendors"}/>
 
         <div className="Vendors-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
 
         <Table
             ref={componentRef}
@@ -249,13 +265,16 @@ const VendorsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
         //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
         </div>
     </div>

@@ -17,7 +17,7 @@ function Accounts() {
     const dataSource = [
         {
           key: "1",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -27,7 +27,7 @@ function Accounts() {
         },
         {
           key: "2",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -37,7 +37,7 @@ function Accounts() {
         },
         {
           key: "3",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -47,7 +47,7 @@ function Accounts() {
         },
         {
           key: "4",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -57,7 +57,7 @@ function Accounts() {
         },
         {
           key: "5",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -67,7 +67,7 @@ function Accounts() {
         },
         {
           key: "6",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -77,7 +77,7 @@ function Accounts() {
         },
         {
           key: "7",
-          account_type: "Expense",
+          account_type: "Expense 4",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -87,7 +87,7 @@ function Accounts() {
         },
         {
           key: "8",
-          account_type: "Expense",
+          account_type: "Expense 5",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -257,11 +257,26 @@ function Accounts() {
       .classList.toggle("container_display");
   }
 
+
+    // search table functionality
+
+    const handleData = (newData) => {
+      setSearch(newData);
+    }
+    const [search, setSearch] = useState('');
+  
+    const handleSearch = (event) => {
+      setSearch(event.target.value);
+    };
+  
+    const filteredData = dataSource.filter((record) =>
+      record.account_type.toLowerCase().includes(search.toLowerCase())
+    );
   return (
     <div className='account-data'>
         <Page_heading  parent={"Chart of Accounts"} child={"Accounts"}/>
         <div className="account-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Account"} path={"add_account"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Account"} onData={handleData}/>
         <OffCanvasExample  form={<AccountForm/>}/>
         <Table
             ref={componentRef}
@@ -274,13 +289,16 @@ function Accounts() {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
         //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
         </div>
     </div>
