@@ -2,7 +2,7 @@ import React from "react";
 
 
 import { useState, useEffect, useRef } from "react";
-import { Input } from "antd";
+import { Input, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -18,6 +18,7 @@ import { CgSearch } from "react-icons/cg";
 import { BiExport } from "react-icons/bi";
 import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
+
 
 const FilterAndSearchBar = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -551,6 +552,7 @@ const FilterAndSearchBar = (props) => {
                   }`}
                 >
                   <h5>Manage Columns</h5>
+                  <hr />
                   <Droppable droppableId="draggable_item">
                     {(provider) => (
                       <div ref={provider.innerRef} {...provider.droppableProps}>
@@ -571,8 +573,11 @@ const FilterAndSearchBar = (props) => {
                                 {...provider.dragHandleProps}
                               >
                                 <div className="chekbox_title">
-                                  <input type="checkbox" />
-                                  <span>{item.title}</span>
+                                  {/* <input type="checkbox" /> */}
+                                  <div>
+                                  <Checkbox />
+                                  </div>
+                                  <p>{item.title}</p>
                                 </div>
                                 <div>
                                   <img
