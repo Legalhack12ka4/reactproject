@@ -388,7 +388,7 @@ const CustomerPage = () => {
 
       <div className="searchBarAndFilter">
       <div className="SearchBar-filter">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Sales Order"} path={"sales_order"}/>
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Sales Order"} path={"sales_order"} />
       </div>
 
       <div className="table-customer-details">

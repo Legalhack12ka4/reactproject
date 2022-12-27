@@ -23,7 +23,7 @@ const Sidebar = () => {
     if (!isTriggered) {
       document.getElementById("sidebar").classList.toggle("sidebar_mini");
     }
-    document.getElementById("sidebar").classList.toggle("close");
+    document.getElementById("sidebar").classList.toggle("closeSidebar");
   }
 
   const [active, setActive] = useState("db")

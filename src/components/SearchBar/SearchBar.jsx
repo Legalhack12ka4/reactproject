@@ -8,7 +8,7 @@ import {CgSearch} from "react-icons/cg"
 
 
 const SearchBar = () => {
-const [searchTriggered, setSearchTriggered] = useState(true);
+const [searchTriggered, setSearchTriggered] = useState(false);
 
 document.addEventListener("keydown", e =>{
   if(e.key === "/" && e.ctrlKey){
@@ -16,7 +16,7 @@ document.addEventListener("keydown", e =>{
   }
 })
   function handleSearch(){
-    // setSearchTriggered(!searchTriggered)
+    setSearchTriggered(!searchTriggered)
   }
   return (
     
@@ -29,14 +29,14 @@ document.addEventListener("keydown", e =>{
         <p onClick={handleSearch}>Search (Ctrl+/)</p>
       </div>
       
-      {/* <div className="profile_btn">
+      <div className="profile_btn">
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <div className="bell_icon">
           <img src="/images/searchbar_icons/icon-bell.svg" alt="notification" />
           <div>4</div>
         </div>
-        <img src="/images/searchbar_icons/User - Avtar.svg" alt="" />
-      </div> */}
+        <img src="/images/searchbar_icons/User-Avtar.svg" alt="" />
+      </div>
     </div>
       )
     }

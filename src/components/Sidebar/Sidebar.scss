@@ -65,7 +65,7 @@ body{
     }
     
 }
-.close{
+.closeSidebar{
     .collapse_btn{
         rotate: 180deg;
         transition: all .5s;
@@ -96,7 +96,7 @@ body{
 
     .sidebar_mini{
     width: 85px;
-    margin-right: 115px;
+    // margin-right: 115px;
     min-width: 93.5px;
     margin-left: -5px;
     

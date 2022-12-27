@@ -4,7 +4,7 @@
     // border: 1px solid;
     width: 95%;
     margin: auto;
-    height: 62px;
+    height: 56px;
     
     margin-top: 13px;
     min-width: 300px;
@@ -13,7 +13,7 @@
     .searchbar_input{
         width: 100%;
     // max-width: 1300px;
-    height: 62px;
+    height: 100%;
     margin: auto;
     position: relative;
     background-color: #ffff;
@@ -54,8 +54,8 @@
 
 .search_bar{
     // width: 100%;
-    max-width: 1300px;
-    height: 62px;
+    max-width: 2200px;
+    height: 100%;
     margin: auto;
     position: relative;
     background-color: #ffff;
@@ -90,7 +90,7 @@
     .profile_btn{
         display: flex;
         position: absolute;
-        top: 11px;
+        // top: 11px;
         right: 24px;
         width: 123px;
         height: 38px;
