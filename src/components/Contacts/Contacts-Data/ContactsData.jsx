@@ -238,7 +238,7 @@ const ContactsData = () => {
         <Page_heading  parent={"Business Account"} child={"contacts"}/>
 
         <div className="contacts-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} path={"add_contacts"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} />
         <OffCanvasExample  form={<Contacts/>}/>
         <Table
             ref={componentRef}
