@@ -21,18 +21,50 @@ document.addEventListener("keydown", e =>{
 
   const element = document.documentElement;
 
-  const goFullScreen = () => {
+  // const goFullScreen = () => {
 
+  //   if (element.requestFullscreen) {
+  //     element.requestFullscreen();
+  //   } else if (element.mozRequestFullScreen) {
+  //     element.mozRequestFullScreen();
+  //   } else if (element.webkitRequestFullscreen) {
+  //     element.webkitRequestFullscreen();
+  //   } else if (element.msRequestFullscreen) {
+  //     element.msRequestFullscreen();
+  //   }
+  // };
+
+  const goFullScreen = () => {
+    const element = document.documentElement;
+  
     if (element.requestFullscreen) {
-      element.requestFullscreen();
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        element.requestFullscreen();
+      }
     } else if (element.mozRequestFullScreen) {
-      element.mozRequestFullScreen();
+      if (document.mozFullScreenElement) {
+        document.mozCancelFullScreen();
+      } else {
+        element.mozRequestFullScreen();
+      }
     } else if (element.webkitRequestFullscreen) {
-      element.webkitRequestFullscreen();
+      if (document.webkitFullscreenElement) {
+        document.webkitExitFullscreen();
+      } else {
+        element.webkitRequestFullscreen();
+      }
     } else if (element.msRequestFullscreen) {
-      element.msRequestFullscreen();
+      if (document.msFullscreenElement) {
+        document.msExitFullscreen();
+      } else {
+        element.msRequestFullscreen();
+      }
     }
   };
+
+  
   document.addEventListener('keyup', function(event) {
     if (event.key === 'Escape') {
       // alert("hii")
