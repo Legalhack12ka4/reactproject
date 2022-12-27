@@ -1,8 +1,8 @@
 import React from 'react'
 import Select from "react-select";
-import "./DropdownSimple.scss";
+import "./DropdownSimpleInventory.scss";
 
-function DropdownSimple() {
+function DropdownSimpleInventory() {
     const option = [
         {
           value: "Owner",
@@ -36,4 +36,4 @@ function DropdownSimple() {
   )
 }
 
-export default DropdownSimple
+export default DropdownSimpleInventory
