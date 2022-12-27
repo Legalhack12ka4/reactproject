@@ -10,20 +10,71 @@
     //overflow: scroll; 
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
 }
 
-.Vendorform-right
+.react-switch-bg
 {
-    width: 50%;
-    height: 715px;
-    margin-left: 30px;
+    height: 16.42px !important;
+    width: 33.76px !important;
+}
+.react-switch-handle
+{
+    height: 15px !important;
+    width: 15px !important;
+    //padding: 3px 20px 2.4px 2.8px;
+    //transform: translateX(17px) ;
+}
+.react-switch {
+    vertical-align: middle;
+    margin-left: 4px;
+
+   div
+   {
+  
+    div
+    {
+        display :none;
+    
+     
+    }
+   }
+
+}
+.imageupload
+{
+    width:245px;
+    height: 343px;
+    border:1px solid red;
+}
+.form_contain
+{
+    
+    width:720px ;
+    height: 342px;
+    border: 1px solid purple;
+    display: flex;
 }
 
-.Vendorform
+.right_form
 {
-    height: 700px;
-    overflow: scroll;
+    width:350px ;
+    height: 342px;
+  //  border: 1px solid green;
+    padding: 18px 20px;
+
 }
+.left_form
+{
+    width:370px ;
+    height: 342px;
+   // border: 1px solid yellow;
+  margin-top: 18px;
+
+}
+
+
+
 
 .Vendorform::-webkit-scrollbar{
     width: 0;
@@ -37,10 +88,10 @@
         font-weight: 400;
     }
 }
-.Vendor_details{
-    display: flex;
-    padding: 23px 24px;
-}
+// .Vendor_details{
+//     display: flex;
+//     padding: 23px 24px;
+// }
 
 .Vendorbutton_bottom
 {

@@ -30,6 +30,7 @@
         "react-router-dom": "^6.4.4",
         "react-scripts": "5.0.1",
         "react-select": "^5.7.0",
+        "react-switch": "^7.0.0",
         "react-to-print": "^2.14.10",
         "rsuite": "^5.23.2",
         "web-vitals": "^2.1.4"
