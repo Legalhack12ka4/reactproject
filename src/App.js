@@ -19,6 +19,7 @@ import Accounts from './components/Chart_Of_Account/Accounts/Accounts';
 
 import VendorsData from './components/Vendors/Vendors-Data/VendorsData';
 import Vendors from './components/Vendors/Vendors';
+import InventoryForm from './components/InventoryItem/InventoryForm';
 
 
 
@@ -50,6 +51,7 @@ function App() {
           <Route path='customers' element={<Customers/>} />
           <Route path='addcustomers' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
+          <Route path='add_inventory' element={<InventoryForm/>} />
           <Route path='/' element={<Dashboard/>} />
           </Routes>
           {/* <Footer /> */}
