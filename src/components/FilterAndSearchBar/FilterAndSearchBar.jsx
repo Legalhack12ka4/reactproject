@@ -509,7 +509,7 @@ const FilterAndSearchBar = (props) => {
 
             <div className="tableBtn addNewBtn" onClick={showCanvas}>
               <GoPlus />
-              <div className="addNewBtn_text">New {props.addBtnName}</div>
+             <Link exact to={props.path}  style={{color:"white"}}> <div className="addNewBtn_text">New {props.addBtnName}</div></Link>
             </div>
           </div>
 

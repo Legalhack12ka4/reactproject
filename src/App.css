@@ -13,7 +13,11 @@
   /* border: 1px solid; */
   width: 100%;
   margin-left: -10px;
-  /* overflow: scroll; */
+  overflow: scroll;
+  height:100vh;
+}
+*::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 
