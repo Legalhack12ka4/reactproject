@@ -294,7 +294,7 @@ const Customer = (props) => {
 
 
       <div className="customer-table-container">
-      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"}/>
+      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomers"}/>
 
       <div className="tableData">
         {/* <Resizable> */}
