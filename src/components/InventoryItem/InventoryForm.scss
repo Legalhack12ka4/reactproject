@@ -1,109 +1,35 @@
-/*OFF CANVAS*/
-
-
-
-
-/**/
-
-
-.contacts
+.inventory
 {
 
     background-color: white;
-  //  height: 475px;
-  //  width: 730px;
-    margin-top: -38px;
-    margin-left: 0px;
-    margin-right: 1px;
-   // scrollbar-width: none;
-  //  border-radius: 8px;
-
-    // background-color: white;
-    // height: 475px;
-    // width: 730px;
-    // margin-top: 0px;
-    // margin-left: 30px;
-    // scrollbar-width: none; 
-    // border-radius: 8px;
+    width : 965px;
+    height : 344px;
+    margin-top: 0px;
+    margin-left: 30px;
+    scrollbar-width: none; 
+    //overflow: scroll; 
+    border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    .css-13cymwt-control {
-        border-width: 0.5px !important;
-      }
-
 }
 
-.contactform-right
+.Vendorform-right
 {
     width: 50%;
     height: 715px;
     margin-left: 30px;
 }
 
-.contactlabel
+.Vendorform
 {
-    font-size: 12px;
-    color:#566A7F;
+    height: 700px;
+    overflow: scroll;
 }
 
-.contactinput
-{
-    border:.5px solid;
-    height: 38px;
-    width: 330px;
-    border-radius: 5px;
-    margin-top: 4px;
-    display: flex;
-    margin-bottom: 20px;
-    border-color: #D9DEE3;
+.Vendorform::-webkit-scrollbar{
+    width: 0;
 }
 
-
-
-.contactbutton_bottom
-{
-    display: flex;
-    gap: 24px;
-   margin-top: 40px;
-}
-.contactcancelbutton
-{
-  border: 1px  solid #C2CAD2;
-   // border: none;
-    width: 79px;
-    height: 38px;
-    border-radius: 6px;
-    color: #8E9CAA;
-    background-color: #FFFFFF;
-    font-size: 12px;
-    
-    //font-weight: semibold;
-}
-.contactsavebutton
-{
-    border: none;
-    width: 67px;
-    height: 38px;
-    border-radius: 6px;
-    color: white;
-    background-color: #5C5AD0;
-    font-size: 12px;
-   // margin-right: 24px;
-   // font-weight: bold;
-}
-
-
-
-// .contactform
-// {
-//     height: 700px;
-//     overflow: scroll;
-// }
-
-// .contactform::-webkit-scrollbar{
-//     width: 0;
-// }
-
-.contact_heading{
+.Vendor_heading{
     margin-left: 30px;
    margin-top: 29px;
     .heading_parent{
@@ -111,12 +37,42 @@
         font-weight: 400;
     }
 }
-.contact_details{
+.Vendor_details{
     display: flex;
     padding: 23px 24px;
 }
 
-// 
+.Vendorbutton_bottom
+{
+    display: flex;
+    float: right;
+    margin-right: -163px;
+    margin-top: 15px;
+    gap: 12px;
+    border-color: #D9DEE3;
+}
+.cancelbutton
+{
+    border: none;
+    width: 108px;
+    height: 29px;
+    border-radius: 4px;
+    color: #FFFFFF;
+    background-color: #697A8D;
+    font-size: 15px;
+    font-weight: bold;
+}
+.savebutton
+{
+    border: none;
+    width: 94px;
+    height: 29px;
+    border-radius: 4px;
+    color: white;
+    background-color: #5C5AD0;
+    font-size: 15px;
+    font-weight: bold;
+}
 
 ::placeholder { /* Most modern browsers support this now. */
     opacity: 0.5;
@@ -125,7 +81,7 @@
     font-weight: 500;
  }
 
-.contactinput
+.Vendorinput
 {
     height: 38px;
     width: 330px;

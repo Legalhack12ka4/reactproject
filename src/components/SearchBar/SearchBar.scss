@@ -92,10 +92,16 @@
         position: absolute;
         // top: 11px;
         right: 24px;
-        width: 123px;
+        // width: 123px;
         height: 38px;
+        // border: 1px solid;
         align-items: center;
-        justify-content: space-around;
+        gap: 20px;
+        // justify-content: space-around;
+
+        .fullScreenBtn{
+            cursor: pointer;
+        }
 
         .bell_icon{
             position: relative;

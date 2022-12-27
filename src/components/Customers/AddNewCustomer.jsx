@@ -5,6 +5,8 @@ import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
 import Select from "react-select";
 import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
+import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -183,7 +185,8 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
-              <Select placeholder="Select value" options={option} />
+            <DropdownSimpleCategory/>
+              {/* <Select placeholder="Select value" options={option} /> */}
 
              
               {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
@@ -219,6 +222,7 @@ function AddNewCustomer(props) {
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"
@@ -234,7 +238,7 @@ function AddNewCustomer(props) {
                   </select>
                 </div>
                 <div style={{ width: "50%"}}>
-                  <label className="label">Payment</label>
+                  <label className="label">Payment Terms</label>
                   <br />
 
                   <select
@@ -243,6 +247,7 @@ function AddNewCustomer(props) {
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"

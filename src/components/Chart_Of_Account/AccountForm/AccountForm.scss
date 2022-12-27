@@ -9,6 +9,10 @@
  // scrollbar-width: none;
   //border-radius: 8px;
   overflow: scroll;
+
+  .css-13cymwt-control {
+    border-width: 0.5px !important;
+}
 }
 
 .accountsform::-webkit-scrollbar{
@@ -60,7 +64,7 @@
 
 .accountforminput
 {
-    border:1px solid;
+    border:.5px solid;
     height: 38px;
     width: 330px;
     border-radius: 5px;
@@ -106,3 +110,4 @@
    // margin-right: 24px;
    // font-weight: bold;
 }
+

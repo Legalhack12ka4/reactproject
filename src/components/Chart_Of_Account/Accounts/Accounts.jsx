@@ -276,7 +276,9 @@ function Accounts() {
     <div className='account-data'>
         <Page_heading  parent={"Chart of Accounts"} child={"Accounts"}/>
         <div className="account-table-container">
+
         <FilterAndSearchBar columns={columnsData} addBtnName={"Account"} onData={handleData}/>
+
         <OffCanvasExample  form={<AccountForm/>}/>
         <Table
             ref={componentRef}
