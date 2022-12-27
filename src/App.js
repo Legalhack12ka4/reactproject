@@ -49,7 +49,7 @@ function App() {
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
           <Route path='customers' element={<Customers/>} />
-          <Route path='addcustomers' element={<AddNewCustomer/>} />
+          <Route path='customers/addcustomers' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
           <Route path='add_inventory' element={<InventoryForm/>} />
           <Route path='/' element={<Dashboard/>} />
