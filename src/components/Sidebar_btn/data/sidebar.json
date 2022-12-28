@@ -19,7 +19,7 @@
         "childrens": [
             {
                 "title": "Inventory Item",
-                "path": "/inventory_item"
+                "path": "/add_inventory"
             },
             {
                 "title": "Non Inventory Item",

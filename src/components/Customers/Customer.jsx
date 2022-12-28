@@ -269,7 +269,25 @@ const Customer = (props) => {
     },
   ];
   const [columns, setColumns] = useState(columnsData);
- 
+
+  // search table functionality
+
+  const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.business_name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  
+  
+  // search table functionality
   
 
  
@@ -294,7 +312,7 @@ const Customer = (props) => {
 
 
       <div className="customer-table-container">
-      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomers"}/>
+      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomers"} onData={handleData}/>
 
       <div className="tableData">
         {/* <Resizable> */}
@@ -308,15 +326,19 @@ const Customer = (props) => {
               setSelectedRowKeys(selectedRowKeys);
               setSelectedRows(selectedRows);
             },
+            
 
           }}
-          dataSource={dataSource}
+          dataSource={filteredData}
           columns={columns}
           scroll={{ y: 800, x: 1000 }}
           style={{ maxWidth: 2200, width: "100%" }}
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }
+          search={{
+            keyword: search,
+          }}
         />
         {/* </Resizable> */}
       </div>

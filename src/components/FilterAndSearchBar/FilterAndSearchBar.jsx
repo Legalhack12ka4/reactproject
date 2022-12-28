@@ -2,7 +2,7 @@ import React from "react";
 
 
 import { useState, useEffect, useRef } from "react";
-import { Input } from "antd";
+import { Input, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -18,6 +18,8 @@ import { CgSearch } from "react-icons/cg";
 import { BiExport } from "react-icons/bi";
 import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
+import { event } from "jquery";
+
 
 const FilterAndSearchBar = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -33,6 +35,7 @@ const FilterAndSearchBar = (props) => {
   //       key: 'selection'
   //     }
   //   ]);
+
 
   const menuRef = useRef(null);
 
@@ -417,6 +420,17 @@ const FilterAndSearchBar = (props) => {
     // }),
   };
 
+  const [search, setSearch] = useState("");
+
+  const handleChange = (event) => {
+    setSearch(event.target.value);    
+  }
+  props.onData(search);
+
+
+  // useEffect(() => {
+  //   handleChange();
+  // },[search])
   return (
     <>
       <div className="table_nav">
@@ -518,7 +532,7 @@ const FilterAndSearchBar = (props) => {
               <div className="search_icon">
                 <CgSearch size={23} color="#697A8D" />
               </div>
-              <input type="text" placeholder="Search Customer" />
+              <input type="text" placeholder="Search Customer" onChange={handleChange}/>
 
 
               {/* <div className="searchbar_typehead">
@@ -551,6 +565,7 @@ const FilterAndSearchBar = (props) => {
                   }`}
                 >
                   <h5>Manage Columns</h5>
+                  <hr />
                   <Droppable droppableId="draggable_item">
                     {(provider) => (
                       <div ref={provider.innerRef} {...provider.droppableProps}>
@@ -571,8 +586,11 @@ const FilterAndSearchBar = (props) => {
                                 {...provider.dragHandleProps}
                               >
                                 <div className="chekbox_title">
-                                  <input type="checkbox" />
-                                  <span>{item.title}</span>
+                                  {/* <input type="checkbox" /> */}
+                                  <div>
+                                  <Checkbox />
+                                  </div>
+                                  <p>{item.title}</p>
                                 </div>
                                 <div>
                                   <img
