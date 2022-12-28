@@ -45,7 +45,7 @@ function App() {
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
-          <Route path='inventory_item' element={<AddInventoryItem/>} />
+          <Route path='add_inventory' element={<AddInventoryItem/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
