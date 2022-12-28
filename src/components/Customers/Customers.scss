@@ -76,7 +76,7 @@
   // table column saprator
   
   :not(.ant-table-row-expand-icon-cell):not([colspan])::before {
-    display: none !important;
+    // display: none !important;
   }
   .ant-table-container {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
