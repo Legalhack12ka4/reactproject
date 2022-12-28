@@ -305,6 +305,6 @@
         "id": "lm",
         "type": "btn",
         "icon": "/images/sidebar_icons/bx-list-ul.svg",
-        "path": "list_of_modules"
+        "path": "module"
     }
 ]

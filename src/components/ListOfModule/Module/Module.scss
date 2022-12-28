@@ -1,0 +1,36 @@
+.Module
+{
+
+    background-color: white;
+    width : 965px;
+    height : 344px;
+    margin-top: 0px;
+    margin-left: 30px;
+    scrollbar-width: none; 
+    //overflow: scroll; 
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+}
+.Module::-webkit-scrollbar{
+    width: 0;
+}
+
+.Module_heading{
+    margin-left: 30px;
+   margin-top: 29px;
+    .heading_parent{
+        color: #A1ACB8;
+        font-weight: 400;
+    }
+}
+
+.payment_btn
+{
+    width:120px;
+    height: 38px;
+    background-color: #5C5AD0;
+    border: none;
+    border-radius: 6px;
+    color: white;
+}
