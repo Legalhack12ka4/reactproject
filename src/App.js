@@ -22,6 +22,7 @@ import Vendors from './components/Vendors/Vendors';
 
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
+import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
 
 
 
@@ -57,7 +58,7 @@ function App() {
 
           <Route path='module' element={<Module/>} />
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
-
+          <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
           </Routes>
           {/* <Footer /> */}

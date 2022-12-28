@@ -1,13 +1,13 @@
 import { React, useState, useRef } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
-import "./ModulePaymentTerms.scss"
+import "./ModuleCurrencyTable.scss"
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
 import { Table } from "antd";
 import Modal from 'react-modal';
 
-const ModulePaymentTerms = () => {
+const ModuleCurrencyTable = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -23,6 +23,7 @@ const ModulePaymentTerms = () => {
   function closeModal() {
     setIsOpen(false);
   }
+
   const customStyles = {
     content: {
       top: '50%',
@@ -40,10 +41,9 @@ const ModulePaymentTerms = () => {
     const dataSource = [
         {
           key: "1",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
+          currency_code: "INR",
+          currency_symbol: "₹",
+          currency_name: "Indian Rupee",
           action: (<div style={{display:"flex"
           }}>
             <div><img src={Delete} /></div>
@@ -52,10 +52,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "2",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
+          currency_code: "INR",
+          currency_symbol: "₹",
+          currency_name: "Indian Rupee",
           action: (<div style={{display:"flex"
           }}>
             <div><img src={Delete} /></div>
@@ -64,10 +63,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "3",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
+          currency_code: "INR",
+          currency_symbol: "₹",
+          currency_name: "Indian Rupee",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -76,10 +74,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "4",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
+          currency_code: "INR",
+          currency_symbol: "₹",
+          currency_name: "Indian Rupee",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -88,10 +85,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "5",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
+          currency_code: "USD",
+          currency_symbol: "$",
+          currency_name: "United State Dollar",
           action: (<div style={{display:"flex"
           }}>
             <div><img src={Delete} /></div>
@@ -100,10 +96,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "6",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
+          currency_code: "USD",
+          currency_symbol: "$",
+          currency_name: "United State Dollar",
           action: (<div style={{display:"flex"
           }}>
             <div><img src={Delete} /></div>
@@ -112,10 +107,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "7",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
+          currency_code: "USD",
+          currency_symbol: "$",
+          currency_name: "United State Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -124,10 +118,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "8",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
+          currency_code: "USD",
+          currency_symbol: "$",
+          currency_name: "United State Dollar",
           action: (<div style={{display:"flex"
           }}>
             <div><img src={Delete} /></div>
@@ -136,10 +129,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "9",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
+          currency_code: "ASD",
+          currency_symbol: "$",
+          currency_name: "Australia Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -148,10 +140,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "10",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "ASD",
+          currency_symbol: "$",
+          currency_name: "Australia Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -160,10 +151,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "11",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "ASD",
+          currency_symbol: "$",
+          currency_name: "Australia Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -172,10 +162,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "12",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "ASD",
+          currency_symbol: "$",
+          currency_name: "Australia Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -184,10 +173,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "13",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "CAD",
+          currency_symbol: "$",
+          currency_name: "Canadian Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -196,10 +184,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "14",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "CAD",
+          currency_symbol: "$",
+          currency_name: "Canadian Dollar",
           action: (<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -208,10 +195,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "15",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "CAD",
+          currency_symbol: "$",
+          currency_name: "Canadian Dollar",
           action:(<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -220,10 +206,9 @@ const ModulePaymentTerms = () => {
         },
         {
           key: "16",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
+          currency_code: "CAD",
+          currency_symbol: "$",
+          currency_name: "Canadian Dollar",
           action:(<div style={{display:"flex"
         }}>
           <div><img src={Delete} /></div>
@@ -235,43 +220,34 @@ const ModulePaymentTerms = () => {
       ];
       const columnsData = [
         {
-          title: "Terms",
-          label: "Terms",
-          dataIndex: "terms",
-          key: "terms",
+          title: "Currency Code",
+          label: "Currency Code",
+          dataIndex: "currency_code",
+          key: "currency_code",
           resizable: true,
           fixed: "left",
           align: "left",
           // width: 60,
         },
         {
-          title: "Days",
-          label: "Days",
-          dataIndex: "days",
-          key: "days",
+          title: "Currency Symbol",
+          label: "Currency Symbol",
+          dataIndex: "currency_symbol",
+          key: "currency_symbol",
           resizable: true,
           // width: 60,
           align: "left",
         },
         {
-          title: "Discount",
-          label: "Discount",
-          dataIndex: "discount",
-          key: "discount",
+          title: "Currency Name",
+          label: "Currency Name",
+          dataIndex: "currency_name",
+          key: "currency_name",
           resizable: true,
           width: 230,
           align: "left",
         },
-        {
-          title: "Interest",
-          label: "Interest",
-          dataIndex: "interest",
-          key: "interest",
-          resizable: true,
-          // width: 60,
-          align: "left",
     
-        },
         {
           title: "Action",
           label: "Action",
@@ -305,20 +281,16 @@ const ModulePaymentTerms = () => {
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.terms.toLowerCase().includes(search.toLowerCase())
+    record.currency_code.toLowerCase().includes(search.toLowerCase())
   );
-
-
 
   return (
     <div className='module-data'>
-        <Page_heading  parent={"List of Modules"} child={"Payment Terms"}/>
+        <Page_heading  parent={"List of Modules"} child={"Currency Table"}/>
 
         <div className="module-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Payment Terms"} onClick={openModal} onData={handleData} />
-        {/* <button onClick={openModal}>Open Modal</button> */}
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Currency"} onClick={openModal} onData={handleData} />
         {/* <OffCanvasExample  form={<Contacts/>}/> */}
-
         <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -328,7 +300,7 @@ const ModulePaymentTerms = () => {
       >
           <div style={{width:"764.15px", height:"99px"}}>
             <div style={{display:"flex", justifyContent:"space-between"}}>
-              <div style={{fontSize:"22px", color:"#697A8D", marginTop:"37px", marginLeft:"31px"}}>Add Payment Terms</div>
+              <div style={{fontSize:"22px", color:"#697A8D", marginTop:"37px", marginLeft:"31px"}}>Add Currency</div>
               <div style={{ width:"13.51px", height:"13px", marginTop:"40px"}}><span style={{cursor:"pointer", color:"#697A8D", fontSize:"32px", marginLeft:"-30px"}} onClick={closeModal}>&times;</span></div>
             </div>
             <div style={{marginTop:"20px", marginRight:"31px", marginLeft:"31px"}}><hr/></div>
@@ -338,59 +310,59 @@ const ModulePaymentTerms = () => {
               <div style={{display:"flex"}}>
                 <div style={{marginLeft:"30px"}}>
               <label className="label" style={{ marginTop: "5px" }}>
-                Terms
+                Currency Code
               </label>
               <div className="paymentinput">
                 {/* <img src={logo} className="customerimg" /> */}
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="Net 5"
+                  placeholder="INR"
                 />
               </div>
               </div>
 
               <div style={{marginLeft:"30px"}}>
               <label className="label" style={{ marginTop: "5px" }}>
-                Days
+                Currency Symbol
               </label>
               <div className="paymentinput">
                 {/* <img src={logo} className="customerimg" /> */}
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="5 Days"
+                  placeholder="₹"
                 />
               </div>
               </div>
 
               <div style={{marginLeft:"30px"}}>
               <label className="label" style={{ marginTop: "5px" }}>
-                Discount %
+                Currency Name
               </label>
               <div className="paymentinput">
                 {/* <img src={logo} className="customerimg" /> */}
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="10%"
+                  placeholder="Indian Rupee"
                 />
               </div>
               </div>
 
-              <div style={{marginLeft:"30px"}}>
+              {/* <div style={{marginLeft:"30px"}}>
               <label className="label" style={{ marginTop: "5px" }}>
                 Interest %
               </label>
               <div className="paymentinput">
-                {/* <img src={logo} className="customerimg" /> */}
+        
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="1%"
+                  placeholder="Placeholder"
                 />
               </div>
-              </div>
+              </div> */}
               </div>
 
             
@@ -406,6 +378,7 @@ const ModulePaymentTerms = () => {
             
           </div>
       </Modal>
+      
         <Table
             ref={componentRef}
             rowSelection={{
@@ -433,4 +406,4 @@ const ModulePaymentTerms = () => {
   )
 }
 
-export default ModulePaymentTerms
+export default ModuleCurrencyTable

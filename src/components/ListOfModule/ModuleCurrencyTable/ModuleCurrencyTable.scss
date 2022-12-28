@@ -1,4 +1,4 @@
-.module-data{
+.currency-data{
     // border: 1px solid;
     margin: auto;
     width: 95%;
@@ -8,7 +8,7 @@
     margin-top: 30px;
     //overflow: scroll;
     position: relative;
-    .module-table-container{
+    .currency-table-container{
         // border: 1px solid;
         padding: 20px;
         background-color: #ffff;
@@ -16,6 +16,8 @@
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
 }
+
+
 
 .module-data::-webkit-scrollbar{
     width: 0;
