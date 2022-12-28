@@ -5,6 +5,10 @@ import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
 import Select from "react-select";
 import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
+import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
+import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
+import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -152,7 +156,7 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-              <DropdownWithProfile />
+            <DropdownWithLargeWidth/>
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -183,7 +187,8 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
-              <Select placeholder="Select value" options={option} />
+            <DropdownSimpleCategory/>
+              {/* <Select placeholder="Select value" options={option} /> */}
 
              
               {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
@@ -212,13 +217,14 @@ function AddNewCustomer(props) {
                     Currency
                   </label>
                   <br />
-
-                  <select
+                  <UniversalDropdown/>
+                  {/* <select
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"
@@ -231,18 +237,19 @@ function AddNewCustomer(props) {
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                  </select>
+                  </select> */}
                 </div>
                 <div style={{ width: "50%"}}>
-                  <label className="label">Payment</label>
+                  <label className="label">Payment Terms</label>
                   <br />
-
-                  <select
+                    <UniversalDropdown/>
+                  {/* <select
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"
@@ -255,7 +262,7 @@ function AddNewCustomer(props) {
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                  </select>
+                  </select> */}
                 </div>
               </div>
               
@@ -335,7 +342,8 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Default Place of Supply</label>
               <br />
-              <Select placeholder="Select value" options={option} />
+              <DropdownWithLargeWidth/>
+              {/* <Select placeholder="Select value" options={option} /> */}
 
               {/* <label className="label" style={{ marginTop: "5px" }}>
                 Address
@@ -360,11 +368,12 @@ function AddNewCustomer(props) {
     
               <label className="label">Ownership</label>
               <br />
-              <Select
+              <DropdownWithProfile />
+              {/* <Select
                 placeholder="Select value"
                 style={{ height: "41px" }}
                 options={option}
-              />
+              /> */}
               
   </div>
 

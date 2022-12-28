@@ -7,7 +7,9 @@
     margin-left: 30px;
     scrollbar-width: none; 
     border-radius: 8px;
-
+    .css-13cymwt-control {
+        border-width: 0.5px !important;
+      }
 
 /**/
 
@@ -228,7 +230,7 @@ margin-bottom: 18px;
 
 .customerdropdown
 {
-    border:1px solid;
+    border:.5px solid;
     height: 38px;
     width: 330px;
     border-radius: 5px;
@@ -239,7 +241,7 @@ margin-bottom: 18px;
 }
 .customerstreet
 {
-    border:1px solid;
+    border:.5px solid;
     height: 38px;
     width: 330px;
     border-radius: 5px;

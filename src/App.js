@@ -23,6 +23,11 @@ import InventoryForm from './components/InventoryItem/InventoryForm';
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
 
+import Module from './components/ListOfModule/Module/Module';
+import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
+import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
+
+
 
 
 
@@ -53,9 +58,16 @@ function App() {
           <Route path='customers' element={<Customers/>} />
           <Route path='customers/addcustomers' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
+
           <Route path='add_inventory' element={<InventoryForm/>} />
+
+
+
+
           <Route path='module' element={<Module/>} />
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
+          <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
+
           <Route path='/' element={<Dashboard/>} />
           </Routes>
           {/* <Footer /> */}
