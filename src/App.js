@@ -19,7 +19,8 @@ import Accounts from './components/Chart_Of_Account/Accounts/Accounts';
 
 import VendorsData from './components/Vendors/Vendors-Data/VendorsData';
 import Vendors from './components/Vendors/Vendors';
-import InventoryForm from './components/InventoryItem/InventoryForm';
+import InventoryForm from './components/InventoryItem/InventoryForm';import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
+
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
 import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
@@ -44,6 +45,7 @@ function App() {
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
+          <Route path='inventory_item' element={<AddInventoryItem/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
