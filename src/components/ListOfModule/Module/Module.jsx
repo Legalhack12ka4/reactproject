@@ -11,11 +11,9 @@ function Module() {
     </div>
     <div className=''>
     <div className='Module'>
-
    <Link exact to="/module/module_paymenttable" className='payment_btn'>Payment Terms</Link>
    <Link exact to="/module/module_currencytable" className='currency_btn'>Currency</Link>
   
-
     </div>
     </div>
     </>

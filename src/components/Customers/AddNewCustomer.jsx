@@ -9,6 +9,7 @@ import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
 import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
 import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
 import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
+import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -188,6 +189,7 @@ function AddNewCustomer(props) {
               <label className="label">Type Category</label>
               <br />
             <DropdownSimpleCategory/>
+            {/* <DropdownWithLargeWidthCustomer/> */}
               {/* <Select placeholder="Select value" options={option} /> */}
 
              
