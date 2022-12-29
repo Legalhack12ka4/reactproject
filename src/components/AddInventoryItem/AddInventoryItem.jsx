@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useRef, useEffect } from "react";
 import Page_heading from "../Page_Heading/Page_heading";
 
 import { Switch } from "antd";
-import { Modal,Button } from "antd";
+import { Modal, Button } from "antd";
 
+import QrReader from "react-qr-scanner";
 import "./AddInventoryItem.scss";
 
 const AddInventoryItem = () => {
+  const scannerRef = useRef(null);
   const [image, setImage] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,13 +72,28 @@ const AddInventoryItem = () => {
 
   const handleGenerateCancel = () => {
     setIsGenerateModalOpen(false);
-  }
+  };
 
+  const [result, setResult] = useState("No result");
+
+  const handleScan = (data) => {
+    setResult(data);
+  };
+  console.log(result);
+
+  const handleError = (err) => {
+    console.error(err);
+  };
+
+  const previewStyle = {
+    height: 240,
+    width: 320,
+  };
 
   return (
     <div className="add-inventory">
       <Page_heading parent={"Items or Service"} child={"Add Inventory Item"} />
-
+      {/* <p>{result}</p> */}
       <div className="inventory_form">
         <div className="inventory_form_container">
           <div className="upload_image_container">
@@ -87,7 +105,7 @@ const AddInventoryItem = () => {
                     <img
                       src={URL.createObjectURL(image[currentIndex])}
                       alt="image"
-                      style={{ width: "200px" }}
+                      style={{ width: "200px", height: "140px" }}
                     />
 
                     <p>
@@ -191,24 +209,66 @@ const AddInventoryItem = () => {
                 onCancel={handleCancel}
                 style={{ top: 20 }}
                 footer={[
-                  <Button key="submit"  style={{width:"138px" ,height:"38px", color:"#5C5AD0", borderColor: '#5C5AD0', fontSize:"12px", display:"flex", alignItems:"center", gap:"5px",marginRight:"10px"}} onClick={showScannerModal}>
-                    <img src="/images/icons/barcode_icon_blue.svg" alt="icon" /> Scan Barcode
+                  <Button
+                    key="submit"
+                    style={{
+                      width: "138px",
+                      height: "38px",
+                      color: "#5C5AD0",
+                      borderColor: "#5C5AD0",
+                      fontSize: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      marginRight: "10px",
+                    }}
+                    onClick={showScannerModal}
+                  >
+                    <img src="/images/icons/barcode_icon_blue.svg" alt="icon" />{" "}
+                    Scan Barcode
                   </Button>,
-                  <Button key="cancel" style={{width:"158px" ,height:"38px",fontSize:"12px", color:"#5C5AD0", borderColor: '#5C5AD0',display:"flex", alignItems:"center", gap:"5px"
-                  }} onClick={showGenerateModal}>
-                    <img src="/images/icons/setting.svg" alt="icon" style={{width:"25px"}}/> Generate Barcode
+                  <Button
+                    key="cancel"
+                    style={{
+                      width: "158px",
+                      height: "38px",
+                      fontSize: "12px",
+                      color: "#5C5AD0",
+                      borderColor: "#5C5AD0",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                    }}
+                    onClick={showGenerateModal}
+                  >
+                    <img
+                      src="/images/icons/setting.svg"
+                      alt="icon"
+                      style={{ width: "25px" }}
+                    />{" "}
+                    Generate Barcode
                   </Button>,
                 ]}
-                closeIcon={<svg xmlns="http://www.w3.org/2000/svg" width="13.51" height="13" viewBox="0 0 13.51 13">
-                <path id="Path_34362" data-name="Path 34362" d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z" transform="translate(-2.248 -2.248)" fill="#697a8d"/>
-              </svg>
-              }
+                closeIcon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                }
               >
                 <div className="barcode_scanner">
                   <hr />
-                  <p>
-                  Choose the Barcode Method from the below options.
-                  </p>
+                  <p>Choose the Barcode Method from the below options.</p>
                 </div>
               </Modal>
               <Modal
@@ -219,18 +279,48 @@ const AddInventoryItem = () => {
                 onCancel={handleScannerCancel}
                 style={{ top: 20 }}
                 footer={[
-                  <Button key="submit" type="primary"  style={{width:"80px" ,height:"38px", backgroundColor:"#5C5AD0", fontSize:"12px"}}>
+                  <Button
+                    key="submit"
+                    type="primary"
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      backgroundColor: "#5C5AD0",
+                      fontSize: "12px",
+                    }}
+                  >
                     Submit
                   </Button>,
-                  <Button key="cancel" onClick={handleScannerCancel} style={{width:"80px" ,height:"38px",fontSize:"12px", color:"#8E9CAA", borderColor: '#8E9CAA',
-                  }}>
+                  <Button
+                    key="cancel"
+                    onClick={handleScannerCancel}
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      fontSize: "12px",
+                      color: "#8E9CAA",
+                      borderColor: "#8E9CAA",
+                    }}
+                  >
                     Cancel
                   </Button>,
                 ]}
-                closeIcon={<svg xmlns="http://www.w3.org/2000/svg" width="13.51" height="13" viewBox="0 0 13.51 13">
-                <path id="Path_34362" data-name="Path 34362" d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z" transform="translate(-2.248 -2.248)" fill="#697a8d"/>
-              </svg>
-              }
+                closeIcon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                }
               >
                 <div className="barcode_scanner">
                   <hr />
@@ -241,12 +331,19 @@ const AddInventoryItem = () => {
 
                   <div className="scaner_container">
                     <div className="scanner">
-                      <img src="/images/icons/barcode_scanner.svg" alt="" />
+                      {/* <img src="/images/icons/barcode_scanner.svg" alt="" /> */}
+                      <QrReader
+                        delay={100}
+                        // style={previewStyle}
+                        onError={handleError}
+                        onScan={handleScan}
+                        style={{ width: "180px", height: "180px" }}
+                      />
                     </div>
 
                     <div className="barcode_prev">
                       <h4>Barcode Preview</h4>
-                      <div className="barcode_text">MB-99999999999 </div>
+                      <div className="barcode_text"></div>
                     </div>
                   </div>
                 </div>
@@ -260,38 +357,81 @@ const AddInventoryItem = () => {
                 onCancel={handleGenerateCancel}
                 style={{ top: 20 }}
                 footer={[
-                  <Button key="submit" type="primary"  style={{width:"80px" ,height:"38px", backgroundColor:"#5C5AD0", fontSize:"12px"}}>
+                  <Button
+                    key="submit"
+                    type="primary"
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      backgroundColor: "#5C5AD0",
+                      fontSize: "12px",
+                    }}
+                  >
                     Submit
                   </Button>,
-                  <Button key="cancel" onClick={handleGenerateCancel} style={{width:"80px" ,height:"38px",fontSize:"12px", color:"#8E9CAA", borderColor: '#8E9CAA',
-                  }}>
+                  <Button
+                    key="cancel"
+                    onClick={handleGenerateCancel}
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      fontSize: "12px",
+                      color: "#8E9CAA",
+                      borderColor: "#8E9CAA",
+                    }}
+                  >
                     Cancel
                   </Button>,
                 ]}
-                closeIcon={<svg xmlns="http://www.w3.org/2000/svg" width="13.51" height="13" viewBox="0 0 13.51 13">
-                <path id="Path_34362" data-name="Path 34362" d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z" transform="translate(-2.248 -2.248)" fill="#697a8d"/>
-              </svg>
-              }
+                closeIcon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                }
               >
                 <div className="barcode_scanner">
                   <hr />
 
                   <div className="scaner_container">
-
                     <div className="barcode_prev">
                       <h4>Barcode Preview</h4>
                       <div className="barcode_text">MB-99999999999 </div>
                     </div>
                   </div>
                   <div className="barcodePatternContainer">
-                  <p className="genBarcodePTag">Configure Your Barcode Pattern</p>
-                  <p className="genBarcodePTagDesc">Select the attributes with which you want to generate the Barcode.</p>
-                  <div className="fieldInputConatiner">
-                    <div><p className="inputFieldName">Field Name</p><div className="inputFeild"></div></div>
-                    <div><p className="inputFieldName">Field Name</p><div className="inputFeild"></div></div>
-                    <div><p className="inputFieldName"></p><div className="addFeild">+ Add Fields</div></div>
-                    {/* <div className="addField">+ Add Fields</div> */}
-                  </div>
+                    <p className="genBarcodePTag">
+                      Configure Your Barcode Pattern
+                    </p>
+                    <p className="genBarcodePTagDesc">
+                      Select the attributes with which you want to generate the
+                      Barcode.
+                    </p>
+                    <div className="fieldInputConatiner">
+                      <div>
+                        <p className="inputFieldName">Field Name</p>
+                        <div className="inputFeild"></div>
+                      </div>
+                      <div>
+                        <p className="inputFieldName">Field Name</p>
+                        <div className="inputFeild"></div>
+                      </div>
+                      <div>
+                        <p className="inputFieldName"></p>
+                        <div className="addFeild">+ Add Fields</div>
+                      </div>
+                      {/* <div className="addField">+ Add Fields</div> */}
+                    </div>
                   </div>
                 </div>
               </Modal>
@@ -314,7 +454,7 @@ const AddInventoryItem = () => {
             </div>
             <div className="switch_toggler">
               <Switch unCheckedChildren="__" defaultChecked />
-              <h3>Enable Menufecturing</h3>
+              <h3>Enable Manufacturing</h3>
             </div>
             <div className="switch_toggler">
               <Switch unCheckedChildren="__" defaultChecked />
@@ -326,6 +466,5 @@ const AddInventoryItem = () => {
     </div>
   );
 };
-
 
 export default AddInventoryItem;
