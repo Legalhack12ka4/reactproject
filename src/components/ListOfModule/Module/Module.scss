@@ -2,15 +2,15 @@
 {
 
     background-color: white;
-    width : 965px;
-    height : 344px;
+    width: 1240px;
+    height: 500px;
     margin-top: 0px;
     margin-left: 30px;
     scrollbar-width: none; 
     //overflow: scroll; 
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    display: flex;
+   // display: flex;
 }
 .Module::-webkit-scrollbar{
     width: 0;
@@ -27,22 +27,15 @@
 
 .payment_btn
 {
-    width:120px;
-    height: 38px;
-   // background-color: #5C5AD0;
-    border: none;
-    border-radius: 6px;
-   // color: white;
+    font-size: 15px;
+    margin-left: 15px;
+    color: blue;
 }
 
 .currency_btn
 {
-    width:120px;
-    height: 38px;
-   // background-color: #5C5AD0;
-    border: none;
-    border-radius: 6px;
-   // color: white;
-    margin-left: 20px;
-
+  
+    margin-left: 15px;
+    color: blue;
+    font-size: 15px;
 }
