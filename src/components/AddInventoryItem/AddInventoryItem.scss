@@ -160,7 +160,7 @@
     // flex-direction: row-reverse;
 }
 .ant-modal .ant-modal-close-x {
-    
+
 }
 
 
@@ -169,12 +169,13 @@
     hr{
         border: .5px solid #C2CAD2;
         margin-top: 12px;
+        margin-bottom: 22px;
     }
     p{
         font-size: 13px;
         color: #697a8d;
         font-weight: 500;
-        margin-top: 22px;
+        // margin-top: 22px;
         margin-bottom: 22px;
     }
 
@@ -206,8 +207,57 @@
             color: #5c5ad0;
         }
     }
+   }
+   .barcodePatternContainer{
+    
+       .genBarcodePTag{
+           font-size: 14px;
+           color: #2B3347;
+           font-weight: 500;
+           margin-top: 20px;
+           margin-bottom: 5px;
+        }
+        .genBarcodePTagDesc{
+            font-size: 13px;
+            color: #697A8D;
+            font-weight: 400;
+            margin-top: 0px !important;
+        }
+        .fieldInputConatiner{
+            // border: 1px solid;
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            .inputFieldName{
+                font-size: 13px;
+                color: #697A8D;
+                font-weight: 500;
+                margin-top: 0px;
+                margin-bottom: 5px;
+            }
+            .inputFeild{
+                border: .5px solid #C2CAD2;
+                width: 150px;
+                height: 38px;
+                border-radius: 5px;
+            }
+            .addFeild{
 
-        
+                width: 150px;
+                height: 38px;
+                margin-left: -10px;
+                display: flex;
+                align-items: center;
+                // justify-content: center;
+                cursor: pointer;
+                font-size: 14px;
+                color: #5C5AD0;
+                bottom: 0px;
+                font-weight: 500;
+                margin-top: 25px;
+                margin-bottom: 5px;
+            }
+        }
     }
-
 }
+

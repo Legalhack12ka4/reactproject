@@ -10,6 +10,8 @@ const AddInventoryItem = () => {
   const [image, setImage] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScannerModalOpen, setIsScannerModalOpen] = useState(false);
+  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const hiddenFileInput = React.useRef(null);
@@ -54,6 +56,21 @@ const AddInventoryItem = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const handleScannerCancel = () => {
+    setIsScannerModalOpen(false);
+  };
+
+  const showScannerModal = () => {
+    setIsScannerModalOpen(true);
+  };
+  const showGenerateModal = () => {
+    setIsGenerateModalOpen(true);
+  };
+
+  const handleGenerateCancel = () => {
+    setIsGenerateModalOpen(false);
+  }
+
 
   return (
     <div className="add-inventory">
@@ -161,20 +178,51 @@ const AddInventoryItem = () => {
                     src="/images/icons/barcodeBtn.svg"
                     alt=""
                     onClick={showModal}
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               </div>
+
               <Modal
-                title="Scan Barcode"
+                title="Barcode Method"
                 open={isModalOpen}
                 onOk={handleOk}
-                width={657}
+                width={540}
                 onCancel={handleCancel}
+                style={{ top: 20 }}
+                footer={[
+                  <Button key="submit"  style={{width:"138px" ,height:"38px", color:"#5C5AD0", borderColor: '#5C5AD0', fontSize:"12px", display:"flex", alignItems:"center", gap:"5px",marginRight:"10px"}} onClick={showScannerModal}>
+                    <img src="/images/icons/barcode_icon_blue.svg" alt="icon" /> Scan Barcode
+                  </Button>,
+                  <Button key="cancel" style={{width:"158px" ,height:"38px",fontSize:"12px", color:"#5C5AD0", borderColor: '#5C5AD0',display:"flex", alignItems:"center", gap:"5px"
+                  }} onClick={showGenerateModal}>
+                    <img src="/images/icons/setting.svg" alt="icon" style={{width:"25px"}}/> Generate Barcode
+                  </Button>,
+                ]}
+                closeIcon={<svg xmlns="http://www.w3.org/2000/svg" width="13.51" height="13" viewBox="0 0 13.51 13">
+                <path id="Path_34362" data-name="Path 34362" d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z" transform="translate(-2.248 -2.248)" fill="#697a8d"/>
+              </svg>
+              }
+              >
+                <div className="barcode_scanner">
+                  <hr />
+                  <p>
+                  Choose the Barcode Method from the below options.
+                  </p>
+                </div>
+              </Modal>
+              <Modal
+                title="Scan Barcode"
+                open={isScannerModalOpen}
+                onOk={handleOk}
+                width={657}
+                onCancel={handleScannerCancel}
+                style={{ top: 20 }}
                 footer={[
                   <Button key="submit" type="primary"  style={{width:"80px" ,height:"38px", backgroundColor:"#5C5AD0", fontSize:"12px"}}>
                     Submit
                   </Button>,
-                  <Button key="cancel" onClick={handleCancel} style={{width:"80px" ,height:"38px",fontSize:"12px", color:"#8E9CAA", borderColor: '#8E9CAA',
+                  <Button key="cancel" onClick={handleScannerCancel} style={{width:"80px" ,height:"38px",fontSize:"12px", color:"#8E9CAA", borderColor: '#8E9CAA',
                   }}>
                     Cancel
                   </Button>,
@@ -200,6 +248,50 @@ const AddInventoryItem = () => {
                       <h4>Barcode Preview</h4>
                       <div className="barcode_text">MB-99999999999 </div>
                     </div>
+                  </div>
+                </div>
+              </Modal>
+
+              <Modal
+                title="Scan Barcode"
+                open={isGenerateModalOpen}
+                onOk={handleOk}
+                width={540}
+                onCancel={handleGenerateCancel}
+                style={{ top: 20 }}
+                footer={[
+                  <Button key="submit" type="primary"  style={{width:"80px" ,height:"38px", backgroundColor:"#5C5AD0", fontSize:"12px"}}>
+                    Submit
+                  </Button>,
+                  <Button key="cancel" onClick={handleGenerateCancel} style={{width:"80px" ,height:"38px",fontSize:"12px", color:"#8E9CAA", borderColor: '#8E9CAA',
+                  }}>
+                    Cancel
+                  </Button>,
+                ]}
+                closeIcon={<svg xmlns="http://www.w3.org/2000/svg" width="13.51" height="13" viewBox="0 0 13.51 13">
+                <path id="Path_34362" data-name="Path 34362" d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z" transform="translate(-2.248 -2.248)" fill="#697a8d"/>
+              </svg>
+              }
+              >
+                <div className="barcode_scanner">
+                  <hr />
+
+                  <div className="scaner_container">
+
+                    <div className="barcode_prev">
+                      <h4>Barcode Preview</h4>
+                      <div className="barcode_text">MB-99999999999 </div>
+                    </div>
+                  </div>
+                  <div className="barcodePatternContainer">
+                  <p className="genBarcodePTag">Configure Your Barcode Pattern</p>
+                  <p className="genBarcodePTagDesc">Select the attributes with which you want to generate the Barcode.</p>
+                  <div className="fieldInputConatiner">
+                    <div><p className="inputFieldName">Field Name</p><div className="inputFeild"></div></div>
+                    <div><p className="inputFieldName">Field Name</p><div className="inputFeild"></div></div>
+                    <div><p className="inputFieldName"></p><div className="addFeild">+ Add Fields</div></div>
+                    {/* <div className="addField">+ Add Fields</div> */}
+                  </div>
                   </div>
                 </div>
               </Modal>
@@ -234,5 +326,6 @@ const AddInventoryItem = () => {
     </div>
   );
 };
+
 
 export default AddInventoryItem;
