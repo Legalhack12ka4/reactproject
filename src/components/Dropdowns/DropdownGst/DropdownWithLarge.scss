@@ -2,7 +2,7 @@
 {
     .css-1fdsijx-ValueContainer
  {
-    font-size: 13px;
+   // font-size: 13px;
     color: #697A8D;
     font-weight: 500;
     :focus
@@ -10,15 +10,8 @@
         outline: #5C5AD0;
         border: 3px solid red;
     }
-  
- }
-//  .css-1fdsijx-ValueContainer:focus {
-//    // outline: none;
-//     border:1px solid red;
-//     box-shadow: 0 0 10px #719ECE;
-//     width:500px
-// }
 
+ }
  .css-1u9des2-indicatorSeparator
  {
     width :0px !important;
@@ -84,7 +77,6 @@ margin-bottom: 18px;
 font-size:13px; 
 color: #566A7F;
 margin-left: 10px;
-
 //top: 20px;
 //margin-top: 3px !important;
 }
@@ -115,10 +107,10 @@ margin-left: 10px;
 }
 
 
-.css-1it2zn2-MenuList::-webkit-scrollbar
-{
-    width: 0px;
-}
+// .css-1it2zn2-MenuList::-webkit-scrollbar
+// {
+//     width: 0px;
+// }
 
     .css-d7l1ni-option{
         cursor:default;
@@ -131,7 +123,7 @@ margin-left: 10px;
         user-select:none;
        -webkit-tap-highlight-color:#5c5ad133 ;
        background-color:#5c5ad133  ;
-        padding:5px 7px 12.9px 0px !important;
+        padding:10px 7px 10px 0px !important;
         box-sizing:border-box;
     }
 
@@ -161,7 +153,7 @@ margin-left: 10px;
          //-webkit-tap-highlight-color:#5c5ad133 ;
           // background-color:#5c5ad133  ;
           //  color:#5c5ad133 ;
-        padding:9px 7px 3px 4px !important;
+        padding:14px 7px 28.9px 4px !important;
             box-sizing:border-box;
               width:330px !important;
             height: 41px !important;
@@ -186,7 +178,7 @@ margin-left: 10px;
             background-color:#5c5ad133 !important;
             //color: #5C5AD0 !important;
             color: #5C5AD0 !important;
-          padding:10px 20px 10px 4px !important;
+          padding:13px 20px 10.5px 4px !important;
             box-sizing:border-box;
             width:330px !important;
             height: 41px !important;
