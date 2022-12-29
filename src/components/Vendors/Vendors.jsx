@@ -11,6 +11,7 @@ import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
 import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
 import DropdownWithLargeWidthCustomer from "../Customers/DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
 import DropdownSimpleCategory from "../Customers/DropdownSimpleCategory/DropdownSimpleCategory";
+import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
 //import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
 // import axios from "axios";
 
@@ -150,16 +151,16 @@ function Vendors(props) {
   return (
     <>
       <div className="addcustomer_heading">
-        <Page_heading parent={"Business Account"} child={"Add New Customer"} />
+        <Page_heading parent={"Business Account"} child={"Add New Vendor"} />
       </div>
       <div className="customerform">
         <div className="newcustomer">
-          <h1 className="box_heading1">New Customer</h1>
+          <h1 className="box_heading1">New Vendor</h1>
           <div className="container_details1">
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-            <DropdownWithLargeWidth/>
+              <DropdownWithLarge/>
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -320,6 +321,36 @@ function Vendors(props) {
                 />
               </div>
               <label className="label" style={{ marginTop: "5px" }}>
+                City
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                className="citydis"
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
+              <label className="label" style={{ marginTop: "5px" }}>
+                State
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
+
+              <label className="label" style={{ marginTop: "5px" }}>
                 Street 1
               </label>
               <br />
@@ -332,21 +363,7 @@ function Vendors(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                Street 2
-              </label>
-              <br />
-              <div className="customerstreet">
-                 <img src={logo} className="customerimg" />
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none" }}
-                  placeholder="Placeholder"
-                />
-              </div>
-              <label className="label">Default Place of Supply</label>
-              <br />
-              <DropdownWithLargeWidth/>
+            
               {/* <Select placeholder="Select value" options={option} /> */}
 
               {/* <label className="label" style={{ marginTop: "5px" }}>
@@ -363,7 +380,21 @@ function Vendors(props) {
             </div>
 
             <div className="form-right">
-
+            <label className="label" style={{ marginTop: "5px" }}>
+                Street 2
+              </label>
+              <br />
+              <div className="customerstreet">
+                 <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" }}
+                  placeholder="Placeholder"
+                />
+              </div>
+              <label className="label">Default Place of Supply</label>
+              <br />
+              <DropdownWithLargeWidth/>
             
             
               <label className="label">Contacts</label>

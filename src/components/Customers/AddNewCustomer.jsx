@@ -9,7 +9,11 @@ import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
 import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
 import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
 import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
-import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
+//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
+//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
+import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -157,7 +161,12 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-            <DropdownWithLargeWidth/>
+              {/* <GstTreatmentDropdown/> */}
+              {/* <DropdownWithLargeWidth/>
+              <UniversalDropdown/>
+              <SearchDropdown/> */}
+              <DropdownWithLarge/>
+            {/* <DropdownWithLargeWidth/> */}
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -317,6 +326,36 @@ function AddNewCustomer(props) {
                   placeholder="Placeholder"
                 />
               </div>
+
+              <label className="label" style={{ marginTop: "5px" }}>
+                City
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                className="citydis"
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
+              <label className="label" style={{ marginTop: "5px" }}>
+                State
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
               <label className="label" style={{ marginTop: "5px" }}>
                 Street 1
               </label>
@@ -330,21 +369,7 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                Street 2
-              </label>
-              <br />
-              <div className="customerstreet">
-                 <img src={logo} className="customerimg" />
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none" }}
-                  placeholder="Placeholder"
-                />
-              </div>
-              <label className="label">Default Place of Supply</label>
-              <br />
-              <DropdownWithLargeWidth/>
+           
               {/* <Select placeholder="Select value" options={option} /> */}
 
               {/* <label className="label" style={{ marginTop: "5px" }}>
@@ -363,7 +388,21 @@ function AddNewCustomer(props) {
             <div className="form-right">
 
             
-            
+            <label className="label" style={{ marginTop: "5px" }}>
+                Street 2
+              </label>
+              <br />
+              <div className="customerstreet">
+                 <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" }}
+                  placeholder="Placeholder"
+                />
+              </div>
+              <label className="label">Default Place of Supply</label>
+              <br />
+              <DropdownWithLargeWidth/>
               <label className="label">Contacts</label>
               <br />
               <Select placeholder="Select value" options={option} />
