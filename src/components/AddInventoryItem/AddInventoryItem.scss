@@ -145,3 +145,69 @@
         }
      }
 }
+
+
+
+// modal style 
+
+.ant-modal-title{
+    font-size: 22px !important;
+    font-weight: 500 !important;
+    color: #697A8D !important;
+}
+.ant-modal .ant-modal-footer {
+    display: flex !important;
+    // flex-direction: row-reverse;
+}
+.ant-modal .ant-modal-close-x {
+    
+}
+
+
+
+.barcode_scanner{
+    hr{
+        border: .5px solid #C2CAD2;
+        margin-top: 12px;
+    }
+    p{
+        font-size: 13px;
+        color: #697a8d;
+        font-weight: 500;
+        margin-top: 22px;
+        margin-bottom: 22px;
+    }
+
+    .scaner_container{
+        display: flex;
+        gap: 30px;
+        // border: 1px solid;
+
+        
+    .barcode_prev{
+        h4{
+            font-size: 14px;
+            color: #697a8d;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .barcode_text{
+            border: 1px dashed #5c5ad0;
+            border-radius: 5px;
+            width: 316px;
+            height: 91px;
+            background-color: #5C5AD122;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: 600;
+            color: #5c5ad0;
+        }
+    }
+
+        
+    }
+
+}
