@@ -8,6 +8,7 @@ import "./ContactsData.scss"
 import { Table } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 
 const ContactsData = () => {
 
@@ -259,6 +260,8 @@ const ContactsData = () => {
               record.key % 2 === 0 ? "highlight_row" : ""
             }
           />
+
+          {/* <SearchDropdown/> */}
         </div>
     </div>
   )

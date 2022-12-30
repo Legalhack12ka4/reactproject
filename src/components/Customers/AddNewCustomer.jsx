@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 // import Footer from '../Footer/Footer';
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
+<<<<<<< Updated upstream
 import Select from "react-select";
 import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+=======
+// import Select from "react-select";
+// import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+// import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
+// import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
+// import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
+// import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
+//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
+//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
+//import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
+>>>>>>> Stashed changes
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -62,83 +77,83 @@ function AddNewCustomer(props) {
     console.log(name);
   };
 
-  const option = [
-    {
-      value: "one",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "two",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "three",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "four",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "five",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-  ];
+  // const option = [
+  //   {
+  //     value: "one",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "two",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "three",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "four",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "five",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
   return (
     <>
@@ -152,7 +167,19 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
+<<<<<<< Updated upstream
               <DropdownWithProfile />
+=======
+          
+              <SearchDropdown width={330}/>
+          
+              {/* <GstTreatmentDropdown/> */}
+              {/* <DropdownWithLargeWidth/>*/}
+             {/* <UniversalDropdown/>*/}
+              {/*<SearchDropdown/> */}
+              {/* <DropdownWithLarge/> */}
+            {/* <DropdownWithLargeWidth/> */}
+>>>>>>> Stashed changes
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -183,7 +210,14 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
+<<<<<<< Updated upstream
               <Select placeholder="Select value" options={option} />
+=======
+              <SearchDropdown/>
+            {/* <DropdownSimpleCategory/> */}
+            {/* <DropdownWithLargeWidthCustomer/> */}
+              {/* <Select placeholder="Select value" options={option} /> */}
+>>>>>>> Stashed changes
 
              
               {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
@@ -212,8 +246,14 @@ function AddNewCustomer(props) {
                     Currency
                   </label>
                   <br />
+<<<<<<< Updated upstream
 
                   <select
+=======
+                  <SearchDropdown width={150}/>
+                  {/* <UniversalDropdown/> */}
+                  {/* <select
+>>>>>>> Stashed changes
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
@@ -236,8 +276,14 @@ function AddNewCustomer(props) {
                 <div style={{ width: "50%"}}>
                   <label className="label">Payment</label>
                   <br />
+<<<<<<< Updated upstream
 
                   <select
+=======
+                  <SearchDropdown width={150}/>
+                    {/* <UniversalDropdown/> */}
+                  {/* <select
+>>>>>>> Stashed changes
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
@@ -353,14 +399,40 @@ function AddNewCustomer(props) {
             <div className="form-right">
 
             
+<<<<<<< Updated upstream
             
+=======
+            <label className="label" style={{ marginTop: "5px" }}>
+                Street 2
+              </label>
+              <br />
+              <div className="customerstreet">
+                 <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" }}
+                  placeholder="Placeholder"
+                />
+              </div>
+              <label className="label">Default Place of Supply</label>
+              <br />
+              <SearchDropdown/>
+              {/* <DropdownWithLargeWidth/> */}
+>>>>>>> Stashed changes
               <label className="label">Contacts</label>
               <br />
-              <Select placeholder="Select value" options={option} />
+              <SearchDropdown/>
+              {/* <Select placeholder="Select value" options={option} /> */}
     
               <label className="label">Ownership</label>
               <br />
+<<<<<<< Updated upstream
               <Select
+=======
+              <SearchDropdown/>
+              {/* <DropdownWithProfile /> */}
+              {/* <Select
+>>>>>>> Stashed changes
                 placeholder="Select value"
                 style={{ height: "41px" }}
                 options={option}
