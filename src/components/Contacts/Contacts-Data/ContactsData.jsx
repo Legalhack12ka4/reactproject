@@ -8,6 +8,7 @@ import "./ContactsData.scss"
 import { Table } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 
 const ContactsData = () => {
 
@@ -278,6 +279,8 @@ const ContactsData = () => {
               keyword: search,
             }}
           />
+
+          {/* <SearchDropdown/> */}
         </div>
     </div>
   )

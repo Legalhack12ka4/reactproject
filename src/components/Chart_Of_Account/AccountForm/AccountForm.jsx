@@ -1,9 +1,9 @@
 import React from 'react'
-import DropdownAddButton from '../../Leads/DropdownAddButton/DropdownAddButton';
+//import DropdownAddButton from '../../Dropdowns/DropdownAddButton/DropdownAddButton';
 import accountname from "../Images/account-name.svg";
 import accountcode from "../Images/account-code.svg";
 import "./AccountForm.scss";
-import DropdownSimple from '../../Contacts/DropdownSimple/DropdownSimple';
+//import DropdownSimple from '../../Dropdowns/DropdownSimple/DropdownSimple';
 
 function AccountForm() {
   return (
@@ -17,7 +17,7 @@ function AccountForm() {
      <div className='accountform_details' > 
     <div className='accountform-left'>
                     <label className='accountformlabel' style={{marginTop:"15px"}}>Account Type</label><br/>
-                     <DropdownSimple/> 
+                     {/* <DropdownSimple/>  */}
 
 
                     <label className='accountformlabel' style={{marginTop:"5px"}}>Account Name</label><br/>
@@ -34,15 +34,15 @@ function AccountForm() {
                     </div>
 
                     <label className='accountformlabel' style={{marginTop:"15px"}}>Module Type</label><br/>
-                    <DropdownSimple/> 
+                    {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Item Type</label><br/>
-                  <DropdownSimple/> 
+                  {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L1</label><br/>
-                  <DropdownSimple/> 
+                  {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L2</label><br/>
-                  <DropdownSimple/> 
+                  {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L3</label><br/>
-                  <DropdownSimple/> 
+                  {/* <DropdownSimple/>  */}
 
                     <div className="accountformbutton_bottom">
                 <button type="button" className="accountformsavebutton">

@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from "react";
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 // import Footer from '../Footer/Footer';
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
+
 import Select from "react-select";
 import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+
+// import Select from "react-select";
+// import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
+// import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
+// import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
+// import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
+// import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
+//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
+//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
+//import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
+
 import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
 import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
 import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
@@ -71,83 +86,83 @@ function AddNewCustomer(props) {
     console.log(name);
   };
 
-  const option = [
-    {
-      value: "one",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "two",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "three",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "four",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "five",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
-    },
-  ];
+  // const option = [
+  //   {
+  //     value: "one",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "two",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "three",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "four",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     value: "five",
+  //     label: (
+  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
+  //         <div>
+  //           <div className="drpName">Parth Goswami</div>
+  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
+  //         </div>
+  //         <div>
+  //           <div className="drpContact">Contact Added</div>
+  //           <div className="drpDate">10 Dec 2022</div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
   return (
     <>
@@ -161,12 +176,27 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
+
+              <DropdownWithProfile />
+
+          
+              <SearchDropdown width={330}/>
+          
+              {/* <GstTreatmentDropdown/> */}
+              {/* <DropdownWithLargeWidth/>*/}
+             {/* <UniversalDropdown/>*/}
+              {/*<SearchDropdown/> */}
+              {/* <DropdownWithLarge/> */}
+            {/* <DropdownWithLargeWidth/> */}
+
+
               {/* <GstTreatmentDropdown/> */}
               {/* <DropdownWithLargeWidth/>
               <UniversalDropdown/>
               <SearchDropdown/> */}
               <DropdownWithLarge/>
             {/* <DropdownWithLargeWidth/> */}
+
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -197,6 +227,12 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
+
+              <Select placeholder="Select value" options={option} />
+              <SearchDropdown/>
+            {/* <DropdownSimpleCategory/> */}
+            {/* <DropdownWithLargeWidthCustomer/> */}
+              {/* <Select placeholder="Select value" options={option} /> */}
             <DropdownSimpleCategory/>
             {/* <DropdownWithLargeWidthCustomer/> */}
               {/* <Select placeholder="Select value" options={option} /> */}
@@ -228,6 +264,10 @@ function AddNewCustomer(props) {
                     Currency
                   </label>
                   <br />
+
+                  <SearchDropdown width={150}/>
+
+
                   <UniversalDropdown/>
                   {/* <select
                     className="customerinput1"
@@ -253,8 +293,15 @@ function AddNewCustomer(props) {
                 <div style={{ width: "50%"}}>
                   <label className="label">Payment Terms</label>
                   <br />
+
+
+
+                  <SearchDropdown width={150}/>
+
+
+
                     <UniversalDropdown/>
-                  {/* <select
+
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
@@ -388,6 +435,7 @@ function AddNewCustomer(props) {
             <div className="form-right">
 
             
+
             <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
@@ -402,19 +450,26 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Default Place of Supply</label>
               <br />
-              <DropdownWithLargeWidth/>
+
+              <SearchDropdown/>
+
+
+
+
               <label className="label">Contacts</label>
               <br />
-              <Select placeholder="Select value" options={option} />
+              <SearchDropdown/>
     
               <label className="label">Ownership</label>
               <br />
+
+
+              <SearchDropdown/>
+
+
+
               <DropdownWithProfile />
-              {/* <Select
-                placeholder="Select value"
-                style={{ height: "41px" }}
-                options={option}
-              /> */}
+              
               
   </div>
 

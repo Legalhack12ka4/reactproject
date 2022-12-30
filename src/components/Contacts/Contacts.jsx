@@ -2,7 +2,7 @@ import React from 'react'
 import Page_heading from '../Page_Heading/Page_heading';
 import logo from "../Customers/images/Email.svg";
 import "./Contacts.scss";
-import DropdownSimple from './DropdownSimple/DropdownSimple';
+//import DropdownSimple from './DropdownSimple/DropdownSimple';
 // import Select from "react-select";
 
 function Contacts() {
@@ -44,9 +44,9 @@ function Contacts() {
                     </div>
                 
                     <label className='contactlabel' style={{marginTop:"15px"}}>Position</label><br/>
-                    <DropdownSimple/>
+                    {/* <DropdownSimple/> */}
                     <label className='contactlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                    <DropdownSimple/>
+                    {/* <DropdownSimple/> */}
                     <div className="contactbutton_bottom">
                 <button type="button" className="contactsavebutton">
                   Save

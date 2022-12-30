@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import "./Leads.scss";
 import logo from "../Customers/images/Email.svg";
-import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
-import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
+// import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
+// import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
 
 function Leads() {
 
@@ -56,9 +56,9 @@ const [checked, setChecked] = useState("Contacts")
                     </label>
                     </div> 
                     <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "contacts" ? "Contacts" : "Others"}</label><br/>
-                    {checked =="contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> }
+                    {/* {checked =="contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> } */}
                     <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                  <DropdownAddButton/> 
+                  {/* <DropdownAddButton/>  */}
 
                     <div className="leadbutton_bottom">
                 <button type="button" className="leadsavebutton">
