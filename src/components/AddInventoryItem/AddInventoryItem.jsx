@@ -6,6 +6,8 @@ import { Switch } from "antd";
 import { Modal, Button } from "antd";
 
 import QrReader from "react-qr-scanner";
+import BarcodeReader from "react-barcode-reader";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import "./AddInventoryItem.scss";
 
 const AddInventoryItem = () => {
@@ -54,6 +56,7 @@ const AddInventoryItem = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    alert("hii")
   };
 
   const handleCancel = () => {
@@ -61,7 +64,26 @@ const AddInventoryItem = () => {
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
+    scannerRef.current.stop();
   };
+  const handleScannerSubmit = (data) => {
+    setIsScannerModalOpen(false);
+    setIsModalOpen(false);
+    scannerRef.getVideoTracks()[0].stop();
+    document.getElementById("barcode_input").value = data;
+    setData(data)
+  };
+
+  const webcamRef = useRef(null);
+
+  const stop = () => {
+    let stream = webcamRef.current.video.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach(track => track.stop());
+    webcamRef.current.video.srcObject = null;
+  };
+
 
   const showScannerModal = () => {
     setIsScannerModalOpen(true);
@@ -72,28 +94,20 @@ const AddInventoryItem = () => {
 
   const handleGenerateCancel = () => {
     setIsGenerateModalOpen(false);
+
+    
   };
+
+
 
   const [result, setResult] = useState("No result");
+  const [data,setData]=React.useState("Scan a barcode")
 
-  const handleScan = (data) => {
-    setResult(data);
-  };
-  console.log(result);
-
-  const handleError = (err) => {
-    console.error(err);
-  };
-
-  const previewStyle = {
-    height: 240,
-    width: 320,
-  };
-
+  
+    console.log(data)
   return (
     <div className="add-inventory">
       <Page_heading parent={"Items or Service"} child={"Add Inventory Item"} />
-      {/* <p>{result}</p> */}
       <div className="inventory_form">
         <div className="inventory_form_container">
           <div className="upload_image_container">
@@ -190,7 +204,7 @@ const AddInventoryItem = () => {
                 <div className="input_container">
                   <img src="/images/icons/barcode.svg" alt="" />
                   <div className="barcode_scanner">
-                    <input type="text" placeholder="placeholder" />
+                    <input type="text" placeholder="placeholder" id="barcode_input" value={data} />
                   </div>
                   <img
                     src="/images/icons/barcodeBtn.svg"
@@ -282,6 +296,7 @@ const AddInventoryItem = () => {
                   <Button
                     key="submit"
                     type="primary"
+                    onClick={handleScannerSubmit}
                     style={{
                       width: "80px",
                       height: "38px",
@@ -331,19 +346,21 @@ const AddInventoryItem = () => {
 
                   <div className="scaner_container">
                     <div className="scanner">
-                      {/* <img src="/images/icons/barcode_scanner.svg" alt="" /> */}
-                      <QrReader
-                        delay={100}
-                        // style={previewStyle}
-                        onError={handleError}
-                        onScan={handleScan}
-                        style={{ width: "180px", height: "180px" }}
-                      />
+                        <BarcodeScannerComponent
+                      ref={webcamRef}
+                      width={180}
+                      height={180}
+                      onUpdate={(err, result)=>{
+                        if(result) setData(result.text);
+                        // else setData("not found")
+
+                      }}
+                    />
                     </div>
 
                     <div className="barcode_prev">
                       <h4>Barcode Preview</h4>
-                      <div className="barcode_text"></div>
+                      <div className="barcode_text">{data}</div>
                     </div>
                   </div>
                 </div>
