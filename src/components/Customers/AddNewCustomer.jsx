@@ -278,10 +278,10 @@ function AddNewCustomer(props) {
               </div>
               
               <div className="customerbutton_bottom">
-                <button type="button" className="leadsavebutton">
-                  Save
+                <button type="button" className="customersavebutton">
+                  Submit
                 </button>
-                <button type="button" className="leadcancelbutton">
+                <button type="button" className="customercancelbutton">
                 Cancel
                 </button>
                 </div>
