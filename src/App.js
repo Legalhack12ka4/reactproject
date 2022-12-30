@@ -19,7 +19,7 @@ import Accounts from './components/Chart_Of_Account/Accounts/Accounts';
 
 import VendorsData from './components/Vendors/Vendors-Data/VendorsData';
 import Vendors from './components/Vendors/Vendors';
-import InventoryForm from './components/InventoryItem/InventoryForm';import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
+import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
 
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
