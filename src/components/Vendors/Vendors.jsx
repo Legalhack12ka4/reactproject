@@ -1,22 +1,8 @@
-
-import React from 'react'
-import Page_heading from '../Page_Heading/Page_heading';
+import React, { useState, useEffect } from "react";
+import Page_heading from "../Page_Heading/Page_heading";
 import logo from "../Customers/images/Email.svg";
-
 import "./Vendors.scss";
-import logo from "../Customers/images/Email.svg";
-import Select from "react-select";
-import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
-//import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
-//import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
-import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
-import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
-import DropdownWithLargeWidthCustomer from "../Customers/DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-import DropdownSimpleCategory from "../Customers/DropdownSimpleCategory/DropdownSimpleCategory";
-import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-// import axios from "axios";
-
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 const initialFieldValues = {
   lgnm: "",
   gstin: "",
@@ -29,9 +15,8 @@ function Vendors(props) {
   console.log(values);
   let gstinparams = values.gstin;
 
-
   const getData = () => {
-    fetch (
+    fetch(
       `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
       {
         headers: {
@@ -72,266 +57,37 @@ function Vendors(props) {
     console.log(name);
   };
 
-  const option = [
+  const typeCategory = [
     {
-      value: "one",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
+      value: "1",
+      label: "Wholesalar",
     },
     {
-      value: "two",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
+      value: "2",
+      label: "Retailer",
     },
     {
-      value: "three",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
+      value: "3",
+      label: "Manufacturing",
+    },
+  ];
+
+  const gsttraetmentOptional = [
+    {
+      value: "1",
+      label: "Value 1",
     },
     {
-      value: "four",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
+      value: "2",
+      label: "Value 2",
     },
     {
-      value: "five",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <div className="drpName">Parth Goswami</div>
-            <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-          </div>
-          <div>
-            <div className="drpContact">Contact Added</div>
-            <div className="drpDate">10 Dec 2022</div>
-          </div>
-        </div>
-      ),
+      value: "3",
+      label: "Value3",
     },
   ];
 
   return (
-
-  <>
-   <div className='Vendor_heading'>
-    <Page_heading  parent={"Business Account / Vendors"} child={"Add New Vendor"}/>
-    </div>
-    <div className='Vendorform'>
-    <div className='Vendors'>
-    <h1 className='box_heading1'>New Vendor</h1>
-     <div className='Vendor_details' > 
-    <div className='form-left'>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Name</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-                    </div>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Mobile No.</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
-                    </div>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Email</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
-                    </div>
-                
-                    <label className='leadlabel' style={{marginTop:"15px"}}>Type</label><br/>
-                    <DropdownSimple/>
-                    <div className="leadbutton_bottom">
-
-// import Select from "react-select";
-// import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
-//import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
-//import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
-// import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
-// import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
-// import DropdownWithLargeWidthCustomer from "../Customers/DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-// import DropdownSimpleCategory from "../Customers/DropdownSimpleCategory/DropdownSimpleCategory";
-// import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-// import axios from "axios";
-
-const initialFieldValues = {
-  lgnm: "",
-  gstin: "",
-};
-
-function Vendors(props) {
-  const [values, setValues] = useState(initialFieldValues);
-  const [customer, setCustomer] = useState([]);
-  const [gst, setGst] = useState(false);
-  console.log(values);
-  let gstinparams = values.gstin;
-
-
-  const getData = () => {
-    fetch (
-      `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
-      {
-        headers: {
-          Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-          client_id: "JarZChUcsytSBbnkpt",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setCustomer(data);
-        console.log("data", data.lgnm);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-    console.log("Getting Data");
-    console.log(values.gstin);
-  }, [gst]);
-
-  const onBlur = (e) => {
-    //alert(e.target.value)
-    setGst(!gst);
-    console.log(gst);
-  };
-
-  const onChange = (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    console.log(value);
-    console.log(name);
-  };
-
-  // const option = [
-  //   {
-  //     value: "one",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "two",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "three",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "four",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "five",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  // ];
-
-  return (
-
     <>
       <div className="addcustomer_heading">
         <Page_heading parent={"Business Account"} child={"Add New Vendor"} />
@@ -343,8 +99,7 @@ function Vendors(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-
-
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -375,19 +130,8 @@ function Vendors(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
+              <SearchDropdown options={typeCategory} width={330} />
 
-            {/* <DropdownWithLargeWidthCustomer/> */}
-              {/* <Select placeholder="Select value" options={option} /> */}
-
-             
-              {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
-
-                    <option value="" selected hidden>Select value</option>
-                     <option value="1">1</option>
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
-                    </select> */}
               <label className="label" style={{ marginTop: "5px" }}>
                 Pancard
               </label>
@@ -406,69 +150,27 @@ function Vendors(props) {
                     Currency
                   </label>
                   <br />
-
-                  {/* <select
-                    className="customerinput1"
-                    style={{
-                      marginBottom: "18px",
-                      color: "#697A8D",
-                      outline: "none",
-                      border: "0.5px solid #D9DEE3"
-                    }}
-                    placeholder="select value"
-                    name="values"
-                    id="values"
-                  >
-                    <option value="" selected hidden>
-                      Select value
-                    </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select> */}
+                  <SearchDropdown width={150} />
                 </div>
-                <div style={{ width: "50%"}}>
+                <div style={{ width: "50%" }}>
                   <label className="label">Payment Terms</label>
                   <br />
-
-                  {/* <select
-                    className="customerinput1"
-                    style={{
-                      marginBottom: "18px",
-                      color: "#697A8D",
-                      outline: "none",
-                      border: "0.5px solid #D9DEE3"
-                    }}
-                    placeholder="select value"
-                    name="values"
-                    id="values"
-                  >
-                    <option value="" selected hidden>
-                      Select value
-                    </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select> */}
+                  <SearchDropdown width={150} />
                 </div>
               </div>
-              
-              <div className="customerbutton_bottom">
 
+              <div className="customerbutton_bottom">
                 <button type="button" className="leadsavebutton">
                   Save
                 </button>
                 <button type="button" className="leadcancelbutton">
-                Cancel
+                  Cancel
                 </button>
-                </div>
+              </div>
             </div>
 
             <div className="form-center">
-
-            <label className="label" style={{ marginTop: "5px" }}>
+              <label className="label" style={{ marginTop: "5px" }}>
                 Credit Limit
               </label>
               <br />
@@ -509,12 +211,15 @@ function Vendors(props) {
                 City
               </label>
               <br />
-              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+              <div
+                className="customerdropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
                 <img src={logo} className="customerimg" />
                 <input
-                className="citydis"
+                  className="citydis"
                   type="text"
-                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  style={{ border: "none", outline: "none", width: "100%" }}
                   placeholder="Placeholder"
                   disabled
                 />
@@ -524,16 +229,18 @@ function Vendors(props) {
                 State
               </label>
               <br />
-              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+              <div
+                className="customerdropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  style={{ border: "none", outline: "none", width: "100%" }}
                   placeholder="Placeholder"
                   disabled
                 />
               </div>
-
 
               <label className="label" style={{ marginTop: "5px" }}>
                 Street 1
@@ -548,7 +255,6 @@ function Vendors(props) {
                 />
               </div>
 
-            
               {/* <Select placeholder="Select value" options={option} /> */}
 
               {/* <label className="label" style={{ marginTop: "5px" }}>
@@ -559,25 +265,14 @@ function Vendors(props) {
                 className="customeraddress"
                 placeholder="Placeholder"
               /> */}
-
-
-             
             </div>
-
-    </div> 
-    </div>
-    </div>
-  </>
-  )
-
-
             <div className="form-right">
-            <label className="label" style={{ marginTop: "5px" }}>
+              <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
               <br />
               <div className="customerstreet">
-                 <img src={logo} className="customerimg" />
+                <img src={logo} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none" }}
@@ -586,37 +281,19 @@ function Vendors(props) {
               </div>
               <label className="label">Default Place of Supply</label>
               <br />
-
-            
-            
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label">Contacts</label>
               <br />
-
-              {/* <Select placeholder="Select value" options={option} /> */}
-    
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label">Ownership</label>
               <br />
-              {/* <DropdownWithProfile /> */}
-
-              {/* <Select
-                placeholder="Select value"
-                style={{ height: "41px" }}
-                options={option}
-              /> */}
-              
-  </div>
-
-
-
- 
-
-
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
+            </div>
           </div>
         </div>
       </div>
     </>
   );
-
 }
 
 export default Vendors;

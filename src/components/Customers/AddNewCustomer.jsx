@@ -1,35 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
-// import Footer from '../Footer/Footer';
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
-
-import Select from "react-select";
-import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
-
-// import Select from "react-select";
-// import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
-// import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
-// import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
-// import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
-// import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
-//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
-//import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
-
-import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
-import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
-import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
-import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
-//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
-//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
-import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
-//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
-// import axios from "axios";
 
 const initialFieldValues = {
   lgnm: "",
@@ -43,9 +16,8 @@ function AddNewCustomer(props) {
   console.log(values);
   let gstinparams = values.gstin;
 
-
   const getData = () => {
-    fetch (
+    fetch(
       `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
       {
         headers: {
@@ -86,83 +58,35 @@ function AddNewCustomer(props) {
     console.log(name);
   };
 
-  // const option = [
-  //   {
-  //     value: "one",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "two",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "three",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "four",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     value: "five",
-  //     label: (
-  //       <div style={{ display: "flex", justifyContent: "space-between" }}>
-  //         <div>
-  //           <div className="drpName">Parth Goswami</div>
-  //           <div className="drpEmail">Parth.goswami@reformiqo.com</div>
-  //         </div>
-  //         <div>
-  //           <div className="drpContact">Contact Added</div>
-  //           <div className="drpDate">10 Dec 2022</div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  // ];
+  const typeCategory = [
+    {
+      value: "1",
+      label: "Wholesalar",
+    },
+    {
+      value: "2",
+      label: "Retailer",
+    },
+    {
+      value: "3",
+      label: "Manufacturing",
+    },
+  ];
+
+  const gsttraetmentOptional = [
+    {
+      value: "1",
+      label: "Value 1",
+    },
+    {
+      value: "2",
+      label: "Value 2",
+    },
+    {
+      value: "3",
+      label: "Value3",
+    },
+  ];
 
   return (
     <>
@@ -176,26 +100,7 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-
-              <DropdownWithProfile />
-
-          
-              <SearchDropdown width={330}/>
-          
-              {/* <GstTreatmentDropdown/> */}
-              {/* <DropdownWithLargeWidth/>*/}
-             {/* <UniversalDropdown/>*/}
-              {/*<SearchDropdown/> */}
-              {/* <DropdownWithLarge/> */}
-            {/* <DropdownWithLargeWidth/> */}
-
-
-              {/* <GstTreatmentDropdown/> */}
-              {/* <DropdownWithLargeWidth/>
-              <UniversalDropdown/>
-              <SearchDropdown/> */}
-              <DropdownWithLarge/>
-            {/* <DropdownWithLargeWidth/> */}
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
 
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
@@ -227,25 +132,8 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
+              <SearchDropdown options={typeCategory} width={330} />
 
-              <Select placeholder="Select value" options={option} />
-              <SearchDropdown/>
-            {/* <DropdownSimpleCategory/> */}
-            {/* <DropdownWithLargeWidthCustomer/> */}
-              {/* <Select placeholder="Select value" options={option} /> */}
-            <DropdownSimpleCategory/>
-            {/* <DropdownWithLargeWidthCustomer/> */}
-              {/* <Select placeholder="Select value" options={option} /> */}
-
-             
-              {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
-
-                    <option value="" selected hidden>Select value</option>
-                     <option value="1">1</option>
-                     <option value="2">2</option>
-                     <option value="3">3</option>
-                     <option value="4">4</option>
-                    </select> */}
               <label className="label" style={{ marginTop: "5px" }}>
                 Pancard
               </label>
@@ -264,79 +152,27 @@ function AddNewCustomer(props) {
                     Currency
                   </label>
                   <br />
-
-                  <SearchDropdown width={150}/>
-
-
-                  <UniversalDropdown/>
-                  {/* <select
-                    className="customerinput1"
-                    style={{
-                      marginBottom: "18px",
-                      color: "#697A8D",
-                      outline: "none",
-                      border: "0.5px solid #D9DEE3"
-                    }}
-                    placeholder="select value"
-                    name="values"
-                    id="values"
-                  >
-                    <option value="" selected hidden>
-                      Select value
-                    </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select> */}
+                  <SearchDropdown width={150} />
                 </div>
-                <div style={{ width: "50%"}}>
+                <div style={{ width: "50%" }}>
                   <label className="label">Payment Terms</label>
                   <br />
-
-
-
-                  <SearchDropdown width={150}/>
-
-
-
-                    <UniversalDropdown/>
-
-                    className="customerinput1"
-                    style={{
-                      marginBottom: "18px",
-                      color: "#697A8D",
-                      outline: "none",
-                      border: "0.5px solid #D9DEE3"
-                    }}
-                    placeholder="select value"
-                    name="values"
-                    id="values"
-                  >
-                    <option value="" selected hidden>
-                      Select value
-                    </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select> */}
+                  <SearchDropdown width={150} />
                 </div>
               </div>
-              
+
               <div className="customerbutton_bottom">
                 <button type="button" className="customersavebutton">
                   Submit
                 </button>
                 <button type="button" className="customercancelbutton">
-                Cancel
+                  Cancel
                 </button>
-                </div>
+              </div>
             </div>
 
             <div className="form-center">
-
-            <label className="label" style={{ marginTop: "5px" }}>
+              <label className="label" style={{ marginTop: "5px" }}>
                 Credit Limit
               </label>
               <br />
@@ -378,12 +214,15 @@ function AddNewCustomer(props) {
                 City
               </label>
               <br />
-              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+              <div
+                className="customerdropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
                 <img src={logo} className="customerimg" />
                 <input
-                className="citydis"
+                  className="citydis"
                   type="text"
-                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  style={{ border: "none", outline: "none", width: "100%" }}
                   placeholder="Placeholder"
                   disabled
                 />
@@ -393,11 +232,14 @@ function AddNewCustomer(props) {
                 State
               </label>
               <br />
-              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+              <div
+                className="customerdropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  style={{ border: "none", outline: "none", width: "100%" }}
                   placeholder="Placeholder"
                   disabled
                 />
@@ -415,33 +257,15 @@ function AddNewCustomer(props) {
                   placeholder="Placeholder"
                 />
               </div>
-
-           
-              {/* <Select placeholder="Select value" options={option} /> */}
-
-              {/* <label className="label" style={{ marginTop: "5px" }}>
-                Address
-              </label>
-              <input
-                type="text"
-                className="customeraddress"
-                placeholder="Placeholder"
-              /> */}
-
-
-             
             </div>
 
             <div className="form-right">
-
-            
-
-            <label className="label" style={{ marginTop: "5px" }}>
+              <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
               <br />
               <div className="customerstreet">
-                 <img src={logo} className="customerimg" />
+                <img src={logo} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none" }}
@@ -451,33 +275,16 @@ function AddNewCustomer(props) {
               <label className="label">Default Place of Supply</label>
               <br />
 
-              <SearchDropdown/>
-
-
-
-
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label">Contacts</label>
               <br />
-              <SearchDropdown/>
-    
+
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label">Ownership</label>
               <br />
 
-
-              <SearchDropdown/>
-
-
-
-              <DropdownWithProfile />
-              
-              
-  </div>
-
-
-
- 
-
-
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
+            </div>
           </div>
         </div>
       </div>
