@@ -1,0 +1,94 @@
+.module-data{
+    // border: 1px solid;
+    margin: auto;
+    width: 95%;
+    max-width: 2200px;
+    padding: 5px;
+    // height: 780px;
+    margin-top: 30px;
+    //overflow: scroll;
+    position: relative;
+    .module-table-container{
+        // border: 1px solid;
+        padding: 20px;
+        background-color: #ffff;
+        border-radius: 8px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+}
+
+.module-data::-webkit-scrollbar{
+    width: 0;
+  }
+.ReactModal__Overlay
+{
+    z-index: 2;
+}
+.ReactModal__Content 
+{
+    
+top: 5 !important;
+transform: translate(-50%, -110%) !important;
+width: 764px !important;
+height: 257px !important;
+border-radius: 6px !important;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+padding: 0px !important;
+}
+
+.plabel
+{
+    font-size: 12px;
+    color:#566A7F;
+}
+
+.paymentinput
+{
+    border: 0.5px solid;
+    height: 28px;
+    width: 140px;
+    border-radius: 5px;
+    margin-top: 4px;
+    display: flex;
+    margin-bottom: 18px;
+    border-color: #C2CAD2;
+    padding: 5px;
+}
+
+.paymentformbutton_bottom
+{
+    display: flex;
+   // float: right;
+   // margin-right: 32px;
+   // margin-top: 109px;
+    gap: 24px;
+   // border-color: #D9DEE3;
+   margin-top: 20px;
+   margin-left: 30px;
+}
+.paymentformcancelbutton
+{
+  border: 1px  solid #C2CAD2;
+   // border: none;
+    width: 79px;
+    height: 38px;
+    border-radius: 6px;
+    color: #8E9CAA;
+    background-color: #FFFFFF;
+    font-size: 12px;
+    cursor: pointer;
+    //font-weight: semibold;
+}
+.paymentformsavebutton
+{
+    border: none;
+    width: 81px;
+    height: 38px;
+    border-radius: 6px;
+    color: white;
+    background-color: #5C5AD0;
+    font-size: 12px;
+    cursor: pointer;
+   // margin-right: 24px;
+   // font-weight: bold;
+}

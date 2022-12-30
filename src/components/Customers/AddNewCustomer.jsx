@@ -4,10 +4,10 @@ import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import logo from "./images/Email.svg";
-<<<<<<< Updated upstream
+
 import Select from "react-select";
 import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
-=======
+
 // import Select from "react-select";
 // import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
 // import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
@@ -19,7 +19,16 @@ import DropdownWithProfile from "../DropdownWithProfile/DropdownWithProfile";
 //import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
 //import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
 //import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
->>>>>>> Stashed changes
+
+import DropdownSimple from "../Contacts/DropdownSimple/DropdownSimple";
+import DropdownSimpleCategory from "./DropdownSimpleCategory/DropdownSimpleCategory";
+import UniversalDropdown from "../UniversalDropdown/UniversalDropdown";
+import DropdownWithLargeWidth from "../UniversalDropdown/DropdownWithLargeWidth/DropdownWithLargeWidth";
+//import DropdownWithLargeWidthCustomer from "./DropdownWithLargeWidthCustomer/DropdownWidthLargeWidthCustomer";
+//import SearchDropdown from "../Dropdowns/GstTreatmentDropdown/SearchDropdown";
+import DropdownWithLarge from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import DropdownWithLargeWidth from "../Dropdowns/DropdownGst/DropdownWithLarge";
+//import GstTreatmentDropdown from "../Dropdowns/GstTreatmentDropdown/GstTreatmentDropdown";
 // import axios from "axios";
 
 const initialFieldValues = {
@@ -167,9 +176,9 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-<<<<<<< Updated upstream
+
               <DropdownWithProfile />
-=======
+
           
               <SearchDropdown width={330}/>
           
@@ -179,7 +188,15 @@ function AddNewCustomer(props) {
               {/*<SearchDropdown/> */}
               {/* <DropdownWithLarge/> */}
             {/* <DropdownWithLargeWidth/> */}
->>>>>>> Stashed changes
+
+
+              {/* <GstTreatmentDropdown/> */}
+              {/* <DropdownWithLargeWidth/>
+              <UniversalDropdown/>
+              <SearchDropdown/> */}
+              <DropdownWithLarge/>
+            {/* <DropdownWithLargeWidth/> */}
+
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
@@ -210,14 +227,15 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Type Category</label>
               <br />
-<<<<<<< Updated upstream
+
               <Select placeholder="Select value" options={option} />
-=======
               <SearchDropdown/>
             {/* <DropdownSimpleCategory/> */}
             {/* <DropdownWithLargeWidthCustomer/> */}
               {/* <Select placeholder="Select value" options={option} /> */}
->>>>>>> Stashed changes
+            <DropdownSimpleCategory/>
+            {/* <DropdownWithLargeWidthCustomer/> */}
+              {/* <Select placeholder="Select value" options={option} /> */}
 
              
               {/* <select  className='customerinput' style={{marginBottom:"18px",  color:"#697A8D", outline:"none"}} placeholder='select value' name="values" id="values" >
@@ -246,19 +264,18 @@ function AddNewCustomer(props) {
                     Currency
                   </label>
                   <br />
-<<<<<<< Updated upstream
 
-                  <select
-=======
                   <SearchDropdown width={150}/>
-                  {/* <UniversalDropdown/> */}
+
+
+                  <UniversalDropdown/>
                   {/* <select
->>>>>>> Stashed changes
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"
@@ -271,24 +288,26 @@ function AddNewCustomer(props) {
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                  </select>
+                  </select> */}
                 </div>
                 <div style={{ width: "50%"}}>
-                  <label className="label">Payment</label>
+                  <label className="label">Payment Terms</label>
                   <br />
-<<<<<<< Updated upstream
 
-                  <select
-=======
+
+
                   <SearchDropdown width={150}/>
-                    {/* <UniversalDropdown/> */}
-                  {/* <select
->>>>>>> Stashed changes
+
+
+
+                    <UniversalDropdown/>
+
                     className="customerinput1"
                     style={{
                       marginBottom: "18px",
                       color: "#697A8D",
                       outline: "none",
+                      border: "0.5px solid #D9DEE3"
                     }}
                     placeholder="select value"
                     name="values"
@@ -301,15 +320,15 @@ function AddNewCustomer(props) {
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                  </select>
+                  </select> */}
                 </div>
               </div>
               
               <div className="customerbutton_bottom">
-                <button type="button" className="leadsavebutton">
-                  Save
+                <button type="button" className="customersavebutton">
+                  Submit
                 </button>
-                <button type="button" className="leadcancelbutton">
+                <button type="button" className="customercancelbutton">
                 Cancel
                 </button>
                 </div>
@@ -354,6 +373,36 @@ function AddNewCustomer(props) {
                   placeholder="Placeholder"
                 />
               </div>
+
+              <label className="label" style={{ marginTop: "5px" }}>
+                City
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                className="citydis"
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
+              <label className="label" style={{ marginTop: "5px" }}>
+                State
+              </label>
+              <br />
+              <div className="customerdropdown" style={{ backgroundColor:"#f2efeb"}}>
+                <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none" , width:"100%"}}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div>
+
               <label className="label" style={{ marginTop: "5px" }}>
                 Street 1
               </label>
@@ -367,21 +416,8 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                Street 2
-              </label>
-              <br />
-              <div className="customerstreet">
-                 <img src={logo} className="customerimg" />
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none" }}
-                  placeholder="Placeholder"
-                />
-              </div>
-              <label className="label">Default Place of Supply</label>
-              <br />
-              <Select placeholder="Select value" options={option} />
+           
+              {/* <Select placeholder="Select value" options={option} /> */}
 
               {/* <label className="label" style={{ marginTop: "5px" }}>
                 Address
@@ -399,9 +435,7 @@ function AddNewCustomer(props) {
             <div className="form-right">
 
             
-<<<<<<< Updated upstream
-            
-=======
+
             <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
@@ -416,27 +450,26 @@ function AddNewCustomer(props) {
               </div>
               <label className="label">Default Place of Supply</label>
               <br />
+
               <SearchDropdown/>
-              {/* <DropdownWithLargeWidth/> */}
->>>>>>> Stashed changes
+
+
+
+
               <label className="label">Contacts</label>
               <br />
               <SearchDropdown/>
-              {/* <Select placeholder="Select value" options={option} /> */}
     
               <label className="label">Ownership</label>
               <br />
-<<<<<<< Updated upstream
-              <Select
-=======
+
+
               <SearchDropdown/>
-              {/* <DropdownWithProfile /> */}
-              {/* <Select
->>>>>>> Stashed changes
-                placeholder="Select value"
-                style={{ height: "41px" }}
-                options={option}
-              />
+
+
+
+              <DropdownWithProfile />
+              
               
   </div>
 

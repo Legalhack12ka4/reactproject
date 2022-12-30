@@ -26,6 +26,10 @@
     // scrollbar-width: none; 
     // border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .css-13cymwt-control {
+        border-width: 0.5px !important;
+      }
+
 }
 
 .contactform-right
@@ -43,7 +47,7 @@
 
 .contactinput
 {
-    border:1px solid;
+    border:.5px solid;
     height: 38px;
     width: 330px;
     border-radius: 5px;

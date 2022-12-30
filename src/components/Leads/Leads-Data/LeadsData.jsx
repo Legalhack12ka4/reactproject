@@ -233,12 +233,28 @@ const LeadsData = () => {
       .getElementById("searchbar_container")
       .classList.toggle("container_display");
   }
+
+
+  // Table Search
+  
+  const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className='leads-data'>
         <Page_heading  parent={"Business Account"} child={"Leads"}/>
 
         <div className="leads-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Lead"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
         <Table
             ref={componentRef}
@@ -251,13 +267,16 @@ const LeadsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
         //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
         </div>
     </div>

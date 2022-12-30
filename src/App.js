@@ -19,10 +19,11 @@ import Accounts from './components/Chart_Of_Account/Accounts/Accounts';
 
 import VendorsData from './components/Vendors/Vendors-Data/VendorsData';
 import Vendors from './components/Vendors/Vendors';
+import InventoryForm from './components/InventoryItem/InventoryForm';import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
 
-
-
-
+import Module from './components/ListOfModule/Module/Module';
+import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
+import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
 
 function App() {
   return (
@@ -44,12 +45,17 @@ function App() {
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
+          <Route path='add_inventory' element={<AddInventoryItem/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
           <Route path='customers' element={<Customers/>} />
           <Route path='customers/addcustomers' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
+        
+          <Route path='module' element={<Module/>} />
+          <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
+          <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
           </Routes>
           {/* <Footer /> */}
