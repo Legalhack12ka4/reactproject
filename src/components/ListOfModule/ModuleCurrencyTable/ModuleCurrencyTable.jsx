@@ -309,7 +309,7 @@ const ModuleCurrencyTable = () => {
             <div>
               <div style={{display:"flex"}}>
                 <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="mlabel" style={{ marginTop: "5px" }}>
                 Currency Code
               </label>
               <div className="paymentinput">
@@ -323,7 +323,7 @@ const ModuleCurrencyTable = () => {
               </div>
 
               <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="mlabel" style={{ marginTop: "5px" }}>
                 Currency Symbol
               </label>
               <div className="paymentinput">
@@ -337,7 +337,7 @@ const ModuleCurrencyTable = () => {
               </div>
 
               <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="mlabel" style={{ marginTop: "5px" }}>
                 Currency Name
               </label>
               <div className="paymentinput">

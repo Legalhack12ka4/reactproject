@@ -337,7 +337,7 @@ const ModulePaymentTerms = () => {
             <div>
               <div style={{display:"flex"}}>
                 <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="plabel" style={{ marginTop: "5px" }}>
                 Terms
               </label>
               <div className="paymentinput">
@@ -351,7 +351,7 @@ const ModulePaymentTerms = () => {
               </div>
 
               <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="plabel" style={{ marginTop: "5px" }}>
                 Days
               </label>
               <div className="paymentinput">
@@ -365,7 +365,7 @@ const ModulePaymentTerms = () => {
               </div>
 
               <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
+              <label className="plabel" style={{ marginTop: "5px" }}>
                 Discount %
               </label>
               <div className="paymentinput">
