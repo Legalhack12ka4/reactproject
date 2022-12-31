@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./Leads.scss";
 import logo from "../Customers/images/Email.svg";
+import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
+import SearchDropdownAddButton from '../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton';
 // import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
 // import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
 
@@ -8,6 +10,28 @@ function Leads() {
 
 const [checked, setChecked] = useState("Contacts")
 
+const contacts = [
+  {
+    value: "1",
+    label: "Aman Jaria",
+  },
+  {
+    value: "2",
+    label: "Ashish Jaria",
+  },
+  {
+    value: "3",
+    label: "Parth Goswami",
+  },
+  {
+    value: "4",
+    label: "Suryansh Jaria",
+  },
+  {
+    value: "5",
+    label: "Kushal Nahata",
+  },
+];
   return (
    <>
     <div className='lead_heading'>
@@ -56,8 +80,9 @@ const [checked, setChecked] = useState("Contacts")
                     </label>
                     </div> 
                     <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "contacts" ? "Contacts" : "Others"}</label><br/>
-                    {/* {checked =="contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> } */}
+                    {checked =="contacts" ?  <SearchDropdown width={330} options={contacts}/> :<SearchDropdownAddButton/> }
                     <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
+                    <SearchDropdown width={330} options={contacts} />
                   {/* <DropdownAddButton/>  */}
 
                     <div className="leadbutton_bottom">
