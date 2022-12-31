@@ -455,41 +455,6 @@ function Vendors(props) {
               </div>
 
               <label className="label" style={{ marginTop: "5px" }}>
-                City
-              </label>
-              <br />
-              <div
-                className="vendordropdown"
-                style={{ backgroundColor: "#f2efeb" }}
-              >
-                <img src={logo} className="customerimg" />
-                <input
-                  className="citydis"
-                  type="text"
-                  style={{ border: "none", outline: "none", width: "100%" }}
-                  placeholder="Placeholder"
-                  disabled
-                />
-              </div>
-
-              <label className="label" style={{ marginTop: "5px" }}>
-                State
-              </label>
-              <br />
-              <div
-                className="vendordropdown"
-                style={{ backgroundColor: "#f2efeb" }}
-              >
-                <img src={logo} className="customerimg" />
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", width: "100%" }}
-                  placeholder="Placeholder"
-                  disabled
-                />
-              </div>
-
-              <label className="label" style={{ marginTop: "5px" }}>
                 Street 1
               </label>
               <br />
@@ -501,9 +466,6 @@ function Vendors(props) {
                   placeholder="Placeholder"
                 />
               </div>
-            </div>
-
-            <div className="form-right">
               <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
@@ -516,6 +478,49 @@ function Vendors(props) {
                   placeholder="Placeholder"
                 />
               </div>
+              
+              <label className="label" style={{ marginTop: "5px" }}>
+                City
+              </label>
+              <br />
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
+              {/* <div
+                className="vendordropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
+                <img src={logo} className="customerimg" />
+                <input
+                  className="citydis"
+                  type="text"
+                  style={{ border: "none", outline: "none", width: "100%" }}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div> */}
+
+            </div>
+
+            <div className="form-right">
+             
+              <label className="label" style={{ marginTop: "5px" }}>
+                State
+              </label>
+              <br />
+              <SearchDropdown width={330} options={gsttraetmentOptional} />
+              {/* <div
+                className="vendordropdown"
+                style={{ backgroundColor: "#f2efeb" }}
+              >
+                <img src={logo} className="customerimg" />
+                <input
+                  type="text"
+                  style={{ border: "none", outline: "none", width: "100%" }}
+                  placeholder="Placeholder"
+                  disabled
+                />
+              </div> */}
+
+             
               <label className="label">Default Place of Supply</label>
               <br />
 
