@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Page_heading from "../Page_Heading/Page_heading";
-import logo from "../Customers/images/Email.svg";
-import "./Vendors.scss";
+import React, { useEffect, useState } from "react";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import Page_heading from "../Page_Heading/Page_heading";
+import "./Vendors.scss";
+import logo from "../Customers/images/Email.svg";
+
 const initialFieldValues = {
   lgnm: "",
   gstin: "",
@@ -71,6 +72,82 @@ function Vendors(props) {
       label: "Manufacturing",
     },
   ];
+  const gsttreatment = [
+    {
+      value: "1",
+      label: (
+          <div>
+            <p>Registered Business - Regular</p>
+            <p>Business that is registered under GST</p>
+          </div>
+      ),
+    },
+    {
+      value: "2",
+      label:  (
+        <div>
+          <p>Registered Business - Composition</p>
+          <p style={{fontSize:"12px"}}>Business that is registered under the Composition<br/> Scheme in GST</p>
+        </div>
+    ),
+    },
+    {
+      value: "3",
+      label: (
+        <div>
+          <p>Consumer</p>
+          <p>A customer who is regular Consumer</p>
+        </div>
+    ),
+    },
+    {
+      value: "4",
+      label:  (
+        <div>
+          <p>Overseas</p>
+          <p style={{fontSize:"12px"}}>Person with whom you do import or export of<br/>supplies outside India</p>
+        </div>
+    ),
+    },
+    {
+      value: "5",
+      label:  (
+        <div>
+          <p>Special Economic Zone</p>
+          <p style={{fontSize:"12px"}}>Business (Unit) that is located in a Special<br/>Economic Zone (SEZ) of Inida or a SEZ Developer</p>
+        </div>
+    ),
+    },
+   
+    {
+      value: "6",
+      label:  (
+        <div>
+          <p>Deemed Export</p>
+          <p style={{fontSize:"12px"}}>Supply of goods to an Export Oriented Unit or<br/>against Advanced Authorization/Export Promotion<br/>Capital Goods.</p>
+        </div>
+    ),
+    },
+    {
+      value: "7",
+      label:  (
+        <div>
+          <p>Tax Deductor</p>
+          <p style={{fontSize:"12px"}}>Department of the State/Central government,<br/>government agancies or local authorites</p>
+        </div>
+    ),
+    },
+    {
+      value: "8",
+      label:  (
+        <div>
+          <p>SEZ Developer</p>
+          <p style={{fontSize:"12px"}}>A person/origanisation who owns at least 26% of<br/>the equity in creating business units in a Special<br/>Economic Zone (SEZ)</p>
+        </div>
+    ),
+    },
+
+  ];
 
   const gsttraetmentOptional = [
     {
@@ -87,24 +164,193 @@ function Vendors(props) {
     },
   ];
 
+  const ownershipwithemail=[
+    {
+      value:'Parth' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", display :"flex", flexDirection:"column"}}>
+              <p className='name'>Parth Goswami</p>
+              <p1 className="email">Parth.goswami@reformiqo.com</p1>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <p3 className="assigned" >Assigned</p3>
+            <div>
+            <p4 className="date" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+
+    {
+      value:'Parth1' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", display :"flex", flexDirection:"column"}}>
+              <p className='name'>Parth Goswami</p>
+              <p1 className="email">Parth.goswami@reformiqo.com</p1>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <p3 className="assigned" >Assigned</p3>
+            <div>
+            <p4 className="date" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth2' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", display :"flex", flexDirection:"column"}}>
+              <p className='name'>Parth Goswami</p>
+              <p1 className="email">Parth.goswami@reformiqo.com</p1>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <p3 className="assigned" >Assigned</p3>
+            <div>
+            <p4 className="date" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth3' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", display :"flex", flexDirection:"column"}}>
+              <p className='name'>Parth Goswami</p>
+              <p1 className="email">Parth.goswami@reformiqo.com</p1>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <p3 className="assigned" >Assigned</p3>
+            <div>
+            <p4 className="date" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth4' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", display :"flex", flexDirection:"column"}}>
+              <p className='name'>Parth Goswami</p>
+              <p1 className="email">Parth.goswami@reformiqo.com</p1>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <p3 className="assigned" >Assigned</p3>
+            <div>
+            <p4 className="date" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+  ]
+
+  const ownership=[
+    {
+      value:'Parth' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", marginTop:"10px"}}>
+              <p className='ownername'>Parth Goswami</p>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <div>
+            <p4 className="ownerdate" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+
+    {
+      value:'Parth1' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", marginTop:"10px"}}>
+              <p className='ownername'>Parth Goswami</p>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <div>
+            <p4 className="ownerdate" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth2' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", marginTop:"10px"}}>
+              <p className='ownername'>Parth Goswami</p>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <div>
+            <p4 className="ownerdate" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth3' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", marginTop:"10px"}}>
+              <p className='ownername'>Parth Goswami</p>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <div>
+            <p4 className="ownerdate" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+    {
+      value:'Parth4' , label: <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style ={{ display :"flex"}}>
+            <div> <img src="/images/searchbar_icons/User-Avtar.svg" alt="" width="35px" height="35px"/></div>
+            <div style={{marginLeft:"5px", width:"139px", height:"31px", marginTop:"10px"}}>
+              <p className='ownername'>Parth Goswami</p>
+              </div>
+            </div>
+            <div style={{display:"flex" ,alignItems: "center"}}>
+            <div>
+            <p4 className="ownerdate" style={{marginLeft:"7px", borderRadius:"50%", width:"20px", height:"20px", backgroundColor:"#C2CAD2"}}>19</p4>
+            </div>
+            </div>
+            </div>
+    },
+  ]
+
   return (
     <>
-      <div className="addcustomer_heading">
+      <div className="addvendor_heading">
         <Page_heading parent={"Business Account"} child={"Add New Vendor"} />
       </div>
-      <div className="customerform">
-        <div className="newcustomer">
+      <div className="vendorform">
+        <div className="newvendor">
           <h1 className="box_heading1">New Vendor</h1>
           <div className="container_details1">
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-              <SearchDropdown width={330} options={gsttraetmentOptional} />
+              <SearchDropdown width={330} options={gsttreatment} />
+
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
               <br />
-              <div className="customerdropdown" style={{ marginTop: "5px" }}>
+              <div className="vendordropdown" style={{ marginTop: "5px" }}>
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -120,7 +366,7 @@ function Vendors(props) {
                 Business Name
               </label>
               <br />
-              <div className="customerdropdown" style={{ marginTop: "5px" }}>
+              <div className="vendordropdown" style={{ marginTop: "5px" }}>
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -136,7 +382,7 @@ function Vendors(props) {
                 Pancard
               </label>
               <br />
-              <div className="customerdropdown">
+              <div className="vendordropdown">
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -159,11 +405,11 @@ function Vendors(props) {
                 </div>
               </div>
 
-              <div className="customerbutton_bottom">
-                <button type="button" className="leadsavebutton">
-                  Save
+              <div className="vendorbutton_bottom">
+                <button type="button" className="vendorsavebutton">
+                  Submit
                 </button>
-                <button type="button" className="leadcancelbutton">
+                <button type="button" className="vendorcancelbutton">
                   Cancel
                 </button>
               </div>
@@ -174,7 +420,7 @@ function Vendors(props) {
                 Credit Limit
               </label>
               <br />
-              <div className="customerdropdown">
+              <div className="vendordropdown">
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -187,7 +433,7 @@ function Vendors(props) {
                 Email
               </label>
               <br />
-              <div className="customerdropdown">
+              <div className="vendordropdown">
                 <img src={logo} className="customerimg" />
                 <input
                   type="email"
@@ -199,7 +445,7 @@ function Vendors(props) {
                 Pincode
               </label>
               <br />
-              <div className="customerdropdown">
+              <div className="vendordropdown">
                 <img src={logo} className="customerimg" />
                 <input
                   type="number"
@@ -207,12 +453,13 @@ function Vendors(props) {
                   placeholder="Placeholder"
                 />
               </div>
+
               <label className="label" style={{ marginTop: "5px" }}>
                 City
               </label>
               <br />
               <div
-                className="customerdropdown"
+                className="vendordropdown"
                 style={{ backgroundColor: "#f2efeb" }}
               >
                 <img src={logo} className="customerimg" />
@@ -230,7 +477,7 @@ function Vendors(props) {
               </label>
               <br />
               <div
-                className="customerdropdown"
+                className="vendordropdown"
                 style={{ backgroundColor: "#f2efeb" }}
               >
                 <img src={logo} className="customerimg" />
@@ -246,7 +493,7 @@ function Vendors(props) {
                 Street 1
               </label>
               <br />
-              <div className="customerstreet">
+              <div className="vendorstreet">
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -254,24 +501,14 @@ function Vendors(props) {
                   placeholder="Placeholder"
                 />
               </div>
-
-              {/* <Select placeholder="Select value" options={option} /> */}
-
-              {/* <label className="label" style={{ marginTop: "5px" }}>
-                Address
-              </label>
-              <input
-                type="text"
-                className="customeraddress"
-                placeholder="Placeholder"
-              /> */}
             </div>
+
             <div className="form-right">
               <label className="label" style={{ marginTop: "5px" }}>
                 Street 2
               </label>
               <br />
-              <div className="customerstreet">
+              <div className="vendorstreet">
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
@@ -281,13 +518,16 @@ function Vendors(props) {
               </div>
               <label className="label">Default Place of Supply</label>
               <br />
+
               <SearchDropdown width={330} options={gsttraetmentOptional} />
               <label className="label">Contacts</label>
               <br />
-              <SearchDropdown width={330} options={gsttraetmentOptional} />
+
+              <SearchDropdown width={330} options={ownership} />
               <label className="label">Ownership</label>
               <br />
-              <SearchDropdown width={330} options={gsttraetmentOptional} />
+
+              <SearchDropdown width={330} options={ownershipwithemail} />
             </div>
           </div>
         </div>

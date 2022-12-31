@@ -26,7 +26,7 @@ const ModuleCurrencyTable = () => {
 
   const customStyles = {
     content: {
-      top: '50%',
+      top: '145px',
       left: '50%',
       right: 'auto',
       bottom: 'auto',

@@ -8,7 +8,7 @@ import type { InputRef } from 'antd';
 let index = 0;
 function SearchDropdownAddButton(props) {
 
-    const [items, setItems] = useState(['ITME 2022', 'lucy']);
+    const [items, setItems] = useState(['ITME 2022', 'IT Sol 2019','ITME 2018','Colortax']);
     const [name, setName] = useState('');
     const inputRef = useRef<import('antd').InputRef>(null);
   
@@ -58,6 +58,11 @@ function SearchDropdownAddButton(props) {
             //   ref={inputRef}
               value={name}
               onChange={onNameChange}
+             
+              onSearch={onSearch}
+            //   filterOption={(input, option) =>
+            //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+            //   }
             />
             <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
               Add item
