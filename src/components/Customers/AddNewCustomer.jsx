@@ -334,7 +334,7 @@ function AddNewCustomer(props) {
   ]
 
   return (
-    <>
+    <div className="addNewCustomerContainer">
       <div className="addcustomer_heading">
         <Page_heading parent={"Business Account"} child={"Add New Customer"} />
       </div>
@@ -539,7 +539,7 @@ function AddNewCustomer(props) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

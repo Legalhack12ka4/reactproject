@@ -1,12 +1,27 @@
+.vendors_container{
+    //    border: 1px solid;
+  margin: auto;
+  width: 95%;
+  max-width: 2200px;
+  padding: 5px;
+  // height: 780px;
+  margin-top: 30px;
+  overflow: scroll;
+  position: relative;
+  margin-bottom: 10px;
+}
+
 .newvendor
 {
     background-color: white;
-    height: 619px;
+    // height: 619px;
     width: 1090px;
     margin-top: 0px;
-    margin-left: 30px;
+    // margin-left: 30px;
+    // border: 1px solid;
     scrollbar-width: none; 
     border-radius: 8px;
+    
 }
 
 
@@ -23,8 +38,12 @@
 }
 .vendorform
 {
-     height: 700px;
+    //  height: 700px;
      overflow: scroll;
+     box-shadow:  0px 2px 6px 0px #4359711f;
+     background-color: #ffff;
+     border-radius: 8px;
+
 }
 .vendorform::-webkit-scrollbar{
     width: 0;
@@ -36,19 +55,19 @@
 .form-left
 {
     width: 50%;
-    height:715px;
+    // height:715px;
 }
 .form-center
 {
     width: 50%;
-    height: 715px;
+    // height: 715px;
     margin-left: 25px;
 }
 
 .form-right
 {
     width: 30%;
-    height: 715px;
+    // height: 715px;
     margin-left: 25px;
     margin-right: 10px;
 }
@@ -65,8 +84,8 @@
     font-size: 18px;
 }
 .addvendor_heading{
-    margin-left: 30px;
-   margin-top: 29px;
+    // margin-left: 30px;
+//    margin-top: 29px;
     .heading_parent{
         color: #A1ACB8;
         font-weight: 400;
