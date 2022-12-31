@@ -333,7 +333,7 @@ function Vendors(props) {
   ]
 
   return (
-    <>
+    <div className="vendors_container">
       <div className="addvendor_heading">
         <Page_heading parent={"Business Account"} child={"Add New Vendor"} />
       </div>
@@ -537,7 +537,7 @@ function Vendors(props) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
