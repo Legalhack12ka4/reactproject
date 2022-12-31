@@ -7,7 +7,7 @@ import DateRangePickerComp from "../DateRangePicker/DateRangePicker";
 import FilterAndSearchBar from "../FilterAndSearchBar/FilterAndSearchBar";
 
 
-const CustomerPage = () => {
+const CustomerPage = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -214,6 +214,24 @@ const CustomerPage = () => {
   ];
   const [columns, setColumns] = useState(columnsData);
 
+
+
+  // search table functionality
+
+  const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.so_number.toLowerCase().includes(search.toLowerCase())
+  );
+
+
   const componentRef = useRef();
 
   function displaySerachbar() {
@@ -388,7 +406,7 @@ const CustomerPage = () => {
 
       <div className="searchBarAndFilter">
       <div className="SearchBar-filter">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Sales Order"} path={"sales_order"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Sales Order"} path={"sales_order"} onData={handleData} />
       </div>
 
       <div className="table-customer-details">
@@ -405,8 +423,11 @@ const CustomerPage = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
+            search={{
+              keyword: search,
+            }}
             // scroll={{ y: 800, x: 720 }}
            style={{ width: 750 }}
             rowClassName={(record) =>

@@ -171,7 +171,7 @@ const VendorsData = () => {
           resizable: true,
           fixed: "left",
           align: "left",
-          // width: 60,
+          width: 80,
         },
         {
           title: "Mobile No.",
@@ -179,7 +179,7 @@ const VendorsData = () => {
           dataIndex: "mobile_no",
           key: "mobile_no",
           resizable: true,
-          // width: 60,
+          width: 100,
           align: "left",
         },
         {
@@ -188,7 +188,7 @@ const VendorsData = () => {
           dataIndex: "email",
           key: "email",
           resizable: true,
-          width: 230,
+          width: 150,
           align: "left",
         },
         {
@@ -197,7 +197,7 @@ const VendorsData = () => {
           dataIndex: "type",
           key: "type",
           resizable: true,
-          // width: 60,
+          width: 70,
           align: "left",
     
         },
@@ -207,7 +207,7 @@ const VendorsData = () => {
           dataIndex: "business_names",
           key: "business_names",
           resizable: true,
-          width: 260,
+          width: 160,
           align: "left",
         },
         {
@@ -216,7 +216,7 @@ const VendorsData = () => {
           dataIndex: "lead_source",
           key: "lead_source",
           resizable: true,
-          width: 150,
+          width: 100,
           align: "left",
         },
       ];
@@ -269,6 +269,7 @@ const VendorsData = () => {
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
         //    style={{ width: "100%" }}
+              scroll={{  x:"1100px" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
