@@ -7,7 +7,8 @@ import { Padding } from '@syncfusion/ej2/charts';
 
 function Module() {
   return (
-    <>
+    <div className="module_container">
+  
     <div className='Module_heading'>
     <Page_heading  parent={"List of Module"} child={"Module List"}/>
     </div>
@@ -23,7 +24,7 @@ function Module() {
    </div>
    </div>
     </div>
-    </>
+    </div>
   )
 }
 
