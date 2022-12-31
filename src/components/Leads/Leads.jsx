@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Leads.scss";
 import logo from "../Customers/images/Email.svg";
 import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
 import SearchDropdownAddButton from '../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton';
+import { classList } from '@syncfusion/ej2/base';
 // import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
 // import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
 
@@ -10,11 +11,21 @@ function Leads() {
 
 const [checked, setChecked] = useState("Contacts")
 
+// useEffect(() => {
+//   window.history.go(-1)
+//   // Update the document title using the browser API
+//  // document.title = `You clicked ${count} times`;
+// });
+
 function handleclose () 
 {
     var m = document.querySelector('.menu1 ');
     m.classList.remove('smenu');
     document.getElementById('gradient').classList.remove('body_gradient');
+    //window.history.go(-1).classList.remove('body_gradient');
+  // var back= window.history.back(document.getElementById('gradient').classList.remove('body_gradient'));
+  // back.classList.remove('body_gradient');
+   //window.location.reload(window.history.back());
   }
 const contacts = [
   {
