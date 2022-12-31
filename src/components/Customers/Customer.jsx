@@ -1,4 +1,5 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 import Page_heading from "../Page_Heading/Page_heading";
 import { useState, useEffect, useRef } from "react";
@@ -39,6 +40,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "2",
@@ -50,6 +52,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "3",
@@ -61,6 +64,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "4",
@@ -72,6 +76,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "5",
@@ -83,6 +88,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "6",
@@ -94,6 +100,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "7",
@@ -105,6 +112,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "8",
@@ -116,6 +124,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "9",
@@ -127,6 +136,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "10",
@@ -138,6 +148,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "11",
@@ -149,6 +160,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "12",
@@ -160,6 +172,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "13",
@@ -171,6 +184,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "14",
@@ -182,6 +196,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "15",
@@ -193,6 +208,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
     {
       key: "16",
@@ -204,6 +220,7 @@ const Customer = (props) => {
       email: "parth@gmail.com",
       phone: 9988998899,
       address: "Reformiqo Business Service Pvt. Ltd.",
+      link: '/customers/customerPage',
     },
 
     // ...
@@ -217,7 +234,7 @@ const Customer = (props) => {
       resizable: true,
       fixed: "left",
       align: "left",
-      width: 270,
+      width: 180,
       onFilter: (value, record) => {
         return record.business_name.includes(value)
       }
@@ -228,7 +245,7 @@ const Customer = (props) => {
       dataIndex: "type",
       key: "type",
       resizable: true,
-      width: 100,
+      width: 80,
       align: "left",
     },
     {
@@ -237,7 +254,7 @@ const Customer = (props) => {
       dataIndex: "account",
       key: "account",
       resizable: true,
-      width: 170,
+      width: 100,
       align: "left",
     },
     {
@@ -246,7 +263,7 @@ const Customer = (props) => {
       dataIndex: "unadjusted_account",
       key: "unadjusted_account",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
     },
     {
@@ -255,7 +272,7 @@ const Customer = (props) => {
       dataIndex: "type_category",
       key: "type_category",
       resizable: true,
-      width: 150,
+      width: 90,
       align: "left",
     },
     {
@@ -264,7 +281,7 @@ const Customer = (props) => {
       dataIndex: "email",
       key: "email",
       resizable: true,
-      width: 150,
+      width: 110,
       align: "left",
     },
   ];
@@ -285,6 +302,15 @@ const Customer = (props) => {
     record.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
+
+  // redirect to another page on click of row 
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (record) => {
+    const link = record.link; // assume that the link is stored in a "link" field of the data for the row
+    navigate(link);
+  };
   
   
   // search table functionality
@@ -312,12 +338,17 @@ const Customer = (props) => {
 
 
       <div className="customer-table-container">
-      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomers"} onData={handleData}/>
+      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}/>
 
       <div className="tableData">
         {/* <Resizable> */}
         <Table
           ref={componentRef}
+          onRow={(record) => {
+            return {
+              onClick: () => handleRowClick(record),
+            };
+          }}
           rowSelection={{
             type: "checkbox",
             columnTitle: "",
@@ -326,15 +357,15 @@ const Customer = (props) => {
               setSelectedRowKeys(selectedRowKeys);
               setSelectedRows(selectedRows);
             },
-            
-
           }}
           dataSource={filteredData}
           columns={columns}
-          scroll={{ y: 800, x: 1000 }}
+          // scroll={{ y: 800, x: 1000 }}
+          scroll={{  x:"1100px" }}
           style={{ maxWidth: 2200, width: "100%" }}
           rowClassName={(record) =>
-            record.key % 2 === 0 ? "highlight_row" : ""
+            record.key % 2 === 0 ? "highlight_row table-row" : "table-row"
+            // "table-row"
           }
           search={{
             keyword: search,

@@ -15,6 +15,7 @@ body{
     overflow: hidden;
     height: 100vh;
     margin-left: -5px;
+    
     // border: 1px solid;
 
     .sidebar_container{
@@ -23,6 +24,7 @@ body{
         width: 92%;
         height: 100%;
         background-color: #ffff;
+        box-shadow:  0px 2px 6px 0px #4359711f;
     }
     .sidebar_logo{
         padding: 17px 87px 17px 33px;

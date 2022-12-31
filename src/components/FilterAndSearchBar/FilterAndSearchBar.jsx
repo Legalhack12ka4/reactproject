@@ -455,7 +455,7 @@ const FilterAndSearchBar = (props) => {
             Filter
           </div> */}
 
-        <div className="tableBtn_container" ref={menuRef}>
+        <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
             <div className="tableBtn">
               <div className="btn_icon">
@@ -467,8 +467,9 @@ const FilterAndSearchBar = (props) => {
               className="tableBtn export"
               onClick={openExport}
               style={{ width: "101.5px" }}
+              ref={menuRef}
             >
-              <div className="btn_icon">
+              <div className="btn_icon" >
                 <BiExport size={15} />
               </div>
               <span>Export</span>
@@ -520,11 +521,12 @@ const FilterAndSearchBar = (props) => {
             </div>
             Filter
           </div> */}
-
+            <Link exact to={props.path}>
             <div className="tableBtn addNewBtn" onClick={showCanvas}>
               <GoPlus />
-             <Link exact to={props.path}  style={{color:"white"}}  onClick={props.onClick}> <div className="addNewBtn_text">New {props.addBtnName}</div></Link>
+             <div   style={{color:"white"}}  onClick={props.onClick}> <div className="addNewBtn_text">New {props.addBtnName}</div></div>
             </div>
+            </Link>
           </div>
 
           <div style={{ display: "flex", gap: "20px" }}>

@@ -470,11 +470,11 @@ const AddInventoryItem = () => {
               </div>
             </div>
             <div className="switch_toggler">
-              <Switch unCheckedChildren="__" defaultChecked />
+              <Switch unCheckedChildren="__"  />
               <h3>Enable Manufacturing</h3>
             </div>
             <div className="switch_toggler">
-              <Switch unCheckedChildren="__" defaultChecked />
+              <Switch unCheckedChildren="__"  />
               <h3>Enable Variant</h3>
             </div>
           </div>
