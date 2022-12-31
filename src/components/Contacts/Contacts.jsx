@@ -2,10 +2,33 @@ import React from 'react'
 import Page_heading from '../Page_Heading/Page_heading';
 import logo from "../Customers/images/Email.svg";
 import "./Contacts.scss";
+import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
 //import DropdownSimple from './DropdownSimple/DropdownSimple';
 // import Select from "react-select";
 
 function Contacts() {
+
+  function handleclose () 
+	{
+		  var m = document.querySelector('.menu1 ');
+		  m.classList.remove('smenu');
+		  document.getElementById('gradient').classList.remove('body_gradient');
+	  }
+
+  const contacts = [
+    {
+      value: "1",
+      label: "Value 1",
+    },
+    {
+      value: "2",
+      label: "Value 2",
+    },
+    {
+      value: "3",
+      label: "Value3",
+    },
+  ];
   return (
   <>
    <div className='contact_heading'>
@@ -45,13 +68,17 @@ function Contacts() {
                 
                     <label className='contactlabel' style={{marginTop:"15px"}}>Position</label><br/>
                     {/* <DropdownSimple/> */}
+              <SearchDropdown width={330} options={contacts} />
+
                     <label className='contactlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
                     {/* <DropdownSimple/> */}
+              <SearchDropdown width={330} options={contacts} />
+
                     <div className="contactbutton_bottom">
                 <button type="button" className="contactsavebutton">
                   Save
                 </button>
-                <button type="button" className="contactcancelbutton">
+                <button type="button" className="contactcancelbutton"  onClick={handleclose}>
                 Cancel
                 </button>
               </div>
