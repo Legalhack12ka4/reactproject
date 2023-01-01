@@ -5,8 +5,7 @@ import Page_heading from "../Page_Heading/Page_heading";
 import { Switch } from "antd";
 import { Modal, Button } from "antd";
 
-import QrReader from "react-qr-scanner";
-import BarcodeReader from "react-barcode-reader";
+
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import "./AddInventoryItem.scss";
 
