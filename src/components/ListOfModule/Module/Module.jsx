@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./Module.scss"
 import link from "../../../assets/Images/ModulePaymentTerms/Link.svg";
-import { Padding } from '@syncfusion/ej2/charts';
+// import { Padding } from '@syncfusion/ej2/charts';
 
 function Module() {
   return (
