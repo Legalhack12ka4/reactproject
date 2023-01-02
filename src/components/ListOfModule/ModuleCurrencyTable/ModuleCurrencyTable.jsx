@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ModuleCurrencyTable.scss"
@@ -6,10 +6,33 @@ import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
 import { Table } from "antd";
 import Modal from 'react-modal';
+import axios from "axios";
 
 const ModuleCurrencyTable = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const [currency, setCurrency] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await axios.get("http://127.0.0.1:8000/currency/").then(
+      res => {
+        setloading(false);
+        setCurrency(
+          res.data.map(row => ({
+            Currency_Name: row.currency_name,
+            Symbol: row.symbol,
+            Country_Name: row.country_name
+          }))
+        );
+      }
+    );
+  };
+  console.log(currency)
 
   function openModal() {
     setIsOpen(true);
@@ -39,192 +62,20 @@ const ModuleCurrencyTable = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
 
-    const dataSource = [
-        {
-          key: "1",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "2",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "3",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "4",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "5",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "6",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "7",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "8",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "9",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "10",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "11",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "12",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "13",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "14",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "15",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "16",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-    
-        // ...
-      ];
+   const dataSource = 
+      currency.map (cur =>
+       ( {
+          currency_name: cur.Currency_Name,
+          symbol:cur.Symbol,
+          country_name:cur.Country_Name,
+        }));
+
       const columnsData = [
         {
           title: "Currency Code",
           label: "Currency Code",
-          dataIndex: "currency_code",
-          key: "currency_code",
+          dataIndex: "currency_name",
+          key: "currency_name",
           resizable: true,
           fixed: "left",
           align: "left",
@@ -233,8 +84,8 @@ const ModuleCurrencyTable = () => {
         {
           title: "Currency Symbol",
           label: "Currency Symbol",
-          dataIndex: "currency_symbol",
-          key: "currency_symbol",
+          dataIndex: "symbol",
+          key: "symbol",
           resizable: true,
           // width: 60,
           align: "left",
@@ -242,8 +93,8 @@ const ModuleCurrencyTable = () => {
         {
           title: "Currency Name",
           label: "Currency Name",
-          dataIndex: "currency_name",
-          key: "currency_name",
+          dataIndex: "country_name",
+          key: "country_name",
           resizable: true,
           width: 230,
           align: "left",
@@ -282,7 +133,7 @@ const ModuleCurrencyTable = () => {
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.currency_code.toLowerCase().includes(search.toLowerCase())
+    record.currency_name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

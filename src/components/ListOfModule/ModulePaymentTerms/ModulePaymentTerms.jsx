@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ModulePaymentTerms.scss"
@@ -6,10 +6,35 @@ import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
 import { Table } from "antd";
 import Modal from 'react-modal';
+import axios from "axios";
 
 const ModulePaymentTerms = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const [paymentterm, setPaymentterm] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await axios.get("http://127.0.0.1:8000/paymentterms/").then(
+      res => {
+        setloading(false);
+        setPaymentterm(
+          res.data.map(row => ({
+            Terms: row.terms,
+            Days: row.days,
+            Discount: row.discount,
+            Interest: row.interest
+           // id: row.id
+          }))
+        );
+      }
+    );
+  };
+  console.log(paymentterm)
 
   function openModal() {
     setIsOpen(true);
@@ -37,203 +62,18 @@ const ModulePaymentTerms = () => {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
+  
 
-    const dataSource = [
-        {
-          key: "1",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "2",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "3",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "4",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "5",
-          terms: "Net 5",
-          days: "5 days",
-          discount: "10%",
-          interest: "2%",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "6",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "7",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "8",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "9",
-          terms: "Net 7",
-          days: "7 days",
-          discount: "9%",
-          interest: "5%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "10",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "11",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "12",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "13",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "14",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "15",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "16",
-          terms: "Net 15",
-          days: "15 days",
-          discount: "5%",
-          interest: "9%",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-    
-        // ...
-      ];
+    const dataSource = 
+      paymentterm.map (payments =>
+       ( {
+          terms: payments.Terms,
+          days:payments.Days,
+          discount:payments.Discount,
+          interest:payments.Interest
+        }));
+        
+      
       const columnsData = [
         {
           title: "Terms",
@@ -243,7 +83,6 @@ const ModulePaymentTerms = () => {
           resizable: true,
           fixed: "left",
           align: "left",
-          // width: 60,
         },
         {
           title: "Days",
@@ -271,8 +110,8 @@ const ModulePaymentTerms = () => {
           resizable: true,
           // width: 60,
           align: "left",
-    
-        },
+         },
+
         {
           title: "Action",
           label: "Action",
@@ -407,6 +246,9 @@ const ModulePaymentTerms = () => {
             
           </div>
       </Modal>
+      {loading ? (
+        "Loading"
+      ) : (
         <Table
             ref={componentRef}
             rowSelection={{
@@ -420,8 +262,6 @@ const ModulePaymentTerms = () => {
             }}
             dataSource={filteredData}
             columns={columns}
-            // scroll={{ y: 800, x: 720 }}
-        //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
@@ -429,6 +269,7 @@ const ModulePaymentTerms = () => {
               keyword: search,
             }}
           />
+          )}
         </div>
     </div>
   )
