@@ -3,6 +3,8 @@
   margin-top: 5px;
   margin-bottom: 18px;
 
+  
+
 
     .ant-select-selector {
        
@@ -41,6 +43,7 @@
      .ant-select .ant-select-selector {
         border-radius:5px  !important;
         border: .5px solid #D9DEE3 !important;
+        color: #697A8D !important;
       }
 
       .ant-select .ant-select-selector:hover{
@@ -55,7 +58,7 @@
 
   .ant-select-item-option:hover:not(.ant-select-item-option-disabled)
   {
-    background-color: #5c5ad133 !important;
+    // background-color: #697A8D !important;
     color: #697A8D !important;
   }
 
@@ -67,4 +70,19 @@
     }
 
     
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input{
+  color: #697A8D !important;
 }

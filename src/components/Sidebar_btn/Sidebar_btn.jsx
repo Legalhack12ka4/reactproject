@@ -3,37 +3,42 @@ import React, {  useState, } from "react";
 import "./Sidebar_btn.scss";
 import { NavLink } from "react-router-dom";
 
-const Sidebar_btn = ({ item, active, setActive }) => {
+const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
 
-  const [open, setOpen] = useState();
+  // const [open, setOpen] = useState();
 
   const [subDropdown, setSubDropdown] = useState();
 
   const [dropdownBtn, setDropdownBtn] = useState(false)
 
+  const [activePrev1, setActivePrev1] = useState("")
+
 
 
   function dropdown_open(event) {
-    console.log(open)
+    // console.log(open)
+        setOpen(false)
         setOpen(!open)   
+
+        setActivePrev1(active)
 
         if(event.target.parentNode.parentNode.id){
           document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          document.getElementById(active).classList.remove("dropdownActive")
+          // document.getElementById(active).classList.remove("dropdownActive")
           document.getElementById(active).firstChild.classList.remove("open")
           event.target.parentNode.parentNode.classList.add("dropdownActive1")
           setActive(event.target.parentNode.parentNode.id)
         }
         else if(event.target.parentNode.parentNode.parentNode.id){
           document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          document.getElementById(active).classList.remove("dropdownActive")
+          // document.getElementById(active).classList.remove("dropdownActive")
           document.getElementById(active).firstChild.classList.remove("open")
           event.target.parentNode.parentNode.parentNode.classList.add("dropdownActive")
           setActive(event.target.parentNode.parentNode.parentNode.id)          
         } 
         else if(event.target.parentNode.id){
           document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          document.getElementById(active).classList.remove("dropdownActive")
+          // document.getElementById(active).classList.remove("dropdownActive")
           document.getElementById(active).firstChild.classList.remove("open")
           event.target.parentNode.classList.add("dropdownActive1")
           setActive(event.target.parentNode.id)
@@ -41,11 +46,20 @@ const Sidebar_btn = ({ item, active, setActive }) => {
         }
   }
 
+  function activePrev(){
+    // setActivePrev()
+    document.getElementById(activePrev1).classList.remove("dropdownActive")
+    // setOpen(!open)
+
+  }
 
   function changeActive(){
       document.getElementById(active).classList.remove("dropdownActive")
+      // document.getElementById(activePrev1).classList.remove("dropdownActive")
       document.getElementById(active).firstChild.classList.remove("open")
+      setOpen(!open)
       document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
+      // setOpen(!open)
   }
 
 
@@ -55,6 +69,7 @@ const Sidebar_btn = ({ item, active, setActive }) => {
   
   function dropdownBtnActive(){
     setDropdownBtn(false)
+    
     setDropdownBtn(true)
   }
   
@@ -101,8 +116,8 @@ const Sidebar_btn = ({ item, active, setActive }) => {
     return (
       <>
         
-        <div className={`btn ${dropdownBtn && "dropdownActive"}`} id={item.id} >
-          <div className={`btn_container ${open && "open"}`} onClick={dropdown_open}>
+        <div className={`btn ${item.id === active && "dropdownActive"}`} id={item.id}  >
+          <div className={`btn_container ${open && active === item.id && "open"}`} onClick={dropdown_open}>
             <div className="btn_icon">
               <img src={item.icon} alt="icon" />
             </div>
@@ -116,11 +131,11 @@ const Sidebar_btn = ({ item, active, setActive }) => {
           </div>
           <div className="right_border"></div>
         </div>
-        <div className={`dropdown_item_container ${open && "open_dropdown"}`}>
+        <div className={`dropdown_item_container ${open && active ===item.id && "open_dropdown"}`}>
           {item.childrens.map((btn,index,row) => {
-            console.log(btn,index,row.length)
+            // console.log(btn,index,row.length)
             return (
-              <NavLink to={btn.path}>
+              <NavLink to={btn.path} onClick={activePrev}>
                 <span className={`v-line ${index === 0 && "first-v-line"} ${index === row.length-1 && "last-v-line"} `}></span>
                 <div className="btn dropdown_margin bullet_item" onClick={dropdownBtnActive}>
                   <div className="btn_container">
