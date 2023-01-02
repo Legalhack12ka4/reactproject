@@ -55,7 +55,6 @@ const AddInventoryItem = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    alert("hii")
   };
 
   const handleCancel = () => {

@@ -41,6 +41,7 @@
      overflow: scroll;
      box-shadow:  0px 2px 6px 0px #4359711f;
      background-color: #ffff;
+     width: 1100px;
      border-radius: 8px;
 }
 .customerform::-webkit-scrollbar{
@@ -126,7 +127,9 @@
 
 .customerdropdown:hover
 {
-    border:1px solid #5C5AD0 !important;
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
 }
 .customerstreet
 {
@@ -141,7 +144,9 @@
 }
 .customerstreet:hover
 {
-    border:1px solid #5C5AD0 !important;
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
 }
 
 .customerstreet::placeholder{
