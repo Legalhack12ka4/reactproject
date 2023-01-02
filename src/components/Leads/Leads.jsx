@@ -3,7 +3,7 @@ import "./Leads.scss";
 import logo from "../Customers/images/Email.svg";
 import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
 import SearchDropdownAddButton from '../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton';
-import { classList } from '@syncfusion/ej2/base';
+// import { classList } from '@syncfusion/ej2/base';
 // import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
 // import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
 

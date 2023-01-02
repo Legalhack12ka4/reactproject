@@ -1,15 +1,39 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ModuleCurrencyTable.scss"
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
 import { Table } from "antd";
-import Modal from 'react-modal';
+import {Modal, Button } from "antd";
+import axios from "axios";
 
 const ModuleCurrencyTable = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [currency, setCurrency] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await axios.get("http://127.0.0.1:8000/currency/").then(
+      res => {
+        setloading(false);
+        setCurrency(
+          res.data.map(row => ({
+            Currency_Name: row.currency_name,
+            Symbol: row.symbol,
+            Country_Name: row.country_name
+          }))
+        );
+      }
+    );
+  };
+  console.log(currency)
 
   function openModal() {
     setIsOpen(true);
@@ -39,192 +63,20 @@ const ModuleCurrencyTable = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
 
-    const dataSource = [
-        {
-          key: "1",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "2",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "3",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "4",
-          currency_code: "INR",
-          currency_symbol: "₹",
-          currency_name: "Indian Rupee",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "5",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "6",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "7",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "8",
-          currency_code: "USD",
-          currency_symbol: "$",
-          currency_name: "United State Dollar",
-          action: (<div style={{display:"flex"
-          }}>
-            <div><img src={Delete} /></div>
-            <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-          </div>)
-        },
-        {
-          key: "9",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "10",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "11",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "12",
-          currency_code: "ASD",
-          currency_symbol: "$",
-          currency_name: "Australia Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "13",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "14",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action: (<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "15",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-        {
-          key: "16",
-          currency_code: "CAD",
-          currency_symbol: "$",
-          currency_name: "Canadian Dollar",
-          action:(<div style={{display:"flex"
-        }}>
-          <div><img src={Delete} /></div>
-          <div style={{marginLeft:"20px"}}><img src={Edit} /></div>
-        </div>)
-        },
-    
-        // ...
-      ];
+   const dataSource = 
+      currency.map (cur =>
+       ( {
+          currency_name: cur.Currency_Name,
+          symbol:cur.Symbol,
+          country_name:cur.Country_Name,
+        }));
+
       const columnsData = [
         {
           title: "Currency Code",
           label: "Currency Code",
-          dataIndex: "currency_code",
-          key: "currency_code",
+          dataIndex: "currency_name",
+          key: "currency_name",
           resizable: true,
           fixed: "left",
           align: "left",
@@ -233,8 +85,8 @@ const ModuleCurrencyTable = () => {
         {
           title: "Currency Symbol",
           label: "Currency Symbol",
-          dataIndex: "currency_symbol",
-          key: "currency_symbol",
+          dataIndex: "symbol",
+          key: "symbol",
           resizable: true,
           // width: 60,
           align: "left",
@@ -242,8 +94,8 @@ const ModuleCurrencyTable = () => {
         {
           title: "Currency Name",
           label: "Currency Name",
-          dataIndex: "currency_name",
-          key: "currency_name",
+          dataIndex: "country_name",
+          key: "country_name",
           resizable: true,
           width: 230,
           align: "left",
@@ -282,103 +134,104 @@ const ModuleCurrencyTable = () => {
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.currency_code.toLowerCase().includes(search.toLowerCase())
+    record.currency_name.toLowerCase().includes(search.toLowerCase())
   );
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    setIsModalOpen(false);
+  };
+  
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div className='module-data'>
         <Page_heading  parent={"List of Modules"} child={"Currency Table"}/>
 
         <div className="module-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Currency"} onClick={openModal} onData={handleData} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Currency"} onClick={showModal} onData={handleData} />
         {/* <OffCanvasExample  form={<Contacts/>}/> */}
         <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-          <div style={{width:"764.15px", height:"99px"}}>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-              <div style={{fontSize:"22px", color:"#697A8D", marginTop:"37px", marginLeft:"31px"}}>Add Currency</div>
-              <div style={{ width:"13.51px", height:"13px", marginTop:"40px"}}><span style={{cursor:"pointer", color:"#697A8D", fontSize:"32px", marginLeft:"-30px"}} onClick={closeModal}>&times;</span></div>
-            </div>
-            <div style={{marginTop:"20px", marginRight:"31px", marginLeft:"31px"}}><hr/></div>
-          </div>
-          <div  style={{width:"764.15px", height:"159px"}}>
-            <div>
-              <div style={{display:"flex"}}>
-                <div style={{marginLeft:"30px"}}>
-              <label className="mlabel" style={{ marginTop: "5px" }}>
-                Currency Code
-              </label>
-              <div className="paymentinput">
-                {/* <img src={logo} className="customerimg" /> */}
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="INR"
-                />
-              </div>
-              </div>
-
-              <div style={{marginLeft:"30px"}}>
-              <label className="mlabel" style={{ marginTop: "5px" }}>
-                Currency Symbol
-              </label>
-              <div className="paymentinput">
-                {/* <img src={logo} className="customerimg" /> */}
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="₹"
-                />
-              </div>
-              </div>
-
-              <div style={{marginLeft:"30px"}}>
-              <label className="mlabel" style={{ marginTop: "5px" }}>
-                Currency Name
-              </label>
-              <div className="paymentinput">
-                {/* <img src={logo} className="customerimg" /> */}
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="Indian Rupee"
-                />
-              </div>
-              </div>
-
-              {/* <div style={{marginLeft:"30px"}}>
-              <label className="label" style={{ marginTop: "5px" }}>
-                Interest %
-              </label>
-              <div className="paymentinput">
-        
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", overflow:"hidden" }}
-                  placeholder="Placeholder"
-                />
-              </div>
-              </div> */}
-              </div>
-
-            
-              <div className="paymentformbutton_bottom">
-                <button type="button" className="paymentformsavebutton">
-                  Submit
-                </button>
-                <button type="button" className="paymentformcancelbutton" onClick={closeModal}>
-                Cancel
-                </button>
-              </div>
-              </div>
-            
-          </div>
-      </Modal>
+                title="Add Currency"
+                open={isModalOpen}
+                onOk={handleOk}
+                width={764}
+                onCancel={handleCancel}
+                style={{ top: 20 }}
+                footer={[
+                  <Button
+                    key="submit"
+                    type="primary"
+                    onClick={handleSubmit}
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      backgroundColor: "#5C5AD0",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Submit
+                  </Button>,
+                  <Button
+                    key="cancel"
+                    onClick={handleCancel}
+                    style={{
+                      width: "80px",
+                      height: "38px",
+                      fontSize: "12px",
+                      color: "#8E9CAA",
+                      borderColor: "#8E9CAA",
+                    }}
+                  >
+                    Cancel
+                  </Button>,
+                ]}
+                closeIcon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                }
+              >
+                <div className="addPaymentTermModal">
+                  <hr />
+                  <div className="addPaymentTermModalInputContainer">
+                    <div className="addPaymentTermModalInput">
+                      <p>Currency Code</p>
+                      <input type="text" placeholder="INR"/>
+                      </div>
+                      <div className="addPaymentTermModalInput">
+                      <p>Currency Symbol</p>
+                      <input type="text" placeholder="₹"/>
+                      </div>
+                      <div className="addPaymentTermModalInput">
+                      <p>Currency Name</p>
+                      <input type="text" placeholder="Indian Rupee"/>
+                      </div>
+                  </div>
+                </div>
+              </Modal>
       
         <Table
             ref={componentRef}

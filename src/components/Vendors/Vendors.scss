@@ -23,7 +23,12 @@
     border-radius: 8px;
     
 }
+.dropdown_title_heading{
+    font-size: 13px;
+    color:#566A7F;
+    font-weight: 600;
 
+}
 
 
 .vendorbutton_bottom
@@ -43,6 +48,7 @@
      box-shadow:  0px 2px 6px 0px #4359711f;
      background-color: #ffff;
      border-radius: 8px;
+     width: 1100px;
 
 }
 .vendorform::-webkit-scrollbar{
@@ -127,11 +133,15 @@
 }
 .vendordropdown:hover
 {
-    border:1px solid #5C5AD0 !important;
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
 }
 .vendorstreet:hover
 {
-    border:1px solid #5C5AD0 !important;
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
 }
 .vendorstreet
 {
@@ -311,6 +321,10 @@ margin-left: -9px;
             display: none;
            }
         }
+    }
+
+    .dropdown_desc_text{
+        font-weight: 500;
     }
 
 
