@@ -94,9 +94,7 @@ function Contacts() {
 
                         <img src={logo} className="customerimg"/>
                         <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
                     </div>
-
             </div>  */}
     </div> 
     </div>

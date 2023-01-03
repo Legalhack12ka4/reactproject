@@ -192,7 +192,7 @@ function Vendors(props) {
 
   const ownershipwithemail = [
     {
-      value: "Parth4",
+      value: "Parth1",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -224,7 +224,6 @@ function Vendors(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -239,7 +238,7 @@ function Vendors(props) {
     },
 
     {
-      value: "Parth4",
+      value: "Parth2",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -271,7 +270,51 @@ function Vendors(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+          </div>
+          
+        </div>
+      ),
+    },
+    {
+      value: "Parth3",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -317,7 +360,6 @@ function Vendors(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -331,7 +373,7 @@ function Vendors(props) {
       ),
     },
     {
-      value: "Parth4",
+      value: "Parth5",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -363,53 +405,6 @@ function Vendors(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
-          </div>
-          </div>
-          
-        </div>
-      ),
-    },
-    {
-      value: "Parth4",
-      label: (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div>
-              {" "}
-              <img
-                src="/images/searchbar_icons/User-Avtar.svg"
-                alt=""
-                width="35px"
-                height="35px"
-              />
-            </div>
-            <div
-              style={{
-                marginLeft: "5px",
-                width: "139px",
-                height: "",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <p className="name">Parth Goswami</p>
-              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
-            </div>
-            <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -469,7 +464,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                   name="gstin"
                   value={values.gstin}
@@ -485,7 +480,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -501,7 +496,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -539,7 +534,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -552,7 +547,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="email"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -564,7 +559,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="number"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -577,7 +572,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -589,7 +584,7 @@ function Vendors(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width:"82%" }}
                   placeholder="Placeholder"
                 />
               </div>

@@ -237,7 +237,6 @@ function AddNewCustomer(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -284,7 +283,6 @@ function AddNewCustomer(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -330,7 +328,6 @@ function AddNewCustomer(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -376,7 +373,6 @@ function AddNewCustomer(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -422,7 +418,6 @@ function AddNewCustomer(props) {
               borderRadius: "50%",
               width: "20px",
               height: "20px",
-              backgroundColor: "#C2CAD2",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -571,7 +566,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                   name="gstin"
                   value={values.gstin}
@@ -587,7 +582,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -603,7 +598,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -641,7 +636,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -654,7 +649,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="email"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -666,7 +661,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="number"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -680,7 +675,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
@@ -693,7 +688,7 @@ function AddNewCustomer(props) {
                 <img src={logo} className="customerimg" />
                 <input
                   type="text"
-                  style={{ border: "none", outline: "none" }}
+                  style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
                 />
               </div>
