@@ -74,16 +74,19 @@
     border-color: #D9DEE3;
 }
 
+.accountforminput:hover
+{
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
+}
 
 .accountformbutton_bottom
 {
     display: flex;
-   // float: right;
-   // margin-right: 32px;
-   // margin-top: 109px;
-    gap: 24px;
-   // border-color: #D9DEE3;
-   margin-top: 40px;
+    gap: 12px;
+   border-color: #D9DEE3;  
+   margin-top: 30px;
 }
 .accountformcancelbutton
 {
@@ -101,7 +104,7 @@
 .accountformsavebutton
 {
     border: none;
-    width: 81px;
+    width: 67px;
     height: 38px;
     border-radius: 6px;
     color: white;
@@ -110,5 +113,12 @@
     cursor: pointer;
    // margin-right: 24px;
    // font-weight: bold;
+}
+
+.inputaccount
+{
+    border:none;
+    outline:none;
+    width:82%
 }
 
