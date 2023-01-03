@@ -9,7 +9,7 @@ import pan from "../../assets/Images/FormIcon/Pan Card.svg";
 import pin from "../../assets/Images/FormIcon/Pincode.svg";
 import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
-
+import { Tooltip } from "antd";
 
 const initialFieldValues = {
   lgnm: "",
@@ -23,7 +23,6 @@ function AddNewCustomer(props) {
   console.log(values);
   let gstinparams = values.gstin;
 
-  
   const getData = () => {
     fetch(
       `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
@@ -85,8 +84,12 @@ function AddNewCustomer(props) {
       value: "1",
       label: (
         <div>
-          <p className="dropdown_title_heading">Registered Business - Regular</p>
-          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>Business that is registered under GST</p>
+          <p className="dropdown_title_heading">
+            Registered Business - Regular
+          </p>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
+            Business that is registered under GST
+          </p>
         </div>
       ),
     },
@@ -94,7 +97,9 @@ function AddNewCustomer(props) {
       value: "2",
       label: (
         <div>
-          <p className="dropdown_title_heading">Registered Business - Composition</p>
+          <p className="dropdown_title_heading">
+            Registered Business - Composition
+          </p>
           <p style={{ fontSize: "12px" }}>
             Business that is registered under the Composition
             <br /> Scheme in GST
@@ -195,7 +200,6 @@ function AddNewCustomer(props) {
     },
   ];
 
-
   const gsttraetmentOptional = [
     {
       value: "1",
@@ -239,21 +243,20 @@ function AddNewCustomer(props) {
               {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
             </div>
             <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
           </div>
-          </div>
-          
         </div>
       ),
     },
@@ -285,21 +288,20 @@ function AddNewCustomer(props) {
               {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
             </div>
             <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
           </div>
-          </div>
-          
         </div>
       ),
     },
@@ -330,21 +332,20 @@ function AddNewCustomer(props) {
               {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
             </div>
             <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
           </div>
-          </div>
-          
         </div>
       ),
     },
@@ -375,21 +376,20 @@ function AddNewCustomer(props) {
               {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
             </div>
             <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
           </div>
-          </div>
-          
         </div>
       ),
     },
@@ -420,21 +420,20 @@ function AddNewCustomer(props) {
               {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
             </div>
             <div
-            className="date"
-            style={{
-              marginLeft: "97px",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            19
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
           </div>
-          </div>
-          
         </div>
       ),
     },
@@ -550,7 +549,6 @@ function AddNewCustomer(props) {
       label: "Kushal Nahata",
     },
   ];
-  
 
   return (
     <div className="addNewCustomerContainer">
@@ -562,13 +560,18 @@ function AddNewCustomer(props) {
           {/* <h1 className="box_heading1">New Customer</h1> */}
           <div className="container_details1">
             <div className="form-left">
-              <label className="label">GST Treatment</label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label">GST Treatment</label>{" "}
+              </Tooltip>
               <br />
               <SearchDropdown width={331} options={gsttreatment} />
-
-              <label className="label" style={{ marginTop: "5px" }}>
-                GST No.
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  GST No.
+                </label>
+              </Tooltip>
               <br />
               <div className="customerdropdown" style={{ marginTop: "5px" }}>
                 <img src={gstno} className="customerimg" />
@@ -582,9 +585,13 @@ function AddNewCustomer(props) {
                   onChange={onChange}
                 />
               </div>
-              <label className="label" style={{ marginTop: "5px" }}>
-                Business Name
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Business Name{" "}
+                </label>{" "}
+              </Tooltip>
+
               <br />
               <div className="customerdropdown" style={{ marginTop: "5px" }}>
                 <img src={business} className="customerimg" />
@@ -594,13 +601,16 @@ function AddNewCustomer(props) {
                   placeholder="Placeholder"
                 />
               </div>
-              <label className="label">Type Category</label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                <label className="label">Type Category</label>
+              </Tooltip>
               <br />
               <SearchDropdown options={typeCategory} width={330} />
-
-              <label className="label" style={{ marginTop: "5px" }}>
-                Pancard
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Pancard
+                </label>
+              </Tooltip>
               <br />
               <div className="customerdropdown">
                 <img src={pan} className="customerimg" />
@@ -612,14 +622,20 @@ function AddNewCustomer(props) {
               </div>
               <div style={{ display: "flex", gap: "30px" }}>
                 <div style={{ width: "50%" }}>
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Currency
-                  </label>
+                  <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label" style={{ marginTop: "5px" }}>
+                      Currency
+                    </label>
+                  </Tooltip>
                   <br />
                   <SearchDropdown width={150} />
                 </div>
                 <div style={{ width: "50%" }}>
-                  <label className="label">Payment Terms</label>
+                  <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Payment Terms</label>
+                  </Tooltip>
                   <br />
                   <SearchDropdown width={150} />
                 </div>
@@ -636,9 +652,12 @@ function AddNewCustomer(props) {
             </div>
 
             <div className="form-center">
-              <label className="label" style={{ marginTop: "5px" }}>
-                Credit Limit
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Credit Limit
+                </label>
+              </Tooltip>
               <br />
               <div className="customerdropdown">
                 <img src={creditcard} className="customerimg" />
@@ -649,9 +668,12 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                Email
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Email
+                </label>
+              </Tooltip>
               <br />
               <div className="customerdropdown">
                 <img src={email} className="customerimg" />
@@ -661,9 +683,12 @@ function AddNewCustomer(props) {
                   placeholder="Placeholder"
                 />
               </div>
-              <label className="label" style={{ marginTop: "5px" }}>
-                Pincode
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Pincode
+                </label>
+              </Tooltip>
               <br />
               <div className="customerdropdown">
                 <img src={pin} className="customerimg" />
@@ -674,10 +699,12 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              
-              <label className="label" style={{ marginTop: "5px" }}>
-                Street 1
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Street 1
+                </label>
+              </Tooltip>
               <br />
               <div className="customerstreet">
                 <img src={street} className="customerimg" />
@@ -688,9 +715,12 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                Street 2
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  Street 2
+                </label>
+              </Tooltip>
               <br />
               <div className="customerstreet">
                 <img src={street} className="customerimg" />
@@ -701,44 +731,52 @@ function AddNewCustomer(props) {
                 />
               </div>
 
-              <label className="label" style={{ marginTop: "5px" }}>
-                City
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  City
+                </label>
+              </Tooltip>
               <br />
-             
-               <SearchDropdown width={331} options={gsttraetmentOptional} isDisabled={true} />
+
+              <SearchDropdown
+                width={331}
+                options={gsttraetmentOptional}
+                isDisabled={true}
+              />
             </div>
 
             <div className="form-right">
-            
-
-              <label className="label" style={{ marginTop: "5px" }}>
-                State
-              </label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label" style={{ marginTop: "5px" }}>
+                  State
+                </label>
+              </Tooltip>
               <br />
-              <SearchDropdown width={331} options={gsttraetmentOptional}   isDisabled={true}/>
-              {/* <div
-                className="customerdropdown"
-                style={{ backgroundColor: "#f2efeb" }}
-              >
-                <img src={logo} className="customerimg" />
-                <input
-                  type="text"
-                  style={{ border: "none", outline: "none", width: "100%" }}
-                  placeholder="Placeholder"
-                  disabled
-                />
-              </div> */}
+              <SearchDropdown
+                width={331}
+                options={gsttraetmentOptional}
+                isDisabled={true}
+              />
 
-              <label className="label">Default Place of Supply</label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                <label className="label">Default Place of Supply</label>
+              </Tooltip>
               <br />
 
               <SearchDropdown width={331} options={gsttraetmentOptional} />
-              <label className="label">Contacts</label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label">Contacts</label>
+              </Tooltip>
               <br />
 
               <SearchDropdown width={331} options={contacts} />
-              <label className="label">Ownership</label>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="label">Ownership</label>
+              </Tooltip>
               <br />
 
               <SearchDropdown width={331} options={ownershipwithemail} />
