@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
-import logo from "./images/Email.svg";
+import creditcard from "../../assets/Images/FormIcon/Credit Limit.svg";
+import email from "../../assets/Images/FormIcon/Email.svg";
+import gstno from "../../assets/Images/FormIcon/Gst no.svg";
+import pan from "../../assets/Images/FormIcon/Pan Card.svg";
+import pin from "../../assets/Images/FormIcon/Pincode.svg";
+import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
+import business from "../../assets/Images/FormIcon/Business.svg";
+
 
 const initialFieldValues = {
   lgnm: "",
@@ -16,6 +23,7 @@ function AddNewCustomer(props) {
   console.log(values);
   let gstinparams = values.gstin;
 
+  
   const getData = () => {
     fetch(
       `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
@@ -556,14 +564,14 @@ function AddNewCustomer(props) {
             <div className="form-left">
               <label className="label">GST Treatment</label>
               <br />
-              <SearchDropdown width={330} options={gsttreatment} />
+              <SearchDropdown width={331} options={gsttreatment} />
 
               <label className="label" style={{ marginTop: "5px" }}>
                 GST No.
               </label>
               <br />
               <div className="customerdropdown" style={{ marginTop: "5px" }}>
-                <img src={logo} className="customerimg" />
+                <img src={gstno} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -579,7 +587,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerdropdown" style={{ marginTop: "5px" }}>
-                <img src={logo} className="customerimg" />
+                <img src={business} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -595,7 +603,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerdropdown">
-                <img src={logo} className="customerimg" />
+                <img src={pan} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -633,7 +641,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerdropdown">
-                <img src={logo} className="customerimg" />
+                <img src={creditcard} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -646,7 +654,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerdropdown">
-                <img src={logo} className="customerimg" />
+                <img src={email} className="customerimg" />
                 <input
                   type="email"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -658,7 +666,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerdropdown">
-                <img src={logo} className="customerimg" />
+                <img src={pin} className="customerimg" />
                 <input
                   type="number"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -672,7 +680,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerstreet">
-                <img src={logo} className="customerimg" />
+                <img src={street} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -685,7 +693,7 @@ function AddNewCustomer(props) {
               </label>
               <br />
               <div className="customerstreet">
-                <img src={logo} className="customerimg" />
+                <img src={street} className="customerimg" />
                 <input
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
@@ -697,20 +705,8 @@ function AddNewCustomer(props) {
                 City
               </label>
               <br />
-              {/* <div
-                className="customerdropdown"
-                style={{ backgroundColor: "#f2efeb" }}
-              >
-                <img src={logo} className="customerimg" />
-                <input
-                  className="citydis"
-                  type="text"
-                  style={{ border: "none", outline: "none", width: "100%" }}
-                  placeholder="Placeholder"
-                  disabled
-                />
-              </div> */}
-               <SearchDropdown width={330} options={gsttraetmentOptional} />
+             
+               <SearchDropdown width={331} options={gsttraetmentOptional} isDisabled={true} />
             </div>
 
             <div className="form-right">
@@ -720,7 +716,7 @@ function AddNewCustomer(props) {
                 State
               </label>
               <br />
-              <SearchDropdown width={330} options={gsttraetmentOptional}/>
+              <SearchDropdown width={331} options={gsttraetmentOptional}   isDisabled={true}/>
               {/* <div
                 className="customerdropdown"
                 style={{ backgroundColor: "#f2efeb" }}
@@ -737,15 +733,15 @@ function AddNewCustomer(props) {
               <label className="label">Default Place of Supply</label>
               <br />
 
-              <SearchDropdown width={330} options={gsttraetmentOptional} />
+              <SearchDropdown width={331} options={gsttraetmentOptional} />
               <label className="label">Contacts</label>
               <br />
 
-              <SearchDropdown width={330} options={contacts} />
+              <SearchDropdown width={331} options={contacts} />
               <label className="label">Ownership</label>
               <br />
 
-              <SearchDropdown width={330} options={ownershipwithemail} />
+              <SearchDropdown width={331} options={ownershipwithemail} />
             </div>
           </div>
         </div>

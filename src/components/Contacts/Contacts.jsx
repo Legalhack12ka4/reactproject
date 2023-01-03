@@ -1,10 +1,10 @@
 import React from 'react'
-import Page_heading from '../Page_Heading/Page_heading';
-import logo from "../Customers/images/Email.svg";
 import "./Contacts.scss";
 import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
-//import DropdownSimple from './DropdownSimple/DropdownSimple';
-// import Select from "react-select";
+import dob from "../../assets/Images/FormIcon/DOB.svg";
+import name from "../../assets/Images/FormIcon/Name Contact.svg";
+import Phone from "../../assets/Images/FormIcon/Phone Contact.svg";
+import email from "../../assets/Images/FormIcon/Email Contact.svg";
 
 function Contacts() {
 
@@ -41,42 +41,42 @@ function Contacts() {
     <div className='form-left'>
                     <label className='contactlabel' style={{marginTop:"5px"}}>Name</label><br/>
                     <div className='contactinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={name} className="customerimg"/>
+                        <input type="text" className='inputcontact' placeholder="Placeholder" /> 
                     </div>
                     <label className='contactlabel' style={{marginTop:"5px"}}>Mobile No.</label><br/>
                     <div className='contactinput' style={{marginTop:"5px"}}>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={Phone} className="customerimg"/>
+                        <input type="text" className='inputcontact' placeholder="Placeholder" /> 
 
                     </div>
                     <label className='contactlabel' style={{marginTop:"5px"}}>Email</label><br/>
                     <div className='contactinput' style={{marginTop:"5px"}}>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={email} className="customerimg"/>
+                        <input type="text" className='inputcontact' placeholder="Placeholder" /> 
 
                     </div>
                     <label className='contactlabel' style={{marginTop:"5px"}}>Date of Birth</label><br/>
                     <div className='contactinput' style={{marginTop:"5px"}}>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={dob} className="customerimg"/>
+                        <input type="text" className='inputcontact' placeholder="Placeholder" /> 
 
                     </div>
                 
                     <label className='contactlabel' style={{marginTop:"15px"}}>Position</label><br/>
                     {/* <DropdownSimple/> */}
-              <SearchDropdown width={330} options={contacts} />
+              <SearchDropdown width={331} options={contacts} />
 
                     <label className='contactlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
                     {/* <DropdownSimple/> */}
-              <SearchDropdown width={330} options={contacts} />
+              <SearchDropdown width={331} options={contacts} />
 
                     <div className="contactbutton_bottom">
                 <button type="button" className="contactsavebutton">
-                  Save
+                  Submit
                 </button>
                 <button type="button" className="contactcancelbutton"  onClick={handleclose}>
                 Cancel
@@ -85,17 +85,6 @@ function Contacts() {
                   
         </div>
 
-         {/* <div className="contactform-right">
-        <label className='leadlabel'>Lead Source</label><br/>
-                    <DropdownSimple/>
-
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Date of Birth</label><br/>
-                    <div className='leadinput' style={{marginTop:"8px"}}>
-
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-                    </div>
-            </div>  */}
     </div> 
     </div>
     </div>

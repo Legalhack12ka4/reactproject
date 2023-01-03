@@ -2,6 +2,7 @@ import { React, useState} from "react";
 import "./Page_heading.scss";
 
 import {ImCross} from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const Page_heading = ({ parent, child }) => {
 
@@ -11,6 +12,7 @@ const Page_heading = ({ parent, child }) => {
     const searchbar = document.getElementById("searchbarInput");
     searchbar.classList.toggle("searchbar-active");
   };
+
 
 
   return (

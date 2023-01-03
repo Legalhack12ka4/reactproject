@@ -40,38 +40,45 @@ function AccountForm() {
      <div className='accountform_details' > 
     <div className='accountform-left'>
                     <label className='accountformlabel' style={{marginTop:"15px"}}>Account Type</label><br/>
-                    <SearchDropdown width={330} options={accounts} />
-                     {/* <DropdownSimple/>  */}
-
-
+                    <SearchDropdown width={331} options={accounts} />
+              
                     <label className='accountformlabel' style={{marginTop:"5px"}}>Account Name</label><br/>
                     <div className='accountforminput' style={{marginTop:"5px"}}>
-
                         <img src={accountname} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
+                        <input type="text" className='inputaccount' placeholder="Placeholder" /> 
                     </div>
+
                     <label className='accountformlabel' style={{marginTop:"5px"}}>Account Code</label><br/>
                     <div className='accountforminput' style={{marginTop:"5px"}}>
                         <img src={accountcode} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <input type="text" className='inputaccount' placeholder="Placeholder" /> 
                     </div>
 
                     <label className='accountformlabel' style={{marginTop:"15px"}}>Module Type</label><br/>
-                    <SearchDropdown width={330} options={accounts} />
+                    <SearchDropdown width={331} options={accounts} />
                     {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Item Type</label><br/>
-                  <SearchDropdown width={330} options={accounts} />
+                  <SearchDropdown width={331} options={accounts} />
                   {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L1</label><br/>
-                  <SearchDropdown width={330} options={accounts} />
+                  <SearchDropdown width={331} options={accounts} />
                   {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L2</label><br/>
-                  <SearchDropdown width={330} options={accounts} />
+                  <SearchDropdown width={331} options={accounts} />
                   {/* <DropdownSimple/>  */}
                   <label className='accountformlabel' style={{marginTop:"15px"}}>Reporting L3</label><br/>
-                  <SearchDropdown width={330} options={accounts} />
+                  <SearchDropdown width={331} options={accounts} />
                   {/* <DropdownSimple/>  */}
+
+                  {/* <div className="customerbutton_bottom">
+                <button type="button" className="customersavebutton">
+                  Submit
+                </button>
+                <button type="button" className="customercancelbutton">
+                  Cancel
+                </button>
+              </div>
+            </div> */}
 
                     <div className="accountformbutton_bottom">
                 <button type="button" className="accountformsavebutton">

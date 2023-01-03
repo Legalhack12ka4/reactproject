@@ -14,6 +14,7 @@ function SearchDropdown(props) {
   return (
     <div className='srchdrp'>
   <Select
+   disabled  = {props.isDisabled}
    showSearch
    placeholder="Select Value"
    optionFilterProp="children"

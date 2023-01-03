@@ -20,7 +20,6 @@ import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
 import { event } from "jquery";
 
-
 const FilterAndSearchBar = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);

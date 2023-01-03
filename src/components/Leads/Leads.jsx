@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import "./Leads.scss";
-import logo from "../Customers/images/Email.svg";
+import company from "../../assets/Images/FormIcon/Company Name.svg";
+import email from "../../assets/Images/FormIcon/Email Lead.svg";
+import Phone from "../../assets/Images/FormIcon/Phone.svg";
+import Name from "../../assets/Images/FormIcon/Name.svg";
 import SearchDropdown from '../AllDropdowns/SearchDropdown/SearchDropdown';
 import SearchDropdownAddButton from '../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton';
 // import { classList } from '@syncfusion/ej2/base';
@@ -62,27 +65,27 @@ const contacts = [
       
                     <label className='leadlabel' style={{marginTop:"5px"}}>Name</label><br/>
                     <div className='leadinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={Name} className="customerimg"/>
+                        <input type="text" className='inputlead' placeholder="Placeholder" /> 
                     </div>
                     <label className='leadlabel' style={{marginTop:"5px"}}>Mobile No.</label><br/>
                     <div className='leadinput' style={{marginTop:"5px"}}>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={Phone} className="customerimg"/>
+                        <input type="text" className='inputlead' placeholder="Placeholder" /> 
 
                     </div>
                     <label className='leadlabel' style={{marginTop:"5px"}}>Email</label><br/>
                     <div className='leadinput' style={{marginTop:"5px"}}>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={email} className="customerimg"/>
+                        <input type="text" className='inputlead' placeholder="Placeholder" /> 
 
                     </div>
                     <label className='leadlabel' style={{marginTop:"5px"}}>Company Name</label><br/>
                     <div className='leadinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
+                        <img src={company} className="customerimg"/>
+                        <input type="text" className='inputlead' placeholder="Placeholder" /> 
                     </div>
 
                     <label className='leadlabel' >Lead Source Type</label><br/>
@@ -97,38 +100,19 @@ const contacts = [
                     </label>
                     </div> 
                     <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "contacts" ? "Contacts" : "Others"}</label><br/>
-                    {checked =="contacts" ?  <SearchDropdown width={330} options={contacts}/> :<SearchDropdownAddButton/> }
+                    {checked =="contacts" ?  <SearchDropdown width={331} options={contacts}/> :<SearchDropdownAddButton/> }
                     <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                    <SearchDropdown width={330} options={contacts} />
-                  {/* <DropdownAddButton/>  */}
+                    <SearchDropdown width={331} options={contacts} />
 
                     <div className="leadbutton_bottom">
                 <button type="button" className="leadsavebutton">
-                  Save
+                  Submit
                 </button>
                 <button type="button" className="leadcancelbutton"   onClick={handleclose}>
                 Cancel
                 </button>
               </div>
         </div>
-
-        {/* <div className="leadform-right">
-        <label className='leadlabel' >Lead Source Type</label><br/>
-                    <div className='radio-group'>
-                    <label className='radio'>
-                        <input type="radio" value="Contacts" name="lead"   onClick={e=>setChecked("Contacts")} checked={checked == "Contacts" ? "true" : "false"}/>Contacts
-                         <span></span> 
-                    </label>
-                    <label className='radio'>
-                        <input type="radio" value="Others" name="lead" onClick={e=>setChecked("Others")}  checked={checked == "Others" ? "true" : "false"}/>Others
-                        <span></span>
-                    </label>
-                    </div> 
-                    <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "Contacts" ? "Contacts" : "Others"}</label><br/>
-                    {checked =="Contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> }
-                    <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                  <DropdownAddButton/> 
-            </div> */}
     </div> 
     </div>
     </div>
