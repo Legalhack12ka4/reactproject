@@ -6,7 +6,7 @@ import { Switch } from "antd";
 import { Modal, Button } from "antd";
 
 
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
+// import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import "./AddInventoryItem.scss";
 
 const AddInventoryItem = () => {
@@ -72,15 +72,15 @@ const AddInventoryItem = () => {
     setData(data)
   };
 
-  const webcamRef = useRef(null);
+  // const webcamRef = useRef(null);
 
-  const stop = () => {
-    let stream = webcamRef.current.video.srcObject;
-    const tracks = stream.getTracks();
+  // const stop = () => {
+  //   let stream = webcamRef.current.video.srcObject;
+  //   const tracks = stream.getTracks();
 
-    tracks.forEach(track => track.stop());
-    webcamRef.current.video.srcObject = null;
-  };
+  //   tracks.forEach(track => track.stop());
+  //   webcamRef.current.video.srcObject = null;
+  // };
 
 
   const showScannerModal = () => {
@@ -102,7 +102,7 @@ const AddInventoryItem = () => {
   const [data,setData]=React.useState("Scan a barcode")
 
   
-    console.log(data)
+    // console.log(data)
   return (
     <div className="add-inventory">
       <Page_heading parent={"Items or Service"} child={"Add Inventory Item"} />
@@ -344,7 +344,7 @@ const AddInventoryItem = () => {
 
                   <div className="scaner_container">
                     <div className="scanner">
-                        <BarcodeScannerComponent
+                        {/* <BarcodeScannerComponent
                       ref={webcamRef}
                       width={180}
                       height={180}
@@ -353,7 +353,7 @@ const AddInventoryItem = () => {
                         // else setData("not found")
 
                       }}
-                    />
+                    /> */}
                     </div>
 
                     <div className="barcode_prev">

@@ -23,6 +23,14 @@
     border-radius: 8px;
     
 }
+.ant-select-selection-item{
+    .dropdown_title_heading{
+        font-size: 12px;
+        color:#697A8D !important;
+        font-weight: 400;
+    
+    }
+}
 .dropdown_title_heading{
     font-size: 13px;
     color:#566A7F;
@@ -286,7 +294,8 @@ margin-left: -9px;
 .date
 {
     font-size:11px;
-    color:#8E9CAA;
+    background-color: rgba(92, 90, 209, 0.2);
+    color: #5C5AD0;
     //margin-bottom:6px;
    
 }
@@ -318,7 +327,7 @@ margin-left: -9px;
             display: none;
            }
            .date{
-            display: none;
+            display: none !important;
            }
         }
     }
