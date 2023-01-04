@@ -1,13 +1,34 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Select } from 'antd';
 import "./SearchDropdown.scss";
 
 function SearchDropdown(props) {
+ const [drp, setDrp] = useState("");
 
-    const onChange = (value) => {
-        console.log(`selected ${value}`);
+//  const onChange = (e) => {
+//   const { value, name } = e.target;
+//   setDrp({
+//     ...drp,
+//     [name]: value,
+//   });
+//   console.log(value);
+//   console.log(name);
+// };
+// console.log(drp);
+
+
+     const onChange = (value) => {
+    //  console.log(e.target.value)
+      setDrp({
+        ...drp,
+         value,
+      });
+      console.log(value);
+       console.log(`selected ${value}`);
       };
+      console.log(drp)
       const onSearch = (value) => {
+        
         console.log('search:', value);
       };
 

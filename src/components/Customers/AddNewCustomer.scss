@@ -126,6 +126,7 @@
     border-color: #D9DEE3;
 }
 
+
 .customerdropdown:hover
 {
     // border:1px solid #5C5AD0 !important;
@@ -142,6 +143,26 @@
     display: flex;
     margin-bottom: 17px;
     border-color: #D9DEE3;
+}
+
+.validationinputborder
+{border:.5px solid;
+    height: 37px;
+    width: 330px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: flex;
+    margin-bottom: 17px;
+    border: 1px solid #DA2F58 !important ;
+  
+}
+
+.validationerror
+{
+    color:#DA2F58;
+    font-size: 12px;
+    margin-top: -12px;
+    margin-bottom: 10px;
 }
 .customerstreet:hover
 {
