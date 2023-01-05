@@ -12,7 +12,7 @@ import business from "../../assets/Images/FormIcon/Business.svg";
 import "../AllDropdowns/SearchDropdown/SearchDropdown.scss";
 import { Tooltip } from "antd";
 import  {  Button, Checkbox, Form, Input  } from "antd";
-import Icon from "./Icon";
+
 
 const initialFieldValues = {
   gsttreat:"",
@@ -38,226 +38,6 @@ function AddNewCustomer(props) {
   const [values, setValues] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
-  ///const [isValid, setIsValid] = useState(true);
-  // const [emailvaild, setEmailvaild] = useState(true);
-  const [gstTreatErrvalid, setGstTreatErrvalid] =useState(true);
-  const [gstinErrvalid, setGstinErrvalid] =useState({});
-  const [businessNameErrvalid, setBusinessNameErrvalid] =useState(true);
-  const [categoryErrvalid, setCaegoryErrvalid] =useState(true);
-  const [pancardErrvalid, setPancardErrvalid] =useState(true);
-  const [currencyErrvalid, setCurrencyErrvalid] =useState(true);
-  const [paymentErrvalid, setPaymentErrvalid] =useState(true);
-  const [creditErrvalid, setCreditErrvalid] =useState(true);
-  const [emailErrvalid, setEmailErrvalid] =useState(true);
-  const [pincodeErrvalid, setPincodeErrvalid] =useState(true);
-  const [street1Errvalid, setStreet1Errvalid] =useState(true);
-  const [street2Errvalid, setStreet2Errvalid] =useState(true);
- // const [cityErr, setCityErr] =useState({});
- // const [stateErr, setStateErr] =useState({});
-  const [posErrvalid, setPosErrvalid] =useState({});
-  const [contactErrvalid, setContactErrvalid] =useState(true);
-  const [ownershipErrvalid, setOwnershipErrvalid] =useState(true);
-
-
-
-
-
-  const [gstTreatErr, setGstTreatErr] =useState({});
-  const [gstinErr, setGstinErr] =useState({});
-  const [businessNameErr, setBusinessNameErr] =useState({});
-  const [categoryErr, setCaegoryErr] =useState({});
-  const [pancardErr, setPancardErr] =useState({});
-  const [currencyErr, setCurrencyErr] =useState({});
-  const [paymentErr, setPaymentErr] =useState({});
-  const [creditErr, setCreditErr] =useState({});
-  const [emailErr, setEmailErr] =useState({});
-  const [pincodeErr, setPincodeErr] =useState({});
-  const [street1Err, setStreet1Err] =useState({});
-  const [street2Err, setStreet2Err] =useState({});
- // const [cityErr, setCityErr] =useState({});
- // const [stateErr, setStateErr] =useState({});
-  const [posErr, setPosErr] =useState({});
-  const [contactErr, setContactErr] =useState({});
-  const [ownershipErr, setOwnershipErr] =useState({});
-
-  
-  const  onSubmit = (e) => {
-
-      e.preventDefault();
-      const isValid= formValidation();
-      }
-    const formValidation = () =>
-    {
-        const gstTreatErr={};
-        const gstinErr={};
-        const businessNameErr = {};
-        const categoryErr={};
-        const pancardErr={};
-        const currencyErr={};
-        const paymentErr={};
-        const creditErr={};
-        const emailErr={};
-        const pincodeErr={};
-        const street1Err={};
-        const street2Err={};   
-       // const cityErr={};
-       // const stateErr={};
-        const posErr={};
-        const contactErr={};
-        const ownershipErr={};
-
-        let isValid = true;
-        if(values.gsttreat.trim().length <1)
-        {
-           gstTreatErr.gstTraetment = "Please select gst treatment";
-           setGstTreatErrvalid(false);
-        
-           //setInputvalid(false);
-        }
-        if(values.gstin.trim().length <15)
-        {
-           gstinErr.gstNo = "Please enter valid gst no";
-           setGstinErrvalid(false);
-          
-        }
-        if(values.gstin.trim().length >15)
-        {
-           gstinErr.gstNo = "Gst no is not more than 15 inputs";
-           setGstinErrvalid(false);
-        }
-       if(values.businessname.trim().length<4)
-       {
-        businessNameErr.bussinessNameShort = "Business Name is required";
-        setBusinessNameErrvalid(false);
-         
-       }
-      //  if(values.gstin.trim().length <1)
-      //  {
-      //     gstTreatErr.gstTraetment = "Please select gst treatment";
-      //     setInputvalid(false);
-      //  }
-       if(values.category.trim().length <1)
-       {
-          categoryErr.category = "Please select category";
-          setCaegoryErrvalid(false);
-         
-
-       }
-       if(values.pancard.trim().length <10)
-       {
-          pancardErr.pancard = "Pancard is not valid";
-         // values.pancard. = "2px solid red";
-         setPancardErrvalid(false);
-        
-         // isValid=false;
-       }
-       if(values.pancard.trim().length >10)
-       {
-          pancardErr.pancard = "Pancard is not more than 10 inputs";
-          setPancardErrvalid(false);
-       }
-       if(values.currency.trim().length <1)
-       {
-          currencyErr.currency = "Please select currency";
-          setCurrencyErrvalid(false);
-        
-       }
-       if(values.payment.trim().length <1)
-       {
-          paymentErr.paymnet = "Please select payment";
-          setPaymentErrvalid(false);
-        
-       }
-       if(values.credit.trim().length <1)
-       {
-          creditErr.credit = "Please enter credit limit";
-          setCreditErrvalid(false);
-       
-       }
-       if(values.email.trim().length <1)
-       {
-          emailErr.email = "Please enter valid email";
-          setEmailErrvalid(false);
-         
-       }
-       if(values.pincode.trim().length <6)
-       {
-          pincodeErr.pincode = "Please enter valid pincode";
-          setPincodeErrvalid(false);
-          
-       }
-       if(values.pincode.trim().length >6)
-       {
-          pincodeErr.pincode = "Please should not more than 6 digits";
-          setPincodeErrvalid(false);
-       }
-       if(values.street1.trim().length <1)
-       {
-          street1Err.street1 = "Please  enter address 1";
-          setStreet1Errvalid(false);
-        
-       }
-       if(values.street2.trim().length <1)
-       {
-          street2Err.street2 = "Please enter address 2";
-          setStreet2Errvalid(false);
-         
-       }
-      //  if(values.city.trim().length <1)
-      //  {
-      //     cityErr.city = "Please select city";
-      //     isValid=false;
-      //  }
-      //  if(values.state.trim().length <1)
-      //  {
-      //     stateErr.state = "Please select state";
-      //     isValid=false;
-      //  }
-       if(values.pos.trim().length <1)
-       {
-          posErr.pos = "Please select pos";
-          setPosErrvalid(false);
-        
-       }
-       if(values.contact.trim().length <1)
-       {
-          contactErr.contact = "Please select contact";
-          setContactErrvalid(false);
-       
-       }
-       if(values.ownership.trim().length <1)
-       {
-          ownershipErr.ownership = "Please select ownership";
-          setOwnershipErrvalid(false);
-       }
-     
-     
-      setGstTreatErr(gstTreatErr);
-      setGstinErr(gstinErr);
-      setBusinessNameErr(businessNameErr);
-      setCaegoryErr(categoryErr);
-      setPancardErr(pancardErr);
-      setCurrencyErr(currencyErr);
-      setPaymentErr(paymentErr);
-      setCreditErr(creditErr);
-      setEmailErr(emailErr);
-      setPincodeErr(pincodeErr);
-      setStreet1Err(street1Err);
-      setStreet2Err(street2Err);
-      //setCityErr(cityErr);
-    //  setStateErr(stateErr);
-      setPosErr(posErr);
-      setContactErr(contactErr);
-      setOwnershipErr(ownershipErr);
-
-
-
-
-
-
-       return isValid;
-    
-    }
 
   const [gst, setGst] = useState(false);
   console.log(values);
@@ -297,24 +77,7 @@ function AddNewCustomer(props) {
   const onChange = (e) => {
     e.preventDefault();
     const { value, name } = e.target;
-    setGstTreatErrvalid(true);
-    setGstinErrvalid(true);
-    setBusinessNameErrvalid(true);
-    setCaegoryErrvalid(true);
-    setPancardErrvalid(true);
-    setCurrencyErrvalid(true);
-    setPaymentErrvalid(true);
-    setCreditErrvalid(true);
-    setEmailErrvalid(true);
-    setPincodeErrvalid(true);
-    setStreet1Errvalid(true);
-    setStreet2Errvalid(true);
-    setPosErrvalid(true);
-    setContactErrvalid(true);
-    setOwnershipErrvalid(true);
   
-    //setInputvalid(true);
-  //  console.log(emailvaild);
     setValues({
       ...values,
       [name]: value,
@@ -733,7 +496,7 @@ function AddNewCustomer(props) {
 
         <div className="newcustomer">
           {/* <h1 className="box_heading1">New Customer</h1> */}
-          <form  onClick={onSubmit}>
+          <form>
           <div className="container_details1">
         
             <div className="form-left">
@@ -743,14 +506,10 @@ function AddNewCustomer(props) {
               </Tooltip>
               <br />
             
-              <SearchDropdown width={331} options={gsttreatment} value={values.gsttreat} onChange={onChange} name="gsttreat"
-            className={`ant-select ${!gstTreatErrvalid ? "validationinputborder" : ""}`}
+              <SearchDropdown width={331} options={gsttreatment} 
               />
               
-             {Object.keys(gstTreatErr).map((key)=>
-              {
-                return <div className="validationerror">{gstTreatErr[key]}</div>
-              })}
+            
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -758,7 +517,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerdropdown ${!gstinErrvalid ? "validationinputborder" : ""}`} style={{ marginTop: "5px" }}>
+              <div className="customerdropdown">
                 <img src={gstno} className="customerimg" />
                 <input
                   type="text"
@@ -770,10 +529,6 @@ function AddNewCustomer(props) {
                   onChange={onChange}
                 />
               </div>
-              {Object.keys(gstinErr).map((key)=>
-              {
-                return <div className="validationerror">{gstinErr[key]}</div>
-              })}
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -782,7 +537,7 @@ function AddNewCustomer(props) {
               </Tooltip>
 
               <br />
-              <div className={`customerdropdown ${!businessNameErrvalid ? "validationinputborder" : ""}`} style={{ marginTop: "5px" }}>
+              <div className="customerdropdown"style={{ marginTop: "5px" }}>
                 <img src={business} className="customerimg" />
                 <input
                   type="text"
@@ -792,27 +547,21 @@ function AddNewCustomer(props) {
                   name="businessname"
                 />
               </div>
-              {Object.keys(businessNameErr).map((key)=>
-              {
-                return <div className="validationerror">{businessNameErr[key]}</div>
-              })}
+             
               <Tooltip title="prompt text" color="#5C5AD0">
                 <label className="label">Type Category</label>
               </Tooltip>
               <br />
               <SearchDropdown options={typeCategory} width={330} value={values.category} onChange={onChange} name="category" />
                
-             {Object.keys(categoryErr).map((key)=>
-              {
-                return <div className="validationerror">{categoryErr[key]}</div>
-              })}
+             
               <Tooltip title="prompt text" color="#5C5AD0">
                 <label className="label" style={{ marginTop: "5px" }}>
                   Pancard
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerdropdown ${!pancardErrvalid ? "validationinputborder" : ""}`}>
+              <div className="customerdropdown">
                 <img src={pan} className="customerimg" />
                 <input
                   type="text"
@@ -823,10 +572,7 @@ function AddNewCustomer(props) {
                   name="pancard"
                 />
               </div>
-              {Object.keys(pancardErr).map((key)=>
-              {
-                return <div className="validationerror">{pancardErr[key]}</div>
-              })}
+             
               <div style={{ display: "flex", gap: "30px" }}>
                 <div style={{ width: "50%" }}>
                   <Tooltip title="prompt text" color="#5C5AD0">
@@ -837,10 +583,7 @@ function AddNewCustomer(props) {
                   </Tooltip>
                   <br />
                   <SearchDropdown width={150}  value={values.currency} onChange={onChange} name="currency" />
-                  {Object.keys(currencyErr).map((key)=>
-              {
-                return <div className="validationerror">{currencyErr[key]}</div>
-              })}
+                 
                 </div>
                 <div style={{ width: "50%" }}>
                   <Tooltip title="prompt text" color="#5C5AD0">
@@ -849,10 +592,7 @@ function AddNewCustomer(props) {
                   </Tooltip>
                   <br />
                   <SearchDropdown width={150} value={values.payment} onChange={onChange} name="payment"/>
-                  {Object.keys(paymentErr).map((key)=>
-              {
-                return <div className="validationerror">{paymentErr[key]}</div>
-              })}
+                 
                 </div>
               </div>
 
@@ -874,7 +614,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerdropdown ${!creditErrvalid ? "validationinputborder" : ""}`}>
+              <div className="customerdropdown">
                 <img src={creditcard} className="customerimg" />
                 <input
                   type="text"
@@ -884,10 +624,7 @@ function AddNewCustomer(props) {
                   name="credit"
                 />
               </div>
-              {Object.keys(creditErr).map((key)=>
-              {
-                return <div className="validationerror">{creditErr[key]}</div>
-              })}
+             
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -895,7 +632,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerdropdown ${!emailErrvalid ? "validationinputborder" : ""}`}>
+              <div className="customerdropdown" >
                 <img src={email} className="customerimg" />
                 <input
                   type="email"
@@ -905,10 +642,7 @@ function AddNewCustomer(props) {
                   name="email"
                 />
               </div>
-              {Object.keys(emailErr).map((key)=>
-              {
-                return <div className="validationerror">{emailErr[key]}</div>
-              })}
+            
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -916,7 +650,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerdropdown ${!pincodeErrvalid ? "validationinputborder" : ""}`}>
+              <div className="customerdropdown">
                 <img src={pin} className="customerimg" />
                 <input
                   type="number"
@@ -926,10 +660,7 @@ function AddNewCustomer(props) {
                   name="pincode"
                 />
               </div>
-              {Object.keys(pincodeErr).map((key)=>
-              {
-                return <div className="validationerror">{pincodeErr[key]}</div>
-              })}
+            
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -937,7 +668,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerstreet ${!street1Errvalid ? "validationinputborder" : ""}`}>
+              <div className="customerstreet">
                 <img src={street} className="customerimg" />
                 <input
                   type="text"
@@ -947,10 +678,6 @@ function AddNewCustomer(props) {
                   name="street1"
                 />
               </div>
-              {Object.keys(street1Err).map((key)=>
-              {
-                return <div className="validationerror">{street1Err[key]}</div>
-              })}
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -958,7 +685,7 @@ function AddNewCustomer(props) {
                 </label>
               </Tooltip>
               <br />
-              <div className={`customerstreet ${!street2Errvalid ? "validationinputborder" : ""}`}>
+              <div className="customerstreet">
                 <img src={street} className="customerimg" />
                 <input
                   type="text"
@@ -968,12 +695,9 @@ function AddNewCustomer(props) {
                   name="street2"
                   
                 />
-             {!street1Errvalid ? <Icon/> : ""}
+
               </div>
-              {Object.keys(street2Err).map((key)=>
-              {
-                return <div className="validationerror">{street2Err[key]}</div>
-              })}
+            
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label" style={{ marginTop: "5px" }}>
@@ -1024,10 +748,7 @@ function AddNewCustomer(props) {
               <SearchDropdown width={331} options={gsttraetmentOptional}   value={values.pos}
                 onChange={onChange}
                 name="pos" />
-              {Object.keys(posErr).map((key)=>
-              {
-                return <div className="validationerror">{posErr[key]}</div>
-              })}
+             
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label">Contacts</label>
@@ -1037,10 +758,7 @@ function AddNewCustomer(props) {
               <SearchDropdown width={331} options={contacts} value={values.contact}
                 onChange={onChange}
                 name="contact" />
-              {Object.keys(contactErr).map((key)=>
-              {
-                return <div className="validationerror">{contactErr[key]}</div>
-              })}
+            
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="label">Ownership</label>
@@ -1050,10 +768,7 @@ function AddNewCustomer(props) {
               <SearchDropdown width={331} options={ownershipwithemail} value={values.ownership}
                 onChange={onChange}
                 name="ownership"/>
-              {Object.keys(ownershipErr).map((key)=>
-              {
-                return <div className="validationerror">{ownershipErr[key]}</div>
-              })}
+             
             </div>  
             </div>
             </form>
