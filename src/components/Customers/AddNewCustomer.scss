@@ -122,8 +122,12 @@
     border-radius: 5px;
     margin-top: 5px;
     display: flex;
+    align-items: center;
     margin-bottom: 17px;
     border-color: #D9DEE3;
+}
+.inputError{
+    border:.5px solid #DA2F58 !important;
 }
 
 
@@ -141,6 +145,7 @@
     border-radius: 5px;
     margin-top: 5px;
     display: flex;
+    align-items: center;
     margin-bottom: 17px;
     border-color: #D9DEE3;
 }
@@ -242,7 +247,7 @@
     width: 67px;
     height: 38px;
     border-radius: 6px;
-    color: white;
+    color: white !important;
     background-color: #5C5AD0;
     font-size: 12px;
     margin-top: -17px;
