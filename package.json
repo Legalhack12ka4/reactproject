@@ -9,6 +9,7 @@
         "antd": "^5.0.4",
         "axios": "^1.2.1",
         "cross-env": "^7.0.3",
+        "formik": "^2.2.9",
         "jquery": "^3.6.2",
         "jspdf": "^2.5.1",
         "jspdf-autotable": "^3.5.28",
@@ -31,7 +32,8 @@
         "react-to-print": "^2.14.10",
         "react-toastify": "^9.1.1",
         "rsuite": "^5.23.2",
-        "web-vitals": "^2.1.4"
+        "web-vitals": "^2.1.4",
+        "yup": "^0.32.11"
     },
     "scripts": {
         "start": "react-scripts start",
