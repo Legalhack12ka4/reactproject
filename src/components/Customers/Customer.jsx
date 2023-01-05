@@ -1,17 +1,14 @@
-import React from "react";
+import { React, useState, useRef,useEffect } from "react";
 import {useNavigate} from "react-router-dom";
-
 import Page_heading from "../Page_Heading/Page_heading";
-import { useState, useEffect, useRef } from "react";
 import "./Customers.scss";
 import { Table } from "antd";
-
+import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import 'react-date-range/dist/styles.css'; 
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/theme/default.css'; // theme css file
-
 import FilterAndSearchBar from "../FilterAndSearchBar/FilterAndSearchBar";
 
 const Customer = (props) => {
@@ -19,6 +16,42 @@ const Customer = (props) => {
   const [settingOpen, setSettingOpen] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [fetchcustomer, setFetchcustomer] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await axios.get("http://127.0.0.1:8000/customervendor/").then(
+      res => {
+        setloading(false);
+        setFetchcustomer(
+          res.data.map(row => ({
+            Gst_Treatment: row.gst_treatment,
+            Gst_No: row.gst_no,
+            Business_Name: row.business_name,
+            Type_Category: row.type_category,
+            Pan_Card: row.pan_card,
+            Credit_Limit: row.credit_limit,
+            Email: row.email,
+            Pincode: row.pincode,
+            Street1: row.street1,
+            Street2: row.street2,
+            Place_Of_Supply: row.place_of_supply,
+            Contact: row.contact,
+            Ownsership: row.ownership
+           // id: row.id
+          }))
+        );
+        console.log(res);
+      }
+    );
+  };
+  console.log(fetchcustomer)
+
+
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -29,208 +62,28 @@ const Customer = (props) => {
 
   const menuRef = useRef(null);
 
-  const dataSource = [
-    {
-      key: "1",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "2",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "3",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "4",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "5",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "6",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "7",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "8",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "9",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "10",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "11",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "12",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "13",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "14",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "15",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-    {
-      key: "16",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-      link: '/customers/customerPage',
-    },
-
-    // ...
-  ];
+  const dataSource = fetchcustomer.map(customer =>
+    ({
+      gst_treatment:customer.Gst_Treatment,
+      gst_no:customer.Gst_No,
+      business_name:customer.Business_Name,
+      type_category:customer.Type_Category,
+      pan_card:customer.Pan_Card,
+      credit_limit:customer.Credit_Limit,
+      email:customer.Email,
+      pincode:customer.Pincode,
+      street1:customer.Street1,
+      street2:customer.Street2,
+      place_of_supply:customer.Place_Of_Supply,
+      contact:customer.Contact,
+      ownership:customer.Ownsership
+    }));
   const columnsData = [
     {
-      title: "Business Name",
-      label: "Business Name",
-      dataIndex: "business_name",
-      key: "business_name",
+      title: "Gst Treatment",
+      label: "Gst Treatment",
+      dataIndex: "gst_treatment",
+      key: "gst_treatment",
       resizable: true,
       fixed: "left",
       align: "left",
@@ -240,30 +93,21 @@ const Customer = (props) => {
       }
     },
     {
-      title: "Type",
-      label: "Type",
-      dataIndex: "type",
-      key: "type",
+      title: "Gst No",
+      label: "Gst No",
+      dataIndex: "gst_no",
+      key: "gst_no",
       resizable: true,
       width: 80,
       align: "left",
     },
     {
-      title: "Account",
-      label: "Account",
-      dataIndex: "account",
-      key: "account",
+      title: "Business Name",
+      label: "Business Name",
+      dataIndex: "business_name",
+      key: "business_name",
       resizable: true,
       width: 100,
-      align: "left",
-    },
-    {
-      title: "Unadjusted Account",
-      label: "Unadjusted Account",
-      dataIndex: "unadjusted_account",
-      key: "unadjusted_account",
-      resizable: true,
-      width: 110,
       align: "left",
     },
     {
@@ -272,7 +116,25 @@ const Customer = (props) => {
       dataIndex: "type_category",
       key: "type_category",
       resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "PanCard",
+      label: "PanCard",
+      dataIndex: "pan_card",
+      key: "pan_card",
+      resizable: true,
       width: 90,
+      align: "left",
+    },
+    {
+      title: "Credit Limit",
+      label: "Credit Limit",
+      dataIndex: "credit_limit",
+      key: "credit_limit",
+      resizable: true,
+      width: 110,
       align: "left",
     },
     {
@@ -280,6 +142,60 @@ const Customer = (props) => {
       label: "Email",
       dataIndex: "email",
       key: "email",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "PinCode",
+      label: "PinCode",
+      dataIndex: "pinCode",
+      key: "pinCode",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "Street1",
+      label: "Street1",
+      dataIndex: "street1",
+      key: "street1",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "Street2",
+      label: "Street2",
+      dataIndex: "street2",
+      key: "street2",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "Place Of Supply",
+      label: "Place Of Supply",
+      dataIndex: "place_of_supply",
+      key: "place_of_supply",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "Contact",
+      label: "Contact",
+      dataIndex: "contact",
+      key: "contact",
+      resizable: true,
+      width: 110,
+      align: "left",
+    },
+    {
+      title: "Ownership",
+      label: "Ownership",
+      dataIndex: "ownership",
+      key: "ownership",
       resizable: true,
       width: 110,
       align: "left",

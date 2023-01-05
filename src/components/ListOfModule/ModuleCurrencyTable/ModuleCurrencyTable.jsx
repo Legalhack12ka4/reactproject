@@ -7,12 +7,20 @@ import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
 import { Table } from "antd";
 import {Modal, Button } from "antd";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+const resetValue = {
+   currency_name: "" ,
+   symbol:"",
+   country_name:""
+  };
 
 const ModuleCurrencyTable = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [formData, setFormData] = useState(resetValue);
   const [currency, setCurrency] = useState([]);
   const [loading, setloading] = useState(true);
   useEffect(() => {
@@ -35,6 +43,58 @@ const ModuleCurrencyTable = () => {
   };
   console.log(currency)
 
+//   const notify =() =>
+//  ("Wow")
+//add data
+const handleFormSubmit = () => {
+
+  axios
+    .post(
+      "http://127.0.0.1:8000/currency/",
+      {
+        currency_name: formData.currency_name,
+        symbol: formData.symbol,
+        country_name: formData.country_name,
+        currency_from:"USD",
+        currency_to:"INR",
+       // time_stamp:new Date().toLocaleString(),
+        "time_stamp": "2022-12-30T13:37:00Z",
+        "amount": "1",
+        "is_active": true,
+        "is_deleted": false,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
+    .then((response) => {
+      closeModal();
+      handleCancel();
+      getData();
+      toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    
+     
+    });
+}
+
+
+const onChange = (e) => {
+  const { value, name } = e.target;
+
+  setFormData({ ...formData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+console.log(formData)
+
   function openModal() {
     setIsOpen(true);
   }
@@ -46,6 +106,7 @@ const ModuleCurrencyTable = () => {
 
   function closeModal() {
     setIsOpen(false);
+    setFormData(resetValue);
   }
 
   const customStyles = {
@@ -100,16 +161,6 @@ const ModuleCurrencyTable = () => {
           width: 230,
           align: "left",
         },
-    
-        {
-          title: "Action",
-          label: "Action",
-          dataIndex: "action",
-          key: "action",
-          resizable: true,
-          width: 260,
-          align: "left",
-        },
       ];
 
 
@@ -152,112 +203,149 @@ const ModuleCurrencyTable = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setFormData(resetValue);
   };
 
 
   return (
-    <div className='module-data'>
-        <Page_heading  parent={"List of Modules"} child={"Currency Table"}/>
+    <div className="module-data">
+      <Page_heading parent={"List of Modules"} child={"Currency Table"} />
 
-        <div className="module-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Currency"} onClick={showModal} onData={handleData} />
+      <div className="module-table-container">
+        <FilterAndSearchBar
+          columns={columnsData}
+          addBtnName={"Currency"}
+          onClick={showModal}
+          onData={handleData}
+        />
         {/* <OffCanvasExample  form={<Contacts/>}/> */}
         <Modal
-                title="Add Currency"
-                open={isModalOpen}
-                onOk={handleOk}
-                width={764}
-                onCancel={handleCancel}
-                style={{ top: 20 }}
-                footer={[
-                  <Button
-                    key="submit"
-                    type="primary"
-                    onClick={handleSubmit}
-                    style={{
-                      width: "80px",
-                      height: "38px",
-                      backgroundColor: "#5C5AD0",
-                      fontSize: "12px",
-                    }}
-                  >
-                    Submit
-                  </Button>,
-                  <Button
-                    key="cancel"
-                    onClick={handleCancel}
-                    style={{
-                      width: "80px",
-                      height: "38px",
-                      fontSize: "12px",
-                      color: "#8E9CAA",
-                      borderColor: "#8E9CAA",
-                    }}
-                  >
-                    Cancel
-                  </Button>,
-                ]}
-                closeIcon={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13.51"
-                    height="13"
-                    viewBox="0 0 13.51 13"
-                  >
-                    <path
-                      id="Path_34362"
-                      data-name="Path 34362"
-                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                      transform="translate(-2.248 -2.248)"
-                      fill="#697a8d"
-                    />
-                  </svg>
-                }
-              >
-                <div className="addPaymentTermModal">
-                  <hr />
-                  <div className="addPaymentTermModalInputContainer">
-                    <div className="addPaymentTermModalInput">
-                      <p>Currency Code</p>
-                      <input type="text" placeholder="INR"/>
-                      </div>
-                      <div className="addPaymentTermModalInput">
-                      <p>Currency Symbol</p>
-                      <input type="text" placeholder="₹"/>
-                      </div>
-                      <div className="addPaymentTermModalInput">
-                      <p>Currency Name</p>
-                      <input type="text" placeholder="Indian Rupee"/>
-                      </div>
-                  </div>
-                </div>
-              </Modal>
-      
+          title="Add Currency"
+          open={isModalOpen}
+          onOk={handleOk}
+          width={764}
+          onCancel={handleCancel}
+          style={{ top: 20 }}
+          footer={[
+            <Button
+              key="submit"
+              type="primary"
+              //  onClick={handleSubmit}
+              style={{
+                width: "80px",
+                height: "38px",
+                backgroundColor: "#5C5AD0",
+                fontSize: "12px",
+              }}
+              onClick={() => handleFormSubmit()}
+            >
+              Submit
+            </Button>,
+            <Button
+              key="cancel"
+              onClick={handleCancel}
+              style={{
+                width: "80px",
+                height: "38px",
+                fontSize: "12px",
+                color: "#8E9CAA",
+                borderColor: "#8E9CAA",
+              }}
+            >
+              Cancel
+            </Button>,
+          ]}
+          closeIcon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          }
+        >
+          <div className="addPaymentTermModal">
+            <hr />
+            <div className="addPaymentTermModalInputContainer">
+              <div className="addPaymentTermModalInput">
+                <p>Currency Code</p>
+                <input
+                  type="text"
+                  placeholder="INR"
+                  name="currency_name"
+                  value={formData.currency_name}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Currency Symbol</p>
+                <input
+                  type="text"
+                  placeholder="₹"
+                  name="symbol"
+                  value={formData.symbol}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Currency Name</p>
+                <input
+                  type="text"
+                  placeholder="Indian Rupee"
+                  name="country_name"
+                  value={formData.country_name}
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+          </div>
+        </Modal>
+
         <Table
-            ref={componentRef}
-            rowSelection={{
-              type: "checkbox",
-              columnTitle: "",
-              selectedRowKeys,
-              onChange: (selectedRowKeys, selectedRows) => {
-                setSelectedRowKeys(selectedRowKeys);
-                setSelectedRows(selectedRows);
-              },
-            }}
-            dataSource={filteredData}
-            columns={columns}
-            // scroll={{ y: 800, x: 720 }}
-        //    style={{ width: "100%" }}
-            rowClassName={(record) =>
-              record.key % 2 === 0 ? "highlight_row" : ""
-            }
-            search={{
-              keyword: search,
-            }}
-          />
-        </div>
+          ref={componentRef}
+          rowSelection={{
+            type: "checkbox",
+            columnTitle: "",
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+              setSelectedRowKeys(selectedRowKeys);
+              setSelectedRows(selectedRows);
+            },
+          }}
+          dataSource={filteredData}
+          columns={columns}
+          // scroll={{ y: 800, x: 720 }}
+          //    style={{ width: "100%" }}
+          rowClassName={(record) =>
+            record.key % 2 === 0 ? "highlight_row" : ""
+          }
+          search={{
+            keyword: search,
+          }}
+        />
+        <ToastContainer/>
+         {/* <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      /> */}
+      </div>
     </div>
-  )
+  );
 }
 
 export default ModuleCurrencyTable

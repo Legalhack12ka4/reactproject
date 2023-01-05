@@ -29,6 +29,7 @@
         "react-slick": "^0.29.0",
         "react-switch": "^7.0.0",
         "react-to-print": "^2.14.10",
+        "react-toastify": "^9.1.1",
         "rsuite": "^5.23.2",
         "web-vitals": "^2.1.4"
     },

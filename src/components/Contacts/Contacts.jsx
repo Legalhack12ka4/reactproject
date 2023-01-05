@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./Contacts.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import dob from "../../assets/Images/FormIcon/DOB.svg";
@@ -6,13 +6,99 @@ import name from "../../assets/Images/FormIcon/Name Contact.svg";
 import Phone from "../../assets/Images/FormIcon/Phone Contact.svg";
 import email from "../../assets/Images/FormIcon/Email Contact.svg";
 import { Tooltip } from "antd";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
+const resetValue = {
+   name: "" ,
+   mobile:"",
+   email:"",
+   dob:""
+  };
 function Contacts() {
+  const [formData, setFormData] = useState(resetValue);
+
+  //const [fetchcontact, setFetchcontact] = useState([]);
+  const [loading, setloading] = useState(true);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // const getData = async () => {
+  //   await axios.get("http://127.0.0.1:8000/contact/").then(
+  //     res => {
+  //       setloading(false);
+  //       setFetchcontact(
+  //         res.data.map(row => ({
+  //           Name: row.name,
+  //           Mobile: row.mobile,
+  //           Email: row.email,
+  //           DOB: row.dob,
+  //           Position:row.position,
+  //           Ownership:row.ownership
+  //          // id: row.id
+  //         }))
+  //       );
+  //       console.log(res);
+  //     }
+      
+  //   );
+  // };
   function handleclose() {
     var m = document.querySelector(".menu1 ");
     m.classList.remove("smenu");
     document.getElementById("gradient").classList.remove("body_gradient");
   }
+
+
+  const handleFormSubmit = () => {
+
+    axios
+      .post(
+        "http://127.0.0.1:8000/contact/",
+        {
+          name: formData.name,
+          mobile: formData.mobile,
+          email: formData.email,
+          dob:formData.dob,
+          "is_active": true,
+          "is_deleted": false,
+          "position": 1,
+          "ownership": 1,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
+        },
+        formData
+      )
+      .then((response) => {
+       // getData();
+        handleclose();
+        toast.success("Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      
+       
+      });
+  }
+  
+
+const onChange = (e) => {
+  const { value, name } = e.target;
+
+  setFormData({ ...formData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+
+console.log(formData)
 
   const contacts = [
     {
@@ -50,6 +136,9 @@ function Contacts() {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
+                  name="name"
+                  value={formData.name}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -65,6 +154,9 @@ function Contacts() {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
+                    name="mobile"
+                  value={formData.mobile}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -80,6 +172,9 @@ function Contacts() {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
+                    name="email"
+                  value={formData.email}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -95,6 +190,9 @@ function Contacts() {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
+                    name="dob"
+                  value={formData.dob}
+                  onChange={onChange}
                 />
               </div>
 
@@ -106,7 +204,10 @@ function Contacts() {
               </Tooltip>
               <br />
 
-              <SearchDropdown width={331} options={contacts} />
+              <SearchDropdown width={331} options={contacts}
+                name="position"
+                  value={formData.position}
+                  onChange={onChange} />
 
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
@@ -115,13 +216,16 @@ function Contacts() {
                 </label>{" "}
               </Tooltip>
               <br />
-              <SearchDropdown width={331} options={contacts} />
+              <SearchDropdown width={331} options={contacts} 
+                name="ownership"
+                  value={formData.ownership}
+                  onChange={onChange}/>
 
               <div className="contactbutton_bottom">
-                <button type="button" className="contactsavebutton">
+                <button type="button" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
                   Submit
                 </button>
-                <button
+                <button 
                   type="button"
                   className="contactcancelbutton"
                   onClick={handleclose}
