@@ -10,43 +10,117 @@ import pin from "../../assets/Images/FormIcon/Pincode.svg";
 import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { Tooltip } from "antd";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const initialFieldValues = {
-  lgnm: "",
+  gsttreat: "",
   gstin: "",
+  businessname: "",
+  category: "",
+  pancard: "",
+  currency: "",
+  payment: "",
+  credit: "",
+  email: "",
+  pincode: "",
+  street1: "",
+  street2: "",
+  city: "",
+  state: "",
+  pos: "",
+  contact: "",
+  ownership: "",
 };
 
 function Vendors(props) {
   const [values, setValues] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
+
+  const handleFormSubmit = () => {
+
+    axios
+      .post(
+        "http://127.0.0.1:8000/customervendor/",
+        {
+          "gst_treatment": 1,
+            gst_no:values.gstin,
+            business_name:values.businessname,
+            "type_category": 8,
+            pan_card:values.pancard,
+            "currency": 1,
+            "payment_terms": 1,
+            credit_limit:values.credit,
+            email:values.email,
+            pincode:values.pincode,
+            street1:values.street1,
+            street2:values.street2,
+            "place_of_supply": 1,
+            "contact": 1,
+            "ownership": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "type": 11,
+            "company_id": 1,
+            "created_by": 1,
+            "updated_by": 1
+        },
+        values
+      )
+      .then((response) => {
+       // getData();
+      
+        toast.success("Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        handleClose();
+       
+      });
+  }
+
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+  
+    setValues({ ...values, [name]: value });
+    console.log(value);
+    console.log(name);
+  };
   const [gst, setGst] = useState(false);
   console.log(values);
   let gstinparams = values.gstin;
 
-  const getData = () => {
-    fetch(
-      `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
-      {
-        headers: {
-          Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-          client_id: "JarZChUcsytSBbnkpt",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setCustomer(data);
-        console.log("data", data.lgnm);
-      });
-  };
+  // const getData = () => {
+  //   fetch(
+  //     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
+  //         client_id: "JarZChUcsytSBbnkpt",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setCustomer(data);
+  //       console.log("data", data.lgnm);
+  //     });
+  // };
 
-  useEffect(() => {
-    getData();
-    console.log("Getting Data");
-    console.log(values.gstin);
-  }, [gst]);
+  // useEffect(() => {
+  //   getData();
+  //   console.log("Getting Data");
+  //   console.log(values.gstin);
+  // }, [gst]);
 
   const onBlur = (e) => {
     //alert(e.target.value)
@@ -54,19 +128,20 @@ function Vendors(props) {
     console.log(gst);
   };
 
-  const onChange = (e) => {
-    e.preventDefault();
-    const { value, name } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    console.log(value);
-    console.log(name);
-  };
+  // const onChange = (e) => {
+  //   e.preventDefault();
+  //   const { value, name } = e.target;
+  //   setValues({
+  //     ...values,
+  //     [name]: value,
+  //   });
+  //   console.log(value);
+  //   console.log(name);
+  // };
 
   const handleClose = () => {
     window.history.back(-1);
+    setValues(initialFieldValues)
   };
 
   const typeCategory = [
@@ -484,9 +559,12 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  // name="gstin"
+                  // value={values.gstin}
+                  // onBlur={onBlur}
+                  // onChange={onChange}
                   name="gstin"
                   value={values.gstin}
-                  onBlur={onBlur}
                   onChange={onChange}
                 />
               </div>
@@ -503,6 +581,9 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="businessname"
+                  value={values.businessname}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -525,6 +606,9 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="pancard"
+                  value={values.pancard}
+                  onChange={onChange}
                 />
               </div>
               <div style={{ display: "flex", gap: "30px" }}>
@@ -549,7 +633,7 @@ function Vendors(props) {
               </div>
 
               <div className="vendorbutton_bottom">
-                <button type="button" className="vendorsavebutton">
+                <button type="button" className="vendorsavebutton"  onClick={() => handleFormSubmit()}>
                   Submit
                 </button>
                 <button
@@ -576,6 +660,9 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="credit"
+                  value={values.credit}
+                  onChange={onChange}
                 />
               </div>
 
@@ -592,6 +679,9 @@ function Vendors(props) {
                   type="email"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="email"
+                  value={values.email}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -607,6 +697,9 @@ function Vendors(props) {
                   type="number"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="pincode"
+                  value={values.pincode}
+                  onChange={onChange}
                 />
               </div>
 
@@ -623,6 +716,9 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="street1"
+                  value={values.street1}
+                  onChange={onChange}
                 />
               </div>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -638,6 +734,9 @@ function Vendors(props) {
                   type="text"
                   style={{ border: "none", outline: "none", width: "82%" }}
                   placeholder="Placeholder"
+                  name="street2"
+                  value={values.street2}
+                  onChange={onChange}
                 />
               </div>
 
@@ -692,6 +791,7 @@ function Vendors(props) {
               <SearchDropdown width={331} options={ownershipwithemail} />
             </div>
           </div>
+          <ToastContainer/>
         </div>
       </div>
     </div>
