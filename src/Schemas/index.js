@@ -10,5 +10,9 @@ export const  addCustomerSchemas = Yup.object().shape({
     pincode: Yup.string().required('Pincode is required'),
     street1: Yup.string().required('Street 1 is required'),
     street2: Yup.string().required('Street 2 is required'),
-
+    gsttreat: Yup.string().required('GST Treatment is required'),
+    category: Yup.string().required('GST Treatment is required'),
+    pos: Yup.string().required('Place of Supply is required'),
+    contact: Yup.string().required('Contact is required'),
+    ownership: Yup.string().required('Ownership is required'),
 });
