@@ -40,7 +40,6 @@ const initialFieldValues = {
 };
 
 function AddNewCustomer(props) {
-  // const [values, setValues] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
 
@@ -68,7 +67,9 @@ function AddNewCustomer(props) {
 
   // form Validation
 
-  const { errors, values, handleBlur, touched, handleChange, handleSubmit } =
+  
+
+  const { errors, values, handleBlur, touched, handleChange, handleSubmit, setFieldValue,setFieldTouched } =
     useFormik({
       initialValues: initialFieldValues,
 
@@ -77,9 +78,15 @@ function AddNewCustomer(props) {
         console.log(values);
       },
     });
+    console.log(values);
 
-  const handleDrpChange = (value) => {
-    console.log(value);
+  const handleDrpChange = (field, value) => {
+
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
+
+    console.log("value", value);
+    console.log("field", field);
   };
 
   useEffect(() => {
@@ -87,19 +94,6 @@ function AddNewCustomer(props) {
     console.log("Getting Data");
     console.log(values.gstin);
   }, [gst]);
-
-  // const onBlur = (e) => {
-  //   //alert(e.target.value)
-  //   setGst(!gst);
-  //   console.log(gst);
-  // };
-
-  // const onChange = (e) => {
-  //   e.preventDefault();
-  //   const { value, name } = e.target;
-  // };
-
-
 
   const typeCategory = [
     {
@@ -515,16 +509,18 @@ function AddNewCustomer(props) {
                   <label className="label">GST Treatment</label>{" "}
                 </Tooltip>
                 <br />
-
+                <div>
                 <SearchDropdown
                   width={331}
                   options={gsttreatment}
                   onChange={handleDrpChange}
                   name="gsttreat"
                   value={values.gsttreat}
-                  // onChange={handleChange}
-                  onBlur={handleBlur}
-                />
+                  error={errors.gsttreat && touched.gsttreat ? true : false}
+                  />
+                 
+                  </div>
+                 
 
                 <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
@@ -604,6 +600,7 @@ function AddNewCustomer(props) {
                   value={values.category}
                   onChange={handleDrpChange}
                   name="category"
+                  error={errors.category && touched.category ? true : false}
                 />
 
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -652,6 +649,8 @@ function AddNewCustomer(props) {
                       value={values.currency}
                       onChange={handleDrpChange}
                       name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+
                     />
                   </div>
                   <div style={{ width: "50%" }}>
@@ -665,6 +664,8 @@ function AddNewCustomer(props) {
                       value={values.payment}
                       onChange={handleDrpChange}
                       name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+
                     />
                   </div>
                 </div>
@@ -859,11 +860,8 @@ function AddNewCustomer(props) {
                   value={values.city}
                   onChange={handleDrpChange}
                   name="city"
+                  error={errors.city && touched.city ? true : false}
                 />
-                {/* {Object.keys(cityErr).map((key)=>
-              {
-                return <div className="validationerror">{cityErr[key]}</div>
-              })} */}
               </div>
 
               <div className="form-right">
@@ -881,11 +879,9 @@ function AddNewCustomer(props) {
                   value={values.state}
                   onChange={handleDrpChange}
                   name="state"
+                  error={errors.state && touched.state ? true : false}
+
                 />
-                {/* {Object.keys(stateErr).map((key)=>
-              {
-                return <div className="validationerror">{stateErr[key]}</div>
-              })} */}
                 <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
@@ -897,6 +893,8 @@ function AddNewCustomer(props) {
                   value={values.pos}
                   onChange={handleDrpChange}
                   name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+
                 />
 
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -911,6 +909,9 @@ function AddNewCustomer(props) {
                   value={values.contact}
                   onChange={handleDrpChange}
                   name="contact"
+                  error={errors.contact && touched.contact ? true : false}
+
+
                 />
 
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -925,6 +926,7 @@ function AddNewCustomer(props) {
                   value={values.ownership}
                   onChange={handleDrpChange}
                   name="ownership"
+                  error={errors.ownership && touched.ownership ? true : false}
                 />
               </div>
             </div>

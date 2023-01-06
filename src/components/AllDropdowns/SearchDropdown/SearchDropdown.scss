@@ -88,3 +88,12 @@ input[type=number] {
 input{
   color: #697A8D !important;
 }
+
+.drpError{
+  .ant-select .ant-select-selector {
+    border-radius:5px  !important;
+    border: .5px solid #DA2F58 !important;
+    color: #697A8D !important;
+  }
+
+}
