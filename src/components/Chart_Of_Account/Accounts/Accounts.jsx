@@ -11,7 +11,8 @@ function Accounts() {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
-
+    const [page, setPage]=useState(1);
+    const [pageSize, setPageSize] = useState(10)
 
 
     const dataSource = [
@@ -187,6 +188,19 @@ function Accounts() {
           resizable: true,
           fixed: "left",
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_type > record2.account_type
+          },
+          filters:[
+            {text:'Expense 1', value:'Expense 1'},
+            {text:'Expense 2', value:'Expense 2'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_type === value
+          }
           // width: 60,
         },
         {
@@ -197,6 +211,19 @@ function Accounts() {
           resizable: true,
           // width: 60,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_name > record2.account_name
+          },
+          filters:[
+            {text:'Cost of Goods Solds', value:'Cost of Goods Solds'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_name === value
+          }
         },
         {
           title: "Account Code",
@@ -206,6 +233,19 @@ function Accounts() {
           resizable: true,
           // width: 230,
           align: "right",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_code > record2.account_code
+          },
+          filters:[
+            {text:'1002', value:'1002'},
+            {text:'1003', value:'1003'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_code === value
+          }
         },
         {
           title: "Reporting L1",
@@ -215,6 +255,19 @@ function Accounts() {
           resizable: true,
           // width: 60,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l1 > record2.reporting_l1
+          },
+          filters:[
+            {text:'Direct Expense', value:'Direct Expense'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l1 === value
+          }
     
         },
         {
@@ -225,6 +278,19 @@ function Accounts() {
           resizable: true,
           // width: 260,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l2 > record2.reporting_l2
+          },
+          filters:[
+            {text:'Null', value:'Null'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l2 === value
+          }
         },
         {
           title: "Reporting L3",
@@ -234,6 +300,19 @@ function Accounts() {
           resizable: true,
           // width: 150,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l3 > record2.reporting_l3
+          },
+          filters:[
+            {text:'Null', value:'Null'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l3 === value
+          }
         },
         {
           title: "Module Type",
@@ -243,6 +322,19 @@ function Accounts() {
           resizable: true,
           // width: 150,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.module_type > record2.module_type
+          },
+          filters:[
+            {text:'Sales', value:'Sales'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.module_type === value
+          }
         }
       ];
 
@@ -296,6 +388,15 @@ function Accounts() {
             // scroll={{ y: 800, x: 720 }}
             scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
+        pagination={{
+          current:page,
+          pageSize:pageSize, 
+          onChange:(page, pageSize)=>
+          {
+            setPage(page);
+            setPageSize(pageSize)
+          },
+          total:100}}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }

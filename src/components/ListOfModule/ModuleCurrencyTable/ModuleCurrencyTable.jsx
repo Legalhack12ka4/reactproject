@@ -22,6 +22,9 @@ const ModuleCurrencyTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(resetValue);
   const [currency, setCurrency] = useState([]);
+  const [page, setPage]=useState(1);
+  const [pageSize, setPageSize] = useState(10)
+
   const [loading, setloading] = useState(true);
   useEffect(() => {
     getData();
@@ -134,6 +137,7 @@ console.log(formData)
 
       const columnsData = [
         {
+          key:"1",
           title: "Currency Code",
           label: "Currency Code",
           dataIndex: "currency_name",
@@ -141,6 +145,19 @@ console.log(formData)
           resizable: true,
           fixed: "left",
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.currency_name > record2.currency_name
+          },
+          filters:[
+            {text:'USD', value:'USD'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.currency_name === value
+          }
           // width: 60,
         },
         {
@@ -151,6 +168,19 @@ console.log(formData)
           resizable: true,
           // width: 60,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.symbol > record2.symbol
+          },
+          filters:[
+            {text:'₹', value:'₹'},
+            {text:'$', value:'$'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.symbol === value
+          }
         },
         {
           title: "Currency Name",
@@ -160,6 +190,19 @@ console.log(formData)
           resizable: true,
           width: 230,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.country_name > record2.country_name
+          },
+          filters:[
+            {text:'India', value:'India'},
+            {text:'Usa', value:'Usa'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.country_name === value
+          }
         },
       ];
 
@@ -322,8 +365,15 @@ console.log(formData)
           }}
           dataSource={filteredData}
           columns={columns}
-          // scroll={{ y: 800, x: 720 }}
-          //    style={{ width: "100%" }}
+          pagination={{
+            current:page,
+            pageSize:pageSize, 
+            onChange:(page, pageSize)=>
+            {
+              setPage(page);
+              setPageSize(pageSize)
+            },
+            total:100}}
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }
