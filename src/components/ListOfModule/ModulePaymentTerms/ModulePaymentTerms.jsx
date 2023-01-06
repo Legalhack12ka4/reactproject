@@ -24,7 +24,10 @@ const ModulePaymentTerms = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(resetValue);
   const [paymentterm, setPaymentterm] = useState([]);
+    const [page, setPage]=useState(1);
+  const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
+
   useEffect(() => {
     getData();
   }, []);
@@ -44,6 +47,8 @@ const ModulePaymentTerms = () => {
     });
   };
   console.log(paymentterm);
+
+ 
 
   const handleFormSubmit = () => {
     axios
@@ -129,6 +134,19 @@ const ModulePaymentTerms = () => {
       resizable: true,
       fixed: "left",
       align: "left",
+        sorter:(record1, record2)=>
+          {
+              return record1.terms > record2.terms
+          },
+          filters:[
+            {text:'Net 5', value:'Net 5'},
+            {text:'Net 6', value:'Net 6'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.terms === value
+          }
     },
     {
       title: "Days",
@@ -138,6 +156,19 @@ const ModulePaymentTerms = () => {
       resizable: true,
       // width: 60,
       align: "left",
+        sorter:(record1, record2)=>
+          {
+              return record1.days > record2.days
+          },
+          filters:[
+            {text:'5 Days', value:'5 Days'},
+            {text:'50 ', value:'50 Days'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.days === value
+          }
     },
     {
       title: "Discount",
@@ -147,6 +178,19 @@ const ModulePaymentTerms = () => {
       resizable: true,
       width: 230,
       align: "right",
+        sorter:(record1, record2)=>
+          {
+              return record1.discount > record2.discount
+          },
+          filters:[
+            {text:'10%', value:'10%'},
+            {text:'2%', value:'2%'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.discount === value
+          }
     },
     {
       title: "Interest",
@@ -156,6 +200,19 @@ const ModulePaymentTerms = () => {
       resizable: true,
       // width: 60,
       align: "right",
+        sorter:(record1, record2)=>
+          {
+              return record1.interest > record2.interest
+          },
+          filters:[
+            {text:'2%', value:'2%'},
+            {text:'2%', value:'2%'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.interest === value
+          }
     },
 
     // {
@@ -339,14 +396,24 @@ const ModulePaymentTerms = () => {
           }}
           dataSource={filteredData}
           columns={columns}
+            pagination={{
+            current:page,
+            pageSize:pageSize, 
+            onChange:(page, pageSize)=>
+            {
+              setPage(page);
+              setPageSize(pageSize)
+            },
+            total:100}}
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }
           search={{
             keyword: search,
           }}
+          
         />
-        {/* )} */}
+               {/* )} */}
         <ToastContainer/>
       </div>
     </div>
