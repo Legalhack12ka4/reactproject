@@ -100,6 +100,230 @@ const onChange = (e) => {
 
 console.log(formData)
 
+const ownershipwithemail = [
+  {
+    value: "Parth1",
+    label: (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            {" "}
+            <img
+              src="/images/searchbar_icons/User-Avtar.svg"
+              alt=""
+              width="35px"
+              height="35px"
+            />
+          </div>
+          <div
+            style={{
+              marginLeft: "5px",
+              width: "139px",
+              height: "",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p className="name">Parth Goswami</p>
+            {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+          </div>
+          <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  {
+    value: "Parth2",
+    label: (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            {" "}
+            <img
+              src="/images/searchbar_icons/User-Avtar.svg"
+              alt=""
+              width="35px"
+              height="35px"
+            />
+          </div>
+          <div
+            style={{
+              marginLeft: "5px",
+              width: "139px",
+              height: "",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p className="name">Parth Goswami</p>
+            {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+          </div>
+          <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "Parth3",
+    label: (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            {" "}
+            <img
+              src="/images/searchbar_icons/User-Avtar.svg"
+              alt=""
+              width="35px"
+              height="35px"
+            />
+          </div>
+          <div
+            style={{
+              marginLeft: "5px",
+              width: "139px",
+              height: "",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p className="name">Parth Goswami</p>
+            {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+          </div>
+          <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "Parth4",
+    label: (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            {" "}
+            <img
+              src="/images/searchbar_icons/User-Avtar.svg"
+              alt=""
+              width="35px"
+              height="35px"
+            />
+          </div>
+          <div
+            style={{
+              marginLeft: "5px",
+              width: "139px",
+              height: "",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p className="name">Parth Goswami</p>
+            {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+          </div>
+          <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    value: "Parth5",
+    label: (
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            {" "}
+            <img
+              src="/images/searchbar_icons/User-Avtar.svg"
+              alt=""
+              width="35px"
+              height="35px"
+            />
+          </div>
+          <div
+            style={{
+              marginLeft: "5px",
+              width: "139px",
+              height: "",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <p className="name">Parth Goswami</p>
+            {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+          </div>
+          <div
+            className="date"
+            style={{
+              marginLeft: "97px",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            19
+          </div>
+        </div>
+      </div>
+    ),
+  },
+];
+
   const contacts = [
     {
       value: "1",
@@ -216,10 +440,10 @@ console.log(formData)
                 </label>{" "}
               </Tooltip>
               <br />
-              <SearchDropdown width={331} options={contacts} 
-                name="ownership"
+              <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
                   value={formData.ownership}
                   onChange={onChange}/>
+              
 
               <div className="contactbutton_bottom">
                 <button type="button" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
