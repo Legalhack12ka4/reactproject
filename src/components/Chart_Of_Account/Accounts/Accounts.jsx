@@ -11,13 +11,14 @@ function Accounts() {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
-
+    const [page, setPage]=useState(1);
+    const [pageSize, setPageSize] = useState(10)
 
 
     const dataSource = [
         {
           key: "1",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -27,7 +28,7 @@ function Accounts() {
         },
         {
           key: "2",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -37,7 +38,7 @@ function Accounts() {
         },
         {
           key: "3",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -47,7 +48,7 @@ function Accounts() {
         },
         {
           key: "4",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -57,7 +58,7 @@ function Accounts() {
         },
         {
           key: "5",
-          account_type: "Expense",
+          account_type: "Expense 1",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -67,7 +68,7 @@ function Accounts() {
         },
         {
           key: "6",
-          account_type: "Expense",
+          account_type: "Expense 2",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -77,7 +78,7 @@ function Accounts() {
         },
         {
           key: "7",
-          account_type: "Expense",
+          account_type: "Expense 4",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -87,7 +88,7 @@ function Accounts() {
         },
         {
           key: "8",
-          account_type: "Expense",
+          account_type: "Expense 5",
           account_name: "Cost of Goods Solds",
           account_code: "1002",
           reporting_l1: "Direct Expense",
@@ -187,6 +188,19 @@ function Accounts() {
           resizable: true,
           fixed: "left",
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_type > record2.account_type
+          },
+          filters:[
+            {text:'Expense 1', value:'Expense 1'},
+            {text:'Expense 2', value:'Expense 2'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_type === value
+          }
           // width: 60,
         },
         {
@@ -197,6 +211,19 @@ function Accounts() {
           resizable: true,
           // width: 60,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_name > record2.account_name
+          },
+          filters:[
+            {text:'Cost of Goods Solds', value:'Cost of Goods Solds'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_name === value
+          }
         },
         {
           title: "Account Code",
@@ -206,6 +233,19 @@ function Accounts() {
           resizable: true,
           // width: 230,
           align: "right",
+          sorter:(record1, record2)=>
+          {
+              return record1.account_code > record2.account_code
+          },
+          filters:[
+            {text:'1002', value:'1002'},
+            {text:'1003', value:'1003'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.account_code === value
+          }
         },
         {
           title: "Reporting L1",
@@ -215,6 +255,19 @@ function Accounts() {
           resizable: true,
           // width: 60,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l1 > record2.reporting_l1
+          },
+          filters:[
+            {text:'Direct Expense', value:'Direct Expense'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l1 === value
+          }
     
         },
         {
@@ -225,6 +278,19 @@ function Accounts() {
           resizable: true,
           // width: 260,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l2 > record2.reporting_l2
+          },
+          filters:[
+            {text:'Null', value:'Null'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l2 === value
+          }
         },
         {
           title: "Reporting L3",
@@ -234,6 +300,19 @@ function Accounts() {
           resizable: true,
           // width: 150,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.reporting_l3 > record2.reporting_l3
+          },
+          filters:[
+            {text:'Null', value:'Null'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.reporting_l3 === value
+          }
         },
         {
           title: "Module Type",
@@ -243,6 +322,19 @@ function Accounts() {
           resizable: true,
           // width: 150,
           align: "left",
+          sorter:(record1, record2)=>
+          {
+              return record1.module_type > record2.module_type
+          },
+          filters:[
+            {text:'Sales', value:'Sales'},
+            {text:'INR', value:'INR'}
+          ],
+          // filterMultiple:false,
+          onFilter:(value,record)=>
+          {
+            return record.module_type === value
+          }
         }
       ];
 
@@ -257,12 +349,28 @@ function Accounts() {
       .classList.toggle("container_display");
   }
 
+
+    // search table functionality
+
+    const handleData = (newData) => {
+      setSearch(newData);
+    }
+    const [search, setSearch] = useState('');
+  
+    const handleSearch = (event) => {
+      setSearch(event.target.value);
+    };
+  
+    const filteredData = dataSource.filter((record) =>
+      record.account_type.toLowerCase().includes(search.toLowerCase())
+    );
   return (
     <div className='account-data'>
         <Page_heading  parent={"Chart of Accounts"} child={"Accounts"}/>
+        <div className="account-table-container">
 
-        <div className="contacts-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Account"} path={"add_account"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Account"} onData={handleData}/>
+
         <OffCanvasExample  form={<AccountForm/>}/>
         <Table
             ref={componentRef}
@@ -275,16 +383,30 @@ function Accounts() {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
+            scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
+        pagination={{
+          current:page,
+          pageSize:pageSize, 
+          onChange:(page, pageSize)=>
+          {
+            setPage(page);
+            setPageSize(pageSize)
+          },
+          total:100}}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
         </div>
     </div>
+
   )
 }
 

@@ -1,97 +1,403 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import "./Leads.scss";
-import logo from "../Customers/images/Email.svg";
-import DropdownAddButton from './DropdownAddButton/DropdownAddButton';
-import DropdownAddButtonOthers from './DropdownAddButtonOthers.jsx/DropdownAddButtonOthers';
+import company from "../../assets/Images/FormIcon/Company Name.svg";
+import email from "../../assets/Images/FormIcon/Email Lead.svg";
+import Phone from "../../assets/Images/FormIcon/Phone.svg";
+import Name from "../../assets/Images/FormIcon/Name.svg";
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import SearchDropdownAddButton from "../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton";
+import { Tooltip } from "antd";
 
 function Leads() {
+  const [checked, setChecked] = useState("Contacts");
+  function handleclose() {
+    var m = document.querySelector(".menu1 ");
+    m.classList.remove("smenu");
+    document.getElementById("gradient").classList.remove("body_gradient");
+  }
 
-const [checked, setChecked] = useState("Contacts")
+  const ownershipwithemail = [
+    {
+      value: "Parth1",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  
+    {
+      value: "Parth2",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      value: "Parth3",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      value: "Parth4",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      value: "Parth5",
+      label: (
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div>
+              {" "}
+              <img
+                src="/images/searchbar_icons/User-Avtar.svg"
+                alt=""
+                width="35px"
+                height="35px"
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                width: "139px",
+                height: "",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <p className="name">Parth Goswami</p>
+              {/* <p1 className="email">Parth.goswami@reformiqo.com</p1> */}
+            </div>
+            <div
+              className="date"
+              style={{
+                marginLeft: "97px",
+                borderRadius: "50%",
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              19
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
 
+  const contacts = [
+    {
+      value: "1",
+      label: "Aman Jaria",
+    },
+    {
+      value: "2",
+      label: "Ashish Jaria",
+    },
+    {
+      value: "3",
+      label: "Parth Goswami",
+    },
+    {
+      value: "4",
+      label: "Suryansh Jaria",
+    },
+    {
+      value: "5",
+      label: "Kushal Nahata",
+    },
+  ];
   return (
-   <>
-    <div className='lead_heading'>
-    {/* <Page_heading  parent={"Business Account / Leads"} child={"Add New Lead"}/> */}
-    </div>
-    <div className='leadform'>
-    <div className='leads'>
-    <h1 className='box_heading1'>New Lead</h1>
-     <div className='lead_details' > 
-    <div className='form-left'>
-      
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Name</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-                    </div>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Mobile No.</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
+    <>
+      <div className="lead_heading"></div>
+      <div className="leadform">
+        <div className="leads">
+          <h1 className="box_heading1">New Lead</h1>
+          <div className="lead_details">
+            <div className="form-left">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                  Name
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <div className="leadinput" style={{ marginTop: "5px" }}>
+                <img src={Name} className="customerimg" />
+                <input
+                  type="text"
+                  className="inputlead"
+                  placeholder="Placeholder"
+                />
+              </div>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                  Mobile No.
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <div className="leadinput" style={{ marginTop: "5px" }}>
+                <img src={Phone} className="customerimg" />
+                <input
+                  type="text"
+                  className="inputlead"
+                  placeholder="Placeholder"
+                />
+              </div>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                  Email
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <div className="leadinput" style={{ marginTop: "5px" }}>
+                <img src={email} className="customerimg" />
+                <input
+                  type="text"
+                  className="inputlead"
+                  placeholder="Placeholder"
+                />
+              </div>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                  Company Name
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <div className="leadinput" style={{ marginTop: "5px" }}>
+                <img src={company} className="customerimg" />
+                <input
+                  type="text"
+                  className="inputlead"
+                  placeholder="Placeholder"
+                />
+              </div>
 
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
-                    </div>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Email</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-
-                    </div>
-                    <label className='leadlabel' style={{marginTop:"5px"}}>Company Name</label><br/>
-                    <div className='leadinput' style={{marginTop:"5px"}}>
-                        <img src={logo} className="customerimg"/>
-                        <input type="text" style={{border:"none", outline:"none"}} placeholder="Placeholder" /> 
-                    </div>
-
-                    <label className='leadlabel' >Lead Source Type</label><br/>
-                    <div className='radio-group'>
-                    <label className='radio'>
-                        <input type="radio" value="Contacts" name="lead"  checked={checked == "contacts" ? true : false} onClick={e=>setChecked("contacts")} />Contacts
-                         <span></span> 
-                    </label>
-                    <label className='radio'>
-                        <input type="radio" value="Others" name="lead" onClick={e=>setChecked("Others")}  checked={checked == "Others" ? true : false}/>Others
-                        <span></span>
-                    </label>
-                    </div> 
-                    <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "contacts" ? "Contacts" : "Others"}</label><br/>
-                    {checked =="contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> }
-                    <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                  <DropdownAddButton/> 
-
-                    <div className="leadbutton_bottom">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel">Lead Source Type</label>{" "}
+              </Tooltip>
+              <br />
+              <div className="radio-group">
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Contacts"
+                    name="lead"
+                    checked={checked == "contacts" ? true : false}
+                    onClick={(e) => setChecked("contacts")}
+                  />
+                  Contacts
+                  <span></span>
+                </label>
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Others"
+                    name="lead"
+                    onClick={(e) => setChecked("Others")}
+                    checked={checked == "Others" ? true : false}
+                  />
+                  Others
+                  <span></span>
+                </label>
+              </div>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "15px" }}>
+                  {checked == "contacts" ? "Contacts" : "Others"}
+                </label>{" "}
+              </Tooltip>
+              <br />
+              {checked == "contacts" ? (
+                <SearchDropdown width={331} options={contacts} />
+              ) : (
+                <SearchDropdownAddButton />
+              )}
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "15px" }}>
+                  Ownership
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <SearchDropdown width={331} options={ownershipwithemail} />
+              
+              <div className="leadbutton_bottom">
                 <button type="button" className="leadsavebutton">
-                  Save
+                  Submit
                 </button>
-                <button type="button" className="leadcancelbutton">
-                Cancel
+                <button
+                  type="button"
+                  className="leadcancelbutton"
+                  onClick={handleclose}
+                >
+                  Cancel
                 </button>
               </div>
+            </div>
+          </div>
         </div>
-
-        {/* <div className="leadform-right">
-        <label className='leadlabel' >Lead Source Type</label><br/>
-                    <div className='radio-group'>
-                    <label className='radio'>
-                        <input type="radio" value="Contacts" name="lead"   onClick={e=>setChecked("Contacts")} checked={checked == "Contacts" ? "true" : "false"}/>Contacts
-                         <span></span> 
-                    </label>
-                    <label className='radio'>
-                        <input type="radio" value="Others" name="lead" onClick={e=>setChecked("Others")}  checked={checked == "Others" ? "true" : "false"}/>Others
-                        <span></span>
-                    </label>
-                    </div> 
-                    <label className='leadlabel' style={{marginTop:"15px"}}>{checked == "Contacts" ? "Contacts" : "Others"}</label><br/>
-                    {checked =="Contacts" ?  <DropdownAddButton/> :<DropdownAddButtonOthers/> }
-                    <label className='leadlabel' style={{marginTop:"15px"}}>Ownership</label><br/>
-                  <DropdownAddButton/> 
-            </div> */}
-    </div> 
-    </div>
-    </div>
-   </>
-  )
+      </div>
+    </>
+  );
 }
 
-export default Leads
+export default Leads;

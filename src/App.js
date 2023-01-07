@@ -1,5 +1,6 @@
 
 import './App.css';
+import './components/AntdStyles/AntdStyles.scss';
 
 import Footer from './components/Footer/Footer';
 import SearchBar from './components/SearchBar/SearchBar';
@@ -19,10 +20,11 @@ import Accounts from './components/Chart_Of_Account/Accounts/Accounts';
 
 import VendorsData from './components/Vendors/Vendors-Data/VendorsData';
 import Vendors from './components/Vendors/Vendors';
+import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
 
-
-
-
+import Module from './components/ListOfModule/Module/Module';
+import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
+import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
 
 function App() {
   return (
@@ -31,25 +33,30 @@ function App() {
 
           
           <div className='main'>
-          <div className='' id="gradient"></div>
+          
           <Sidebar/>
           <div className='rightScreen'>
-          {/* <SearchBar /> */}
+          <SearchBar />
           
 
           <Routes>
           {/* <Route path='/' element={<Dashboard/>} /> */}
-            {/* <Route path='customers' element={<Customers />} /> */}
-          <Route path='customers' element={<CustomerPage/>} />
+            <Route path='customers' element={<Customers />} />
+          <Route path='customers/customerPage' element={<CustomerPage/>} />
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
+          <Route path='add_inventory' element={<AddInventoryItem/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
           <Route path='customers' element={<Customers/>} />
-          <Route path='addcustomers' element={<AddNewCustomer/>} />
+          <Route path='customers/addcustomer' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
+        
+          <Route path='module' element={<Module/>} />
+          <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
+          <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
           </Routes>
           {/* <Footer /> */}

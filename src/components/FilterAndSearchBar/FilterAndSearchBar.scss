@@ -1,6 +1,7 @@
+
 .table_nav{
-    display: flex;
-    height: 38px;
+   // display: flex;
+    height: 39px;
     align-items: center;
     margin-bottom: 20px;
     max-width: 2220px;
@@ -8,18 +9,19 @@
     // position: -webkit-sticky;
     // position: sticky;
     top: 0;
-    
-
     justify-content: space-between;
 
     .search_customer{
+        height: 37px;
+        //margin-left: 310.5px;
         display: flex;
         align-items: center;
         background-color: #ffff;
         border-radius: 8px;
         gap: 12px;
         width: 350px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        border: 1px solid #C2CAD2;
+        // box-shadow:  0px 2px 6px 0px #4359711f;
 
         .searchbar_typehead{
             // border: 1px solid;
@@ -32,7 +34,7 @@
         
         
         input{
-            height: 38px;
+            height: 37px;
             border: none;
             border-radius: 8px;
             width: 100%;
@@ -48,12 +50,14 @@
 
     .tableBtn_container{
         display: flex;
+        justify-content: space-between;
         gap: 18px;
         .tableBtn{
-            width: 86px;
-            height: 29px;
+            margin-right: 20px;
+            width: 93.5px;
+            height: 37px;
             border: .5px solid;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -61,7 +65,8 @@
             gap: 8px;
             font-size: 13px;
             font-weight: 400;
-            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            // box-shadow:  0px 2px 6px 0px #4359711f;
+            border: 1px solid #C2CAD2;
 
             .active{
                 opacity: 1;
@@ -77,15 +82,15 @@
             }
 
             .btn_icon{
-                margin-left: 8px;
+                margin-left: 20px;
             }
         }
         .addNewBtn{
             color: #ffff;
             background-color: #5C5AD0;
-            // border: 1px solid red;
+            border: 1px solid #5C5AD0;
             gap: 5px;
-            border: none;
+            // border: none;
             width: auto;
             padding: 0px 16px 0px 13px;
             // justify-content: center;
@@ -103,13 +108,14 @@
 
     .export_dropdown{
         position: absolute;
-        width: 86px;
+        width: 102px;
         height: 113px;
         overflow: hidden;
-        top: 37px;
+        top: 58px;
         background-color: #ffff;
         border-radius: 8px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        box-shadow:  0px 2px 6px 0px #4359711f;
+        // border: 1px solid #C2CAD2;
         left: 0;
         z-index: 10;
         padding: 7px 0px;
@@ -136,11 +142,12 @@
 }
 
 .settings{
+    margin-top: 7px;
     position: relative;
     cursor: pointer;
     .table_setting_dropdown{
         width: 228px;
-        height: 440px;
+     height: 440px;
         position: absolute;
         padding: 0px 17px 0px 15px;
         z-index: 10;
@@ -148,12 +155,19 @@
         top:44px;
         background-color: #ffff;
         border-radius: 8px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        // box-shadow:  0px 2px 6px 0px #4359711f;
+        border: 1px solid #C2CAD2;
         font-size: 13px;
+        overflow: scroll;
         h5{
-            font-weight: 600;
-            color: #566a7f;
-            margin: 18px 0px 22px 67px ;
+            font-weight: 500;
+            color: #697A8D;
+            margin: 23px 0px 14px 0px ;
+            font-size: 16px;
+        }
+        hr{
+            margin-bottom: 20px;
+            border: .5px solid #C2CAD2;
         }
 
         .columns_fields{
@@ -164,10 +178,17 @@
             .chekbox_title{
                 display: flex;
                 gap: 11px;
+                align-items: center;
+                // border: 1px solid;
+
+                div{
+                    margin-bottom: 3px;
+                }
 
 
-                span{
+                p{
                     color:#697a8d;
+                    font-size: 13px;
                     font-weight: 400;
                 }
             }

@@ -2,6 +2,7 @@ import { React, useState} from "react";
 import "./Page_heading.scss";
 
 import {ImCross} from "react-icons/im";
+import { Link } from "react-router-dom";
 
 const Page_heading = ({ parent, child }) => {
 
@@ -11,6 +12,7 @@ const Page_heading = ({ parent, child }) => {
     const searchbar = document.getElementById("searchbarInput");
     searchbar.classList.toggle("searchbar-active");
   };
+
 
 
   return (
@@ -25,8 +27,8 @@ const Page_heading = ({ parent, child }) => {
       <input type="text" name="" id="" />
       <ImCross className="searchbar-cross" onClick={searchbarOn} color={"gray"} size={12} />
     </div>
-      <div className="menu">
-        {/* <CgSearch /> */}
+      {/* <div className="menu">
+
         <img className="search-icon" src="/images/searchbar_icons/Search-Icon.svg" alt="" onClick={searchbarOn} />
         <img className="app-icon" src="/images/searchbar_icons/App.svg" alt="" />
 
@@ -36,7 +38,7 @@ const Page_heading = ({ parent, child }) => {
         </div>
 
         <img src="/images/searchbar_icons/User-Avtar.svg" alt="user" />
-      </div>
+      </div> */}
     </div>
   </>
   );

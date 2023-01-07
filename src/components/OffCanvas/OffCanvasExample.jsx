@@ -18,17 +18,12 @@ function OffCanvasExample({form}) {
 	return (
 
 <>     
-			{/* <span className='ticon' onClick={showMenu}>&#9776;</span> */}
+				<div className='' id="gradient">
 			<div className='menu1'>
-				{/* <div className='menu1_container'> */}
 				<span className='close' onClick={closeMenu}>&times;</span>
-
 				{form}
-
-				
-				{/* </div> */}
 			</div>
-			
+			</div>
 
   
 </>

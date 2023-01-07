@@ -9,6 +9,10 @@
  // scrollbar-width: none;
   //border-radius: 8px;
   overflow: scroll;
+
+  .css-13cymwt-control {
+    border-width: 0.5px !important;
+}
 }
 
 .accountsform::-webkit-scrollbar{
@@ -54,13 +58,14 @@
 
 .accountformlabel
 {
-    font-size: 12px;
+    font-size: 13px;
     color:#566A7F;
+    cursor: pointer;
 }
 
 .accountforminput
 {
-    border:1px solid;
+    border:.5px solid;
     height: 38px;
     width: 330px;
     border-radius: 5px;
@@ -70,16 +75,19 @@
     border-color: #D9DEE3;
 }
 
+.accountforminput:hover
+{
+    // border:1px solid #5C5AD0 !important;
+    outline: 1px solid #5C5AD0 !important;
+    border:.5px solid transparent !important;
+}
 
 .accountformbutton_bottom
 {
     display: flex;
-   // float: right;
-   // margin-right: 32px;
-   // margin-top: 109px;
-    gap: 24px;
-   // border-color: #D9DEE3;
-   margin-top: 40px;
+    gap: 12px;
+   border-color: #D9DEE3;  
+   margin-top: 30px;
 }
 .accountformcancelbutton
 {
@@ -91,18 +99,27 @@
     color: #8E9CAA;
     background-color: #FFFFFF;
     font-size: 12px;
-    
+    cursor: pointer;
     //font-weight: semibold;
 }
 .accountformsavebutton
 {
     border: none;
-    width: 81px;
+    width: 67px;
     height: 38px;
     border-radius: 6px;
     color: white;
     background-color: #5C5AD0;
     font-size: 12px;
+    cursor: pointer;
    // margin-right: 24px;
    // font-weight: bold;
 }
+
+.inputaccount
+{
+    border:none;
+    outline:none;
+    width:82%
+}
+

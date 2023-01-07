@@ -173,7 +173,8 @@ const LeadsData = () => {
         resizable: true,
         fixed: "left",
         align: "left",
-        // width: 60,
+        width: 80,
+        // minWidth: 260,
       },
       {
         title: "Mobile No.",
@@ -181,7 +182,7 @@ const LeadsData = () => {
         dataIndex: "mobile_no",
         key: "mobile_no",
         resizable: true,
-        // width: 60,
+        width: 100,
         align: "left",
       },
       {
@@ -190,7 +191,7 @@ const LeadsData = () => {
         dataIndex: "email",
         key: "email",
         resizable: true,
-        width: 230,
+        width: 150,
         align: "left",
       },
       {
@@ -199,7 +200,7 @@ const LeadsData = () => {
         dataIndex: "type",
         key: "type",
         resizable: true,
-        // width: 60,
+        width: 70,
         align: "left",
   
       },
@@ -209,7 +210,9 @@ const LeadsData = () => {
         dataIndex: "business_names",
         key: "business_names",
         resizable: true,
-        width: 260,
+        // minWidth: 260, 
+        width: 160  ,
+        // width: 'auto',
         align: "left",
       },
       {
@@ -218,7 +221,8 @@ const LeadsData = () => {
         dataIndex: "lead_source",
         key: "lead_source",
         resizable: true,
-        width: 150,
+        width: 100,
+        // width: 'auto',
         align: "left",
       },
     ];
@@ -233,12 +237,28 @@ const LeadsData = () => {
       .getElementById("searchbar_container")
       .classList.toggle("container_display");
   }
+
+
+  // Table Search
+  
+  const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className='leads-data'>
         <Page_heading  parent={"Business Account"} child={"Leads"}/>
 
         <div className="leads-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Lead"} path={"add_leads"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
         <Table
             ref={componentRef}
@@ -251,13 +271,16 @@ const LeadsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
-            // scroll={{ y: 800, x: 720 }}
+            scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
         </div>
     </div>

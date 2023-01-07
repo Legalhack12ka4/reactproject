@@ -8,7 +8,7 @@ import {CgSearch} from "react-icons/cg"
 
 
 const SearchBar = () => {
-const [searchTriggered, setSearchTriggered] = useState(true);
+const [searchTriggered, setSearchTriggered] = useState(false);
 
 document.addEventListener("keydown", e =>{
   if(e.key === "/" && e.ctrlKey){
@@ -16,8 +16,61 @@ document.addEventListener("keydown", e =>{
   }
 })
   function handleSearch(){
-    // setSearchTriggered(!searchTriggered)
+    setSearchTriggered(!searchTriggered)
   }
+
+  const element = document.documentElement;
+
+  // const goFullScreen = () => {
+
+  //   if (element.requestFullscreen) {
+  //     element.requestFullscreen();
+  //   } else if (element.mozRequestFullScreen) {
+  //     element.mozRequestFullScreen();
+  //   } else if (element.webkitRequestFullscreen) {
+  //     element.webkitRequestFullscreen();
+  //   } else if (element.msRequestFullscreen) {
+  //     element.msRequestFullscreen();
+  //   }
+  // };
+
+  const goFullScreen = () => {
+    const element = document.documentElement;
+  
+    if (element.requestFullscreen) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        element.requestFullscreen();
+      }
+    } else if (element.mozRequestFullScreen) {
+      if (document.mozFullScreenElement) {
+        document.mozCancelFullScreen();
+      } else {
+        element.mozRequestFullScreen();
+      }
+    } else if (element.webkitRequestFullscreen) {
+      if (document.webkitFullscreenElement) {
+        document.webkitExitFullscreen();
+      } else {
+        element.webkitRequestFullscreen();
+      }
+    } else if (element.msRequestFullscreen) {
+      if (document.msFullscreenElement) {
+        document.msExitFullscreen();
+      } else {
+        element.msRequestFullscreen();
+      }
+    }
+  };
+
+  
+  document.addEventListener('keyup', function(event) {
+    if (event.key === 'Escape') {
+      // alert("hii")
+      setSearchTriggered(false)
+    }
+  });
   return (
     
 <div className="search_bar_container">
@@ -29,14 +82,16 @@ document.addEventListener("keydown", e =>{
         <p onClick={handleSearch}>Search (Ctrl+/)</p>
       </div>
       
-      {/* <div className="profile_btn">
-        <img src="/images/searchbar_icons/App.svg" alt="app" />
-        <div className="bell_icon">
+      <div className="profile_btn">
+      <div className="bell_icon">
           <img src="/images/searchbar_icons/icon-bell.svg" alt="notification" />
           <div>4</div>
         </div>
-        <img src="/images/searchbar_icons/User - Avtar.svg" alt="" />
-      </div> */}
+        <img src="/images/searchbar_icons/App.svg" alt="app" />
+        <img src="/images/searchbar_icons/msg.svg" alt="" />
+        <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />
+        <img src="/images/searchbar_icons/User-Avtar.svg" alt="" />
+      </div>
     </div>
       )
     }

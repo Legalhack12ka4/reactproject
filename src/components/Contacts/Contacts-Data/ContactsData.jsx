@@ -1,169 +1,56 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
-
 import "./ContactsData.scss"
-
-
 import { Table } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+import axios from "axios";
 
 const ContactsData = () => {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
+ const [fetchcontact, setFetchcontact] = useState([]);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    await axios.get("http://127.0.0.1:8000/contact/").then(
+      res => {
+        setloading(false);
+        setFetchcontact(
+          res.data.map(row => ({
+            Name: row.name,
+            Mobile: row.mobile,
+            Email: row.email,
+            DOB: row.dob,
+            Position:row.position,
+            Ownership:row.ownership
+           // id: row.id
+          }))
+        );
+        console.log(res);
+      }
+      
+    );
+  };
+  console.log(fetchcontact)
 
 
-
-    const dataSource = [
-        {
-          key: "1",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "2",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "3",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "4",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "5",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "6",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "7",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "8",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "9",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "10",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "11",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "12",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "13",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "14",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "15",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-        {
-          key: "16",
-          name: "Parth Goswami",
-          mobile_no: "+91 XXXXXXXXXX",
-          email: "parth.goswami@reformiqo.com",
-          type: "Key Person",
-          business_names: "Reformiqo Business Service Pvt Ltd",
-          lead_source: "Expo 2022",
-        },
-    
-        // ...
-      ];
+    const dataSource = 
+      fetchcontact.map(contact =>
+        ({
+          name:contact.Name,
+          mobile:contact.Mobile,
+          email:contact.Email,
+          dob:contact.DOB,
+          position:contact.Position,
+          ownership:contact.Ownership
+        }));
       const columnsData = [
         {
           title: "Name",
@@ -173,15 +60,15 @@ const ContactsData = () => {
           resizable: true,
           fixed: "left",
           align: "left",
-          // width: 60,
+          width: 80,
         },
         {
           title: "Mobile No.",
           label: "Mobile No.",
-          dataIndex: "mobile_no",
-          key: "mobile_no",
+          dataIndex: "mobile",
+          key: "mobile",
           resizable: true,
-          // width: 60,
+          width: 100,
           align: "left",
         },
         {
@@ -190,35 +77,35 @@ const ContactsData = () => {
           dataIndex: "email",
           key: "email",
           resizable: true,
-          width: 230,
+          width: 150,
           align: "left",
         },
         {
-          title: "Type",
-          label: "Type",
-          dataIndex: "type",
-          key: "type",
+          title: "DOB",
+          label: "DOB",
+          dataIndex: "dob",
+          key: "dob",
           resizable: true,
-          // width: 60,
+          width: 70,
           align: "left",
     
         },
         {
-          title: "Business Names",
-          label: "Business Names",
-          dataIndex: "business_names",
-          key: "business_names",
+          title: "Position",
+          label: "Position",
+          dataIndex: "position",
+          key: "position",
           resizable: true,
-          width: 260,
+          width: 160,
           align: "left",
         },
         {
-          title: "Lead Source",
-          label: "Lead Source",
-          dataIndex: "lead_source",
-          key: "lead_source",
+          title: "Ownership ",
+          label: "Ownership ",
+          dataIndex: "ownership",
+          key: "ownership",
           resizable: true,
-          width: 150,
+          width: 100,
           align: "left",
         },
       ];
@@ -233,12 +120,28 @@ const ContactsData = () => {
       .getElementById("searchbar_container")
       .classList.toggle("container_display");
   }
+  
+
+  // Table Search 
+
+  const handleData = (newData) => {
+    setSearch(newData);
+  }
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.name.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className='contacts-data'>
         <Page_heading  parent={"Business Account"} child={"contacts"}/>
 
         <div className="contacts-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} path={"add_contacts"} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} onData={handleData} />
         <OffCanvasExample  form={<Contacts/>}/>
         <Table
             ref={componentRef}
@@ -251,14 +154,20 @@ const ContactsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            dataSource={dataSource}
+            dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
+            scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
+            search={{
+              keyword: search,
+            }}
           />
+
+          {/* <SearchDropdown/> */}
         </div>
     </div>
   )

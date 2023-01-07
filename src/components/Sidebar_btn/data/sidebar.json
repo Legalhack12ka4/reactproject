@@ -19,7 +19,7 @@
         "childrens": [
             {
                 "title": "Inventory Item",
-                "path": "/inventory_item"
+                "path": "/add_inventory"
             },
             {
                 "title": "Non Inventory Item",
@@ -305,6 +305,6 @@
         "id": "lm",
         "type": "btn",
         "icon": "/images/sidebar_icons/bx-list-ul.svg",
-        "path": "list_of_modules"
+        "path": "module"
     }
 ]
