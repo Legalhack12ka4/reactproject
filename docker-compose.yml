@@ -2,9 +2,11 @@ version: '3.5'
 
 services:
   reformiqo-erp-frontend:
+    image: reformiqo-erp-ui:latest
+    container_name: reformiqo-erp-ui
     build:
       context: .
-    container_name: reformiqo-erp-frontend
-    image: reformiqo-erp-frontend:latest
     ports:
-      - "3000:3000"
+      - "8000:8000"
+    env_file:
+      - ./proxy-server/.env
