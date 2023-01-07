@@ -18,6 +18,32 @@
 }
 
 
+:where(.css-dev-only-do-not-override-k83k30).ant-table-wrapper .ant-table-column-sorter-up.active
+{
+color :#5C5AD0 !important
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-table-wrapper .ant-table-column-sorter-down.active {
+    color :#5C5AD0 !important
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-pagination .ant-pagination-item-active a {
+    color :#5C5AD0 !important
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-pagination .ant-pagination-item-active {
+
+    border-color :#5C5AD0 !important
+}
+:where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"] [class^="ant-select"], :where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"] [class^="ant-select"], :where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"] [class*=" ant-select"], :where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"] [class*=" ant-select"] {
+border-color: #5C5AD0 !important;
+}
+:where(.css-dev-only-do-not-override-k83k30).ant-tooltip-placement-top .ant-tooltip-arrow {
+display: none !important
+}
+
+
+:where(.css-dev-only-do-not-override-k83k30).ant-tooltip .ant-tooltip-content {
+    display: none !important;
+}
+
 
 .module-data::-webkit-scrollbar{
     width: 0;
