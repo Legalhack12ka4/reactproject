@@ -36,8 +36,8 @@ jobs:
         IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
       run: |
         docker build -t $ECR_REPOSITORY .
-        docker tag $ECR_REGISTRY:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag $ECR_REGISTRY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
     
     - name: Deploy
       run: zip -r "deploy.zip" docker-compose.yml
