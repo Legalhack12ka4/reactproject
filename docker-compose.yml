@@ -2,11 +2,19 @@ version: '3.5'
 
 services:
   reformiqo-erp-frontend:
-    image: reformiqo-erp-ui:latest
-    container_name: reformiqo-erp-ui
-    build:
-      context: .
+    container_name: reformiqo-erp-frontend
+    image: ${REGISTRY_URL}/${IMAGE_NAME}:${TAG_VERSION:-latest}
     ports:
-      - "8000:8000"
-    env_file:
-      - ./proxy-server/.env
+      - "80:$PORT"
+    enviroments:
+      - TAG_VERSION
+      - PORT
+      - REGISTRY_URL
+      - IMAGE_NAME
+      - NODE_ENV
+      - REDIRECT_TO_HTTPS
+      - UNDER_MAINTENANCE_MODE
+      - APP_LOCATION
+      - API_URL
+      - API_PREFIX
+      - API_VERSION
