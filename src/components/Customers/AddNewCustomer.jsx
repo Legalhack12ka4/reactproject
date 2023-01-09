@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
-
+import axios from "axios";
 import "../AllDropdowns/SearchDropdown/SearchDropdown.scss";
 import { Tooltip } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 // icons
 import creditcard from "../../assets/Images/FormIcon/Credit Limit.svg";
@@ -40,6 +42,7 @@ const initialFieldValues = {
 };
 
 function AddNewCustomer(props) {
+  const [formData, setFormData] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
 
@@ -65,6 +68,66 @@ function AddNewCustomer(props) {
       });
   };
 
+  const handleFormSubmit = () => {
+
+    axios
+      .post(
+        "http://127.0.0.1:8000/customervendor/",
+        {
+          "gst_treatment": 1,
+            gst_no:values.gstin,
+            business_name:values.businessname,
+            "type_category": 8,
+            pan_card:values.pancard,
+            "currency": 1,
+            "payment_terms": 1,
+            credit_limit:values.credit,
+            email:values.email,
+            pincode:values.pincode,
+            street1:values.street1,
+            street2:values.street2,
+            "place_of_supply": 1,
+            "contact": 1,
+            "ownership": 1,
+            "is_active": true,
+            "is_deleted": false,
+            "type": 11,
+            "company_id": 1,
+            "created_by": 1,
+            "updated_by": 1
+        },
+        values
+      )
+      .then((response) => {
+       // getData();
+      
+        toast.success("Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        handleClose();
+       
+      });
+  }
+
+  const onChange = (e) => {
+    const { value, name } = e.target;
+  
+    setFormData({ ...values, [name]: value });
+    console.log(value);
+    console.log(name);
+  };
+  console.log(formData);
+
+  const handleClose = () => {
+    window.history.back(-1);
+    setFormData(initialFieldValues)
+  };
   // form Validation
 
   
@@ -541,7 +604,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="gstin"
                     value={values.gstin}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -576,7 +639,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="businessname"
                     value={values.businessname}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
                   {errors.businessname && touched.businessname && (
@@ -621,7 +684,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="pancard"
                     value={values.pancard}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
                   {errors.pancard && touched.pancard && (
@@ -671,8 +734,8 @@ function AddNewCustomer(props) {
                 </div>
 
                 <div className="customerbutton_bottom">
-                  <input type="submit" className="customersavebutton" />
-                  <button type="button" className="customercancelbutton">
+                  <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
+                  <button type="button" className="customercancelbutton"  onClick={handleClose}>
                     Cancel
                   </button>
                 </div>
@@ -698,7 +761,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="credit"
                     value={values.credit}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
                   {errors.credit && touched.credit && (
@@ -731,7 +794,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="email"
                     value={values.email}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -765,7 +828,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="pincode"
                     value={values.pincode}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -799,7 +862,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="street1"
                     value={values.street1}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
                   {errors.street1 && touched.street1 && (
@@ -831,7 +894,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="street2"
                     value={values.street2}
-                    onChange={handleChange}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
                   {errors.street2 && touched.street2 && (
@@ -932,6 +995,7 @@ function AddNewCustomer(props) {
             </div>
           </form>
         </div>
+        <ToastContainer/>
       </div>
     </div>
   );

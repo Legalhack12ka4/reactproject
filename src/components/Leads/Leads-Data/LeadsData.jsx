@@ -14,6 +14,8 @@ const LeadsData = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
 
+    const [page, setPage]=useState(1);
+    const [pageSize, setPageSize] = useState(10)
 
 
     const dataSource = [
@@ -174,6 +176,19 @@ const LeadsData = () => {
         fixed: "left",
         align: "left",
         width: 80,
+        sorter:(record1, record2)=>
+        {
+            return record1.account_type > record2.account_type
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.account_type === value
+        }
         // minWidth: 260,
       },
       {
@@ -184,6 +199,19 @@ const LeadsData = () => {
         resizable: true,
         width: 100,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.mobile_no > record2.mobile_no
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.mobile_no === value
+        }
       },
       {
         title: "Email",
@@ -193,6 +221,19 @@ const LeadsData = () => {
         resizable: true,
         width: 150,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.email > record2.email
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.email === value
+        }
       },
       {
         title: "Type",
@@ -202,7 +243,19 @@ const LeadsData = () => {
         resizable: true,
         width: 70,
         align: "left",
-  
+        sorter:(record1, record2)=>
+        {
+            return record1.type > record2.type
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.type === value
+        }
       },
       {
         title: "Business Names",
@@ -214,6 +267,19 @@ const LeadsData = () => {
         width: 160  ,
         // width: 'auto',
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.business_names > record2.business_names
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.business_names === value
+        }
       },
       {
         title: "Lead Source",
@@ -224,6 +290,19 @@ const LeadsData = () => {
         width: 100,
         // width: 'auto',
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.lead_source > record2.lead_source
+        },
+        filters:[
+          {text:'Expense 1', value:'Expense 1'},
+          {text:'Expense 2', value:'Expense 2'}
+        ],
+        // filterMultiple:false,
+        onFilter:(value,record)=>
+        {
+          return record.lead_source === value
+        }
       },
     ];
 
@@ -275,6 +354,15 @@ const LeadsData = () => {
             columns={columns}
             scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
+        pagination={{
+          current:page,
+          pageSize:pageSize, 
+          onChange:(page, pageSize)=>
+          {
+            setPage(page);
+            setPageSize(pageSize)
+          },
+          total:100}}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }

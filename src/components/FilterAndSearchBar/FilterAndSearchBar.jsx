@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import { useState, useEffect, useRef } from "react";
 import { Input, Checkbox } from "antd";
 import { Link } from "react-router-dom";
@@ -10,15 +8,14 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import filter from "./Icons/Filter.svg";
-
 import "./FilterAndSearchBar.scss";
 import Select from "react-select";
-
 import { CgSearch } from "react-icons/cg";
 import { BiExport } from "react-icons/bi";
 import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
 import { event } from "jquery";
+
 
 const FilterAndSearchBar = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
