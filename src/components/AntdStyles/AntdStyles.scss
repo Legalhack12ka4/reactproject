@@ -27,6 +27,25 @@
 }
 
 
+//Breadcrumb
+
+.ant-breadcrumb-link
+{
+  font-weight: 700 !important;
+  color: #566A76 !important;
+  .heading_parent{
+    color: #A1ACB8;
+    font-weight: 400;
+}
+}
+
+ .ant-breadcrumb-separator {
+  color: #A1ACB8 !important;
+}
+
+:where(.css-dev-only-do-not-override-k83k30).ant-breadcrumb {
+font-size: 18px !important;
+}
 
 
 
@@ -76,6 +95,14 @@
     border-bottom: none !important;
   }
   
+  // .ant-table-content::-webkit-scrollbar
+  // {
+
+
+  // overflow: auto hidden !important;
+  // display: none  !important;  /* Safari and Chrome */
+ 
+  // }
   .ant-table-container {
     box-shadow:  0px 2px 6px 0px #4359711f;
     border-radius: 8px;

@@ -31,7 +31,7 @@ const Customer = (props) => {
         setloading(false);
         setFetchcustomer(
           res.data.map(row => ({
-            Gst_Treatment: row.gst_treatment,
+            Gst_Treatment: row.gst_treatment == 1 ? "Registerd Business" :row.gst_treatment ==2 ? "Consumer" : "",
             Gst_No: row.gst_no,
             Business_Name: row.business_name,
             Type_Category: row.type_category,
@@ -243,8 +243,8 @@ const Customer = (props) => {
       {
         title: "PinCode",
         label: "PinCode",
-        dataIndex: "pinCode",
-        key: "pinCode",
+        dataIndex: "pincode",
+        key: "pincode",
         resizable: true,
         width: 180,
         align: "left",

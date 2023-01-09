@@ -9,8 +9,10 @@ import {Modal, Button } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 
 const resetValue = {
+
    currency_name: "" ,
    symbol:"",
    country_name:""
@@ -30,27 +32,77 @@ const ModuleCurrencyTable = () => {
     getData();
   }, []);
 
+
+  //get data
   const getData = async () => {
+
     await axios.get("http://127.0.0.1:8000/currency/").then(
       res => {
         setloading(false);
         setCurrency(
           res.data.map(row => ({
+            Key:row.id,
             Currency_Name: row.currency_name,
             Symbol: row.symbol,
-            Country_Name: row.country_name
-          }))
-        );
-      }
+            Country_Name: row.country_name,
+           
+                  
+      }))
     );
-  };
+  });
+}
   console.log(currency)
 
 //   const notify =() =>
 //  ("Wow")
 //add data
+
+
+//INsert and update data
 const handleFormSubmit = () => {
 
+  //Update data
+if (formData.id)
+{
+  axios
+    .put(
+      "http://127.0.0.1:8000/currency/" + formData.id + "/",
+      {
+    
+        currency_name: formData.currency_name,
+        symbol: formData.symbol,
+        country_name: formData.country_name,
+        currency_from:"USD",
+        currency_to:"INR",
+       // time_stamp:new Date().toLocaleString(),
+        "time_stamp": "2022-12-30T13:37:00Z",
+        "amount": "1",
+        "is_active": true,
+        "is_deleted": false,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
+    .then((response) => {
+      closeModal();
+      handleCancel();
+      getData();
+      toast.success("Updated Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    
+     
+    });
+}
+else{
+  //insert data
   axios
     .post(
       "http://127.0.0.1:8000/currency/",
@@ -86,8 +138,23 @@ const handleFormSubmit = () => {
     
      
     });
+  }
 }
 
+//delete data
+const deleteUser = (record)=>
+{
+  console.log(record);
+  console.log(record.id);
+  axios
+  .delete(
+    "http://127.0.0.1:8000/currency/" + record.id + "/");
+       getData();
+       console.log(currency)
+}
+
+
+console.log(currency.Id)
 
 const onChange = (e) => {
   const { value, name } = e.target;
@@ -130,6 +197,8 @@ console.log(formData)
    const dataSource = 
       currency.map (cur =>
        ( {
+         key:cur.Key,
+         id:cur.Key,
           currency_name: cur.Currency_Name,
           symbol:cur.Symbol,
           country_name:cur.Country_Name,
@@ -137,7 +206,18 @@ console.log(formData)
 
       const columnsData = [
         {
-          key:"1",
+        
+          title: "Id",
+          label: "Id",
+          dataIndex: "id",
+          key: "id",
+          resizable: true,
+          fixed: "left",
+          align: "left",
+         
+        },
+        {
+         
           title: "Currency Code",
           label: "Currency Code",
           dataIndex: "currency_name",
@@ -204,6 +284,59 @@ console.log(formData)
             return record.country_name === value
           }
         },
+        {
+          title: "Action",
+          label: "Action",
+          dataIndex: "action",
+          key: "action",
+          render: (text, record) => (
+         
+            <span style={{display:"flex"}}>
+            <Button
+               className="btn btn-primary mx-2 my-2"
+                onClick={() => handleUpdate(record)}
+            >
+              Edit
+            </Button>
+         
+            <button 
+             style={{marginLeft:"20px"}}
+              onClick={() =>
+                Swal.fire({
+                  title: "Are you sure?",
+                  text: "Once deleted, you will not be able to recover!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    if (deleteUser(record)) {
+                      getData();
+                      toast.success("Deleted Successfuly", {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                      });
+                    }
+                  }
+                })
+              }
+            >
+           Delete
+            </button>
+        </span>
+
+              ),
+          resizable: true,
+          width: 230,
+          align: "left",
+        },
       ];
 
 
@@ -244,6 +377,15 @@ console.log(formData)
   };
   
 
+  //Get data in textbox on edit button
+  const handleUpdate = (oldData) => {
+    console.log(oldData);
+    console.log(oldData.id);
+    setFormData(oldData);
+    showModal();
+  };
+
+
   const handleCancel = () => {
     setIsModalOpen(false);
     setFormData(resetValue);
@@ -263,7 +405,7 @@ console.log(formData)
         />
         {/* <OffCanvasExample  form={<Contacts/>}/> */}
         <Modal
-          title="Add Currency"
+          title= {formData.id ? "Update Currency" : "Add Currency"}
           open={isModalOpen}
           onOk={handleOk}
           width={764}
@@ -282,7 +424,7 @@ console.log(formData)
               }}
               onClick={() => handleFormSubmit()}
             >
-              Submit
+             {formData.id?"Update":"Submit"} 
             </Button>,
             <Button
               key="cancel"

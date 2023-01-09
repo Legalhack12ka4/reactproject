@@ -74,7 +74,7 @@ function AddNewCustomer(props) {
       .post(
         "http://127.0.0.1:8000/customervendor/",
         {
-          "gst_treatment": 1,
+          gst_treatment: values.gsttreat,
             gst_no:values.gstin,
             business_name:values.businessname,
             "type_category": 8,

@@ -17,7 +17,7 @@
   height:100vh;
 }
 *::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
+ display: none;  /* Safari and Chrome */
 }
 
 
