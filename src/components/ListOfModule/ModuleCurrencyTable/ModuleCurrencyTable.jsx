@@ -4,12 +4,13 @@ import Page_heading from '../../Page_Heading/Page_heading'
 import "./ModuleCurrencyTable.scss"
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import {Modal, Button } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const resetValue = {
 
@@ -205,17 +206,17 @@ console.log(formData)
         }));
 
       const columnsData = [
-        {
+        // {
         
-          title: "Id",
-          label: "Id",
-          dataIndex: "id",
-          key: "id",
-          resizable: true,
-          fixed: "left",
-          align: "left",
+        //   title: "Id",
+        //   label: "Id",
+        //   dataIndex: "id",
+        //   key: "id",
+        //   resizable: true,
+        //   fixed: "left",
+        //   align: "left",
          
-        },
+        // },
         {
          
           title: "Currency Code",
@@ -229,15 +230,15 @@ console.log(formData)
           {
               return record1.currency_name > record2.currency_name
           },
-          filters:[
-            {text:'USD', value:'USD'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.currency_name === value
-          }
+          // filters:[
+          //   {text:'USD', value:'USD'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.currency_name === value
+          // }
           // width: 60,
         },
         {
@@ -252,15 +253,15 @@ console.log(formData)
           {
               return record1.symbol > record2.symbol
           },
-          filters:[
-            {text:'₹', value:'₹'},
-            {text:'$', value:'$'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.symbol === value
-          }
+          // filters:[
+          //   {text:'₹', value:'₹'},
+          //   {text:'$', value:'$'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.symbol === value
+          // }
         },
         {
           title: "Currency Name",
@@ -274,15 +275,15 @@ console.log(formData)
           {
               return record1.country_name > record2.country_name
           },
-          filters:[
-            {text:'India', value:'India'},
-            {text:'Usa', value:'Usa'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.country_name === value
-          }
+          // filters:[
+          //   {text:'India', value:'India'},
+          //   {text:'Usa', value:'Usa'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.country_name === value
+          // }
         },
         {
           title: "Action",
@@ -394,7 +395,7 @@ console.log(formData)
 
   return (
     <div className="module-data">
-      <Page_heading parent={"List of Modules"} child={"Currency Table"} />
+      <Page_heading parent={"List of Modules"} subchild={(<Link exact to= "/module">{"Module"}</Link>)} child={"Currency Table"} />
 
       <div className="module-table-container">
         <FilterAndSearchBar
@@ -505,6 +506,7 @@ console.log(formData)
               setSelectedRows(selectedRows);
             },
           }}
+          loading={{indicator : <div><Spin/></div>, spinning:loading}}
           dataSource={filteredData}
           columns={columns}
           pagination={{

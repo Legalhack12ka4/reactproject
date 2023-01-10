@@ -19,6 +19,7 @@ import { event } from "jquery";
 
 const FilterAndSearchBar = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
+  const [filterOpen, setFilterOpen]= useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
   // const [search, setSearch] = useState("");
 
@@ -293,6 +294,10 @@ const FilterAndSearchBar = (props) => {
   const openExport = () => {
     setExportOpen(!exportOpen);
   };
+  const openFilter = () => {
+    alert("clcik")
+    setFilterOpen(!filterOpen);
+  };
   const openSetting = () => {
     setSettingOpen(!settingOpen);
   };
@@ -303,6 +308,7 @@ const FilterAndSearchBar = (props) => {
         // Close the dropdown list
         setSettingOpen(false);
         setExportOpen(false);
+        setFilterOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -453,11 +459,22 @@ const FilterAndSearchBar = (props) => {
 
         <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
-            <div className="tableBtn">
+            <div className="tableBtn"
+            
+            onClick={openFilter}
+              style={{ width: "101.5px" }}
+              ref={menuRef}>
               <div className="btn_icon">
                 <img src={filter} size={15} />
               </div>
               Filter
+
+              <div
+                className={`export_dropdown ${
+                  filterOpen ? "active" : "inactive"
+                }`}
+              >
+                </div>
             </div>
             <div
               className="tableBtn export"

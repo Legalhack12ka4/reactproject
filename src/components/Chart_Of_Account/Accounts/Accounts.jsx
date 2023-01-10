@@ -192,15 +192,15 @@ function Accounts() {
           {
               return record1.account_type > record2.account_type
           },
-          filters:[
-            {text:'Expense 1', value:'Expense 1'},
-            {text:'Expense 2', value:'Expense 2'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.account_type === value
-          }
+          // filters:[
+          //   {text:'Expense 1', value:'Expense 1'},
+          //   {text:'Expense 2', value:'Expense 2'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.account_type === value
+          // }
           // width: 60,
         },
         {
@@ -215,15 +215,15 @@ function Accounts() {
           {
               return record1.account_name > record2.account_name
           },
-          filters:[
-            {text:'Cost of Goods Solds', value:'Cost of Goods Solds'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.account_name === value
-          }
+          // filters:[
+          //   {text:'Cost of Goods Solds', value:'Cost of Goods Solds'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.account_name === value
+          // }
         },
         {
           title: "Account Code",
@@ -237,15 +237,15 @@ function Accounts() {
           {
               return record1.account_code > record2.account_code
           },
-          filters:[
-            {text:'1002', value:'1002'},
-            {text:'1003', value:'1003'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.account_code === value
-          }
+          // filters:[
+          //   {text:'1002', value:'1002'},
+          //   {text:'1003', value:'1003'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.account_code === value
+          // }
         },
         {
           title: "Reporting L1",
@@ -259,15 +259,15 @@ function Accounts() {
           {
               return record1.reporting_l1 > record2.reporting_l1
           },
-          filters:[
-            {text:'Direct Expense', value:'Direct Expense'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.reporting_l1 === value
-          }
+          // filters:[
+          //   {text:'Direct Expense', value:'Direct Expense'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.reporting_l1 === value
+          // }
     
         },
         {
@@ -282,15 +282,15 @@ function Accounts() {
           {
               return record1.reporting_l2 > record2.reporting_l2
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.reporting_l2 === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.reporting_l2 === value
+          // }
         },
         {
           title: "Reporting L3",
@@ -304,15 +304,15 @@ function Accounts() {
           {
               return record1.reporting_l3 > record2.reporting_l3
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.reporting_l3 === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.reporting_l3 === value
+          // }
         },
         {
           title: "Module Type",
@@ -326,15 +326,15 @@ function Accounts() {
           {
               return record1.module_type > record2.module_type
           },
-          filters:[
-            {text:'Sales', value:'Sales'},
-            {text:'INR', value:'INR'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.module_type === value
-          }
+          // filters:[
+          //   {text:'Sales', value:'Sales'},
+          //   {text:'INR', value:'INR'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.module_type === value
+          // }
         }
       ];
 
