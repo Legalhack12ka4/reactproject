@@ -13,6 +13,7 @@ import { Tooltip } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -532,7 +533,7 @@ function Vendors(props) {
   return (
     <div className="vendors_container">
       <div className="addvendor_heading">
-        <Page_heading parent={"Business Account"} child={"Add New Vendor"} />
+        <Page_heading parent={"Business Account"} subchild={(<Link exact to= "/vendors">{"Vendor"}</Link>)}  child={"Add New Vendor"} />
       </div>
       <div className="vendorform">
         <div className="newvendor">

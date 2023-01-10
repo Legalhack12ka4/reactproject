@@ -5,7 +5,7 @@ import Page_heading from '../../Page_Heading/Page_heading'
 import "./Leads-Data.scss"
 
 
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Leads from "../Leads"
 
@@ -13,7 +13,7 @@ const LeadsData = () => {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
-
+    const [loading, setloading] = useState(true);
     const [page, setPage]=useState(1);
     const [pageSize, setPageSize] = useState(10)
 
@@ -180,15 +180,15 @@ const LeadsData = () => {
         {
             return record1.account_type > record2.account_type
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.account_type === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.account_type === value
+        // }
         // minWidth: 260,
       },
       {
@@ -203,15 +203,15 @@ const LeadsData = () => {
         {
             return record1.mobile_no > record2.mobile_no
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.mobile_no === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.mobile_no === value
+        // }
       },
       {
         title: "Email",
@@ -225,15 +225,15 @@ const LeadsData = () => {
         {
             return record1.email > record2.email
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.email === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.email === value
+        // }
       },
       {
         title: "Type",
@@ -247,15 +247,15 @@ const LeadsData = () => {
         {
             return record1.type > record2.type
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.type === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.type === value
+        // }
       },
       {
         title: "Business Names",
@@ -271,15 +271,15 @@ const LeadsData = () => {
         {
             return record1.business_names > record2.business_names
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.business_names === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.business_names === value
+        // }
       },
       {
         title: "Lead Source",
@@ -294,15 +294,15 @@ const LeadsData = () => {
         {
             return record1.lead_source > record2.lead_source
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.lead_source === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.lead_source === value
+        // }
       },
     ];
 
@@ -350,6 +350,7 @@ const LeadsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
+            // loading={{indicator : <div><Spin/></div>, spinning:loading}}
             dataSource={filteredData}
             columns={columns}
             scroll={{  x:"1100px" }}

@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./VendorsData.scss"
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import axios from "axios";
 
 const VendorsData = () => {
@@ -62,6 +62,7 @@ const [pageSize, setPageSize] = useState(10)
       contact:vendor.Contact,
       ownership:vendor.Ownsership
     }));
+   
     const columnsData = [
       {
         title: "Gst Treatment",
@@ -76,15 +77,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.gst_treatment > record2.gst_treatment
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.gst_treatment === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.gst_treatment === value
+        // }
         // onFilter: (value, record) => {
         //   return record.business_name.includes(value)
         // }
@@ -101,15 +102,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.gst_no > record2.gst_no
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.gst_no === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.gst_no === value
+        // }
       },
       {
         title: "Business Name",
@@ -123,15 +124,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.business_name > record2.business_name
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.business_name === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.business_name === value
+        // }
       },
       {
         title: "Type Category",
@@ -145,15 +146,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.type_category > record2.type_category
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.type_category === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.type_category === value
+        // }
       },
       {
         title: "PanCard",
@@ -167,15 +168,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.pan_card > record2.pan_card
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.pan_card === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.pan_card === value
+        // }
       },
       {
         title: "Credit Limit",
@@ -189,15 +190,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.credit_limit > record2.credit_limit
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.credit_limit === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.credit_limit === value
+        // }
       },
       {
         title: "Email",
@@ -211,21 +212,21 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.email > record2.email
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.email === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.email === value
+        // }
       },
       {
         title: "PinCode",
         label: "PinCode",
-        dataIndex: "pinCode",
-        key: "pinCode",
+        dataIndex: "pincode",
+        key: "pincode",
         resizable: true,
         width: 180,
         align: "left",
@@ -233,15 +234,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.pinCode > record2.pinCode
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.pinCode === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.pinCode === value
+        // }
       },
       {
         title: "Street1",
@@ -255,15 +256,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.street1 > record2.street1
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.street1 === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.street1 === value
+        // }
       },
       {
         title: "Street2",
@@ -277,15 +278,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.street2 > record2.street2
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.street2 === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.street2 === value
+        // }
       },
       {
         title: "Place Of Supply",
@@ -299,15 +300,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.place_of_supply > record2.place_of_supply
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.place_of_supply === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.place_of_supply === value
+        // }
       },
       {
         title: "Contact",
@@ -321,15 +322,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.contact > record2.contact
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.contact === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.contact === value
+        // }
       },
       {
         title: "Ownership",
@@ -343,15 +344,15 @@ const [pageSize, setPageSize] = useState(10)
         {
             return record1.ownership > record2.ownership
         },
-        filters:[
-          {text:'Expense 1', value:'Expense 1'},
-          {text:'Expense 2', value:'Expense 2'}
-        ],
-        // filterMultiple:false,
-        onFilter:(value,record)=>
-        {
-          return record.ownership === value
-        }
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.ownership === value
+        // }
       },
     ];
 
@@ -398,6 +399,7 @@ const [pageSize, setPageSize] = useState(10)
                 setSelectedRows(selectedRows);
               },
             }}
+            loading={{indicator : <div><Spin/></div>, spinning:loading}}
             dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}

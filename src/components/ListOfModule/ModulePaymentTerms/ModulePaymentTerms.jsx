@@ -4,12 +4,13 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./ModulePaymentTerms.scss";
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg";
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 // import Modal from 'react-modal';
 import { Modal, Button } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const resetValue = {
   terms: "",
@@ -138,15 +139,15 @@ const ModulePaymentTerms = () => {
           {
               return record1.terms > record2.terms
           },
-          filters:[
-            {text:'Net 5', value:'Net 5'},
-            {text:'Net 6', value:'Net 6'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.terms === value
-          }
+          // filters:[
+          //   {text:'Net 5', value:'Net 5'},
+          //   {text:'Net 6', value:'Net 6'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.terms === value
+          // }
     },
     {
       title: "Days",
@@ -160,15 +161,15 @@ const ModulePaymentTerms = () => {
           {
               return record1.days > record2.days
           },
-          filters:[
-            {text:'5 Days', value:'5 Days'},
-            {text:'50 ', value:'50 Days'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.days === value
-          }
+          // filters:[
+          //   {text:'5 Days', value:'5 Days'},
+          //   {text:'50 ', value:'50 Days'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.days === value
+          // }
     },
     {
       title: "Discount",
@@ -182,15 +183,15 @@ const ModulePaymentTerms = () => {
           {
               return record1.discount > record2.discount
           },
-          filters:[
-            {text:'10%', value:'10%'},
-            {text:'2%', value:'2%'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.discount === value
-          }
+          // filters:[
+          //   {text:'10%', value:'10%'},
+          //   {text:'2%', value:'2%'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.discount === value
+          // }
     },
     {
       title: "Interest",
@@ -204,15 +205,15 @@ const ModulePaymentTerms = () => {
           {
               return record1.interest > record2.interest
           },
-          filters:[
-            {text:'2%', value:'2%'},
-            {text:'2%', value:'2%'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.interest === value
-          }
+          // filters:[
+          //   {text:'2%', value:'2%'},
+          //   {text:'2%', value:'2%'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.interest === value
+          // }
     },
 
     // {
@@ -269,7 +270,7 @@ const ModulePaymentTerms = () => {
 
   return (
     <div className="module-data">
-      <Page_heading parent={"List of Modules"} child={"Payment Terms"} />
+      <Page_heading parent={"List of Modules"} subchild={(<Link exact to= "/module">{"Module"}</Link>)} child={"Payment Terms"} />
 
       <div className="module-table-container">
         <FilterAndSearchBar
@@ -394,6 +395,7 @@ const ModulePaymentTerms = () => {
               setSelectedRows(selectedRows);
             },
           }}
+         loading={{indicator : <div><Spin/></div>, spinning:loading}}
           dataSource={filteredData}
           columns={columns}
             pagination={{

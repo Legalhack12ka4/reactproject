@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ContactsData.scss"
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
@@ -67,15 +67,15 @@ const ContactsData = () => {
           {
               return record1.name > record2.name
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'Vimlesh', value:'Vimlesh'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.name === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'Vimlesh', value:'Vimlesh'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.name === value
+          // }
         },
         {
           title: "Mobile No.",
@@ -89,15 +89,15 @@ const ContactsData = () => {
           {
               return record1.mobile > record2.mobile
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'9359676102', value:'9359676102'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.mobile === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'9359676102', value:'9359676102'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.mobile === value
+          // }
         },
         {
           title: "Email",
@@ -111,15 +111,15 @@ const ContactsData = () => {
           {
               return record1.email > record2.email
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'scott123@gamil.com', value:'scott123@gamil.com'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.email === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'scott123@gamil.com', value:'scott123@gamil.com'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.email === value
+          // }
         },
         {
           title: "DOB",
@@ -133,15 +133,15 @@ const ContactsData = () => {
           {
               return record1.dob > record2.dob
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'2022-12-30', value:'2022-12-30'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.dob === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'2022-12-30', value:'2022-12-30'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.dob === value
+          // }
         },
         {
           title: "Position",
@@ -155,15 +155,15 @@ const ContactsData = () => {
           {
               return record1.position > record2.position
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'1', value:'1'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.position === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'1', value:'1'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.position === value
+          // }
         },
         {
           title: "Ownership ",
@@ -177,15 +177,15 @@ const ContactsData = () => {
           {
               return record1.ownership > record2.ownership
           },
-          filters:[
-            {text:'Null', value:'Null'},
-            {text:'1', value:'1'}
-          ],
-          // filterMultiple:false,
-          onFilter:(value,record)=>
-          {
-            return record.ownership === value
-          }
+          // filters:[
+          //   {text:'Null', value:'Null'},
+          //   {text:'1', value:'1'}
+          // ],
+          // // filterMultiple:false,
+          // onFilter:(value,record)=>
+          // {
+          //   return record.ownership === value
+          // }
         },
       ];
 
@@ -233,6 +233,8 @@ const ContactsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
+
+            loading={{indicator : <div><Spin/></div>, spinning:loading}}
             dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}

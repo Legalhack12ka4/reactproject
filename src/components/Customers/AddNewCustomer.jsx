@@ -4,7 +4,7 @@ import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import axios from "axios";
 import "../AllDropdowns/SearchDropdown/SearchDropdown.scss";
-import { Tooltip } from "antd";
+import { Breadcrumb, Tooltip } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
@@ -20,6 +20,7 @@ import pin from "../../assets/Images/FormIcon/Pincode.svg";
 import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -44,6 +45,8 @@ const initialFieldValues = {
 function AddNewCustomer(props) {
   const [formData, setFormData] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
+  const [payment, setPayment] = useState([]);
+ const [currencydrp, setCurrencydrp] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
 
   const [gst, setGst] = useState(false);
@@ -69,6 +72,57 @@ function AddNewCustomer(props) {
   };
 
     
+
+  const getDataPaymentTerms = () => {
+    return fetch("http://127.0.0.1:8000/paymentterms/")
+          .then((response) => response.json())
+          .then((data) => {setPayment(data)
+  console.log(data);       
+  })       
+}
+
+// const getData = async () => {
+
+//   await axios.get("http://127.0.0.1:8000/currency/").then(
+//     res => {
+//       setloading(false);
+//       setCurrency(
+//         res.data.map(row => ({
+//           Key:row.id,
+//           Currency_Name: row.currency_name,
+//           Symbol: row.symbol,
+//           Country_Name: row.country_name,
+      
+//     }))
+//   );
+// });
+// }
+  const getDataCuurrency = () => {
+    fetch("http://127.0.0.1:8000/currency/")
+          .then((response) => response.json())
+          .then((data) => {setCurrencydrp(data)
+  console.log(data);       
+  })     
+  }
+  console.log(currencydrp)
+
+  useEffect(() => {
+    getDataPaymentTerms();
+    getDataCuurrency();
+  },[])
+
+  // const getDataPaymentTerms = () => {
+  //   axios.get(
+  //      "http://127.0.0.1:8000/customervendor/")
+  //     .then((response)=>
+  //     {
+  //       return response.json(); 
+  //     })
+  //     .then((data) => {
+  //       setPayment(data);
+  //       console.log(data);
+  //     });
+  // };
 
   const handleFormSubmit = () => {
 
@@ -156,12 +210,31 @@ function AddNewCustomer(props) {
     console.log("field", field);
   };
 
+  // useEffect(() => {
+  //   getDataPaymentTerms();
+  // }, []);
   useEffect(() => {
+   
     getData();
     console.log("Getting Data");
     console.log(values.gstin);
-  }, [gst]);
+  }, []);
 
+
+  const paymentterms =  
+  payment.map((pay) => ({
+      label: pay.terms,
+      value: pay.id
+    }
+    ))
+   
+    const currency =  
+    currencydrp.map((curr) => ({
+        label: curr.currency_name + " - "  +  curr.symbol,
+        value: curr.id
+      }
+      ))
+     
   const typeCategory = [
     {
       value: "1",
@@ -562,7 +635,8 @@ function AddNewCustomer(props) {
   return (
     <div className="addNewCustomerContainer">
       <div className="addcustomer_heading">
-        <Page_heading parent={"Business Account"} child={"Add New Customer"} />
+        
+        <Page_heading parent={"Business Account"} subchild={(<Link exact to= "/customers">{"Customer"}</Link>)} child={"Add New Customer"} />
       </div>
 
       <div className="customerform">
@@ -720,6 +794,7 @@ function AddNewCustomer(props) {
                     <br />
                     <SearchDropdown
                       width={150}
+                      options={currency}
                       value={values.currency}
                       onChange={handleDrpChange}
                       name="currency"
@@ -735,6 +810,7 @@ function AddNewCustomer(props) {
                     <br />
                     <SearchDropdown
                       width={150}
+                      options={paymentterms}
                       value={values.payment}
                       onChange={handleDrpChange}
                       name="payment"
@@ -1007,6 +1083,7 @@ function AddNewCustomer(props) {
                 <SearchDropdown
                   width={331}
                   options={ownershipwithemail}
+                  
                   value={values.ownership}
                   onChange={handleDrpChange}
                   name="ownership"
