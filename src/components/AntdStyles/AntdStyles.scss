@@ -251,8 +251,8 @@ th {
   font-weight: 500 !important;
 }
 
-.ant-select-disabled:where(.css-dev-only-do-not-override-k83k30).ant-select:not(
-    :where(.css-dev-only-do-not-override-k83k30).ant-select-customize-input
+.ant-select-disabled.ant-select:not(
+    .ant-select-customize-input
   )
   .ant-select-selector {
   color: rgba(0, 0, 0, 0.25);

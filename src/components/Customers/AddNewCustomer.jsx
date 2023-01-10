@@ -151,6 +151,7 @@ function AddNewCustomer(props) {
     setFieldValue(field, value);
     setFieldTouched(field, false);
 
+
     console.log("value", value);
     console.log("field", field);
   };
@@ -613,13 +614,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.gstin && touched.gstin && (
                     <div className="error_icon">
-                    <Tooltip title={errors.gstin} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.gstin && touched.gstin && (
@@ -652,13 +650,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.businessname && touched.businessname && (
                     <div className="error_icon">
-                    <Tooltip title={errors.pancard} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.businessname && touched.businessname && (
@@ -703,13 +698,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.pancard && touched.pancard && (
                       <div className="error_icon">
-                      <Tooltip title={errors.pancard} color="#5C5AD0">
-                      {" "}
                       <img
                         src="/images/icons/exclamation_icon.svg"
                         alt="error"
                       />
-                    </Tooltip>
                     </div>
                   )}
                   {errors.pancard && touched.pancard && (
@@ -785,13 +777,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.credit && touched.credit && (
                     <div className="error_icon">
-                    <Tooltip title={errors.credit} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.credit && touched.credit && (
@@ -824,13 +813,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.email && touched.email && (
                     <div className="error_icon">
-                    <Tooltip title={errors.email} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.email && touched.email && (
@@ -863,13 +849,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.pincode && touched.pincode && (
                     <div className="error_icon">
-                    <Tooltip title={errors.pincode} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.pincode && touched.pincode && (
@@ -901,13 +884,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.street1 && touched.street1 && (
                     <div className="error_icon">
-                    <Tooltip title={errors.street1} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.street1 && touched.street1 && (
@@ -938,13 +918,10 @@ function AddNewCustomer(props) {
                   />
                   {errors.street2 && touched.street2 && (
                     <div className="error_icon">
-                    <Tooltip title={errors.street2} color="#5C5AD0">
-                    {" "}
                     <img
                       src="/images/icons/exclamation_icon.svg"
                       alt="error"
                     />
-                  </Tooltip>
                   </div>
                   )}
                   {errors.street2 && touched.street2 && (
