@@ -23,7 +23,7 @@ function SearchDropdown({onChange, options, name, value, error, ...props}) {
   <Select
    disabled  = {props.isDisabled}
    showSearch
-   value={selectedOption}
+  //  value={selectedOption}
    placeholder="Select Value"
    optionFilterProp="children"
    filterOption={(input, option) =>

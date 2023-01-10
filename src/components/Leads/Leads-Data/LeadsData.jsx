@@ -337,7 +337,7 @@ const LeadsData = () => {
         <Page_heading  parent={"Business Account"} child={"Leads"}/>
 
         <div className="leads-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Lead"} onData={handleData} />
+        <FilterAndSearchBar columns={columnsData} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
         <Table
             ref={componentRef}

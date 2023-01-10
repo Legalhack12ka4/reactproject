@@ -26,3 +26,18 @@
   display: none;
  }
 }
+
+
+
+/* input box style  */
+
+input{
+  border: none;
+  outline: none;
+  /* width: 82%; */
+  font-size: 14px;
+  font-weight: 500;
+}
+input::placeholder{
+  color: #fff !important;
+}

@@ -68,6 +68,8 @@ function AddNewCustomer(props) {
       });
   };
 
+    
+
   const handleFormSubmit = () => {
 
     axios
@@ -113,6 +115,7 @@ function AddNewCustomer(props) {
         handleClose();
        
       });
+      console.log(initialFieldValues)
   }
 
   const onChange = (e) => {
@@ -609,13 +612,18 @@ function AddNewCustomer(props) {
                     autoComplete="off"
                   />
                   {errors.gstin && touched.gstin && (
+                    <div className="error_icon">
                     <Tooltip title={errors.gstin} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.gstin && touched.gstin && (
+                    <p className="error_text">{errors.gstin}</p>
                   )}
                 </div>
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -643,15 +651,21 @@ function AddNewCustomer(props) {
                     onBlur={handleBlur}
                   />
                   {errors.businessname && touched.businessname && (
-                    <Tooltip title={errors.businessname} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    <div className="error_icon">
+                    <Tooltip title={errors.pancard} color="#5C5AD0">
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.businessname && touched.businessname && (
+                    <p className="error_text">{errors.businessname}</p>
                   )}
                 </div>
+                
 
                 <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Type Category</label>
@@ -688,13 +702,18 @@ function AddNewCustomer(props) {
                     onBlur={handleBlur}
                   />
                   {errors.pancard && touched.pancard && (
-                    <Tooltip title={errors.pancard} color="#5C5AD0">
+                      <div className="error_icon">
+                      <Tooltip title={errors.pancard} color="#5C5AD0">
                       {" "}
                       <img
                         src="/images/icons/exclamation_icon.svg"
                         alt="error"
                       />
                     </Tooltip>
+                    </div>
+                  )}
+                  {errors.pancard && touched.pancard && (
+                    <p className="error_text">{errors.pancard}</p>
                   )}
                 </div>
 
@@ -765,13 +784,18 @@ function AddNewCustomer(props) {
                     onBlur={handleBlur}
                   />
                   {errors.credit && touched.credit && (
+                    <div className="error_icon">
                     <Tooltip title={errors.credit} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.credit && touched.credit && (
+                    <p className="error_text">{errors.credit}</p>
                   )}
                 </div>
 
@@ -799,13 +823,18 @@ function AddNewCustomer(props) {
                     autoComplete="off"
                   />
                   {errors.email && touched.email && (
+                    <div className="error_icon">
                     <Tooltip title={errors.email} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.email && touched.email && (
+                    <p className="error_text">{errors.email}</p>
                   )}
                 </div>
 
@@ -833,13 +862,18 @@ function AddNewCustomer(props) {
                     autoComplete="off"
                   />
                   {errors.pincode && touched.pincode && (
+                    <div className="error_icon">
                     <Tooltip title={errors.pincode} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.pincode && touched.pincode && (
+                    <p className="error_text">{errors.pincode}</p>
                   )}
                 </div>
 
@@ -866,13 +900,18 @@ function AddNewCustomer(props) {
                     onBlur={handleBlur}
                   />
                   {errors.street1 && touched.street1 && (
+                    <div className="error_icon">
                     <Tooltip title={errors.street1} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.street1 && touched.street1 && (
+                    <p className="error_text">{errors.street1}</p>
                   )}
                 </div>
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -898,13 +937,18 @@ function AddNewCustomer(props) {
                     onBlur={handleBlur}
                   />
                   {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
                     <Tooltip title={errors.street2} color="#5C5AD0">
-                      {" "}
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </Tooltip>
+                    {" "}
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </Tooltip>
+                  </div>
+                  )}
+                  {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
                   )}
                 </div>
 
