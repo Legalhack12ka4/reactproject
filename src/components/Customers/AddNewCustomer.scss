@@ -128,6 +128,15 @@
 }
 .inputError{
     border:.5px solid #DA2F58 !important;
+    position: relative;
+
+    .error_text{
+        position: absolute;
+        top: 40px;
+        font-size: 10px;
+        color: #DA2F58;
+    }
+
 }
 
 
@@ -168,6 +177,16 @@
     font-size: 12px;
     margin-top: -12px;
     margin-bottom: 10px;
+}
+.error_icon{
+    margin-right: 10px;
+    margin-top: 3px;
+
+    img{
+        transform: rotate(180deg);
+    }
+
+   
 }
 .customerstreet:hover
 {
@@ -282,7 +301,7 @@ width:16px;
 
 .name
 {
-font-size:13px; 
+// font-size:13px; 
 color:#566A7F; 
 //margin-top:3px;
 }
