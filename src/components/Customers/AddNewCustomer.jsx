@@ -56,7 +56,7 @@ function AddNewCustomer(props) {
 
   const [gst, setGst] = useState(false);
   // let gstinparams = values.gstin;
-
+  
   const getData = () => {
     fetch(
       // `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
@@ -76,13 +76,13 @@ function AddNewCustomer(props) {
       });
   };
 
-    
+
 //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
     return fetch("http://127.0.0.1:8000/paymentterms/")
           .then((response) => response.json())
           .then((data) => {setPayment(data)
-  console.log(data);       
+  // console.log(data);       
   })       
 }
 
@@ -100,10 +100,10 @@ console.log(data);
     fetch("http://127.0.0.1:8000/currency/")
           .then((response) => response.json())
           .then((data) => {setCurrencydrp(data)
-  console.log(data);       
+  // console.log(data);       
   })     
   }
-  console.log(currencydrp)
+  // console.log(currencydrp)
 
   useEffect(() => {
     getDataPaymentTerms();
@@ -205,10 +205,10 @@ console.log(area);
 
       validationSchema: addCustomerSchemas,
       onSubmit: (values) => {
-        console.log(values);
+        console.log(values);     
       },
     });
-    console.log(values);
+    // console.log(values);
 
   const handleDrpChange = (field, value) => {
 
@@ -216,8 +216,8 @@ console.log(area);
     setFieldTouched(field, false);
 
 
-    console.log("value", value);
-    console.log("field", field);
+    // console.log("value", value);
+    // console.log("field", field);
   };
 
   // useEffect(() => {
@@ -226,8 +226,8 @@ console.log(area);
   useEffect(() => {
    
     getData();
-    console.log("Getting Data");
-    console.log(values.gstin);
+    // console.log("Getting Data");
+    // console.log(values.gstin);
   }, []);
 
 
@@ -779,7 +779,7 @@ console.log(area);
                   )}
                 </div>
 
-                <div style={{ display: "flex", gap: "30px" }}>
+                <div style={{ display: "flex", gap: "20px" }}>
                   <div style={{ width: "50%" }}>
                     <Tooltip title="prompt text" color="#5C5AD0">
                       {" "}
@@ -789,7 +789,7 @@ console.log(area);
                     </Tooltip>
                     <br />
                     <SearchDropdown
-                      width={150}
+                      width={155}
                       options={currency}
                       value={values.currency}
                       onChange={handleDrpChange}
@@ -805,7 +805,7 @@ console.log(area);
                     </Tooltip>
                     <br />
                     <SearchDropdown
-                      width={150}
+                      width={155}
                       options={paymentterms}
                       value={values.payment}
                       onChange={handleDrpChange}
@@ -839,7 +839,7 @@ console.log(area);
                 >
                   <img src={creditcard} className="customerimg" />
                   <input
-                    type="text"
+                    type="number"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="credit"
