@@ -23,7 +23,7 @@ function SearchDropdown({ onChange, options, name, value, error, ...props }) {
         placeholder="Select Value"
         optionFilterProp="children"
         filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+          (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
         }
         onChange={handleChange}
         getPopupContainer={(trigger) => trigger.parentElement}
