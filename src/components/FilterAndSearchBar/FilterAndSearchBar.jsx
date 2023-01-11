@@ -7,7 +7,7 @@ import { CSVLink } from "react-csv";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import filter from "./Icons/Filter.svg";
+import filter from "../../assets/Images/FilterIcon/filter.svg";
 import "./FilterAndSearchBar.scss";
 import Select from "react-select";
 import { CgSearch } from "react-icons/cg";
@@ -295,7 +295,7 @@ const FilterAndSearchBar = (props) => {
     setExportOpen(!exportOpen);
   };
   const openFilter = () => {
-    alert("clcik")
+  //  alert("clcik")
     setFilterOpen(!filterOpen);
   };
   const openSetting = () => {
@@ -459,22 +459,30 @@ const FilterAndSearchBar = (props) => {
 
         <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
-            <div className="tableBtn"
+            <div className="tableBtn filter"
             
             onClick={openFilter}
               style={{ width: "101.5px" }}
               ref={menuRef}>
               <div className="btn_icon">
-                <img src={filter} size={15} />
+                <img src={filter}  height="12px" width="12px" />
               </div>
               Filter
 
               <div
-                className={`export_dropdown ${
+                className={`filter_dropdown ${
                   filterOpen ? "active" : "inactive"
                 }`}
               >
+                 <div className="filter_dropdown_btn">
+                  
+                Filter
+                
                 </div>
+            
+                <hr style={{marginLeft:"20px", marginRight:"20px"}}/>
+                
+              </div>
             </div>
             <div
               className="tableBtn export"
