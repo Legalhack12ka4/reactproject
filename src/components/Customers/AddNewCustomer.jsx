@@ -47,7 +47,12 @@ function AddNewCustomer(props) {
   const [customer, setCustomer] = useState([]);
   const [payment, setPayment] = useState([]);
  const [currencydrp, setCurrencydrp] = useState([]);
+ const [contact, setContact]=useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
+  const [area, setArea] = useState([])
+  const [city, setCity]=useState([])
+  const [statedrp, setStatedrp]=useState([])
+  //const [pincode, setPincode]= useState([])
 
   const [gst, setGst] = useState(false);
   // let gstinparams = values.gstin;
@@ -72,7 +77,7 @@ function AddNewCustomer(props) {
   };
 
     
-
+//Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
     return fetch("http://127.0.0.1:8000/paymentterms/")
           .then((response) => response.json())
@@ -81,22 +86,16 @@ function AddNewCustomer(props) {
   })       
 }
 
-// const getData = async () => {
+//Dropdown Contact
+const getContact = () => {
+  return fetch("http://127.0.0.1:8000/contact/")
+        .then((response) => response.json())
+        .then((data) => {setContact(data)
+console.log(data);       
+})       
+}
 
-//   await axios.get("http://127.0.0.1:8000/currency/").then(
-//     res => {
-//       setloading(false);
-//       setCurrency(
-//         res.data.map(row => ({
-//           Key:row.id,
-//           Currency_Name: row.currency_name,
-//           Symbol: row.symbol,
-//           Country_Name: row.country_name,
-      
-//     }))
-//   );
-// });
-// }
+//Dropdown currency
   const getDataCuurrency = () => {
     fetch("http://127.0.0.1:8000/currency/")
           .then((response) => response.json())
@@ -109,20 +108,11 @@ function AddNewCustomer(props) {
   useEffect(() => {
     getDataPaymentTerms();
     getDataCuurrency();
+    getArea();
+    getContact();
   },[])
 
-  // const getDataPaymentTerms = () => {
-  //   axios.get(
-  //      "http://127.0.0.1:8000/customervendor/")
-  //     .then((response)=>
-  //     {
-  //       return response.json(); 
-  //     })
-  //     .then((data) => {
-  //       setPayment(data);
-  //       console.log(data);
-  //     });
-  // };
+ 
 
   const handleFormSubmit = () => {
 
@@ -187,7 +177,27 @@ function AddNewCustomer(props) {
   };
   // form Validation
 
-  
+  const getArea = (pincode) =>
+  {
+    return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    .then((response) => response.json())
+    .then((data) => {setArea(data)
+      
+setStatedrp(data[0].PostOffice[0].State);
+setCity(data[0].PostOffice[0].District);       
+})       
+  }
+console.log(area);
+
+  const handlePincode =(e) =>
+  {
+//setPincode(e.target.value)
+  console.log("Pincode value",e.target.value)
+    getArea(e.target.value);
+//alert("Blur");
+
+
+  }
 
   const { errors, values, handleBlur, touched, handleChange, handleSubmit, setFieldValue,setFieldTouched } =
     useFormik({
@@ -235,23 +245,30 @@ function AddNewCustomer(props) {
       }
       ))
      
+      const contacts =
+      contact.map((con) => ({
+        label: con.name,
+        value: con.id || con.name
+      }
+      )) 
+
   const typeCategory = [
     {
-      value: "1",
+      value: "Wholesalar",
       label: "Wholesalar",
     },
     {
-      value: "2",
+      value: "Retailer",
       label: "Retailer",
     },
     {
-      value: "3",
+      value: "Manufacturing",
       label: "Manufacturing",
     },
   ];
   const gsttreatment = [
     {
-      value: "1",
+      value: " Registered Business - Regular ",
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -264,7 +281,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "2",
+      value: " Registered Business - Composition",
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -278,10 +295,10 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "3",
+      value: "Unregistered Business",
       label: (
         <div>
-          <p className="dropdown_title_heading">Unegistered Business</p>
+          <p className="dropdown_title_heading">Unregistered Business</p>
           <p style={{ fontSize: "12px" }}>
             Bussines that has not been registered
             <br /> under GST
@@ -290,7 +307,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "4",
+      value: "Consumer",
       label: (
         <div>
           <p className="dropdown_title_heading">Consumer</p>
@@ -299,7 +316,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "5",
+      value: "Overseas",
       label: (
         <div>
           <p className="dropdown_title_heading">Overseas</p>
@@ -312,7 +329,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "6",
+      value: "Special Economic Zone",
       label: (
         <div>
           <p className="dropdown_title_heading">Special Economic Zone</p>
@@ -326,7 +343,7 @@ function AddNewCustomer(props) {
     },
 
     {
-      value: "7",
+      value: "Deemed Export",
       label: (
         <div>
           <p className="dropdown_title_heading">Deemed Export</p>
@@ -341,7 +358,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "8",
+      value: "Tax Deductor",
       label: (
         <div>
           <p className="dropdown_title_heading">Tax Deductor</p>
@@ -354,7 +371,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "9",
+      value: "SEZ Developer",
       label: (
         <div>
           <p className="dropdown_title_heading">SEZ Developer</p>
@@ -372,22 +389,22 @@ function AddNewCustomer(props) {
 
   const gsttraetmentOptional = [
     {
-      value: "1",
+      value: "Value 1",
       label: "Value 1",
     },
     {
-      value: "2",
+      value: "Value 2",
       label: "Value 2",
     },
     {
-      value: "3",
+      value: "Value 3",
       label: "Value3",
     },
   ];
 
   const ownershipwithemail = [
     {
-      value: "Parth1",
+      value: "Parth Goswami 19 1",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -432,7 +449,7 @@ function AddNewCustomer(props) {
     },
 
     {
-      value: "Parth2",
+      value: "Parth Goswami 19 2",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -476,7 +493,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Parth3",
+      value: "Parth Goswami 19 3",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -520,7 +537,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Parth4",
+      value: "Parth Goswami 19 4",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -564,7 +581,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Parth5",
+      value: "Parth Goswami 19 5",
       label: (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -609,28 +626,7 @@ function AddNewCustomer(props) {
     },
   ];
 
-  const contacts = [
-    {
-      value: "1",
-      label: "Aman Jaria",
-    },
-    {
-      value: "2",
-      label: "Ashish Jaria",
-    },
-    {
-      value: "3",
-      label: "Parth Goswami",
-    },
-    {
-      value: "4",
-      label: "Suryansh Jaria",
-    },
-    {
-      value: "5",
-      label: "Kushal Nahata",
-    },
-  ];
+
 
   return (
     <div className="addNewCustomerContainer">
@@ -919,8 +915,8 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="pincode"
                     value={values.pincode}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
+                    onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+                    onBlur={(e)=>{handleBlur(e);}}
                     autoComplete="off"
                   />
                   {errors.pincode && touched.pincode && (
@@ -1012,16 +1008,41 @@ function AddNewCustomer(props) {
                   </label>
                 </Tooltip>
                 <br />
-
-                <SearchDropdown
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="city"
+                    value={city}
+                    disabled={true}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                  {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )}
+                </div>
+                {/* <SearchDropdown
                   width={331}
-                  options={gsttraetmentOptional}
+                //  options={gsttraetmentOptional}
                   isDisabled={true}
-                  value={values.city}
+                  value={city}
                   onChange={handleDrpChange}
                   name="city"
                   error={errors.city && touched.city ? true : false}
-                />
+                /> */}
               </div>
 
               <div className="form-right">
@@ -1032,16 +1053,32 @@ function AddNewCustomer(props) {
                   </label>
                 </Tooltip>
                 <br />
-                <SearchDropdown
-                  width={331}
-                  options={gsttraetmentOptional}
-                  isDisabled={true}
-                  value={values.state}
-                  onChange={handleDrpChange}
-                  name="state"
-                  error={errors.state && touched.state ? true : false}
-
-                />
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="state"
+                    value={statedrp}
+                    disabled={true}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                  {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )}
+                </div>
                 <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
