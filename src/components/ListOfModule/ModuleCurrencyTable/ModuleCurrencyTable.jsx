@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import config from "../../Database/config";
 
 const resetValue = {
 
@@ -37,7 +38,7 @@ const ModuleCurrencyTable = () => {
   //get data
   const getData = async () => {
 
-    await axios.get("http://127.0.0.1:8000/currency/").then(
+    await axios.get(`${config.baseUrl}/currency/`).then(
       res => {
         setloading(false);
         setCurrency(
@@ -67,7 +68,7 @@ if (formData.id)
 {
   axios
     .put(
-      "http://127.0.0.1:8000/currency/" + formData.id + "/",
+      `${config.baseUrl}/currency/` + formData.id + "/",
       {
     
         currency_name: formData.currency_name,
@@ -106,7 +107,7 @@ else{
   //insert data
   axios
     .post(
-      "http://127.0.0.1:8000/currency/",
+      `${config.baseUrl}/currency/`,
       {
         currency_name: formData.currency_name,
         symbol: formData.symbol,
@@ -149,7 +150,7 @@ const deleteUser = (record)=>
   console.log(record.id);
   axios
   .delete(
-    "http://127.0.0.1:8000/currency/" + record.id + "/");
+    `${config.baseUrl}/currency/` + record.id + "/");
        getData();
        console.log(currency)
 }

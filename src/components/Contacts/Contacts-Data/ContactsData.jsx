@@ -220,7 +220,7 @@ const ContactsData = () => {
         <Page_heading  parent={"Business Account"} child={"contacts"}/>
 
         <div className="contacts-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} onData={handleData} />
+        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} onData={handleData} filter={<Contacts/>} />
         <OffCanvasExample  form={<Contacts/>}/>
         <Table
             ref={componentRef}
