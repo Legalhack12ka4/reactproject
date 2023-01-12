@@ -21,6 +21,7 @@ import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import config from "../Database/config";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -78,33 +79,30 @@ function AddNewCustomer(props) {
 
   //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
-    return fetch("http://127.0.0.1:8000/paymentterms/")
-      .then((response) => response.json())
-      .then((data) => {
-        setPayment(data);
-        // console.log(data);
-      });
-  };
+    return fetch(`${config.baseUrl}/paymentterms/`)
+          .then((response) => response.json())
+          .then((data) => {setPayment(data)
+  // console.log(data);       
+  })       
+}
 
-  //Dropdown Contact
-  const getContact = () => {
-    return fetch("http://127.0.0.1:8000/contact/")
-      .then((response) => response.json())
-      .then((data) => {
-        setContact(data);
-        console.log(data);
-      });
-  };
+//Dropdown Contact
+const getContact = () => {
+  return fetch(`${config.baseUrl}/contact/`)
+        .then((response) => response.json())
+        .then((data) => {setContact(data)
+console.log(data);       
+})       
+}
 
   //Dropdown currency
   const getDataCuurrency = () => {
-    fetch("http://127.0.0.1:8000/currency/")
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrencydrp(data);
-        // console.log(data);
-      });
-  };
+    fetch(`${config.baseUrl}/currency/`)
+          .then((response) => response.json())
+          .then((data) => {setCurrencydrp(data)
+  // console.log(data);       
+  })     
+  }
   // console.log(currencydrp)
 
   useEffect(() => {
@@ -117,7 +115,7 @@ function AddNewCustomer(props) {
   const handleFormSubmit = () => {
     axios
       .post(
-        "http://127.0.0.1:8000/customervendor/",
+        `${config.baseUrl}/customervendor/`,
         {
           gst_treatment: values.gsttreat,
           gst_no: values.gstin,
@@ -178,15 +176,24 @@ function AddNewCustomer(props) {
 
   const getArea = (pincode) => {
     return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setArea(data);
-
-        setStatedrp(data[0].PostOffice[0].State);
-        setCity(data[0].PostOffice[0].District);
-      });
-  };
-  console.log(area);
+    .then((response) => response.json())
+    .then((data) => {setArea(data)
+      if(data[0].Status === "Success")
+      {
+         setStatedrp(data[0].PostOffice[0].State);
+        setCity(data[0].PostOffice[0].District)
+      }
+      else
+{
+  setCity("");
+  setStatedrp("");
+}
+    
+// setStatedrp(data[0].PostOffice[0].State);
+// setCity(data[0].PostOffice[0].District);       
+})       
+  }
+console.log(area);
 
   const handlePincode = (e) => {
     //setPincode(e.target.value)

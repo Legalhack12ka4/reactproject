@@ -32,6 +32,7 @@ const ModuleCurrencyTable = () => {
   const [loading, setloading] = useState(true);
   useEffect(() => {
     getData();
+    
   }, []);
 
 
@@ -150,13 +151,11 @@ const deleteUser = (record)=>
   console.log(record.id);
   axios
   .delete(
-    `${config.baseUrl}/currency/` + record.id + "/");
+    `${config.baseUrl}/currency/${record.id}/`);
        getData();
        console.log(currency)
 }
 
-
-console.log(currency.Id)
 
 const onChange = (e) => {
   const { value, name } = e.target;
@@ -303,7 +302,7 @@ console.log(formData)
          
             <button 
              style={{marginLeft:"20px"}}
-              onClick={() =>
+              onClick={(e) =>
                 Swal.fire({
                   title: "Are you sure?",
                   text: "Once deleted, you will not be able to recover!",
@@ -314,9 +313,10 @@ console.log(formData)
                   confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                   if (result.isConfirmed) {
+                    console.log(result.isConfirmed)
                     if (deleteUser(record)) {
-                      getData();
-                      toast.success("Deleted Successfuly", {
+                   
+                      toast.warning("Deleted Successfuly", {
                         position: "top-right",
                         autoClose: 2000,
                         hideProgressBar: false,
@@ -328,10 +328,13 @@ console.log(formData)
                     }
                   }
                 })
+               
               }
+             
             >
            Delete
             </button>
+            <ToastContainer/>
         </span>
 
               ),

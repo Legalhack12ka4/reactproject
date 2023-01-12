@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { Input, Checkbox } from "antd";
+import { Input, Checkbox, Tooltip } from "antd";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -15,9 +15,10 @@ import { BiExport } from "react-icons/bi";
 import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
 import { event } from "jquery";
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 
 
-const FilterAndSearchBar = (props) => {
+const FilterAndSearchBar = (props,{filterdata}) => {
   const [exportOpen, setExportOpen] = useState(false);
   const [filterOpen, setFilterOpen]= useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
@@ -461,9 +462,25 @@ const FilterAndSearchBar = (props) => {
                 </div>
             
                 <hr style={{marginLeft:"20px", marginRight:"20px"}}/>
-                  <div>
-                    {props.filter}
-                  </div>
+
+                {props.filterdata}
+                  {/* <div className="filter_container">
+                    
+                  {props.filterdata.map ((data) =>
+                  {
+                  return <div className="filter_field">
+                     
+                      <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">{data.name}</label>{" "}
+               
+                </Tooltip>
+                 <SearchDropdown width={data.width}/>
+                       </div>
+                 
+                  })}
+
+                  </div> */}
 
                 
               </div>

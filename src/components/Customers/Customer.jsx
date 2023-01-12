@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
-import { Table } from "antd";
+import { Table, Tooltip } from "antd";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -11,6 +11,8 @@ import { addDays } from 'date-fns';
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import FilterAndSearchBar from "../FilterAndSearchBar/FilterAndSearchBar";
 import { Spin } from 'antd';
+import config from "../Database/config";
+import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 
 
 const Customer = (props) => {
@@ -27,7 +29,7 @@ const Customer = (props) => {
   }, []);
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/customervendor/").then(
+    await axios.get(`${config.baseUrl}/customervendor/`).then(
       res => {
         setloading(false);
         setFetchcustomer(
@@ -428,7 +430,155 @@ const Customer = (props) => {
 
 
       <div className="customer-table-container">
-      <FilterAndSearchBar  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}/>
+      <FilterAndSearchBar  filterdata=
+      {
+        [
+          <div className="customer_filter_container">
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">GST Treatment</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+
+              <div className="customer_filter_filed">
+              
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        City
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={currency}
+                     // value={values.currency}
+                     // onChange={handleDrpChange}
+                      name="currency"
+                    //  error={errors.currency && touched.currency ? true : false}
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">State</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={paymentterms}
+                    //  value={values.payment}
+                    //  onChange={handleDrpChange}
+                      name="payment"
+                    //  error={errors.payment && touched.payment ? true : false}
+
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Type Category</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Contact</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div> 
+              <div className="customer_filter_filed">
+            
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={currency}
+                     // value={values.currency}
+                     // onChange={handleDrpChange}
+                      name="currency"
+                     // error={errors.currency && touched.currency ? true : false}
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                    //  options={paymentterms}
+                    //  value={values.payment}
+                   //   onChange={handleDrpChange}
+                      name="payment"
+                   //   error={errors.payment && touched.payment ? true : false}
+
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Default Place of Supply</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+          </div>
+        //  {name : "GST Treatment" , width:"330px"}, 
+        //  {name: "City", width:"155px" },
+        //  {name: "State", width:"155px"}, 
+        //  {name:"Type Category",width:"330px"},
+        //  {name: "Contact",width:"330px"},
+        //   {name:"Currency",width:"155px"},
+        //   {name: "Payment Terms",width:"155px"},
+        //   {name: "Ownership",width:"330px"},
+        //   { name:"Default Place of Supply",width:"330px" }
+          
+        ]
+
+      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}/>
 
       <div className="tableData">
         {/* <Resizable> */}

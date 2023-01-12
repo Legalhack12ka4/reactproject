@@ -7,6 +7,7 @@ import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
+import config from "../../Database/config";
 
 const ContactsData = () => {
 
@@ -21,7 +22,7 @@ const ContactsData = () => {
   }, []);
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/contact/").then(
+    await axios.get(`${config.baseUrl}/contact/`).then(
       res => {
         setloading(false);
         setFetchcontact(

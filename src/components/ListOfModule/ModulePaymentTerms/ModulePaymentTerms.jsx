@@ -11,6 +11,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import config from "../../Database/config";
 
 const resetValue = {
   terms: "",
@@ -34,7 +35,7 @@ const ModulePaymentTerms = () => {
   }, []);
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/paymentterms/").then((res) => {
+    await axios.get(`${config.baseUrl}/paymentterms/`).then((res) => {
       setloading(false);
       setPaymentterm(
         res.data.map((row) => ({
@@ -54,7 +55,7 @@ const ModulePaymentTerms = () => {
   const handleFormSubmit = () => {
     axios
       .post(
-        "http://127.0.0.1:8000/paymentterms/",
+        `${config.baseUrl}/paymentterms/`,
         {
           company_name: "Reformiqo",
           terms: formData.terms,
