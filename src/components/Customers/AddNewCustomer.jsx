@@ -21,6 +21,7 @@ import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import config from "../Database/config";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -79,7 +80,7 @@ function AddNewCustomer(props) {
 
 //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
-    return fetch("http://127.0.0.1:8000/paymentterms/")
+    return fetch(`${config.baseUrl}/paymentterms/`)
           .then((response) => response.json())
           .then((data) => {setPayment(data)
   // console.log(data);       
@@ -88,7 +89,7 @@ function AddNewCustomer(props) {
 
 //Dropdown Contact
 const getContact = () => {
-  return fetch("http://127.0.0.1:8000/contact/")
+  return fetch(`${config.baseUrl}/contact/`)
         .then((response) => response.json())
         .then((data) => {setContact(data)
 console.log(data);       
@@ -97,7 +98,7 @@ console.log(data);
 
 //Dropdown currency
   const getDataCuurrency = () => {
-    fetch("http://127.0.0.1:8000/currency/")
+    fetch(`${config.baseUrl}/currency/`)
           .then((response) => response.json())
           .then((data) => {setCurrencydrp(data)
   // console.log(data);       
@@ -118,7 +119,7 @@ console.log(data);
 
     axios
       .post(
-        "http://127.0.0.1:8000/customervendor/",
+        `${config.baseUrl}/customervendor/`,
         {
           gst_treatment: values.gsttreat,
             gst_no:values.gstin,
@@ -182,9 +183,19 @@ console.log(data);
     return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
     .then((response) => response.json())
     .then((data) => {setArea(data)
-      
-setStatedrp(data[0].PostOffice[0].State);
-setCity(data[0].PostOffice[0].District);       
+      if(data[0].Status === "Success")
+      {
+         setStatedrp(data[0].PostOffice[0].State);
+        setCity(data[0].PostOffice[0].District)
+      }
+      else
+{
+  setCity("");
+  setStatedrp("");
+}
+    
+// setStatedrp(data[0].PostOffice[0].State);
+// setCity(data[0].PostOffice[0].District);       
 })       
   }
 console.log(area);

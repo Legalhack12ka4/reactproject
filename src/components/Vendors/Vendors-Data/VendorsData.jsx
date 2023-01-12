@@ -2,8 +2,11 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./VendorsData.scss"
-import { Spin, Table } from "antd";
+import { Spin, Table,Tooltip } from "antd";
 import axios from "axios";
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+
+
 
 const VendorsData = () => {
 
@@ -386,7 +389,157 @@ const [pageSize, setPageSize] = useState(10)
         <Page_heading  parent={"Business Account"} child={"Vendors"}/>
 
         <div className="Vendors-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
+        <FilterAndSearchBar 
+        filterdata=
+      {
+        [
+          <div className="customer_filter_container">
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">GST Treatment</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+
+              <div className="customer_filter_filed">
+              
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        City
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={currency}
+                     // value={values.currency}
+                     // onChange={handleDrpChange}
+                      name="currency"
+                    //  error={errors.currency && touched.currency ? true : false}
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">State</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={paymentterms}
+                    //  value={values.payment}
+                    //  onChange={handleDrpChange}
+                      name="payment"
+                    //  error={errors.payment && touched.payment ? true : false}
+
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Type Category</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Contact</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div> 
+              <div className="customer_filter_filed">
+            
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                     // options={currency}
+                     // value={values.currency}
+                     // onChange={handleDrpChange}
+                      name="currency"
+                     // error={errors.currency && touched.currency ? true : false}
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                    //  options={paymentterms}
+                    //  value={values.payment}
+                   //   onChange={handleDrpChange}
+                      name="payment"
+                   //   error={errors.payment && touched.payment ? true : false}
+
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+              <div className="customer_filter_filed">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Default Place of Supply</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  />
+              </div>
+          </div>
+        //  {name : "GST Treatment" , width:"330px"}, 
+        //  {name: "City", width:"155px" },
+        //  {name: "State", width:"155px"}, 
+        //  {name:"Type Category",width:"330px"},
+        //  {name: "Contact",width:"330px"},
+        //   {name:"Currency",width:"155px"},
+        //   {name: "Payment Terms",width:"155px"},
+        //   {name: "Ownership",width:"330px"},
+        //   { name:"Default Place of Supply",width:"330px" }
+          
+        ]
+
+      } 
+        columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
 
         <Table
             ref={componentRef}

@@ -9,6 +9,7 @@ import { Tooltip } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import config from "../Database/config";
 
 const resetValue = {
    name: "" ,
@@ -18,7 +19,7 @@ const resetValue = {
   };
 function Contacts() {
   const [formData, setFormData] = useState(resetValue);
-
+ // const [fetchcontact, setFetchcontact] = useState([]);
   //const [fetchcontact, setFetchcontact] = useState([]);
   const [loading, setloading] = useState(true);
   // useEffect(() => {
@@ -52,11 +53,31 @@ function Contacts() {
   }
 
 
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // const getData = async () => {
+  //   await axios.get(`${config.baseUrl}/contact/`).then(
+  //     res => {
+  //       setloading(false);
+  //       setFetchcontact(
+  //       res
+  //          // id: row.id
+  //         )
+      
+  //       console.log(res);
+  //     }
+      
+  //   );
+  // };
+
   const handleFormSubmit = () => {
 
     axios
       .post(
-        "http://127.0.0.1:8000/contact/",
+        `${config.baseUrl}/contact/`,
         {
           name: formData.name,
           mobile: formData.mobile,
@@ -73,8 +94,9 @@ function Contacts() {
         formData
       )
       .then((response) => {
-       // getData();
+        // getData();
         handleclose();
+        // getData();
         toast.success("Added Successfuly", {
           position: "top-right",
           autoClose: 2000,
