@@ -9,7 +9,7 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 // icons
 import creditcard from "../../assets/Images/FormIcon/Credit Limit.svg";
@@ -47,17 +47,17 @@ function AddNewCustomer(props) {
   const [formData, setFormData] = useState(initialFieldValues);
   const [customer, setCustomer] = useState([]);
   const [payment, setPayment] = useState([]);
- const [currencydrp, setCurrencydrp] = useState([]);
- const [contact, setContact]=useState([]);
+  const [currencydrp, setCurrencydrp] = useState([]);
+  const [contact, setContact] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
-  const [area, setArea] = useState([])
-  const [city, setCity]=useState([])
-  const [statedrp, setStatedrp]=useState([])
+  const [area, setArea] = useState([]);
+  const [city, setCity] = useState([]);
+  const [statedrp, setStatedrp] = useState([]);
   //const [pincode, setPincode]= useState([])
 
   const [gst, setGst] = useState(false);
   // let gstinparams = values.gstin;
-  
+
   const getData = () => {
     fetch(
       // `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
@@ -77,8 +77,7 @@ function AddNewCustomer(props) {
       });
   };
 
-
-//Dropdown PaymentTerms
+  //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
     return fetch(`${config.baseUrl}/paymentterms/`)
           .then((response) => response.json())
@@ -96,7 +95,7 @@ console.log(data);
 })       
 }
 
-//Dropdown currency
+  //Dropdown currency
   const getDataCuurrency = () => {
     fetch(`${config.baseUrl}/currency/`)
           .then((response) => response.json())
@@ -111,43 +110,40 @@ console.log(data);
     getDataCuurrency();
     getArea();
     getContact();
-  },[])
-
- 
+  }, []);
 
   const handleFormSubmit = () => {
-
     axios
       .post(
         `${config.baseUrl}/customervendor/`,
         {
           gst_treatment: values.gsttreat,
-            gst_no:values.gstin,
-            business_name:values.businessname,
-            "type_category": 8,
-            pan_card:values.pancard,
-            "currency": 1,
-            "payment_terms": 1,
-            credit_limit:values.credit,
-            email:values.email,
-            pincode:values.pincode,
-            street1:values.street1,
-            street2:values.street2,
-            "place_of_supply": 1,
-            "contact": 1,
-            "ownership": 1,
-            "is_active": true,
-            "is_deleted": false,
-            "type": 11,
-            "company_id": 1,
-            "created_by": 1,
-            "updated_by": 1
+          gst_no: values.gstin,
+          business_name: values.businessname,
+          type_category: 8,
+          pan_card: values.pancard,
+          currency: 1,
+          payment_terms: 1,
+          credit_limit: values.credit,
+          email: values.email,
+          pincode: values.pincode,
+          street1: values.street1,
+          street2: values.street2,
+          place_of_supply: 1,
+          contact: 1,
+          ownership: 1,
+          is_active: true,
+          is_deleted: false,
+          type: 11,
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
         },
         values
       )
       .then((response) => {
-       // getData();
-      
+        // getData();
+
         toast.success("Added Successfuly", {
           position: "top-right",
           autoClose: 2000,
@@ -158,28 +154,27 @@ console.log(data);
           progress: undefined,
         });
         handleClose();
-       
       });
-      console.log(initialFieldValues)
-  }
+    console.log(initialFieldValues);
+  };
 
   const onChange = (e) => {
     const { value, name } = e.target;
-  
+
     setFormData({ ...values, [name]: value });
     console.log(value);
     console.log(name);
+    
   };
   console.log(formData);
 
   const handleClose = () => {
     window.history.back(-1);
-    setFormData(initialFieldValues)
+    setFormData(initialFieldValues);
   };
   // form Validation
 
-  const getArea = (pincode) =>
-  {
+  const getArea = (pincode) => {
     return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
     .then((response) => response.json())
     .then((data) => {setArea(data)
@@ -200,32 +195,35 @@ console.log(data);
   }
 console.log(area);
 
-  const handlePincode =(e) =>
-  {
-//setPincode(e.target.value)
-  console.log("Pincode value",e.target.value)
+  const handlePincode = (e) => {
+    //setPincode(e.target.value)
+    console.log("Pincode value", e.target.value);
     getArea(e.target.value);
-//alert("Blur");
+    //alert("Blur");
+  };
 
+  const {
+    errors,
+    values,
+    handleBlur,
+    touched,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormik({
+    initialValues: initialFieldValues,
 
-  }
-
-  const { errors, values, handleBlur, touched, handleChange, handleSubmit, setFieldValue,setFieldTouched } =
-    useFormik({
-      initialValues: initialFieldValues,
-
-      validationSchema: addCustomerSchemas,
-      onSubmit: (values) => {
-        console.log(values);     
-      },
-    });
-    // console.log(values);
+    validationSchema: addCustomerSchemas,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  // console.log(values);
 
   const handleDrpChange = (field, value) => {
-
     setFieldValue(field, value);
     setFieldTouched(field, false);
-
 
     // console.log("value", value);
     // console.log("field", field);
@@ -235,33 +233,25 @@ console.log(area);
   //   getDataPaymentTerms();
   // }, []);
   useEffect(() => {
-   
     getData();
     // console.log("Getting Data");
     // console.log(values.gstin);
   }, []);
 
+  const paymentterms = payment.map((pay) => ({
+    label: pay.terms,
+    value: pay.id,
+  }));
 
-  const paymentterms =  
-  payment.map((pay) => ({
-      label: pay.terms,
-      value: pay.id
-    }
-    ))
-   
-    const currency =  
-    currencydrp.map((curr) => ({
-        label: curr.currency_name + " - "  +  curr.symbol,
-        value: curr.id
-      }
-      ))
-     
-      const contacts =
-      contact.map((con) => ({
-        label: con.name,
-        value: con.id || con.name
-      }
-      )) 
+  const currency = currencydrp.map((curr) => ({
+    label: curr.currency_name + " - " + curr.symbol,
+    value: curr.id,
+  }));
+
+  const contacts = contact.map((con) => ({
+    label: con.name,
+    value: con.id || con.name,
+  }));
 
   const typeCategory = [
     {
@@ -642,15 +632,523 @@ console.log(area);
   return (
     <div className="addNewCustomerContainer">
       <div className="addcustomer_heading">
-        
-        <Page_heading parent={"Business Account"} subchild={(<Link exact to= "/customers">{"Customer"}</Link>)} child={"Add New Customer"} />
+        <Page_heading
+          parent={"Business Account"}
+          subchild={
+            <Link exact to="/customers">
+              {"Customer"}
+            </Link>
+          }
+          child={"Add New Customer"}
+        />
       </div>
 
       <div className="customerform">
-        <div className="newcustomer">
+        {/* <div className="newcustomer"> */}
           {/* <h1 className="box_heading1">New Customer</h1> */}
           <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="container_details1">
+            <div className="form_first_container">
+              
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">GST Treatment</label>{" "}
+                </Tooltip>
+                <br />
+                <div>
+                <SearchDropdown
+                  width={331}
+                  options={gsttreatment}
+                  onChange={handleDrpChange}
+                  name="gsttreat"
+                  value={values.gsttreat}
+                  error={errors.gsttreat && touched.gsttreat ? true : false}
+                  errorMsg="GST Treatment is required"
+                  />
+                 
+                  </div>
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Credit Limit
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.credit && touched.credit && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={creditcard} className="customerimg" />
+                  <input
+                    type="number"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="credit"
+                    value={values.credit}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.credit && touched.credit && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.credit && touched.credit && (
+                    <p className="error_text">{errors.credit}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    State
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`customerdropdown disabledInput`}
+                >
+                  {/* <img src={street} className="customerimg" /> */}
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    name="state"
+                    value={statedrp}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    GST No.
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.gstin && touched.gstin && "inputError"
+                  } ${touched.gstin && "acive_input"} customerdropdown uppercaseLetter`}
+                >
+                  <img src={gstno} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="gstin"
+                    maxLength={15}
+                    value={values.gstin}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                    autoComplete="off"
+                  />
+                  {errors.gstin && touched.gstin && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.gstin && touched.gstin && (
+                    <p className="error_text">{errors.gstin}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Email
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.email && touched.email && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={email} className="customerimg" />
+                  <input
+                    type="email"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="email"
+                    value={values.email}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                    autoComplete="off"
+                  />
+                  {errors.email && touched.email && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.email && touched.email && (
+                    <p className="error_text">{errors.email}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label">Default Place of Supply</label>
+                </Tooltip>
+                <br />
+                <SearchDropdown
+                  width={331}
+                  options={gsttraetmentOptional}
+                  value={values.pos}
+                  onChange={handleDrpChange}
+                  name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+                />
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Business Name{" "}
+                  </label>{" "}
+                </Tooltip>
+
+                <br />
+                <div
+                  className={`${
+                    errors.businessname && touched.businessname && "inputError"
+                  } customerdropdown`}
+                  style={{ marginTop: "5px" }}
+                >
+                  <img src={business} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="businessname"
+                    value={values.businessname}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.businessname && touched.businessname && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.businessname && touched.businessname && (
+                    <p className="error_text">{errors.businessname}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Pincode
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.pincode && touched.pincode &&  "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={pin} className="customerimg" />
+                  <input
+                    type="number"
+                    // pattern="[0-9]{0,2}"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="pincode"
+                    value={values.pincode}
+                    onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+                    onBlur={(e)=>{handleBlur(e);}}
+                    autoComplete="off"
+                  />
+                  {errors.pincode &&  touched.pincode &&(
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.pincode &&  touched.pincode &&(
+                    <p className="error_text">{errors.pincode}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Contacts</label>
+                </Tooltip>
+                <br />
+
+                <SearchDropdown
+                  width={331}
+                  options={contacts}
+                  value={values.contact}
+                  onChange={handleDrpChange}
+                  name="contact"
+                  error={errors.contact && touched.contact ? true : false}
+                  errorMsg="Contact is required"
+                />
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label">Type Category</label>
+                </Tooltip>
+                <br />
+                <SearchDropdown
+                  options={typeCategory}
+                  width={330}
+                  value={values.category}
+                  onChange={handleDrpChange}
+                  name="category"
+                  error={errors.category && touched.category ? true : false}
+                  errorMsg="Type Category is required"
+                />
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Street 1
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street1 && touched.street1 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street1"
+                    value={values.street1}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street1 && touched.street1 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street1 && touched.street1 && (
+                    <p className="error_text">{errors.street1}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>
+                </Tooltip>
+                <br />
+
+                <SearchDropdown
+                  width={331}
+                  options={ownershipwithemail}
+                  
+                  value={values.ownership}
+                  onChange={handleDrpChange}
+                  name="ownership"
+                  error={errors.ownership && touched.ownership ? true : false}
+                  errorMsg="Ownership is required"
+                />
+              </div>
+            </div>
+            <div className="form_second_container">
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Pancard
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.pancard && touched.pancard && "inputError"
+                  } customerdropdown uppercaseLetter`}
+                >
+                  <img src={pan} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="pancard"
+                    value={values.pancard}
+                    maxLength={10}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.pancard && touched.pancard && (
+                      <div className="error_icon">
+                      <img
+                        src="/images/icons/exclamation_icon.svg"
+                        alt="error"
+                      />
+                    </div>
+                  )}
+                </div>
+                {errors.pancard && touched.pancard && (
+                    <p className="error_text">{errors.pancard}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Street 2
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street2"
+                    value={values.street2}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )}
+              </div>
+
+              <div className="form_field">
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={values.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+
+                      dhjgh djhgjksh djghjkdsh kdhkj
+                      
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={values.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
+
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form_field">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    City
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`customerdropdown disabledInput`}
+                >
+                  {/* <img src={street} className="customerimg" /> */}
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    name="city"
+                    value={city}
+                    disabled={true}
+                  />
+                 
+                </div>
+              </div>
+            </div>
+            <div className="customerbutton_bottom">
+                  <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
+                  <button type="button" className="customercancelbutton"  onClick={handleClose}>
+                    Cancel
+                  </button>
+                </div>
+          </form>
+        </div>
+        <ToastContainer />
+      </div>
+    // </div>
+  );
+}
+
+export default AddNewCustomer;
+
+{
+  /* <div className="container_details1">
               <div className="form-left">
                 <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
@@ -665,6 +1163,7 @@ console.log(area);
                   name="gsttreat"
                   value={values.gsttreat}
                   error={errors.gsttreat && touched.gsttreat ? true : false}
+                  errorMsg="GST Treatment is required"
                   />
                  
                   </div>
@@ -680,7 +1179,7 @@ console.log(area);
                 <div
                   className={`${
                     errors.gstin && touched.gstin && "inputError"
-                  } ${touched.gstin && "acive_input"} customerdropdown`}
+                  } ${touched.gstin && "acive_input"} customerdropdown uppercaseLetter`}
                 >
                   <img src={gstno} className="customerimg" />
                   <input
@@ -754,6 +1253,7 @@ console.log(area);
                   onChange={handleDrpChange}
                   name="category"
                   error={errors.category && touched.category ? true : false}
+                  errorMsg="Type Category is required"
                 />
 
                 <Tooltip title="prompt text" color="#5C5AD0">
@@ -765,7 +1265,7 @@ console.log(area);
                 <div
                   className={`${
                     errors.pancard && touched.pancard && "inputError"
-                  } customerdropdown`}
+                  } customerdropdown uppercaseLetter`}
                 >
                   <img src={pan} className="customerimg" />
                   <input
@@ -806,6 +1306,8 @@ console.log(area);
                       onChange={handleDrpChange}
                       name="currency"
                       error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+                      
 
                     />
                   </div>
@@ -822,6 +1324,7 @@ console.log(area);
                       onChange={handleDrpChange}
                       name="payment"
                       error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
 
                     />
                   </div>
@@ -1020,40 +1523,19 @@ console.log(area);
                 </Tooltip>
                 <br />
                 <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
+                  className={`customerdropdown disabledInput`}
                 >
                   <img src={street} className="customerimg" />
                   <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
                     name="city"
                     value={city}
                     disabled={true}
                   />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                  {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )}
+                 
                 </div>
-                {/* <SearchDropdown
-                  width={331}
-                //  options={gsttraetmentOptional}
-                  isDisabled={true}
-                  value={city}
-                  onChange={handleDrpChange}
-                  name="city"
-                  error={errors.city && touched.city ? true : false}
-                /> */}
+               
               </div>
 
               <div className="form-right">
@@ -1065,30 +1547,16 @@ console.log(area);
                 </Tooltip>
                 <br />
                 <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
+                  className={`customerdropdown disabledInput`}
                 >
                   <img src={street} className="customerimg" />
                   <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
                     name="state"
                     value={statedrp}
                     disabled={true}
                   />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                  {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )}
                 </div>
                 <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
@@ -1102,6 +1570,8 @@ console.log(area);
                   onChange={handleDrpChange}
                   name="pos"
                   error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+
 
                 />
 
@@ -1118,6 +1588,8 @@ console.log(area);
                   onChange={handleDrpChange}
                   name="contact"
                   error={errors.contact && touched.contact ? true : false}
+                  errorMsg="Contact is required"
+
 
 
                 />
@@ -1136,15 +1608,8 @@ console.log(area);
                   onChange={handleDrpChange}
                   name="ownership"
                   error={errors.ownership && touched.ownership ? true : false}
+                  errorMsg="Ownership is required"
                 />
               </div>
-            </div>
-          </form>
-        </div>
-        <ToastContainer/>
-      </div>
-    </div>
-  );
+            </div> */
 }
-
-export default AddNewCustomer;
