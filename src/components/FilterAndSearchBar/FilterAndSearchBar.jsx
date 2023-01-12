@@ -436,27 +436,7 @@ const FilterAndSearchBar = (props) => {
   return (
     <>
       <div className="table_nav">
-        {/* <div className="search_customer">
-          <div className="search_icon">
-            <CgSearch size={23} color="#697A8D" />
-          </div>
-
-          {/* <input type="text" placeholder="Search Customer" /> */}
-
-        {/* <div className="searchbar_typehead">
-          <Select styles={customStyle} placeholder="Search Customer" noOptionsMessage={({inputValue}) => !inputValue ? "Search Customer" : "No Customer Found"} />
-          </div> */}
-
-        {/* 
-        </div> */}
-
-        {/* <div className="tableBtn">
-            <div className="btn_icon">
-              <img src={filter} size={15} />
-            </div>
-            Filter
-          </div> */}
-
+        
         <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
             <div className="tableBtn filter"
@@ -481,6 +461,10 @@ const FilterAndSearchBar = (props) => {
                 </div>
             
                 <hr style={{marginLeft:"20px", marginRight:"20px"}}/>
+                  <div>
+                    {props.filter}
+                  </div>
+
                 
               </div>
             </div>
