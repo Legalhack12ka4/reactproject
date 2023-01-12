@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Select } from "antd";
 import "./SearchDropdown.scss";
 
-function SearchDropdown({ onChange, options, name, value, error, ...props }) {
+function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...props }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
@@ -47,6 +47,10 @@ function SearchDropdown({ onChange, options, name, value, error, ...props }) {
         }
         options={options}
       />
+
+      {error && (
+                    <p className="error_text">{errorMsg}</p>
+                  )}
     </div>
   );
 }
