@@ -21,7 +21,6 @@ import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import config from "../Database/config";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -79,30 +78,33 @@ function AddNewCustomer(props) {
 
   //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
-    return fetch(`${config.baseUrl}/paymentterms/`)
-          .then((response) => response.json())
-          .then((data) => {setPayment(data)
-  // console.log(data);       
-  })       
-}
+    return fetch("http://127.0.0.1:8000/paymentterms/")
+      .then((response) => response.json())
+      .then((data) => {
+        setPayment(data);
+        // console.log(data);
+      });
+  };
 
-//Dropdown Contact
-const getContact = () => {
-  return fetch(`${config.baseUrl}/contact/`)
-        .then((response) => response.json())
-        .then((data) => {setContact(data)
-console.log(data);       
-})       
-}
+  //Dropdown Contact
+  const getContact = () => {
+    return fetch("http://127.0.0.1:8000/contact/")
+      .then((response) => response.json())
+      .then((data) => {
+        setContact(data);
+        console.log(data);
+      });
+  };
 
   //Dropdown currency
   const getDataCuurrency = () => {
-    fetch(`${config.baseUrl}/currency/`)
-          .then((response) => response.json())
-          .then((data) => {setCurrencydrp(data)
-  // console.log(data);       
-  })     
-  }
+    fetch("http://127.0.0.1:8000/currency/")
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrencydrp(data);
+        // console.log(data);
+      });
+  };
   // console.log(currencydrp)
 
   useEffect(() => {
@@ -115,7 +117,7 @@ console.log(data);
   const handleFormSubmit = () => {
     axios
       .post(
-        `${config.baseUrl}/customervendor/`,
+        "http://127.0.0.1:8000/customervendor/",
         {
           gst_treatment: values.gsttreat,
           gst_no: values.gstin,
@@ -176,24 +178,15 @@ console.log(data);
 
   const getArea = (pincode) => {
     return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-    .then((response) => response.json())
-    .then((data) => {setArea(data)
-      if(data[0].Status === "Success")
-      {
-         setStatedrp(data[0].PostOffice[0].State);
-        setCity(data[0].PostOffice[0].District)
-      }
-      else
-{
-  setCity("");
-  setStatedrp("");
-}
-    
-// setStatedrp(data[0].PostOffice[0].State);
-// setCity(data[0].PostOffice[0].District);       
-})       
-  }
-console.log(area);
+      .then((response) => response.json())
+      .then((data) => {
+        setArea(data);
+
+        setStatedrp(data[0].PostOffice[0].State);
+        setCity(data[0].PostOffice[0].District);
+      });
+  };
+  console.log(area);
 
   const handlePincode = (e) => {
     //setPincode(e.target.value)
@@ -649,7 +642,7 @@ console.log(area);
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form_first_container">
               
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">GST Treatment</label>{" "}
@@ -669,66 +662,7 @@ console.log(area);
                   </div>
               </div>
 
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Credit Limit
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.credit && touched.credit && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={creditcard} className="customerimg" />
-                  <input
-                    type="number"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="credit"
-                    value={values.credit}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.credit && touched.credit && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.credit && touched.credit && (
-                    <p className="error_text">{errors.credit}</p>
-                  )}
-              </div>
-
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    State
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`customerdropdown disabledInput`}
-                >
-                  {/* <img src={street} className="customerimg" /> */}
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    name="state"
-                    value={statedrp}
-                    disabled={true}
-                  />
-                </div>
-              </div>
-
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -767,61 +701,7 @@ console.log(area);
                   )}
               </div>
 
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Email
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.email && touched.email && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={email} className="customerimg" />
-                  <input
-                    type="email"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="email"
-                    value={values.email}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                    autoComplete="off"
-                  />
-                  {errors.email && touched.email && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.email && touched.email && (
-                    <p className="error_text">{errors.email}</p>
-                  )}
-              </div>
-
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  <label className="label">Default Place of Supply</label>
-                </Tooltip>
-                <br />
-                <SearchDropdown
-                  width={331}
-                  options={gsttraetmentOptional}
-                  value={values.pos}
-                  onChange={handleDrpChange}
-                  name="pos"
-                  error={errors.pos && touched.pos ? true : false}
-                  errorMsg="Place of Supply is required"
-                />
-              </div>
-
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -860,7 +740,178 @@ console.log(area);
                   )}
               </div>
 
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label">Type Category</label>
+                </Tooltip>
+                <br />
+                <SearchDropdown
+                  options={typeCategory}
+                  width={330}
+                  value={values.category}
+                  onChange={handleDrpChange}
+                  name="category"
+                  error={errors.category && touched.category ? true : false}
+                  errorMsg="Type Category is required"
+                />
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 1}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Pancard
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.pancard && touched.pancard && "inputError"
+                  } customerdropdown uppercaseLetter`}
+                >
+                  <img src={pan} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="pancard"
+                    value={values.pancard}
+                    maxLength={10}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.pancard && touched.pancard && (
+                      <div className="error_icon">
+                      <img
+                        src="/images/icons/exclamation_icon.svg"
+                        alt="error"
+                      />
+                    </div>
+                  )}
+                </div>
+                {errors.pancard && touched.pancard && (
+                    <p className="error_text">{errors.pancard}</p>
+                  )}
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={values.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+
+                      
+
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={values.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
+
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Credit Limit
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.credit && touched.credit && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={creditcard} className="customerimg" />
+                  <input
+                    type="number"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="credit"
+                    value={values.credit}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.credit && touched.credit && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.credit && touched.credit && (
+                    <p className="error_text">{errors.credit}</p>
+                  )}
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Email
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.email && touched.email && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={email} className="customerimg" />
+                  <input
+                    type="email"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="email"
+                    value={values.email}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                    autoComplete="off"
+                  />
+                  {errors.email && touched.email && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.email && touched.email && (
+                    <p className="error_text">{errors.email}</p>
+                  )}
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -899,41 +950,7 @@ console.log(area);
                   )}
               </div>
 
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">Contacts</label>
-                </Tooltip>
-                <br />
-
-                <SearchDropdown
-                  width={331}
-                  options={contacts}
-                  value={values.contact}
-                  onChange={handleDrpChange}
-                  name="contact"
-                  error={errors.contact && touched.contact ? true : false}
-                  errorMsg="Contact is required"
-                />
-              </div>
-
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  <label className="label">Type Category</label>
-                </Tooltip>
-                <br />
-                <SearchDropdown
-                  options={typeCategory}
-                  width={330}
-                  value={values.category}
-                  onChange={handleDrpChange}
-                  name="category"
-                  error={errors.category && touched.category ? true : false}
-                  errorMsg="Type Category is required"
-                />
-              </div>
-
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -970,64 +987,7 @@ console.log(area);
                   )}
               </div>
 
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">Ownership</label>
-                </Tooltip>
-                <br />
-
-                <SearchDropdown
-                  width={331}
-                  options={ownershipwithemail}
-                  
-                  value={values.ownership}
-                  onChange={handleDrpChange}
-                  name="ownership"
-                  error={errors.ownership && touched.ownership ? true : false}
-                  errorMsg="Ownership is required"
-                />
-              </div>
-            </div>
-            <div className="form_second_container">
-              <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Pancard
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.pancard && touched.pancard && "inputError"
-                  } customerdropdown uppercaseLetter`}
-                >
-                  <img src={pan} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="pancard"
-                    value={values.pancard}
-                    maxLength={10}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.pancard && touched.pancard && (
-                      <div className="error_icon">
-                      <img
-                        src="/images/icons/exclamation_icon.svg"
-                        alt="error"
-                      />
-                    </div>
-                  )}
-                </div>
-                {errors.pancard && touched.pancard && (
-                    <p className="error_text">{errors.pancard}</p>
-                  )}
-              </div>
-
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1064,51 +1024,7 @@ console.log(area);
                   )}
               </div>
 
-              <div className="form_field">
-              <div style={{ display: "flex", gap: "20px" }}>
-                  <div style={{ width: "50%" }}>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label" style={{ marginTop: "5px" }}>
-                        Currency
-                      </label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={currency}
-                      value={values.currency}
-                      onChange={handleDrpChange}
-                      name="currency"
-                      error={errors.currency && touched.currency ? true : false}
-                      errorMsg="Currency is required"
-
-                      dhjgh djhgjksh djghjkdsh kdhkj
-                      
-
-                    />
-                  </div>
-                  <div style={{ width: "50%" }}>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label">Payment Terms</label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={paymentterms}
-                      value={values.payment}
-                      onChange={handleDrpChange}
-                      name="payment"
-                      error={errors.payment && touched.payment ? true : false}
-                      errorMsg="Payment Terms is required"
-
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="form_field">
+              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1130,6 +1046,127 @@ console.log(area);
                  
                 </div>
               </div>
+
+              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 3}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    State
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`customerdropdown disabledInput`}
+                >
+                  {/* <img src={street} className="customerimg" /> */}
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    name="state"
+                    value={statedrp}
+                    disabled={true}
+                  />
+                </div>
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 3}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label">Default Place of Supply</label>
+                </Tooltip>
+                <br />
+                <SearchDropdown
+                  width={331}
+                  options={gsttraetmentOptional}
+                  value={values.pos}
+                  onChange={handleDrpChange}
+                  name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+                />
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Contacts</label>
+                </Tooltip>
+                <br />
+
+                <SearchDropdown
+                  width={331}
+                  options={contacts}
+                  value={values.contact}
+                  onChange={handleDrpChange}
+                  name="contact"
+                  error={errors.contact && touched.contact ? true : false}
+                  errorMsg="Contact is required"
+                />
+              </div>
+
+              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 3}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>
+                </Tooltip>
+                <br />
+
+                <SearchDropdown
+                  width={331}
+                  options={ownershipwithemail}
+                  
+                  value={values.ownership}
+                  onChange={handleDrpChange}
+                  name="ownership"
+                  error={errors.ownership && touched.ownership ? true : false}
+                  errorMsg="Ownership is required"
+                />
+              </div>
+            </div>
+
+
+
+              
+
+
+
+
+
+
+
+
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+              
+
+
+
+            <div className="form_second_container">
+              
+
+              
+
+              
+
+              
             </div>
             <div className="customerbutton_bottom">
                   <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
