@@ -1072,52 +1072,6 @@ const {
                 />
               </div>
             </div>
-
-
-
-              
-
-
-
-
-
-
-
-
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-              
-
-
-
-            <div className="form_second_container">
-              
-
-              
-
-              
-
-              
-            </div>
             <div className="customerbutton_bottom">
                   <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
                   <button type="button" className="customercancelbutton"  onClick={handleClose}>
