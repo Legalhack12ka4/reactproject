@@ -101,3 +101,14 @@ input {
   // border-inline-end-width: undefinedpx !important;
   // outline: 0;
 }
+
+
+.ant-select-focused.ant-select
+  .ant-select-selector {
+  border-color: #5c5ad0 !important;
+  border: 1px solid #5c5ad0 !important;
+  box-shadow: 0 0 0 2px #5c5ad011 !important;
+  // border-inline-end-width: undefinedpx !important;
+  // outline: 0;
+}
+

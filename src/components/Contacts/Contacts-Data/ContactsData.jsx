@@ -2,12 +2,13 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ContactsData.scss"
-import { Spin, Table } from "antd";
+import { Spin, Table, Tooltip } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
 import config from "../../Database/config";
+import dob from "../../../assets/Images/FormIcon/DOB.svg";
 
 const ContactsData = () => {
 
@@ -221,7 +222,60 @@ const ContactsData = () => {
         <Page_heading  parent={"Business Account"} child={"contacts"}/>
 
         <div className="contacts-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Contacts"} onData={handleData} filter={<Contacts/>} />
+        <FilterAndSearchBar 
+         filterdata=
+         {
+           [
+             <div className="contact_filter_container">
+                 <div className="customer_filter_filed">
+                 <Tooltip title="prompt text" color="#5C5AD0">
+                     {" "}
+                     <label className="label">Position</label>{" "}
+                   </Tooltip>
+                   <SearchDropdown
+                     width={330}
+                     name="gsttreat"
+                     />
+                 </div>
+   
+               
+   
+                 <div className="customer_filter_filed" style={{marginBottom:"20px", marginTop:"20px"}}>
+                 <Tooltip title="prompt text" color="#5C5AD0">
+                     {" "}
+                     <label className="label">Ownership</label>{" "}
+                   </Tooltip>
+                   <SearchDropdown
+                     width={330}
+                     name="gsttreat"
+                     />
+                 </div>
+   
+                
+                 <div className="customer_filter_filed">
+                 <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="contactlabel" style={{ marginTop: "5px" }}>
+                  Date of Birth
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <div className="contactinput" style={{ marginTop: "5px" }}>
+                <img src={dob} className="customerimg" />
+                <input
+                  type="date"
+                  className="inputcontact"
+                  placeholder="Placeholder"
+                    name="dob"
+               //   value={formData.dob}
+                //  onChange={onChange}
+                />
+              </div>
+                 </div>
+             </div>
+           ]
+         }
+        columns={columnsData} addBtnName={"Contacts"} onData={handleData} filter={<Contacts/>} />
         <OffCanvasExample  form={<Contacts/>}/>
         <Table
             ref={componentRef}
