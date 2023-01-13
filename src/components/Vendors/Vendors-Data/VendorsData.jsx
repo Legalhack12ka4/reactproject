@@ -21,7 +21,7 @@ const [pageSize, setPageSize] = useState(10)
   }, []);
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/customervendor/").then(
+    await axios.get("http:///3.95.188.24/customervendor/").then(
       res => {
         setloading(false);
         setFetchvendor(
