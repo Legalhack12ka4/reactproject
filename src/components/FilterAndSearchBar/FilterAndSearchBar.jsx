@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { Input, Checkbox, Tooltip } from "antd";
+import { Input, Checkbox, Tooltip, Modal } from "antd";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -16,15 +16,14 @@ import { BiFilter } from "react-icons/bi";
 import { GoPlus } from "react-icons/go";
 import { event } from "jquery";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import { getContainer } from "rsuite/esm/DOMHelper";
 
-
-const FilterAndSearchBar = (props,{filterdata}) => {
+const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [exportOpen, setExportOpen] = useState(false);
-  const [filterOpen, setFilterOpen]= useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   // const [search, setSearch] = useState("");
-
-
 
   //   const [dateRange, setDateRange] = useState([
   //     {
@@ -34,8 +33,8 @@ const FilterAndSearchBar = (props,{filterdata}) => {
   //     }
   //   ]);
 
-
   const menuRef = useRef(null);
+  const fliterRef =useRef(null);
 
   const dataSource = [
     {
@@ -296,7 +295,7 @@ const FilterAndSearchBar = (props,{filterdata}) => {
     setExportOpen(!exportOpen);
   };
   const openFilter = () => {
-  //  alert("clcik")
+    //  alert("clcik")
     setFilterOpen(!filterOpen);
   };
   const openSetting = () => {
@@ -426,64 +425,66 @@ const FilterAndSearchBar = (props,{filterdata}) => {
   const [search, setSearch] = useState("");
 
   const handleChange = (event) => {
-    setSearch(event.target.value);    
-  }
+    setSearch(event.target.value);
+  };
   props.onData(search);
 
+  //Modal Filter
+
+  const showFilterModal = () => {
+    setIsFilterModalOpen(true);
+  };
+
+  const handleFilterOk = () => {
+    setIsFilterModalOpen(false);
+  };
+
+  const handleFilterCancel = () => {
+    setIsFilterModalOpen(false);
+  };
 
   // useEffect(() => {
   //   handleChange();
   // },[search])
   return (
     <>
+      <Modal
+        open={isFilterModalOpen}
+      getContainer={() =>fliterRef.current}
+        width={"max-content"}
+        onOk={handleFilterOk}
+        onCancel={handleFilterCancel}
+        footer={""}
+        closable={false}
+        style={{ top: 230, left:287, position:"absolute", maxWidth:"2200px" }}
+      >
+        <div className="filter_dropdown_btn">Filter</div>
+
+        <hr
+          style={{
+            marginTop: "18px",
+            marginBottom: "18px",
+            backgroundColor: "#C2CAD2",
+            border: "0.5px solid #C2CAD2",
+          }}
+        />
+
+        {props.filterdata}
+      </Modal>
       <div className="table_nav">
-        
         <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
-            <div className="tableBtn filter"
-            
-            onClick={openFilter}
-              style={{ width: "101.5px" }}
-              ref={menuRef}>
+            <div
+              className="tableBtn filter"
+              
+              onClick={showFilterModal}
+              style={{ width: "101.5px", position:"relative" }}
+              ref={fliterRef}
+            >
               <div className="btn_icon">
-                <img src={filter}  height="12px" width="12px" />
+                <img src={filter} height="12px" width="12px" />
               </div>
               Filter
-
-              <div
-                className={`filter_dropdown ${
-                  filterOpen ? "active" : "inactive"
-                }`}
-              >
-                 <div className="filter_dropdown_btn">
-                  
-                Filter
-                
-                </div>
-            
-                <hr style={{marginLeft:"20px", marginRight:"20px"}}/>
-
-                {props.filterdata}
-                  {/* <div className="filter_container">
-                    
-                  {props.filterdata.map ((data) =>
-                  {
-                  return <div className="filter_field">
-                     
-                      <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">{data.name}</label>{" "}
-               
-                </Tooltip>
-                 <SearchDropdown width={data.width}/>
-                       </div>
-                 
-                  })}
-
-                  </div> */}
-
-                
-              </div>
             </div>
             <div
               className="tableBtn export"
@@ -491,7 +492,7 @@ const FilterAndSearchBar = (props,{filterdata}) => {
               style={{ width: "101.5px" }}
               ref={menuRef}
             >
-              <div className="btn_icon" >
+              <div className="btn_icon">
                 <BiExport size={15} />
               </div>
               <span>Export</span>
@@ -544,10 +545,13 @@ const FilterAndSearchBar = (props,{filterdata}) => {
             Filter
           </div> */}
             <Link exact to={props.path} onClick={props.onClick}>
-            <div className="tableBtn addNewBtn" onClick={showCanvas}>
-              <GoPlus />
-             <div   style={{color:"white"}}  > <div className="addNewBtn_text">New {props.addBtnName}</div></div>
-            </div>
+              <div className="tableBtn addNewBtn" onClick={showCanvas}>
+                <GoPlus />
+                <div style={{ color: "white" }}>
+                  {" "}
+                  <div className="addNewBtn_text">New {props.addBtnName}</div>
+                </div>
+              </div>
             </Link>
           </div>
 
@@ -556,8 +560,11 @@ const FilterAndSearchBar = (props,{filterdata}) => {
               <div className="search_icon">
                 <CgSearch size={23} color="#697A8D" />
               </div>
-              <input type="text" placeholder="Search Customer" onChange={handleChange}/>
-
+              <input
+                type="text"
+                placeholder="Search Customer"
+                onChange={handleChange}
+              />
 
               {/* <div className="searchbar_typehead">
                 <Select
@@ -612,7 +619,7 @@ const FilterAndSearchBar = (props,{filterdata}) => {
                                 <div className="chekbox_title">
                                   {/* <input type="checkbox" /> */}
                                   <div>
-                                  <Checkbox />
+                                    <Checkbox />
                                   </div>
                                   <p>{item.title}</p>
                                 </div>

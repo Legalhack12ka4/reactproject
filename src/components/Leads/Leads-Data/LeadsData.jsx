@@ -5,9 +5,11 @@ import Page_heading from '../../Page_Heading/Page_heading'
 import "./Leads-Data.scss"
 
 
-import { Spin, Table } from "antd";
+import { Spin, Table, Tooltip } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Leads from "../Leads"
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+import SearchDropdownAddButton from "../../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton";
 
 const LeadsData = () => {
 
@@ -16,7 +18,7 @@ const LeadsData = () => {
     const [loading, setloading] = useState(true);
     const [page, setPage]=useState(1);
     const [pageSize, setPageSize] = useState(10)
-
+    const [checked, setChecked] = useState("Contacts");
 
     const dataSource = [
       {
@@ -337,7 +339,79 @@ const LeadsData = () => {
         <Page_heading  parent={"Business Account"} child={"Leads"}/>
 
         <div className="leads-table-container">
-        <FilterAndSearchBar columns={columnsData} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
+        <FilterAndSearchBar
+         filterdata= {
+          [
+            <div className="contact_filter_container">
+                {/* <div className="leadinput" style={{ marginTop: "5px" }}>
+                <img src={company} className="customerimg" />
+                <input
+                  type="text"
+                  className="inputlead"
+                  placeholder="Placeholder"
+                />
+              </div> */}
+
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel">Lead Source Type</label>{" "}
+              </Tooltip>
+              <br />
+              <div className="radio-group">
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Contacts"
+                    name="lead"
+                    checked={checked == "contacts" ? true : false}
+                    onClick={(e) => setChecked("contacts")}
+                  />
+                  Contacts
+                  <span></span>
+                </label>
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Others"
+                    name="lead"
+                    onClick={(e) => setChecked("Others")}
+                    checked={checked == "Others" ? true : false}
+                  />
+                  Others
+                  <span></span>
+                </label>
+              </div>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "15px" }}>
+                  {checked == "contacts" ? "Contacts" : "Others"}
+                </label>{" "}
+              </Tooltip>
+              <br />
+              {checked == "contacts" ? (
+                <SearchDropdown width={330}  />
+              ) : (
+                <SearchDropdownAddButton width={330} />
+              )}
+  
+              
+  
+                <div className="customer_filter_filed" style={{marginBottom:"20px", marginTop:"20px"}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Ownership</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div>
+  
+            
+            </div>
+          ]
+        }
+        columns={columnsData} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
         <Table
             ref={componentRef}
