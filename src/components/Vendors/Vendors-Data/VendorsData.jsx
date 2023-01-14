@@ -2,21 +2,26 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./VendorsData.scss"
-import { Table } from "antd";
+import { Spin, Table,Tooltip } from "antd";
 import axios from "axios";
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+
+
 
 const VendorsData = () => {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
 const [fetchvendor, setFetchvendor] = useState([]);
+const [page, setPage]=useState(1);
+const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/customervendor/").then(
+    await axios.get("http:///3.95.188.24/customervendor/").then(
       res => {
         setloading(false);
         setFetchvendor(
@@ -60,6 +65,7 @@ const [fetchvendor, setFetchvendor] = useState([]);
       contact:vendor.Contact,
       ownership:vendor.Ownsership
     }));
+   
     const columnsData = [
       {
         title: "Gst Treatment",
@@ -70,9 +76,22 @@ const [fetchvendor, setFetchvendor] = useState([]);
         fixed: "left",
         align: "left",
         width: 180,
-        onFilter: (value, record) => {
-          return record.business_name.includes(value)
-        }
+        sorter:(record1, record2)=>
+        {
+            return record1.gst_treatment > record2.gst_treatment
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.gst_treatment === value
+        // }
+        // onFilter: (value, record) => {
+        //   return record.business_name.includes(value)
+        // }
       },
       {
         title: "Gst No",
@@ -80,8 +99,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "gst_no",
         key: "gst_no",
         resizable: true,
-        width: 80,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.gst_no > record2.gst_no
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.gst_no === value
+        // }
       },
       {
         title: "Business Name",
@@ -89,8 +121,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "business_name",
         key: "business_name",
         resizable: true,
-        width: 100,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.business_name > record2.business_name
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.business_name === value
+        // }
       },
       {
         title: "Type Category",
@@ -98,8 +143,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "type_category",
         key: "type_category",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.type_category > record2.type_category
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.type_category === value
+        // }
       },
       {
         title: "PanCard",
@@ -107,8 +165,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "pan_card",
         key: "pan_card",
         resizable: true,
-        width: 90,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.pan_card > record2.pan_card
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.pan_card === value
+        // }
       },
       {
         title: "Credit Limit",
@@ -116,8 +187,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "credit_limit",
         key: "credit_limit",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.credit_limit > record2.credit_limit
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.credit_limit === value
+        // }
       },
       {
         title: "Email",
@@ -125,17 +209,43 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "email",
         key: "email",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.email > record2.email
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.email === value
+        // }
       },
       {
         title: "PinCode",
         label: "PinCode",
-        dataIndex: "pinCode",
-        key: "pinCode",
+        dataIndex: "pincode",
+        key: "pincode",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.pinCode > record2.pinCode
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.pinCode === value
+        // }
       },
       {
         title: "Street1",
@@ -143,8 +253,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "street1",
         key: "street1",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.street1 > record2.street1
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.street1 === value
+        // }
       },
       {
         title: "Street2",
@@ -152,8 +275,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "street2",
         key: "street2",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.street2 > record2.street2
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.street2 === value
+        // }
       },
       {
         title: "Place Of Supply",
@@ -161,8 +297,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "place_of_supply",
         key: "place_of_supply",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.place_of_supply > record2.place_of_supply
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.place_of_supply === value
+        // }
       },
       {
         title: "Contact",
@@ -170,8 +319,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "contact",
         key: "contact",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.contact > record2.contact
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.contact === value
+        // }
       },
       {
         title: "Ownership",
@@ -179,11 +341,23 @@ const [fetchvendor, setFetchvendor] = useState([]);
         dataIndex: "ownership",
         key: "ownership",
         resizable: true,
-        width: 110,
+        width: 180,
         align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.ownership > record2.ownership
+        },
+        // filters:[
+        //   {text:'Expense 1', value:'Expense 1'},
+        //   {text:'Expense 2', value:'Expense 2'}
+        // ],
+        // // filterMultiple:false,
+        // onFilter:(value,record)=>
+        // {
+        //   return record.ownership === value
+        // }
       },
     ];
-
 
       const [columns, setColumns] = useState(columnsData);
 
@@ -195,6 +369,24 @@ const [fetchvendor, setFetchvendor] = useState([]);
       .classList.toggle("container_display");
   }
 
+
+//
+
+
+const gsttraetmentOptional = [
+  {
+    value: "Value 1",
+    label: "Value 1",
+  },
+  {
+    value: "Value 2",
+    label: "Value 2",
+  },
+  {
+    value: "Value 3",
+    label: "Value3",
+  },
+];
 
    // search table functionality
 
@@ -215,7 +407,173 @@ const [fetchvendor, setFetchvendor] = useState([]);
         <Page_heading  parent={"Business Account"} child={"Vendors"}/>
 
         <div className="Vendors-table-container">
-        <FilterAndSearchBar columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
+        <FilterAndSearchBar 
+        filterdata=
+        {
+          [
+            <div className="customer_filter_container">
+  
+                <div className="customer_filter_filed" style={{gridRowStart:1,gridColumnStart:1}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">GST Treatment</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                    width={330}
+                    name="gsttreat"
+                    options={gsttraetmentOptional}
+                    />
+                </div>
+  
+                <div className="customer_filter_filed" style={{gridRowStart:2,gridColumnStart:1}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Type Category</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                     options={gsttraetmentOptional}
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div>
+  
+                <div className="customer_filter_filed" style={{gridRowStart:3,gridColumnStart:1}} >
+              
+              <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                     options={gsttraetmentOptional}
+                      width={155}
+                     // options={currency}
+                     // value={values.currency}
+                     // onChange={handleDrpChange}
+                      name="currency"
+                     // error={errors.currency && touched.currency ? true : false}
+  
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                       options={gsttraetmentOptional}
+                      width={155}
+                    //  options={paymentterms}
+                    //  value={values.payment}
+                   //   onChange={handleDrpChange}
+                      name="payment"
+                   //   error={errors.payment && touched.payment ? true : false}
+  
+                    />
+                  </div>
+                </div>
+              </div>
+  
+              <div className="customer_filter_filed" style={{gridRowStart:4,gridColumnStart:1}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Default Place of Supply</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                     options={gsttraetmentOptional}
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div>
+  
+                <div className="customer_filter_filed" style={{gridRowStart:1,gridColumnStart:2}}>
+                <div style={{ display: "flex", gap: "20px" }}>
+                    <div style={{ width: "50%" }}>
+                      <Tooltip title="prompt text" color="#5C5AD0">
+                        {" "}
+                        <label className="label" style={{ marginTop: "5px" }}>
+                          City
+                        </label>
+                      </Tooltip>
+                      <br />
+                      <SearchDropdown
+                        width={155}
+                        options={gsttraetmentOptional}
+                       // options={currency}
+                       // value={values.currency}
+                       // onChange={handleDrpChange}
+                        name="currency"
+                      //  error={errors.currency && touched.currency ? true : false}
+  
+                      />
+                    </div>
+                    <div style={{ width: "50%" }}>
+                      <Tooltip title="prompt text" color="#5C5AD0">
+                        {" "}
+                        <label className="label">State</label>
+                      </Tooltip>
+                      <br />
+                      <SearchDropdown
+                         options={gsttraetmentOptional}
+                        width={155}
+                       // options={paymentterms}
+                      //  value={values.payment}
+                      //  onChange={handleDrpChange}
+                        name="payment"
+                      //  error={errors.payment && touched.payment ? true : false}
+  
+                      />
+                    </div>
+                  </div>
+                </div>
+  
+               
+  
+  
+                <div className="customer_filter_filed" style={{gridRowStart:2,gridColumnStart:2}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Contact</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                     options={gsttraetmentOptional}
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div> 
+              
+                <div className="customer_filter_filed" style={{gridRowStart:3,gridColumnStart:2}}>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Ownership</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                     options={gsttraetmentOptional}
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div>
+               
+            </div>
+          //  {name : "GST Treatment" , width:"330px"}, 
+          //  {name: "City", width:"155px" },
+          //  {name: "State", width:"155px"}, 
+          //  {name:"Type Category",width:"330px"},
+          //  {name: "Contact",width:"330px"},
+          //   {name:"Currency",width:"155px"},
+          //   {name: "Payment Terms",width:"155px"},
+          //   {name: "Ownership",width:"330px"},
+          //   { name:"Default Place of Supply",width:"330px" }
+            
+          ]
+  
+        }
+        columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
 
         <Table
             ref={componentRef}
@@ -228,11 +586,21 @@ const [fetchvendor, setFetchvendor] = useState([]);
                 setSelectedRows(selectedRows);
               },
             }}
+            loading={{indicator : <div><Spin/></div>, spinning:loading}}
             dataSource={filteredData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
         //    style={{ width: "100%" }}
               scroll={{  x:"1100px" }}
+              pagination={{
+                current:page,
+                pageSize:pageSize, 
+                onChange:(page, pageSize)=>
+                {
+                  setPage(page);
+                  setPageSize(pageSize)
+                },
+                total:100}}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }

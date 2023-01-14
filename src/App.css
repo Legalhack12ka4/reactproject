@@ -7,6 +7,7 @@
   display: flex;
   /* border: 1px solid; */
   width: 100%;
+  -webkit-font-smoothing: antialiased;
   }
 
 .rightScreen{
@@ -17,12 +18,28 @@
   height:100vh;
 }
 *::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
+ display: none;  /* Safari and Chrome */
 }
+
 
 
 @media screen and (width: 668px) {
  .sidebar{
   display: none;
  }
+}
+
+
+
+/* input box style  */
+
+input{
+  border: none;
+  outline: none;
+  /* width: 82%; */
+  font-size: 14px;
+  font-weight: 500;
+}
+input::placeholder{
+  color: #fff !important;
 }

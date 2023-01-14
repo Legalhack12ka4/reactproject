@@ -89,7 +89,7 @@ const CustomerPage = (props) => {
       so_number: "SO-10099",
       date: "06/12/2022",
       amount: "₹ 1.20 lacs",
-      status: "UNASSINED",
+      status: "UNASSIGNED",
       expected_shipment_date: "06/12/2022",
     },
     {
@@ -292,8 +292,8 @@ const CustomerPage = (props) => {
           </div>
         </div>
 
-        <div className="left-border"></div>
-        <div className="customer-dashboard-card">
+        <div className="left-border">
+          <div className="customer-dashboard-card">
           <div className="customer-dashboard-card-heading">
             <div>
               <h1>Invoices</h1>
@@ -337,8 +337,10 @@ const CustomerPage = (props) => {
             </div>
           </div>
         </div>
+        </div>
+        
 
-        <div className="left-border"></div>
+        <div className="left-border">
         <div className="customer-dashboard-card">
           <div className="customer-dashboard-card-heading">
             <div>
@@ -383,6 +385,8 @@ const CustomerPage = (props) => {
             </div>
           </div>
         </div>
+        </div>
+        
       </div>
 
       <div className="customer-page-navbar">
@@ -429,7 +433,8 @@ const CustomerPage = (props) => {
               keyword: search,
             }}
             // scroll={{ y: 800, x: 720 }}
-           style={{ width: 750 }}
+            scroll={{  x:"720px" }}
+          //  style={{ maxWidth: 2200 }}
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }

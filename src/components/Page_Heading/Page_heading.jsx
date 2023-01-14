@@ -1,10 +1,12 @@
-import { React, useState} from "react";
+import { Children, React, useState} from "react";
 import "./Page_heading.scss";
-
 import {ImCross} from "react-icons/im";
 import { Link } from "react-router-dom";
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { Breadcrumb } from 'antd';
+import home from "../../assets/Images/FilterIcon/Icon.svg"
 
-const Page_heading = ({ parent, child }) => {
+const Page_heading = ({ parent, child, subchild }) => {
 
 
 
@@ -18,10 +20,26 @@ const Page_heading = ({ parent, child }) => {
   return (
 <>
     <div className="page-heading-menu">
-      <div className="page_heading">
+    <div className="page_heading">
+    <Breadcrumb>
+   <Breadcrumb.Item>
+   <Link exact to="/">  <img src={home} style={{ width: "18px",marginBottom:"-1px"}}/></Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <span className="heading_parent">{parent}</span>
+    </Breadcrumb.Item>
+    {subchild && <Breadcrumb.Item > 
+        <span className="subchild">{subchild}</span>
+        </Breadcrumb.Item>
+}
+    <Breadcrumb.Item>{" "}
+        {child.charAt(0).toUpperCase() + child.slice(1)}</Breadcrumb.Item>
+  </Breadcrumb>
+  </div>
+      {/* <div className="page_heading">
         <span className="heading_parent">{parent} /</span>{" "}
         {child.charAt(0).toUpperCase() + child.slice(1)}
-      </div>
+      </div> */}
 
       <div className="searchbar-main " id="searchbarInput">
       <input type="text" name="" id="" />
