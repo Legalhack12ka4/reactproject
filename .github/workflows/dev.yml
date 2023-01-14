@@ -23,7 +23,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: ap-south-1
     
     - name: Login to Amazon ECR
       id: login-ecr
@@ -43,15 +43,15 @@ jobs:
         # docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     
-    - name: Deploy
-      run: zip -r "deploy.zip" docker-compose.yml
+    # - name: Deploy
+    #   run: zip -r "deploy.zip" docker-compose.yml
 
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v20
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: ${{ secrets.ENV_NAME }}
-        version_label: ${{ steps.vars.outputs.build_image_tag }}
-        region: us-east-1
-        deployment_package: deploy.zip
+    # - name: Deploy to EB
+    #   uses: einaregilsson/beanstalk-deploy@v20
+    #   with:
+    #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     application_name: ${{ secrets.ENV_NAME }}
+    #     version_label: ${{ steps.vars.outputs.build_image_tag }}
+    #     region: us-east-1
+    #     deployment_package: deploy.zip
