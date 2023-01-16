@@ -15,7 +15,8 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
   };
 
   return (
-    <div className={`srchdrp ${error && "drpError"}`}>
+    <>
+      <div className={`srchdrp ${error && "drpError"}`}>
       <Select
         disabled={props.isDisabled}
         showSearch
@@ -48,10 +49,12 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
         options={options}
       />
 
-      {error && (
-                    <p className="error_text">{errorMsg}</p>
-                  )}
+      
     </div>
+    {error && (
+      <p className="error_text">{errorMsg}</p>
+    )}
+    </>
   );
 }
 

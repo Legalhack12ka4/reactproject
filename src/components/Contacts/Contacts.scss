@@ -23,6 +23,9 @@
       }
 
 }
+.dropdownBtn{
+    // margin-bottom: 20px;
+}
 
 .contactform-right
 {
@@ -47,24 +50,36 @@
     border-radius: 5px;
     margin-top: 4px;
     display: flex;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     border-color: #D9DEE3;
+    display: flex;
+    align-items: center;
 }
 
 .contactinput:hover
 {
     // border:1px solid #5C5AD0 !important;
-    outline: 1px solid #5C5AD0 !important;
-    border:.5px solid transparent !important;
+    // outline: 1px solid #5C5AD0 !important;
+    // border:.5px solid transparent !important;
+}
+.contactinput:focus-within{
+    outline: 1px solid #5c5ad0 !important;
+    border: 1px solid transparent !important;
+  box-shadow: 0 0 0 2.5px #5c5ad011 !important;
 }
 
+.form-left{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .contactbutton_bottom
 {
     display: flex;
     gap: 12px;
     border-color: #D9DEE3;  
-   margin-top: 30px;
+   margin-top: 10px;
 }
 .contactcancelbutton
 {

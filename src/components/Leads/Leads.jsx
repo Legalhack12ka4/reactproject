@@ -3,10 +3,27 @@ import "./Leads.scss";
 import company from "../../assets/Images/FormIcon/Company Name.svg";
 import email from "../../assets/Images/FormIcon/Email Lead.svg";
 import Phone from "../../assets/Images/FormIcon/Phone.svg";
-import Name from "../../assets/Images/FormIcon/Name.svg";
+import name from "../../assets/Images/FormIcon/Name.svg";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SearchDropdownAddButton from "../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton";
 import { Tooltip } from "antd";
+import { useFormik } from "formik";
+
+import { contactSchemas } from "../../Schemas";
+
+
+
+
+
+
+const initialFieldValues = {
+    name: "",
+    mobile: "",
+    email: "",
+    company: "",
+    position: "",
+    ownership: "",
+  };
 
 function Leads() {
   const [checked, setChecked] = useState("Contacts");
@@ -15,6 +32,35 @@ function Leads() {
     m.classList.remove("smenu");
     document.getElementById("gradient").classList.remove("body_gradient");
   }
+
+
+    // validation 
+
+  const {
+    errors,
+    values,
+    handleBlur,
+    touched,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormik({
+    initialValues: initialFieldValues,
+  
+    validationSchema: contactSchemas,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  const handleDrpChange = (field, value) => {
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
+  
+    // console.log("value", value);
+    // console.log("field", field);
+  };
 
   const ownershipwithemail = [
     {
@@ -264,129 +310,194 @@ function Leads() {
   ];
   return (
     <>
-      <div className="lead_heading"></div>
-      <div className="leadform">
-        <div className="leads">
-          <h1 className="box_heading1">New Lead</h1>
-          <div className="lead_details">
+    <form onSubmit={handleSubmit} autoComplete="off">
+      <div className="contact_heading">
+      </div>
+      
+      <div className="contactform">
+        <div className="contacts">
+          <h1 className="box_heading1">New Contact</h1>
+          <div className="contact_details">
             <div className="form-left">
+            <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
-                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                {" "}
+                <label className="contactlabel" style={{ marginTop: "5px" }}>
                   Name
                 </label>{" "}
               </Tooltip>
               <br />
-              <div className="leadinput" style={{ marginTop: "5px" }}>
-                <img src={Name} className="customerimg" />
+              <div  className={`${
+                    errors.name && touched.name && "inputError"
+                  } contactinput`} style={{ marginTop: "5px" }}>
+                <img src={name} className="customerimg" />
                 <input
                   type="text"
-                  className="inputlead"
+                  className="inputcontact"
                   placeholder="Placeholder"
+                  name="name"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
+                {errors.name && touched.name && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
               </div>
+              {errors.name &&  touched.name &&(
+                    <p className="error_text">{errors.name}</p>
+                  )}
+              </div>
+              <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
-                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                <label className="contactlabel" style={{ marginTop: "5px" }}>
                   Mobile No.
                 </label>{" "}
               </Tooltip>
               <br />
-              <div className="leadinput" style={{ marginTop: "5px" }}>
+              <div className={`${
+                    errors.mobile && touched.mobile && "inputError"
+                  } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
                   type="text"
-                  className="inputlead"
+                  className="inputcontact"
                   placeholder="Placeholder"
+                    name="mobile"
+                    value={values.mobile}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                 />
+                {errors.mobile && touched.mobile && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
               </div>
+              {errors.mobile &&  touched.mobile &&(
+                    <p className="error_text">{errors.mobile}</p>
+                  )}
+              </div>
+              <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
-                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                <label className="contactlabel" style={{ marginTop: "5px" }}>
                   Email
                 </label>{" "}
               </Tooltip>
               <br />
-              <div className="leadinput" style={{ marginTop: "5px" }}>
+              <div className={`${
+                    errors.email && touched.email && "inputError"
+                  } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={email} className="customerimg" />
                 <input
                   type="text"
-                  className="inputlead"
+                  className="inputcontact"
                   placeholder="Placeholder"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                 />
+                {errors.email && touched.email && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
               </div>
+              {errors.email &&  touched.email &&(
+                    <p className="error_text">{errors.email}</p> 
+                  )}
+              </div>
+              <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
-                <label className="leadlabel" style={{ marginTop: "5px" }}>
+                <label className="contactlabel" style={{ marginTop: "5px" }}>
                   Company Name
                 </label>{" "}
               </Tooltip>
               <br />
-              <div className="leadinput" style={{ marginTop: "5px" }}>
+              <div className={`${
+                    errors.company && touched.company && "inputError"
+                  } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={company} className="customerimg" />
                 <input
                   type="text"
-                  className="inputlead"
+                  className="inputcontact"
                   placeholder="Placeholder"
+                    name="dob"
+                    value={values.dob}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                 />
+                {errors.company && touched.company && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+              </div>
+              {errors.company &&  touched.company &&(
+                    <p className="error_text">{errors.company}</p>
+                  )}
               </div>
 
+              <div className="dropdownBtn">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
-                <label className="leadlabel">Lead Source Type</label>{" "}
-              </Tooltip>
-              <br />
-              <div className="radio-group">
-                <label className="radio">
-                  <input
-                    type="radio"
-                    value="Contacts"
-                    name="lead"
-                    checked={checked == "contacts" ? true : false}
-                    onClick={(e) => setChecked("contacts")}
-                  />
-                  Contacts
-                  <span></span>
-                </label>
-                <label className="radio">
-                  <input
-                    type="radio"
-                    value="Others"
-                    name="lead"
-                    onClick={(e) => setChecked("Others")}
-                    checked={checked == "Others" ? true : false}
-                  />
-                  Others
-                  <span></span>
-                </label>
-              </div>
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="leadlabel" style={{ marginTop: "15px" }}>
-                  {checked == "contacts" ? "Contacts" : "Others"}
+                <label className="contactlabel" style={{ marginTop: "15px" }}>
+                  Position
                 </label>{" "}
               </Tooltip>
               <br />
-              {checked == "contacts" ? (
-                <SearchDropdown width={331} options={contacts} />
-              ) : (
-                <SearchDropdownAddButton />
-              )}
+
+              <SearchDropdown width={331} options={contacts}
+                name="position"
+                onChange={handleDrpChange}
+                value={values.position}
+                error={errors.position && touched.position ? true : false}
+                errorMsg="Position is required"
+                  />
+              </div>
+
+              <div className="dropdownBtn">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
-                <label className="leadlabel" style={{ marginTop: "15px" }}>
+                <label className="contactlabel" style={{ marginTop: "15px" }}>
                   Ownership
                 </label>{" "}
               </Tooltip>
               <br />
-              <SearchDropdown width={331} options={ownershipwithemail} />
+              <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
+                  onChange={handleDrpChange}
+                  value={values.position}
+                  error={errors.position && touched.position ? true : false}
+                  errorMsg="Ownership is required"/>
+              </div>
               
-              <div className="leadbutton_bottom">
-                <button type="button" className="leadsavebutton">
+
+              <div className="contactbutton_bottom">
+                {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
                   Submit
-                </button>
-                <button
+                </input> */}
+                <input type="submit" className="contactsavebutton" />
+                <button 
                   type="button"
-                  className="leadcancelbutton"
+                  className="contactcancelbutton"
                   onClick={handleclose}
                 >
                   Cancel
@@ -396,6 +507,7 @@ function Leads() {
           </div>
         </div>
       </div>
+      </form>
     </>
   );
 }
