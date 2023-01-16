@@ -24,6 +24,9 @@
     {
       //  width: 50%;
       //  height:500px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 .accountbox_heading1{
     padding-top: 20px;
@@ -72,15 +75,22 @@
     border-radius: 5px;
     margin-top: 4px;
     display: flex;
-    margin-bottom: 18px;
+    align-items: center;
+    // margin-bottom: 18px;
     border-color: #D9DEE3;
 }
 
 .accountforminput:hover
 {
     // border:1px solid #5C5AD0 !important;
-    outline: 1px solid #5C5AD0 !important;
-    border:.5px solid transparent !important;
+    // outline: 1px solid #5C5AD0 !important;
+    // border:.5px solid transparent !important;
+}
+
+.accountforminput:focus-within{
+    outline: 1px solid #5c5ad0 !important;
+    border: 1px solid transparent !important;
+  box-shadow: 0 0 0 2.5px #5c5ad011 !important;
 }
 
 .accountformbutton_bottom
@@ -88,7 +98,7 @@
     display: flex;
     gap: 12px;
    border-color: #D9DEE3;  
-   margin-top: 30px;
+   margin-top: 10px;
 }
 .accountformcancelbutton
 {

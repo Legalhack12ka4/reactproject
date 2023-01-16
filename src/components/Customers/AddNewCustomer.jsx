@@ -52,6 +52,9 @@ function AddNewCustomer(props) {
   const [area, setArea] = useState([]);
   const [city, setCity] = useState([]);
   const [statedrp, setStatedrp] = useState([]);
+  const [creditAmount, setCreditAmount] = useState('');
+  const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
+  const [creditBox, setCreditBox] = useState(false);
   //const [pincode, setPincode]= useState([])
 
   const [gst, setGst] = useState(false);
@@ -163,6 +166,8 @@ function AddNewCustomer(props) {
   const onChange = (e) => {
     const { value, name } = e.target;
 
+    setCreditAmount(e.target.value);
+
     setFormData({ ...values, [name]: value });
     console.log(value);
     console.log(name);
@@ -212,24 +217,39 @@ function AddNewCustomer(props) {
       console.log(values);
     },
   });
-  // console.log(values);
+
 
   const handleDrpChange = (field, value) => {
     setFieldValue(field, value);
     setFieldTouched(field, false);
 
-    // console.log("value", value);
-    // console.log("field", field);
   };
 
-  // useEffect(() => {
-  //   getDataPaymentTerms();
-  // }, []);
   useEffect(() => {
     getData();
-    // console.log("Getting Data");
-    // console.log(values.gstin);
+
   }, []);
+
+  const handleCreditBlur = (e) => {
+
+    if(creditAmount <10000){
+      setFormattedCreditAmount(`${(creditAmount / 1000).toFixed(2)} K`);
+    }
+    else if( creditAmount >= 10000000){
+      setFormattedCreditAmount(`${(creditAmount / 10000000).toFixed(2)} Cr`);
+    }
+    else {
+          setFormattedCreditAmount(`${(creditAmount / 100000).toFixed(2)} L`);
+
+    };
+
+    setCreditBox(true)
+
+  };
+
+  const handleCreditFocus = () => {
+    setCreditBox(false)
+  };
 
   const paymentterms = payment.map((pay) => ({
     label: pay.terms,
@@ -847,18 +867,25 @@ function AddNewCustomer(props) {
                 <div
                   className={`${
                     errors.credit && touched.credit && "inputError"
-                  } customerdropdown`}
+                  }  customerdropdown creditAmtContainer }`}
                 >
                   <img src={creditcard} className="customerimg" />
                   <input
+                  className={`${creditBox && "creditAmtBoxBlur"}`}
                     type="number"
                     style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
+                    // placeholder="Placeholder"
                     name="credit"
                     value={values.credit}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
+                    onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
+                    onFocus={ handleCreditFocus}
                   />
+                  {creditBox && creditAmount>0 && (
+                    <div className="creditAmt">
+                      <p> {formattedCreditAmount}</p>
+                    </div>
+                  )}
                   {errors.credit && touched.credit && (
                     <div className="error_icon">
                     <img
