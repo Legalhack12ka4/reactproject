@@ -422,6 +422,8 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     // }),
   };
 
+
+  //Search
   const [search, setSearch] = useState("");
 
   const handleChange = (event) => {
