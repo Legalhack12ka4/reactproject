@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
-import { Table, Tooltip } from "antd";
+import { Table, Tag, Tooltip } from "antd";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -13,6 +13,7 @@ import FilterAndSearchBar from "../FilterAndSearchBar/FilterAndSearchBar";
 import { Spin } from 'antd';
 import config from "../Database/config";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import creditcard from "../../assets/Images/FormIcon/Credit Limit.svg";
 
 
 const Customer = (props) => {
@@ -24,6 +25,8 @@ const Customer = (props) => {
   const [page, setPage]=useState(1);
   const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [custfilter, setCustFilter] = useState("");
   useEffect(() => {
     getData();
   }, []);
@@ -426,7 +429,31 @@ const Customer = (props) => {
 
   const componentRef = useRef();
 
+  //Filter
 
+  const handleChange = (field, value) => {
+    setCustFilter(field, value);
+    console.log("value", value);
+    console.log("field", field);
+  };
+console.log(custfilter)
+
+const handleDataFilter = (newData) => {
+  setCustFilter(newData);
+}
+
+const cusomizeData = dataSource.filter((record) =>
+  record.business_name.toLowerCase().includes(custfilter.toLowerCase())
+);
+
+ // props.onData(search);
+
+
+//tags
+
+const log = (e) => {
+  console.log(e);
+};
 
   return (
     <>
@@ -458,6 +485,7 @@ const Customer = (props) => {
                   width={330}
                   name="gsttreat"
                   options={gsttraetmentOptional}
+                 onChange={handleChange}
                   />
               </div>
 
@@ -469,7 +497,8 @@ const Customer = (props) => {
                 <SearchDropdown
                    options={gsttraetmentOptional}
                   width={330}
-                  name="gsttreat"
+                  name="catgory"
+                  onChange={handleChange}
                   />
               </div>
 
@@ -487,12 +516,8 @@ const Customer = (props) => {
                   <SearchDropdown
                    options={gsttraetmentOptional}
                     width={155}
-                   // options={currency}
-                   // value={values.currency}
-                   // onChange={handleDrpChange}
+                   onChange={handleChange}
                     name="currency"
-                   // error={errors.currency && touched.currency ? true : false}
-
                   />
                 </div>
                 <div style={{ width: "50%" }}>
@@ -504,12 +529,8 @@ const Customer = (props) => {
                   <SearchDropdown
                      options={gsttraetmentOptional}
                     width={155}
-                  //  options={paymentterms}
-                  //  value={values.payment}
-                 //   onChange={handleDrpChange}
+                    onChange={handleChange}
                     name="payment"
-                 //   error={errors.payment && touched.payment ? true : false}
-
                   />
                 </div>
               </div>
@@ -523,7 +544,8 @@ const Customer = (props) => {
                 <SearchDropdown
                    options={gsttraetmentOptional}
                   width={330}
-                  name="gsttreat"
+                  name="pos"
+                  onChange={handleChange}
                   />
               </div>
 
@@ -540,13 +562,9 @@ const Customer = (props) => {
                     <SearchDropdown
                       width={155}
                       options={gsttraetmentOptional}
-                     // options={currency}
-                     // value={values.currency}
-                     // onChange={handleDrpChange}
-                      name="currency"
-                    //  error={errors.currency && touched.currency ? true : false}
-
-                    />
+                      name="city"
+                      onChange={handleChange}
+                        />
                   </div>
                   <div style={{ width: "50%" }}>
                     <Tooltip title="prompt text" color="#5C5AD0">
@@ -557,13 +575,8 @@ const Customer = (props) => {
                     <SearchDropdown
                        options={gsttraetmentOptional}
                       width={155}
-                     // options={paymentterms}
-                    //  value={values.payment}
-                    //  onChange={handleDrpChange}
-                      name="payment"
-                    //  error={errors.payment && touched.payment ? true : false}
-
-                    />
+                      onChange={handleChange}
+                       />
                   </div>
                 </div>
               </div>
@@ -579,7 +592,8 @@ const Customer = (props) => {
                 <SearchDropdown
                    options={gsttraetmentOptional}
                   width={330}
-                  name="gsttreat"
+                  name="contact"
+                  onChange={handleChange}
                   />
               </div> 
             
@@ -591,9 +605,37 @@ const Customer = (props) => {
                 <SearchDropdown
                    options={gsttraetmentOptional}
                   width={330}
-                  name="gsttreat"
+                  name="ownership"
+                  onChange={handleChange}
                   />
               </div>
+
+              <div className="customer_filter_filed" style={{gridRowStart:4,gridColumnStart:2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Credit Limit
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className="
+                   customerdropdown"
+                >
+                  <img src={creditcard} className="customerimg" />
+                  <input
+                    type="number"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="credit"
+
+                   // value={values.credit}
+                 //   onChange={(e)=>{handleChange(e); onChange(e);}}
+                 //   onBlur={handleBlur}
+                  />
+                  </div>
+              </div>
+
              
           </div>
         //  {name : "GST Treatment" , width:"330px"}, 
@@ -608,11 +650,32 @@ const Customer = (props) => {
           
         ]
 
-      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}/>
+      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}  onFilter={handleDataFilter}/>
 
       <div className="tableData">
         {/* <Resizable> */}
-  
+        {!visible && <div className="tags" id="tags">
+ <div className="appliedtag">Applied For :</div>
+   <div  onClick={log}>
+   <Tooltip title="Gst Treatment : Customer" color="#5C5AD0" className="tooltiplabel" > <Tag className="tag1" closable onClose={log}>
+    Registered Business - Regular
+      </Tag></Tooltip>
+      <Tooltip title="Type Category : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+   Wholesaler
+    </Tag></Tooltip>
+    <Tooltip title="Payment Terms : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+      Net 15
+    </Tag></Tooltip>
+    <Tooltip title="State : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+      Gujarat
+    </Tag></Tooltip>
+
+    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
+
+    </div>
+  </div>}
+
+
         <Table
           ref={componentRef}
           onRow={(record) => {
@@ -630,9 +693,8 @@ const Customer = (props) => {
             },
           }}
           loading={{indicator : <div><Spin/></div>, spinning:loading}}
-        
           dataSource={filteredData}
-      
+         // dataSource={cusomizeData}
           columns={columns}
                 
                               // scroll={{ y: 800, x: 1000 }}

@@ -1,11 +1,8 @@
 import { React, useState, useRef } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
-
 import "./Leads-Data.scss"
-
-
-import { Spin, Table, Tooltip } from "antd";
+import { Spin, Table, Tooltip,Tag } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Leads from "../Leads"
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
@@ -19,7 +16,8 @@ const LeadsData = () => {
     const [page, setPage]=useState(1);
     const [pageSize, setPageSize] = useState(10)
     const [checked, setChecked] = useState("Contacts");
-
+    const [visible, setVisible] = useState(false);
+    
     const dataSource = [
       {
         key: "1",
@@ -168,6 +166,47 @@ const LeadsData = () => {
   
       // ...
     ];
+    const contacts = [
+      {
+        value: "1",
+        label: "Aman Jaria",
+      },
+      {
+        value: "2",
+        label: "Ashish Jaria",
+      },
+      {
+        value: "3",
+        label: "Parth Goswami",
+      },
+      {
+        value: "4",
+        label: "Suryansh Jaria",
+      },
+      {
+        value: "5",
+        label: "Kushal Nahata",
+      },
+    ];
+    const others = [
+      {
+        value: "1",
+        label: "ITME 2022",
+      },
+      {
+        value: "2",
+        label: "it sOL 2019",
+      },
+      {
+        value: "3",
+        label: "itme 2018",
+      },
+      {
+        value: "4",
+        label: "Colortax",
+      },
+    ];
+
     const columnsData = [
       {
         title: "Name",
@@ -334,6 +373,20 @@ const LeadsData = () => {
   const filteredData = dataSource.filter((record) =>
     record.name.toLowerCase().includes(search.toLowerCase())
   );
+
+//tags
+
+const log = (e) => {
+  console.log(e);
+};
+
+
+const clearfilter =() =>
+{
+  console.log("button clicked");
+}
+
+
   return (
     <div className='leads-data'>
         <Page_heading  parent={"Business Account"} child={"Leads"}/>
@@ -389,9 +442,9 @@ const LeadsData = () => {
               </Tooltip>
               <br />
               {checked == "contacts" ? (
-                <SearchDropdown width={330}  />
+                <SearchDropdown options={contacts} width={330}  />
               ) : (
-                <SearchDropdownAddButton width={330} />
+                <SearchDropdown options={others} width={330} />
               )}
   
               
@@ -413,6 +466,20 @@ const LeadsData = () => {
         }
         columns={columnsData} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
+  
+        {!visible &&  <div className="tags" >
+   <div className="appliedtag">Applied For :</div>
+   <div  onClick={log}>
+   <Tooltip title="Contact: Leads" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+    Vimlesh
+    </Tag></Tooltip>
+      <Tooltip title="Ownership : Leads" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+  Parth Goswami
+    </Tag></Tooltip>
+    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
+   </div>
+  </div>}
+
         <Table
             ref={componentRef}
             rowSelection={{

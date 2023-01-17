@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./ContactsData.scss"
-import { Spin, Table, Tooltip } from "antd";
+import { Spin, Table, Tooltip,Tag } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
@@ -18,6 +18,7 @@ const ContactsData = () => {
  const [page, setPage]=useState(1);
  const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -217,6 +218,19 @@ const ContactsData = () => {
   const filteredData = dataSource.filter((record) =>
     record.name.toLowerCase().includes(search.toLowerCase())
   );
+
+//tags
+
+const log = (e: React.MouseEvent<HTMLElement>) => {
+  console.log(e);
+};
+
+
+const clearfilter =() =>
+{
+  console.log("button clicked");
+}
+
   return (
     <div className='contacts-data'>
         <Page_heading  parent={"Business Account"} child={"contacts"}/>
@@ -277,6 +291,24 @@ const ContactsData = () => {
          }
         columns={columnsData} addBtnName={"Contacts"} onData={handleData} filter={<Contacts/>} />
         <OffCanvasExample  form={<Contacts/>}/>
+        
+        {!visible && <div className="tags" >
+   <div className="appliedtag">Applied For :</div>
+   <div  onClick={log}>
+   <Tooltip title="Position : Contact" color="#5C5AD0" className="tooltiplabel" > <Tag className="tag1" closable onClose={log}>
+    Value 1
+      </Tag></Tooltip>
+      <Tooltip title="Ownership : Contact" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+  Parth Goswami
+    </Tag></Tooltip>
+    <Tooltip title="DOB: Contact" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+      2022-02-02
+    </Tag></Tooltip>
+    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
+
+</div>
+</div>
+}
         <Table
             ref={componentRef}
             rowSelection={{

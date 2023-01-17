@@ -2,9 +2,10 @@ import { React, useState, useRef,useEffect } from "react";
 import FilterAndSearchBar from '../../FilterAndSearchBar/FilterAndSearchBar'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./VendorsData.scss"
-import { Spin, Table,Tooltip } from "antd";
+import { Spin, Table,Tooltip,Tag } from "antd";
 import axios from "axios";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+import creditcard from "../../../assets/Images/FormIcon/Credit Limit.svg";
 
 
 
@@ -16,6 +17,7 @@ const [fetchvendor, setFetchvendor] = useState([]);
 const [page, setPage]=useState(1);
 const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     getData();
   }, []);
@@ -402,6 +404,18 @@ const gsttraetmentOptional = [
   const filteredData = dataSource.filter((record) =>
     record.business_name.toLowerCase().includes(search.toLowerCase())
   );
+//tags
+
+const log = (e) => {
+  console.log(e);
+};
+
+
+const clearfilter =() =>
+{
+  console.log("button clicked");
+}
+
   return (
     <div className='Vendors-data'>
         <Page_heading  parent={"Business Account"} child={"Vendors"}/>
@@ -559,6 +573,31 @@ const gsttraetmentOptional = [
                     />
                 </div>
                
+  <div className="customer_filter_filed" style={{gridRowStart:4,gridColumnStart:2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Credit Limit
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className="
+                   customerdropdown"
+                >
+                  <img src={creditcard} className="customerimg" />
+                  <input
+                    type="number"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="credit"
+                   // value={values.credit}
+                 //   onChange={(e)=>{handleChange(e); onChange(e);}}
+                 //   onBlur={handleBlur}
+                  />
+                  </div>
+              </div>
+
             </div>
           //  {name : "GST Treatment" , width:"330px"}, 
           //  {name: "City", width:"155px" },
@@ -574,7 +613,24 @@ const gsttraetmentOptional = [
   
         }
         columns={columnsData} addBtnName={"Vendors"} path={"add_Vendors"} onData={handleData} />
-
+  {!visible && <div className="tags" >
+   <div className="appliedtag">Applied For :</div>
+   <div  onClick={log}>
+   <Tooltip title="Gst Treatment : Vendor" color="#5C5AD0" className="tooltiplabel" > <Tag className="tag1" closable onClose={log}>
+    Registered Business - Regular
+      </Tag></Tooltip>
+      <Tooltip title="Type Category : Vendor" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+   Wholesaler
+    </Tag></Tooltip>
+    <Tooltip title="Payment Terms : Vendor" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+      Net 15
+    </Tag></Tooltip>
+    <Tooltip title="State : Vendor" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
+      Gujarat
+    </Tag></Tooltip> 
+     <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
+    </div>
+  </div>}
         <Table
             ref={componentRef}
             rowSelection={{
