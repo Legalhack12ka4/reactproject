@@ -17,6 +17,8 @@ const AddInventoryItem = () => {
   const [isScannerModalOpen, setIsScannerModalOpen] = useState(false);
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
+  const [withResource, setWithResource] = useState(true);
+  const [superBomRows, setSuperBomRows] = useState([1, 2, 3, 4, 5]);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const hiddenFileInput = React.useRef(null);
@@ -594,6 +596,167 @@ const AddInventoryItem = () => {
         title="Bill of Material"
         open={isBOMModalOpen}
         onOk={handleOk}
+        width={"max-content"}
+        onCancel={handleGenerateCancel}
+        style={{ top: 20 }}
+        // footer=""
+        footer={[
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleScannerSubmit}
+            style={{
+              width: "80px",
+              height: "38px",
+              backgroundColor: "#5C5AD0",
+              fontSize: "12px",
+            }}
+          >
+            Submit
+          </Button>,
+          <Button
+            key="cancel"
+            onClick={handleScannerCancel}
+            style={{
+              width: "80px",
+              height: "38px",
+              fontSize: "12px",
+              color: "#8E9CAA",
+              borderColor: "#8E9CAA",
+            }}
+          >
+            Cancel
+          </Button>,
+        ]}
+        closeIcon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13.51"
+            height="13"
+            viewBox="0 0 13.51 13"
+          >
+            <path
+              id="Path_34362"
+              data-name="Path 34362"
+              d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+              transform="translate(-2.248 -2.248)"
+              fill="#697a8d"
+            />
+          </svg>
+        }
+      >
+        <div className="BomContainer">
+          <hr className="line" />
+
+          <p className="planing_method">
+            Choose the planing method according to the item
+          </p>
+
+          <div className="resource_planing_method_btn_container">
+            <div
+              className={`btn with_resource_planing ${
+                withResource && "activeBtn"
+              }`}
+              onClick={() => setWithResource(true)}
+            >
+              <div className={`btn_text`}>
+                {withResource && (
+                  <img src="/images/icons/right_blue.svg" alt="" />
+                )}
+                <p>With Resource Planing</p>
+              </div>
+            </div>
+
+            <div
+              className={`btn without_resource_planing ${
+                !withResource && "activeBtn"
+              }`}
+              onClick={() => setWithResource(false)}
+            >
+              <div className="btn_text">
+                {!withResource && (
+                  <img src="/images/icons/right_blue.svg" alt="" />
+                )}
+                <p>Without Resource Planing</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="field_container">
+            <div className="container_header">Creta</div>
+            <ul className="field_box_heading">
+              {withResource && (
+                <li className="assigned_resource">Assigned Resource</li>
+              )}
+              <li className="type">Type</li>
+              <li className="material">Material</li>
+              <li className="options">Options</li>
+              <li className="qty">Qty</li>
+              <li className="cost">Cost</li>
+              <li className="value">Value</li>
+            </ul>
+
+            {superBomRows.map((item, index) => {
+              return (
+                <ul className="field_box_rows">
+                  {withResource && (
+                    <li className="assigned_resource">
+                      <SearchDropdown width={250} />
+                    </li>
+                  )}
+                  <li className="type">
+                    <SearchDropdown width={138} />
+                  </li>
+                  <li className="material">
+                    <SearchDropdown width={250} />
+                  </li>
+                  <li className="options">
+                    <div className="input_container">
+                      <input type="text" />
+                    </div>
+                  </li>
+                  <li className="qty">
+                    <div className="input_container">
+                      <input type="text" />
+                    </div>
+                  </li>
+                  <li className="cost">
+                    <div className="input_container">
+                      <input type="text" />
+                    </div>
+                  </li>
+                  <li className="value">
+                    <div className="input_container">
+                      <input type="text" />
+                    </div>
+                  </li>
+                  <div className="delete_btn">
+                    <img src="/images/icons/delete.svg" alt="" />
+                  </div>
+                </ul>
+              );
+            })}
+
+            <div className="footer_container">
+              <div className="add_field">+ Add</div>
+              <div className="total_value">
+                Total Value : <span> ₹ 0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default AddInventoryItem;
+
+{
+  /* <Modal
+        title="Bill of Material"
+        open={isBOMModalOpen}
+        onOk={handleOk}
         width={1110}
         onCancel={handleGenerateCancel}
         style={{ top: 20 }}
@@ -726,9 +889,5 @@ const AddInventoryItem = () => {
 
           </div>
         </div>
-      </Modal>
-    </div>
-  );
-};
-
-export default AddInventoryItem;
+      </Modal> */
+}
