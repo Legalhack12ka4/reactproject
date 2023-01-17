@@ -431,6 +431,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   };
   props.onData(search);
 
+
   //Modal Filter
 
   const showFilterModal = () => {
@@ -460,7 +461,14 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         closable={false}
         style={{ top: 230, left:287, position:"absolute", maxWidth:"2200px" }}
       >
-        <div className="filter_dropdown_btn">Filter</div>
+        <div className="filter_dropdown_btn" style={{display:"flex", justifyContent:"space-between"}}>
+          <div>
+          Filter
+          </div>
+          <div style={{color: "#5C5AD0"}} onClick={props.onFilter}>
+            Clear Filter
+          </div>
+          </div>
 
         <hr
           style={{

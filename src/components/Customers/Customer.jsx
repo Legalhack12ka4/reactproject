@@ -2,7 +2,7 @@ import { React, useState, useRef,useEffect } from "react";
 import {useNavigate} from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
-import { Table, Tag, Tooltip } from "antd";
+import { Slider, Table, Tag, Tooltip } from "antd";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -16,6 +16,27 @@ import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import creditcard from "../../assets/Images/FormIcon/Credit Limit.svg";
 
 
+const filterfield =
+{
+  gsttreat: "",
+  gstin: "",
+  businessname: "",
+  category: "",
+  pancard: "",
+  currency: "",
+  payment: "",
+  credit: "",
+  email: "",
+  pincode: "",
+  street1: "",
+  street2: "",
+  city: "",
+  state: "",
+  pos: "",
+  contact: "",
+  ownership: "",
+}
+
 const Customer = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
@@ -26,7 +47,7 @@ const Customer = (props) => {
   const [pageSize, setPageSize] = useState(10)
   const [loading, setloading] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [custfilter, setCustFilter] = useState("");
+  const [custfilter, setCustFilter] = useState(filterfield);
   useEffect(() => {
     getData();
   }, []);
@@ -40,16 +61,18 @@ const Customer = (props) => {
             Gst_Treatment: row.gst_treatment == 1 ? "Registerd Business" :row.gst_treatment ==2 ? "Consumer" : "",
             Gst_No: row.gst_no,
             Business_Name: row.business_name,
-            Type_Category: row.type_category,
+            Type_Category: row.type_category == 7 ? "Retailer" : row.type_category == 8 ? "Wholesaler" : "Manufacturer",
             Pan_Card: row.pan_card,
+            Currency : row.currency == 1? "INR" : "USD",
+            Payment_Terms : row.payment_terms == 1 ? "Net 5" : "Net 10",
             Credit_Limit: row.credit_limit,
             Email: row.email,
             Pincode: row.pincode,
             Street1: row.street1,
             Street2: row.street2,
-            Place_Of_Supply: row.place_of_supply,
-            Contact: row.contact,
-            Ownsership: row.ownership
+            Place_Of_Supply: row.place_of_supply==1 ? "India" : "America",
+            Contact: row.contact == 1 ? "Vimlesh" : row.contact ==2 ? "ABC" : row.contact ==3 ? "jhhghj" : "Ranveer" ,
+            Ownsership: row.ownership ==1 ? "ubuntu" : "window"
            // id: row.id
           }))
         );
@@ -59,19 +82,111 @@ const Customer = (props) => {
   };
   console.log(fetchcustomer)
 
-
-  const gsttraetmentOptional = [
+  
+  const gsttraetment = [
     {
-      value: "Value 1",
-      label: "Value 1",
+      value: "Registerd Business",
+      label: "Registerd Business",
     },
     {
       value: "Value 2",
-      label: "Value 2",
+      label: "Registered Business",
     },
     {
       value: "Value 3",
-      label: "Value3",
+      label: "Registered Business",
+    },
+  ];
+  const typeCategory = [
+    {
+      value: "Wholesaler",
+      label: "Wholesaler",
+    },
+    {
+      value: "Retailer",
+      label: "Retailer",
+    },
+    {
+      value: "Manufacturer",
+      label: "Manufacturer",
+    },
+  ];
+  const contact = [
+    {
+      value: "Vimlesh",
+      label: "Vimlesh",
+    },
+    {
+      value: "ABC",
+      label: "ABC",
+    },
+    {
+      value: "jhhghj",
+      label: "jhhghj",
+    },
+    {
+      value: "Ranveer",
+      label: "Ranveer",
+    },
+  ];
+  const currency =[
+    {
+      value:"INR",
+      label:"INR",
+    },
+    {
+      value:"USD",
+      label:"USD"
+    }
+  ];
+  const payment =[
+    {
+      value:"Net 5",
+      label:"Net 5",
+    },
+    {
+      value:"Net 10",
+      label:"Net 10"
+    }
+  ];
+  const pos =[
+    {
+      value:"India",
+      label:"India",
+    },
+    {
+      value:"America",
+      label:"America"
+    }
+  ];
+  const city =[
+    {
+      value:"Surat",
+      label:"Surat",
+    },
+    {
+      value:"Bharuch",
+      label:"Bharuch"
+    }
+  ];
+  const state =[
+    {
+      value:"Gujart",
+      label:"Gujart",
+    },
+    {
+      value:"America",
+      label:"America"
+    }
+  ];
+  const ownership = [
+    {
+      value: "ubuntu",
+      label: "ubuntu",
+    },
+    {
+      value: "window",
+      label: "window",
     },
   ];
 
@@ -92,6 +207,8 @@ const Customer = (props) => {
       business_name:customer.Business_Name,
       type_category:customer.Type_Category,
       pan_card:customer.Pan_Card,
+      currency :customer.Currency,
+      payment_terms: customer.Payment_Terms,
       credit_limit:customer.Credit_Limit,
       email:customer.Email,
       pincode:customer.Pincode,
@@ -193,6 +310,32 @@ const Customer = (props) => {
         // {
         //   return record.type_category === value
         // }
+      },
+      {
+        title: "Currency",
+        label: "Currency",
+        dataIndex: "currency",
+        key: "currency",
+        resizable: true,
+        width: 180,
+        align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.currency > record2.currency
+        },
+      },
+      {
+        title: "Payment Terms",
+        label: "Payment Terms",
+        dataIndex: "payment_terms",
+        key: "payment_terms",
+        resizable: true,
+        width: 180,
+        align: "left",
+        sorter:(record1, record2)=>
+        {
+            return record1.payment_terms > record2.payment_terms
+        },
       },
       {
         title: "PanCard",
@@ -432,21 +575,57 @@ const Customer = (props) => {
   //Filter
 
   const handleChange = (field, value) => {
-    setCustFilter(field, value);
+    setCustFilter({...custfilter, [field]: value});
     console.log("value", value);
-    console.log("field", field);
+    console.log("field", value);
   };
-console.log(custfilter)
 
-const handleDataFilter = (newData) => {
-  setCustFilter(newData);
+const clearfilter = () => 
+{
+  console.log("button click");
+  setCustFilter(filterfield);
 }
 
+  const onChangeCredit = (e) => {
+    const { value, name } = e.target;
+
+   // setCreditAmount(e.target.value);
+
+    setCustFilter({ ...custfilter, [name]: value });
+    console.log(value);
+    console.log(name);
+    
+  };
+
+  console.log(custfilter);
+
+
+  // const onChange = (value: number | [number, number]) => {
+  //   console.log('onChange: ', value);
+  // };
+  
+  // const onAfterChange = (value: number | [number, number]) => {
+  //   console.log('onAfterChange: ', value);
+  //  // setCustFilter(value)
+  // };
+
 const cusomizeData = dataSource.filter((record) =>
-  record.business_name.toLowerCase().includes(custfilter.toLowerCase())
+record.gst_treatment.toLowerCase().includes(custfilter.gsttreat.toLowerCase()) &&
+record.type_category.toLowerCase().includes(custfilter.category.toLowerCase())&&
+record.contact.toLowerCase().includes(custfilter.contact.toLowerCase())&&
+record.currency.toLowerCase().includes(custfilter.currency.toLowerCase())&&
+record.payment_terms.toLowerCase().includes(custfilter.payment.toLowerCase()) &&
+record.place_of_supply.toLowerCase().includes(custfilter.pos.toLowerCase())&&
+record.street1.toLowerCase().includes(custfilter.street1.toLowerCase())&&
+record.street2.toLowerCase().includes(custfilter.street2.toLowerCase())&&
+record.ownership.toLowerCase().includes(custfilter.ownership.toLowerCase())&&
+record.credit_limit.toString().includes(custfilter.credit.toString())
+//console.log(record.gst_treatment, custfilter.gsttreat)
 );
 
- // props.onData(search);
+console.log(cusomizeData);
+
+
 
 
 //tags
@@ -454,6 +633,7 @@ const cusomizeData = dataSource.filter((record) =>
 const log = (e) => {
   console.log(e);
 };
+
 
   return (
     <>
@@ -484,8 +664,9 @@ const log = (e) => {
                 <SearchDropdown
                   width={330}
                   name="gsttreat"
-                  options={gsttraetmentOptional}
-                 onChange={handleChange}
+                  options={gsttraetment}
+                  value={custfilter.gsttreat}
+                  onChange={handleChange}
                   />
               </div>
 
@@ -495,9 +676,10 @@ const log = (e) => {
                   <label className="label">Type Category</label>{" "}
                 </Tooltip>
                 <SearchDropdown
-                   options={gsttraetmentOptional}
+                   options={typeCategory}
                   width={330}
-                  name="catgory"
+                  name="category"
+                  value={custfilter.category}
                   onChange={handleChange}
                   />
               </div>
@@ -514,10 +696,11 @@ const log = (e) => {
                   </Tooltip>
                   <br />
                   <SearchDropdown
-                   options={gsttraetmentOptional}
+                   options={currency}
                     width={155}
                    onChange={handleChange}
                     name="currency"
+                    value={custfilter.currency}
                   />
                 </div>
                 <div style={{ width: "50%" }}>
@@ -527,10 +710,11 @@ const log = (e) => {
                   </Tooltip>
                   <br />
                   <SearchDropdown
-                     options={gsttraetmentOptional}
+                     options={payment}
                     width={155}
                     onChange={handleChange}
                     name="payment"
+                    value={custfilter.payment}
                   />
                 </div>
               </div>
@@ -542,10 +726,11 @@ const log = (e) => {
                   <label className="label">Default Place of Supply</label>{" "}
                 </Tooltip>
                 <SearchDropdown
-                   options={gsttraetmentOptional}
+                   options={pos}
                   width={330}
                   name="pos"
                   onChange={handleChange}
+                  value={custfilter.pos}
                   />
               </div>
 
@@ -561,9 +746,10 @@ const log = (e) => {
                     <br />
                     <SearchDropdown
                       width={155}
-                      options={gsttraetmentOptional}
-                      name="city"
+                      options={city}
+                      name="street1"
                       onChange={handleChange}
+                      value={custfilter.street1}
                         />
                   </div>
                   <div style={{ width: "50%" }}>
@@ -573,9 +759,11 @@ const log = (e) => {
                     </Tooltip>
                     <br />
                     <SearchDropdown
-                       options={gsttraetmentOptional}
+                       options={state}
                       width={155}
                       onChange={handleChange}
+                      name="street2"
+                      value={custfilter.street2}
                        />
                   </div>
                 </div>
@@ -590,9 +778,10 @@ const log = (e) => {
                   <label className="label">Contact</label>{" "}
                 </Tooltip>
                 <SearchDropdown
-                   options={gsttraetmentOptional}
+                   options={contact}
                   width={330}
                   name="contact"
+                  value={custfilter.contact}
                   onChange={handleChange}
                   />
               </div> 
@@ -603,10 +792,11 @@ const log = (e) => {
                   <label className="label">Ownership</label>{" "}
                 </Tooltip>
                 <SearchDropdown
-                   options={gsttraetmentOptional}
+                   options={ownership}
                   width={330}
                   name="ownership"
                   onChange={handleChange}
+                  value={custfilter.ownership}
                   />
               </div>
 
@@ -618,22 +808,27 @@ const log = (e) => {
                   </label>
                 </Tooltip>
                 <br />
-                <div
+                {/* <Slider defaultValue={30} onChange={onChange} onAfterChange={onAfterChange} /> */}
+                 {/* <div
                   className="
                    customerdropdown"
-                >
-                  <img src={creditcard} className="customerimg" />
+                > */}
+                  {/* <img src={creditcard} className="customerimg" /> */}
+                  ₹{custfilter.credit}
+                  <br/>
                   <input
-                    type="number"
+                    type="range"
+                    min={0}
+                    max={3000}
+                    defaultValue={0} 
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="credit"
-
-                   // value={values.credit}
-                 //   onChange={(e)=>{handleChange(e); onChange(e);}}
+                    value={custfilter.credit}
+                    onChange={onChangeCredit}
                  //   onBlur={handleBlur}
                   />
-                  </div>
+                  {/* </div>  */}
               </div>
 
              
@@ -650,7 +845,7 @@ const log = (e) => {
           
         ]
 
-      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData}  onFilter={handleDataFilter}/>
+      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData} onFilter={clearfilter}/>
 
       <div className="tableData">
         {/* <Resizable> */}
@@ -693,8 +888,8 @@ const log = (e) => {
             },
           }}
           loading={{indicator : <div><Spin/></div>, spinning:loading}}
-          dataSource={filteredData}
-         // dataSource={cusomizeData}
+         // dataSource={filteredData}
+          dataSource={cusomizeData}
           columns={columns}
                 
                               // scroll={{ y: 800, x: 1000 }}
