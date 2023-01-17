@@ -486,6 +486,7 @@
 
 .BomContainer{
     // border: 1px solid
+    margin-bottom: 50px;
 
 
     .line{
@@ -493,18 +494,243 @@
         border: .5px solid #C2CAD2;
     }
 
-    .item_name{
-        font-size: 14px;
+    // .item_name{
+    //     font-size: 14px;
+    //     color: #697A8D;
+    //     font-weight: 500;
+    //     margin-bottom: 15px;
+
+    //     span{
+    //         color: #5C5AD0;
+    //     }
+
+
+    // }
+
+    
+    .planing_method{
+        font-size: 16px;
         color: #697A8D;
         font-weight: 500;
         margin-bottom: 15px;
+    }
 
-        span{
-            color: #5C5AD0;
+    .resource_planing_method_btn_container{
+        display: flex;
+        gap: 15px;
+
+        .activeBtn{
+            border-color: #5C5AD0 !important;
+            .btn_text{
+                color: #5C5AD0 !important;
+            }
         }
+        .btn{
+            border: 1px solid #8E9CAA;
+            border-radius: 6px;
+            padding: 5px 13px 3px 8px;
+            cursor: pointer;
 
+
+
+        .btn_text{
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #8E9CAA
+        }
+       
 
     }
+     
+    }
+
+    .field_container{
+        // border: 1px solid;
+        box-shadow:  0px 2px 6px 0px #4359711f;
+        margin-top: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+
+
+        .container_header{
+            height: 60px ;
+            // width: 100%;
+            background-color: #FAFAFA;
+            font-size: 18px;
+            color: #5C5AD0;
+            font-weight: 600;
+            border-bottom: 1px solid #8E9CAA;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+        }
+
+        .field_box_heading{
+            // height: 300px;
+            display: flex;
+            list-style-type: none;
+            padding: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2B3347;
+            border-bottom: 1px solid #C2CAD2;
+
+            li{
+                padding: 3px 20px 0px 20px ;
+            }
+
+            .assigned_resource{
+                width: 250px;
+            }
+            .type{
+                width: 138px;
+            }
+            .material{
+                width: 250px;
+            }
+            .options{
+                width: 56px;
+            }
+            .qty{
+                width: 100px;
+                text-align: right;
+
+            }
+            .cost{
+                width: 100px;
+                text-align: right;
+
+            }
+            .value{
+                width: 100px;
+                text-align: right;
+
+            }
+
+        }
+
+        .field_box_rows{
+            display: flex;
+            list-style-type: none;
+            padding: 0px 5px 0px 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2B3347;
+            border-bottom: 1px solid #C2CAD2 ;
+
+            li{
+                padding: 0px 20px 0px 20px ;
+                
+            }
+
+            .assigned_resource{
+                width: 250px;
+                border-right: 1px dashed #C2CAD2;
+            }
+            .type{
+                width: 138px;
+                border-right: 1px dashed #C2CAD2;
+            }
+            .material{
+                width: 250px;
+                border-right: 1px dashed #C2CAD2;
+            }
+            .options{
+                width: 56px;
+                border-right: 1px dashed #C2CAD2;
+                
+
+                .input_container{
+                    width: 56px;
+                    height: 37px;
+                    margin-top: 8px;
+                    border-radius: 6px;
+                    border: .5px solid #C2CAD2;
+                    overflow: hidden;
+                
+                    input{
+                        width: 100%;
+                        height: 100%;
+                        padding: 0px 10px;
+                    }
+                }
+            }
+            .qty{
+                width: 100px;
+                border-right: 1px dashed #C2CAD2;
+                text-align: right;
+
+
+                .input_container{
+                    width: 100px;
+                    height: 37px;
+                    margin-top: 8px;
+                    border-radius: 6px;
+                    border: .5px solid #C2CAD2;
+                    overflow: hidden;
+                
+                    input{
+                        width: 100%;
+                        height: 100%;
+                        padding: 0px 10px;
+                    }
+                }
+            
+
+            }
+            .cost{
+                width: 100px;
+                border-right: 1px dashed #C2CAD2;
+                text-align: right;
+
+                .input_container{
+                    width: 100px;
+                    height: 37px;
+                    margin-top: 8px;
+                    border-radius: 6px;
+                    border: .5px solid #C2CAD2;
+                    overflow: hidden;
+                
+                    input{
+                        width: 100%;
+                        height: 100%;
+                        padding: 0px 10px;
+                    }
+                }
+
+            }
+            .value{
+                width: 100px;
+                margin-bottom: 8px;
+                text-align: right;
+
+                .input_container{
+                    width: 100px;
+                    height: 37px;
+                    margin-top: 8px;
+                    border-radius: 6px;
+                    border: .5px solid #C2CAD2;
+                    overflow: hidden;
+                
+                    input{
+                        width: 100%;
+                        height: 100%;
+                        padding: 0px 10px;
+                    }
+                }
+
+            }
+            .delete_btn{
+                display: flex;
+                align-items: center;
+                padding: 0px 15px 0px 0px;
+            }
+        }
+
+    }
+
 
 
     .firstRowofselector{
@@ -576,6 +802,31 @@
             }
         }
 
+    }
+}
+
+.footer_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 54px 0px 25px;
+    height: 44px;
+
+    .add_field{
+        font-size: 14px;
+        font-weight: 600;
+        color: #5C5AD0;
+    }
+
+    .total_value{
+        font-size: 14px;
+        font-weight:400;
+
+        span{
+            font-weight: 600;
+            color: #5C5AD0;
+            margin-left: 8px;
+        }
     }
 }
 
