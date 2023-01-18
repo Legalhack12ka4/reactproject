@@ -17,6 +17,8 @@ const AddInventoryItem = () => {
   const [isScannerModalOpen, setIsScannerModalOpen] = useState(false);
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
+  const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
+  const [superVariantRows, setSuperVariantRows] = useState([1, 2, 3, 4]);
   const [withResource, setWithResource] = useState(true);
   const [superBomRows, setSuperBomRows] = useState([1, 2, 3, 4, 5]);
 
@@ -74,10 +76,12 @@ const AddInventoryItem = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    setIsBOMVariantOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsBOMVariantOpen(false);
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -209,7 +213,8 @@ const AddInventoryItem = () => {
                     <h3>Enable Manufacturing</h3>
                   </div>
                   <div className="switch_toggler">
-                    <Switch unCheckedChildren="__" />
+                    <Switch unCheckedChildren="__" 
+                    onClick={setIsBOMVariantOpen}/>
                     <h3>Enable Variant</h3>
                   </div>
                 </div>
@@ -743,6 +748,99 @@ const AddInventoryItem = () => {
                 Total Value : <span> ₹ 0.00</span>
               </div>
             </div>
+          </div>
+        </div>
+      </Modal>
+
+         {/* Variant of material modal  */}
+
+         <Modal
+        title="Item Variants"
+        open={isBOMVariantOpen}
+        onOk={handleOk}
+        width={"max-content"}
+        onCancel={handleCancel}
+        style={{ top: 20 }}
+        // footer=""
+        footer={[
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleScannerSubmit}
+            style={{
+              width: "80px",
+              height: "38px",
+              backgroundColor: "#5C5AD0",
+              fontSize: "12px",
+            }}
+          >
+            Submit
+          </Button>,
+          <Button
+            key="cancel"
+            onClick={handleCancel}
+            style={{
+              width: "80px",
+              height: "38px",
+              fontSize: "12px",
+              color: "#8E9CAA",
+              borderColor: "#8E9CAA",
+            }}
+          >
+            Cancel
+          </Button>,
+        ]}
+        closeIcon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13.51"
+            height="13"
+            viewBox="0 0 13.51 13"
+          >
+            <path
+              id="Path_34362"
+              data-name="Path 34362"
+              d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+              transform="translate(-2.248 -2.248)"
+              fill="#697a8d"
+            />
+          </svg>
+        }
+      >
+        <div className="BomContainer">
+          <hr className="line" />
+
+          <p className="planing_method">
+           Add New Attribute by clicking on Add Button.
+          </p>
+
+          <div className="field_container">
+            <div className="container_header">Variants of Creta</div>
+            <ul className="field_box_heading">
+             
+                <li className="assigned_resource">Attributes</li>
+              <li className="value1">Value</li>
+            </ul>
+
+            {superVariantRows.map((item, index) => {
+              return (
+                <ul className="field_box_rows">
+                  
+                  <li className="type">
+                    <SearchDropdown width={138} />
+                  </li>
+                  <li className="value1">
+                    <div className="input_container" style={{width:"545px !important"}}>
+                      <input type="text"  />
+                    </div>
+                  </li>
+                  <div className="delete_btn">
+                    <img src="/images/icons/delete.svg" alt="" />
+                  </div>
+                </ul>
+              );
+            })}
+
           </div>
         </div>
       </Modal>

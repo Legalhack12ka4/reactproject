@@ -14,15 +14,19 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
     onChange(name, value);
   };
 
+
+
   return (
     <>
       <div className={`srchdrp ${error && "drpError"}`}>
       <Select
+        
         disabled={props.isDisabled}
         showSearch
-        //  value={selectedOption}
         placeholder="Select Value"
         optionFilterProp="children"
+        defaultValue={selectedOption}
+        key={selectedOption}
         filterOption={(input, option) =>
           (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
         }
