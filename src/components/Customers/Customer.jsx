@@ -37,6 +37,7 @@ const filterfield =
   ownership: "",
 }
 
+
 const Customer = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
@@ -48,9 +49,14 @@ const Customer = (props) => {
   const [loading, setloading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [custfilter, setCustFilter] = useState(filterfield);
+  const [filterarray, setFilteraaray]= useState([]);
+  
   useEffect(() => {
     getData();
   }, []);
+
+//object to array
+ 
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/customervendor/`).then(
@@ -80,7 +86,7 @@ const Customer = (props) => {
       }
     );
   };
-  console.log(fetchcustomer)
+ // console.log(fetchcustomer)
 
   
   const gsttraetment = [
@@ -574,11 +580,33 @@ const Customer = (props) => {
 
   //Filter
 
+  useEffect(() => {
+    setFilteraaray(Object.entries(custfilter).map(([key, value])=>
+      {
+        if(value)
+        {
+          return {key, value};
+        }
+      }
+      
+    ).filter(item => item)
+    )
+    console.log(filterarray);
+  }, [custfilter]);
+  console.log(filterarray);
+  console.log(filterfield);
+  console.log(custfilter);
+
+  
+
   const handleChange = (field, value) => {
     setCustFilter({...custfilter, [field]: value});
     console.log("value", value);
     console.log("field", value);
+  setVisible(true)
   };
+
+//clear filter
 
 const clearfilter = () => 
 {
@@ -592,13 +620,13 @@ const clearfilter = () =>
    // setCreditAmount(e.target.value);
 
     setCustFilter({ ...custfilter, [name]: value });
-    console.log(value);
-    console.log(name);
+  //  console.log(value);
+   // console.log(name);
     
   };
 
-  console.log(custfilter);
-
+ console.log(custfilter);
+//console.log(filterarray)
 
   // const onChange = (value: number | [number, number]) => {
   //   console.log('onChange: ', value);
@@ -630,13 +658,26 @@ console.log(cusomizeData);
 
 //tags
 
-const log = (e) => {
-  console.log(e);
+const log = (key) => {
+ // console.log(e);
+  //console.log(e.target.innerHtml)
+  console.log(key)
+ setFilteraaray(filterarray.filter((item, index )=> index !== key))
+ console.log(filterarray);
 };
 
 
   return (
     <>
+        {/* 👇️ iterate object KEYS */}
+        
+   
+
+    {/* {Object.keys(filterfield).map((keyName, i) => (
+    <li className="travelcompany-input" key={i}>
+        <span className="input-label">key: {i} Name: {keyName[custfilter.gsttreat]}</span>
+    </li>
+))} */}
       <div className="customers">
       <Page_heading
         parent={"Business Account"}
@@ -664,6 +705,7 @@ const log = (e) => {
                 <SearchDropdown
                   width={330}
                   name="gsttreat"
+                
                   options={gsttraetment}
                   value={custfilter.gsttreat}
                   onChange={handleChange}
@@ -845,30 +887,28 @@ const log = (e) => {
           
         ]
 
-      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData} onFilter={clearfilter}/>
+      }  columns={columnsData} addBtnName={"Customer"} path={"addcustomer"} onData={handleData} onFilter={(e)=> {clearfilter(e); setVisible(!visible)}}/>
 
       <div className="tableData">
         {/* <Resizable> */}
-        {!visible && <div className="tags" id="tags">
- <div className="appliedtag">Applied For :</div>
-   <div  onClick={log}>
-   <Tooltip title="Gst Treatment : Customer" color="#5C5AD0" className="tooltiplabel" > <Tag className="tag1" closable onClose={log}>
-    Registered Business - Regular
-      </Tag></Tooltip>
-      <Tooltip title="Type Category : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-   Wholesaler
-    </Tag></Tooltip>
-    <Tooltip title="Payment Terms : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-      Net 15
-    </Tag></Tooltip>
-    <Tooltip title="State : Customer" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-      Gujarat
-    </Tag></Tooltip>
+{filterarray.length > 0 && <div className="tags" id="tags">
+<div className="appliedtag">Applied For :</div>
+ {filterarray.map((customerfilter, key)=>{ return (
+   customerfilter.value && <Tooltip title={`${customerfilter.key} : Customer`} color="#5C5AD0" className="tooltiplabel" >
+   <Tag key={customerfilter.key} className="tag1" closable onClose={(e)=>{log(key); clearfilter(e);}}>
+  {customerfilter.value} 
+     </Tag>
+     </Tooltip>
+    
+      ) })}
+       
 
-    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
 
-    </div>
-  </div>}
+    <button type="submit" className="btnfilter" onClick={(e) => {setVisible(!visible);clearfilter(e);}}>Clear All</button>
+
+  
+  </div>} 
+  
 
 
         <Table

@@ -465,7 +465,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           <div>
           Filter
           </div>
-          <div style={{color: "#5C5AD0"}} onClick={props.onFilter}>
+          <div  style={{color: "#5C5AD0"}} onClick={props.onFilter}>
             Clear Filter
           </div>
           </div>
