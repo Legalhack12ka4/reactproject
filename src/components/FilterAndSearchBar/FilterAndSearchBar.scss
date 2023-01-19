@@ -103,10 +103,27 @@
     }
 }
 
+//filter
 
+.filterlength
+{
+    align-items: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #5C5AD0;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 15px;
+}
 
 .filter{
     position: relative;
+    padding-right: 20px;
 
     .filter_dropdown{
         position: absolute;

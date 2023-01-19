@@ -485,7 +485,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         <div className="tableBtn_container">
           <div style={{ display: "flex" }}>
             <div
-              className="tableBtn filter"
+              className={`${props.filterLength > 0 && "filter"} tableBtn `}
               
               onClick={showFilterModal}
               style={{ width: "101.5px", position:"relative" }}
@@ -494,7 +494,8 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <div className="btn_icon">
                 <img src={filter} height="12px" width="12px" />
               </div>
-              Filter
+              Filter 
+              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
             </div>
             <div
               className="tableBtn export"

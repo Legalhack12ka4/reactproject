@@ -25,8 +25,9 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
         showSearch
         placeholder="Select Value"
         optionFilterProp="children"
-        defaultValue={selectedOption}
-        key={selectedOption}
+        value={selectedOption}
+        //defaultValue={selectedOption}
+       key={selectedOption}
         filterOption={(input, option) =>
           (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
         }
