@@ -83,6 +83,11 @@
 
             .btn_icon{
                 margin-left: 20px;
+               // filter: invert(35%) sepia(87%) saturate(1041%) hue-rotate(218deg) brightness(84%) contrast(92%);
+                #filtericon
+                {
+                    fill:red ;
+                }
             }
         }
         .addNewBtn{
@@ -120,11 +125,21 @@
     position: absolute;
     right: 15px;
 }
+.filterl
+{
+    color: #5C5AD0;
+}
+.filterlclr
+{
+    color: #5C5AD0;
+}
+
 
 .filter{
     position: relative;
     padding-right: 20px;
-
+        border: 1px solid #5C5AD0 !important;
+        font-weight: 500;
     .filter_dropdown{
         position: absolute;
         // width: 720px;
@@ -157,7 +172,8 @@
                 .filter_icon{
                 width: 11px;
                 margin-right: 6px;
-            }
+              
+                }
         }
     }
 }

@@ -2,12 +2,16 @@
 
 .App{
   display: flex;
+  ::-webkit-scrollbar { 
+    display: none; 
+   }
 }
 .main{
   display: flex;
   /* border: 1px solid; */
   width: 100%;
   -webkit-font-smoothing: antialiased;
+  
   }
 
 .rightScreen{
@@ -16,12 +20,26 @@
   margin-left: -10px;
   overflow: scroll;
   height:100vh;
+  
 }
-*::-webkit-scrollbar { 
- display: none;  /* Safari and Chrome */
+ ::-webkit-scrollbar { 
+ width: 0px; 
+}  
+/* 
+::-webkit-scrollbar {
+  width: 5px !important;
 }
 
+::-webkit-scrollbar-thumb {
+  background-color:#c2cad2;
+  border-radius: 10px;
+  width: 5px  !important;
+  margin-right: 3px;
 
+}
+::-webkit-scrollbar-thumb:hover {
+background: #566a76;
+} */
 
 @media screen and (width: 668px) {
  .sidebar{

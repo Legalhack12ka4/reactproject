@@ -24,13 +24,31 @@
   .tableData {
     height: max-content;
     max-width: 2220px;
+    user-select: none;
+
+   ::-webkit-scrollbar {
+    height: 8px !important;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color:#c2cad2;
+      border-radius: 10px;
+      margin-right: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+    background: #566a76;
+    cursor: pointer;
+    } 
     // box-shadow:  0px 2px 6px 0px #4359711f;
+   
   }
 }
 
 .customers::-webkit-scrollbar {
   width: 0;
 }
+
+
 
 
 //Filter
@@ -70,6 +88,10 @@ align-items: center;
   color:#2B3347;
   font-size: 14px;
   margin-right: 18px;
+   .ant-tooltip-inner  {
+    font-size: 12px  !important;
+    color: black  !important;
+  }
 }
 
 .tag1
@@ -79,6 +101,9 @@ align-items: center;
   height: 22px;
   font-size: 12px !important;
   cursor: pointer;
+  font-weight: 500;
+  border-color: transparent;
+
 }
 
 .ant-tag .ant-tag-close-icon 
@@ -91,7 +116,7 @@ margin-left: 9px !important;
 
 .btnfilter
 {
-  margin-left: 55px;
+  margin-left: 18px;
   color: #5C5AD0;
   outline: none;
   font-size: 14px;
@@ -104,6 +129,26 @@ margin-left: 9px !important;
 
 //tooltip
 
-.ant-tooltip .ant-tooltip-inner {
+.ant-tooltip .ant-tooltip-inner  {
   font-size: 12px  !important;
+
+  //color: black  !important;
+
+}
+
+
+#tlpclr {
+        color: black  !important;
+        font-weight: 500;
+}
+
+
+
+
+
+//slider
+
+
+input[type=range] {
+  accent-color: #5C5AD0;
 }

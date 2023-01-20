@@ -8,6 +8,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import filter from "../../assets/Images/FilterIcon/filter.svg";
+import filterblue from "../../assets/Images/FilterIcon/filterblue.svg";
 import "./FilterAndSearchBar.scss";
 import Select from "react-select";
 import { CgSearch } from "react-icons/cg";
@@ -461,11 +462,11 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         closable={false}
         style={{ top: 230, left:287, position:"absolute", maxWidth:"2200px" }}
       >
-        <div className="filter_dropdown_btn" style={{display:"flex", justifyContent:"space-between"}}>
-          <div>
-          Filter
+        <div className="filter_dropdown_btn" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+          <div style={{fontSize:"18px"}}>
+          Filters
           </div>
-          <div  style={{color: "#5C5AD0"}} onClick={props.onFilter}>
+          <div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={props.onFilter}>
             Clear Filter
           </div>
           </div>
@@ -483,7 +484,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       </Modal>
       <div className="table_nav">
         <div className="tableBtn_container">
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex" }} >
             <div
               className={`${props.filterLength > 0 && "filter"} tableBtn `}
               
@@ -492,9 +493,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               ref={fliterRef}
             >
               <div className="btn_icon">
-                <img src={filter} height="12px" width="12px" />
+              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
               </div>
-              Filter 
+              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
               {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
             </div>
             <div

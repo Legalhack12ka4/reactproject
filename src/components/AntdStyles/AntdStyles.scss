@@ -314,3 +314,21 @@ th {
 .ant-breadcrumb a {
   padding: 0px 4px 5px 3px !important;
 }
+
+[class^="ant-tag"], [class*=" ant-tag"] {
+  font-family:Public Sans ,sans-serif !important;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.ant-tag
+{
+  font-family:Public Sans, sans-serif !important;
+}
+
+//table shorter
+
+.ant-table-wrapper .ant-table-column-sorters {
+display: inline-flex;
+gap: 5px;
+}
