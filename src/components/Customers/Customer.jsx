@@ -562,10 +562,10 @@ const Customer = (props) => {
 
   const log = (index) => {
             setFilteraaray(filterarray.filter((item, i) => i !== index ) );
-             const updatedCustFilter= {...fetchcustomer}
-           delete updatedCustFilter[filterarray[index].key];
-           setCustFilter(updatedCustFilter)
-           console.log(updatedCustFilter)
+          //    const updatedCustFilter= {...fetchcustomer}
+          //  delete updatedCustFilter[filterarray[index].key];
+          //  setCustFilter(updatedCustFilter)
+          //  console.log(updatedCustFilter)
   };
   return (
     <>

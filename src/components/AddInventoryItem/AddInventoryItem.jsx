@@ -7,7 +7,7 @@ import { Modal, Button, Tooltip } from "antd";
 
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
-import { useCallback } from "react";
+import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
 
 const AddInventoryItem = () => {
   const scannerRef = useRef(null);
@@ -18,9 +18,9 @@ const AddInventoryItem = () => {
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
   const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
-  const [superVariantRows, setSuperVariantRows] = useState([1, 2, 3, 4]);
+  const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1"},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4"}]);
   const [withResource, setWithResource] = useState(true);
-  const [superBomRows, setSuperBomRows] = useState([1, 2, 3, 4, 5]);
+  const [bomRows, setBomRows] = useState([{id:1, name:"row1"},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4"},{id:5, name:"row5"}]);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const hiddenFileInput = React.useRef(null);
@@ -77,11 +77,13 @@ const AddInventoryItem = () => {
   const handleOk = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
+    setIsBOMModalOpen(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
+    setIsBOMModalOpen(false);
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -105,6 +107,23 @@ const AddInventoryItem = () => {
   const handleGenerateCancel = () => {
     setIsGenerateModalOpen(false);
   };
+
+
+  const deleteBomRow = (id) => {
+    setBomRows(bomRows.filter(row => row.id !== id));
+    // console.log(id)
+}
+
+const handleBomAddRow = () => {
+  const newRows = [...bomRows, {id: bomRows.length + 1, name: `row${bomRows.length+1}`}, {id: bomRows.length + 2, name: `row${bomRows.length+2}`}];
+  setBomRows(newRows);
+  
+}
+
+const deleteVariantsRow = (id) => {
+  setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
+  // console.log(id)
+}
 
   const [result, setResult] = useState("No result");
   const [data, setData] = React.useState("Scan a barcode");
@@ -133,6 +152,26 @@ const AddInventoryItem = () => {
   for (let i = 0; i < image.length; i++) {
     dots.push(i);
   }
+
+
+  const selectOption = [
+    {
+      value: "Value 1",
+      label: "Value 1",
+    },
+    {
+      value: "Value 2",
+      label: "Value 2",
+    },
+    {
+      value: "Value 3",
+      label: "Value 3",
+    },
+    {
+      value: "Select All",
+      lable: "Select All",
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -250,7 +289,6 @@ const AddInventoryItem = () => {
                   <SearchDropdown width={330} />
                 </div>
               </div>
-
               <div className="btn_container">
                 <button className="submit_btn">Submit</button>
                 <button className="cancel_btn">Cancel</button>
@@ -602,7 +640,7 @@ const AddInventoryItem = () => {
         open={isBOMModalOpen}
         onOk={handleOk}
         width={"max-content"}
-        onCancel={handleGenerateCancel}
+        onCancel={handleCancel}
         style={{ top: 20 }}
         // footer=""
         footer={[
@@ -621,8 +659,8 @@ const AddInventoryItem = () => {
           </Button>,
           <Button
             key="cancel"
-            onClick={handleScannerCancel}
-            style={{
+            onClick={handleCancel}
+              style={{
               width: "80px",
               height: "38px",
               fontSize: "12px",
@@ -701,9 +739,10 @@ const AddInventoryItem = () => {
               <li className="value">Value</li>
             </ul>
 
-            {superBomRows.map((item, index) => {
+            <div className="rows_container">
+            {bomRows.map((item, index) => {
               return (
-                <ul className="field_box_rows">
+                <ul className="field_box_rows" key={item.id}>
                   {withResource && (
                     <li className="assigned_resource">
                       <SearchDropdown width={250} />
@@ -716,9 +755,11 @@ const AddInventoryItem = () => {
                     <SearchDropdown width={250} />
                   </li>
                   <li className="options">
-                    <div className="input_container">
-                      <input type="text" />
-                    </div>
+                    {/* <div className="input_container"> */}
+                    <SelectAllDropdown
+                      option={selectOption}
+                    />
+                    {/* </div> */}
                   </li>
                   <li className="qty">
                     <div className="input_container">
@@ -736,14 +777,15 @@ const AddInventoryItem = () => {
                     </div>
                   </li>
                   <div className="delete_btn">
-                    <img src="/images/icons/delete.svg" alt="" />
+                    <img src="/images/icons/delete.svg" alt="" onClick={() => deleteBomRow(item.id)}/>
                   </div>
                 </ul>
               );
             })}
+            </div>
 
             <div className="footer_container">
-              <div className="add_field">+ Add</div>
+              <div className="add_field" onClick={handleBomAddRow}>+ Add</div>
               <div className="total_value">
                 Total Value : <span> ₹ 0.00</span>
               </div>
@@ -824,7 +866,7 @@ const AddInventoryItem = () => {
 
             {superVariantRows.map((item, index) => {
               return (
-                <ul className="field_box_rows">
+                <ul className="field_box_rows" key={item.id}>
                   
                   <li className="type">
                     <SearchDropdown width={138} />
@@ -835,11 +877,14 @@ const AddInventoryItem = () => {
                     </div>
                   </li>
                   <div className="delete_btn">
-                    <img src="/images/icons/delete.svg" alt="" />
+                    <img src="/images/icons/delete.svg" alt="" onClick={() => deleteVariantsRow(item.id)}/>
                   </div>
                 </ul>
               );
             })}
+            <SelectAllDropdown
+              option={selectOption}
+            />
 
           </div>
         </div>

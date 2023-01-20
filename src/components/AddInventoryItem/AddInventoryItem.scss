@@ -546,6 +546,8 @@
      
     }
 
+    
+
     .field_container{
         // border: 1px solid;
       //  box-shadow:  0px 2px 6px 0px #4359711f;
@@ -553,6 +555,11 @@
         margin-top: 20px;
         border-radius: 8px;
         overflow: hidden;
+
+        .rows_container{
+            max-height: 295px;
+            overflow: scroll;
+        }
 
 
         .container_header{
@@ -652,9 +659,10 @@
                     overflow: hidden;
                 
                     input{
-                        width: 100%;
+                        width: 65%;
                         height: 100%;
                         padding: 0px 10px;
+                        text-align: right;
                     }
                 }
             }
@@ -673,9 +681,10 @@
                     overflow: hidden;
                 
                     input{
-                        width: 100%;
+                        width: 80%;
                         height: 100%;
                         padding: 0px 10px;
+                        text-align: right;
                     }
                 }
             
@@ -695,9 +704,10 @@
                     overflow: hidden;
                 
                     input{
-                        width: 100%;
+                        width: 80%;
                         height: 100%;
                         padding: 0px 10px;
+                        text-align: right;
                     }
                 }
 
@@ -716,9 +726,10 @@
                     overflow: hidden;
                 
                     input{
-                        width: 100%;
+                        width: 80%;
                         height: 100%;
                         padding: 0px 10px;
+                        text-align: right;
                     }
                 }
 
@@ -739,7 +750,7 @@
                 
                     input{
                        // width: 100%;
-                        height: 100%;
+                        height: 80%;
                         padding: 0px 10px;
                     }
                 }
@@ -749,6 +760,7 @@
                 display: flex;
                 align-items: center;
                 padding: 0px 15px 0px 0px;
+                cursor: pointer;
             }
         }
 
@@ -839,6 +851,7 @@
         font-size: 14px;
         font-weight: 600;
         color: #5C5AD0;
+        cursor: pointer;
     }
 
     .total_value{
@@ -853,4 +866,11 @@
     }
 }
 
+.dropdown-menu-width{
+.ant-select-dropdown {
+    width: 250px !important;
+    margin-left: -300px !important;
+}
+}
 
+  
