@@ -81,7 +81,7 @@ function AddNewCustomer(props) {
 
   //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
-    return fetch("http://127.0.0.1:8000/paymentterms/")
+    return fetch("http://3.95.188.24/paymentterms/")
       .then((response) => response.json())
       .then((data) => {
         setPayment(data);
@@ -91,7 +91,7 @@ function AddNewCustomer(props) {
 
   //Dropdown Contact
   const getContact = () => {
-    return fetch("http://127.0.0.1:8000/contact/")
+    return fetch("http://3.95.188.24/contact/")
       .then((response) => response.json())
       .then((data) => {
         setContact(data);
@@ -101,7 +101,7 @@ function AddNewCustomer(props) {
 
   //Dropdown currency
   const getDataCuurrency = () => {
-    fetch("http://127.0.0.1:8000/currency/")
+    fetch("http://3.95.188.24/currency/")
       .then((response) => response.json())
       .then((data) => {
         setCurrencydrp(data);

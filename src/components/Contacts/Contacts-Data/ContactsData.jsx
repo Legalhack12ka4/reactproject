@@ -276,14 +276,16 @@ const clearfilter =() =>
               <br />
               <div className="contactinput" style={{ marginTop: "5px" }}>
                 <img src={dob} className="customerimg" />
-                <input
+                {/* <input type="date"  
+        placeholder="dd-mm-yyyy" 
+        min="1997-01-01" max="2030-12-31"/> */}
+               <input
                   type="date"
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="dob"
-               //   value={formData.dob}
-                //  onChange={onChange}
-                />
+             
+                /> 
               </div>
                  </div>
              </div>

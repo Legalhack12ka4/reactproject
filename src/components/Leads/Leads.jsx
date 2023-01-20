@@ -26,7 +26,7 @@ const initialFieldValues = {
   };
 
 function Leads() {
-  const [checked, setChecked] = useState("Contacts");
+  const [checked, setChecked] = useState("contacts");
   function handleclose() {
     var m = document.querySelector(".menu1 ");
     m.classList.remove("smenu");
@@ -318,7 +318,7 @@ function Leads() {
       
       <div className="contactform">
         <div className="contacts">
-          <h1 className="box_heading1">New Contact</h1>
+          <h1 className="box_heading1">New Lead</h1>
           <div className="contact_details">
             <div className="form-left">
             <div className="form_field">
@@ -458,8 +458,52 @@ function Leads() {
                   )}
               </div>
 
-              <div className="dropdownBtn">
+               <div className="dropdownBtn">
+
+                <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel">Lead Source Type</label>{" "}
+              </Tooltip>
+              <br />
+              <div className="radio-group">
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Contacts"
+                    name="lead"
+                    checked={checked == "contacts" ? true : false}
+                    onClick={(e) => setChecked("contacts")}
+                  />
+                  Contacts
+                  <span></span>
+                </label>
+                <label className="radio">
+                  <input
+                    type="radio"
+                    value="Others"
+                    name="lead"
+                    onClick={(e) => setChecked("Others")}
+                    checked={checked == "Others" ? true : false}
+                  />
+                  Others
+                  <span></span>
+                </label>
+              </div>
               <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="leadlabel" style={{ marginTop: "15px" }}>
+                  {checked == "contacts" ? "Contacts" : "Others"}
+                </label>{" "}
+              </Tooltip>
+              <br />
+              {checked == "contacts" ? (
+                <SearchDropdown options={contacts} width={330}  />
+              ) : (
+                <SearchDropdownAddButton  width={330} />
+              )}
+  
+  </div>
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="contactlabel" style={{ marginTop: "15px" }}>
                   Position
@@ -474,7 +518,7 @@ function Leads() {
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"
                   />
-              </div>
+              </div> */}
 
               <div className="dropdownBtn">
               <Tooltip title="prompt text" color="#5C5AD0">

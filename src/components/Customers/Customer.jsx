@@ -243,9 +243,13 @@ const Customer = (props) => {
       fixed: "left",
       align: "left",
       width: 180,
+ 
       sorter: (record1, record2) => {
         return record1.gst_treatment > record2.gst_treatment;
       },
+      showSorterTooltip:{ title: '' }
+      
+
       // filters:[
       //   {text:'Expense 1', value:'Expense 1'},
       //   {text:'Expense 2', value:'Expense 2'}
@@ -270,6 +274,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.gst_no > record2.gst_no;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Business Name",
@@ -282,6 +287,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.business_name > record2.business_name;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Type Category",
@@ -294,6 +300,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.type_category > record2.type_category;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Currency",
@@ -306,6 +313,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.currency > record2.currency;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Payment Terms",
@@ -318,6 +326,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.payment_terms > record2.payment_terms;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "PanCard",
@@ -330,6 +339,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.pan_card > record2.pan_card;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Credit Limit",
@@ -342,6 +352,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.credit_limit > record2.credit_limit;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Email",
@@ -354,6 +365,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.email > record2.email;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "PinCode",
@@ -366,6 +378,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.pinCode > record2.pinCode;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Street1",
@@ -378,6 +391,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.street1 > record2.street1;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Street2",
@@ -390,6 +404,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.street2 > record2.street2;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Place Of Supply",
@@ -402,6 +417,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.place_of_supply > record2.place_of_supply;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Contact",
@@ -414,6 +430,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.contact > record2.contact;
       },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Ownership",
@@ -426,6 +443,7 @@ const Customer = (props) => {
       sorter: (record1, record2) => {
         return record1.ownership > record2.ownership;
       },
+      showSorterTooltip:{ title: '' }
     },
   ];
 
@@ -543,13 +561,11 @@ const Customer = (props) => {
   //tags
 
   const log = (index) => {
-
-   // console.log(key);
-            setFilteraaray(filterarray.filter((item, i) => i !== index)  );
-            const updatedCustFilter= 
-            delete updatedCustFilter[filterarray[index].key];
+            setFilteraaray(filterarray.filter((item, i) => i !== index ) );
+             const updatedCustFilter= {...fetchcustomer}
+           delete updatedCustFilter[filterarray[index].key];
            setCustFilter(updatedCustFilter)
-           getData();
+           console.log(updatedCustFilter)
   };
   return (
     <>
@@ -748,11 +764,12 @@ const Customer = (props) => {
                   {custfilter.credit}
                   <br />
                   <input
+                  className="credtrange"
                     type="range"
                     min={0}
                     max={3000}
                     defaultValue={0}
-                    style={{ border: "none", outline: "none", width: "82%" }}
+                    style={{ border: "none", outline: "none", width: "100%" }}
                     placeholder="Placeholder"
                     name="credit"
                     value={custfilter.credit}
@@ -778,14 +795,25 @@ const Customer = (props) => {
             {/* <Resizable> */}
             {filterarray.length > 0 && (
               <div className="tags" id="tags">
-                <div className="appliedtag">Applied For :</div>
+                <div className="appliedtag ">Applied Filters :</div>
                 {filterarray.map((customerfilter, index) => {
                   return (
                     customerfilter.value && (
                       <Tooltip
-                        title={`${customerfilter.key} : Customer`}
-                        color="#5C5AD0"
-                        className="tooltiplabel"
+                      className="tlpclr"
+                      id="tlpclr"
+                        title={`${customerfilter.key === "gsttreat"  && "Gst Treatment" ||
+                        customerfilter.key === "category"  && "Type Category" ||
+                        customerfilter.key === "currency"  && "Currency" ||
+                        customerfilter.key === "payment"  && "Payment Terms" ||
+                        customerfilter.key === "pos"  && "Default place of supply" ||
+                        customerfilter.key == "street1"  && "City" ||
+                        customerfilter.key == "street2"  && "State" ||
+                        customerfilter.key === "contact"  && "Contact" ||
+                        customerfilter.key === "ownership"  && "Ownership" ||
+                        customerfilter.key === "credit"  && "Credit Limit"  } : Customer`} 
+                        color="#EBECF0"
+                        
                       >
                         <Tag
                           key={customerfilter.key}
@@ -843,8 +871,8 @@ const Customer = (props) => {
               dataSource={cusomizeData}
               columns={columns}
               // scroll={{ y: 800, x: 1000 }}
-              scroll={{ x: "1100px" }}
-              style={{ maxWidth: 2200, width: "100%" }}
+              scroll={{ x: "800px" }}
+             style={{ maxWidth: 2200, width: "100%" }}
               pagination={{
                 current: page,
                 pageSize: pageSize,

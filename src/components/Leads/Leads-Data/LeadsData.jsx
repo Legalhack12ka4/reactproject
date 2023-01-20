@@ -15,7 +15,7 @@ const LeadsData = () => {
     const [loading, setloading] = useState(true);
     const [page, setPage]=useState(1);
     const [pageSize, setPageSize] = useState(10)
-    const [checked, setChecked] = useState("Contacts");
+    const [checked, setChecked] = useState("contacts");
     const [visible, setVisible] = useState(false);
     
     const dataSource = [
@@ -410,8 +410,8 @@ const clearfilter =() =>
                 <label className="leadlabel">Lead Source Type</label>{" "}
               </Tooltip>
               <br />
-              <div className="radio-group">
-                <label className="radio">
+              <div className="radio1-group">
+                <label className="radio1">
                   <input
                     type="radio"
                     value="Contacts"
@@ -422,7 +422,7 @@ const clearfilter =() =>
                   Contacts
                   <span></span>
                 </label>
-                <label className="radio">
+                <label className="radio1">
                   <input
                     type="radio"
                     value="Others"
