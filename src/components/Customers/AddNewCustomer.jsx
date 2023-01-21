@@ -50,6 +50,7 @@ function AddNewCustomer(props) {
   const [contact, setContact] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
   const [area, setArea] = useState([]);
+  const [gno, setGno]= useState([]);
   const [city, setCity] = useState([]);
   const [statedrp, setStatedrp] = useState([]);
   const [creditAmount, setCreditAmount] = useState('');
@@ -58,11 +59,11 @@ function AddNewCustomer(props) {
   //const [pincode, setPincode]= useState([])
 
   const [gst, setGst] = useState(false);
-  // let gstinparams = values.gstin;
+   //let gstinparams = customer.gstin;
 
-  const getData = () => {
-    fetch(
-      // `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
+  const getData = (gstin) => {
+    axios.get(
+     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
       {
         headers: {
           Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
@@ -74,9 +75,18 @@ function AddNewCustomer(props) {
         return response.json();
       })
       .then((data) => {
-        setCustomer(data);
-        console.log("data", data.lgnm);
+        setGno(data);
+        console.log("data", data);
+        console.log(data)
       });
+  };
+  console.log(gno)
+
+  const handleGstno = (e) => {
+    //setPincode(e.target.value)
+    console.log("Gstno value", e.target.value);
+    getData(e.target.value);
+    //alert("Blur");
   };
 
   //Dropdown PaymentTerms
@@ -115,6 +125,7 @@ function AddNewCustomer(props) {
     getDataCuurrency();
     getArea();
     getContact();
+    getData();
   }, []);
 
   const handleFormSubmit = () => {
@@ -703,7 +714,7 @@ function AddNewCustomer(props) {
                     name="gstin"
                     maxLength={15}
                     value={values.gstin}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -831,9 +842,6 @@ function AddNewCustomer(props) {
                       name="currency"
                       error={errors.currency && touched.currency ? true : false}
                       errorMsg="Currency is required"
-
-                      
-
                     />
                   </div>
                   <div style={{ width: "50%" }}>

@@ -873,4 +873,36 @@
 }
 }
 
+
+//Production material batches
+.materialCoontainer
+{
+    width: 370px;
+    height: 78px;
+    border-radius: 6px;
+    fill: #FFFFFF;
+    border: none;
+
+}
+.productionresources
+{
+    display: flex;
+    gap: 20px ;
+}
+.productionlabel
+{
+height: 17px;
+font-size: 13px;
+font-weight: 500;
+fill: #697A8D;
+margin-bottom: 8px;
+}
+.productioninput
+{
+border: .5px solid #C2CAD2;
+fill: #FFFFFF;
+border-radius: 5px;
+width: 155px;
+height: 38px;
+}
   

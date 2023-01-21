@@ -2,9 +2,7 @@
 
 .App{
   display: flex;
-  ::-webkit-scrollbar { 
-    display: none; 
-   }
+  
 }
 .main{
   display: flex;
