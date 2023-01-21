@@ -59,6 +59,7 @@ const Customer = (props) => {
       setloading(false);
       setFetchcustomer(
         res.data.map((row) => ({
+            Key:row.id,
           Gst_Treatment:
             row.gst_treatment == 1
               ? "Registerd Business"
@@ -217,6 +218,8 @@ const Customer = (props) => {
   const menuRef = useRef(null);
 
   const dataSource = fetchcustomer.map((customer) => ({
+     key:customer.Key,
+      id:customer.Key,
     gst_treatment: customer.Gst_Treatment,
     gst_no: customer.Gst_No,
     business_name: customer.Business_Name,
@@ -235,34 +238,34 @@ const Customer = (props) => {
   }));
   const columnsData = [
     {
-      title: "Gst Treatment",
-      label: "Gst Treatment",
-      dataIndex: "gst_treatment",
-      key: "gst_treatment",
+      title: "Business Name",
+      label: "Business Name",
+      dataIndex: "business_name",
+      key: "business_name",
       resizable: true,
+      width: 180,
       fixed: "left",
       align: "left",
-      width: 180,
- 
       sorter: (record1, record2) => {
-        return record1.gst_treatment > record2.gst_treatment;
+        return record1.business_name > record2.business_name;
       },
       showSorterTooltip:{ title: '' }
-      
-
-      // filters:[
-      //   {text:'Expense 1', value:'Expense 1'},
-      //   {text:'Expense 2', value:'Expense 2'}
-      // ],
-      // // filterMultiple:false,
-      // onFilter:(value,record)=>
-      // {
-      //   return record.gst_treatment === value
-      // }
-      // onFilter: (value, record) => {
-      //   return record.business_name.includes(value)
-      // }
     },
+  //  {
+
+  //     // filters:[
+  //     //   {text:'Expense 1', value:'Expense 1'},
+  //     //   {text:'Expense 2', value:'Expense 2'}
+  //     // ],
+  //     // // filterMultiple:false,
+  //     // onFilter:(value,record)=>
+  //     // {
+  //     //   return record.gst_treatment === value
+  //     // }
+  //     // onFilter: (value, record) => {
+  //     //   return record.business_name.includes(value)
+  //     // }
+  //   },
     {
       title: "Gst No",
       label: "Gst No",
@@ -277,17 +280,20 @@ const Customer = (props) => {
       showSorterTooltip:{ title: '' }
     },
     {
-      title: "Business Name",
-      label: "Business Name",
-      dataIndex: "business_name",
-      key: "business_name",
+      title: "Gst Treatment",
+      label: "Gst Treatment",
+      dataIndex: "gst_treatment",
+      key: "gst_treatment",
       resizable: true,
-      width: 180,
+     // fixed: "left",
       align: "left",
+      width: 180,
+ 
       sorter: (record1, record2) => {
-        return record1.business_name > record2.business_name;
+        return record1.gst_treatment > record2.gst_treatment;
       },
       showSorterTooltip:{ title: '' }
+      
     },
     {
       title: "Type Category",
@@ -560,13 +566,12 @@ const Customer = (props) => {
 
   //tags
 
-  const log = (index) => {
+  const log = (index,key) => {
+             console.log(key)
             setFilteraaray(filterarray.filter((item, i) => i !== index ) );
-          //    const updatedCustFilter= {...fetchcustomer}
-          //  delete updatedCustFilter[filterarray[index].key];
-          //  setCustFilter(updatedCustFilter)
-          //  console.log(updatedCustFilter)
+            setCustFilter({ ...custfilter, [key]:"" });
   };
+  console.log(filterarray.length)
   return (
     <>
       <div className="customers">
@@ -820,8 +825,7 @@ const Customer = (props) => {
                           className="tag1"
                           closable
                           onClose={(e) => {
-                            log(index);
-                         
+                            log(index, customerfilter.key);
                           }}
                         >
                           {customerfilter.value}                        </Tag>

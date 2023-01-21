@@ -23,6 +23,7 @@ const AddInventoryItem = () => {
   const [bomRows, setBomRows] = useState([{id:1, name:"row1"},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4"},{id:5, name:"row5"}]);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
   const hiddenFileInput = React.useRef(null);
 
   const handleClick = (event) => {
@@ -74,16 +75,26 @@ const AddInventoryItem = () => {
     setIsModalOpen(true);
   };
 
+  const handleMaterialOk = () =>
+  {
+    setIsMaterialModalOpen(false);
+  }
   const handleOk = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
     setIsBOMModalOpen(false);
+    
   };
 
+  const handleMaterialCancel = () =>
+  {
+    setIsMaterialModalOpen(false);
+  }
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
     setIsBOMModalOpen(false);
+
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -129,6 +140,24 @@ const deleteVariantsRow = (id) => {
   const [data, setData] = React.useState("Scan a barcode");
 
   // console.log(data)
+
+//options select
+
+
+const bodymaterial = [
+  {
+    value: "Body Welding Machine",
+    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Welding Machine</div>,
+  },
+  {
+    value: "Body Cutter Polish Machine",
+    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Cutter Polish Machine</div>,
+  },
+  {
+    value: "Body Panels Assemble Machine",
+    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Panels Assemble Machine</div>,
+  },
+];
 
   useEffect(() => {
     hiddenFileInput.current.ondragover = () => {
@@ -745,7 +774,7 @@ const deleteVariantsRow = (id) => {
                 <ul className="field_box_rows" key={item.id}>
                   {withResource && (
                     <li className="assigned_resource">
-                      <SearchDropdown width={250} />
+                      <SearchDropdown options={bodymaterial} width={250} />
                     </li>
                   )}
                   <li className="type">
@@ -887,6 +916,48 @@ const deleteVariantsRow = (id) => {
             />
 
           </div>
+        </div>
+      </Modal>
+
+
+      {/* Materail assigned modal */}
+
+      <Modal
+        open={isMaterialModalOpen}
+        onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleMaterialCancel}
+        style={{ top: 20 }}
+       
+        footer={[
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleScannerSubmit}
+            style={{
+              width: "80px",
+              height: "38px",
+              backgroundColor: "#5C5AD0",
+              fontSize: "12px",
+            }}
+          >
+            Submit
+          </Button>
+        ]}
+        closable={false}
+      >
+         <div className="materialCoontainer">
+        <div className="productionresources">
+         <div>
+        <p className="productionlabel">Producton Batch Size</p>
+        <input className="productioninput" type="text" value="05 Pcs" />
+         </div>
+         <div>
+         <p className="productionlabel">Producton Hours</p>
+        <input className="productioninput" type="text" value="03:00 Hours" />
+         </div>
+         </div>
+         
         </div>
       </Modal>
     </div>
