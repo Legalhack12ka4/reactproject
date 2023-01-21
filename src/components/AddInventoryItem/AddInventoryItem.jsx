@@ -196,10 +196,6 @@ const bodymaterial = [
       value: "Value 3",
       label: "Value 3",
     },
-    {
-      value: "Select All",
-      lable: "Select All",
-    },
   ];
 
   useEffect(() => {
