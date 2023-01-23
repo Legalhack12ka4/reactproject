@@ -34,6 +34,7 @@ const filterfield = {
   contact: "",
   ownership: "",
 };
+const PAGE_SIZE=10
 
 const Customer = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -48,8 +49,11 @@ const Customer = (props) => {
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
   const [inputValue, setInputValue] = useState(0);
+  const [currentValue, setCurrentValue] = useState(0)
+
   useEffect(() => {
     getData();
+   // window.scroll(0, 20);
   }, []);
 
   //object to array
@@ -207,6 +211,7 @@ const Customer = (props) => {
     },
   ];
 
+  console.log(fetchcustomer);
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -236,6 +241,7 @@ const Customer = (props) => {
     contact: customer.Contact,
     ownership: customer.Ownsership,
   }));
+ 
   const columnsData = [
     {
       title: "Business Name",
@@ -243,9 +249,10 @@ const Customer = (props) => {
       dataIndex: "business_name",
       key: "business_name",
       resizable: true,
-      width: 180,
+      width: 260,
       fixed: "left",
       align: "left",
+      //ellipsis:true,
       sorter: (record1, record2) => {
         return record1.business_name > record2.business_name;
       },
@@ -274,6 +281,8 @@ const Customer = (props) => {
       resizable: true,
       width: 180,
       align: "left",
+     // ellipsis:true,
+      resizable:true,
       sorter: (record1, record2) => {
         return record1.gst_no > record2.gst_no;
       },
@@ -287,8 +296,8 @@ const Customer = (props) => {
       resizable: true,
      // fixed: "left",
       align: "left",
-      width: 180,
- 
+     width: 150,
+     ellipsis:true,
       sorter: (record1, record2) => {
         return record1.gst_treatment > record2.gst_treatment;
       },
@@ -301,8 +310,9 @@ const Customer = (props) => {
       dataIndex: "type_category",
       key: "type_category",
       resizable: true,
-      width: 180,
+      width: 150,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.type_category > record2.type_category;
       },
@@ -314,8 +324,9 @@ const Customer = (props) => {
       dataIndex: "currency",
       key: "currency",
       resizable: true,
-      width: 180,
+      width: 120,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.currency > record2.currency;
       },
@@ -327,8 +338,9 @@ const Customer = (props) => {
       dataIndex: "payment_terms",
       key: "payment_terms",
       resizable: true,
-      width: 180,
+      width: 150,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.payment_terms > record2.payment_terms;
       },
@@ -340,8 +352,9 @@ const Customer = (props) => {
       dataIndex: "pan_card",
       key: "pan_card",
       resizable: true,
-      width: 180,
+      width: 120,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.pan_card > record2.pan_card;
       },
@@ -353,8 +366,9 @@ const Customer = (props) => {
       dataIndex: "credit_limit",
       key: "credit_limit",
       resizable: true,
-      width: 180,
+      width: 135,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.credit_limit > record2.credit_limit;
       },
@@ -366,8 +380,9 @@ const Customer = (props) => {
       dataIndex: "email",
       key: "email",
       resizable: true,
-      width: 180,
+      width: 160,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.email > record2.email;
       },
@@ -379,8 +394,9 @@ const Customer = (props) => {
       dataIndex: "pincode",
       key: "pincode",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.pinCode > record2.pinCode;
       },
@@ -392,8 +408,9 @@ const Customer = (props) => {
       dataIndex: "street1",
       key: "street1",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.street1 > record2.street1;
       },
@@ -405,8 +422,9 @@ const Customer = (props) => {
       dataIndex: "street2",
       key: "street2",
       resizable: true,
-      width: 180,
+      width: 100,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.street2 > record2.street2;
       },
@@ -418,8 +436,9 @@ const Customer = (props) => {
       dataIndex: "place_of_supply",
       key: "place_of_supply",
       resizable: true,
-      width: 180,
+      width: 160,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.place_of_supply > record2.place_of_supply;
       },
@@ -431,8 +450,9 @@ const Customer = (props) => {
       dataIndex: "contact",
       key: "contact",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.contact > record2.contact;
       },
@@ -444,8 +464,9 @@ const Customer = (props) => {
       dataIndex: "ownership",
       key: "ownership",
       resizable: true,
-      width: 180,
+      width: 120,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.ownership > record2.ownership;
       },
@@ -485,6 +506,7 @@ const Customer = (props) => {
 
   //Filter
 
+
   useEffect(() => {
     setFilteraaray(
       Object.entries(custfilter)
@@ -516,25 +538,19 @@ const Customer = (props) => {
     setCustFilter(filterfield);
   };
 
+
+  useEffect(() => {
+   setCustFilter({...custfilter, ["credit"] :currentValue})
+ 
+  }, [currentValue]);
+
+
   const onChangeCredit = (e) => {
-     
-   
     const { value, name } = e.target;
     setCustFilter({ ...custfilter, [name]: value });
   };
 
-  //console.log(custfilter);
-  //console.log(filterarray)
-
-  // const onChange = (value: number | [number, number]) => {
-  //   console.log('onChange: ', value);
-  // };
-
-  // const onAfterChange = (value: number | [number, number]) => {
-  //   console.log('onAfterChange: ', value);
-  //  // setCustFilter(value)
-  // };
-
+ 
   const cusomizeData = dataSource.filter(
     (record) =>
       record.gst_treatment
@@ -568,10 +584,14 @@ const Customer = (props) => {
 
   const log = (index,key) => {
              console.log(key)
-            setFilteraaray(filterarray.filter((item, i) => i !== index ) );
+            setFilteraaray(filterarray.filter((item, i) => i.key !== index.key ) );
             setCustFilter({ ...custfilter, [key]:"" });
   };
   console.log(filterarray.length)
+
+
+
+  
   return (
     <>
       <div className="customers">
@@ -584,7 +604,8 @@ const Customer = (props) => {
 
         <div className="customer-table-container">
           <FilterAndSearchBar
-            filterdata={[
+            filterdata=
+            {[
               <div className="customer_filter_container">
                 <div
                   className="customer_filter_filed"
@@ -760,27 +781,27 @@ const Customer = (props) => {
                     </label>
                   </Tooltip>
                   <br />
-                  {/* <Slider defaultValue={30} onChange={onChange} onAfterChange={onAfterChange} /> */}
-                  {/* <div
-                  className="
-                   customerdropdown"
-                > */}
-                  {/* <img src={creditcard} className="customerimg" /> */}₹
+               ₹
                   {custfilter.credit}
                   <br />
-                  <input
-                  className="credtrange"
+                  {/* <Slider defaultValue={30}   name="credit" value={custfilter.credit} onChange={onChangeCredit}/> */}
+                  <Slider defaultValue={0} disabled={false} max={100} onChange={(value)=> {
+        setCurrentValue(value)
+      }}/>
+   
+                  {/* <input
+                  //className="credtrange"
                     type="range"
                     min={0}
                     max={3000}
                     defaultValue={0}
-                    style={{ border: "none", outline: "none", width: "100%" }}
+                    style={{ border: "none !important", outline: "none !important", width: "100%", borderColor:"red !important" }}
                     placeholder="Placeholder"
                     name="credit"
                     value={custfilter.credit}
                     onChange={onChangeCredit}
                     //   onBlur={handleBlur}
-                  />
+                  /> */}
                 </div>
               </div>
             ]}
@@ -875,8 +896,17 @@ const Customer = (props) => {
               dataSource={cusomizeData}
               columns={columns}
               // scroll={{ y: 800, x: 1000 }}
-              scroll={{ x: "800px" }}
+              scroll={{ x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
+          //    pagination={{
+          //   //  total:(fetchcustomer.length),
+          //   //  pageSize:{PAGE_SIZE},
+          //  //   current:{page},
+
+
+          //    }}
+        //     pagination={{total:40, showTotal:(total, range) => `Showing ${range[1]} - ${range[1]} of ${total} Customers`}}
+             
               pagination={{
                 current: page,
                 pageSize: pageSize,
@@ -884,8 +914,10 @@ const Customer = (props) => {
                   setPage(page);
                   setPageSize(pageSize);
                 },
-                total: 100,
+                total: cusomizeData.length,
+                showTotal: (total, range) => `Showing ${range[1]}-${range[1]} of ${total} Customers`
               }}
+
               rowClassName={
                 (record) =>
                   record.key % 2 === 0 ? "highlight_row table-row" : "table-row"
