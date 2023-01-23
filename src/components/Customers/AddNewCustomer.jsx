@@ -250,7 +250,7 @@ function AddNewCustomer(props) {
       setFormattedCreditAmount(`${(creditAmount / 10000000).toFixed(2)} Cr`);
     }
     else {
-          setFormattedCreditAmount(`${(creditAmount / 100000).toFixed(2)} L`);
+          setFormattedCreditAmount(`${(creditAmount / 100000).toFixed(2)} Lacs`);
 
     };
 
