@@ -18,12 +18,16 @@ const AddInventoryItem = () => {
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
   const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
-  const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1"},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4"}]);
+  const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1",type: "dropdown"},{id:2, name:"row2",type: "dropdown"},{id:3, name:"row3",type: "dropdown"}]);
+  // ,{id:4, name:"row4",type: "typebox"}
   const [withResource, setWithResource] = useState(true);
-  const [bomRows, setBomRows] = useState([{id:1, name:"row1"},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4"},{id:5, name:"row5"}]);
+  const [bomRows, setBomRows] = useState([{id:1, name:"row1",},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4",}]);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
+  const [colors, setColors] = useState(true);
+  const [sizes, setSizes] = useState(true);
+  const [serial, setSerial] = useState(true);
   const hiddenFileInput = React.useRef(null);
 
   const handleClick = (event) => {
@@ -131,6 +135,12 @@ const handleBomAddRow = () => {
   
 }
 
+const handleVarientAddRow = () => {
+  let index = superVariantRows.length -1;
+  const newRows = [...superVariantRows];
+  newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
+  setSuperVariantRows(newRows);
+}
 const deleteVariantsRow = (id) => {
   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
   // console.log(id)
@@ -801,8 +811,8 @@ const bodymaterial = [
                       <input type="text" />
                     </div>
                   </li>
-                  <div className="delete_btn">
-                    <img src="/images/icons/delete.svg" alt="" onClick={() => deleteBomRow(item.id)}/>
+                  <div className="delete_btn" onClick={() => deleteBomRow(item.id)}>
+                    <img src="/images/icons/delete.svg" alt="" />
                   </div>
                 </ul>
               );
@@ -885,34 +895,80 @@ const bodymaterial = [
             <div className="container_header">Variants of Creta</div>
             <ul className="field_box_heading">
              
-                <li className="assigned_resource">Attributes</li>
+                <li className="attributes">Attributes</li>
               <li className="value1">Value</li>
             </ul>
 
-            {superVariantRows.map((item, index) => {
-              return (
-                <ul className="field_box_rows" key={item.id}>
+           
+            
+            {colors && <ul className="field_box_rows" >
                   
-                  <li className="type">
-                    <SearchDropdown width={138} />
+            <li className="type others">
+                    <input type="text" value={"Colors"} />
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
                       <input type="text"  />
                     </div>
                   </li>
-                  <div className="delete_btn">
-                    <img src="/images/icons/delete.svg" alt="" onClick={() => deleteVariantsRow(item.id)}/>
+                  <div className="delete_btn" onClick={()=>{setColors(false)}}>
+                    <img src="/images/icons/delete.svg" alt="" />
                   </div>
-                </ul>
-              );
-            })}
-            <SelectAllDropdown
-              option={selectOption}
-            />
+                </ul>}
 
-          </div>
+
+                {sizes && <ul className="field_box_rows" >
+                  
+                <li className="type others">
+                    <input type="text" value={"Sizes"} />
+                  </li>
+                  <li className="value1">
+                    <div className="input_container" style={{width:"545px !important"}}>
+                      <input type="text"  />
+                    </div>
+                  </li>
+                  <div className="delete_btn" onClick={()=>{setSizes(false)}} >
+                    <img src="/images/icons/delete.svg" alt="" />
+                  </div>
+                </ul>}
+
+
+                {serial && <ul className="field_box_rows" >
+                  
+                <li className="type others">
+                    <input type="text" value={"Serial No."} />
+                  </li>
+                  <li className="value1">
+                    <div className="input_container" style={{width:"545px !important"}}>
+                      <input type="text"  />
+                    </div>
+                  </li>
+                  <div className="delete_btn" onClick={()=>{setSerial(false)}}>
+                    <img src="/images/icons/delete.svg" alt="" />
+                  </div>
+                </ul>}
+             <ul className="field_box_rows" key={4}>
+                  
+                  <li className="type others">
+                    <input type="text" placeholder="Others" />
+                  </li>
+                  <li className="value1">
+                    <div className="input_container" style={{width:"545px !important"}}>
+                      <input type="text"  />
+                    </div>
+                  </li>
+                </ul>
+            
+            
+
+            {!colors || !sizes || !serial ? <div className="add_footer_container">
+              {!colors &&<div className="add_field" onClick={()=>{setColors(true)}}>Add Colors</div>}
+              {!sizes && <div className="add_field" onClick={()=>{setSizes(true)}}>Add Size</div>}
+              {!serial && <div className="add_field" onClick={()=>{setSerial(true)}}>Add Serial No.</div>}
+            </div>:null}
         </div>
+          </div>
+          
       </Modal>
 
 
@@ -961,143 +1017,3 @@ const bodymaterial = [
 };
 
 export default AddInventoryItem;
-
-{
-  /* <Modal
-        title="Bill of Material"
-        open={isBOMModalOpen}
-        onOk={handleOk}
-        width={1110}
-        onCancel={handleGenerateCancel}
-        style={{ top: 20 }}
-        footer=""
-        closeIcon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="13.51"
-            height="13"
-            viewBox="0 0 13.51 13"
-          >
-            <path
-              id="Path_34362"
-              data-name="Path 34362"
-              d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-              transform="translate(-2.248 -2.248)"
-              fill="#697a8d"
-            />
-          </svg>
-        }
-      >
-        <div className="BomContainer">
-
-          <hr className="line" />
-
-          <p className="item_name">Item Name : <span>Creta</span></p>
-
-          <div className="firstRowofselector">
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "15px" }}>
-                  Resource Group
-                </label>{" "}
-              </Tooltip>
-              <SearchDropdown width={331} />
-            </div>
-
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Production Batch Size
-                </label>{" "}
-              </Tooltip>
-              <div className="bom_input">
-                <input type="text" className="inputcontact" />
-              </div>
-            </div>
-
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Hours
-                </label>{" "}
-              </Tooltip>
-              <div className="bom_input">
-                <input type="text" className="inputcontact" />
-              </div>
-            </div>
-          </div>
-
-          <hr className="line"/>
-
-          <div className="secondRowofSelector">
-            
-          <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "15px" }}>
-                  Type
-                </label>{" "}
-              </Tooltip>
-              <SearchDropdown width={155} />
-            </div>
-
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "15px" }}>
-                  Description
-                </label>{" "}
-              </Tooltip>
-              <SearchDropdown width={230} />
-            </div>
-
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Qty
-                </label>{" "}
-              </Tooltip>
-              <div className="bom_input">
-                <input type="text" className="inputcontact" />
-              </div>
-            </div>
-            
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Cost
-                </label>{" "}
-              </Tooltip>
-              <div className="bom_input">
-                <input type="text" className="inputcontact" />
-              </div>
-            </div>
-
-            <div className="bom_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Value
-                </label>{" "}
-              </Tooltip>
-              <div className="bom_input">
-                <input type="text" className="inputcontact" />
-              </div>
-            </div>
-
-            <div className="bom_form_submit">
-
-                <input type="submit" value={"Add"} />
-
-            </div>
-
-
-          </div>
-        </div>
-      </Modal> */
-}

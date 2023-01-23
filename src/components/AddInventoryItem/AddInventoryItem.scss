@@ -557,7 +557,7 @@
         overflow: hidden;
 
         .rows_container{
-            max-height: 295px;
+            max-height: 236px;
             overflow: scroll;
         }
 
@@ -584,6 +584,10 @@
             font-weight: 500;
             color: #2B3347;
             border-bottom: 1px solid #C2CAD2;
+
+            .attributes{
+                width: 140px;
+            }
 
             li{
                 padding: 3px 20px 0px 20px ;
@@ -619,6 +623,8 @@
 
         }
 
+       
+
         .field_box_rows{
             display: flex;
             list-style-type: none;
@@ -628,10 +634,28 @@
             color: #2B3347;
             border-bottom: 1px solid #C2CAD2 ;
 
+            .others{
+                // border: 1px solid;
+                padding: 8px 20px 2px 20px;
+                input{
+                    border: .5px solid #C2CAD2;
+                    border-radius: 5px;
+                    height: 80%;
+                    width: 80%;
+                    padding: 0px 14px;
+
+                   
+                } ::placeholder{
+                    color: #697A8D !important;
+                }
+            }
+           
+
             li{
                 padding: 0px 20px 0px 20px ;
                 
             }
+           
 
             .assigned_resource{
                 width: 250px;
@@ -741,15 +765,16 @@
                 text-align: right;
 
                 .input_container{
-                   width: 545px;
                     height: 37px;
                     margin-top: 8px;
                     border-radius: 6px;
                     border: .5px solid #C2CAD2;
                     overflow: hidden;
+                    display: flex;
+                    align-items: center;
                 
                     input{
-                       // width: 100%;
+                       width: 545px;
                         height: 80%;
                         padding: 0px 10px;
                     }
@@ -863,6 +888,23 @@
             color: #5C5AD0;
             margin-left: 8px;
         }
+    }
+}
+
+.add_footer_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: max-content;
+    gap: 20px;
+    padding: 0px 54px 0px 25px;
+    height: 44px;
+
+    .add_field{
+        font-size: 14px;
+        font-weight: 600;
+        color: #5C5AD0;
+        cursor: pointer;
     }
 }
 
