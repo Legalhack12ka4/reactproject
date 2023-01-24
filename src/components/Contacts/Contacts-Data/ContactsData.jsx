@@ -9,16 +9,29 @@ import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
 import config from "../../Database/config";
 import dob from "../../../assets/Images/FormIcon/DOB.svg";
+import  moment from 'moment';
+
+const filterfield = {
+  name: "",
+  mobile: "",
+  email: "",
+  dob: "",
+  position: "",
+  ownership: "",
+};
 
 const ContactsData = () => {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
- const [fetchcontact, setFetchcontact] = useState([]);
- const [page, setPage]=useState(1);
- const [pageSize, setPageSize] = useState(10)
-  const [loading, setloading] = useState(true);
-  const [visible, setVisible] = useState(false);
+    const [fetchcontact, setFetchcontact] = useState([]);
+    const [page, setPage]=useState(1);
+    const [pageSize, setPageSize] = useState(10)
+    const [loading, setloading] = useState(true);
+     const [visible, setVisible] = useState(false);
+     const [custfilter, setCustFilter] = useState(filterfield);
+     const [filterarray, setFilteraaray] = useState([]);
+
   useEffect(() => {
     getData();
   }, []);
@@ -29,12 +42,13 @@ const ContactsData = () => {
         setloading(false);
         setFetchcontact(
           res.data.map(row => ({
+            Key:row.id,
             Name: row.name,
             Mobile: row.mobile,
             Email: row.email,
             DOB: row.dob,
-            Position:row.position,
-            Ownership:row.ownership
+            Position:row.position ==1 ? "Owner" : row.position ==2 ? "Accountant" :"Manger",
+            Ownership:row.ownership == 1 ? "ubuntu" : "window",
            // id: row.id
           }))
         );
@@ -45,10 +59,40 @@ const ContactsData = () => {
   };
   console.log(fetchcontact)
 
+  //All dropdowns
+
+  const ownership = [
+    {
+      value: "ubuntu",
+      label: "ubuntu",
+    },
+    {
+      value: "window",
+      label: "window",
+    },
+  ];
+
+  const position = [
+    {
+      value: "Owner",
+      label: "Owner",
+    },
+    {
+      value: "Accountant",
+      label: "Accountant",
+    },
+    {
+      value: "Manger",
+      label: "Manger",
+    },
+
+  ];
 
     const dataSource = 
       fetchcontact.map(contact =>
         ({
+          key:contact.Key,
+          id:contact.Key,
           name:contact.Name,
           mobile:contact.Mobile,
           email:contact.Email,
@@ -65,20 +109,12 @@ const ContactsData = () => {
           resizable: true,
           fixed: "left",
           align: "left",
-          width: 80,
+          width:"max-content",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.name > record2.name
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'Vimlesh', value:'Vimlesh'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.name === value
-          // }
         },
         {
           title: "Mobile No.",
@@ -86,21 +122,13 @@ const ContactsData = () => {
           dataIndex: "mobile",
           key: "mobile",
           resizable: true,
-          width: 100,
+          width:"max-content",
           align: "left",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.mobile > record2.mobile
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'9359676102', value:'9359676102'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.mobile === value
-          // }
         },
         {
           title: "Email",
@@ -108,21 +136,13 @@ const ContactsData = () => {
           dataIndex: "email",
           key: "email",
           resizable: true,
-          width: 150,
+          width:"max-content",
           align: "left",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.email > record2.email
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'scott123@gamil.com', value:'scott123@gamil.com'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.email === value
-          // }
         },
         {
           title: "DOB",
@@ -130,21 +150,13 @@ const ContactsData = () => {
           dataIndex: "dob",
           key: "dob",
           resizable: true,
-          width: 70,
+          width:"max-content",
           align: "left",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.dob > record2.dob
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'2022-12-30', value:'2022-12-30'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.dob === value
-          // }
         },
         {
           title: "Position",
@@ -152,21 +164,13 @@ const ContactsData = () => {
           dataIndex: "position",
           key: "position",
           resizable: true,
-          width: 160,
+          width:"max-content",
           align: "left",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.position > record2.position
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'1', value:'1'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.position === value
-          // }
         },
         {
           title: "Ownership ",
@@ -174,21 +178,13 @@ const ContactsData = () => {
           dataIndex: "ownership",
           key: "ownership",
           resizable: true,
-          width: 100,
+          width:"max-content",
           align: "left",
+          showSorterTooltip:{ title: '' },
           sorter:(record1, record2)=>
           {
               return record1.ownership > record2.ownership
           },
-          // filters:[
-          //   {text:'Null', value:'Null'},
-          //   {text:'1', value:'1'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.ownership === value
-          // }
         },
       ];
 
@@ -216,19 +212,92 @@ const ContactsData = () => {
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.name.toLowerCase().includes(search.toLowerCase())
+    record.name.toLowerCase().includes(search.toLowerCase()) ||
+    record.mobile.toString().includes(search.toString())
   );
 
-//tags
+//Filter
 
-const log = (e: React.MouseEvent<HTMLElement>) => {
-  console.log(e);
+
+useEffect(() => {
+  setFilteraaray(
+    Object.entries(custfilter)
+      .map(([key, value]) => {
+        if (value) {
+          return { key, value };
+        }
+      })
+      .filter((item) => item)
+  );
+  //console.log(filterarray);
+}, [custfilter]);
+console.log(filterarray);
+
+
+console.log(custfilter);
+
+const handleChange = (field, value) => {
+  setCustFilter({ ...custfilter, [field]: value });
+  console.log("value", value);
+  console.log("field", value);
+  setVisible(true);
+};
+
+//clear filter
+
+const clearfilter = () => {
+  console.log("button click");
+  setCustFilter(filterfield);
 };
 
 
-const clearfilter =() =>
+// useEffect(() => {
+//  setCustFilter({...custfilter, ["credit"] :currentValue})
+
+// }, [currentValue]);
+
+
+const onChangedob = (e) => {
+  const { value, name } = e.target;
+  setCustFilter({ ...custfilter, [name]: value });
+  console.log(value)
+  console.log(name)
+};
+
+
+const cusomizeData = dataSource.filter(
+  (record) =>
+    record.position
+      
+      .includes(custfilter.position) &&
+    record.ownership
+      
+      .includes(custfilter.ownership) &&
+      record.dob.toString().includes(custfilter.dob.toString())
+
+);
+
+console.log(cusomizeData);
+
+var strDate = custfilter.dob
+var convertedDate = new Date(strDate).toLocaleDateString('IN').replaceAll('/', '-')
+console.log(convertedDate) // 2-23-2021
+
+//tags
+
+const log = (index,key) => {
+           console.log(key)
+          setFilteraaray(filterarray.filter((item, i) => i.key !== index.key ) );
+          setCustFilter({ ...custfilter, [key]:"" });
+};
+console.log(filterarray)
+
+
+//
+
+const handlecheckgetData = () =>
 {
-  console.log("button clicked");
+  alert("Data call");
 }
 
   return (
@@ -248,7 +317,10 @@ const clearfilter =() =>
                    </Tooltip>
                    <SearchDropdown
                      width={330}
-                     name="gsttreat"
+                     name="position"
+                     options={position}
+                     value={custfilter.position}
+                     onChange={handleChange}
                      />
                  </div>
    
@@ -261,7 +333,10 @@ const clearfilter =() =>
                    </Tooltip>
                    <SearchDropdown
                      width={330}
-                     name="gsttreat"
+                     name="ownership"
+                     options={ownership}
+                     value={custfilter.ownership}
+                     onChange={handleChange}
                      />
                  </div>
    
@@ -276,15 +351,13 @@ const clearfilter =() =>
               <br />
               <div className="contactinput" style={{ marginTop: "5px" }}>
                 <img src={dob} className="customerimg" />
-                {/* <input type="date"  
-        placeholder="dd-mm-yyyy" 
-        min="1997-01-01" max="2030-12-31"/> */}
                <input
                   type="date"
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="dob"
-             
+                    value={custfilter.dob}
+                    onChange={onChangedob}
                 /> 
               </div>
                  </div>
@@ -292,25 +365,51 @@ const clearfilter =() =>
            ]
          }
         columns={columnsData} addBtnName={"Contacts"} onData={handleData} filter={<Contacts/>} />
-        <OffCanvasExample  form={<Contacts/>}/>
-        
-        {!visible && <div className="tags" >
-   <div className="appliedtag">Applied For :</div>
-   <div  onClick={log}>
-   <Tooltip title="Position : Contact" color="#5C5AD0" className="tooltiplabel" > <Tag className="tag1" closable onClose={log}>
-    Value 1
-      </Tag></Tooltip>
-      <Tooltip title="Ownership : Contact" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-  Parth Goswami
-    </Tag></Tooltip>
-    <Tooltip title="DOB: Contact" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-      2022-02-02
-    </Tag></Tooltip>
-    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
+        <OffCanvasExample  form={<Contacts onClick={getData}/>}/>
+        <div className="tableData">
+        {filterarray.length > 0 && (
+              <div className="tags" id="tags">
+                <div className="appliedtag ">Applied Filters :</div>
+                {filterarray.map((customerfilter, index) => {
+                  return (
+                    customerfilter.value && (
+                      <Tooltip
+                      className="tlpclr"
+                      id="tlpclr"
+                        title={`${customerfilter.key === "position"  && "Position" ||
+                        customerfilter.key === "ownership"  && "Ownership" ||
+                      customerfilter.key === "dob" && "Date of Birth"} : Contact`} 
+                        color="#EBECF0"
+                        
+                      >
+                        <Tag
+                          key={customerfilter.key}
+                          className="tag1"
+                          closable
+                          onClose={(e) => {
+                            log(index, customerfilter.key);
+                          }}
+                        >
+                          {customerfilter.key =="dob" ? convertedDate : customerfilter.value  }   
+                        </Tag>
+                      </Tooltip>
+                    )
+                  );
+                })}
 
-</div>
-</div>
-}
+                <button
+                  type="submit"
+                  className="btnfilter"
+                  onClick={(e) => {
+                    setVisible(!visible);
+                    clearfilter(e);
+                  }}
+                >
+                  Clear All
+                </button>
+              </div>
+            )}
+
         <Table
             ref={componentRef}
             rowSelection={{
@@ -324,20 +423,22 @@ const clearfilter =() =>
             }}
 
             loading={{indicator : <div><Spin/></div>, spinning:loading}}
-            dataSource={filteredData}
+            dataSource={cusomizeData}
             columns={columns}
             // scroll={{ y: 800, x: 720 }}
             scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
         pagination={{
-          current:page,
-          pageSize:pageSize, 
-          onChange:(page, pageSize)=>
-          {
+          current: page,
+          pageSize: pageSize,
+          onChange: (page, pageSize) => {
             setPage(page);
-            setPageSize(pageSize)
+            setPageSize(pageSize);
           },
-          total:100}}
+          total: cusomizeData.length,
+          showTotal: (total, range) => `Showing ${range[1]}-${range[1]} of ${total} Contacts`
+        }}
+
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
@@ -348,6 +449,7 @@ const clearfilter =() =>
 
           {/* <SearchDropdown/> */}
         </div>
+    </div>
     </div>
   )
 }

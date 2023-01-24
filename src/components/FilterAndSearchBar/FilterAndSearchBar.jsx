@@ -466,9 +466,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           <div style={{fontSize:"18px"}}>
           Filters
           </div>
-          <div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={props.onFilter}>
+         {!props.change ? "" : <div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={(e) => {props.onFilter(); handleFilterCancel(e) }}>
             Clear Filter
-          </div>
+          </div>}
           </div>
 
         <hr
@@ -485,7 +485,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       <div className="table_nav">
         <div className="tableBtn_container">
           <div style={{ display: "flex" }} >
-            <div
+            {props.customer < 0 ? "" : <div
               className={`${props.filterLength > 0 && "filter"} tableBtn `}
               
               onClick={showFilterModal}
@@ -497,7 +497,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               </div>
               <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
               {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
-            </div>
+            </div>}
             <div
               className="tableBtn export"
               onClick={openExport}

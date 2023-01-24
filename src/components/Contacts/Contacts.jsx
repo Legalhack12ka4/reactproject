@@ -11,14 +11,15 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import config from "../Database/config";
 import { useFormik } from "formik";
-
 import { contactSchemas } from "../../Schemas";
 
 const resetValue = {
    name: "" ,
    mobile:"",
    email:"",
-   dob:""
+   dob:"",
+   position: "",
+   ownership: "",
   };
 
 
@@ -30,7 +31,7 @@ const resetValue = {
     position: "",
     ownership: "",
   };
-function Contacts() {
+function Contacts(props) {
   const [formData, setFormData] = useState(resetValue);
  // const [fetchcontact, setFetchcontact] = useState([]);
   //const [fetchcontact, setFetchcontact] = useState([]);
@@ -63,6 +64,7 @@ function Contacts() {
     var m = document.querySelector(".menu1 ");
     m.classList.remove("smenu");
     document.getElementById("gradient").classList.remove("body_gradient");
+    setFormData(resetValue);
   }
 
 
@@ -86,13 +88,14 @@ function Contacts() {
     },
   });
 
-  const handleDrpChange = (field, value) => {
-    setFieldValue(field, value);
-    setFieldTouched(field, false);
-  
-    // console.log("value", value);
-    // console.log("field", field);
-  };
+
+
+  // const handleChange = (field, value) => {
+  //   setCustFilter({ ...custfilter, [field]: value });
+  //   console.log("value", value);
+  //   console.log("field", value);
+  //   setVisible(true);
+  // };
 
 
 
@@ -127,7 +130,7 @@ function Contacts() {
           dob:formData.dob,
           "is_active": true,
           "is_deleted": false,
-          "position": 1,
+          position: formData.position,
           "ownership": 1,
           "company_id": 1,
           "created_by": 1,
@@ -138,8 +141,9 @@ function Contacts() {
       .then((response) => {
         // getData();
         handleclose();
-        // getData();
-        toast.success("Added Successfuly", {
+       props.onClick();
+      
+         toast.success("Added Successfuly", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -153,7 +157,14 @@ function Contacts() {
       });
   }
   
-
+  const handleDrpChange = (field, value) => {
+     setFormData({ ...formData, [field]: value });
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
+    console.log(field)
+    console.log(value)
+  };
+  
 const onChange = (e) => {
   const { value, name } = e.target;
 
@@ -388,20 +399,23 @@ const ownershipwithemail = [
   },
 ];
 
-  const contacts = [
-    {
-      value: "1",
-      label: "Value 1",
-    },
-    {
-      value: "2",
-      label: "Value 2",
-    },
-    {
-      value: "3",
-      label: "Value3",
-    },
-  ];
+
+
+const position = [
+  {
+    value: 1,
+    label: "Owner",
+  },
+  {
+    value: 2,
+    label: "Accountant",
+  },
+  {
+    value: 3,
+    label: "Manger",
+  },
+
+];
   return (
     <>
     <form onSubmit={handleSubmit} autoComplete="off">
@@ -431,7 +445,7 @@ const ownershipwithemail = [
                   placeholder="Placeholder"
                   name="name"
                   value={values.name}
-                  onChange={handleChange}
+                  onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
                 />
                 {errors.name && touched.name && (
@@ -460,12 +474,12 @@ const ownershipwithemail = [
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
-                  type="text"
+                  type="number"
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="mobile"
                     value={values.mobile}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.mobile && touched.mobile && (
@@ -499,7 +513,7 @@ const ownershipwithemail = [
                   placeholder="Placeholder"
                     name="email"
                     value={values.email}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.email && touched.email && (
@@ -528,12 +542,12 @@ const ownershipwithemail = [
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={dob} className="customerimg" />
                 <input
-                  type="text"
+                  type="date"
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="dob"
                     value={values.dob}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.dob && touched.dob && (
@@ -559,8 +573,9 @@ const ownershipwithemail = [
               </Tooltip>
               <br />
 
-              <SearchDropdown width={331} options={contacts}
+              <SearchDropdown width={331} options={position}
                 name="position"
+             //   onChange={(e) => {handleChange(e); handleDrpChange(e);}}
                 onChange={handleDrpChange}
                 value={values.position}
                 error={errors.position && touched.position ? true : false}
@@ -578,7 +593,7 @@ const ownershipwithemail = [
               <br />
               <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
                   onChange={handleDrpChange}
-                  value={values.position}
+                 // value={values.position}
                   error={errors.position && touched.position ? true : false}
                   errorMsg="Ownership is required"/>
               </div>
@@ -588,7 +603,7 @@ const ownershipwithemail = [
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
                   Submit
                 </input> */}
-                <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}/>
+                <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/>
                 <button 
                   type="button"
                   className="contactcancelbutton"
@@ -602,6 +617,7 @@ const ownershipwithemail = [
         </div>
       </div>
       </form>
+      {/* <ToastContainer/> */}
     </>
   );
 }

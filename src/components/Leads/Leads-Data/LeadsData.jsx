@@ -216,7 +216,7 @@ const LeadsData = () => {
         resizable: true,
         fixed: "left",
         align: "left",
-        width: 80,
+        width: 70,
         sorter:(record1, record2)=>
         {
             return record1.account_type > record2.account_type
@@ -238,7 +238,7 @@ const LeadsData = () => {
         dataIndex: "mobile_no",
         key: "mobile_no",
         resizable: true,
-        width: 100,
+        width: 80,
         align: "left",
         sorter:(record1, record2)=>
         {
@@ -260,7 +260,7 @@ const LeadsData = () => {
         dataIndex: "email",
         key: "email",
         resizable: true,
-        width: 150,
+        width: 125,
         align: "left",
         sorter:(record1, record2)=>
         {
@@ -282,7 +282,7 @@ const LeadsData = () => {
         dataIndex: "type",
         key: "type",
         resizable: true,
-        width: 70,
+        width: 60,
         align: "left",
         sorter:(record1, record2)=>
         {
@@ -305,7 +305,7 @@ const LeadsData = () => {
         key: "business_names",
         resizable: true,
         // minWidth: 260, 
-        width: 160  ,
+        width: 135  ,
         // width: 'auto',
         align: "left",
         sorter:(record1, record2)=>
@@ -328,7 +328,7 @@ const LeadsData = () => {
         dataIndex: "lead_source",
         key: "lead_source",
         resizable: true,
-        width: 100,
+        width: 70,
         // width: 'auto',
         align: "left",
         sorter:(record1, record2)=>
