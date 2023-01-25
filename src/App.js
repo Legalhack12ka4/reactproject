@@ -53,7 +53,7 @@ function App() {
           <Route path='customers' element={<Customers/>} />
           <Route path='customers/addcustomer' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
-        
+          <Route path='/module/customer/customerPage' element={<CustomerPage />} />
           <Route path='module' element={<Module/>} />
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />

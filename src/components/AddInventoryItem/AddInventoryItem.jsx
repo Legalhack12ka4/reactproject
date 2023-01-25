@@ -8,6 +8,7 @@ import { Modal, Button, Tooltip } from "antd";
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
+import TagsInput from "../TagsInput/TagsInput";
 
 const AddInventoryItem = () => {
   const scannerRef = useRef(null);
@@ -18,17 +19,33 @@ const AddInventoryItem = () => {
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
   const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
-  const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1",type: "dropdown"},{id:2, name:"row2",type: "dropdown"},{id:3, name:"row3",type: "dropdown"}]);
+  // const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1",value: ""},{id:2, name:"row2",value: ""},{id:3, name:"row3",value: ""}]);
   // ,{id:4, name:"row4",type: "typebox"}
   const [withResource, setWithResource] = useState(true);
-  const [bomRows, setBomRows] = useState([{id:1, name:"row1",},{id:2, name:"row2"},{id:3, name:"row3"},{id:4, name:"row4",}]);
+  const [bomRows, setBomRows] = useState([{id:1, name:"row1", value:""},{id:2, name:"row2", value:""},{id:3, name:"row3", value:""},{id:4, name:"row4", value:""}]);
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
+  const [bomEnable, setBomEnable] = useState(false);
+  const [variantEnable, setVariantEnable] = useState(false);
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
   const hiddenFileInput = React.useRef(null);
+
+
+  // bom value state 
+  const [cost, setCost] = useState(Array(bomRows.length).fill(0));
+const [qty, setQty] = useState(Array(bomRows.length).fill(0));
+const [value, setValue] = useState(Array(bomRows.length).fill(0));
+const [formattedCost, setFormattedCost] = useState(Array(bomRows.length).fill(""));
+const [isFocusedIndex, setIsFocusedIndex] = useState(Array(bomRows.length).fill(false));
+const [isCostBlurredIndex, setIsCostBlurredIndex] = useState(Array(bomRows.length).fill(false));
+const [showFormattedValue, setShowFormattedValue] = useState([]);
+const [isPcsShown, setIsPcsShown] = useState(Array(bomRows.length).fill(false));
+const inputRef = useRef(Array(bomRows.length).fill(null));
+const [focus, setFocus] = useState([]);
+const [totalSum, setTotalSum] = useState(0);
 
   const handleClick = (event) => {
     hiddenFileInput.current.click();
@@ -124,27 +141,59 @@ const AddInventoryItem = () => {
   };
 
 
-  const deleteBomRow = (id) => {
-    setBomRows(bomRows.filter(row => row.id !== id));
-    // console.log(id)
+//   const deleteBomRow = (id) => {
+//     setBomRows(bomRows.filter(row => row.id !== id));
+//     setCost(cost.filter((_, index) => bomRows[index].id !== id));
+//     setQty(qty.filter((_, index) => bomRows[index].id !== id));
+//     setValue(value.filter((_, index) => bomRows[index].id !== id));
+//     setTotalSum(totalSum - value[id]);
+//     // console.log(id)
+// }
+const deleteBomRow = (id) => {
+  setBomRows(bomRows.filter(row => row.id !== id));
+  setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
+  setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
+  setQty(prevQty => prevQty.filter((_, index) => bomRows[index].id !== id));
+  setIsPcsShown(prevIsPcsShown => prevIsPcsShown.filter((_, index) => bomRows[index].id !== id));
+  setTotalSum(totalSum - value[id]);
+  setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
 }
-
+// const deleteBomRow = (id) => {
+//   setBomRows(bomRows.filter(row => row.id !== id));
+//   setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
+//   setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
+//   setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
+// }
 const handleBomAddRow = () => {
-  const newRows = [...bomRows, {id: bomRows.length + 1, name: `row${bomRows.length+1}`}, {id: bomRows.length + 2, name: `row${bomRows.length+2}`}];
+  const newRows = [...bomRows, {id: Date.now()}, {id: Date.now() + 1}];
   setBomRows(newRows);
+  setCost(prevCost => [...prevCost, 0, 0]);
+  setQty(prevQty => [...prevQty, 0, 0]);
+  setValue(prevValue => [...prevValue, 0, 0]);
   
 }
 
-const handleVarientAddRow = () => {
-  let index = superVariantRows.length -1;
-  const newRows = [...superVariantRows];
-  newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
-  setSuperVariantRows(newRows);
+// const handleVarientAddRow = () => {
+//   let index = superVariantRows.length -1;
+//   const newRows = [...superVariantRows];
+//   newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
+//   setSuperVariantRows(newRows);
+// }
+// const deleteVariantsRow = (id) => {
+//   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
+//   // console.log(id)
+// }
+const handleBomChange = (checked: boolean) => {
+  console.log(`switch bom ${checked}`);
+  setBomEnable(checked);
 }
-const deleteVariantsRow = (id) => {
-  setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
-  // console.log(id)
+
+const handleVarientChange = (checked: boolean) => {
+  console.log(`switch varient ${checked}`);
+  setVariantEnable(checked);
 }
+
+
 
   const [result, setResult] = useState("No result");
   const [data, setData] = React.useState("Scan a barcode");
@@ -215,6 +264,105 @@ const bodymaterial = [
     return () => clearInterval(interval);
   }, [currentIndex, image.length]);
 
+
+
+
+const calculateValue = (cost, qty, index) => {
+  setValue(prevValue => {
+    const newValue = [...prevValue];
+    newValue[index] = cost[index] * qty[index];
+    return newValue;
+  });
+}
+useEffect(() => {
+  setTotalSum(value.reduce((acc, curr) => acc + curr, 0));
+}, [value]);
+
+
+const handleCostBlur = (e, index) => {
+  const value = e.target.value;
+  const formattedValue = formatAmount(value);
+  setFormattedCost(prevCost => {
+    const newCost = [...prevCost];
+    newCost[index] = formattedValue;
+    return newCost;
+  });
+  setIsCostBlurredIndex(prevIsCostBlurredIndex => {
+    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+    newIsCostBlurredIndex[index] = true;
+    return newIsCostBlurredIndex;
+  });
+
+  setShowFormattedValue(prevValue => {
+    const newValue = [...prevValue];
+    newValue[index] = true;
+    return newValue;
+  });
+};
+
+const handleFocus = (index) => {
+  setFocus(prevFocus => {
+    const newFocus = [...prevFocus];
+    newFocus[index] = true;
+    return newFocus;
+  });
+  setIsFocusedIndex(prevIsFocusedIndex => {
+    const newIsFocusedIndex = [...prevIsFocusedIndex];
+    newIsFocusedIndex[index] = true;
+    return newIsFocusedIndex;
+  });
+  setShowFormattedValue(prevValue => {
+    const newValue = [...prevValue];
+    newValue[index] = false;
+    return newValue;
+  });
+}
+
+
+const formatTotalAmount = (amount) => {
+  if (value >= 10000000) {
+    return (value / 10000000).toFixed(2) + " Cr";
+  } else if (value >= 10000) {
+    return (value / 100000).toFixed(2) + " Lacs";
+  } else if (value >= 1000) {
+    return (value / 1000).toFixed(2) + " K";
+  } else {
+    return value;
+  }
+}
+const formattedAmount = formatTotalAmount(totalSum);
+
+const handleInputClick = (index) => {
+  setIsCostBlurredIndex(prevIsCostBlurredIndex => {
+    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+    newIsCostBlurredIndex[index] = false;
+    return newIsCostBlurredIndex;
+  });
+};
+
+
+
+
+
+
+
+
+
+
+const formatAmount = (value) => {
+  if (value >= 10000000) {
+    return (value / 10000000).toFixed(2) + " Cr";
+  } else if (value >= 10000) {
+    return (value / 100000).toFixed(2) + " Lacs";
+  } else if (value >= 1000) {
+    return (value / 1000).toFixed(2) + " K";
+  } else {
+    return value;
+  }
+};
+
+
+
   return (
     <div className="add-inventory">
       <Page_heading parent={"Items or Service"} child={"Add Inventory Item"} />
@@ -282,14 +430,18 @@ const bodymaterial = [
                   <div className="switch_toggler">
                     <Switch
                       unCheckedChildren="__"
+                      onChange={handleBomChange}
                       onClick={setIsBOMModalOpen}
                     />
                     <h3>Enable Manufacturing</h3>
+                    {bomEnable && <div className="editBtn" onClick={setIsBOMModalOpen}><img src="/images/icons/edit.svg" /><span>Edit</span></div>}
                   </div>
                   <div className="switch_toggler">
                     <Switch unCheckedChildren="__" 
+                    onChange={handleVarientChange}
                     onClick={setIsBOMVariantOpen}/>
                     <h3>Enable Variant</h3>
+                    {variantEnable && <div className="editBtn" onClick={setIsBOMVariantOpen}><img src="/images/icons/edit.svg" /><span>Edit</span></div>}
                   </div>
                 </div>
                 <div className="input_group">
@@ -797,20 +949,33 @@ const bodymaterial = [
                     {/* </div> */}
                   </li>
                   <li className="qty">
-                    <div className="input_container">
-                      <input type="text" />
-                    </div>
-                  </li>
-                  <li className="cost">
-                    <div className="input_container">
-                      <input type="text" />
-                    </div>
-                  </li>
-                  <li className="value">
-                    <div className="input_container">
-                      <input type="text" />
-                    </div>
-                  </li>
+                      <div className="input_container">
+                        <input type="number" onwheel="return false;" className={qty[index] > 0 ? "has-value" : ""} onChange={(e) => setQty(prevQty => {
+                          const newQty = [...prevQty];
+                          newQty[index] = e.target.value;
+                          calculateValue(cost, newQty, index);
+                          return newQty;
+                        })}/>
+                        {qty[index] > 0 ? <div className="qty_text">Pcs</div> : null}
+                      </div>
+                    </li>
+                    <li className="cost">
+                      <div className="input_container">
+                        <input type="number" ref={inputRef} className={isCostBlurredIndex[index] ? "cost-input-blurred" : "" } onFocus={() => handleFocus(index)} onClick={() => handleInputClick(index)} onBlur={(e) => handleCostBlur(e, index)} onChange={(e) => setCost(prevCost => {
+                          const newCost = [...prevCost];
+                          newCost[index] = e.target.value;
+                          calculateValue(newCost, qty, index);
+                          return newCost;
+                        })}/>
+                      {/* <div className="formatted-value">{formattedCost[index]}</div> */}
+                      <div className={`formatted-value ${!showFormattedValue[index] ? 'formatted-value-blured' : ''}`}>{formattedCost[index]}</div>
+                      </div>
+                    </li>
+                    <li className="value">
+                      <div className="input_container">
+                        <input type="number" value={value[index]>0 ? value[index]:""} readOnly />
+                      </div>
+                    </li>
                   <div className="delete_btn" onClick={() => deleteBomRow(item.id)}>
                     <img src="/images/icons/delete.svg" alt="" />
                   </div>
@@ -822,7 +987,7 @@ const bodymaterial = [
             <div className="footer_container">
               <div className="add_field" onClick={handleBomAddRow}>+ Add</div>
               <div className="total_value">
-                Total Value : <span> ₹ 0.00</span>
+                Total Value : <span> ₹ {formattedAmount}</span>
               </div>
             </div>
           </div>
@@ -904,11 +1069,11 @@ const bodymaterial = [
             {colors && <ul className="field_box_rows" >
                   
             <li className="type others">
-                    <input type="text" value={"Colors"} />
+                    <input type="text" value={"Colors"} readOnly/>
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
-                      <input type="text"  />
+                    <TagsInput />
                     </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setColors(false)}}>
@@ -920,12 +1085,12 @@ const bodymaterial = [
                 {sizes && <ul className="field_box_rows" >
                   
                 <li className="type others">
-                    <input type="text" value={"Sizes"} />
+                    <input type="text" value={"Sizes"} readOnly />
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
-                      <input type="text"  />
-                    </div>
+                    <TagsInput />
+                  </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setSizes(false)}} >
                     <img src="/images/icons/delete.svg" alt="" />
@@ -936,11 +1101,11 @@ const bodymaterial = [
                 {serial && <ul className="field_box_rows" >
                   
                 <li className="type others">
-                    <input type="text" value={"Serial No."} />
+                    <input type="text" value={"Serial No."} readOnly/>
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
-                      <input type="text"  />
+                    <TagsInput />
                     </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setSerial(false)}}>
@@ -950,13 +1115,16 @@ const bodymaterial = [
              <ul className="field_box_rows" key={4}>
                   
                   <li className="type others">
-                    <input type="text" placeholder="Others" />
+                    <input type="text" placeholder="Others"/>
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
-                      <input type="text"  />
+                      {/* <input type="text"  /> */}
+                      <TagsInput />
+                      
                     </div>
                   </li>
+                  
                 </ul>
             
             
