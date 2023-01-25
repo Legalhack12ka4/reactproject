@@ -150,6 +150,11 @@
                 height: 37px;
                 border-radius: 5px;
                 padding: 0px 12px;
+
+
+
+           
+                  
                 
 
                 input{
@@ -178,11 +183,24 @@
             margin-bottom: 20px;
             gap: 10px;
             align-items: center;
-
+            
             h3{
                 font-size: 13px;
                 color: #697a8d;
                 font-weight: 500;
+            }
+
+            .editBtn{
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                
+               span{
+                font-size: 13px;
+                font-weight: 500;
+                color: #697A8D;
+               }
             }
         }
         .form_hr{
@@ -697,6 +715,7 @@
                     border-radius: 6px;
                     border: .5px solid #C2CAD2;
                     overflow: hidden;
+                    
                 
                     input{
                         width: 65%;
@@ -719,6 +738,17 @@
                     border-radius: 6px;
                     border: .5px solid #C2CAD2;
                     overflow: hidden;
+                    
+
+                        position: relative;
+                        .qty_text{
+                            display: flex;
+                            position: absolute;
+                            top: 8px;
+                            right: 6px;
+                            color: #697A8D;
+                        }
+                   
                 
                     input{
                         width: 80%;
@@ -734,6 +764,7 @@
                 width: 100px;
                 border-right: 1px dashed #C2CAD2;
                 text-align: right;
+                z-index: 10;
 
                 .input_container{
                     width: 100px;
@@ -742,6 +773,7 @@
                     border-radius: 6px;
                     border: .5px solid #C2CAD2;
                     overflow: hidden;
+                    position: relative;
                 
                     input{
                         width: 80%;
@@ -788,6 +820,7 @@
                     overflow: hidden;
                     display: flex;
                     align-items: center;
+                    width: 565px;
                 
                     input{
                        width: 545px;
@@ -963,4 +996,40 @@ border-radius: 5px;
 width: 155px;
 height: 38px;
 }
-  
+
+
+.costAmtBoxBlur{
+    color: white !important;
+ }
+ .costAmt{
+    position: absolute;
+    top: 5;
+    left: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #566A7F;
+    z-index: 1;
+}
+.costAmtFocus{
+    display: none;
+}
+.has-value{
+    padding-right: 32px !important;
+    width: 55% !important;
+}
+
+.formatted-value{
+    color: #697A8D;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+}
+
+.cost-input-blurred{
+    color: #FFFF !important;
+}
+.formatted-value-blured{
+    // color: #FFFF !important;
+    display: none;
+}
