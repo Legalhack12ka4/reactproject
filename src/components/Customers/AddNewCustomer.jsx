@@ -200,6 +200,7 @@ function AddNewCustomer(props) {
 
   const getArea = (pincode) => {
     return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    
       .then((response) => response.json())
       .then((data) => {
         setArea(data);

@@ -1,3 +1,9 @@
+
+@-webkit-keyframes moving-gradient {
+  0% { background-position: -250px 0; }
+  100% { background-position: 250px 0; }
+}
+
 .customer-table-container {
   // border: 1px solid;
   padding: 20px;
@@ -178,4 +184,21 @@ margin-left: 5px !important;
   content: "";
   box-shadow: 0 0 0 2px #5C5AD0 !important;
 
+}
+
+
+.ant-table-body
+{
+  height: 12px;
+  background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
+  background-size: 500px 100px;
+  animation-name: moving-gradient;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.ant-skeleton.ant-skeleton-element.ant-skeleton-active{
+  width: 100%
 }

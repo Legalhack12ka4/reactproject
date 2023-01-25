@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
-import { Slider, Table, Tag, Tooltip } from "antd";
+import { Empty, Skeleton, Slider, Space, Table, Tag, Tooltip } from "antd";
 import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -50,14 +50,28 @@ const Customer = (props) => {
   const [filterarray, setFilteraaray] = useState([]);
   const [inputValue, setInputValue] = useState(0);
   const [currentValue, setCurrentValue] = useState(0)
+  
 
   useEffect(() => {
     getData();
    // window.scroll(0, 20);
   }, []);
 
-  //object to array
+//getstate
 
+// useEffect(()=>
+// {
+//   const getState= async () =>
+//   {
+//     const resState = await fetch ('http ://localhost/devopsdeveloper/state/getstate/101')
+//     const resst= resState.json();
+
+//   }
+//   getState();
+// })
+
+  //object to array
+ // customervendor
   const getData = async () => {
     await axios.get(`${config.baseUrl}/customervendor/`).then((res) => {
       setloading(false);
@@ -590,6 +604,11 @@ const Customer = (props) => {
   console.log(filterarray.length)
 
 
+  // const handleTwoFunction =() =>
+  // {
+  //     cusomizeData();
+  //     filteredData();
+  // }
 
   
   return (
@@ -805,7 +824,7 @@ const Customer = (props) => {
                 </div>
               </div>
             ]}
-            change={handleChange}
+            change={filterarray}
             customer={fetchcustomer.length}
             filterLength={filterarray.length}
             columns={columnsData}
@@ -869,7 +888,7 @@ const Customer = (props) => {
                 </button>
               </div>
             )}
-
+{/* {loading ? <Skeleton active /> : */}
             <Table
               ref={componentRef}
               onRow={(record) => {
@@ -889,26 +908,53 @@ const Customer = (props) => {
               loading={{
                 indicator: (
                   <div>
-                    <Spin />
+                  <Spin/>
                   </div>
                 ),
                 spinning: loading,
               }}
-              // dataSource={filteredData}
+
+              locale={{
+                emptyText: loading ?  <Skeleton  paragraph={{rows : 10, columns: 10}} active={true}  /> : <Empty />
+              }}
+            //  dataSource={filteredData}
+            
               dataSource={cusomizeData}
-              columns={columns}
+           columns={columns}
+
+             
+              // columns={columns.map((column) => {
+              //   return {
+              //     ...column,
+              //     render: function renderPlaceholder() {
+              //       return (
+                  
+              //         <Skeleton
+              //           key={column.key}
+              //           title
+              //           active={true}
+              //           paragraph={false}
+              //           //className={className}
+              //         />
+              //       );
+              //     },
+              //   };
+              // })}
               // scroll={{ y: 800, x: 1000 }}
               scroll={{ x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
-          //    pagination={{
-          //   //  total:(fetchcustomer.length),
-          //   //  pageSize:{PAGE_SIZE},
-          //  //   current:{page},
-
-
-          //    }}
-        //     pagination={{total:40, showTotal:(total, range) => `Showing ${range[1]} - ${range[1]} of ${total} Customers`}}
-             
+            //  render={() => (
+            //   <Space style={{ width: "100%" }}>
+            //     <Skeleton.Input
+            //       style={{ width: "100%" }}
+            //       active={true}
+            //       size="default"
+            //     />
+            //   </Space>
+            // )}
+            //  locale={{
+            //   emptyText: loading ? fetchcustomer.map(u => <Skeleton.Input height={50} style={{marginTop: '10px', width:'100%'}} active={true} />):""
+            // }}
               pagination={{
                 current: page,
                 pageSize: pageSize,
@@ -928,6 +974,7 @@ const Customer = (props) => {
                 keyword: search,
               }}
             />
+            {/* } */}
           </div>
         </div>
       </div>

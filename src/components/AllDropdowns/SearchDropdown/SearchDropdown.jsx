@@ -25,7 +25,7 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
         showSearch
         placeholder="Select Value"
         optionFilterProp="children"
-        value={selectedOption}
+        value={selectedOption || undefined}
         //defaultValue={selectedOption}
       key={selectedOption}
         filterOption={(input, option) =>

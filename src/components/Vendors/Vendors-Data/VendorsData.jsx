@@ -740,6 +740,8 @@ const VendorsData = () => {
               </div>
             </div>,
           ]}
+          change={filterarray}
+          customer={fetchvendor.length}
           filterLength={filterarray.length}
           columns={columnsData}
           addBtnName={"Vendors"}
