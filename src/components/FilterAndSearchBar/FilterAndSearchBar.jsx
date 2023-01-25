@@ -466,9 +466,10 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           <div style={{fontSize:"18px"}}>
           Filters
           </div>
-         {!props.change ? "" : <div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={(e) => {props.onFilter(); handleFilterCancel(e) }}>
+         {props.change == "" ? <span className='closeModal' onClick={handleFilterOk}>&times;</span> :<div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={(e) => {props.onFilter(); handleFilterCancel(e) }}>
             Clear Filter
           </div>}
+          {console.log(props.change)}
           </div>
 
         <hr
@@ -485,7 +486,16 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       <div className="table_nav">
         <div className="tableBtn_container">
           <div style={{ display: "flex" }} >
-            {props.customer < 0 ? "" : <div
+            {props.customer == "" ?
+             <div className={`${props.filterLength > 0 && "filter"} tableBtn `} 
+             style={{ width: "101.5px", position:"relative", cursor:"default" }} ref={fliterRef}>
+              <div className="btn_icon">
+              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
+              </div>
+              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
+              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
+            </div> :
+             <div
               className={`${props.filterLength > 0 && "filter"} tableBtn `}
               
               onClick={showFilterModal}
@@ -498,7 +508,56 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
               {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
             </div>}
-            <div
+            {props.customer == "" ? <div
+              className="tableBtn export"
+              style={{ width: "101.5px",   cursor:"default"  }}
+              ref={menuRef}
+            >
+              <div className="btn_icon">
+                <BiExport size={15} />
+              </div>
+              <span>Export</span>
+
+              <div
+                className={`export_dropdown ${
+                  exportOpen ? "active" : "inactive"
+                }`}
+              >
+                <div className="export_dropdown_btn">
+                  <div className="export_icon">
+                    <img src="/images/icons/print_icon.svg" alt="print_icon" />
+                  </div>
+                  {/* <span>Print</span> */}
+                  <ReactToPrint
+                    trigger={() => <span>Print</span>}
+                    content={() => componentRef.current}
+                  />
+                </div>
+                <CSVLink {...csvLink} className="csvLink">
+                  <div className="export_dropdown_btn">
+                    <div className="export_icon">
+                      <img
+                        src="/images/icons/document_icon.svg"
+                        alt="document_icon"
+                      />
+                    </div>
+                    <span>Csv</span>
+                  </div>
+                </CSVLink>
+                <div className="export_dropdown_btn" onClick={downloadPdf}>
+                  <div className="export_icon">
+                    <img src="/images/icons/pdf_icon.svg" alt="pdf_icon" />
+                  </div>
+                  <span>Pdf</span>
+                </div>
+                <div className="export_dropdown_btn">
+                  <div className="export_icon">
+                    <img src="/images/icons/copy_icon.svg" alt="copy_icon" />
+                  </div>
+                  Copy
+                </div>
+              </div>
+            </div>  :<div
               className="tableBtn export"
               onClick={openExport}
               style={{ width: "101.5px" }}
@@ -548,7 +607,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   Copy
                 </div>
               </div>
-            </div>
+            </div>}
 
             {/* <div className="tableBtn">
             <div className="btn_icon">
@@ -568,16 +627,29 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           </div>
 
           <div style={{ display: "flex", gap: "20px" }}>
+          {props.customer == "" ? <div className="search_customer" >
+              <div className="search_icon" >
+                <CgSearch size={23} color="#697A8D" />
+              </div>
+              <input
+              disabled
+                
+                //type="text"
+               // placeholder="Search Customer"
+              //  onChange={handleChange}
+              />
+      </div>:
             <div className="search_customer">
               <div className="search_icon">
                 <CgSearch size={23} color="#697A8D" />
               </div>
               <input
+           
                 type="text"
                 placeholder="Search Customer"
                 onChange={handleChange}
               />
-
+      </div>}
               {/* <div className="searchbar_typehead">
                 <Select
                   styles={customStyle}
@@ -593,7 +665,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               {/* <div className="searchbar_typehead">
           <Select styles={customStyle}/>
           </div> */}
-            </div>
+      
 
             <div className="settings" ref={menuRef}>
               <img
