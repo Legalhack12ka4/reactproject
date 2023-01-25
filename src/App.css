@@ -18,14 +18,14 @@
   margin-left: -10px;
   overflow: scroll;
   height:100vh;
-  
+    
 }
  ::-webkit-scrollbar { 
  width: 0px; 
-}  
-/* 
-::-webkit-scrollbar {
-  width: 5px !important;
+}   
+ 
+.rightScreen ::-webkit-scrollbar {
+  width: 0px ;
 }
 
 ::-webkit-scrollbar-thumb {

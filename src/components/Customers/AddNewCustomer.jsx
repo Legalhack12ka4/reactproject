@@ -50,7 +50,7 @@ function AddNewCustomer(props) {
   const [contact, setContact] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
   const [area, setArea] = useState([]);
-  const [gno, setGno]= useState([]);
+  //const [gno, setGno]= useState([]);
   const [city, setCity] = useState([]);
   const [statedrp, setStatedrp] = useState([]);
   const [creditAmount, setCreditAmount] = useState('');
@@ -61,31 +61,31 @@ function AddNewCustomer(props) {
   const [gst, setGst] = useState(false);
    //let gstinparams = customer.gstin;
 
-  const getData = (gstin) => {
-    axios.get(
-     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-      {
-        headers: {
-          Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-          client_id: "JarZChUcsytSBbnkpt",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setGno(data);
-        console.log("data", data);
-        console.log(data)
-      });
-  };
-  console.log(gno)
+  // const getData = (gstin) => {
+  //   axios.get(
+  //  //  `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
+  //         client_id: "JarZChUcsytSBbnkpt",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setGno(data);
+  //       console.log("data", data);
+  //       console.log(data)
+  //     });
+  // };
+  // console.log(gno)
 
   const handleGstno = (e) => {
     //setPincode(e.target.value)
     console.log("Gstno value", e.target.value);
-    getData(e.target.value);
+  //  getData(e.target.value);
     //alert("Blur");
   };
 
@@ -125,35 +125,41 @@ function AddNewCustomer(props) {
     getDataCuurrency();
     getArea();
     getContact();
-    getData();
+   // getData();
   }, []);
 
   const handleFormSubmit = () => {
     axios
       .post(
-        "http://127.0.0.1:8000/customervendor/",
+        "http://3.95.188.24/customervendor/",
         {
-          gst_treatment: values.gsttreat,
+       
           gst_no: values.gstin,
           business_name: values.businessname,
-          type_category: 8,
+       
           pan_card: values.pancard,
-          currency: 1,
-          payment_terms: 1,
+      
           credit_limit: values.credit,
           email: values.email,
           pincode: values.pincode,
           street1: values.street1,
           street2: values.street2,
-          place_of_supply: 1,
-          contact: 1,
-          ownership: 1,
-          is_active: true,
-          is_deleted: false,
-          type: 11,
-          company_id: 1,
-          created_by: 1,
-          updated_by: 1,
+          "place_of_supply": 1,
+          "contact": 1,
+          "ownership": 1,
+          "is_active": true,
+          "is_deleted": false,
+          "type": 2,
+        "type_category": 7,
+        "payment_terms": 2,
+        "currency": 20,
+        "ownership": 1,
+        "gst_treatment": 1,
+        "place_of_supply": 2,
+        "contact": 4,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
         },
         values
       )
@@ -198,9 +204,17 @@ function AddNewCustomer(props) {
       .then((data) => {
         setArea(data);
 
+        if(data[0].Status == "Success")
+        {
         setStatedrp(data[0].PostOffice[0].State);
         setCity(data[0].PostOffice[0].District);
-      });
+      }
+      else
+      {
+        setStatedrp("");
+        setCity("");
+      }
+});
   };
   console.log(area);
 
@@ -231,15 +245,17 @@ function AddNewCustomer(props) {
 
 
   const handleDrpChange = (field, value) => {
-    setFieldValue(field, value);
-    setFieldTouched(field, false);
+    setFormData({ ...formData, [field]: value });
+   setFieldValue(field, value);
+   setFieldTouched(field, false);
+   console.log(field)
+   console.log(value)
+ };
 
-  };
+  // useEffect(() => {
+  //   getData();
 
-  useEffect(() => {
-    getData();
-
-  }, []);
+  // }, []);
 
   const handleCreditBlur = (e) => {
 
@@ -293,7 +309,7 @@ function AddNewCustomer(props) {
   ];
   const gsttreatment = [
     {
-      value: " Registered Business - Regular ",
+      value: 1,
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -306,7 +322,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: " Registered Business - Composition",
+      value: 2,
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -320,7 +336,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Unregistered Business",
+      value: 3,
       label: (
         <div>
           <p className="dropdown_title_heading">Unregistered Business</p>
@@ -332,7 +348,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Consumer",
+      value: 4,
       label: (
         <div>
           <p className="dropdown_title_heading">Consumer</p>
@@ -341,7 +357,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Overseas",
+      value: 5,
       label: (
         <div>
           <p className="dropdown_title_heading">Overseas</p>
@@ -354,7 +370,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Special Economic Zone",
+      value:6,
       label: (
         <div>
           <p className="dropdown_title_heading">Special Economic Zone</p>
@@ -368,7 +384,7 @@ function AddNewCustomer(props) {
     },
 
     {
-      value: "Deemed Export",
+      value: 7,
       label: (
         <div>
           <p className="dropdown_title_heading">Deemed Export</p>
@@ -383,7 +399,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "Tax Deductor",
+      value: 8,
       label: (
         <div>
           <p className="dropdown_title_heading">Tax Deductor</p>
@@ -396,7 +412,7 @@ function AddNewCustomer(props) {
       ),
     },
     {
-      value: "SEZ Developer",
+      value:9,
       label: (
         <div>
           <p className="dropdown_title_heading">SEZ Developer</p>

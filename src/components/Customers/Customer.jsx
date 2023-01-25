@@ -34,7 +34,7 @@ const filterfield = {
   contact: "",
   ownership: "",
 };
-const PAGE_SIZE=10
+
 
 const Customer = (props) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -274,12 +274,12 @@ const Customer = (props) => {
   //     // }
   //   },
     {
-      title: "Gst No",
-      label: "Gst No",
+      title: "GST No",
+      label: "GST No",
       dataIndex: "gst_no",
       key: "gst_no",
       resizable: true,
-      width: 180,
+      width: 190,
       align: "left",
      // ellipsis:true,
       resizable:true,
@@ -289,14 +289,14 @@ const Customer = (props) => {
       showSorterTooltip:{ title: '' }
     },
     {
-      title: "Gst Treatment",
-      label: "Gst Treatment",
+      title: "GST Treatment",
+      label: "GST Treatment",
       dataIndex: "gst_treatment",
       key: "gst_treatment",
       resizable: true,
      // fixed: "left",
       align: "left",
-     width: 150,
+     width: 160,
      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.gst_treatment > record2.gst_treatment;
@@ -352,7 +352,7 @@ const Customer = (props) => {
       dataIndex: "pan_card",
       key: "pan_card",
       resizable: true,
-      width: 120,
+      width: 130,
       align: "left",
       ellipsis:true,
       sorter: (record1, record2) => {
@@ -785,7 +785,7 @@ const Customer = (props) => {
                   {custfilter.credit}
                   <br />
                   {/* <Slider defaultValue={30}   name="credit" value={custfilter.credit} onChange={onChangeCredit}/> */}
-                  <Slider defaultValue={0} disabled={false} max={100} onChange={(value)=> {
+                  <Slider defaultValue={0} disabled={false} max={3000} onChange={(value)=> {
         setCurrentValue(value)
       }}/>
    
@@ -805,6 +805,8 @@ const Customer = (props) => {
                 </div>
               </div>
             ]}
+            change={handleChange}
+            customer={fetchcustomer.length}
             filterLength={filterarray.length}
             columns={columnsData}
             addBtnName={"Customer"}

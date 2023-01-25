@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./VendorsData.scss";
-import { Spin, Table, Tooltip, Tag } from "antd";
+import { Spin, Table, Tooltip, Tag, Slider } from "antd";
 import axios from "axios";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import creditcard from "../../../assets/Images/FormIcon/Credit Limit.svg";
@@ -37,6 +37,7 @@ const VendorsData = () => {
   const [visible, setVisible] = useState(false);
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
+  const [currentValue, setCurrentValue] = useState(0)
   useEffect(() => {
     getData();
   }, []);
@@ -114,56 +115,60 @@ const VendorsData = () => {
       dataIndex: "business_name",
       key: "business_name",
       resizable: true,
-      width: 180,
+      width: 260,
       fixed: "left",
       align: "left",
+      //ellipsis:true,
       sorter: (record1, record2) => {
         return record1.business_name > record2.business_name;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
-    //  {
+  //  {
 
-    //     // filters:[
-    //     //   {text:'Expense 1', value:'Expense 1'},
-    //     //   {text:'Expense 2', value:'Expense 2'}
-    //     // ],
-    //     // // filterMultiple:false,
-    //     // onFilter:(value,record)=>
-    //     // {
-    //     //   return record.gst_treatment === value
-    //     // }
-    //     // onFilter: (value, record) => {
-    //     //   return record.business_name.includes(value)
-    //     // }
-    //   },
+  //     // filters:[
+  //     //   {text:'Expense 1', value:'Expense 1'},
+  //     //   {text:'Expense 2', value:'Expense 2'}
+  //     // ],
+  //     // // filterMultiple:false,
+  //     // onFilter:(value,record)=>
+  //     // {
+  //     //   return record.gst_treatment === value
+  //     // }
+  //     // onFilter: (value, record) => {
+  //     //   return record.business_name.includes(value)
+  //     // }
+  //   },
     {
-      title: "Gst No",
-      label: "Gst No",
+      title: "GST No",
+      label: "GST No",
       dataIndex: "gst_no",
       key: "gst_no",
       resizable: true,
-      width: 180,
+      width: 190,
       align: "left",
+     // ellipsis:true,
+      resizable:true,
       sorter: (record1, record2) => {
         return record1.gst_no > record2.gst_no;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
-      title: "Gst Treatment",
-      label: "Gst Treatment",
+      title: "GST Treatment",
+      label: "GST Treatment",
       dataIndex: "gst_treatment",
       key: "gst_treatment",
       resizable: true,
-      // fixed: "left",
+     // fixed: "left",
       align: "left",
-      width: 180,
-
+     width: 160,
+     ellipsis:true,
       sorter: (record1, record2) => {
         return record1.gst_treatment > record2.gst_treatment;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
+      
     },
     {
       title: "Type Category",
@@ -171,12 +176,13 @@ const VendorsData = () => {
       dataIndex: "type_category",
       key: "type_category",
       resizable: true,
-      width: 180,
+      width: 150,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.type_category > record2.type_category;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Currency",
@@ -184,12 +190,13 @@ const VendorsData = () => {
       dataIndex: "currency",
       key: "currency",
       resizable: true,
-      width: 180,
+      width: 120,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.currency > record2.currency;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Payment Terms",
@@ -197,12 +204,13 @@ const VendorsData = () => {
       dataIndex: "payment_terms",
       key: "payment_terms",
       resizable: true,
-      width: 180,
+      width: 150,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.payment_terms > record2.payment_terms;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "PanCard",
@@ -210,12 +218,13 @@ const VendorsData = () => {
       dataIndex: "pan_card",
       key: "pan_card",
       resizable: true,
-      width: 180,
+      width: 130,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.pan_card > record2.pan_card;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Credit Limit",
@@ -223,12 +232,13 @@ const VendorsData = () => {
       dataIndex: "credit_limit",
       key: "credit_limit",
       resizable: true,
-      width: 180,
+      width: 135,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.credit_limit > record2.credit_limit;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Email",
@@ -236,12 +246,13 @@ const VendorsData = () => {
       dataIndex: "email",
       key: "email",
       resizable: true,
-      width: 180,
+      width: 160,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.email > record2.email;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "PinCode",
@@ -249,12 +260,13 @@ const VendorsData = () => {
       dataIndex: "pincode",
       key: "pincode",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.pinCode > record2.pinCode;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Street1",
@@ -262,12 +274,13 @@ const VendorsData = () => {
       dataIndex: "street1",
       key: "street1",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.street1 > record2.street1;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Street2",
@@ -275,12 +288,13 @@ const VendorsData = () => {
       dataIndex: "street2",
       key: "street2",
       resizable: true,
-      width: 180,
+      width: 100,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.street2 > record2.street2;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Place Of Supply",
@@ -288,12 +302,13 @@ const VendorsData = () => {
       dataIndex: "place_of_supply",
       key: "place_of_supply",
       resizable: true,
-      width: 180,
+      width: 160,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.place_of_supply > record2.place_of_supply;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Contact",
@@ -301,12 +316,13 @@ const VendorsData = () => {
       dataIndex: "contact",
       key: "contact",
       resizable: true,
-      width: 180,
+      width: 110,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.contact > record2.contact;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
     {
       title: "Ownership",
@@ -314,12 +330,13 @@ const VendorsData = () => {
       dataIndex: "ownership",
       key: "ownership",
       resizable: true,
-      width: 180,
+      width: 120,
       align: "left",
+      ellipsis:true,
       sorter: (record1, record2) => {
         return record1.ownership > record2.ownership;
       },
-      showSorterTooltip: { title: "" },
+      showSorterTooltip:{ title: '' }
     },
   ];
 
@@ -486,11 +503,16 @@ const VendorsData = () => {
     console.log("button click");
     setCustFilter(filterfield);
   };
-
-  const onChangeCredit = (e) => {
-    const { value, name } = e.target;
-    setCustFilter({ ...custfilter, [name]: value });
-  };
+  useEffect(() => {
+    setCustFilter({...custfilter, ["credit"] :currentValue})
+  
+   }, [currentValue]);
+ 
+ 
+   const onChangeCredit = (e) => {
+     const { value, name } = e.target;
+     setCustFilter({ ...custfilter, [name]: value });
+   };
 
   const cusomizeData = dataSource.filter(
     (record) =>
@@ -699,7 +721,10 @@ const VendorsData = () => {
                 </Tooltip>
                 <br />₹{custfilter.credit}
                 <br />
-                <input
+                <Slider  defaultValue={0} disabled={false} max={3000} onChange={(value)=> {
+        setCurrentValue(value)
+      }}/>
+                {/* <input
                   className="credtrange"
                   type="range"
                   min={0}
@@ -711,7 +736,7 @@ const VendorsData = () => {
                   value={custfilter.credit}
                   onChange={onChangeCredit}
                   //   onBlur={handleBlur}
-                />
+                /> */}
               </div>
             </div>,
           ]}
@@ -808,8 +833,10 @@ const VendorsData = () => {
               setPage(page);
               setPageSize(pageSize);
             },
-            total: 100,
+            total: cusomizeData.length,
+            showTotal: (total, range) => `Showing ${range[1]}-${range[1]} of ${total} Vendors`
           }}
+
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }

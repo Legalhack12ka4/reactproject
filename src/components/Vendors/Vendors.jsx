@@ -57,29 +57,34 @@ function Vendors(props) {
 
     axios
       .post(
-        "http://127.0.0.1:8000/customervendor/",
+        "http://3.95.188.24/customervendor/",
         {
-          "gst_treatment": 1,
             gst_no:values.gstin,
-            business_name:values.businessname,
-            "type_category": 8,
-            pan_card:values.pancard,
-            "currency": 1,
-            "payment_terms": 1,
-            credit_limit:values.credit,
-            email:values.email,
-            pincode:values.pincode,
-            street1:values.street1,
-            street2:values.street2,
-            "place_of_supply": 1,
-            "contact": 1,
-            "ownership": 1,
-            "is_active": true,
-            "is_deleted": false,
-            "type": 11,
-            "company_id": 1,
-            "created_by": 1,
-            "updated_by": 1
+          business_name: values.businessname,
+       
+          pan_card: values.pancard,
+      
+          credit_limit: 20,
+          email: values.email,
+          pincode: values.pincode,
+          street1: values.street1,
+          street2: values.street2,
+          "place_of_supply": 1,
+          "contact": 1,
+          "ownership": 1,
+          "is_active": true,
+          "is_deleted": false,
+          "type": 1,
+        "type_category": 7,
+        "payment_terms": 2,
+        "currency": 20,
+        "ownership": 1,
+        "gst_treatment": 1,
+        "place_of_supply": 2,
+        "contact": 4,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
         },
         values
       )
@@ -108,6 +113,7 @@ function Vendors(props) {
     console.log(value);
     console.log(name);
   };
+  console.log(formData);
   const [gst, setGst] = useState(false);
   
   // let gstinparams = values.gstin;
@@ -137,20 +143,20 @@ function Vendors(props) {
   //   console.log(values.gstin);
   // }, [gst]);
 
-  const onBlur = (e) => {
-    //alert(e.target.value)
-    setGst(!gst);
-    console.log(gst);
-  };
+  // const onBlur = (e) => {
+  //   //alert(e.target.value)
+  //   setGst(!gst);
+  //   console.log(gst);
+  // };
 //Dropdown value get
 
-const handleDrpChange = (field, value) => {
-  setFieldValue(field, value);
-  setFieldTouched(field, false);
-
-  // console.log("value", value);
-  // console.log("field", field);
-};
+   const handleDrpChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+   setFieldValue(field, value);
+   setFieldTouched(field, false);
+   console.log(field)
+   console.log(value)
+ };
 
 //Validation
 
@@ -195,11 +201,20 @@ const {
       .then((data) => {
         setArea(data);
 
+        if(data[0].Status == "Success")
+        {
         setStatedrp(data[0].PostOffice[0].State);
         setCity(data[0].PostOffice[0].District);
+      }
+      else
+      {
+        setStatedrp("");
+        setCity("");
+      }
       });
   };
   console.log(area);
+
 
 
   //caredit card
@@ -263,7 +278,7 @@ const {
   ];
   const gsttreatment = [
     {
-      value: "1",
+      value: 1,
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -276,7 +291,7 @@ const {
       ),
     },
     {
-      value: "2",
+      value: 2,
       label: (
         <div>
           <p className="dropdown_title_heading">
@@ -290,7 +305,19 @@ const {
       ),
     },
     {
-      value: "3",
+      value: 3,
+      label: (
+        <div>
+          <p className="dropdown_title_heading">Unregistered Business</p>
+          <p style={{ fontSize: "12px" }}>
+            Bussines that has not been registered
+            <br /> under GST
+          </p>
+        </div>
+      ),
+    },
+    {
+      value: 4,
       label: (
         <div>
           <p className="dropdown_title_heading">Consumer</p>
@@ -299,7 +326,7 @@ const {
       ),
     },
     {
-      value: "4",
+      value: 5,
       label: (
         <div>
           <p className="dropdown_title_heading">Overseas</p>
@@ -312,7 +339,7 @@ const {
       ),
     },
     {
-      value: "5",
+      value:6,
       label: (
         <div>
           <p className="dropdown_title_heading">Special Economic Zone</p>
@@ -326,7 +353,7 @@ const {
     },
 
     {
-      value: "6",
+      value: 7,
       label: (
         <div>
           <p className="dropdown_title_heading">Deemed Export</p>
@@ -341,7 +368,7 @@ const {
       ),
     },
     {
-      value: "7",
+      value: 8,
       label: (
         <div>
           <p className="dropdown_title_heading">Tax Deductor</p>
@@ -354,7 +381,7 @@ const {
       ),
     },
     {
-      value: "8",
+      value:9,
       label: (
         <div>
           <p className="dropdown_title_heading">SEZ Developer</p>
@@ -629,7 +656,7 @@ const {
                 <SearchDropdown
                   width={331}
                   options={gsttreatment}
-                  onChange={handleDrpChange}
+                   onChange={handleDrpChange}
                   name="gsttreat"
                   value={values.gsttreat}
                   error={errors.gsttreat && touched.gsttreat ? true : false}

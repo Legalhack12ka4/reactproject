@@ -555,10 +555,26 @@
         margin-top: 20px;
         border-radius: 8px;
         overflow: hidden;
+        ::-webkit-scrollbar {
+            height: 8px !important;
+            width: 8px !important;
+            direction: rtl;
+            }
+            
+            ::-webkit-scrollbar-thumb {
+            background-color:#c2cad2;
+            border-radius: 10px;
+            margin-right: 3px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+            background: #566a76;
+            cursor: pointer;
+            } 
 
         .rows_container{
             max-height: 236px;
             overflow: scroll;
+
         }
 
 
