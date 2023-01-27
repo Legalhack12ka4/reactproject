@@ -857,6 +857,7 @@ const Customer = (props) => {
             customer={fetchcustomer.length}
             filterLength={filterarray.length}
             columns={columnsData}
+            setColumns={setColumns}
             addBtnName={"Customer"}
             path={"addcustomer"}
             onData={handleData}

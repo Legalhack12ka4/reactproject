@@ -370,7 +370,8 @@ const ContactsData = () => {
           ]}
           change={filterarray}
           customer={fetchcontact.length}
-          columns={columnsData}
+          columns={columns}
+          setColumns={setColumns}
           addBtnName={"Contacts"}
           onData={handleData}
           filter={<Contacts />}

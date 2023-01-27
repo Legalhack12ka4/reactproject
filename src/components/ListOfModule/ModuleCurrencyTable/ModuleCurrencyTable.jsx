@@ -404,6 +404,7 @@ console.log(formData)
       <div className="module-table-container">
         <FilterAndSearchBar
           columns={columnsData}
+          setColumns={setColumns}
           addBtnName={"Currency"}
           onClick={showModal}
           onData={handleData}

@@ -464,7 +464,7 @@ const clearfilter =() =>
             </div>
           ]
         }
-        columns={columnsData} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
+        columns={columnsData} setColumns={setColumns} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
   
         {!visible &&  <div className="tags" >

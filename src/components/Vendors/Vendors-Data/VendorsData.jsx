@@ -774,6 +774,7 @@ const VendorsData = () => {
           customer={fetchvendor.length}
           filterLength={filterarray.length}
           columns={columnsData}
+          setColumns={setColumns}
           addBtnName={"Vendors"}
           path={"add_Vendors"}
           onData={handleData}
