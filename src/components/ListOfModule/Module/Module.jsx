@@ -25,7 +25,7 @@ function Module() {
    </div>
    <div>
    <img src={link}/>
-   <Link exact to="customer/customerPage" className='currency_btn'>customer</Link>
+   {/* <Link exact to="/customer/customerPage" className='currency_btn'>customer</Link> */}
    </div>
    </div>
     </div>

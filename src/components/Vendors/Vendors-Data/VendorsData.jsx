@@ -1,8 +1,8 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useRef, useEffect, useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./VendorsData.scss";
-import { Spin, Table, Tooltip, Tag, Slider } from "antd";
+import { Spin, Table, Tooltip, Tag, Slider,Skeleton } from "antd";
 import axios from "axios";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import creditcard from "../../../assets/Images/FormIcon/Credit Limit.svg";
@@ -540,6 +540,36 @@ const VendorsData = () => {
   };
   console.log(filterarray.length);
 
+
+
+    // skeleton 
+
+    const tableData = useMemo(
+      () => (loading ? Array(10).fill({}) : cusomizeData),
+      [loading, cusomizeData]
+    ); 
+    const tableColumns = useMemo(
+      () =>
+        (loading
+          ? columns.map((column) => ({
+            ...column,sorter: false,
+            render: function renderPlaceholder() {
+                    return (
+                  
+                      <Skeleton
+                        key={column.key}
+                        title
+                        active={true}
+                        paragraph={false}
+                      />
+                    );
+                  },
+              // cell: <Skeleton />,
+            }))
+          : columns),
+      [loading, columns]
+    );
+
   return (
     <div className="Vendors-data">
       <Page_heading parent={"Business Account"} child={"Vendors"} />
@@ -805,7 +835,7 @@ const VendorsData = () => {
             )}
         <Table
           ref={componentRef}
-          rowSelection={{
+          rowSelection={!loading && {
             type: "checkbox",
             columnTitle: "",
             selectedRowKeys,
@@ -814,21 +844,21 @@ const VendorsData = () => {
               setSelectedRows(selectedRows);
             },
           }}
-          loading={{
-            indicator: (
-              <div>
-                <Spin />
-              </div>
-            ),
-            spinning: loading,
-          }}
-          dataSource={cusomizeData}
-          columns={columns}
+          // loading={{
+          //   indicator: (
+          //     <div>
+          //       <Spin />
+          //     </div>
+          //   ),
+          //   spinning: loading,
+          // }}
+          dataSource={tableData}
+            columns={tableColumns}
           // scroll={{ y: 800, x: 720 }}
           //    style={{ width: "100%" }}
-          scroll={{ x: "800px" }}
+          scroll={!loading && { x: "800px" }}
           style={{ maxWidth: 2200, width: "100%" }}
-          pagination={{
+          pagination={!loading && {
             current: page,
             pageSize: pageSize,
             onChange: (page, pageSize) => {

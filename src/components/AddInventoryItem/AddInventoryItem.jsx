@@ -4,11 +4,25 @@ import Page_heading from "../Page_Heading/Page_heading";
 
 import { Switch } from "antd";
 import { Modal, Button, Tooltip } from "antd";
+import { Upload,  message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
 import TagsInput from "../TagsInput/TagsInput";
+
+
+
+const getBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
 
 const AddInventoryItem = () => {
   const scannerRef = useRef(null);
@@ -24,14 +38,14 @@ const AddInventoryItem = () => {
   const [withResource, setWithResource] = useState(true);
   const [bomRows, setBomRows] = useState([{id:1, name:"row1", value:""},{id:2, name:"row2", value:""},{id:3, name:"row3", value:""},{id:4, name:"row4", value:""}]);
 
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  // const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
   const [bomEnable, setBomEnable] = useState(false);
   const [variantEnable, setVariantEnable] = useState(false);
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
-  const hiddenFileInput = React.useRef(null);
+  // const hiddenFileInput = React.useRef(null);
 
 
   // bom value state 
@@ -47,50 +61,146 @@ const inputRef = useRef(Array(bomRows.length).fill(null));
 const [focus, setFocus] = useState([]);
 const [totalSum, setTotalSum] = useState(0);
 
-  const handleClick = (event) => {
-    hiddenFileInput.current.click();
-  };
 
-  const handleChange = (e) => {
-    if (e.target.files.length > 5) {
-      alert("You can only upload 5 images");
-      return;
+// image Uploader 
+
+
+// const [previewOpen, setPreviewOpen] = useState(false);
+//   const [previewImage, setPreviewImage] = useState('');
+//   const [previewTitle, setPreviewTitle] = useState('');
+//   const [fileList, setFileList] = useState<UploadFile[]>([
+//     {
+//       uid: '-1',
+//       name: 'image.png',
+//       status: 'done',
+//       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+//     },
+//   ]);
+
+  // const handleCancel = () => setPreviewOpen(false);
+
+  // const handlePreview = async (file: UploadFile) => {
+  //   if (!file.url && !file.preview) {
+  //     file.preview = await getBase64(file.originFileObj as RcFile);
+  //   }
+
+  //   setPreviewImage(file.url || (file.preview as string));
+  //   setPreviewOpen(true);
+  //   setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+  // };
+
+  // const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+  //   setFileList(newFileList);
+
+  // const uploadButton = (
+  //   <div>
+  //     <PlusOutlined />
+  //     <div style={{ marginTop: 8 }}>Upload</div>
+  //   </div>
+  // );
+
+
+
+
+
+const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  ]);
+
+  const handleImgCancel = () => setPreviewOpen(false);
+
+  const handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file);
     }
-    setImage(e.target.files);
-    setCurrentIndex(0);
-    const files = e.target.files;
-
-    const names = [];
-
-    for (let i = 0; i < files.length; i++) {
-      names.push(files[i].name);
-    }
-
-    setFileNames(names);
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
   };
-  const handleDelete = () => {
-    const index = fileNames.indexOf(image[currentIndex].name);
-    fileNames.splice(index, 1);
-    const newImages = [...image];
-    newImages.splice(index, 1);
-    setImage(newImages);
-    setFileNames(fileNames);
-    setCurrentIndex(0);
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else if (currentIndex === 0) {
-      setCurrentIndex(0);
-    } else {
-      setCurrentIndex(0);
+
+  const handleChange = ({ file, fileList }) => {
+    if (file.status !== 'uploading') {
+      console.log(file, fileList);
+    }
+    if (file.status === 'done') {
+      message.success(`${file.name} file uploaded successfully`);
+      setFileList(fileList);
+    } else if (file.status === 'error') {
+      message.error(`${file.name} file upload failed.`);
     }
   };
 
-  const handlePrevClick = () => {
-    setCurrentIndex((currentIndex - 1 + image.length) % image.length);
-  };
-  const handleNextClick = () => {
-    setCurrentIndex((currentIndex + 1) % image.length);
-  };
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div className="ant-upload-text">Upload</div>
+    </div>
+  );
+
+  // const handleClick = (event) => {
+  //   hiddenFileInput.current.click();
+  // };
+
+  // const handleChange = (e) => {
+  //   if (e.target.files.length > 5) {
+  //     alert("You can only upload 5 images");
+  //     return;
+  //   }
+  //   setImage(e.target.files);
+  //   setCurrentIndex(0);
+  //   const files = e.target.files;
+
+  //   const names = [];
+
+  //   for (let i = 0; i < files.length; i++) {
+  //     names.push(files[i].name);
+  //   }
+
+  //   setFileNames(names);
+  // };
+  // const handleDelete = () => {
+  //   const index = fileNames.indexOf(image[currentIndex].name);
+  //   fileNames.splice(index, 1);
+  //   const newImages = [...image];
+  //   newImages.splice(index, 1);
+  //   setImage(newImages);
+  //   setFileNames(fileNames);
+  //   setCurrentIndex(0);
+  //   if (currentIndex > 0) {
+  //     setCurrentIndex(currentIndex - 1);
+  //   } else if (currentIndex === 0) {
+  //     setCurrentIndex(0);
+  //   } else {
+  //     setCurrentIndex(0);
+  //   }
+  // };
+
+  // const handlePrevClick = () => {
+  //   setCurrentIndex((currentIndex - 1 + image.length) % image.length);
+  // };
+  // const handleNextClick = () => {
+  //   setCurrentIndex((currentIndex + 1) % image.length);
+  // };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -218,28 +328,28 @@ const bodymaterial = [
   },
 ];
 
-  useEffect(() => {
-    hiddenFileInput.current.ondragover = () => {
-      hiddenFileInput.current.className = "hover";
-      return false;
-    };
-    hiddenFileInput.current.ondrop = (e) => {
-      e.preventDefault();
-      hiddenFileInput.current.className = "hidden";
-      const file = e.dataTransfer.files[0];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        document.getElementById("image_droped").className = "visible";
-        document.getElementById("image_droped").src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    };
-  }, []);
+  // useEffect(() => {
+  //   hiddenFileInput.current.ondragover = () => {
+  //     hiddenFileInput.current.className = "hover";
+  //     return false;
+  //   };
+  //   hiddenFileInput.current.ondrop = (e) => {
+  //     e.preventDefault();
+  //     hiddenFileInput.current.className = "hidden";
+  //     const file = e.dataTransfer.files[0];
+  //     const reader = new FileReader();
+  //     reader.onload = (event) => {
+  //       document.getElementById("image_droped").className = "visible";
+  //       document.getElementById("image_droped").src = event.target.result;
+  //     };
+  //     reader.readAsDataURL(file);
+  //   };
+  // }, []);
 
-  let dots = [];
-  for (let i = 0; i < image.length; i++) {
-    dots.push(i);
-  }
+  // let dots = [];
+  // for (let i = 0; i < image.length; i++) {
+  //   dots.push(i);
+  // }
 
 
   const selectOption = [
@@ -257,12 +367,12 @@ const bodymaterial = [
     },
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((currentIndex + 1) % image.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [currentIndex, image.length]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentIndex((currentIndex + 1) % image.length);
+  //   }, 3000);
+  //   return () => clearInterval(interval);
+  // }, [currentIndex, image.length]);
 
 
 
@@ -483,8 +593,21 @@ const formatAmount = (value) => {
             </div>
           </div>
         </div>
-
-        <div
+        <div className="img_uploader_main">
+        <Upload
+        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        listType="picture-card"
+        fileList={fileList}
+        onPreview={handlePreview}
+        onChange={handleChange}
+      >
+        {fileList.length >= 8 ? null : uploadButton}
+      </Upload>
+      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+      </Modal>
+        </div>
+        {/* <div
           className={`${
             image.length === 0 ? "img_uploader_main" : "img_uploader_main_pre"
           }`}
@@ -579,7 +702,7 @@ const formatAmount = (value) => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* modals */}

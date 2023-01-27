@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
@@ -610,6 +610,35 @@ const Customer = (props) => {
   //     filteredData();
   // }
 
+
+  // skeleton 
+
+  const tableData = useMemo(
+    () => (loading ? Array(10).fill({}) : cusomizeData),
+    [loading, cusomizeData]
+  ); 
+  const tableColumns = useMemo(
+    () =>
+      (loading
+        ? columns.map((column) => ({
+          ...column,sorter: false,
+          render: function renderPlaceholder() {
+                  return (
+                
+                    <Skeleton
+                      key={column.key}
+                      title
+                      active={true}
+                      paragraph={false}
+                    />
+                  );
+                },
+            // cell: <Skeleton />,
+          }))
+        : columns),
+    [loading, columns]
+  );
+
   
   return (
     <>
@@ -896,7 +925,8 @@ const Customer = (props) => {
                   onClick: () => handleRowClick(record),
                 };
               }}
-              rowSelection={{
+
+              rowSelection={!loading && {
                 type: "checkbox",
                 columnTitle: "",
                 selectedRowKeys,
@@ -905,22 +935,22 @@ const Customer = (props) => {
                   setSelectedRows(selectedRows);
                 },
               }}
-              loading={{
-                indicator: (
-                  <div>
-                  <Spin/>
-                  </div>
-                ),
-                spinning: loading,
-              }}
+              // loading={{
+              //   indicator: (
+              //     <div>
+              //     <Spin/>
+              //     </div>
+              //   ),
+              //   spinning: loading,
+              // }}
 
-              locale={{
-                emptyText: loading ?  <Skeleton  paragraph={{rows : 10, columns: 10}} active={true}  /> : <Empty />
-              }}
+              // locale={{
+              //   emptyText: loading ?  <Skeleton  paragraph={{rows : 10, columns: 10}} active={true}  /> : <Empty />
+              // }}
             //  dataSource={filteredData}
             
-              dataSource={cusomizeData}
-           columns={columns}
+              dataSource={tableData}
+            columns={tableColumns}
 
              
               // columns={columns.map((column) => {
@@ -941,7 +971,7 @@ const Customer = (props) => {
               //   };
               // })}
               // scroll={{ y: 800, x: 1000 }}
-              scroll={{ x: ("30px", "800px" )}}
+              scroll={!loading && { x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
             //  render={() => (
             //   <Space style={{ width: "100%" }}>
@@ -955,7 +985,7 @@ const Customer = (props) => {
             //  locale={{
             //   emptyText: loading ? fetchcustomer.map(u => <Skeleton.Input height={50} style={{marginTop: '10px', width:'100%'}} active={true} />):""
             // }}
-              pagination={{
+              pagination={!loading && {
                 current: page,
                 pageSize: pageSize,
                 onChange: (page, pageSize) => {
