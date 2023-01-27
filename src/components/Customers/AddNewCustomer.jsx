@@ -47,6 +47,7 @@ function AddNewCustomer(props) {
   const [customer, setCustomer] = useState([]);
   const [payment, setPayment] = useState([]);
   const [currencydrp, setCurrencydrp] = useState([]);
+  const [pos, setPos] = useState([]);
   const [contact, setContact] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
   const [area, setArea] = useState([]);
@@ -120,11 +121,25 @@ function AddNewCustomer(props) {
   };
   // console.log(currencydrp)
 
+
+  //Dropdown Place of supply
+
+  const getDataPos = () => {
+    fetch("http://127.0.0.1:8000/backend/state/")
+      .then((response) => response.json())
+      .then((data) => {
+        setPos(data);
+         console.log(data);
+      });
+  };
+ console.log(pos)
+
   useEffect(() => {
     getDataPaymentTerms();
     getDataCuurrency();
     getArea();
     getContact();
+    getDataPos();
    // getData();
   }, []);
 
@@ -199,22 +214,22 @@ function AddNewCustomer(props) {
   // form Validation
 
   const getArea = (pincode) => {
-    return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    return fetch(`http://127.0.0.1:8000/backend/pincode?pincode=${pincode}`)
     
       .then((response) => response.json())
       .then((data) => {
         setArea(data);
-
-        if(data[0].Status == "Success")
-        {
-        setStatedrp(data[0].PostOffice[0].State);
-        setCity(data[0].PostOffice[0].District);
-      }
-      else
-      {
-        setStatedrp("");
-        setCity("");
-      }
+console.log(data)
+        // if(data[0].Status == "Success")
+        // {
+        setStatedrp(data[0].state_name);
+        setCity(data[0].district);
+      // }
+      // else
+      // {
+      //   setStatedrp("");
+      //   setCity("");
+      // }
 });
   };
   console.log(area);
@@ -293,7 +308,10 @@ function AddNewCustomer(props) {
     label: con.name,
     value: con.id || con.name,
   }));
-
+  const gsttraetmentOptional =pos.map((place)=>({
+    label: place.state_name,
+    value: place.id,
+  }))
   const typeCategory = [
     {
       value: "Wholesalar",
@@ -429,20 +447,7 @@ function AddNewCustomer(props) {
     },
   ];
 
-  const gsttraetmentOptional = [
-    {
-      value: "Value 1",
-      label: "Value 1",
-    },
-    {
-      value: "Value 2",
-      label: "Value 2",
-    },
-    {
-      value: "Value 3",
-      label: "Value3",
-    },
-  ];
+  
 
   const ownershipwithemail = [
     {
