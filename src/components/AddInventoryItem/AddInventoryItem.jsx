@@ -65,97 +65,38 @@ const [totalSum, setTotalSum] = useState(0);
 // image Uploader 
 
 
-// const [previewOpen, setPreviewOpen] = useState(false);
-//   const [previewImage, setPreviewImage] = useState('');
-//   const [previewTitle, setPreviewTitle] = useState('');
-//   const [fileList, setFileList] = useState<UploadFile[]>([
-//     {
-//       uid: '-1',
-//       name: 'image.png',
-//       status: 'done',
-//       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-//     },
-//   ]);
-
-  // const handleCancel = () => setPreviewOpen(false);
-
-  // const handlePreview = async (file: UploadFile) => {
-  //   if (!file.url && !file.preview) {
-  //     file.preview = await getBase64(file.originFileObj as RcFile);
-  //   }
-
-  //   setPreviewImage(file.url || (file.preview as string));
-  //   setPreviewOpen(true);
-  //   setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-  // };
-
-  // const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-  //   setFileList(newFileList);
-
-  // const uploadButton = (
-  //   <div>
-  //     <PlusOutlined />
-  //     <div style={{ marginTop: 8 }}>Upload</div>
-  //   </div>
-  // );
-
-
-
-
-
 const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-  ]);
+const [previewImage, setPreviewImage] = useState('');
+const [previewTitle, setPreviewTitle] = useState('');
+const [fileList, setFileList] = useState([]);
 
-  const handleImgCancel = () => setPreviewOpen(false);
-
-  const handlePreview = async file => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-  };
-
-  const handleChange = ({ file, fileList }) => {
-    if (file.status !== 'uploading') {
-      console.log(file, fileList);
-    }
-    if (file.status === 'done') {
-      message.success(`${file.name} file uploaded successfully`);
-      setFileList(fileList);
-    } else if (file.status === 'error') {
-      message.error(`${file.name} file upload failed.`);
-    }
-  };
-
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div className="ant-upload-text">Upload</div>
+const handleImgCancel = () => setPreviewOpen(false);
+const handleImgPreview = async (file) => {
+  if (!file.url && !file.preview) {
+    file.preview = await getBase64(file.originFileObj);
+  }
+  setPreviewImage(file.url || file.preview);
+  setPreviewOpen(true);
+  setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+};
+const handleImgChange = ({ fileList: newFileList }) => setFileList(newFileList);
+const uploadButton = (
+  <div>
+    <PlusOutlined />
+    <div
+      style={{
+        marginTop: 8,
+      }}
+    >
+      Upload
     </div>
-  );
+  </div>
+);
+
+
+
+
+
 
   // const handleClick = (event) => {
   //   hiddenFileInput.current.click();
@@ -593,18 +534,30 @@ const formatAmount = (value) => {
             </div>
           </div>
         </div>
+
+
+
         <div className="img_uploader_main">
+        <p className="item_image_heading"> Item Image</p>
         <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
         fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChange}
+        onPreview={handleImgPreview}
+        onChange={handleImgChange}
+        multiple={true}
+        maxCount={6}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        {fileList.length >= 6 ? null : uploadButton}
       </Upload>
       <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
-        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        <img
+          alt="example"
+          style={{
+            width: '100%',
+          }}
+          src={previewImage}
+        />
       </Modal>
         </div>
         {/* <div
