@@ -275,6 +275,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     },
   ];
   const [columns, setColumns] = useState(props.columns);
+  
 
   const csvLink = {
     filename: "customer_data.csv",
@@ -326,8 +327,11 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       let [source_data] = tempData.splice(e.source.index, 1);
       tempData.splice(e.destination.index, 0, source_data);
       setColumns(tempData);
+      props.setColumns(tempData);
     }
     console.log(e.destination.index);
+
+
   };
 
   const componentRef = useRef();
@@ -339,89 +343,83 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     document.getElementById("gradient").classList.add("body_gradient");
   }
 
-  const customStyle = {
-    control: (base, state) => ({
-      ...base,
-      background: "white",
-      width: "300px",
-      border: "none",
-      borderRadius: "5px",
-      boxShadow: "none",
-      height: "40px",
-      marginLeft: "-8px",
+  // const customStyle = {
+  //   control: (base, state) => ({
+  //     ...base,
+  //     background: "white",
+  //     width: "300px",
+  //     border: "none",
+  //     borderRadius: "5px",
+  //     boxShadow: "none",
+  //     height: "40px",
+  //     marginLeft: "-8px",
 
-      "&:hover": {
-        border: "none",
-      },
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? "white" : "black",
-      backgroundColor: state.isSelected ? "#697A8D" : "white",
-      "&:hover": {
-        backgroundColor: "#697A8D",
-        color: "white",
-      },
-    }),
-    menu: (provided, state) => ({
-      ...provided,
-      borderRadius: "5px",
-      border: "none",
-      boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-      zIndex: "5",
-      width: "300px",
-    }),
-    menuList: (provided, state) => ({
-      ...provided,
-      padding: "0px",
-    }),
-    singleValue: (provided, state) => ({
-      ...provided,
-      color: "#697A8D",
-      fontSize: "14px",
-      fontWeight: "400",
-      lineHeight: "20px",
-      letterSpacing: "0.25px",
-    }),
-    input: (provided, state) => ({
-      ...provided,
-      color: "#697A8D",
-      fontSize: "14px",
-      fontWeight: "400",
-      lineHeight: "20px",
-      letterSpacing: "0.25px",
-      height: "40px",
-      // maxHeight: "30px",
-      margin: "0px",
-    }),
-    placeholder: (provided, state) => ({
-      ...provided,
-      color: "#697A8D",
-      fontSize: "14px",
-      fontWeight: "400",
-      lineHeight: "20px !important",
-      letterSpacing: "0.25px",
-      // marginTop: "-5px",
-    }),
-    indicatorSeparator: (provided, state) => ({
-      ...provided,
-      display: "none",
-    }),
-    dropdownIndicator: (provided, state) => ({
-      ...provided,
-      color: "#697A8D",
-      fontSize: "14px",
-      fontWeight: "400",
-      lineHeight: "20px",
-      letterSpacing: "0.25px",
-    }),
-    // valueContainer: (provided, state) => ({
-    //   ...provided,
-    //   height: "40px",
-    //   // minHeight: "30px",
-    //   lineHeight: "20px !important",
-    // }),
-  };
+  //     "&:hover": {
+  //       border: "none",
+  //     },
+  //   }),
+  //   option: (provided, state) => ({
+  //     ...provided,
+  //     color: state.isSelected ? "white" : "black",
+  //     backgroundColor: state.isSelected ? "#697A8D" : "white",
+  //     "&:hover": {
+  //       backgroundColor: "#697A8D",
+  //       color: "white",
+  //     },
+  //   }),
+  //   menu: (provided, state) => ({
+  //     ...provided,
+  //     borderRadius: "5px",
+  //     border: "none",
+  //     boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+  //     zIndex: "5",
+  //     width: "300px",
+  //   }),
+  //   menuList: (provided, state) => ({
+  //     ...provided,
+  //     padding: "0px",
+  //   }),
+  //   singleValue: (provided, state) => ({
+  //     ...provided,
+  //     color: "#697A8D",
+  //     fontSize: "14px",
+  //     fontWeight: "400",
+  //     lineHeight: "20px",
+  //     letterSpacing: "0.25px",
+  //   }),
+  //   input: (provided, state) => ({
+  //     ...provided,
+  //     color: "#697A8D",
+  //     fontSize: "14px",
+  //     fontWeight: "400",
+  //     lineHeight: "20px",
+  //     letterSpacing: "0.25px",
+  //     height: "40px",
+  //     // maxHeight: "30px",
+  //     margin: "0px",
+  //   }),
+  //   placeholder: (provided, state) => ({
+  //     ...provided,
+  //     color: "#697A8D",
+  //     fontSize: "14px",
+  //     fontWeight: "400",
+  //     lineHeight: "20px !important",
+  //     letterSpacing: "0.25px",
+  //     // marginTop: "-5px",
+  //   }),
+  //   indicatorSeparator: (provided, state) => ({
+  //     ...provided,
+  //     display: "none",
+  //   }),
+  //   dropdownIndicator: (provided, state) => ({
+  //     ...provided,
+  //     color: "#697A8D",
+  //     fontSize: "14px",
+  //     fontWeight: "400",
+  //     lineHeight: "20px",
+  //     letterSpacing: "0.25px",
+  //   }),
+  // };
 
 
   //Search
@@ -732,3 +730,4 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 };
 
 export default FilterAndSearchBar;
+

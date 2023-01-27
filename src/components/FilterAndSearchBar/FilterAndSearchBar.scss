@@ -232,7 +232,8 @@
     cursor: pointer;
     .table_setting_dropdown{
         width: 228px;
-     height: 440px;
+    //  height: 440px;
+    max-height: 440px;
         position: absolute;
         padding: 0px 17px 0px 15px;
         z-index: 10;
