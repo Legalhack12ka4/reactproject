@@ -1,15 +1,14 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useRef, useEffect,useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./ContactsData.scss";
-import { Spin, Table, Tooltip, Tag } from "antd";
+import { Spin, Table, Tooltip, Tag, Skeleton } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
 import config from "../../Database/config";
 import dob from "../../../assets/Images/FormIcon/DOB.svg";
-import moment from "moment";
 
 const filterfield = {
   name: "",
@@ -26,7 +25,7 @@ const ContactsData = () => {
   const [fetchcontact, setFetchcontact] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
@@ -37,7 +36,7 @@ const ContactsData = () => {
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/contact/`).then((res) => {
-      setloading(false);
+      
       setFetchcontact(
         res.data.map((row) => ({
           Key: row.id,
@@ -56,6 +55,7 @@ const ContactsData = () => {
         }))
       );
       console.log(res);
+      setLoading(false);
     });
   };
   console.log(fetchcontact);
@@ -281,6 +281,32 @@ const ContactsData = () => {
     alert("Data call");
   };
 
+  const tableData = useMemo(
+    () => (loading ? Array(10).fill({}) : cusomizeData),
+    [loading, cusomizeData]
+  ); 
+  const tableColumns = useMemo(
+    () =>
+      (loading
+        ? columns.map((column) => ({
+          ...column,sorter: false,
+          render: function renderPlaceholder() {
+                  return (
+                
+                    <Skeleton
+                      key={column.key}
+                      title
+                      active={true}
+                      paragraph={false}
+                    />
+                  );
+                },
+            // cell: <Skeleton />,
+          }))
+        : columns),
+    [loading, columns]
+  );
+
   return (
     <div className="contacts-data">
       <Page_heading parent={"Business Account"} child={"contacts"} />
@@ -403,7 +429,7 @@ const ContactsData = () => {
 
           <Table
             ref={componentRef}
-            rowSelection={{
+            rowSelection={!loading &&{
               type: "checkbox",
               columnTitle: "",
               selectedRowKeys,
@@ -412,20 +438,20 @@ const ContactsData = () => {
                 setSelectedRows(selectedRows);
               },
             }}
-            loading={{
-              indicator: (
-                <div>
-                  <Spin />
-                </div>
-              ),
-              spinning: loading,
-            }}
-            dataSource={cusomizeData}
-            columns={columns}
+            // loading={{
+            //   indicator: (
+            //     <div>
+            //       <Spin />
+            //     </div>
+            //   ),
+            //   spinning: loading,
+            // }}
+            dataSource={tableData}
+            columns={tableColumns}
             // scroll={{ y: 800, x: 720 }}
-            scroll={{ x: "1100px" }}
+            scroll={!loading && { x: "1100px" }}
             //    style={{ width: "100%" }}
-            pagination={{
+            pagination={!loading &&{
               current: page,
               pageSize: pageSize,
               onChange: (page, pageSize) => {
