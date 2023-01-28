@@ -526,7 +526,21 @@ const VendorsData = () => {
       record.street2.includes(custfilter.street2) &&
       record.ownership.includes(custfilter.ownership) &&
       record.credit_limit.toString().includes(custfilter.credit.toString())
-    //console.log(record.gst_treatment, custfilter.gsttreat)
+      && record.business_name.toLowerCase().includes(search.toLowerCase())
+      // || record.email.toLowerCase().includes(search.toLowerCase())
+      // || record.pincode.toString().includes(search.toString())
+      // || record.contact.toLowerCase().includes(search.toLowerCase())
+      // || record.gst_treatment.toLowerCase().includes(search.toLowerCase())
+      // || record.type_category.toLowerCase().includes(search.toLowerCase())
+      // || record.currency.toLowerCase().includes(search.toLowerCase())
+      // || record.payment_terms.toLowerCase().includes(search.toLowerCase())
+      // || record.place_of_supply.toLowerCase().includes(search.toLowerCase())
+      // || record.street1.toLowerCase().includes(search.toLowerCase())
+      // || record.street2.toLowerCase().includes(search.toLowerCase())
+      // || record.ownership.toLowerCase().includes(search.toLowerCase())
+      // || record.credit_limit.toString().includes(search.toString())
+      // || record.pan_card.toLowerCase().includes(search.toLowerCase())
+      // || record.gst_no.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);
@@ -569,6 +583,15 @@ const VendorsData = () => {
           : columns),
       [loading, columns]
     );
+
+    // selectedColumns 
+
+  const [selectedColumns, setSelectedColumns] = useState(tableColumns.map(col => col.dataIndex));
+  const handleSelectColumn = (e) => {
+    const { checked, value } = e.target;
+    if(checked) setSelectedColumns([...selectedColumns, value]);
+    else setSelectedColumns(selectedColumns.filter(col => col !== value));
+  }
 
   return (
     <div className="Vendors-data">
@@ -774,6 +797,7 @@ const VendorsData = () => {
           customer={fetchvendor.length}
           filterLength={filterarray.length}
           columns={columnsData}
+          onSelectColumn={handleSelectColumn}
           setColumns={setColumns}
           addBtnName={"Vendors"}
           path={"add_Vendors"}
@@ -854,7 +878,7 @@ const VendorsData = () => {
           //   spinning: loading,
           // }}
           dataSource={tableData}
-            columns={tableColumns}
+            columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
           // scroll={{ y: 800, x: 720 }}
           //    style={{ width: "100%" }}
           scroll={!loading && { x: "800px" }}

@@ -30,6 +30,8 @@ const ContactsData = () => {
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
 
+
+
   useEffect(() => {
     getData();
   }, []);
@@ -197,14 +199,15 @@ const ContactsData = () => {
   };
   const [search, setSearch] = useState("");
 
+
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
 
   const filteredData = dataSource.filter(
     (record) =>
-      record.name.toLowerCase().includes(search.toLowerCase()) ||
-      record.mobile.toString().includes(search.toString())
+      record.name.toLowerCase().includes(search.toLowerCase())
+      // record.mobile.toString().includes(search.toString())
   );
 
   //Filter
@@ -256,6 +259,12 @@ const ContactsData = () => {
       record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
+      && record.name.toLowerCase().includes(search.toLowerCase())
+      // && record.email.toLowerCase().includes(search.toLowerCase())
+      // || record.dob.toString().includes(search.toString())
+      // && record.mobile.toString().includes(search.toString())
+      // && record.position.toLowerCase().includes(search.toLowerCase())
+      // && record.ownership.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);
@@ -306,6 +315,16 @@ const ContactsData = () => {
         : columns),
     [loading, columns]
   );
+
+
+  // selectedColumns 
+
+  const [selectedColumns, setSelectedColumns] = useState(tableColumns.map(col => col.dataIndex));
+  const handleSelectColumn = (e) => {
+    const { checked, value } = e.target;
+    if(checked) setSelectedColumns([...selectedColumns, value]);
+    else setSelectedColumns(selectedColumns.filter(col => col !== value));
+  }
 
   return (
     <div className="contacts-data">
@@ -369,6 +388,7 @@ const ContactsData = () => {
             </div>,
           ]}
           change={filterarray}
+          onSelectColumn={handleSelectColumn}
           customer={fetchcontact.length}
           columns={columns}
           setColumns={setColumns}
@@ -448,7 +468,7 @@ const ContactsData = () => {
             //   spinning: loading,
             // }}
             dataSource={tableData}
-            columns={tableColumns}
+            columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
             // scroll={{ y: 800, x: 720 }}
             scroll={!loading && { x: "1100px" }}
             //    style={{ width: "100%" }}
