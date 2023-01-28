@@ -197,14 +197,15 @@ const ContactsData = () => {
   };
   const [search, setSearch] = useState("");
 
+
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
 
   const filteredData = dataSource.filter(
     (record) =>
-      record.name.toLowerCase().includes(search.toLowerCase()) ||
-      record.mobile.toString().includes(search.toString())
+      record.name.toLowerCase().includes(search.toLowerCase())
+      // record.mobile.toString().includes(search.toString())
   );
 
   //Filter
@@ -256,6 +257,12 @@ const ContactsData = () => {
       record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
+      && record.name.toLowerCase().includes(search.toLowerCase())
+      && record.email.toLowerCase().includes(search.toLowerCase())
+      // || record.dob.toString().includes(search.toString())
+      // && record.mobile.toString().includes(search.toString())
+      // && record.position.toLowerCase().includes(search.toLowerCase())
+      // && record.ownership.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);

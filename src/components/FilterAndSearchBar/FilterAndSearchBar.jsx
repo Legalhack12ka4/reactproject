@@ -627,7 +627,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           <div style={{ display: "flex", gap: "20px" }}>
           {props.customer == "" ? <div className="search_customer" >
               <div className="search_icon" >
-                <CgSearch size={23} color="#697A8D" />
+                <CgSearch size={20} color="#697A8D" />
               </div>
               <input
               disabled
@@ -639,7 +639,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       </div>:
             <div className="search_customer">
               <div className="search_icon">
-                <CgSearch size={23} color="#697A8D" />
+                <CgSearch size={20} color="#697A8D" />
               </div>
               <input
            

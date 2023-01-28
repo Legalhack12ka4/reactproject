@@ -490,20 +490,7 @@ const Customer = (props) => {
 
   const [columns, setColumns] = useState(columnsData);
 
-  // search table functionality
-
-  const handleData = (newData) => {
-    setSearch(newData);
-  };
-  const [search, setSearch] = useState("");
-
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const filteredData = dataSource.filter((record) =>
-    record.business_name.toLowerCase().includes(search.toLowerCase())
-  );
+ 
 
   // redirect to another page on click of row
 
@@ -564,6 +551,27 @@ const Customer = (props) => {
     setCustFilter({ ...custfilter, [name]: value });
   };
 
+
+
+   // search table functionality
+
+   const handleData = (newData) => {
+    setSearch(newData);
+  };
+  const [search, setSearch] = useState("");
+  // console.log(search)
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const filteredData = dataSource.filter((record) =>
+    record.business_name.toLowerCase().includes(search.toLowerCase())
+  );
+
+
+
+
  
   const cusomizeData = dataSource.filter(
     (record) =>
@@ -579,6 +587,7 @@ const Customer = (props) => {
         .includes(custfilter.currency) &&
       record.payment_terms
         
+      
         .includes(custfilter.payment) &&
       record.place_of_supply
         
@@ -589,6 +598,27 @@ const Customer = (props) => {
         
         .includes(custfilter.ownership) &&
       record.credit_limit.toString().includes(custfilter.credit.toString())
+      || record.business_name.toLowerCase().includes(search.toLowerCase())
+      || record.email.toLowerCase().includes(search.toLowerCase())
+      || record.pincode.toString().includes(search.toString())
+      || record.contact.toLowerCase().includes(search.toLowerCase())
+      || record.gst_treatment.toLowerCase().includes(search.toLowerCase())
+      || record.type_category.toLowerCase().includes(search.toLowerCase())
+      || record.currency.toLowerCase().includes(search.toLowerCase())
+      || record.payment_terms.toLowerCase().includes(search.toLowerCase())
+      || record.place_of_supply.toLowerCase().includes(search.toLowerCase())
+      || record.street1.toLowerCase().includes(search.toLowerCase())
+      || record.street2.toLowerCase().includes(search.toLowerCase())
+      || record.ownership.toLowerCase().includes(search.toLowerCase())
+      || record.credit_limit.toString().includes(search.toString())
+      || record.pan_card.toLowerCase().includes(search.toLowerCase())
+      || record.gst_no.toLowerCase().includes(search.toLowerCase())
+
+
+    
+
+   
+
     //console.log(record.gst_treatment, custfilter.gsttreat)
   );
 

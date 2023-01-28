@@ -526,7 +526,21 @@ const VendorsData = () => {
       record.street2.includes(custfilter.street2) &&
       record.ownership.includes(custfilter.ownership) &&
       record.credit_limit.toString().includes(custfilter.credit.toString())
-    //console.log(record.gst_treatment, custfilter.gsttreat)
+      || record.business_name.toLowerCase().includes(search.toLowerCase())
+      || record.email.toLowerCase().includes(search.toLowerCase())
+      || record.pincode.toString().includes(search.toString())
+      || record.contact.toLowerCase().includes(search.toLowerCase())
+      || record.gst_treatment.toLowerCase().includes(search.toLowerCase())
+      || record.type_category.toLowerCase().includes(search.toLowerCase())
+      || record.currency.toLowerCase().includes(search.toLowerCase())
+      || record.payment_terms.toLowerCase().includes(search.toLowerCase())
+      || record.place_of_supply.toLowerCase().includes(search.toLowerCase())
+      || record.street1.toLowerCase().includes(search.toLowerCase())
+      || record.street2.toLowerCase().includes(search.toLowerCase())
+      || record.ownership.toLowerCase().includes(search.toLowerCase())
+      || record.credit_limit.toString().includes(search.toString())
+      || record.pan_card.toLowerCase().includes(search.toLowerCase())
+      || record.gst_no.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);
