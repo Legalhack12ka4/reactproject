@@ -666,7 +666,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       
 
             <div className="settings" ref={menuRef}>
-              <img
+              <img className="setting_icon"
                 src="/images/icons/setting.svg"
                 alt="icon"
                 onClick={openSetting}
@@ -682,39 +682,46 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   <Droppable droppableId="draggable_item">
                     {(provider) => (
                       <div ref={provider.innerRef} {...provider.droppableProps}>
-                        {columns.map((item, index) => (
-                          <Draggable
-                            draggableId={item.key}
-                            index={index}
-                            key={item.key}
-                            isDragDisabled={
-                              item.title === "Business Name" ? true : false
-                            }
-                          >
-                            {(provider) => (
-                              <div
-                                className="columns_fields"
-                                ref={provider.innerRef}
-                                {...provider.draggableProps}
-                                {...provider.dragHandleProps}
-                              >
-                                <div className="chekbox_title">
-                                  {/* <input type="checkbox" /> */}
-                                  <div>
-                                    <Checkbox />
-                                  </div>
-                                  <p>{item.title}</p>
-                                </div>
-                                <div>
-                                  <img
-                                    src="/images/icons/bx-dialpad-alt.svg"
-                                    alt="icon"
-                                  />
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
+                        {columns.map((item, index) => {
+  if (index === 0) {
+    return (
+      <Draggable draggableId={item.key} index={index} key={item.key} isDragDisabled={true}>
+        {(provider) => (
+          <div className="columns_fields" ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps}>
+            <div className="chekbox_title">
+              <div>
+                <Checkbox value={item.dataIndex} onChange={props.onSelectColumn} defaultChecked={true} disabled={true}/>
+              </div>
+              <p>{item.title}</p>
+            </div>
+            <div>
+              <img src="/images/icons/bx-dialpad-alt.svg" alt="icon"/>
+            </div>
+          </div>
+        )}
+      </Draggable>
+    );
+  }
+  else {
+    return (
+      <Draggable draggableId={item.key} index={index} key={item.key}>
+        {(provider) => (
+          <div className="columns_fields" ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps}>
+            <div className="chekbox_title">
+              <div>
+                <Checkbox value={item.dataIndex} onChange={props.onSelectColumn} defaultChecked={true}/>
+              </div>
+              <p>{item.title}</p>
+            </div>
+            <div>
+              <img src="/images/icons/bx-dialpad-alt.svg" alt="icon"/>
+            </div>
+          </div>
+        )}
+      </Draggable>
+    );
+  }
+})}
                         {provider.placeholder}
                       </div>
                     )}

@@ -233,7 +233,10 @@
 .settings{
     margin-top: 7px;
     position: relative;
-    cursor: pointer;
+    // cursor: pointer;
+    .setting_icon{
+        cursor: pointer;
+    }
     .table_setting_dropdown{
         width: 228px;
     //  height: 440px;

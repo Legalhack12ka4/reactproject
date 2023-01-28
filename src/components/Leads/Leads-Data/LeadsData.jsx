@@ -386,6 +386,16 @@ const clearfilter =() =>
   console.log("button clicked");
 }
 
+ // selectedColumns 
+
+ const [selectedColumns, setSelectedColumns] = useState(columns.map(col => col.dataIndex));
+ const handleSelectColumn = (e) => {
+   const { checked, value } = e.target;
+   if(checked) setSelectedColumns([...selectedColumns, value]);
+   else setSelectedColumns(selectedColumns.filter(col => col !== value));
+ }
+
+
 
   return (
     <div className='leads-data'>
@@ -464,7 +474,7 @@ const clearfilter =() =>
             </div>
           ]
         }
-        columns={columnsData} setColumns={setColumns} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
+        columns={columnsData} setColumns={setColumns} onSelectColumn={handleSelectColumn} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
         <OffCanvasExample form={<Leads/>}/>
   
         {!visible &&  <div className="tags" >
@@ -493,7 +503,7 @@ const clearfilter =() =>
             }}
             // loading={{indicator : <div><Spin/></div>, spinning:loading}}
             dataSource={filteredData}
-            columns={columns}
+            columns={columns.filter(col => selectedColumns.includes(col.dataIndex))}
             scroll={{  x:"1100px" }}
         //    style={{ width: "100%" }}
         pagination={{
