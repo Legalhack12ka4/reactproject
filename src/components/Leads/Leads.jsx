@@ -10,29 +10,97 @@ import { Tooltip } from "antd";
 import { useFormik } from "formik";
 
 import { contactSchemas } from "../../Schemas";
-
-
-
-
-
+import config from "../Database/config";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 const initialFieldValues = {
     name: "",
     mobile: "",
     email: "",
     company: "",
-    position: "",
+    lead: "",
     ownership: "",
   };
 
-function Leads() {
+  const resetValue = {
+    name: "",
+    mobile: "",
+    email: "",
+    company: "",
+    lead: "",
+    ownership: "",
+  };
+
+function Leads(props) {
   const [checked, setChecked] = useState("contacts");
+    const [contact, setContact] = useState([]);
+    const [formData, setFormData] = useState(resetValue);
   function handleclose() {
     var m = document.querySelector(".menu1 ");
     m.classList.remove("smenu");
     document.getElementById("gradient").classList.remove("body_gradient");
   }
 
+//inert
+
+const handleFormSubmit = () => {
+
+  axios
+    .post(
+      `${config.baseUrl}/leads/`,
+      {
+        name: formData.name,
+        mobile_no: formData.mobile,
+        email: formData.email,
+        company_name:formData.company,
+        lead_source_type: formData.lead,
+        "is_active": true,
+        "is_deleted": false,
+        "status": 1,
+        "ownership": 1,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
+    .then((response) => {
+      // getData();
+      props.onClick();
+      handleclose();
+
+       toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    
+     
+    });
+}
+
+const handleDrpChange = (field, value) => {
+  setFormData({ ...formData, [field]: value });
+ setFieldValue(field, value);
+ setFieldTouched(field, false);
+ console.log(field)
+ console.log(value)
+};
+
+const onChange = (e) => {
+const { value, name } = e.target;
+
+setFormData({ ...formData, [name]: value });
+console.log(value);
+console.log(name);
+};
+
+console.log(formData)
 
     // validation 
 
@@ -54,13 +122,25 @@ function Leads() {
     },
   });
 
-  const handleDrpChange = (field, value) => {
-    setFieldValue(field, value);
-    setFieldTouched(field, false);
+  // const handleDrpChange = (field, value) => {
+  //   setFieldValue(field, value);
+  //   setFieldTouched(field, false);
   
-    // console.log("value", value);
-    // console.log("field", field);
-  };
+  //   // console.log("value", value);
+  //   // console.log("field", field);
+  // };
+
+//Get contact
+
+const getContact = () => {
+  return fetch(`${config.baseUrl}/contact/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setContact(data);
+      console.log(data);
+    });
+};
+
 
   const ownershipwithemail = [
     {
@@ -286,29 +366,14 @@ function Leads() {
     },
   ];
 
-  const contacts = [
-    {
-      value: "1",
-      label: "Aman Jaria",
-    },
-    {
-      value: "2",
-      label: "Ashish Jaria",
-    },
-    {
-      value: "3",
-      label: "Parth Goswami",
-    },
-    {
-      value: "4",
-      label: "Suryansh Jaria",
-    },
-    {
-      value: "5",
-      label: "Kushal Nahata",
-    },
-  ];
+  const contacts = contact.map((con) => ({
+    label: con.name,
+    value:con.name,
+  }));
 
+  useEffect (()=>{
+    getContact();
+  },[])
 
   return (
     <>
@@ -339,7 +404,7 @@ function Leads() {
                   placeholder="Placeholder"
                   name="name"
                   value={values.name}
-                  onChange={handleChange}
+                  onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
                 />
                 {errors.name && touched.name && (
@@ -373,7 +438,7 @@ function Leads() {
                   placeholder="Placeholder"
                     name="mobile"
                     value={values.mobile}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.mobile && touched.mobile && (
@@ -407,7 +472,7 @@ function Leads() {
                   placeholder="Placeholder"
                     name="email"
                     value={values.email}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.email && touched.email && (
@@ -439,9 +504,9 @@ function Leads() {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
-                    name="dob"
-                    value={values.dob}
-                    onChange={handleChange}
+                    name="company"
+                    value={values.company}
+                    onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
                 {errors.company && touched.company && (
@@ -497,7 +562,8 @@ function Leads() {
               </Tooltip>
               <br />
               {checked == "contacts" ? (
-                <SearchDropdown options={contacts} width={330}  />
+                <SearchDropdown options={contacts} width={330} name="lead" value={values.lead} 
+                onChange={handleDrpChange} />
               ) : (
                 <SearchDropdownAddButton  width={330} />
               )}
@@ -540,7 +606,7 @@ function Leads() {
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
                   Submit
                 </input> */}
-                <input type="submit" className="contactsavebutton" />
+                <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}} />
                 <button 
                   type="button"
                   className="contactcancelbutton"
@@ -554,6 +620,7 @@ function Leads() {
         </div>
       </div>
       </form>
+      <ToastContainer/>
     </>
   );
 }

@@ -1037,3 +1037,42 @@ height: 38px;
 }
 
 
+//Confirm
+
+//Production material batches
+.confirmCoontainer
+{
+    width: 490px;
+    height: 110px;
+    border-radius: 6px;
+    fill: #FFFFFF;
+    border: none;
+
+}
+.confirmresources
+{
+    display: flex;
+    gap: 20px ;
+}
+.confirmationtext
+{
+    margin-left: 64px;
+    color: darkgray;
+    margin-top: -14px;
+}
+.productionlabel
+{
+height: 17px;
+font-size: 13px;
+font-weight: 500;
+fill: #697A8D;
+margin-bottom: 8px;
+}
+.productioninput
+{
+border: .5px solid #C2CAD2;
+fill: #FFFFFF;
+border-radius: 5px;
+width: 155px;
+height: 38px;
+}

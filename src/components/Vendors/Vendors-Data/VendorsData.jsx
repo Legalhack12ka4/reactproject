@@ -6,6 +6,7 @@ import { Spin, Table, Tooltip, Tag, Slider,Skeleton } from "antd";
 import axios from "axios";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import creditcard from "../../../assets/Images/FormIcon/Credit Limit.svg";
+import config from "../../Database/config";
 
 const filterfield = {
   gsttreat: "",
@@ -43,7 +44,7 @@ const VendorsData = () => {
   }, []);
 
   const getData = async () => {
-    await axios.get("http:///3.95.188.24/customervendor/").then((res) => {
+    await axios.get(`${config.baseUrl}/customervendor/`).then((res) => {
       setloading(false);
       setFetchvendor(
         res.data.map((row) => ({

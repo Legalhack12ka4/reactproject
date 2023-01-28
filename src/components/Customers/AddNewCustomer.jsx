@@ -21,6 +21,7 @@ import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import config from "../Database/config";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -92,7 +93,7 @@ function AddNewCustomer(props) {
 
   //Dropdown PaymentTerms
   const getDataPaymentTerms = () => {
-    return fetch("http://3.95.188.24/paymentterms/")
+    return fetch(`${config.baseUrl}/paymentterms/`)
       .then((response) => response.json())
       .then((data) => {
         setPayment(data);
@@ -102,7 +103,7 @@ function AddNewCustomer(props) {
 
   //Dropdown Contact
   const getContact = () => {
-    return fetch("http://3.95.188.24/contact/")
+    return fetch(`${config.baseUrl}/contact/`)
       .then((response) => response.json())
       .then((data) => {
         setContact(data);
@@ -112,7 +113,7 @@ function AddNewCustomer(props) {
 
   //Dropdown currency
   const getDataCuurrency = () => {
-    fetch("http://3.95.188.24/currency/")
+    fetch(`${config.baseUrl}/currency/`)
       .then((response) => response.json())
       .then((data) => {
         setCurrencydrp(data);
@@ -125,7 +126,7 @@ function AddNewCustomer(props) {
   //Dropdown Place of supply
 
   const getDataPos = () => {
-    fetch("http://127.0.0.1:8000/backend/state/")
+    fetch(`${config.baseUrl}/state/`)
       .then((response) => response.json())
       .then((data) => {
         setPos(data);
@@ -146,7 +147,7 @@ function AddNewCustomer(props) {
   const handleFormSubmit = () => {
     axios
       .post(
-        "http://3.95.188.24/customervendor/",
+        `${config.baseUrl}/customervendor/`,
         {
        
           gst_no: values.gstin,
@@ -214,7 +215,8 @@ function AddNewCustomer(props) {
   // form Validation
 
   const getArea = (pincode) => {
-    return fetch(`http://127.0.0.1:8000/backend/pincode?pincode=${pincode}`)
+  return fetch(`${config.baseUrl}/pincode?pincode=${pincode}`)
+    //return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
     
       .then((response) => response.json())
       .then((data) => {
