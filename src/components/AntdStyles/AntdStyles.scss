@@ -214,6 +214,15 @@
 // .ant-checkbox-input{
 //     color: red !important;
 // }
+.ant-checkbox-disabled {
+  .ant-checkbox-inner {
+    background-color: #6a68f9 !important;
+    border-color: #6a68f9 !important;
+  }
+  .ant-checkbox-inner::after {
+    border-color: rgb(207, 204, 204) !important;
+   }
+}
 
 .ant-checkbox-inner {
   border-color: #5c5ad0 !important;
@@ -337,6 +346,7 @@ th {
 .ant-upload:hover {
   border-color: #5c5ad0 !important;
 }
+
 
 
 
