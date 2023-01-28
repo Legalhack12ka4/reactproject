@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./TagsInput.scss";
 import { useState } from "react";
 const TagsInput = (props) => {
@@ -16,11 +16,34 @@ const TagsInput = (props) => {
     setTags(tags.filter((tag, i) => i !== index));
   };
 
+
+
+  const [editingIndex, setEditingIndex] = useState(null);
+  const tagRef = useRef(null);
+
+  const handleTagClick = (index) => {
+      setEditingIndex(index);
+      tagRef.current.focus();
+  }
+  const handleTagBlur = (event, index) => {
+    setEditingIndex(null);
+    const newTags = [...tags];
+    newTags[index] = event.target.innerText;
+    setTags(newTags);
+  }
+  console.log(tags)
+
   return (
     <div className="main_tag_container">
       <div className="tag_contianer">
         {tags.map((tag, index) => (
-          <div key={index} className="tag">
+           <div
+           key={index}
+           className={`tag ${editingIndex === index && "editing"}`}
+           contentEditable={editingIndex === index}
+           onClick={() => handleTagClick(index)}
+           onBlur={(event) => handleTagBlur(event, index)}
+         >
             {tag}
             <button onClick={() => handleClose(index)}>
               <img src="/images/icons/tagCloseIcon.svg" alt="" />

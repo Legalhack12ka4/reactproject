@@ -46,6 +46,7 @@ const AddInventoryItem = () => {
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
+  const [otherInputValue, setOtherInputValue] = useState("");
   // const hiddenFileInput = React.useRef(null);
 
 
@@ -248,13 +249,13 @@ const handleBomAddRow = () => {
 //   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
 //   // console.log(id)
 // }
-const handleBomChange = (checked: boolean) => {
-  console.log(`switch bom ${checked}`);
+const handleBomChange = (checked) => {
+  // console.log(`switch bom ${checked}`);
   setBomEnable(checked);
 }
 
-const handleVarientChange = (checked: boolean) => {
-  console.log(`switch varient ${checked}`);
+const handleVarientChange = (checked) => {
+  // console.log(`switch varient ${checked}`);
   setVariantEnable(checked);
 }
 
@@ -1195,7 +1196,7 @@ const formatAmount = (value) => {
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
-                    <TagsInput />
+                    {/* <TagsInput /> */}
                     </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setSerial(false)}}>
@@ -1205,12 +1206,12 @@ const formatAmount = (value) => {
              <ul className="field_box_rows" key={4}>
                   
                   <li className="type others">
-                    <input type="text" placeholder="Others"/>
+                    <input type="text" placeholder="Others" onChange={event => setOtherInputValue(event.target.value)}/>
                   </li>
                   <li className="value1">
                     <div className="input_container" style={{width:"545px !important"}}>
                       {/* <input type="text"  /> */}
-                      <TagsInput />
+                      {otherInputValue && <TagsInput />}
                       
                     </div>
                   </li>
