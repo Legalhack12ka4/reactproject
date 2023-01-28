@@ -6,7 +6,7 @@ import { Switch } from "antd";
 import { Modal, Button, Tooltip } from "antd";
 import { Upload,  message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-
+import alert from "../../assets/Images/Confirmation/alert.webp"
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
@@ -42,6 +42,7 @@ const AddInventoryItem = () => {
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
   const [bomEnable, setBomEnable] = useState(false);
   const [variantEnable, setVariantEnable] = useState(false);
+  const [confirm, setCofirm] = useState(false);
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
@@ -162,11 +163,24 @@ const uploadButton = (
   {
     setIsMaterialModalOpen(false);
   }
+  const handleConfirmCancel = () => {
+    //setIsModalOpen(false);
+   // setIsBOMVariantOpen(false);
+   // setIsBOMModalOpen(false);
+   setCofirm(true)
+  };
+  const handleConfirm = () => {
+    //setIsModalOpen(false);
+   // setIsBOMVariantOpen(false);
+   // setIsBOMModalOpen(false);
+   setCofirm(false)
+  };
+
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
-    setIsBOMModalOpen(false);
-
+   setIsBOMModalOpen(false);
+    setCofirm(false)
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -922,7 +936,7 @@ const formatAmount = (value) => {
           </Button>,
           <Button
             key="cancel"
-            onClick={handleCancel}
+            onClick={handleConfirmCancel}
               style={{
               width: "80px",
               height: "38px",
@@ -1256,6 +1270,81 @@ const formatAmount = (value) => {
          
         </div>
       </Modal>
+
+
+{/* Confirmation */}
+
+<Modal
+        open={confirm}
+        onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+       
+        footer={[
+ <div style={{marginLeft:"290px"}}>
+          <Button
+            key="cancel"
+            onClick={handleConfirm}
+            style={{
+              width: "80px",
+              height: "38px",
+              fontSize: "12px",
+              color: "#8E9CAA",
+              borderColor: "#8E9CAA",
+            }}
+          >
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleCancel}
+            style={{
+              width: "80px",
+              height: "38px",
+              backgroundColor:"rgb(240 59 59)",
+              fontSize: "12px",
+              fontWeight:"700"
+            }}
+          >
+            Confirm
+          </Button></div>,
+        ]}
+    
+        closeIcon={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13.51"
+            height="13"
+            viewBox="0 0 13.51 13"
+          >
+            <path
+              id="Path_34362"
+              data-name="Path 34362"
+              d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+              transform="translate(-2.248 -2.248)"
+              fill="#697a8d"
+            />
+          </svg>
+        }
+      
+      >
+         <div className="confirmCoontainer">
+         <div className="confirmresources">
+         <div>
+      <img src={alert} height={40} width ={45}/>
+         </div>
+         <div>
+      <p style={{fontSize:"18px", fontWeight:"600"}}>Delete Product</p>
+         </div>
+         </div>
+          <div>
+            <p className="confirmationtext">Are you sure you want to delete this product? All record  <br/>    related to this product will be deleted as well. This action <br/> cannot be undone</p>
+          </div>
+        </div>
+      </Modal>
+
     </div>
   );
 };

@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
+import config from "../Database/config";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -50,6 +51,7 @@ function Vendors(props) {
   const [creditAmount, setCreditAmount] = useState('');
   const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
   const [creditBox, setCreditBox] = useState(false);
+  const [pos, setPos] = useState([]);
   //const [pincode, setPincode]= useState([])
 
   //const [gst, setGst] = useState(false);
@@ -57,7 +59,7 @@ function Vendors(props) {
 
     axios
       .post(
-        "http://3.95.188.24/customervendor/",
+        `${config.baseUrl}/customervendor/`,
         {
             gst_no:values.gstin,
           business_name: values.businessname,
@@ -106,6 +108,88 @@ function Vendors(props) {
   }
 
 
+//Dropdown PaymentTerms
+const getDataPaymentTerms = () => {
+  return fetch(`${config.baseUrl}/paymentterms/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setPayment(data);
+      // console.log(data);
+    });
+};
+
+//Dropdown Contact
+const getContact = () => {
+  return fetch(`${config.baseUrl}/contact/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setContact(data);
+      console.log(data);
+    });
+};
+
+//Dropdown currency
+const getDataCuurrency = () => {
+  fetch(`${config.baseUrl}/currency/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setCurrencydrp(data);
+      // console.log(data);
+    });
+};
+// console.log(currencydrp)
+
+
+//Dropdown Place of supply
+
+const getDataPos = () => {
+  fetch(`${config.baseUrl}/state/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setPos(data);
+       console.log(data);
+    });
+};
+console.log(pos)
+
+const getArea = (pincode) => {
+  return fetch(`${config.baseUrl}/pincode?pincode=${pincode}`)
+    //return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    
+      .then((response) => response.json())
+      .then((data) => {
+        setArea(data);
+console.log(data)
+        // if(data[0].Status == "Success")
+        // {
+        setStatedrp(data[0].state_name);
+        setCity(data[0].district);
+      // }
+      // else
+      // {
+      //   setStatedrp("");
+      //   setCity("");
+      // }
+});
+  };
+  console.log(area);
+
+  const handlePincode = (e) => {
+    //setPincode(e.target.value)
+    console.log("Pincode value", e.target.value);
+    getArea(e.target.value);
+    //alert("Blur");
+  };
+
+  useEffect(() => {
+    getDataPaymentTerms();
+    getDataCuurrency();
+    getArea();
+    getContact();
+    getDataPos();
+   // getData();
+  }, []);
+  
   const onChange = (e) => {
     const { value, name } = e.target;
     setCreditAmount(e.target.value);
@@ -195,25 +279,7 @@ const {
   };
 
 
-  const getArea = (pincode) => {
-    return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setArea(data);
-
-        if(data[0].Status == "Success")
-        {
-        setStatedrp(data[0].PostOffice[0].State);
-        setCity(data[0].PostOffice[0].District);
-      }
-      else
-      {
-        setStatedrp("");
-        setCity("");
-      }
-      });
-  };
-  console.log(area);
+ 
 
 
 
@@ -240,12 +306,7 @@ const {
     setCreditBox(false)
   };
 
-  const handlePincode = (e) => {
-    //setPincode(e.target.value)
-    console.log("Pincode value", e.target.value);
-    getArea(e.target.value);
-    //alert("Blur");
-  };
+ 
 
   const paymentterms = payment.map((pay) => ({
     label: pay.terms,
@@ -397,20 +458,10 @@ const {
     },
   ];
 
-  const gsttraetmentOptional = [
-    {
-      value: "1",
-      label: "Value 1",
-    },
-    {
-      value: "2",
-      label: "Value 2",
-    },
-    {
-      value: "3",
-      label: "Value3",
-    },
-  ];
+  const gsttraetmentOptional =pos.map((place)=>({
+    label: place.state_name,
+    value: place.id,
+  }))
 
   const ownershipwithemail = [
     {

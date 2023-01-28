@@ -985,13 +985,9 @@ const Customer = (props) => {
               //   ),
               //   spinning: loading,
               // }}
-
-              // locale={{
-              //   emptyText: loading ?  <Skeleton  paragraph={{rows : 10, columns: 10}} active={true}  /> : <Empty />
-              // }}
-            //  dataSource={filteredData}
             
               dataSource={tableData}
+<<<<<<< Updated upstream
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
 
              
@@ -1013,20 +1009,11 @@ const Customer = (props) => {
               //   };
               // })}
               // scroll={{ y: 800, x: 1000 }}
+=======
+            columns={tableColumns}
+>>>>>>> Stashed changes
               scroll={!loading && { x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
-            //  render={() => (
-            //   <Space style={{ width: "100%" }}>
-            //     <Skeleton.Input
-            //       style={{ width: "100%" }}
-            //       active={true}
-            //       size="default"
-            //     />
-            //   </Space>
-            // )}
-            //  locale={{
-            //   emptyText: loading ? fetchcustomer.map(u => <Skeleton.Input height={50} style={{marginTop: '10px', width:'100%'}} active={true} />):""
-            // }}
               pagination={!loading && {
                 current: page,
                 pageSize: pageSize,
