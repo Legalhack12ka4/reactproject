@@ -1040,15 +1040,63 @@ height: 38px;
 //Confirm
 
 //Production material batches
+
+// .ant-modal .ant-modal-content {
+
+//     padding: 0px !important; 
+// }
 .confirmCoontainer
 {
-    width: 490px;
-    height: 110px;
+    width: 543px;
+    height: 150px;
     border-radius: 6px;
     fill: #FFFFFF;
     border: none;
 
 }
+
+.imgsetting
+{
+    
+    height: 42px;
+    width: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #DA2F5833;
+    z-index: 0;
+    margin-top: 30px;
+    margin-left: 30px;
+   // opacity: .5;
+
+    .imgbackground
+    {
+        background-color:#FFFFFF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+    }
+
+}
+
+.deleteconfirm
+{
+    padding: 0px !important;
+
+.ant-modal-footer{
+background-color: #F5F6F8 !important;
+border-radius: 8px;
+padding: 20px 0px;
+}
+ .ant-modal-content
+{
+    padding: 0px !important;
+}
+}
+
 .confirmresources
 {
     display: flex;
@@ -1056,10 +1104,22 @@ height: 38px;
 }
 .confirmationtext
 {
-    margin-left: 64px;
-    color: darkgray;
-    margin-top: -14px;
+    margin-left: 89px;
+    color: #697A8D;
+   // margin-top: -6px;
+    font-weight: 400;
+    font-size: 14px;
 }
+.icon
+{
+    color: #2B3347;
+   // padding: 20px 0px 0px 0px;
+   // margin-left: -30px;
+    /* font-size: 35px; */
+ //   width: 15px;
+   // height: 15px;
+}
+
 .productionlabel
 {
 height: 17px;

@@ -6,7 +6,7 @@ import { Switch } from "antd";
 import { Modal, Button, Tooltip } from "antd";
 import { Upload,  message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import alert from "../../assets/Images/Confirmation/alert.webp"
+import alert from "../../assets/Images/Confirmation/confirm.svg"
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
@@ -1281,39 +1281,42 @@ const formatAmount = (value) => {
         width={"max-content"}
         onCancel={handleConfirm}
         style={{ top: 20 }}
-       
+       className={"deleteconfirm"}
         footer={[
- <div style={{marginLeft:"290px"}}>
+        <div  style={{marginLeft:"331px"}}>
           <Button
             key="cancel"
             onClick={handleConfirm}
             style={{
-              width: "80px",
+              width: "86px",
               height: "38px",
-              fontSize: "12px",
+              fontSize: "14px",
+              fontWeight:"700",
               color: "#8E9CAA",
-              borderColor: "#8E9CAA",
+              borderColor: "#C2CAD2",
             }}
           >
             Cancel
-          </Button>,
+          </Button>
           <Button
             key="submit"
             type="primary"
             onClick={handleCancel}
             style={{
-              width: "80px",
+              width: "88px",
               height: "38px",
-              backgroundColor:"rgb(240 59 59)",
-              fontSize: "12px",
-              fontWeight:"700"
+              backgroundColor:"#DA2F58",
+              fontSize: "14px",
+              fontWeight:"700",
+              color:"#FFFFFF"
             }}
           >
-            Confirm
-          </Button></div>,
+            Submit
+          </Button></div>
         ]}
     
         closeIcon={
+          <div className="icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="13.51"
@@ -1328,20 +1331,28 @@ const formatAmount = (value) => {
               fill="#697a8d"
             />
           </svg>
+          </div>
+      
         }
       
       >
+
          <div className="confirmCoontainer">
          <div className="confirmresources">
-         <div>
-      <img src={alert} height={40} width ={45}/>
+              
+            <div className="imgsetting">
+               <div className="imgbackground">    
+      <img src={alert} style={{ width:"38px", height:"38px"}}/>
          </div>
+         </div>
+
          <div>
-      <p style={{fontSize:"18px", fontWeight:"600"}}>Delete Product</p>
+      <p style={{fontSize:"22px",color:"#2B3347", fontWeight:"500",padding: "21px 0px 0px 0px"}}>Delete Product</p>
          </div>
          </div>
           <div>
-            <p className="confirmationtext">Are you sure you want to delete this product? All record  <br/>    related to this product will be deleted as well. This action <br/> cannot be undone</p>
+            <p className="confirmationtext">Are you sure you want to close  this window? <br/>  All the value which you  filled 
+            in the fields will be deleted.<br/> This action cannot recover the value.</p>
           </div>
         </div>
       </Modal>
