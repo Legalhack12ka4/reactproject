@@ -206,14 +206,8 @@ const ContactsData = () => {
 
   const filteredData = dataSource.filter(
     (record) =>
-<<<<<<< Updated upstream
       record.name.toLowerCase().includes(search.toLowerCase())
       // record.mobile.toString().includes(search.toString())
-=======
-      record.name.toLowerCase().includes(search.toLowerCase()) ||
-      record.mobile.toString().includes(search.toString())
-      
->>>>>>> Stashed changes
   );
 
   //Filter
@@ -265,21 +259,12 @@ const ContactsData = () => {
       record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
-<<<<<<< Updated upstream
       && record.name.toLowerCase().includes(search.toLowerCase())
       // && record.email.toLowerCase().includes(search.toLowerCase())
       // || record.dob.toString().includes(search.toString())
       // && record.mobile.toString().includes(search.toString())
       // && record.position.toLowerCase().includes(search.toLowerCase())
       // && record.ownership.toLowerCase().includes(search.toLowerCase())
-=======
-      // && record.name.toLowerCase().includes(search.toLowerCase())
-      // && record.email.toLowerCase().includes(search.toLowerCase())
-// || record.dob.toString().includes(search.toString())
-// && record.mobile.toString().includes(search.toString())
-// && record.position.toLowerCase().includes(search.toLowerCase())
-// && record.ownership.toLowerCase().includes(search.toLowerCase())
->>>>>>> Stashed changes
   );
 
   console.log(cusomizeData);
@@ -476,12 +461,8 @@ const ContactsData = () => {
               },
             }}
             dataSource={tableData}
-<<<<<<< Updated upstream
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
             // scroll={{ y: 800, x: 720 }}
-=======
-            columns={tableColumns}
->>>>>>> Stashed changes
             scroll={!loading && { x: "1100px" }}
             pagination={!loading &&{
               current: page,

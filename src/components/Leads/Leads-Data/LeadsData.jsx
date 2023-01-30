@@ -429,7 +429,6 @@ useEffect (()=>{
   };
   console.log(filterarray.length);
 
-<<<<<<< Updated upstream
  // selectedColumns 
 
  const [selectedColumns, setSelectedColumns] = useState(columns.map(col => col.dataIndex));
@@ -440,9 +439,6 @@ useEffect (()=>{
  }
 
 
-=======
-  //table
->>>>>>> Stashed changes
 
   const tableData = useMemo(
     () => (loading ? Array(10).fill({}) : cusomizeData),
@@ -609,31 +605,9 @@ useEffect (()=>{
                 Clear All
               </button>
             </div>
-<<<<<<< Updated upstream
-          ]
-        }
-        columns={columnsData} setColumns={setColumns} onSelectColumn={handleSelectColumn} dataSource={dataSource} addBtnName={"Lead"} onData={handleData} />
-        <OffCanvasExample form={<Leads/>}/>
-  
-        {!visible &&  <div className="tags" >
-   <div className="appliedtag">Applied For :</div>
-   <div  onClick={log}>
-   <Tooltip title="Contact: Leads" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-    Vimlesh
-    </Tag></Tooltip>
-      <Tooltip title="Ownership : Leads" color="#5C5AD0"> <Tag className="tag1" closable onClose={log}>
-  Parth Goswami
-    </Tag></Tooltip>
-    <button type="submit" className="btnfilter" onClick={() => setVisible(!visible)}>Clear All</button>
-   </div>
-  </div>}
-
-        <Table
-=======
           )}
 
           <Table
->>>>>>> Stashed changes
             ref={componentRef}
             rowSelection={
               !loading && {
@@ -647,21 +621,6 @@ useEffect (()=>{
               }
             }
             // loading={{indicator : <div><Spin/></div>, spinning:loading}}
-<<<<<<< Updated upstream
-            dataSource={filteredData}
-            columns={columns.filter(col => selectedColumns.includes(col.dataIndex))}
-            scroll={{  x:"1100px" }}
-        //    style={{ width: "100%" }}
-        pagination={{
-          current:page,
-          pageSize:pageSize, 
-          onChange:(page, pageSize)=>
-          {
-            setPage(page);
-            setPageSize(pageSize)
-          },
-          total:100}}
-=======
             dataSource={tableData}
             columns={tableColumns}
             scroll={!loading && { x: "800px" }}
@@ -679,7 +638,6 @@ useEffect (()=>{
                   `Showing ${range[1]}-${range[1]} of ${total} Leads`,
               }
             }
->>>>>>> Stashed changes
             rowClassName={(record) =>
               record.key % 2 === 0 ? "highlight_row" : ""
             }
