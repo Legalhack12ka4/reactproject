@@ -3,13 +3,24 @@ import React, { useState, useRef } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Input, Select, Space, Button } from 'antd';
 import type { InputRef } from 'antd';
+import axios from 'axios';
+import config from '../../Database/config';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import { get } from 'jquery';
+import "./SearchDropdownAddButton.scss";
 
 
+const resetValue = {
+  name: "",
+};
 let index = 0;
 function SearchDropdownAddButton(props) {
 
     const [items, setItems] = useState(['ITME 2022', 'IT Sol 2019','ITME 2018','Colortax']);
     const [name, setName] = useState('');
+    const [formData, setFormData] = useState(resetValue);
+    const [addSouce, setAddSource] = useState([]);
     const inputRef = useRef<import('antd').InputRef>(null);
   
     const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +42,79 @@ function SearchDropdownAddButton(props) {
         console.log('search:', value);
       };
 
+//get data
+
+const othersource =addSouce.map((place)=>({
+  label: place.name,
+  value: place.id,
+}))
+
+useEffect (()=>
+{
+  getSource();
+}, [])
+
+const getSource = () => {
+  return fetch(`${config.baseUrl}/othersource/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAddSource(data);
+      console.log(data);
+    });
+};
+
+console.log(addSouce)
+
+
+//add
+
+const handleFormSubmit = () => {
+
+  axios
+    .post(
+      `${config.baseUrl}/othersource/`,
+      {
+        name: formData.name,
+        "is_active": true,
+        "is_deleted": false,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
+
+    .then((response) => {
+      getSource();
+   setFormData(resetValue)
+     // props.onClick();
+   //   handleclose();
+
+       toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    
+    //  document.getElementById("inputsource").value=""
+    });
+   // document.getElementById("inputsource").value=""
+}
+
+const onChangeValue = (e) => {
+  const { value, name } = e.target;
+  
+  setFormData({ ...formData, [name]: value });
+
+  console.log(value);
+  console.log(name);
+  };
+  console.log(formData)
+
   return (
     <div className='srchdrp'>
 
@@ -40,6 +124,7 @@ function SearchDropdownAddButton(props) {
       optionFilterProp="children"
       onChange={onChange}
       onSearch={onSearch}
+      //options={othersource}
       filterOption={(input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
       }
@@ -54,23 +139,29 @@ function SearchDropdownAddButton(props) {
           <Divider style={{ margin: '8px 0' }} />
           <Space style={{ padding: '0 8px 4px' }}>
             <Input
-              placeholder="Please enter item"
+            style={{color:"#566A7F", fontSize:"14px", fontWeight:"500"}}
+          id="inputsource"
+           //   placeholder="Please enter item"
             //   ref={inputRef}
-              value={name}
-              onChange={onNameChange}
-             
+            //  value={name}
+              //onChange={onNameChange}
+              onChange={onChangeValue}
+              name="name"
+              value={formData.name}
               onSearch={onSearch}
+              className="inputchnage"
             //   filterOption={(input, option) =>
             //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
             //   }
             />
-            <Button type="text" icon={<PlusOutlined />} onClick={addItem}>
-              Add item
+         {/* //   onClick={addItem}  */}
+            <Button type="text" icon={<PlusOutlined />} onClick={() => {handleFormSubmit()}}>
+              Add Source
             </Button>
           </Space>
         </>
       )}
-      options={items.map((item) => ({ label: item, value: item }))}
+      options={othersource}
     />
 
   {/* <Select
