@@ -987,7 +987,6 @@ const Customer = (props) => {
               // }}
             
               dataSource={tableData}
-<<<<<<< Updated upstream
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
 
              
@@ -1009,9 +1008,6 @@ const Customer = (props) => {
               //   };
               // })}
               // scroll={{ y: 800, x: 1000 }}
-=======
-            columns={tableColumns}
->>>>>>> Stashed changes
               scroll={!loading && { x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
               pagination={!loading && {
