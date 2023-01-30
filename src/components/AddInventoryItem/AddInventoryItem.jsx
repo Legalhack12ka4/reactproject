@@ -40,12 +40,14 @@ const AddInventoryItem = () => {
 
   // const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
+  const [isSerialModalOpen, setIsSerialModalOpen] = useState(false);
   const [bomEnable, setBomEnable] = useState(false);
   const [variantEnable, setVariantEnable] = useState(false);
   const [confirm, setCofirm] = useState(false);
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
+  const [serialValue, setSerialValue] = useState("");
   const [otherInputValue, setOtherInputValue] = useState("");
   // const hiddenFileInput = React.useRef(null);
 
@@ -83,14 +85,24 @@ const handleImgPreview = async (file) => {
 };
 const handleImgChange = ({ fileList: newFileList }) => setFileList(newFileList);
 const uploadButton = (
-  <div>
-    <PlusOutlined />
+  <div className="uploader_img">
+    {fileList.length === 0 ? <p className="dropFileText">Drop files here or click to upload</p>
+ : <PlusOutlined style={{color:"#566A76"}} />}
     <div
       style={{
         marginTop: 8,
       }}
     >
-      Upload
+      {fileList.length === 0 ? <p className="image_desc">
+                  <span>
+                    You Can add up to{" "}
+                    <span className="image_text_bold">5 Images</span>
+                  </span>
+                  <span>
+                    each not exceeding{" "}
+                    <span className="image_text_bold">2 MB.</span>
+                  </span>
+                </p> : <p className="only_upload_text">Upload</p>}
     </div>
   </div>
 );
@@ -149,6 +161,17 @@ const uploadButton = (
     setIsModalOpen(true);
   };
 
+
+  const handleSerialOk = () => {
+    setIsSerialModalOpen(false);
+  };
+  const handleSerialCancel = () => {
+    setIsSerialModalOpen(false);
+  };
+  const handleSerialSubmit = () => {
+    setIsSerialModalOpen(false);
+    setSerialValue(document.getElementById("serial_value").value);
+  };
   const handleMaterialOk = () =>
   {
     setIsMaterialModalOpen(false);
@@ -197,6 +220,7 @@ const uploadButton = (
 
   const showScannerModal = () => {
     setIsScannerModalOpen(true);
+    console.log("scanner modal open");
   };
   const showGenerateModal = () => {
     setIsGenerateModalOpen(true);
@@ -366,6 +390,8 @@ const handleCostBlur = (e, index) => {
   });
 };
 
+
+
 const handleFocus = (index) => {
   setFocus(prevFocus => {
     const newFocus = [...prevFocus];
@@ -406,6 +432,11 @@ const handleInputClick = (index) => {
   });
 };
 
+
+// serail modal 
+const SerialModal = () => {
+  setIsSerialModalOpen(true)
+}
 
 
 
@@ -552,7 +583,7 @@ const formatAmount = (value) => {
 
 
 
-        <div className="img_uploader_main">
+        <div className={`${fileList.length === 0 ? "img_uploader_main_length_0":"img_uploader_main"}`}>
         <p className="item_image_heading"> Item Image</p>
         <Upload
         action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -561,6 +592,7 @@ const formatAmount = (value) => {
         onPreview={handleImgPreview}
         onChange={handleImgChange}
         multiple={true}
+        className={`${fileList.length===0 ? "length_0":""}`}
         maxCount={6}
       >
         {fileList.length >= 6 ? null : uploadButton}
@@ -1191,12 +1223,13 @@ const formatAmount = (value) => {
 
                 {serial && <ul className="field_box_rows" >
                   
-                <li className="type others">
-                    <input type="text" value={"Serial No."} readOnly/>
+                <li className="type others" >
+                    <input type="text"  value={"Serial No."} readOnly/>
                   </li>
                   <li className="value1">
-                    <div className="input_container" style={{width:"545px !important"}}>
+                    <div className="input_container" onClick={SerialModal}  style={{width:"545px !important"}}>
                     {/* <TagsInput /> */}
+                    <p style={{padding:"0px 10px", color:"#5c5ad0"}}>{serialValue}</p>
                     </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setSerial(false)}}>
@@ -1261,11 +1294,52 @@ const formatAmount = (value) => {
         <div className="productionresources">
          <div>
         <p className="productionlabel">Producton Batch Size</p>
-        <input className="productioninput" type="text" value="05 Pcs" />
+        <input className="productioninput" type="text" value="05 Pcs" style={{padding:"0px 10px"}} />
          </div>
          <div>
          <p className="productionlabel">Producton Hours</p>
-        <input className="productioninput" type="text" value="03:00 Hours" />
+        <input className="productioninput" type="text" value="03:00 Hours" style={{padding:"0px 10px"}} />
+         </div>
+         </div>
+         
+        </div>
+      </Modal>
+
+
+      {/* serial number modal  */}
+      <Modal
+        open={isSerialModalOpen}
+        onOk={handleSerialOk}
+        width={"max-content"}
+        onCancel={handleSerialCancel}
+        style={{ top: 20 }}
+       
+        footer={[
+          <Button
+            key="submit"
+            type="primary"
+            onClick={handleSerialSubmit}
+            style={{
+              width: "80px",
+              height: "38px",
+              backgroundColor: "#5C5AD0",
+              fontSize: "12px",
+            }}
+          >
+            Submit
+          </Button>
+        ]}
+        closable={false}
+      >
+         <div className="materialCoontainer">
+        <div className="productionresources">
+         <div>
+        <p className="productionlabel">From</p>
+        <input className="productioninput" type="text"  style={{padding:"0px 10px"}}/>
+         </div>
+         <div>
+         <p className="productionlabel">To</p>
+        <input className="productioninput" type="text" id="serial_value" style={{padding:"0px 10px"}} />
          </div>
          </div>
          

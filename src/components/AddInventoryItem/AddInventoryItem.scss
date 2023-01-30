@@ -13,16 +13,113 @@
 .main_container{
     display: flex;
     gap: 30px;
-.img_uploader_main{
-    width: 330px;
-    height: 244px;
+
+    .img_uploader_main_length_0{
+        max-width: 260px;
+    min-width: 260px;
+    max-height: 292px;
     padding: 20px;
+    background-color: #ffff;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow:  0px 2px 6px 0px #4359711f;
+    // display: flex;
+    justify-content: center;
+    // align-items: center;
+    .dropFileText{
+        font-size: 14px;
+        font-weight: 700;
+        color: #566A76;
+    }
+
+    // .dropFileTitle{
+    //     font-size: ;
+    //     font-weight: ;
+    //     color: ;
+    // }
+    .only_upload_text{
+        font-size: 14px;
+        font-weight: 700;
+        color: #566A76;
+    }
+    
+    .image_desc{
+        // width: 156px;
+        // border: 1px solid;
+        text-align: center;
+        color: #697a8dcc;
+        font-size: 13px !important;
+        font-weight: 400 !important;
+        display: flex;
+        flex-direction: column;
+        line-height: 25px;
+        .image_text_bold{
+            font-weight: 600;
+        }
+    }
+
+
+    .item_image_heading{
+        font-size: 15px;
+         color: #697a8d;
+        font-weight: 500;
+    margin-bottom: 15px;
+    }
+    
+            
+        
+    
+        
+
+    }
+.img_uploader_main{
+    max-width: 330px;
+    min-width: 260px;
+    max-height: 292px;
+    min-height: 230px;
+    height: 250px;
+    padding: 20px 12px 12px 20px;
     background-color: #ffff;
     border-radius: 6px;
     box-shadow:  0px 2px 6px 0px #4359711f;
     // display: flex;
     justify-content: center;
     // align-items: center;
+
+    .dropFileText{
+        font-size: 14px;
+        font-weight: 700;
+        color: #566A76;
+    }
+
+    // .dropFileTitle{
+    //     font-size: ;
+    //     font-weight: ;
+    //     color: ;
+    // }
+    .only_upload_text{
+        font-size: 14px;
+        font-weight: 700;
+        color: #566A76;
+    }
+    
+    .image_desc{
+        // width: 156px;
+        // border: 1px solid;
+        text-align: center;
+        color: #697a8dcc;
+        font-size: 13px !important;
+        font-weight: 400 !important;
+        display: flex;
+        flex-direction: column;
+        line-height: 25px;
+        .image_text_bold{
+            font-weight: 600;
+        }
+    }
+
+
+   
 
     .item_image_heading{
         font-size: 15px;
