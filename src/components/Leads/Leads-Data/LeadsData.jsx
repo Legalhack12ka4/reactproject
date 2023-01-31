@@ -576,7 +576,7 @@ useEffect (()=>{
                       title={`${
                         (customerfilter.key === "lead" && "Lead Source Type") ||
                         (customerfilter.key === "ownership" && "Ownership")
-                      } : Lead`}
+                      } : ${customerfilter.value}`}
                       color="#EBECF0"
                     >
                       <Tag

@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
 import config from "../Database/config";
+import { useRef } from "react";
 
 const initialFieldValues = {
   gsttreat: "",
@@ -688,6 +689,18 @@ const {
   ];
 
 
+    //input validation
+
+    const inputRef=useRef(null);
+
+    const handleKeyPress = (e) =>
+    {
+        if(e.target.value.length >= 6)
+        {
+          e.preventDefault();
+        }
+    }
+
   return (
     <div className="vendors_container">
       <div className="addvendor_heading">
@@ -987,8 +1000,9 @@ const {
                 >
                   <img src={pin} className="customerimg" />
                   <input
-                    type="number"
-                    // pattern="[0-9]{0,2}"
+                     type="number"
+                     ref={inputRef}
+                     onKeyPress={handleKeyPress}
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pincode"

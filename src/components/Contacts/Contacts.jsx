@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import "./Contacts.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import dob from "../../assets/Images/FormIcon/DOB.svg";
@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import config from "../Database/config";
 import { useFormik } from "formik";
 import { contactSchemas } from "../../Schemas";
+
 
 const resetValue = {
    name: "" ,
@@ -416,6 +417,19 @@ const position = [
   },
 
 ];
+
+  //input validation
+
+  const inputRef=useRef(null);
+
+  const handleKeyPress = (e) =>
+  {
+      if(e.target.value.length >= 10)
+      {
+        e.preventDefault();
+      }
+  }
+
   return (
     <>
     <form onSubmit={handleSubmit} autoComplete="off">
@@ -475,6 +489,8 @@ const position = [
                 <img src={Phone} className="customerimg" />
                 <input
                   type="number"
+                  ref={inputRef}
+                  onKeyPress={handleKeyPress}
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="mobile"

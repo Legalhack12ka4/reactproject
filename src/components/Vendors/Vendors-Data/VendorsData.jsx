@@ -829,7 +829,7 @@ const VendorsData = () => {
                         customerfilter.key == "street2"  && "State" ||
                         customerfilter.key === "contact"  && "Contact" ||
                         customerfilter.key === "ownership"  && "Ownership" ||
-                        customerfilter.key === "credit"  && "Credit Limit"  } : Vendor`} 
+                        customerfilter.key === "credit"  && "Credit Limit"  } : ${customerfilter.value}`} 
                         color="#EBECF0"
                         
                       >

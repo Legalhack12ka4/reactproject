@@ -15,38 +15,49 @@ const resetValue = {
   name: "",
 };
 let index = 0;
-function SearchDropdownAddButton(props) {
+function SearchDropdownAddButton({ onChange,name, options, value, error,errorMsg, ...props }) {
 
     const [items, setItems] = useState(['ITME 2022', 'IT Sol 2019','ITME 2018','Colortax']);
-    const [name, setName] = useState('');
+    //const [name, setName] = useState('');
     const [formData, setFormData] = useState(resetValue);
     const [addSouce, setAddSource] = useState([]);
     const inputRef = useRef<import('antd').InputRef>(null);
+    const [selectedOption, setSelectedOption] = useState(null);
   
-    const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setName(event.target.value);
+
+    useEffect(() => {
+      setSelectedOption(value);
+    }, [value]);
+
+    const handleChange = (value) => {
+      setSelectedOption(value);
+      onChange(name, value);
     };
+
+    // const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   setName(event.target.value);
+    // };
   
-    const addItem = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-      e.preventDefault();
-      setItems([...items, name || `New item ${index++}`]);
-      setName('');
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    };
-    const onChange = (value) => {
-        console.log(`selected ${value}`);
-      };
-      const onSearch = (value) => {
-        console.log('search:', value);
-      };
+    // const addItem = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+    //   e.preventDefault();
+    //   setItems([...items, name || `New item ${index++}`]);
+    //   setName('');
+    //   setTimeout(() => {
+    //     inputRef.current?.focus();
+    //   }, 0);
+    // };
+    // const onChange = (value) => {
+    //     console.log(`selected ${value}`);
+    //   };
+    //   const onSearch = (value) => {
+    //     console.log('search:', value);
+    //   };
 
 //get data
 
 const othersource =addSouce.map((place)=>({
   label: place.name,
-  value: place.id,
+  value: place.name,
 }))
 
 useEffect (()=>
@@ -105,6 +116,14 @@ const handleFormSubmit = () => {
    // document.getElementById("inputsource").value=""
 }
 
+// const handleDrpChange = (field, value) => {
+//   setFormData({ ...formData, [field]: value });
+// // setFieldValue(field, value);
+// // setFieldTouched(field, false);
+//  console.log(field)
+//  console.log(value)
+// };
+
 const onChangeValue = (e) => {
   const { value, name } = e.target;
   
@@ -120,17 +139,24 @@ const onChangeValue = (e) => {
 
 <Select
       style={{ width: 330, padding:0 }}
+      showSearch
       placeholder="Select Value"
       optionFilterProp="children"
-      onChange={onChange}
-      onSearch={onSearch}
+      // name="name"
+      // value={formData.name}
+      onChange={handleChange}
+     // onSearch={onSearch}
+      value={selectedOption || undefined}
+      key={selectedOption}
       //options={othersource}
       filterOption={(input, option) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
       }
       getPopupContainer={(trigger) => trigger.parentElement}
-      size={'large'}
+      style={{ width: props.width, padding: 0 }}
+      size={"large"}
       suffixIcon={<svg xmlns="http://www.w3.org/2000/svg" width="11.504" height="6.289" viewBox="0 0 11.504 6.289">
+   
       <path id="Path_125" data-name="Path 125" d="M11.43,14.84a1.21,1.21,0,0,0,1.62,0l4.4-4.19a1,1,0,1,0-1.42-1.41L12.36,12.7a.25.25,0,0,1-.33,0L7.9,9.11a1,1,0,0,0-1.32,1.51Z" transform="translate(-6.237 -8.862)" fill="#8e9caa"/>
     </svg>}
       dropdownRender={(menu) => (
@@ -148,7 +174,7 @@ const onChangeValue = (e) => {
               onChange={onChangeValue}
               name="name"
               value={formData.name}
-              onSearch={onSearch}
+           //   onSearch={onSearch}
               className="inputchnage"
             //   filterOption={(input, option) =>
             //     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Leads.scss";
 import company from "../../assets/Images/FormIcon/Company Name.svg";
 import email from "../../assets/Images/FormIcon/Email Lead.svg";
@@ -40,9 +40,17 @@ function Leads(props) {
     var m = document.querySelector(".menu1 ");
     m.classList.remove("smenu");
     document.getElementById("gradient").classList.remove("body_gradient");
+  setFormData(resetValue);
   }
 
 //inert
+const clearValue= () =>
+{
+  setFormData(formData.name="")
+  setFormData(formData.mobile="")
+
+}
+
 
 const handleFormSubmit = () => {
 
@@ -69,6 +77,7 @@ const handleFormSubmit = () => {
       // getData();
       props.onClick();
       handleclose();
+      clearValue();
 
        toast.success("Added Successfuly", {
         position: "top-right",
@@ -375,6 +384,18 @@ const getContact = () => {
     getContact();
   },[])
 
+  //input validation
+
+  const inputRef=useRef(null);
+
+  const handleKeyPress = (e) =>
+  {
+      if(e.target.value.length >= 10)
+      {
+        e.preventDefault();
+      }
+  }
+
   return (
     <>
     <form onSubmit={handleSubmit} autoComplete="off">
@@ -433,7 +454,10 @@ const getContact = () => {
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
-                  type="text"
+                  type="number"
+                 ref={inputRef}
+                 onKeyPress={handleKeyPress}
+                 
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="mobile"
@@ -565,7 +589,8 @@ const getContact = () => {
                 <SearchDropdown options={contacts} width={330} name="lead" value={values.lead} 
                 onChange={handleDrpChange} />
               ) : (
-                <SearchDropdownAddButton  width={330} />
+                <SearchDropdownAddButton  width={330} name="lead" value={values.lead} 
+                onChange={handleDrpChange} />
               )}
   
   </div>

@@ -929,7 +929,7 @@ const Customer = (props) => {
                         customerfilter.key == "street2"  && "State" ||
                         customerfilter.key === "contact"  && "Contact" ||
                         customerfilter.key === "ownership"  && "Ownership" ||
-                        customerfilter.key === "credit"  && "Credit Limit"  } : Customer`} 
+                        customerfilter.key === "credit"  && "Credit Limit"  } : ${customerfilter.value}`} 
                         color="#EBECF0"
                         
                       >

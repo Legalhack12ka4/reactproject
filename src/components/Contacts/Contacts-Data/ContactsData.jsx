@@ -416,7 +416,7 @@ const ContactsData = () => {
                         (customerfilter.key === "position" && "Position") ||
                         (customerfilter.key === "ownership" && "Ownership") ||
                         (customerfilter.key === "dob" && "Date of Birth")
-                      } : Contact`}
+                      } : ${customerfilter.value}`}
                       color="#EBECF0"
                     >
                       <Tag

@@ -25,6 +25,7 @@ import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
 import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
+          <Route path="*" element={<PageNotFound/>} />
           </Routes>
           {/* <Footer /> */}
           </div>

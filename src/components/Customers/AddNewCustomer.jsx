@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
@@ -221,17 +221,22 @@ function AddNewCustomer(props) {
       .then((response) => response.json())
       .then((data) => {
         setArea(data);
-console.log(data)
-        // if(data[0].Status == "Success")
-        // {
-        setStatedrp(data[0].state_name);
-        setCity(data[0].district);
-      // }
-      // else
-      // {
-      //   setStatedrp("");
-      //   setCity("");
-      // }
+
+        if(data.status == "Success")
+        {
+       //   alert(data.status)
+        setStatedrp(data.data[0].state_name);
+
+        setCity(data.data[0].district);
+      }
+      if(data.status == "Error")
+      {
+    //   alert(data.status)
+        setStatedrp("");
+        setCity("");
+    }
+       
+      
 });
   };
   console.log(area);
@@ -675,7 +680,17 @@ console.log(data)
     },
   ];
 
+  //input validation
 
+  const inputRef=useRef(null);
+
+  const handleKeyPress = (e) =>
+  {
+      if(e.target.value.length >= 6)
+      {
+        e.preventDefault();
+      }
+  }
 
   return (
     <div className="addNewCustomerContainer">
@@ -985,8 +1000,9 @@ console.log(data)
                 >
                   <img src={pin} className="customerimg" />
                   <input
-                    type="number"
-                    // pattern="[0-9]{0,2}"
+                   type="number"
+                   //ref={inputRef}
+                 //onKeyPress={handleKeyPress}
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pincode"
