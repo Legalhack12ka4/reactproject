@@ -1,81 +1,93 @@
-import React, {  useState, } from "react";
+import React, { useState } from "react";
 
 import "./Sidebar_btn.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
-
   // const [open, setOpen] = useState();
 
   const [subDropdown, setSubDropdown] = useState();
 
-  const [dropdownBtn, setDropdownBtn] = useState(false)
+  const [dropdownBtn, setDropdownBtn] = useState(false);
 
-  const [activePrev1, setActivePrev1] = useState("")
-
-
+  const [activePrev1, setActivePrev1] = useState("");
 
   function dropdown_open(event) {
     // console.log(open)
-        setOpen(false)
-        setOpen(!open)   
-
-        setActivePrev1(active)
-
-        if(event.target.parentNode.parentNode.id){
-          document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          // document.getElementById(active).classList.remove("dropdownActive")
-          document.getElementById(active).firstChild.classList.remove("open")
-          event.target.parentNode.parentNode.classList.add("dropdownActive1")
-          setActive(event.target.parentNode.parentNode.id)
-        }
-        else if(event.target.parentNode.parentNode.parentNode.id){
-          document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          // document.getElementById(active).classList.remove("dropdownActive")
-          document.getElementById(active).firstChild.classList.remove("open")
-          event.target.parentNode.parentNode.parentNode.classList.add("dropdownActive")
-          setActive(event.target.parentNode.parentNode.parentNode.id)          
-        } 
-        else if(event.target.parentNode.id){
-          document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-          // document.getElementById(active).classList.remove("dropdownActive")
-          document.getElementById(active).firstChild.classList.remove("open")
-          event.target.parentNode.classList.add("dropdownActive1")
-          setActive(event.target.parentNode.id)
-          
-        }
-  }
-
-  function activePrev(){
-    // setActivePrev()
-    document.getElementById(activePrev1).classList.remove("dropdownActive")
-    // setOpen(!open)
-
-  }
-
-  function changeActive(){
-      document.getElementById(active).classList.remove("dropdownActive")
-      // document.getElementById(activePrev1).classList.remove("dropdownActive")
-      document.getElementById(active).firstChild.classList.remove("open")
-      setOpen(!open)
-      document.getElementById(active).nextElementSibling.classList.remove("open_dropdown")
-      // setOpen(!open)
-  }
-
-
-  function subDropdownBtn(){
-      setSubDropdown(!subDropdown)
-  }
-  
-  function dropdownBtnActive(){
-    setDropdownBtn(false)
     
-    setDropdownBtn(true)
+    
+
+    if(open){
+      setOpen(!open);
+      openChange();
+    }
+    setTimeout(() => {
+      setOpen(!open);
+    }, 100);
+    
+
+    setActivePrev1(active);
+
+    if (event.target.parentNode.parentNode.id) {
+      document
+        .getElementById(active)
+        .nextElementSibling.classList.remove("open_dropdown");
+      // document.getElementById(active).classList.remove("dropdownActive")
+      document.getElementById(active).firstChild.classList.remove("open");
+      event.target.parentNode.parentNode.classList.add("dropdownActive1");
+      setActive(event.target.parentNode.parentNode.id);
+    } else if (event.target.parentNode.parentNode.parentNode.id) {
+      document
+        .getElementById(active)
+        .nextElementSibling.classList.remove("open_dropdown");
+      // document.getElementById(active).classList.remove("dropdownActive")
+      document.getElementById(active).firstChild.classList.remove("open");
+      event.target.parentNode.parentNode.parentNode.classList.add(
+        "dropdownActive"
+      );
+      setActive(event.target.parentNode.parentNode.parentNode.id);
+    } else if (event.target.parentNode.id) {
+      document
+        .getElementById(active)
+        .nextElementSibling.classList.remove("open_dropdown");
+      // document.getElementById(active).classList.remove("dropdownActive")
+      document.getElementById(active).firstChild.classList.remove("open");
+      event.target.parentNode.classList.add("dropdownActive1");
+      setActive(event.target.parentNode.id);
+    }
   }
-  
+  console.log(open);
 
-  
+  function activePrev() {
+    // setActivePrev()
+    document.getElementById(activePrev1).classList.remove("dropdownActive");
+    // setOpen(!open)
+  }
 
+  function openChange() {
+    setOpen(!open);
+  }
+
+  function changeActive() {
+    document.getElementById(active).classList.remove("dropdownActive");
+    // document.getElementById(activePrev1).classList.remove("dropdownActive")
+    document.getElementById(active).firstChild.classList.remove("open");
+    // setOpen(!open);
+    document
+      .getElementById(active)
+      .nextElementSibling.classList.remove("open_dropdown");
+    // setOpen(!open)
+  }
+
+  function subDropdownBtn() {
+    setSubDropdown(!subDropdown);
+  }
+
+  function dropdownBtnActive() {
+    setDropdownBtn(false);
+
+    setDropdownBtn(true);
+  }
 
   //   group
 
@@ -90,14 +102,12 @@ const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
     );
   }
 
-
-
   //   button
   else if (item.type == "btn") {
     return (
       <NavLink to={item.path}>
         <div className="btn normal" onClick={changeActive}>
-          <div className="btn_container plain" id={item.id}  >
+          <div className="btn_container plain" id={item.id}>
             <div className="btn_icon">
               <img src={item.icon} alt="icon" />
             </div>
@@ -109,15 +119,18 @@ const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
     );
   }
 
-
-
   //   dropdown btn
   else if (item.type == "dropdown_btn") {
     return (
       <>
-        
-        <div className={`btn ${item.id === active && "dropdownActive"}`} id={item.id}  >
-          <div className={`btn_container ${open && active === item.id && "open"}`} onClick={dropdown_open}>
+        <div
+          className={`btn ${item.id === active && "dropdownActive"}`}
+          id={item.id}
+        >
+          <div
+            className={`btn_container ${open && active === item.id && "open"}`}
+            onClick={dropdown_open}
+          >
             <div className="btn_icon">
               <img src={item.icon} alt="icon" />
             </div>
@@ -131,13 +144,24 @@ const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
           </div>
           <div className="right_border"></div>
         </div>
-        <div className={`dropdown_item_container ${open && active ===item.id && "open_dropdown"}`}>
-          {item.childrens.map((btn,index,row) => {
+        <div
+          className={`dropdown_item_container ${
+            open && active === item.id && "open_dropdown"
+          }`}
+        >
+          {item.childrens.map((btn, index, row) => {
             // console.log(btn,index,row.length)
             return (
               <NavLink to={btn.path} onClick={activePrev}>
-                <span className={`v-line ${index === 0 && "first-v-line"} ${index === row.length-1 && "last-v-line"} `}></span>
-                <div className="btn dropdown_margin bullet_item" onClick={dropdownBtnActive}>
+                <span
+                  className={`v-line ${index === 0 && "first-v-line"} ${
+                    index === row.length - 1 && "last-v-line"
+                  } `}
+                ></span>
+                <div
+                  className="btn dropdown_margin bullet_item"
+                  onClick={dropdownBtnActive}
+                >
                   <div className="btn_container">
                     <div className="bullet_box">
                       <div className="bullet_container">
@@ -155,57 +179,34 @@ const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
     );
   }
 
-
-
-  //   double dropdown btn
-  else {
-    return (
-      <>
-        <div className="btn" id={item.id} onClick={dropdown_open}>
-          <div className={`btn_container ${open && "open"}`}>
-            <div className="btn_icon">
-              <img src={item.icon} alt="icon" />
-            </div>
-            <p>{item.title}</p>
-            <div className="dropdown_arrow">
-              <img
-                src="/images/sidebar_icons/icon-arrow-right.svg"
-                alt="arrow_right"
-              />
-            </div>
+    // double dropdown btn
+else {
+  return (
+    <>
+      <div className="btn" id={item.id} onClick={dropdown_open}>
+        <div className={`btn_container ${open && "open"}`}>
+          <div className="btn_icon">
+            <img src={item.icon} alt="icon" />
           </div>
-          <div className="right_border"></div>
+          <p>{item.title}</p>
+          <div className="dropdown_arrow">
+            <img
+              src="/images/sidebar_icons/icon-arrow-right.svg"
+              alt="arrow_right"
+            />
+          </div>
         </div>
+        <div className="right_border"></div>
+      </div>
 
-        <div className={`dropdown_item_container ${open && "open_dropdown"}`}>
-          {item.childrens.map((btn) => {
-            return (
-              <>
-                {btn.path && (
-                  <NavLink to={btn.path}>
-                    <div className="btn dropdown_margin bullet_item">
-                      <div className="btn_container">
-                        <div className="bullet_box">
-                          <div className="bullet_container">
-                            <div className="bullet"></div>
-                          </div>
-                        </div>
-                        <p>{btn.title}</p>
-                        <div className="dropdown_arrow">
-                          {btn.childrens && (
-                            <img
-                              src="/images/sidebar_icons/icon-arrow-right.svg"
-                              alt="arrow_right"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </NavLink>
-                )}
-                {!btn.path && (
-                  <div className="btn dropdown_margin"  onClick={subDropdownBtn}>
-                    <div className={`btn_container ${subDropdown && "open openSubDropdown"}`}>
+      <div className={`dropdown_item_container ${open && "open_dropdown"}`}>
+        {item.childrens.map((btn) => {
+          return (
+            <>
+              {btn.path && (
+                <NavLink to={btn.path}>
+                  <div className="btn dropdown_margin bullet_item">
+                    <div className="btn_container">
                       <div className="bullet_box">
                         <div className="bullet_container">
                           <div className="bullet"></div>
@@ -222,33 +223,56 @@ const Sidebar_btn = ({ item, active, setActive, open, setOpen }) => {
                       </div>
                     </div>
                   </div>
-                )}
-                <div className={`dropdown_item_container sub_dropdown ${subDropdown && "open_dropdown"} `}>
-                  {btn.childrens &&
-                    btn.childrens.map((btn2) => {
-                      return (
-                        <NavLink to={btn2.path}>
-                          <div className="btn dropdown_margin bullet_item">
-                            <div className="btn_container">
-                              <div className="bullet_box">
-                                <div className="bullet_container">
-                                  <div className="bullet"></div>
-                                </div>
-                              </div>
-                              <p>{btn2.title}</p>
-                            </div>
-                          </div>
-                        </NavLink>
-                      );
-                    })}
+                </NavLink>
+              )}
+              {!btn.path && (
+                <div className="btn dropdown_margin"  onClick={subDropdownBtn}>
+                  <div className={`btn_container ${subDropdown && "open openSubDropdown"}`}>
+                    <div className="bullet_box">
+                      <div className="bullet_container">
+                        <div className="bullet"></div>
+                      </div>
+                    </div>
+                    <p>{btn.title}</p>
+                    <div className="dropdown_arrow">
+                      {btn.childrens && (
+                        <img
+                          src="/images/sidebar_icons/icon-arrow-right.svg"
+                          alt="arrow_right"
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </>
-            );
-          })}
-        </div>
-      </>
-    );
-  }
+              )}
+              <div className={`dropdown_item_container sub_dropdown ${subDropdown && "open_dropdown"} `}>
+                {btn.childrens &&
+                  btn.childrens.map((btn2) => {
+                    return (
+                      <NavLink to={btn2.path}>
+                        <div className="btn dropdown_margin bullet_item">
+                          <div className="btn_container">
+                            <div className="bullet_box">
+                              <div className="bullet_container">
+                                <div className="bullet"></div>
+                              </div>
+                            </div>
+                            <p>{btn2.title}</p>
+                          </div>
+                        </div>
+                      </NavLink>
+                    );
+                  })}
+              </div>
+            </>
+          );
+        })}
+      </div>
+    </>
+  );
+}
 };
 
 export default Sidebar_btn;
+
+

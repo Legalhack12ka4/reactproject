@@ -48,6 +48,7 @@ const AddInventoryItem = () => {
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
   const [serialValue, setSerialValue] = useState("");
+  const [serialValueTo, setSerialValueTo] = useState(0);
   const [otherInputValue, setOtherInputValue] = useState("");
   // const hiddenFileInput = React.useRef(null);
 
@@ -171,6 +172,7 @@ const uploadButton = (
   const handleSerialSubmit = () => {
     setIsSerialModalOpen(false);
     setSerialValue(document.getElementById("serial_value").value);
+    setSerialValueTo(document.getElementById("serial_value_to").value);
   };
   const handleMaterialOk = () =>
   {
@@ -1229,7 +1231,7 @@ const formatAmount = (value) => {
                   <li className="value1">
                     <div className="input_container" onClick={SerialModal}  style={{width:"545px !important"}}>
                     {/* <TagsInput /> */}
-                    <p style={{padding:"0px 10px", color:"#5c5ad0"}}>{serialValue}</p>
+                    <p style={{padding:"0px 10px", color:"#5c5ad0"}}>{serialValueTo >0 && serialValueTo} {serialValue >0 && serialValueTo>0 && " - "} {serialValue}</p>
                     </div>
                   </li>
                   <div className="delete_btn" onClick={()=>{setSerial(false)}}>
@@ -1312,7 +1314,7 @@ const formatAmount = (value) => {
         onOk={handleSerialOk}
         width={"max-content"}
         onCancel={handleSerialCancel}
-        style={{ top: 20 }}
+        style={{ top: 200 }}
        
         footer={[
           <Button
@@ -1335,7 +1337,7 @@ const formatAmount = (value) => {
         <div className="productionresources">
          <div>
         <p className="productionlabel">From</p>
-        <input className="productioninput" type="text"  style={{padding:"0px 10px"}}/>
+        <input className="productioninput" type="text" id="serial_value_to"  style={{padding:"0px 10px"}}/>
          </div>
          <div>
          <p className="productionlabel">To</p>
