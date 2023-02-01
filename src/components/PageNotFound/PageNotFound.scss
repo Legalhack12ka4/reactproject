@@ -1,11 +1,76 @@
 .not-found
 {
-    position: fixed;
+    position: absolute;
     top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
+}
+
+.error
+{
+    font-size: 22px;
+    font-weight: 600;
+    color: #5C5AD0;
+}
+.page
+{
+    font-size: 38px;
+    font-weight: 600;
+    color: #2B3347;
+}
+
+.textdesc
+{
+    font-size: 16px;
+    color: #697A8D;
+    font-weight: 500;
+    margin-top: 34px;
+
+}
+
+.back
+{
+    width: 114px;
+    border-radius: 5px;
+    height: 38px;
+    border: 1px solid #C2CAD2;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: #566A76;
+    cursor: pointer;
+}
+.home
+{
+    width: 101px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #5C5AD0;
+    border: none;
+    font-stretch: 14px;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight: 400;
+    cursor: pointer;
+}
+.doc
+{
+    color: #5C5AD0;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 40px;
+}
+
+.docdesc
+{
+    margin-top: 6px;
+    font-size: 14px;
+    color: #697A8D;
+    font-weight: 400;
 }

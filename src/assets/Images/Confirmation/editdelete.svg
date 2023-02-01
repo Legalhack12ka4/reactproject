@@ -1,0 +1,13 @@
+<svg id="Oprions" xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16">
+  <g id="dots-vertical">
+    <g id="Icon_Color" data-name="Icon Color">
+      <g id="Group_42566" data-name="Group 42566">
+        <g id="Group_42564" data-name="Group 42564">
+          <path id="Path" d="M2,0A2,2,0,1,0,4,2,2.006,2.006,0,0,0,2,0Z" transform="translate(0 6)" fill="#8e9caa"/>
+          <path id="Path-2" data-name="Path" d="M2,0A2,2,0,1,0,4,2,2.006,2.006,0,0,0,2,0Z" fill="#8e9caa"/>
+          <path id="Path-3" data-name="Path" d="M2,0A2,2,0,1,0,4,2,2.006,2.006,0,0,0,2,0Z" transform="translate(0 12)" fill="#8e9caa"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
