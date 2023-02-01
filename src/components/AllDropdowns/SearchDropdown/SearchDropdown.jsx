@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Select } from "antd";
 import "./SearchDropdown.scss";
 
-function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...props }) {
+function SearchDropdown({ onChange, options, name, value, error,errorMsg, editBtn, editBtnClick, ...props }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
         optionFilterProp="children"
         value={selectedOption || undefined}
         //defaultValue={selectedOption}
-      key={selectedOption}
+        key={selectedOption}
         filterOption={(input, option) =>
           (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
         }
@@ -53,7 +53,7 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, ...pro
         }
         options={options}
       />
-
+      {selectedOption && editBtn && <div className="editBtnContainer"><div className="editBtn" onClick={editBtnClick}><img src="/images/icons/edit_blue_icon.svg" alt="" /></div></div>}
       
     </div>
     {error && (
