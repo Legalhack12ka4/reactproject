@@ -26,6 +26,7 @@ import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
 import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import NewEstimate from './components/Sales/Estimate/New Estimate/NewEstimate';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
+          <Route path="/newestimate" element={<NewEstimate/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

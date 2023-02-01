@@ -99,7 +99,7 @@
         "childrens": [
             {
                 "title": "Estimate",
-                "path": "/estimate"
+                "path": "/newestimate"
             },
             {
                 "title": "Sales Order",
