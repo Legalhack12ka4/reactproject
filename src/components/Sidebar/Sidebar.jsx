@@ -22,6 +22,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const [drpActive, setDrpActive] = useState("");
   const [subDropdown, setSubDropdown] = useState(false);
+  const [subActive, setSubActive] = useState("");
 
 
   function enterMouse() {
@@ -44,6 +45,7 @@ const Sidebar = () => {
   }
 
   function dropdown_open(id){
+    setSubDropdown(false)
     if(openId === id){
       setOpen(!open)
     }
@@ -53,12 +55,28 @@ const Sidebar = () => {
     setOpenId(id);
   }
 
+  function subDropdown_open(id){
+    if(openId === id){
+      setSubDropdown(!subDropdown)
+    }
+    if(!subDropdown){
+      setSubDropdown(!subDropdown)
+    }
+    setOpenId(id);
+  }
+
   function dropdownBtnActive(id){
       // console.log(id)
       setDrpActive(id)
   }
 
+  function subDropdownBtnActive(id){
+    console.log(id)
+    setDrpActive(id)
+  }
+
   function resetDrp(){
+    setSubDropdown(false)
     setDrpActive("")
     setOpen(false)
     setOpenId("")
@@ -233,7 +251,7 @@ const Sidebar = () => {
                           )}
                           {!btn.path && (
                             <div className="btn dropdown_margin">
-                              <div className={`btn_container ${ subDropdown && "open openSubDropdown"}`}>
+                              <div className={`btn_container ${ subDropdown && "open openSubDropdown"}`} onClick={() => subDropdown_open(item.id)}>
                                 <div className="bullet_box">
                                   <div className="bullet_container">
                                     <div className="bullet"></div>
@@ -251,13 +269,13 @@ const Sidebar = () => {
                               </div>
                             </div>
                           )}
-                          <div className={`dropdown_item_container sub_dropdown ${ "open_dropdown"} `}>
+                          <div className={`dropdown_item_container sub_dropdown ${subDropdown && "open_dropdown"} `}>
                             {btn.childrens &&
                               btn.childrens.map((btn2) => {
                                 return (
                                   <NavLink to={btn2.path}>
-                                    <div className="btn dropdown_margin bullet_item">
-                                      <div className="btn_container">
+                                    <div className="btn dropdown_margin bullet_item" >
+                                      <div className="btn_container" onClick={()=> subDropdownBtnActive(item.id)}>
                                         <div className="bullet_box">
                                           <div className="bullet_container">
                                             <div className="bullet"></div>

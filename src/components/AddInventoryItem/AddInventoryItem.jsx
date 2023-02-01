@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 import Page_heading from "../Page_Heading/Page_heading";
 
 import { Switch } from "antd";
-import { Modal, Button, Tooltip } from "antd";
+import { Modal, Button, Tooltip, Popover } from "antd";
 import { Upload,  message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import alert from "../../assets/Images/Confirmation/confirm.svg"
@@ -50,6 +50,7 @@ const AddInventoryItem = () => {
   const [serialValue, setSerialValue] = useState("");
   const [serialValueTo, setSerialValueTo] = useState(0);
   const [otherInputValue, setOtherInputValue] = useState("");
+  const containerRef = useRef(null);
   // const hiddenFileInput = React.useRef(null);
 
 
@@ -262,8 +263,16 @@ const handleBomAddRow = () => {
   setCost(prevCost => [...prevCost, 0, 0]);
   setQty(prevQty => [...prevQty, 0, 0]);
   setValue(prevValue => [...prevValue, 0, 0]);
+
+  containerRef.current.scrollTop = containerRef.current.scrollHeight;
+
   
 }
+
+useEffect(() => {
+  if (containerRef.current) {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  }}, [bomRows])
 
 // const handleVarientAddRow = () => {
 //   let index = superVariantRows.length -1;
@@ -392,6 +401,10 @@ const handleCostBlur = (e, index) => {
   });
 };
 
+const editBtnClick = () => {
+  setIsMaterialModalOpen(true);
+
+}
 
 
 const handleFocus = (index) => {
@@ -426,6 +439,9 @@ const formatTotalAmount = (amount) => {
 }
 const formattedAmount = formatTotalAmount(totalSum);
 
+// console.log(formattedAmount)
+console.log(totalSum)
+
 const handleInputClick = (index) => {
   setIsCostBlurredIndex(prevIsCostBlurredIndex => {
     const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
@@ -439,6 +455,19 @@ const handleInputClick = (index) => {
 const SerialModal = () => {
   setIsSerialModalOpen(true)
 }
+
+
+// popOver 
+
+const [open, setOpen] = useState(false);
+
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+  };
 
 
 
@@ -574,7 +603,15 @@ const formatAmount = (value) => {
                   <p>Tax Rates</p>
                   <SearchDropdown width={330} />
                 </div>
+
+                {bomEnable &&
+                  <div className="input_group">
+                  <p>Menufacturing Account</p>
+                  <SearchDropdown width={330} />
+                </div>
+                }
               </div>
+              
               <div className="btn_container">
                 <button className="submit_btn">Submit</button>
                 <button className="cancel_btn">Cancel</button>
@@ -1051,14 +1088,15 @@ const formatAmount = (value) => {
               <li className="value">Value</li>
             </ul>
 
-            <div className="rows_container">
+            <div className="rows_container" ref={containerRef}>
             {bomRows.map((item, index) => {
               return (
                 <ul className="field_box_rows" key={item.id}>
                   {withResource && (
                     <li className="assigned_resource">
-                      <SearchDropdown options={bodymaterial} width={250} />
+                      <SearchDropdown options={bodymaterial} editBtnClick={editBtnClick} width={250} editBtn={true} />
                     </li>
+                    
                   )}
                   <li className="type">
                     <SearchDropdown width={138} />
@@ -1098,7 +1136,16 @@ const formatAmount = (value) => {
                     </li>
                     <li className="value">
                       <div className="input_container">
-                        <input type="number" value={value[index]>0 ? value[index]:""} readOnly />
+                        <input type="text" value={value[index]>=10000000 ? (value[index]/10000000).toFixed(2)+" Cr" : value[index]>=10000 ? (value[index]/100000).toFixed(2) + " Lacs" : value[index]>=1000 ? (value[index]/1000).toFixed(2) + " K" : value[index] > 0 ? value[index]:"" } readOnly />
+                        {/* if (value >= 10000000) {
+                            return (value / 10000000).toFixed(2) + " Cr";
+                          } else if (value >= 10000) {
+                            return (value / 100000).toFixed(2) + " Lacs";
+                          } else if (value >= 1000) {
+                            return (value / 1000).toFixed(2) + " K";
+                          } else {
+                            return value;
+                          } */}
                       </div>
                     </li>
                   <div className="delete_btn" onClick={() => deleteBomRow(item.id)}>
@@ -1112,7 +1159,7 @@ const formatAmount = (value) => {
             <div className="footer_container">
               <div className="add_field" onClick={handleBomAddRow}>+ Add</div>
               <div className="total_value">
-                Total Value : <span> ₹ {formattedAmount}</span>
+                Total Value : <span> ₹ {totalSum >= 10000000 ? (totalSum / 10000000).toFixed(2) + " Cr" : totalSum >= 10000 ? (totalSum / 100000).toFixed(2) + " Lacs" : totalSum >= 1000 ? (totalSum / 1000).toFixed(2) + " K" : totalSum > 0 ? totalSum:"0.00" }</span>
               </div>
             </div>
           </div>

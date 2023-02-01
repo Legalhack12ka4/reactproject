@@ -1,6 +1,32 @@
 .srchdrp {
   margin-top: 8px;
   // margin-bottom:20px;
+  position: relative;
+
+  .editBtnContainer{
+    background-color: #ffff !important;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+  .editBtn{
+    // position: absolute;
+    // top: 1px;
+    width: 36px;
+    height: 36px;
+    // border: 1px solid;
+    display: flex;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    // right: 1px;
+    background-color: #ffff;
+    background:linear-gradient(to right, transparent 0%, #5c5ad0 1000%);
+  }
+}
 
   .ant-select-selector {
     border: 1px solid #5c5ad0 !important;
