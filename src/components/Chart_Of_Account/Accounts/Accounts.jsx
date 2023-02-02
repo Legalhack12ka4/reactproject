@@ -36,7 +36,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "2",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -44,7 +44,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "3",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -52,7 +52,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "4",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -60,7 +60,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "5",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -68,7 +68,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "6",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -76,7 +76,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "7",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -84,7 +84,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "8",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -92,7 +92,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "9",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -100,7 +100,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "10",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -108,7 +108,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "11",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -116,7 +116,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "12",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -124,7 +124,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "13",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -132,7 +132,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "14",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -140,7 +140,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "15",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -148,7 +148,7 @@ function Accounts() {
       status: "Active",
     },
     {
-      key: "1",
+      key: "16",
       account_name: "Cleaning Expenses",
       account_code: "0019",
       account_type: "Cost of Goods Sold",
@@ -180,11 +180,18 @@ function Accounts() {
       key: "account_code",
       resizable: true,
       width: "auto",
-      align: "center",
+      align: "left",
       showSorterTooltip:{ title: '' },
+     // ellipsis:true,
+      textWrap: 'ellipsis' | 'word-break',
       sorter: (record1, record2) => {
         return record1.account_code > record2.account_code;
       },
+      render :(text,record)=>
+      {
+        return <div  style={{marginRight:"117px", display:"flex", justifyContent:"end", textOverflow: 'ellipsis',
+        overflow: 'hidden'}}>{text}</div>
+      }
     },
 
     {
@@ -220,7 +227,7 @@ function Accounts() {
       dataIndex: "status",
       key: "status",
       resizable: true,
-      width: "auto",
+      width: 150,
       align: "left",
       showSorterTooltip:{ title: '' },
       sorter: (record1, record2) => {
