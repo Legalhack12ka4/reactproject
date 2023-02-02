@@ -17,7 +17,9 @@ import Sidebar_btn from "../Sidebar_btn/Sidebar_btn";
 
 const Sidebar = () => {
   const [isTriggered, setIsTriggred] = useState(false);
-  const [active, setActive] = useState("db");
+  const [active, setActive] = useState(
+    localStorage.getItem("activeMenuItem") || ""
+  );
   const [openId, setOpenId] = useState("");
   const [open, setOpen] = useState(false);
   const [drpActive, setDrpActive] = useState("");
@@ -30,6 +32,29 @@ const Sidebar = () => {
       document.getElementById("sidebar").classList.remove("sidebar_mini");
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("activeMenuItem", active);
+  }, [active]);
+
+
+  const myDiv = React.useRef(null);
+const [scrollTop, setScrollTop] = useState(true);
+
+useEffect(() => {
+const handleScroll = () => {
+setScrollTop(myDiv.current.scrollTop === 0);
+};
+
+myDiv.current.addEventListener('scroll', handleScroll);
+
+return () => {
+myDiv.current.removeEventListener('scroll', handleScroll);
+};
+}, []);
+
+
+
   function leaveMouse() {
     if (isTriggered) {
       document.getElementById("sidebar").classList.add("sidebar_mini");
@@ -102,10 +127,11 @@ const Sidebar = () => {
               <img src="/images/sidebar_icons/icon.svg" alt="arrow" />
             </div>
           </div>
+          <div className={`${scrollTop && 'not-at-top'} menu-innner-shadow `}></div>
 
           {/* Groups  */}
 
-          <div className="sidebar_item">
+          <div className="sidebar_item" ref={myDiv}>
             {items.map((item, index) => (
               <>
                 {item.type == "group" && (
