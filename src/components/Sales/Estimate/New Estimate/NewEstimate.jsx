@@ -5,7 +5,13 @@ import logo from "../../../../assets/Images/NewEstimate/Logo.svg";
 import r from "../../../../assets/Images/NewEstimate/R.svg";
 import setting from "../../../../assets/Images/NewEstimate/setting.svg";
 import draft from "../../../../assets/Images/NewEstimate/draft.svg";
-import { Button, Collapse, message, Upload } from 'antd';
+import customer from "../../../../assets/Images/NewEstimate/customerdetilas.svg";
+import custlogo from "../../../../assets/Images/NewEstimate/custlogo.svg";
+import arrow from "../../../../assets/Images/NewEstimate/arrow.svg";
+import email from "../../../../assets/Images/FormIcon/Email.svg";
+import phone from "../../../../assets/Images/FormIcon/Phone.svg";
+
+import { Button, Collapse, message, Switch, Upload } from 'antd';
 import icon from "../../../../assets/Images/Confirmation/editdelete.svg"
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
@@ -115,19 +121,48 @@ function NewEstimate() {
 {/* //collapse */}
           <div className='bill'>
         <p className='billabel'>Bill to</p>
-        <div>
-        <Collapse key={10} ghost>
+        <div style={{marginLeft:"30px", marginTop:"15px", marginBottom:"15px"}}>
+        {/* <Collapse key={10} ghost>
    <Panel header="This is panel header 1" key="10">
       <p>{text}</p>
     </Panel>
    
-  </Collapse>
- {!isShown && <button onClick={handleClick}>Click</button>}
+  </Collapse> */}
+ {!isShown && <div onClick={handleClick}  className="showcustomer">Select Customer <img src={arrow} style={{transform: "rotate(90deg)"}}/></div>}
 
 {/* 👇️ show elements on click */}
 {isShown && (
-  <div>
-    <h2>Some content here</h2>
+  <div style={{display:"flex", gap:"70px"}}>
+    <div>
+      <p style={{fontSize:"14px", color:"#5C5AD0", fontWeight:"400", marginBottom:"5px"}}>Freda Fashion Ltd</p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"5px"}}>24AA56IU12KITF6</p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"2px"}}>G-2, Ground Floor, International
+      <br/>Business Center, Piplod, Surat
+      <br/>Gujarat- 395002</p>
+      {/* <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"2px"}}></p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"17px"}}>
+      </p> */}
+    </div>
+    <div className='billabel'>
+      <p  style={{marginTop:"-48px"}}>Ship To</p>
+      <div style={{marginTop:"16px"}}>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"5px"}}>Taj Resort & Convention Center <br/>
+      Vainguinim Beach, Dona Paula,<br/>
+      Panaji, Goa- 403004
+      </p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginTop:"25px"}}>+91 9998888877</p>
+      {/* <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"2px"}}>Business Center, Piplod, Surat</p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"17px"}}>Gujarat- 395002
+      </p> */}
+    </div>
+    </div>
+    <div className='billabel' >
+      <p style={{marginTop:"-48px"}}>Place of Supply</p>
+      <div style={{marginTop:"16px"}}>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"5px"}}>Goa
+      </p>
+      </div>
+    </div>
   </div>
 )}
 
@@ -299,7 +334,71 @@ function NewEstimate() {
         <div>
         {isShown && (
   <div className='customerinfo'>
-    <h2>Some content here</h2>
+    <div style={{display:"flex"}}>
+      {/* <div>Customer Details</div> */}
+      <div><img src={customer}/></div>
+    </div >
+    <div style={{display:"flex", alignItems:"center", marginTop:"12px"}}>
+    <div><img src={custlogo}/></div>
+    <div style={{marginLeft:"16px"}}><p className='custname'>Ashish Jaria </p> <p className='cmpname'>FREDA FASHION LTD</p></div>
+    </div>
+    <hr style={{border:"0.5px solid #C2CAD2",marginTop: "20px"}}/>
+  <div style={{marginTop:"20px"}}>
+    <p style={{
+    color:"#2B3347",
+    fontSize: "14px",
+    fontWeight: "500"
+}}>Contact Details</p>
+    {/* //email */}
+    <div style={{display:"flex", gap:"10px", alignItems:"center", marginTop:"15px"}}>
+    <img src={email}/>
+    <div style={{fontSize:"14px",
+    color:"#697A8D",
+    fontWeight:"500"}}>Sales_information@Freda.com</div>
+    </div>
+{/* //phone */}
+<div style={{display:"flex", gap:"10px", alignItems:"center", marginTop:"10px"}}>
+    <img src={phone}/>
+    <div style={{
+          color: "#697A8D",
+          fontSize: "14px",
+          fontWeight:"500"
+    }}>+91 9898925125</div>
+    </div>
+{/* //phone */}
+<div style={{display:"flex", gap:"10px", alignItems:"center", marginTop:"10px"}}>
+    <img src={phone}/>
+    <div style={{
+          color: "#697A8D",
+          fontSize: "14px",
+          fontWeight:"500"
+    }}>+91 7778928885</div>
+    </div>
+
+  </div>
+  <hr style={{border:"0.5px solid #C2CAD2",marginTop: "20px", marginBottom:"20px"}}/>
+
+  <div style={{display:"flex", gap:"40px"}}>
+    <div>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"2px"}}>Outstanding Amount</p>
+      <p style={{fontSize:"16px", color:"#2B3347", fontWeight:"600", marginBottom:"20px"}}>₹ 1.18 lacs</p>
+      <p style={{fontSize:"14px", color:"#697A8D", fontWeight:"400"}}>Attach pdf in mail</p>
+    </div>
+    <div>
+      <p  style={{fontSize:"14px", color:"#697A8D", fontWeight:"400", marginBottom:"2px"}}>Credits</p>
+      <p style={{fontSize:"16px", color:"#2B3347", fontWeight:"600", marginBottom:"20px"}}>₹ 0.21 lacs</p>
+      <p> <div className="switch_toggler">
+                    <Switch
+                      unCheckedChildren="__"
+                    //  onChange={handleBomChange}
+                    //  onClick={setIsBOMModalOpen}
+                    />
+                  
+                   
+                  </div></p>
+    </div>
+  </div>
+          
   </div>
 )}
         <div className='conatiner2estimate'>

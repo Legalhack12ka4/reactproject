@@ -91,6 +91,7 @@ color: #FFFFFF;
           margin-top: 15px;
           margin-left: 30px;
           background-color: #5C5AD11A;
+          border-radius: 6px;
         }
         .billabel
         {
@@ -110,6 +111,29 @@ color: #FFFFFF;
     margin-top: 30px;
    // margin-left: 30px;
         }
+.showcustomer
+{
+
+    width: 250px;
+    height: 38px;
+    border-radius: 5px;
+    border: 0.5px solid #C2CAD2;
+    background-color: #FFFFFF;
+   gap:110px;
+    font-size: 14px;
+    display: flex;
+    color: #697A8D;
+    /* padding: 8px; */
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+
+
+
+
         .eslistlabel
         {
           font-size: 12px;
@@ -356,6 +380,21 @@ color: #FFFFFF;
     font-weight: 600;
        }
        
+        }
+
+        .custname
+        {
+          font-size: 16px;
+    font-weight: 500;
+    color: #697A8D;
+    /* margin-top: 0px; */
+    margin-bottom: 3px;
+        }
+        .cmpname
+        {
+              font-size: 14px;
+    color: #5C5AD0;
+    font-weight: 600;
         }
 
     }
