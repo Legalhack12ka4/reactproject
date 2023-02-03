@@ -4,15 +4,14 @@ import Page_heading from "../Page_Heading/Page_heading";
 
 import { Switch } from "antd";
 import { Modal, Button, Tooltip, Popover } from "antd";
-import { Upload,  message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import alert from "../../assets/Images/Confirmation/confirm.svg"
+import { Upload, message } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import alert from "../../assets/Images/Confirmation/confirm.svg";
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
 import TagsInput from "../TagsInput/TagsInput";
-
-
+import { createRef } from "react";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -21,10 +20,9 @@ const getBase64 = (file) => {
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
-}
+};
 
-
-const AddInventoryItem = () => {
+const AddInventoryItem = (props, {onClick}) => {
   const scannerRef = useRef(null);
   const [image, setImage] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
@@ -36,7 +34,12 @@ const AddInventoryItem = () => {
   // const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1",value: ""},{id:2, name:"row2",value: ""},{id:3, name:"row3",value: ""}]);
   // ,{id:4, name:"row4",type: "typebox"}
   const [withResource, setWithResource] = useState(true);
-  const [bomRows, setBomRows] = useState([{id:1, name:"row1", value:""},{id:2, name:"row2", value:""},{id:3, name:"row3", value:""},{id:4, name:"row4", value:""}]);
+  const [bomRows, setBomRows] = useState([
+    { id: 1, name: "row1", value: "" },
+    { id: 2, name: "row2", value: "" },
+    { id: 3, name: "row3", value: "" },
+    { id: 4, name: "row4", value: "" },
+  ]);
 
   // const [currentIndex, setCurrentIndex] = React.useState(0);
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
@@ -53,66 +56,101 @@ const AddInventoryItem = () => {
   const containerRef = useRef(null);
   // const hiddenFileInput = React.useRef(null);
 
-
-  // bom value state 
+  // bom value state
   const [cost, setCost] = useState(Array(bomRows.length).fill(0));
-const [qty, setQty] = useState(Array(bomRows.length).fill(0));
-const [value, setValue] = useState(Array(bomRows.length).fill(0));
-const [formattedCost, setFormattedCost] = useState(Array(bomRows.length).fill(""));
-const [isFocusedIndex, setIsFocusedIndex] = useState(Array(bomRows.length).fill(false));
-const [isCostBlurredIndex, setIsCostBlurredIndex] = useState(Array(bomRows.length).fill(false));
-const [showFormattedValue, setShowFormattedValue] = useState([]);
-const [isPcsShown, setIsPcsShown] = useState(Array(bomRows.length).fill(false));
-const inputRef = useRef(Array(bomRows.length).fill(null));
-const [focus, setFocus] = useState([]);
-const [totalSum, setTotalSum] = useState(0);
+  const [qty, setQty] = useState(Array(bomRows.length).fill(0));
+  const [value, setValue] = useState(Array(bomRows.length).fill(0));
+  const [formattedCost, setFormattedCost] = useState(
+    Array(bomRows.length).fill("")
+  );
+  const [isFocusedIndex, setIsFocusedIndex] = useState(
+    Array(bomRows.length).fill(false)
+  );
+  const [isCostBlurredIndex, setIsCostBlurredIndex] = useState(
+    Array(bomRows.length).fill(false)
+  );
+  const [showFormattedValue, setShowFormattedValue] = useState([]);
+  const [isPcsShown, setIsPcsShown] = useState(
+    Array(bomRows.length).fill(false)
+  );
+  const inputRef = useRef(Array(bomRows.length).fill(null));
+  const [focus, setFocus] = useState([]);
+  const [totalSum, setTotalSum] = useState(0);
+
+  // image Uploader
+
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState([]);
+
+  //popover
+
+  const [popOverVisible, setPopOverVisible] = useState(false);
+  //Body assigned handlepopover
+const resetRef= useRef()
+
+const handleReset = () =>
+{
+  console.log("hello")
+  resetRef.current.handleReset();
+}
+
+  const handlePopOver = (index) => {
+    setPopOverVisible(index);
+    console.log("hello");
+  };
+
+  //
+const popVisible = () =>
+{
+  setPopOverVisible(false)
+  console.log("hoja bhai...........")
+  
+}
 
 
-// image Uploader 
-
-
-const [previewOpen, setPreviewOpen] = useState(false);
-const [previewImage, setPreviewImage] = useState('');
-const [previewTitle, setPreviewTitle] = useState('');
-const [fileList, setFileList] = useState([]);
-
-const handleImgCancel = () => setPreviewOpen(false);
-const handleImgPreview = async (file) => {
-  if (!file.url && !file.preview) {
-    file.preview = await getBase64(file.originFileObj);
-  }
-  setPreviewImage(file.url || file.preview);
-  setPreviewOpen(true);
-  setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-};
-const handleImgChange = ({ fileList: newFileList }) => setFileList(newFileList);
-const uploadButton = (
-  <div className="uploader_img">
-    {fileList.length === 0 ? <p className="dropFileText">Drop files here or click to upload</p>
- : <PlusOutlined style={{color:"#566A76"}} />}
-    <div
-      style={{
-        marginTop: 8,
-      }}
-    >
-      {fileList.length === 0 ? <p className="image_desc">
-                  <span>
-                    You Can add up to{" "}
-                    <span className="image_text_bold">5 Images</span>
-                  </span>
-                  <span>
-                    each not exceeding{" "}
-                    <span className="image_text_bold">2 MB.</span>
-                  </span>
-                </p> : <p className="only_upload_text">Upload</p>}
+  const handleImgCancel = () => setPreviewOpen(false);
+  const handleImgPreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
+  };
+  const handleImgChange = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+  const uploadButton = (
+    <div className="uploader_img">
+      {fileList.length === 0 ? (
+        <p className="dropFileText">Drop files here or click to upload</p>
+      ) : (
+        <PlusOutlined style={{ color: "#566A76" }} />
+      )}
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        {fileList.length === 0 ? (
+          <p className="image_desc">
+            <span>
+              You Can add up to{" "}
+              <span className="image_text_bold">5 Images</span>
+            </span>
+            <span>
+              each not exceeding <span className="image_text_bold">2 MB.</span>
+            </span>
+          </p>
+        ) : (
+          <p className="only_upload_text">Upload</p>
+        )}
+      </div>
     </div>
-  </div>
-);
-
-
-
-
-
+  );
 
   // const handleClick = (event) => {
   //   hiddenFileInput.current.click();
@@ -163,7 +201,6 @@ const uploadButton = (
     setIsModalOpen(true);
   };
 
-
   const handleSerialOk = () => {
     setIsSerialModalOpen(false);
   };
@@ -175,39 +212,36 @@ const uploadButton = (
     setSerialValue(document.getElementById("serial_value").value);
     setSerialValueTo(document.getElementById("serial_value_to").value);
   };
-  const handleMaterialOk = () =>
-  {
+  const handleMaterialOk = () => {
     setIsMaterialModalOpen(false);
-  }
+  };
   const handleOk = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
     setIsBOMModalOpen(false);
-    
   };
 
-  const handleMaterialCancel = () =>
-  {
+  const handleMaterialCancel = () => {
     setIsMaterialModalOpen(false);
-  }
+  };
   const handleConfirmCancel = () => {
     //setIsModalOpen(false);
-   // setIsBOMVariantOpen(false);
-   // setIsBOMModalOpen(false);
-   setCofirm(true)
+    // setIsBOMVariantOpen(false);
+    // setIsBOMModalOpen(false);
+    setCofirm(true);
   };
   const handleConfirm = () => {
     //setIsModalOpen(false);
-   // setIsBOMVariantOpen(false);
-   // setIsBOMModalOpen(false);
-   setCofirm(false)
+    // setIsBOMVariantOpen(false);
+    // setIsBOMModalOpen(false);
+    setCofirm(false);
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
-   setIsBOMModalOpen(false);
-    setCofirm(false)
+    setIsBOMModalOpen(false);
+    setCofirm(false);
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -233,91 +267,106 @@ const uploadButton = (
     setIsGenerateModalOpen(false);
   };
 
+  //   const deleteBomRow = (id) => {
+  //     setBomRows(bomRows.filter(row => row.id !== id));
+  //     setCost(cost.filter((_, index) => bomRows[index].id !== id));
+  //     setQty(qty.filter((_, index) => bomRows[index].id !== id));
+  //     setValue(value.filter((_, index) => bomRows[index].id !== id));
+  //     setTotalSum(totalSum - value[id]);
+  //     // console.log(id)
+  // }
+  const deleteBomRow = (id) => {
+    setBomRows(bomRows.filter((row) => row.id !== id));
+    setCost((prevCost) =>
+      prevCost.filter((item, index) => bomRows[index].id !== id)
+    );
+    setValue((prevValue) =>
+      prevValue.filter((item, index) => bomRows[index].id !== id)
+    );
+    setQty((prevQty) => prevQty.filter((_, index) => bomRows[index].id !== id));
+    setIsPcsShown((prevIsPcsShown) =>
+      prevIsPcsShown.filter((_, index) => bomRows[index].id !== id)
+    );
+    setTotalSum(totalSum - value[id]);
+    setShowFormattedValue((prevValue) =>
+      prevValue.filter((item, index) => bomRows[index].id !== id)
+    );
+  };
+  // const deleteBomRow = (id) => {
+  //   setBomRows(bomRows.filter(row => row.id !== id));
+  //   setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
+  //   setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
+  //   setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
+  // }
+  const handleBomAddRow = () => {
+    const newRows = [...bomRows, { id: Date.now() }, { id: Date.now() + 1 }];
+    setBomRows(newRows);
+    setCost((prevCost) => [...prevCost, 0, 0]);
+    setQty((prevQty) => [...prevQty, 0, 0]);
+    setValue((prevValue) => [...prevValue, 0, 0]);
 
-//   const deleteBomRow = (id) => {
-//     setBomRows(bomRows.filter(row => row.id !== id));
-//     setCost(cost.filter((_, index) => bomRows[index].id !== id));
-//     setQty(qty.filter((_, index) => bomRows[index].id !== id));
-//     setValue(value.filter((_, index) => bomRows[index].id !== id));
-//     setTotalSum(totalSum - value[id]);
-//     // console.log(id)
-// }
-const deleteBomRow = (id) => {
-  setBomRows(bomRows.filter(row => row.id !== id));
-  setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
-  setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-  setQty(prevQty => prevQty.filter((_, index) => bomRows[index].id !== id));
-  setIsPcsShown(prevIsPcsShown => prevIsPcsShown.filter((_, index) => bomRows[index].id !== id));
-  setTotalSum(totalSum - value[id]);
-  setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-}
-// const deleteBomRow = (id) => {
-//   setBomRows(bomRows.filter(row => row.id !== id));
-//   setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
-//   setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-//   setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-// }
-const handleBomAddRow = () => {
-  const newRows = [...bomRows, {id: Date.now()}, {id: Date.now() + 1}];
-  setBomRows(newRows);
-  setCost(prevCost => [...prevCost, 0, 0]);
-  setQty(prevQty => [...prevQty, 0, 0]);
-  setValue(prevValue => [...prevValue, 0, 0]);
-
-  containerRef.current.scrollTop = containerRef.current.scrollHeight;
-
-  
-}
-
-useEffect(() => {
-  if (containerRef.current) {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-  }}, [bomRows])
+  };
 
-// const handleVarientAddRow = () => {
-//   let index = superVariantRows.length -1;
-//   const newRows = [...superVariantRows];
-//   newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
-//   setSuperVariantRows(newRows);
-// }
-// const deleteVariantsRow = (id) => {
-//   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
-//   // console.log(id)
-// }
-const handleBomChange = (checked) => {
-  // console.log(`switch bom ${checked}`);
-  setBomEnable(checked);
-}
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [bomRows]);
 
-const handleVarientChange = (checked) => {
-  // console.log(`switch varient ${checked}`);
-  setVariantEnable(checked);
-}
+  // const handleVarientAddRow = () => {
+  //   let index = superVariantRows.length -1;
+  //   const newRows = [...superVariantRows];
+  //   newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
+  //   setSuperVariantRows(newRows);
+  // }
+  // const deleteVariantsRow = (id) => {
+  //   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
+  //   // console.log(id)
+  // }
+  const handleBomChange = (checked) => {
+    // console.log(`switch bom ${checked}`);
+    setBomEnable(checked);
+  };
 
-
+  const handleVarientChange = (checked) => {
+    // console.log(`switch varient ${checked}`);
+    setVariantEnable(checked);
+  };
 
   const [result, setResult] = useState("No result");
   const [data, setData] = React.useState("Scan a barcode");
 
   // console.log(data)
 
-//options select
+  //options select
 
-
-const bodymaterial = [
-  {
-    value: "Body Welding Machine",
-    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Welding Machine</div>,
-  },
-  {
-    value: "Body Cutter Polish Machine",
-    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Cutter Polish Machine</div>,
-  },
-  {
-    value: "Body Panels Assemble Machine",
-    label: <div onClick={() => setIsMaterialModalOpen(true)}>Body Panels Assemble Machine</div>,
-  },
-];
+  const bodymaterial = [
+    {
+      value: "Body Welding Machine",
+      label: (
+        <div onClick={() => setIsMaterialModalOpen(false)}>
+          Body Welding Machine
+        </div>
+      ),
+    },
+    {
+      value: "Body Cutter Polish Machine",
+      label: (
+        <div onClick={() => setIsMaterialModalOpen(false)}>
+          Body Cutter Polish Machine
+        </div>
+      ),
+    },
+    {
+      value: "Body Panels Assemble Machine",
+      label: (
+        <div onClick={() => setIsMaterialModalOpen(false)}>
+          Body Panels Assemble Machine
+        </div>
+      ),
+    },
+  ];
 
   // useEffect(() => {
   //   hiddenFileInput.current.ondragover = () => {
@@ -342,7 +391,6 @@ const bodymaterial = [
   //   dots.push(i);
   // }
 
-
   const selectOption = [
     {
       value: "Value 1",
@@ -365,101 +413,94 @@ const bodymaterial = [
   //   return () => clearInterval(interval);
   // }, [currentIndex, image.length]);
 
+  const calculateValue = (cost, qty, index) => {
+    setValue((prevValue) => {
+      const newValue = [...prevValue];
+      newValue[index] = cost[index] * qty[index];
+      return newValue;
+    });
+  };
+  useEffect(() => {
+    setTotalSum(value.reduce((acc, curr) => acc + curr, 0));
+  }, [value]);
 
+  const handleCostBlur = (e, index) => {
+    const value = e.target.value;
+    const formattedValue = formatAmount(value);
+    setFormattedCost((prevCost) => {
+      const newCost = [...prevCost];
+      newCost[index] = formattedValue;
+      return newCost;
+    });
+    setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
+      const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+      newIsCostBlurredIndex[index] = true;
+      return newIsCostBlurredIndex;
+    });
 
+    setShowFormattedValue((prevValue) => {
+      const newValue = [...prevValue];
+      newValue[index] = true;
+      return newValue;
+    });
+  };
 
-const calculateValue = (cost, qty, index) => {
-  setValue(prevValue => {
-    const newValue = [...prevValue];
-    newValue[index] = cost[index] * qty[index];
-    return newValue;
-  });
-}
-useEffect(() => {
-  setTotalSum(value.reduce((acc, curr) => acc + curr, 0));
-}, [value]);
+  const editBtnClick = (index) => {
+   // setIsMaterialModalOpen(true);
+    setPopOverVisible(index);
+    alert("hello")
+  };
 
+  const handleFocus = (index) => {
+    setFocus((prevFocus) => {
+      const newFocus = [...prevFocus];
+      newFocus[index] = true;
+      return newFocus;
+    });
+    setIsFocusedIndex((prevIsFocusedIndex) => {
+      const newIsFocusedIndex = [...prevIsFocusedIndex];
+      newIsFocusedIndex[index] = true;
+      return newIsFocusedIndex;
+    });
+    setShowFormattedValue((prevValue) => {
+      const newValue = [...prevValue];
+      newValue[index] = false;
+      return newValue;
+    });
+  };
 
-const handleCostBlur = (e, index) => {
-  const value = e.target.value;
-  const formattedValue = formatAmount(value);
-  setFormattedCost(prevCost => {
-    const newCost = [...prevCost];
-    newCost[index] = formattedValue;
-    return newCost;
-  });
-  setIsCostBlurredIndex(prevIsCostBlurredIndex => {
-    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
-    newIsCostBlurredIndex[index] = true;
-    return newIsCostBlurredIndex;
-  });
+  const formatTotalAmount = (amount) => {
+    if (value >= 10000000) {
+      return (value / 10000000).toFixed(2) + " Cr";
+    } else if (value >= 10000) {
+      return (value / 100000).toFixed(2) + " Lacs";
+    } else if (value >= 1000) {
+      return (value / 1000).toFixed(2) + " K";
+    } else {
+      return value;
+    }
+  };
+  const formattedAmount = formatTotalAmount(totalSum);
 
-  setShowFormattedValue(prevValue => {
-    const newValue = [...prevValue];
-    newValue[index] = true;
-    return newValue;
-  });
-};
+  // console.log(formattedAmount)
+  console.log(totalSum);
 
-const editBtnClick = () => {
-  setIsMaterialModalOpen(true);
+  const handleInputClick = (index) => {
+    setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
+      const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+      newIsCostBlurredIndex[index] = false;
+      return newIsCostBlurredIndex;
+    });
+  };
 
-}
+  // serail modal
+  const SerialModal = () => {
+    setIsSerialModalOpen(true);
+  };
 
+  // popOver
 
-const handleFocus = (index) => {
-  setFocus(prevFocus => {
-    const newFocus = [...prevFocus];
-    newFocus[index] = true;
-    return newFocus;
-  });
-  setIsFocusedIndex(prevIsFocusedIndex => {
-    const newIsFocusedIndex = [...prevIsFocusedIndex];
-    newIsFocusedIndex[index] = true;
-    return newIsFocusedIndex;
-  });
-  setShowFormattedValue(prevValue => {
-    const newValue = [...prevValue];
-    newValue[index] = false;
-    return newValue;
-  });
-}
-
-
-const formatTotalAmount = (amount) => {
-  if (value >= 10000000) {
-    return (value / 10000000).toFixed(2) + " Cr";
-  } else if (value >= 10000) {
-    return (value / 100000).toFixed(2) + " Lacs";
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(2) + " K";
-  } else {
-    return value;
-  }
-}
-const formattedAmount = formatTotalAmount(totalSum);
-
-// console.log(formattedAmount)
-console.log(totalSum)
-
-const handleInputClick = (index) => {
-  setIsCostBlurredIndex(prevIsCostBlurredIndex => {
-    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
-    newIsCostBlurredIndex[index] = false;
-    return newIsCostBlurredIndex;
-  });
-};
-
-
-// serail modal 
-const SerialModal = () => {
-  setIsSerialModalOpen(true)
-}
-
-
-// popOver 
-
-const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const hide = () => {
     setOpen(false);
@@ -469,27 +510,17 @@ const [open, setOpen] = useState(false);
     setOpen(newOpen);
   };
 
-
-
-
-
-
-
-
-
-const formatAmount = (value) => {
-  if (value >= 10000000) {
-    return (value / 10000000).toFixed(2) + " Cr";
-  } else if (value >= 10000) {
-    return (value / 100000).toFixed(2) + " Lacs";
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(2) + " K";
-  } else {
-    return value;
-  }
-};
-
-
+  const formatAmount = (value) => {
+    if (value >= 10000000) {
+      return (value / 10000000).toFixed(2) + " Cr";
+    } else if (value >= 10000) {
+      return (value / 100000).toFixed(2) + " Lacs";
+    } else if (value >= 1000) {
+      return (value / 1000).toFixed(2) + " K";
+    } else {
+      return value;
+    }
+  };
 
   return (
     <div className="add-inventory">
@@ -562,14 +593,26 @@ const formatAmount = (value) => {
                       onClick={setIsBOMModalOpen}
                     />
                     <h3>Enable Manufacturing</h3>
-                    {bomEnable && <div className="editBtn" onClick={setIsBOMModalOpen}><img src="/images/icons/edit.svg" /><span>Edit</span></div>}
+                    {bomEnable && (
+                      <div className="editBtn" onClick={setIsBOMModalOpen}>
+                        <img src="/images/icons/edit.svg" />
+                        <span>Edit</span>
+                      </div>
+                    )}
                   </div>
                   <div className="switch_toggler">
-                    <Switch unCheckedChildren="__" 
-                    onChange={handleVarientChange}
-                    onClick={setIsBOMVariantOpen}/>
+                    <Switch
+                      unCheckedChildren="__"
+                      onChange={handleVarientChange}
+                      onClick={setIsBOMVariantOpen}
+                    />
                     <h3>Enable Variant</h3>
-                    {variantEnable && <div className="editBtn" onClick={setIsBOMVariantOpen}><img src="/images/icons/edit.svg" /><span>Edit</span></div>}
+                    {variantEnable && (
+                      <div className="editBtn" onClick={setIsBOMVariantOpen}>
+                        <img src="/images/icons/edit.svg" />
+                        <span>Edit</span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="input_group">
@@ -604,14 +647,14 @@ const formatAmount = (value) => {
                   <SearchDropdown width={330} />
                 </div>
 
-                {bomEnable &&
+                {bomEnable && (
                   <div className="input_group">
-                  <p>Menufacturing Account</p>
-                  <SearchDropdown width={330} />
-                </div>
-                }
+                    <p>Menufacturing Account</p>
+                    <SearchDropdown width={330} />
+                  </div>
+                )}
               </div>
-              
+
               <div className="btn_container">
                 <button className="submit_btn">Submit</button>
                 <button className="cancel_btn">Cancel</button>
@@ -620,31 +663,40 @@ const formatAmount = (value) => {
           </div>
         </div>
 
-
-
-        <div className={`${fileList.length === 0 ? "img_uploader_main_length_0":"img_uploader_main"}`}>
-        <p className="item_image_heading"> Item Image</p>
-        <Upload
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        listType="picture-card"
-        fileList={fileList}
-        onPreview={handleImgPreview}
-        onChange={handleImgChange}
-        multiple={true}
-        className={`${fileList.length===0 ? "length_0":""}`}
-        maxCount={6}
-      >
-        {fileList.length >= 6 ? null : uploadButton}
-      </Upload>
-      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleImgCancel}>
-        <img
-          alt="example"
-          style={{
-            width: '100%',
-          }}
-          src={previewImage}
-        />
-      </Modal>
+        <div
+          className={`${
+            fileList.length === 0
+              ? "img_uploader_main_length_0"
+              : "img_uploader_main"
+          }`}
+        >
+          <p className="item_image_heading"> Item Image</p>
+          <Upload
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={handleImgPreview}
+            onChange={handleImgChange}
+            multiple={true}
+            className={`${fileList.length === 0 ? "length_0" : ""}`}
+            maxCount={6}
+          >
+            {fileList.length >= 6 ? null : uploadButton}
+          </Upload>
+          <Modal
+            open={previewOpen}
+            title={previewTitle}
+            footer={null}
+            onCancel={handleImgCancel}
+          >
+            <img
+              alt="example"
+              style={{
+                width: "100%",
+              }}
+              src={previewImage}
+            />
+          </Modal>
         </div>
         {/* <div
           className={`${
@@ -1009,7 +1061,7 @@ const formatAmount = (value) => {
           <Button
             key="cancel"
             onClick={handleConfirmCancel}
-              style={{
+            style={{
               width: "80px",
               height: "38px",
               fontSize: "12px",
@@ -1089,54 +1141,176 @@ const formatAmount = (value) => {
             </ul>
 
             <div className="rows_container" ref={containerRef}>
-            {bomRows.map((item, index) => {
-              return (
-                <ul className="field_box_rows" key={item.id}>
-                  {withResource && (
-                    <li className="assigned_resource">
-                      <SearchDropdown options={bodymaterial} editBtnClick={editBtnClick} width={250} editBtn={true} />
+              {bomRows.map((item, index) => {
+                return (
+                  <ul className="field_box_rows" key={item.id}>
+                    {withResource && (
+                      <li className="assigned_resource">
+                        <Popover
+                          showArrow={false}
+                          placement={"bottomRight"}
+                          
+                          getPopupContainer={(trigger) => trigger.parentElement}
+                          content={
+                            <div className="materialCoontainer">
+                              <div className="productionresources">
+                                <div>
+                                  <p className="productionlabel">
+                                    Producton Batch Size
+                                  </p>
+                                  <input
+                                    className="productioninput"
+                                    type="text"
+                                    value="05 Pcs"
+                                    style={{ padding: "0px 10px" }}
+                                  />
+                                </div>
+                                <div>
+                                  <p className="productionlabel">
+                                    Producton Hours
+                                  </p>
+                                  <input
+                                    className="productioninput"
+                                    type="text"
+                                    value="03:00 Hours"
+                                    style={{ padding: "0px 10px" }}
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  gap: "20px",
+                                  marginTop: "20px",
+                                }}
+                              >
+                                <Button
+                                  key="submit"
+                                  type="primary"
+                                  onClick={() => {setPopOverVisible(false)}}
+                                  style={{
+                                    width: "80px",
+                                    height: "38px",
+                                    backgroundColor: "#5C5AD0",
+                                    fontSize: "12px",
+                                  }}
+                                >
+                                  Submit
+                                </Button>
+
+                                <Button
+                                  key="cancel"
+                                  onClick={()=>resetRef.current.getAlert()}
+                                  style={{
+                                    width: "80px",
+                                    height: "38px",
+                                    fontSize: "12px",
+                                    color: "#8E9CAA",
+                                    borderColor: "#8E9CAA",
+                                  }}
+                                >
+                                  Cancel
+                                </Button>
+                              </div>
+                            </div>
+                          }
+                          title={""}
+                          visible={popOverVisible === index}
+                        >
+                          <SearchDropdown
+                            options={bodymaterial}
+                            ref={resetRef}
+                            popVisible={popVisible}
+                            onChange={() => handlePopOver(index)}
+                            editBtnClick={()=>editBtnClick(index)}
+                            width={250}
+                            editBtn={true}
+                          />
+                        </Popover>
+                      </li>
+                    )}
+                    <li className="type">
+                      <SearchDropdown width={138} />
                     </li>
-                    
-                  )}
-                  <li className="type">
-                    <SearchDropdown width={138} />
-                  </li>
-                  <li className="material">
-                    <SearchDropdown width={250} />
-                  </li>
-                  <li className="options">
-                    {/* <div className="input_container"> */}
-                    <SelectAllDropdown
-                      option={selectOption}
-                    />
-                    {/* </div> */}
-                  </li>
-                  <li className="qty">
+                    <li className="material">
+                      <SearchDropdown width={250} />
+                    </li>
+                    <li className="options">
+                      {/* <div className="input_container"> */}
+                      <SelectAllDropdown option={selectOption} />
+                      {/* </div> */}
+                    </li>
+                    <li className="qty">
                       <div className="input_container">
-                        <input type="number" onwheel="return false;" className={qty[index] > 0 ? "has-value" : ""} onChange={(e) => setQty(prevQty => {
-                          const newQty = [...prevQty];
-                          newQty[index] = e.target.value;
-                          calculateValue(cost, newQty, index);
-                          return newQty;
-                        })}/>
-                        {qty[index] > 0 ? <div className="qty_text">Pcs</div> : null}
+                        <input
+                          type="number"
+                          onwheel="return false;"
+                          className={qty[index] > 0 ? "has-value" : ""}
+                          onChange={(e) =>
+                            setQty((prevQty) => {
+                              const newQty = [...prevQty];
+                              newQty[index] = e.target.value;
+                              calculateValue(cost, newQty, index);
+                              return newQty;
+                            })
+                          }
+                        />
+                        {qty[index] > 0 ? (
+                          <div className="qty_text">Pcs</div>
+                        ) : null}
                       </div>
                     </li>
                     <li className="cost">
                       <div className="input_container">
-                        <input type="number" ref={inputRef} className={isCostBlurredIndex[index] ? "cost-input-blurred" : "" } onFocus={() => handleFocus(index)} onClick={() => handleInputClick(index)} onBlur={(e) => handleCostBlur(e, index)} onChange={(e) => setCost(prevCost => {
-                          const newCost = [...prevCost];
-                          newCost[index] = e.target.value;
-                          calculateValue(newCost, qty, index);
-                          return newCost;
-                        })}/>
-                      {/* <div className="formatted-value">{formattedCost[index]}</div> */}
-                      <div className={`formatted-value ${!showFormattedValue[index] ? 'formatted-value-blured' : ''}`}>{formattedCost[index]}</div>
+                        <input
+                          type="number"
+                          ref={inputRef}
+                          className={
+                            isCostBlurredIndex[index]
+                              ? "cost-input-blurred"
+                              : ""
+                          }
+                          onFocus={() => handleFocus(index)}
+                          onClick={() => handleInputClick(index)}
+                          onBlur={(e) => handleCostBlur(e, index)}
+                          onChange={(e) =>
+                            setCost((prevCost) => {
+                              const newCost = [...prevCost];
+                              newCost[index] = e.target.value;
+                              calculateValue(newCost, qty, index);
+                              return newCost;
+                            })
+                          }
+                        />
+                        {/* <div className="formatted-value">{formattedCost[index]}</div> */}
+                        <div
+                          className={`formatted-value ${
+                            !showFormattedValue[index]
+                              ? "formatted-value-blured"
+                              : ""
+                          }`}
+                        >
+                          {formattedCost[index]}
+                        </div>
                       </div>
                     </li>
                     <li className="value">
                       <div className="input_container">
-                        <input type="text" value={value[index]>=10000000 ? (value[index]/10000000).toFixed(2)+" Cr" : value[index]>=10000 ? (value[index]/100000).toFixed(2) + " Lacs" : value[index]>=1000 ? (value[index]/1000).toFixed(2) + " K" : value[index] > 0 ? value[index]:"" } readOnly />
+                        <input
+                          type="text"
+                          value={
+                            value[index] >= 10000000
+                              ? (value[index] / 10000000).toFixed(2) + " Cr"
+                              : value[index] >= 10000
+                              ? (value[index] / 100000).toFixed(2) + " Lacs"
+                              : value[index] >= 1000
+                              ? (value[index] / 1000).toFixed(2) + " K"
+                              : value[index] > 0
+                              ? value[index]
+                              : ""
+                          }
+                          readOnly
+                        />
                         {/* if (value >= 10000000) {
                             return (value / 10000000).toFixed(2) + " Cr";
                           } else if (value >= 10000) {
@@ -1148,27 +1322,45 @@ const formatAmount = (value) => {
                           } */}
                       </div>
                     </li>
-                  <div className="delete_btn" onClick={() => deleteBomRow(item.id)}>
-                    <img src="/images/icons/delete.svg" alt="" />
-                  </div>
-                </ul>
-              );
-            })}
+                    <div
+                      className="delete_btn"
+                      onClick={() => deleteBomRow(item.id)}
+                    >
+                      <img src="/images/icons/delete.svg" alt="" />
+                    </div>
+                  </ul>
+                );
+              })}
             </div>
 
             <div className="footer_container">
-              <div className="add_field" onClick={handleBomAddRow}>+ Add</div>
+              <div className="add_field" onClick={handleBomAddRow}>
+                + Add
+              </div>
               <div className="total_value">
-                Total Value : <span> ₹ {totalSum >= 10000000 ? (totalSum / 10000000).toFixed(2) + " Cr" : totalSum >= 10000 ? (totalSum / 100000).toFixed(2) + " Lacs" : totalSum >= 1000 ? (totalSum / 1000).toFixed(2) + " K" : totalSum > 0 ? totalSum:"0.00" }</span>
+                Total Value :{" "}
+                <span>
+                  {" "}
+                  ₹{" "}
+                  {totalSum >= 10000000
+                    ? (totalSum / 10000000).toFixed(2) + " Cr"
+                    : totalSum >= 10000
+                    ? (totalSum / 100000).toFixed(2) + " Lacs"
+                    : totalSum >= 1000
+                    ? (totalSum / 1000).toFixed(2) + " K"
+                    : totalSum > 0
+                    ? totalSum
+                    : "0.00"}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </Modal>
 
-         {/* Variant of material modal  */}
+      {/* Variant of material modal  */}
 
-         <Modal
+      <Modal
         title="Item Variants"
         open={isBOMVariantOpen}
         onOk={handleOk}
@@ -1225,93 +1417,149 @@ const formatAmount = (value) => {
           <hr className="line" />
 
           <p className="planing_method">
-           Add New Attribute by clicking on Add Button.
+            Add New Attribute by clicking on Add Button.
           </p>
 
           <div className="field_container">
             <div className="container_header">Variants of Creta</div>
             <ul className="field_box_heading">
-             
-                <li className="attributes">Attributes</li>
+              <li className="attributes">Attributes</li>
               <li className="value1">Value</li>
             </ul>
 
-           
-            
-            {colors && <ul className="field_box_rows" >
-                  
-            <li className="type others">
-                    <input type="text" value={"Colors"} readOnly/>
-                  </li>
-                  <li className="value1">
-                    <div className="input_container" style={{width:"545px !important"}}>
-                    <TagsInput />
-                    </div>
-                  </li>
-                  <div className="delete_btn" onClick={()=>{setColors(false)}}>
-                    <img src="/images/icons/delete.svg" alt="" />
-                  </div>
-                </ul>}
-
-
-                {sizes && <ul className="field_box_rows" >
-                  
+            {colors && (
+              <ul className="field_box_rows">
                 <li className="type others">
-                    <input type="text" value={"Sizes"} readOnly />
-                  </li>
-                  <li className="value1">
-                    <div className="input_container" style={{width:"545px !important"}}>
+                  <input type="text" value={"Colors"} readOnly />
+                </li>
+                <li className="value1">
+                  <div
+                    className="input_container"
+                    style={{ width: "545px !important" }}
+                  >
                     <TagsInput />
                   </div>
-                  </li>
-                  <div className="delete_btn" onClick={()=>{setSizes(false)}} >
-                    <img src="/images/icons/delete.svg" alt="" />
+                </li>
+                <div
+                  className="delete_btn"
+                  onClick={() => {
+                    setColors(false);
+                  }}
+                >
+                  <img src="/images/icons/delete.svg" alt="" />
+                </div>
+              </ul>
+            )}
+
+            {sizes && (
+              <ul className="field_box_rows">
+                <li className="type others">
+                  <input type="text" value={"Sizes"} readOnly />
+                </li>
+                <li className="value1">
+                  <div
+                    className="input_container"
+                    style={{ width: "545px !important" }}
+                  >
+                    <TagsInput />
                   </div>
-                </ul>}
+                </li>
+                <div
+                  className="delete_btn"
+                  onClick={() => {
+                    setSizes(false);
+                  }}
+                >
+                  <img src="/images/icons/delete.svg" alt="" />
+                </div>
+              </ul>
+            )}
 
-
-                {serial && <ul className="field_box_rows" >
-                  
-                <li className="type others" >
-                    <input type="text"  value={"Serial No."} readOnly/>
-                  </li>
-                  <li className="value1">
-                    <div className="input_container" onClick={SerialModal}  style={{width:"545px !important"}}>
+            {serial && (
+              <ul className="field_box_rows">
+                <li className="type others">
+                  <input type="text" value={"Serial No."} readOnly />
+                </li>
+                <li className="value1">
+                  <div
+                    className="input_container"
+                    onClick={SerialModal}
+                    style={{ width: "545px !important" }}
+                  >
                     {/* <TagsInput /> */}
-                    <p style={{padding:"0px 10px", color:"#5c5ad0"}}>{serialValueTo >0 && serialValueTo} {serialValue >0 && serialValueTo>0 && " - "} {serialValue}</p>
-                    </div>
-                  </li>
-                  <div className="delete_btn" onClick={()=>{setSerial(false)}}>
-                    <img src="/images/icons/delete.svg" alt="" />
+                    <p style={{ padding: "0px 10px", color: "#5c5ad0" }}>
+                      {serialValueTo > 0 && serialValueTo}{" "}
+                      {serialValue > 0 && serialValueTo > 0 && " - "}{" "}
+                      {serialValue}
+                    </p>
                   </div>
-                </ul>}
-             <ul className="field_box_rows" key={4}>
-                  
-                  <li className="type others">
-                    <input type="text" placeholder="Others" onChange={event => setOtherInputValue(event.target.value)}/>
-                  </li>
-                  <li className="value1">
-                    <div className="input_container" style={{width:"545px !important"}}>
-                      {/* <input type="text"  /> */}
-                      {otherInputValue && <TagsInput />}
-                      
-                    </div>
-                  </li>
-                  
-                </ul>
-            
-            
+                </li>
+                <div
+                  className="delete_btn"
+                  onClick={() => {
+                    setSerial(false);
+                  }}
+                >
+                  <img src="/images/icons/delete.svg" alt="" />
+                </div>
+              </ul>
+            )}
+            <ul className="field_box_rows" key={4}>
+              <li className="type others">
+                <input
+                  type="text"
+                  placeholder="Others"
+                  onChange={(event) => setOtherInputValue(event.target.value)}
+                />
+              </li>
+              <li className="value1">
+                <div
+                  className="input_container"
+                  style={{ width: "545px !important" }}
+                >
+                  {/* <input type="text"  /> */}
+                  {otherInputValue && <TagsInput />}
+                </div>
+              </li>
+            </ul>
 
-            {!colors || !sizes || !serial ? <div className="add_footer_container">
-              {!colors &&<div className="add_field" onClick={()=>{setColors(true)}}>Add Colors</div>}
-              {!sizes && <div className="add_field" onClick={()=>{setSizes(true)}}>Add Size</div>}
-              {!serial && <div className="add_field" onClick={()=>{setSerial(true)}}>Add Serial No.</div>}
-            </div>:null}
-        </div>
+            {!colors || !sizes || !serial ? (
+              <div className="add_footer_container">
+                {!colors && (
+                  <div
+                    className="add_field"
+                    onClick={() => {
+                      setColors(true);
+                    }}
+                  >
+                    Add Colors
+                  </div>
+                )}
+                {!sizes && (
+                  <div
+                    className="add_field"
+                    onClick={() => {
+                      setSizes(true);
+                    }}
+                  >
+                    Add Size
+                  </div>
+                )}
+                {!serial && (
+                  <div
+                    className="add_field"
+                    onClick={() => {
+                      setSerial(true);
+                    }}
+                  >
+                    Add Serial No.
+                  </div>
+                )}
+              </div>
+            ) : null}
           </div>
-          
+        </div>
       </Modal>
-
 
       {/* Materail assigned modal */}
 
@@ -1321,7 +1569,6 @@ const formatAmount = (value) => {
         width={"max-content"}
         onCancel={handleMaterialCancel}
         style={{ top: 20 }}
-       
         footer={[
           <Button
             key="submit"
@@ -1335,25 +1582,33 @@ const formatAmount = (value) => {
             }}
           >
             Submit
-          </Button>
+          </Button>,
         ]}
         closable={false}
       >
-         <div className="materialCoontainer">
-        <div className="productionresources">
-         <div>
-        <p className="productionlabel">Producton Batch Size</p>
-        <input className="productioninput" type="text" value="05 Pcs" style={{padding:"0px 10px"}} />
-         </div>
-         <div>
-         <p className="productionlabel">Producton Hours</p>
-        <input className="productioninput" type="text" value="03:00 Hours" style={{padding:"0px 10px"}} />
-         </div>
-         </div>
-         
+        <div className="materialCoontainer">
+          <div className="productionresources">
+            <div>
+              <p className="productionlabel">Producton Batch Size</p>
+              <input
+                className="productioninput"
+                type="text"
+                value="05 Pcs"
+                style={{ padding: "0px 10px" }}
+              />
+            </div>
+            <div>
+              <p className="productionlabel">Producton Hours</p>
+              <input
+                className="productioninput"
+                type="text"
+                value="03:00 Hours"
+                style={{ padding: "0px 10px" }}
+              />
+            </div>
+          </div>
         </div>
       </Modal>
-
 
       {/* serial number modal  */}
       <Modal
@@ -1362,7 +1617,6 @@ const formatAmount = (value) => {
         width={"max-content"}
         onCancel={handleSerialCancel}
         style={{ top: 200 }}
-       
         footer={[
           <Button
             key="submit"
@@ -1376,110 +1630,125 @@ const formatAmount = (value) => {
             }}
           >
             Submit
-          </Button>
+          </Button>,
         ]}
         closable={false}
       >
-         <div className="materialCoontainer">
-        <div className="productionresources">
-         <div>
-        <p className="productionlabel">From</p>
-        <input className="productioninput" type="text" id="serial_value_to"  style={{padding:"0px 10px"}}/>
-         </div>
-         <div>
-         <p className="productionlabel">To</p>
-        <input className="productioninput" type="text" id="serial_value" style={{padding:"0px 10px"}} />
-         </div>
-         </div>
-         
+        <div className="materialCoontainer">
+          <div className="productionresources">
+            <div>
+              <p className="productionlabel">From</p>
+              <input
+                className="productioninput"
+                type="text"
+                id="serial_value_to"
+                style={{ padding: "0px 10px" }}
+              />
+            </div>
+            <div>
+              <p className="productionlabel">To</p>
+              <input
+                className="productioninput"
+                type="text"
+                id="serial_value"
+                style={{ padding: "0px 10px" }}
+              />
+            </div>
+          </div>
         </div>
       </Modal>
 
+      {/* Confirmation */}
 
-{/* Confirmation */}
-
-<Modal
+      <Modal
         open={confirm}
         onOk={handleMaterialOk}
         width={"max-content"}
         onCancel={handleConfirm}
         style={{ top: 20 }}
-       className={"deleteconfirm"}
+        className={"deleteconfirm"}
         footer={[
-        <div  style={{marginLeft:"331px"}}>
-          <Button
-            key="cancel"
-            onClick={handleConfirm}
-            style={{
-              width: "86px",
-              height: "38px",
-              fontSize: "14px",
-              fontWeight:"700",
-              color: "#8E9CAA",
-              borderColor: "#C2CAD2",
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            key="submit"
-            type="primary"
-            onClick={handleCancel}
-            style={{
-              width: "88px",
-              height: "38px",
-              backgroundColor:"#DA2F58",
-              fontSize: "14px",
-              fontWeight:"700",
-              color:"#FFFFFF"
-            }}
-          >
-            Submit
-          </Button></div>
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirm}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleCancel}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Submit
+            </Button>
+          </div>,
         ]}
-    
         closeIcon={
           <div className="icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="13.51"
-            height="13"
-            viewBox="0 0 13.51 13"
-          >
-            <path
-              id="Path_34362"
-              data-name="Path 34362"
-              d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-              transform="translate(-2.248 -2.248)"
-              fill="#697a8d"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
           </div>
-      
         }
-      
       >
-
-         <div className="confirmCoontainer">
-         <div className="confirmresources">
-              
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
             <div className="imgsetting">
-               <div className="imgbackground">    
-      <img src={alert} style={{ width:"38px", height:"38px"}}/>
-         </div>
-         </div>
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
 
-         <div>
-      <p style={{fontSize:"22px",color:"#2B3347", fontWeight:"500",padding: "21px 0px 0px 0px"}}>Delete Product</p>
-         </div>
-         </div>
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Product
+              </p>
+            </div>
+          </div>
           <div>
-            <p className="confirmationtext">Are you sure you want to close  this window? <br/>  All the value which you  filled 
-            in the fields will be deleted.<br/> This action cannot recover the value.</p>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
           </div>
         </div>
       </Modal>
-
     </div>
   );
 };

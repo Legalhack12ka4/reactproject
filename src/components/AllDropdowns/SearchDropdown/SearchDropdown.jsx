@@ -1,20 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,forwardRef, useRef } from "react";
 import { Select } from "antd";
 import "./SearchDropdown.scss";
+import { useImperativeHandle } from "react";
+// import { ref } from "yup";
 
-function SearchDropdown({ onChange, options, name, value, error,errorMsg, editBtn, editBtnClick, ...props }) {
+const SearchDropdown =  forwardRef(({ onChange, options, name, value, error,errorMsg, editBtn, editBtnClick, ...props },ref) => {
   const [selectedOption, setSelectedOption] = useState(null);
+
 
   useEffect(() => {
     setSelectedOption(value);
   }, [value]);
 
+  const handleReset = () => {
+    setSelectedOption(null);
+ 
+   // onChange(name, value);
+    //console.log(name)
+    //alert("hello search")
+   // console.log(value)
+  };
+
   const handleChange = (value) => {
     setSelectedOption(value);
     onChange(name, value);
+    console.log(name)
+    console.log(value)
   };
 
-
+ useImperativeHandle (ref, () => ({
+  getAlert () {
+    console.log("hoja bhai")
+    props.popVisible();
+    handleReset();
+  }
+ }))
 
   return (
     <>
@@ -61,6 +81,6 @@ function SearchDropdown({ onChange, options, name, value, error,errorMsg, editBt
     )}
     </>
   );
-}
+})
 
 export default SearchDropdown;
