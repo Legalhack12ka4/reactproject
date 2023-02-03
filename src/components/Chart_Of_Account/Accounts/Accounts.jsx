@@ -400,11 +400,11 @@ function Accounts() {
           <div style={{marginTop:"20px", display:"flex", gap:"20px"}}>
            
            <div>
-             <p style={{fontSize: "14px", color: "#697A8D",fontWeight:"400"}}>Account Type</p>
+             <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Type</p>
              <SearchDropdown width={330} />
 
 
-                 <p style={{marginTop:"18px", fontSize: "14px", color: "#697A8D",fontWeight:"400"}}>Account Name</p>
+                 <p style={{marginTop:"18px", fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Name</p>
               <input
                 style={{border: ".5px solid #C2CAD2",
                   width: "329px",
@@ -419,14 +419,14 @@ function Accounts() {
                </div> 
            
                <div>
-             <p style={{fontSize: "14px", color: "#697A8D",fontWeight:"400"}}>Account Code</p>
+             <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Code</p>
              <input
                  className="accountcode"
                   type="text"
                   placeholder="0009"
                   name="terms"
                 /> 
-                 <p style={{marginTop:"18px",fontSize: "14px", color: "#697A8D",fontWeight:"400"}}>Description</p>
+                 <p style={{marginTop:"18px",fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Description</p>
               <input
               className="description"
                

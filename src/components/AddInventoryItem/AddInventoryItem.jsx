@@ -502,13 +502,13 @@ const popVisible = () =>
 
   const [open, setOpen] = useState(false);
 
-  const hide = () => {
-    setOpen(false);
-  };
+  // const hide = () => {
+  //   setOpen(false);
+  // };
 
-  const handleOpenChange = (newOpen) => {
-    setOpen(newOpen);
-  };
+  // const handleOpenChange = (newOpen) => {
+  //   setOpen(newOpen);
+  // };
 
   const formatAmount = (value) => {
     if (value >= 10000000) {
@@ -1041,7 +1041,7 @@ const popVisible = () =>
         open={isBOMModalOpen}
         onOk={handleOk}
         width={"max-content"}
-        onCancel={handleCancel}
+        onCancel={handleConfirmCancel}
         style={{ top: 20 }}
         // footer=""
         footer={[
@@ -1148,9 +1148,7 @@ const popVisible = () =>
                       <li className="assigned_resource">
                         <Popover
                           showArrow={false}
-                          placement={"bottomRight"}
-                          
-                          getPopupContainer={(trigger) => trigger.parentElement}
+                          placement={"bottomLeft"}
                           content={
                             <div className="materialCoontainer">
                               <div className="productionresources">
@@ -1185,7 +1183,7 @@ const popVisible = () =>
                                 }}
                               >
                                 <Button
-                                  key="submit"
+                                  // key="submit"
                                   type="primary"
                                   onClick={() => {setPopOverVisible(false)}}
                                   style={{
@@ -1207,6 +1205,7 @@ const popVisible = () =>
                                     fontSize: "12px",
                                     color: "#8E9CAA",
                                     borderColor: "#8E9CAA",
+                                    zIndex: "1000",
                                   }}
                                 >
                                   Cancel
@@ -1365,7 +1364,7 @@ const popVisible = () =>
         open={isBOMVariantOpen}
         onOk={handleOk}
         width={"max-content"}
-        onCancel={handleCancel}
+        onCancel={handleConfirmCancel}
         style={{ top: 20 }}
         // footer=""
         footer={[
@@ -1384,7 +1383,7 @@ const popVisible = () =>
           </Button>,
           <Button
             key="cancel"
-            onClick={handleCancel}
+            onClick={handleConfirmCancel}
             style={{
               width: "80px",
               height: "38px",
