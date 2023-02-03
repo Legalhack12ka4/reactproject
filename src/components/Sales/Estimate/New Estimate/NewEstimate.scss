@@ -314,15 +314,48 @@ color: #FFFFFF;
 
         }
         
+        .customerinfo
+        {
+            width: 255px;
+           // height: 96px;
+            padding: 20px;
+            background-color: #ffff;
+            border-radius: 8px;
+            box-shadow:  0px 2px 6px 0px #4359711f;
+            margin-bottom: 20px;
+        }
         .conatiner2estimate
         {
-            width: 295px;
-            height: 139px;
+            width: 255px;
+            height: 96px;
             padding: 20px;
             background-color: #ffff;
             border-radius: 8px;
             box-shadow:  0px 2px 6px 0px #4359711f;
           //  padding: 0px !important;
+       .draft
+       {
+        width: 260px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #5C5AD0;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFFFFF;
+       }
+       .draftbody
+       {
+        height: 38px;
+    width: 120px;
+    background-color: #5C5AD133;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #5C5AD0;
+    font-weight: 600;
+       }
+       
         }
 
     }

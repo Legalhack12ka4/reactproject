@@ -4,10 +4,13 @@ import "../New Estimate/NewEstimate.scss";
 import logo from "../../../../assets/Images/NewEstimate/Logo.svg";
 import r from "../../../../assets/Images/NewEstimate/R.svg";
 import setting from "../../../../assets/Images/NewEstimate/setting.svg";
+import draft from "../../../../assets/Images/NewEstimate/draft.svg";
 import { Button, Collapse, message, Upload } from 'antd';
 import icon from "../../../../assets/Images/Confirmation/editdelete.svg"
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
+import { useState } from 'react';
+import SearchDropown from "../../../AllDropdowns/SearchDropdown/SearchDropdown.jsx"
 
 const { Panel } = Collapse;
 
@@ -18,7 +21,15 @@ const text = `
 `;
 
 function NewEstimate() {
+  const [isShown, setIsShown] = useState(false);
 
+  const handleClick = event => {
+    // 👇️ toggle shown state
+    setIsShown(current => !current);
+
+    // 👇️ or simply set it to true
+    // setIsShown(true);
+  };
   const props: UploadProps = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -111,7 +122,16 @@ function NewEstimate() {
     </Panel>
    
   </Collapse>
- 
+ {!isShown && <button onClick={handleClick}>Click</button>}
+
+{/* 👇️ show elements on click */}
+{isShown && (
+  <div>
+    <h2>Some content here</h2>
+  </div>
+)}
+
+
         </div>
             </div>
 
@@ -277,18 +297,24 @@ function NewEstimate() {
 {/* //second panel */}
 
         <div>
-        <Panel header="" key="10">
-      <p>{text}</p>
-        </Panel>
+        {isShown && (
+  <div className='customerinfo'>
+    <h2>Some content here</h2>
+  </div>
+)}
         <div className='conatiner2estimate'>
-          
-            
-  
+        <p>
+        <button className='draft'> <img src={draft} style={{marginRight:"5px"}}/>Save as Draft</button> </p>
+             <div style={{display:"flex", marginTop:"20px", gap:"20px"}}>
+              <div> <button className='draftbody'>Save as Draft</button></div>
+              <div> <button className='draftbody'>Save as Draft</button></div>
+             </div>
   
     </div>
     
-            {/* <button>Save as Draft</button> */}
+            
         </div>
+        
     </div>
     </div>
   )
