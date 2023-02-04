@@ -47,6 +47,7 @@ const AddInventoryItem = (props, {onClick}) => {
   const [bomEnable, setBomEnable] = useState(false);
   const [variantEnable, setVariantEnable] = useState(false);
   const [confirm, setCofirm] = useState(false);
+  const [confirmv, setCofirmv] = useState(false);
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
@@ -224,17 +225,22 @@ const popVisible = () =>
   const handleMaterialCancel = () => {
     setIsMaterialModalOpen(false);
   };
+
+  //assigned
   const handleConfirmCancel = () => {
-    //setIsModalOpen(false);
-    // setIsBOMVariantOpen(false);
-    // setIsBOMModalOpen(false);
     setCofirm(true);
   };
+
   const handleConfirm = () => {
-    //setIsModalOpen(false);
-    // setIsBOMVariantOpen(false);
-    // setIsBOMModalOpen(false);
     setCofirm(false);
+  };
+//variant
+  const handleConfirmCancelv = () => {
+    setCofirmv(true);
+  };
+
+  const handleConfirmv = () => {
+    setCofirmv(false);
   };
 
   const handleCancel = () => {
@@ -242,6 +248,7 @@ const popVisible = () =>
     setIsBOMVariantOpen(false);
     setIsBOMModalOpen(false);
     setCofirm(false);
+    setCofirmv(false);
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -1364,7 +1371,7 @@ const popVisible = () =>
         open={isBOMVariantOpen}
         onOk={handleOk}
         width={"max-content"}
-        onCancel={handleConfirmCancel}
+        onCancel={handleConfirmCancelv}
         style={{ top: 20 }}
         // footer=""
         footer={[
@@ -1383,7 +1390,7 @@ const popVisible = () =>
           </Button>,
           <Button
             key="cancel"
-            onClick={handleConfirmCancel}
+            onClick={handleConfirmCancelv}
             style={{
               width: "80px",
               height: "38px",
@@ -1671,6 +1678,96 @@ const popVisible = () =>
             <Button
               key="cancel"
               onClick={handleConfirm}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleCancel}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Submit
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Product
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={confirmv}
+        onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirmv}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirmv}
               style={{
                 width: "86px",
                 height: "38px",
