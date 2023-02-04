@@ -214,7 +214,7 @@ const deleteUser = (record)=>
      
       render: (text, record) => (
         <>
-        <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+        <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
            <span style={{display:"flex"}}>
            <Button
               className="btn btn-primary mx-2 my-2"

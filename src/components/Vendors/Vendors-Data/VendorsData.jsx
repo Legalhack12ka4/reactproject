@@ -2,11 +2,14 @@ import { React, useState, useRef, useEffect, useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./VendorsData.scss";
-import { Spin, Table, Tooltip, Tag, Slider,Skeleton } from "antd";
+import { Spin, Table, Tooltip, Tag, Slider,Skeleton,Popover, Button } from "antd";
 import axios from "axios";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import creditcard from "../../../assets/Images/FormIcon/Credit Limit.svg";
 import config from "../../Database/config";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 
 const filterfield = {
   gsttreat: "",
@@ -108,6 +111,18 @@ const VendorsData = () => {
     contact: customer.Contact,
     ownership: customer.Ownsership,
   }));
+
+  //delete data
+const deleteUser = (record)=>
+{
+  console.log(record);
+  console.log(record.id);
+  axios
+  .delete(
+    `${config.baseUrl}/customervendor/${record.id}/`);
+       getData();
+      // console.log(currency)
+}
 
   const columnsData = [
     {
@@ -338,6 +353,74 @@ const VendorsData = () => {
         return record1.ownership > record2.ownership;
       },
       showSorterTooltip:{ title: '' }
+    },
+    {
+      title: "",
+      label: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: 60,
+      // fixed:"right",
+      render: (text, record) => (
+        <>
+        <Popover      getPopupContainer={(trigger) => trigger.parentElement}   showArrow={false} content={
+           <span style={{display:"flex"}}>
+           <Button
+              className="btn btn-primary mx-2 my-2"
+              // onClick={() => handleUpdate(record)}
+           >
+             Edit
+           </Button>
+        
+           <button 
+            style={{marginLeft:"20px"}}
+             onClick={(e) =>
+               Swal.fire({
+                 title: "Are you sure?",
+                 text: "Once deleted, you will not be able to recover!",
+                 icon: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#3085d6",
+                 cancelButtonColor: "#d33",
+                 confirmButtonText: "Yes, delete it!",
+               }).then((result) => {
+                getData();
+                 if (result.isConfirmed) {
+                  getData();
+                   console.log(result.isConfirmed)
+                 // getData();
+                   if (deleteUser(record)) {
+                   // alert("2",getData())
+                     toast.warning("Deleted Successfuly", {
+                       position: "top-right",
+                       autoClose: 2000,
+                       hideProgressBar: false,
+                       closeOnClick: true,
+                       pauseOnHover: false,
+                       draggable: true,
+                       progress: undefined,
+                     });
+                   }
+                 }
+               })
+              
+             }
+            
+           >
+          Delete
+           </button>
+           <ToastContainer/>
+       </span>
+        } title="" height={100} trigger="click">
+        <img src={editdelete} style={{cursor:"pointer", marginLeft:"50%"}} />
+        </Popover>
+        </>
+     
+      
+
+          ),
+      resizable: true,
+      align: "left",
     },
   ];
 

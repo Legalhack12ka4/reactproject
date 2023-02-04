@@ -254,7 +254,7 @@ function Accounts() {
             //  onClick={(e) => { this.onDelete(record.key, e); }}
           >
             
-    <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+    <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
       <div style={{display:"flex", gap:"10px"}}>
         <div><button style={{height:"38px", width:"80px"}}>Edit</button></div>
         <div><button style={{height:"38px", width:"80px"}}>Delete</button></div>
