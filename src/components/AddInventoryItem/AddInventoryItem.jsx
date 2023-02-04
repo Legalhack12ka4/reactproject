@@ -229,10 +229,12 @@ const popVisible = () =>
   //assigned
   const handleConfirmCancel = () => {
     setCofirm(true);
+    setPopOverVisible(false)
   };
 
   const handleConfirm = () => {
     setCofirm(false);
+    // setPopOverVisible(false)
   };
 //variant
   const handleConfirmCancelv = () => {
