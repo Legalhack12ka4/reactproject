@@ -292,9 +292,10 @@ console.log(formData)
           label: "Action",
           dataIndex: "action",
           key: "action",
+          width: 60,
           render: (text, record) => (
             <>
-            <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+            <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
                <span style={{display:"flex"}}>
                <Button
                   className="btn btn-primary mx-2 my-2"
@@ -351,7 +352,6 @@ console.log(formData)
 
               ),
           resizable: true,
-          width: 230,
           align: "left",
         },
       ];

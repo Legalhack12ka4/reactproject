@@ -507,12 +507,11 @@ const deleteUser = (record)=>
       label: "Action",
       dataIndex: "action",
       key: "action",
-      fixed:"right",
-  
-      width:20,
+      width: 60,
+      // fixed:"right",
       render: (text, record) => (
         <>
-        <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+        <Popover      getPopupContainer={(trigger) => trigger.parentElement}   showArrow={false} content={
            <span style={{display:"flex"}}>
            <Button
               className="btn btn-primary mx-2 my-2"
@@ -561,7 +560,7 @@ const deleteUser = (record)=>
            <ToastContainer/>
        </span>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer"}} />
+        <img src={editdelete} style={{cursor:"pointer", marginLeft:"50%"}} />
         </Popover>
         </>
      
@@ -569,7 +568,6 @@ const deleteUser = (record)=>
 
           ),
       resizable: true,
-      width: 230,
       align: "left",
     },
   ];

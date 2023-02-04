@@ -244,7 +244,7 @@ const LeadsData = () => {
       resizable: true,
       fixed: "left",
       align: "left",
-      width: 70,
+      width: "max-content",
       sorter: (record1, record2) => {
         return record1.account_type > record2.account_type;
       },
@@ -255,7 +255,7 @@ const LeadsData = () => {
       dataIndex: "mobile_no",
       key: "mobile_no",
       resizable: true,
-      width: 80,
+      width: "max-content",
       align: "left",
       sorter: (record1, record2) => {
         return record1.mobile_no > record2.mobile_no;
@@ -267,7 +267,7 @@ const LeadsData = () => {
       dataIndex: "email",
       key: "email",
       resizable: true,
-      width: 100,
+      width: "max-content",
       align: "left",
       sorter: (record1, record2) => {
         return record1.email > record2.email;
@@ -280,7 +280,7 @@ const LeadsData = () => {
       key: "company_name",
       resizable: true,
       // minWidth: 260,
-      width: 100,
+      width: "max-content",
       // width: 'auto',
       align: "left",
       sorter: (record1, record2) => {
@@ -293,7 +293,7 @@ const LeadsData = () => {
       dataIndex: "lead_source_type",
       key: "lead_source_type",
       resizable: true,
-      width: 100,
+      width: "max-content",
       align: "left",
       sorter: (record1, record2) => {
         return record1.type > record2.type;
@@ -305,7 +305,7 @@ const LeadsData = () => {
       dataIndex: "ownership",
       key: "ownership",
       resizable: true,
-      width: 70,
+      width: "max-content",
       // width: 'auto',
       align: "left",
       sorter: (record1, record2) => {
@@ -317,9 +317,10 @@ const LeadsData = () => {
           label: "Action",
           dataIndex: "action",
           key: "action",
+          wodth: 60,
           render: (text, record) => (
             <>
-            <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+            <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
                <span style={{display:"flex"}}>
                <Button
                   className="btn btn-primary mx-2 my-2"
@@ -376,7 +377,6 @@ const LeadsData = () => {
 
               ),
           resizable: true,
-          width: 230,
           align: "left",
         },
   ];
