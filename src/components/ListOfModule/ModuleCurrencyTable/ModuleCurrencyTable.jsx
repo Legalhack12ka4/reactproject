@@ -4,7 +4,7 @@ import Page_heading from '../../Page_Heading/Page_heading'
 import "./ModuleCurrencyTable.scss"
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg"
-import { Spin, Table } from "antd";
+import { Popover, Spin, Table } from "antd";
 import {Modal, Button } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import config from "../../Database/config";
+import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
+
 
 const resetValue = {
 
@@ -286,56 +288,66 @@ console.log(formData)
           // }
         },
         {
-          title: "Action",
+          title: "",
           label: "Action",
           dataIndex: "action",
           key: "action",
           render: (text, record) => (
+            <>
+            <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+               <span style={{display:"flex"}}>
+               <Button
+                  className="btn btn-primary mx-2 my-2"
+                   onClick={() => handleUpdate(record)}
+               >
+                 Edit
+               </Button>
+            
+               <button 
+                style={{marginLeft:"20px"}}
+                 onClick={(e) =>
+                   Swal.fire({
+                     title: "Are you sure?",
+                     text: "Once deleted, you will not be able to recover!",
+                     icon: "warning",
+                     showCancelButton: true,
+                     confirmButtonColor: "#3085d6",
+                     cancelButtonColor: "#d33",
+                     confirmButtonText: "Yes, delete it!",
+                   }).then((result) => {
+                    getData();
+                     if (result.isConfirmed) {
+                      getData();
+                       console.log(result.isConfirmed)
+                     // getData();
+                       if (deleteUser(record)) {
+                       // alert("2",getData())
+                         toast.warning("Deleted Successfuly", {
+                           position: "top-right",
+                           autoClose: 2000,
+                           hideProgressBar: false,
+                           closeOnClick: true,
+                           pauseOnHover: false,
+                           draggable: true,
+                           progress: undefined,
+                         });
+                       }
+                     }
+                   })
+                  
+                 }
+                
+               >
+              Delete
+               </button>
+               <ToastContainer/>
+           </span>
+            } title="" height={100} trigger="click">
+            <img src={editdelete} style={{cursor:"pointer"}} />
+            </Popover>
+            </>
          
-            <span style={{display:"flex"}}>
-            <Button
-               className="btn btn-primary mx-2 my-2"
-                onClick={() => handleUpdate(record)}
-            >
-              Edit
-            </Button>
-         
-            <button 
-             style={{marginLeft:"20px"}}
-              onClick={(e) =>
-                Swal.fire({
-                  title: "Are you sure?",
-                  text: "Once deleted, you will not be able to recover!",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Yes, delete it!",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    console.log(result.isConfirmed)
-                    if (deleteUser(record)) {
-                   
-                      toast.warning("Deleted Successfuly", {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                      });
-                    }
-                  }
-                })
-               
-              }
-             
-            >
-           Delete
-            </button>
-            <ToastContainer/>
-        </span>
+          
 
               ),
           resizable: true,

@@ -60,17 +60,18 @@ function NewEstimate() {
     <Page_heading parent={"Sales"}  child={"New Estimate"} />
     <div className="newestimate-container">
         <div className='container1estimate'>
+          <div style={{padding:"30px 30px 0px 30px"}}>
           <div className='estimateheader'>
-            <div style={{padding:"30px 0px 0px 30px"}}>
+            <div>
               <img src={logo} className="logo1"/><img src={r} className="logo2"/><p className='brandr'>R</p>
             <p className='addressdetails'>308, 3rd Floor, "B" Wing, International
               <br/>Commerce Center, Near Kadiwala School
               <br/> Ring Road, Surat ,Gujarat -395002
             </p>
             </div>
-            <div  style={{padding:"30px 0px 0px 30px"}}>
+            <div>
               <div style={{display: "flex", alignItems: "center",gap: "20px"}}>
-              <p className='estimatelabel'>Estimate #  </p>
+              <p className='estimatelabel' style={{minWidth:"111px"}}>Estimate #  </p>
                   <div className="inputestimate_container">
                     <div className="settingestimate">
                       <input
@@ -169,18 +170,19 @@ function NewEstimate() {
 
         </div>
             </div>
+            </div>
 
 {/* //table */}
 
-            <div className='eslist'>
-              <div style={{marginLeft:"30px"}}>  <p className='eslistlabel'>Item Details</p></div>
+            <div className='eslist' style={{padding:"0px 30px"}}>
+              <div >  <p className='eslistlabel'>Item Details</p></div>
               <div style={{marginLeft:"283px"}}>  <p className='eslistlabel'>Qty</p></div>
-              <div  style={{marginLeft:"94px"}}>  <p className='eslistlabel'>Rate</p></div>
+              <div  style={{marginLeft:"96px"}}>  <p className='eslistlabel'>Rate</p></div>
               <div  style={{marginLeft:"20px"}}>  <p className='eslistlabel'>Tax</p></div>
-              <div  style={{marginLeft:"168px"}}>  <p className='eslistlabel'>Amount</p></div>
+              <div  style={{marginLeft:"155px"}}>  <p className='eslistlabel'>Amount</p></div>
             </div>
 
-            <div style={{display:"flex", alignItems:"center", marginTop:"20px"}}>
+            <div style={{display:"flex", alignItems:"center", marginTop:"20px", gap:"20px", padding:"0px 20px 0px 30px"}}>
              
                   <div className="inputestimate1_container">
                       <input
@@ -219,7 +221,7 @@ function NewEstimate() {
                       <p style={{color:"#2B3347", fontSize:"14px", fontWeight:"500"}}> ₹ 0.00</p>
                     </div>
              
-              <div style={{marginLeft:"26px"}}>
+              <div style={{marginLeft:"6px"}}>
                  <img src={icon}/>
                     </div>
               
@@ -229,8 +231,8 @@ function NewEstimate() {
 
 {/* //total */}
 
-      <div style={{display:"flex", gap:"89px"}}>
-        <div style={{padding:"20px 30px"}}>
+      <div style={{display:"flex", justifyContent:"space-between", padding:"30px 50px 30px 30px"}}>
+        <div>
           <p style={{
     fontSize:"14px",
     color: "#5C5AD0",
@@ -265,7 +267,7 @@ function NewEstimate() {
   </Upload>
           </div>
         </div>
-        <div style={{padding:"20px"}}>
+        <div>
           <div style={{display:"flex", gap:"129px", marginBottom:"11px"}}>
             <div>
             <p className='subtotal'>Sub Total</p>

@@ -4,7 +4,7 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./ModulePaymentTerms.scss";
 import Delete from "../../../assets/Images/ModulePaymentTerms/Delete.svg";
 import Edit from "../../../assets/Images/ModulePaymentTerms/Edit.svg";
-import { Spin, Table } from "antd";
+import { Popover, Spin, Table } from "antd";
 // import Modal from 'react-modal';
 import { Modal, Button } from "antd";
 import axios from "axios";
@@ -12,6 +12,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import config from "../../Database/config";
+import Swal from "sweetalert2";
+import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 
 const resetValue = {
   terms: "",
@@ -39,6 +41,7 @@ const ModulePaymentTerms = () => {
       setloading(false);
       setPaymentterm(
         res.data.map((row) => ({
+          Key:row.id,
           Terms: row.terms,
           Days: row.days,
           Discount: row.discount,
@@ -85,6 +88,18 @@ const ModulePaymentTerms = () => {
         });
       });
   };
+//delete data
+const deleteUser = (record)=>
+{
+  console.log(record);
+  console.log(record.id);
+  axios
+  .delete(
+    `${config.baseUrl}/paymentterms/${record.id}/`);
+       getData();
+       console.log(paymentterm)
+}
+
   const onChange = (e) => {
     const { value, name } = e.target;
 
@@ -121,6 +136,8 @@ const ModulePaymentTerms = () => {
   const [selectedRows, setSelectedRows] = useState([]);
 
   const dataSource = paymentterm.map((payments) => ({
+    key:payments.Key,
+    id:payments.Key,
     terms: payments.Terms,
     days: payments.Days,
     discount: payments.Discount,
@@ -135,20 +152,13 @@ const ModulePaymentTerms = () => {
       key: "terms",
       resizable: true,
       fixed: "left",
+     width:"22.5%",
       align: "left",
         sorter:(record1, record2)=>
           {
               return record1.terms > record2.terms
           },
-          // filters:[
-          //   {text:'Net 5', value:'Net 5'},
-          //   {text:'Net 6', value:'Net 6'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.terms === value
-          // }
+       
     },
     {
       title: "Days",
@@ -156,21 +166,13 @@ const ModulePaymentTerms = () => {
       dataIndex: "days",
       key: "days",
       resizable: true,
-      // width: 60,
+      width:"22.5%",
       align: "left",
         sorter:(record1, record2)=>
           {
               return record1.days > record2.days
           },
-          // filters:[
-          //   {text:'5 Days', value:'5 Days'},
-          //   {text:'50 ', value:'50 Days'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.days === value
-          // }
+         
     },
     {
       title: "Discount",
@@ -178,54 +180,101 @@ const ModulePaymentTerms = () => {
       dataIndex: "discount",
       key: "discount",
       resizable: true,
-      width: 230,
-      align: "right",
+      width:"22.5%",
+    //  width: 230,
+      align: "left",
         sorter:(record1, record2)=>
           {
               return record1.discount > record2.discount
           },
-          // filters:[
-          //   {text:'10%', value:'10%'},
-          //   {text:'2%', value:'2%'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.discount === value
-          // }
+          
+         
     },
+    
     {
       title: "Interest",
       label: "Interest",
       dataIndex: "interest",
       key: "interest",
       resizable: true,
-      // width: 60,
-      align: "right",
+      width:"22.5%",
+      align: "left",
         sorter:(record1, record2)=>
           {
               return record1.interest > record2.interest
           },
-          // filters:[
-          //   {text:'2%', value:'2%'},
-          //   {text:'2%', value:'2%'}
-          // ],
-          // // filterMultiple:false,
-          // onFilter:(value,record)=>
-          // {
-          //   return record.interest === value
-          // }
     },
+    {
+      title: "",
+      label: "Action",
+      dataIndex: "action",
+      key: "action",
+      width:"10%",
+      resizable: true,
+     
+      render: (text, record) => (
+        <>
+        <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+           <span style={{display:"flex"}}>
+           <Button
+              className="btn btn-primary mx-2 my-2"
+               //onClick={() => handleUpdate(record)}
+           >
+             Edit
+           </Button>
+        
+           <button 
+            style={{marginLeft:"20px"}}
+             onClick={(e) =>
+               Swal.fire({
+                 title: "Are you sure?",
+                 text: "Once deleted, you will not be able to recover!",
+                 icon: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#3085d6",
+                 cancelButtonColor: "#d33",
+                 confirmButtonText: "Yes, delete it!",
+               }).then((result) => {
+                getData();
+                 if (result.isConfirmed) {
+                  getData();
+                   console.log(result.isConfirmed)
+                   if (deleteUser(record)) {
+                 
+                  
+                     toast.warning("Deleted Successfuly", {
+                       position: "top-right",
+                       autoClose: 2000,
+                       hideProgressBar: false,
+                       closeOnClick: true,
+                       pauseOnHover: false,
+                       draggable: true,
+                       progress: undefined,
+                     });
+                   }
+                 }
+               })
+              
+             }
+            
+           >
+          Delete
+           </button>
+           <ToastContainer/>
+       </span>
+        } title="" height={100} trigger="click">
+        <img src={editdelete} style={{cursor:"pointer", marginLeft:"50%"}} />
+        </Popover>
+        </>
+     
+      
 
-    // {
-    //   title: "Action",
-    //   label: "Action",
-    //   dataIndex: "action",
-    //   key: "action",
-    //   resizable: true,
-    //   width: 260,
-    //   align: "left",
-    // },
+          ),
+      resizable: true,
+      width: 230,
+      align: "left",
+    },
+    
   ];
 
   const [columns, setColumns] = useState(columnsData);

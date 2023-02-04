@@ -2,13 +2,17 @@ import { React, useState, useRef, useEffect,useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./ContactsData.scss";
-import { Spin, Table, Tooltip, Tag, Skeleton } from "antd";
+import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
 import config from "../../Database/config";
 import dob from "../../../assets/Images/FormIcon/DOB.svg";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
+
 
 const filterfield = {
   name: "",
@@ -61,6 +65,18 @@ const ContactsData = () => {
     });
   };
   console.log(fetchcontact);
+
+//delete data
+const deleteUser = (record)=>
+{
+  console.log(record);
+  console.log(record.id);
+  axios
+  .delete(
+    `${config.baseUrl}/contact/${record.id}/`);
+       getData();
+       console.log(fetchcontact)
+}
 
   //All dropdowns
 
@@ -179,6 +195,73 @@ const ContactsData = () => {
       sorter: (record1, record2) => {
         return record1.ownership > record2.ownership;
       },
+    },
+    {
+      title: "",
+      label: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (text, record) => (
+        <>
+        <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+           <span style={{display:"flex"}}>
+           <Button
+              className="btn btn-primary mx-2 my-2"
+              // onClick={() => handleUpdate(record)}
+           >
+             Edit
+           </Button>
+        
+           <button 
+            style={{marginLeft:"20px"}}
+             onClick={(e) =>
+               Swal.fire({
+                 title: "Are you sure?",
+                 text: "Once deleted, you will not be able to recover!",
+                 icon: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#3085d6",
+                 cancelButtonColor: "#d33",
+                 confirmButtonText: "Yes, delete it!",
+               }).then((result) => {
+                getData();
+                 if (result.isConfirmed) {
+                  getData();
+                   console.log(result.isConfirmed)
+                 // getData();
+                   if (deleteUser(record)) {
+                   // alert("2",getData())
+                     toast.warning("Deleted Successfuly", {
+                       position: "top-right",
+                       autoClose: 2000,
+                       hideProgressBar: false,
+                       closeOnClick: true,
+                       pauseOnHover: false,
+                       draggable: true,
+                       progress: undefined,
+                     });
+                   }
+                 }
+               })
+              
+             }
+            
+           >
+          Delete
+           </button>
+           <ToastContainer/>
+       </span>
+        } title="" height={100} trigger="click">
+        <img src={editdelete} style={{cursor:"pointer"}} />
+        </Popover>
+        </>
+     
+      
+
+          ),
+      resizable: true,
+      width: 230,
+      align: "left",
     },
   ];
 

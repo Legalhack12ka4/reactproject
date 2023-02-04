@@ -1,4 +1,4 @@
-import { Button, Modal, Table, Typography } from "antd";
+import { Button, Modal, Popover, Space, Table, Typography } from "antd";
 import { React, useState, useRef } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
@@ -253,7 +253,17 @@ function Accounts() {
             //    className={`${this.props.className}-delete`}
             //  onClick={(e) => { this.onDelete(record.key, e); }}
           >
-            <img src={editdelete} />
+            
+    <Popover      getPopupContainer={(trigger) => trigger.parentElement} placement={"topRight"} content={
+      <div style={{display:"flex", gap:"10px"}}>
+        <div><button style={{height:"38px", width:"80px"}}>Edit</button></div>
+        <div><button style={{height:"38px", width:"80px"}}>Delete</button></div>
+      </div>
+    } title="" height={100} trigger="click">
+    <img src={editdelete} style={{cursor:"pointer"}} />
+    </Popover>
+  
+            {/* <img src={editdelete} /> */}
           </span>
           </div>
         </>
