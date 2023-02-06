@@ -29,7 +29,7 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
       
-    - name: Build, tag and push image to Amazon ECR
+    - name: Display variables and secrets
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.output.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -38,6 +38,8 @@ jobs:
         echo "ECR_REGISTRY:"  ${{ steps.login-ecr.output.registry }}
         echo "ECR_REPOSITORY:"  ${{ secrets.ECR_REPOSITORY }}
         echo "IMAGE_TAG:"  ${{ secrets.IMAGE_TAG }}
+
+    - name: Build, tag and push image to Amazon ECR
       run: |
         docker build -t $ECR_REPOSITORY .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
