@@ -19,13 +19,13 @@ function Module() {
       <img src={link}/>
       <Link exact to="/module/module_paymenttable" className='payment_btn'>Payment Terms</Link>
       </div>
-   <div>
+   <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/module/module_currencytable" className='currency_btn'>Currency</Link>
    </div>
    <div>
    <img src={link}/>
-   {/* <Link exact to="/customer/customerPage" className='currency_btn'>customer</Link> */}
+   <Link exact to="/customers/customerPage" className='currency_btn'>Customer</Link>
    </div>
    </div>
     </div>

@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react'
-import Page_heading from '../../../Page_Heading/Page_heading'
-import "../New Estimate/NewEstimate.scss";
-import logo from "../../../../assets/Images/NewEstimate/Logo.svg";
-import r from "../../../../assets/Images/NewEstimate/R.svg";
-import setting from "../../../../assets/Images/NewEstimate/setting.svg";
-import draft from "../../../../assets/Images/NewEstimate/draft.svg";
-import customerdetilslogo from "../../../../assets/Images/NewEstimate/editdelete.svg";
-import custlogo from "../../../../assets/Images/NewEstimate/custlogo.svg";
-import arrow from "../../../../assets/Images/NewEstimate/arrow.svg";
-import email from "../../../../assets/Images/FormIcon/Email.svg";
-import phone from "../../../../assets/Images/FormIcon/Phone.svg";
+import React from 'react'
+import Page_heading from '../../Page_Heading/Page_heading'
+import "../Estimate/New Estimate/NewEstimate.scss";
+import logo from "../../../assets/Images/NewEstimate/Logo.svg";
+import r from "../../../assets/Images/NewEstimate/R.svg";
+import setting from "../../../assets/Images/NewEstimate/setting.svg";
+import draft from "../../../assets/Images/NewEstimate/draft.svg";
+import customerdetilslogo from "../../../assets/Images/NewEstimate/editdelete.svg";
+import custlogo from "../../../assets/Images/NewEstimate/custlogo.svg";
+import arrow from "../../../assets/Images/NewEstimate/arrow.svg";
+import email from "../../../assets/Images/FormIcon/Email.svg";
+import phone from "../../../assets/Images/FormIcon/Phone.svg";
 
 import { Button, Collapse, message, Switch, Upload } from 'antd';
-import icon from "../../../../assets/Images/Confirmation/editdelete.svg"
+import icon from "../../../assets/Images/Confirmation/editdelete.svg"
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { useState } from 'react';
-import SearchDropown from "../../../AllDropdowns/SearchDropdown/SearchDropdown.jsx"
-import config from '../../../Database/config';
-
+import SearchDropdown from '../../AllDropdowns/SearchDropdown/SearchDropdown';
+import { useEffect } from 'react';
+import config from '../../Database/config';
 const { Panel } = Collapse;
 
 const text = `
@@ -27,14 +27,16 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-function NewEstimate() {
+function SalesOrder() {
   const [isShown, setIsShown] = useState(false);
   const [customer, setCustomer] = useState([]);
 
   const handleClick = event => {
     // 👇️ toggle shown state
     setIsShown(current => !current);
-    
+
+    // 👇️ or simply set it to true
+    // setIsShown(true);
   };
   const props: UploadProps = {
     name: 'file',
@@ -76,11 +78,10 @@ function NewEstimate() {
    // getData();
   }, []);
 
-
   return (
     <div className="newestimate">
     {/* <Page_heading parent={"List of Modules"} subchild={(<Link exact to= "/module">{"Module"}</Link>)} child={"Payment Terms"} /> */}
-    <Page_heading parent={"Sales"}  child={"New Estimate"} />
+    <Page_heading parent={"Sales"}  child={"Sales Order"} />
     <div className="newestimate-container">
         <div className='container1estimate'>
           <div style={{padding:"30px 30px 0px 30px"}}>
@@ -152,9 +153,7 @@ function NewEstimate() {
     </Panel>
    
   </Collapse> */}
-   {!isShown && <SearchDropown  width={250} options={customerdata} />}
-   {/* {!isShown && <div onClick={handleClick}  className="showcustomer">Select Customer <img src={arrow} style={{transform: "rotate(90deg)"}}/></div>} */}
-
+  {!isShown && <SearchDropdown  width={250} options={customerdata} />}
 {/* 👇️ show elements on click */}
 {isShown && (
   <div style={{display:"flex", gap:"70px"}}>
@@ -360,7 +359,7 @@ function NewEstimate() {
         <div>
         {isShown && (
   <div className='customerinfo'>
-    <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
       <div style={{color:"#2B3347", fontSize:"16px", fontWeight:"500"}}>Customer Details</div> 
       <div><img src={customerdetilslogo} style={{transform: "rotate(90deg)"}}/></div>
     </div >
@@ -445,4 +444,4 @@ function NewEstimate() {
   )
 }
 
-export default NewEstimate
+export default SalesOrder

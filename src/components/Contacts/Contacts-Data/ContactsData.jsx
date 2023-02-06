@@ -12,6 +12,9 @@ import dob from "../../../assets/Images/FormIcon/DOB.svg";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
 import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
+import CalendarComp from "../../Calendar/CalendarComp"
+// import 'react-date-range/dist/styles.css'; // main style file
+// import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 const filterfield = {
@@ -23,7 +26,9 @@ const filterfield = {
   ownership: "",
 };
 
-const ContactsData = () => {
+
+
+const ContactsData = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [fetchcontact, setFetchcontact] = useState([]);
@@ -33,7 +38,7 @@ const ContactsData = () => {
   const [visible, setVisible] = useState(false);
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
-
+  //const [oldData, setoldData] = useState([]);
 
 
   useEffect(() => {
@@ -105,6 +110,29 @@ const deleteUser = (record)=>
       label: "Manger",
     },
   ];
+  function showCanvas() {
+    var m = document.querySelector(".menu1");
+    m.classList.add("smenu");
+    //document.root.style.backgroundColor='rgba(0,0,0,0.4)';
+    document.getElementById("gradient").classList.add("body_gradient");
+  }
+
+
+  //Get data in textbox on edit button
+  const handleUpdate = (oldData) => {
+    console.log(oldData);
+    console.log(oldData.id);
+    showCanvas();
+  //  getFormData();
+  //  setoldData(oldData);
+    // props.setFormData(oldData);
+    // <OffCanvasExample form={<Contacts  onClick={getData} />} />
+   // showModal();
+  };
+//get form data
+
+
+
 
   const dataSource = fetchcontact.map((contact) => ({
     key: contact.Key,
@@ -189,7 +217,7 @@ const deleteUser = (record)=>
       dataIndex: "ownership",
       key: "ownership",
       resizable: true,
-      width: "max-content",
+      width: "150px",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -208,7 +236,7 @@ const deleteUser = (record)=>
            <span style={{display:"flex"}}>
            <Button
               className="btn btn-primary mx-2 my-2"
-              // onClick={() => handleUpdate(record)}
+               onClick={() => handleUpdate(record)}
            >
              Edit
            </Button>
@@ -409,6 +437,10 @@ const deleteUser = (record)=>
     else setSelectedColumns(selectedColumns.filter(col => col !== value));
   }
 
+  const handleSelect=(date)=>{
+    console.log(date); // native Date object
+  }
+
   return (
     <div className="contacts-data">
       <Page_heading parent={"Business Account"} child={"contacts"} />
@@ -458,14 +490,22 @@ const deleteUser = (record)=>
                 <br />
                 <div className="contactinput" style={{ marginTop: "5px" }}>
                   <img src={dob} className="customerimg" />
-                  <input
+                  {/* <Calendar
+        date={new Date()}
+        onChange={handleSelect}
+          /> */}
+
+          <CalendarComp    name="dob"
+                    value={custfilter.dob}
+                    onChange={onChangedob}/>
+                  {/* <input
                     type="date"
                     className="inputcontact"
                     placeholder="Placeholder"
                     name="dob"
                     value={custfilter.dob}
                     onChange={onChangedob}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>,
@@ -484,7 +524,7 @@ const deleteUser = (record)=>
             setVisible(!visible);
           }}
         />
-        <OffCanvasExample form={<Contacts onClick={getData} />} />
+        <OffCanvasExample form={<Contacts  onClick={getData} />} />
         <div className="tableData">
           {filterarray.length > 0 && (
             <div className="tags" id="tags">

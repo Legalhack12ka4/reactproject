@@ -458,7 +458,7 @@ const position = [
                   className="inputcontact"
                   placeholder="Placeholder"
                   name="name"
-                  value={values.name}
+                  value={formData.name}
                   onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
                 />
@@ -494,7 +494,7 @@ const position = [
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="mobile"
-                    value={values.mobile}
+                    value={formData.mobile}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -528,7 +528,7 @@ const position = [
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="email"
-                    value={values.email}
+                    value={formData.email}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -562,7 +562,7 @@ const position = [
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="dob"
-                    value={values.dob}
+                    value={formData.dob}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -593,7 +593,7 @@ const position = [
                 name="position"
              //   onChange={(e) => {handleChange(e); handleDrpChange(e);}}
                 onChange={handleDrpChange}
-                value={values.position}
+                value={formData.position}
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"
                   />

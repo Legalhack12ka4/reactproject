@@ -526,15 +526,17 @@ console.log(formData)
           loading={{indicator : <div><Spin/></div>, spinning:loading}}
           dataSource={filteredData}
           columns={columns}
-          pagination={{
-            current:page,
-            pageSize:pageSize, 
-            onChange:(page, pageSize)=>
-            {
+          pagination={!loading &&{
+            current: page,
+            pageSize: pageSize,
+            onChange: (page, pageSize) => {
               setPage(page);
-              setPageSize(pageSize)
+              setPageSize(pageSize);
             },
-            total:100}}
+            total: currency.length,
+            showTotal: (total, range) =>
+              `Showing ${range[1]}-${range[1]} of ${total} Currency`,
+          }}
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }
