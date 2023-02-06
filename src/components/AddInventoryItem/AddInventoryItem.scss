@@ -607,6 +607,7 @@
 .BomContainer{
     // border: 1px solid
     margin-bottom: 50px;
+    
 
 
     .line{
@@ -691,7 +692,7 @@
 
         .rows_container{
             max-height: 236px;
-            overflow: scroll;
+            // overflow: scroll;
 
         }
 
@@ -754,6 +755,7 @@
                 text-align: right;
 
             }
+            
 
         }
 
@@ -816,12 +818,14 @@
                     border: .5px solid #C2CAD2;
                     overflow: hidden;
                     
+                    
                 
                     input{
                         width: 65%;
                         height: 100%;
                         padding: 0px 10px;
                         text-align: right;
+                       
                     }
                 }
             }
@@ -902,10 +906,12 @@
                         height: 100%;
                         padding: 0px 10px;
                         text-align: right;
+                         background-color: #ECEEF1;
                     }
                 }
 
             }
+           
 
             .value1{
                // width: 100px;
@@ -1234,3 +1240,17 @@ border-radius: 5px;
 width: 155px;
 height: 38px;
 }
+
+
+
+@media (min-height: 236px) {
+    .rows_container {
+      overflow: scroll;
+    }
+  }
+  
+  @media (max-height: 56px) {
+    .rows_container {
+      overflow: visible;
+    }
+  }
