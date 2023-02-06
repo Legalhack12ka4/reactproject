@@ -29,21 +29,19 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
       
-    - name: Display variables and secrets
+    - name: Build, tag and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.output.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
-      run: | 
-        echo "ECR_REGISTRY:"  ${{ steps.login-ecr.output.registry }}
-        echo "ECR_REPOSITORY:"  ${{ secrets.ECR_REPOSITORY }}
-        echo "IMAGE_TAG:"  ${{ secrets.IMAGE_TAG }}
-
-    - name: Build, tag and push image to Amazon ECR
       run: |
-        docker build -t $ECR_REPOSITORY .
-        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker build -t reformiqo-erp-frontend .
+        docker tag reformiqo-erp-frontend:latest 746098590827.dkr.ecr.ap-south-1.amazonaws.com/reformiqo-erp-frontend:latest
+        docker push 746098590827.dkr.ecr.ap-south-1.amazonaws.com/reformiqo-erp-frontend:latest
+        
+        # docker build -t $ECR_REPOSITORY .
+        # docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
     
     # - name: Deploy
     #   run: zip -r "deploy.zip" docker-compose.yml
