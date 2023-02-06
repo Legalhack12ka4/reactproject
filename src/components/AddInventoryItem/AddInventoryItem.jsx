@@ -507,6 +507,14 @@ const popVisible = () =>
     setIsSerialModalOpen(true);
   };
 
+  // other reset 
+  const resetOther = () => {
+    document.getElementById("otherInput").value = "";
+    setOtherInputValue("");
+
+  };
+
+
   // popOver
 
   const [open, setOpen] = useState(false);
@@ -681,6 +689,7 @@ const popVisible = () =>
         >
           <p className="item_image_heading"> Item Image</p>
           <Upload
+            accept="image/*"
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             listType="picture-card"
             fileList={fileList}
@@ -1158,6 +1167,7 @@ const popVisible = () =>
                         <Popover
                           showArrow={false}
                           placement={"bottomLeft"}
+                          getPopupContainer={(trigger) => trigger.parentElement}
                           content={
                             <div className="materialCoontainer">
                               <div className="productionresources">
@@ -1302,7 +1312,7 @@ const popVisible = () =>
                         </div>
                       </div>
                     </li>
-                    <li className="value">
+                    <li className="value disableInput">
                       <div className="input_container">
                         <input
                           type="text"
@@ -1517,6 +1527,7 @@ const popVisible = () =>
                 <input
                   type="text"
                   placeholder="Others"
+                  id="otherInput"
                   onChange={(event) => setOtherInputValue(event.target.value)}
                 />
               </li>
@@ -1529,6 +1540,12 @@ const popVisible = () =>
                   {otherInputValue && <TagsInput />}
                 </div>
               </li>
+              <div
+                  className="delete_btn"
+                  onClick={resetOther}
+                >
+                  <img src="/images/icons/delete.svg" alt="" />
+                </div>
             </ul>
 
             {!colors || !sizes || !serial ? (
