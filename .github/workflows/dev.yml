@@ -34,6 +34,9 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.output.registry }}
         ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         IMAGE_TAG: ${{ secrets.IMAGE_TAG }}
+      run: echo "ECR_REGISTRY:"  ${{ steps.login-ecr.output.registry }}
+      run: echo "ECR_REPOSITORY:"  ${{ secrets.ECR_REPOSITORY }}
+      run: echo "IMAGE_TAG:"  ${{ secrets.IMAGE_TAG }}
       run: |
         docker build -t $ECR_REPOSITORY .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
