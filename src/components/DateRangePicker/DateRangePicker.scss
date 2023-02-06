@@ -17,25 +17,25 @@
 .rdrEndEdge {
   background-color: #5C5AD0 !important;
 }
-.rdrInRange + .rdrDayNumber {
-  span {
-    color: black !important;
-  }
-}
+// .rdrInRange + .rdrDayNumber {
+//   span {
+//     color: black !important;
+//   }
+// }
 
-.rdrCalendarwrapper:not(.rdrDateRangeWrapper)
-  .rdrDayHovered
-  .rdrDayNumber:after {
-  content: "";
-  border: 1px solid red !important;
-  // border-radius: 1. 333em !important;
-  // position: absolute !important;
-  // top: -2px !important;
-  // bottom: -2px !important;
-  // left: Opx !important;
-  // right: Opx !important;
-  // background: transparent !important;
-}
+// .rdrCalendarwrapper:not(.rdrDateRangeWrapper)
+//   .rdrDayHovered
+//   .rdrDayNumber:after {
+//   content: "";
+//   //border: 1px solid red !important;
+//   // border-radius: 1. 333em !important;
+//   // position: absolute !important;
+//   // top: -2px !important;
+//   // bottom: -2px !important;
+//   // left: Opx !important;
+//   // right: Opx !important;
+//   // background: transparent !important;
+// }
 .rdrDateRangePickerWrapper {
   flex-direction: row-reverse !important;
   .rdrDefinedRangesWrapper {
@@ -105,25 +105,25 @@
 
 }
 
-.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive),
-.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-  color: black;
-}
+// .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
+// .rdrDay:not(.rdrDayPassive),
+// .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+// .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+//   color: black;
+// }
 
 .rdrCalendarWrapper:not(.rdrDateRangeWrapper)
   .rdrDayHovered
   .rdrDayNumber:after {
   content: "";
-  border: 8px solid red !important;
+ // border: 8px solid red !important;
   border-radius: 1.333em;
   position: absolute;
   top: -2px;
   bottom: -2px;
   left: 0px;
   right: 0px;
-  background: black !important;
+//  background: black !important;
 }
 
 .rdrStaticRangeSelected {

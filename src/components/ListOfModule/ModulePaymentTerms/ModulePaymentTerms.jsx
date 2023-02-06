@@ -152,7 +152,7 @@ const deleteUser = (record)=>
       key: "terms",
       resizable: true,
       fixed: "left",
-     width:"22.5%",
+     width:"26%",
       align: "left",
         sorter:(record1, record2)=>
           {
@@ -166,7 +166,7 @@ const deleteUser = (record)=>
       dataIndex: "days",
       key: "days",
       resizable: true,
-      width:"22.5%",
+      width:"26%",
       align: "left",
         sorter:(record1, record2)=>
           {
@@ -180,7 +180,7 @@ const deleteUser = (record)=>
       dataIndex: "discount",
       key: "discount",
       resizable: true,
-      width:"22.5%",
+      width:"26%",
     //  width: 230,
       align: "left",
         sorter:(record1, record2)=>
@@ -197,7 +197,7 @@ const deleteUser = (record)=>
       dataIndex: "interest",
       key: "interest",
       resizable: true,
-      width:"22.5%",
+      width:"10.5%",
       align: "left",
         sorter:(record1, record2)=>
           {
@@ -209,7 +209,7 @@ const deleteUser = (record)=>
       label: "Action",
       dataIndex: "action",
       key: "action",
-      width:"10%",
+      width:60,
       resizable: true,
      
       render: (text, record) => (
@@ -448,15 +448,17 @@ const deleteUser = (record)=>
          loading={{indicator : <div><Spin/></div>, spinning:loading}}
           dataSource={filteredData}
           columns={columns}
-            pagination={{
-            current:page,
-            pageSize:pageSize, 
-            onChange:(page, pageSize)=>
-            {
+          pagination={!loading &&{
+            current: page,
+            pageSize: pageSize,
+            onChange: (page, pageSize) => {
               setPage(page);
-              setPageSize(pageSize)
+              setPageSize(pageSize);
             },
-            total:100}}
+            total: paymentterm.length,
+            showTotal: (total, range) =>
+              `Showing ${range[1]}-${range[1]} of ${total} PaymentTerms`,
+          }}
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }

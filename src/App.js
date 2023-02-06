@@ -27,6 +27,9 @@ import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/Mod
 import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import NewEstimate from './components/Sales/Estimate/New Estimate/NewEstimate';
+import SalesOrder from './components/Sales/SalesOrder/SalesOrder';
+import Invoice from './components/Sales/Invoice/Invoice';
+import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
 
 function App() {
   return (
@@ -61,7 +64,10 @@ function App() {
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
           <Route path='/' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
-          <Route path="/newestimate" element={<NewEstimate/>}/>
+          <Route path="Sales/new_estimate" element={<NewEstimate/>}/>
+          <Route path="Sales/sales_order" element={<SalesOrder/>}/>
+          <Route path="Sales/invoice" element={<Invoice/>}/>
+          <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>
