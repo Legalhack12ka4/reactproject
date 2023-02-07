@@ -13,7 +13,10 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import config from "../../Database/config";
 import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
-
+import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
+import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
+import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
+import alert from "../../../assets/Images/Confirmation/confirm.svg";
 
 const resetValue = {
 
@@ -30,6 +33,32 @@ const ModuleCurrencyTable = () => {
   const [currency, setCurrency] = useState([]);
   const [page, setPage]=useState(1);
   const [pageSize, setPageSize] = useState(10)
+  const [confirm, setCofirm] = useState(false);
+  const [deleteRecord, setDeleteRecord] = useState(null)
+  
+//for modal delete
+
+  const handleConfirmCancel = (record) => {
+    setDeleteRecord(record)
+      setCofirm(true);
+      //setPopOverVisible(false)
+    };
+  
+    const handleConfirm = () => {
+      setCofirm(false);
+      setDeleteRecord(null)
+      // setPopOverVisible(false)
+    };
+  
+    const handleSubmitModal = () =>
+    {
+    //  alert("Data", record)
+      deleteUser(deleteRecord);
+      getData();
+      setCofirm(false);
+      getData();
+    }
+
 
   const [loading, setloading] = useState(true);
   useEffect(() => {
@@ -295,57 +324,80 @@ console.log(formData)
           width: 60,
           render: (text, record) => (
             <>
-            <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-               <span style={{display:"flex"}}>
-               <Button
-                  className="btn btn-primary mx-2 my-2"
-                   onClick={() => handleUpdate(record)}
-               >
-                 Edit
-               </Button>
-            
-               <button 
-                style={{marginLeft:"20px"}}
-                 onClick={(e) =>
-                   Swal.fire({
-                     title: "Are you sure?",
-                     text: "Once deleted, you will not be able to recover!",
-                     icon: "warning",
-                     showCancelButton: true,
-                     confirmButtonColor: "#3085d6",
-                     cancelButtonColor: "#d33",
-                     confirmButtonText: "Yes, delete it!",
-                   }).then((result) => {
-                    getData();
-                     if (result.isConfirmed) {
-                      getData();
-                       console.log(result.isConfirmed)
-                     // getData();
-                       if (deleteUser(record)) {
-                       // alert("2",getData())
-                         toast.warning("Deleted Successfuly", {
-                           position: "top-right",
-                           autoClose: 2000,
-                           hideProgressBar: false,
-                           closeOnClick: true,
-                           pauseOnHover: false,
-                           draggable: true,
-                           progress: undefined,
-                         });
-                       }
-                     }
-                   })
+          <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
+                 <>
+           
+                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+                 <img src={deletelogo} />
+                 <div>
+                 <button 
+                 className="actionlabel"
+                 onClick={() => handleConfirmCancel(record)}
+                  //  onClick={(e) =>
+                  //    Swal.fire({
+                  //      title: "Are you sure?",
+                  //      text: "Once deleted, you will not be able to recover!",
+                  //      icon: "warning",
+                  //      showCancelButton: true,
+                  //      confirmButtonColor: "#3085d6",
+                  //      cancelButtonColor: "#d33",
+                  //      confirmButtonText: "Yes, delete it!",
+                  //    }).then((result) => {
+                  //     getData();
+                  //      if (result.isConfirmed) {
+                  //       getData();
+                  //        console.log(result.isConfirmed)
+                  //      // getData();
+                  //        if (deleteUser(record)) {
+                  //        // alert("2",getData())
+                  //          toast.warning("Deleted Successfuly", {
+                  //            position: "top-right",
+                  //            autoClose: 2000,
+                  //            hideProgressBar: false,
+                  //            closeOnClick: true,
+                  //            pauseOnHover: false,
+                  //            draggable: true,
+                  //            progress: undefined,
+                  //          });
+                  //        }
+                  //      }
+                  //    })
+                    
+                   //}
                   
-                 }
-                
-               >
-              Delete
-               </button>
-               <ToastContainer/>
-           </span>
-            } title="" height={100} trigger="click">
-            <img src={editdelete} style={{cursor:"pointer"}} />
-            </Popover>
+                 >
+                Delete
+                 </button>
+                 </div>
+                 </div>
+                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                  <img src={editlogo} />
+                  <div>
+                 <button
+      
+                    className="actionlabel"
+                   onClick={() => handleUpdate(record)}
+                 >
+                Update
+                 </button>
+                 </div>
+                 </div>
+                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                  <img src={statuslogo} />
+                  <div>
+                 <button
+                  className="actionlabel"
+                  style={{minWidth: "max-content"}}
+                    // onClick={() => handleUpdate(record)}
+                 >
+                  Set as Activate
+                 </button>
+                 </div>
+                 </div>
+                 </>
+        } title="" height={100} trigger="click">
+        <img src={editdelete} style={{cursor:"pointer"}} />
+        </Popover>
             </>
          
           
@@ -556,6 +608,95 @@ console.log(formData)
         draggable
         pauseOnHover={false}
       /> */}
+        <Modal
+        open={confirm}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirm}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleSubmitModal}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Delete
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Currency
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
       </div>
     </div>
   );
