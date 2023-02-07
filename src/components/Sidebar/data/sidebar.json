@@ -1,0 +1,293 @@
+[
+    {
+        "title": "Dashboard",
+        "id": "db",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bxs-dashboard.svg",
+        "path": "/"
+    },
+    {
+        "title": "MASTERS",
+        "id": "ms",
+        "type": "group"
+    },
+    {
+        "title": "Item & Services",
+        "id": "is",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bxs-cube.svg",
+        "path": "/add_inventory"
+    },
+    {
+        "title": "Banking",
+        "id": "bk",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bank.svg",
+        "path": "banking"
+    },
+    {
+        "title": "Business Accounts",
+        "id": "ba",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/bxs-business.svg",
+        "childrens": [
+            {
+                "title": "Leads",
+                "path": "/leads"
+            },
+            {
+                "title": "Contacts",
+                "path": "/contacts"
+            },
+            {
+                "title": "Vendors",
+                "path": "/vendors"
+            },
+            {
+                "title": "Customers",
+                "path": "/customers"
+            }
+        ]
+    },
+
+
+
+
+    {
+        "title": "ACCOUNTING",
+        "id": "ac",
+        "type": "group"
+    },
+    {
+        "title": "Chart of Accounts",
+        "id": "ca",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bxs-receipt.svg",
+        "path": "/accounts"
+    },
+
+
+
+
+    {
+        "title": "TRANSACTIONS",
+        "id": "ts",
+        "type": "group"
+    },
+    {
+        "title": "Sales",
+        "id": "sl",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/bxs-cart-alt.svg",
+        "childrens": [
+            {
+                "title": "Estimate",
+                "path": "Sales/new_estimate"
+            },
+            {
+                "title": "Sales Order",
+                "path": "Sales/sales_order"
+            },
+            {
+                "title": "Packages",
+                "path": "/packages"
+            },
+            {
+                "title": "Pick-list",
+                "path": "/pick_list"
+            },
+            {
+                "title": "Shipment",
+                "path": "/shipment"
+            },
+            {
+                "title": "Invoice",
+                "path": "Sales/invoice"
+            },
+            {
+                "title": "Payments",
+                "path": "/payments"
+            },
+            {
+                "title": "Credit Notes",
+                "path": "/credit_notes"
+            }
+        ]
+    },
+    {
+        "title": "Purchase",
+        "id": "pc",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/bag.svg",
+        "childrens": [
+            {
+                "title": "Requisitions",
+                "path": "/requisitions"
+            },
+            {
+                "title": "Quotations",
+                "path": "/quotations"
+            },
+            {
+                "title": "Purchase Orders",
+                "path": "Purchase/purchase_orders"
+            },
+            {
+                "title": "Goods Receipts",
+                "path": "/goods_receipts"
+            },
+            {
+                "title": "Bills",
+                "path": "/bills"
+            },
+            {
+                "title": "Payments",
+                "path": "/payments"
+            },
+            {
+                "title": "Vendor Credit",
+                "path": "/vendor_credit"
+            }
+        ]
+    },
+    {
+        "title": "Investment",
+        "id": "iv",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/Group-9.svg",
+        "childrens": [
+            {
+                "title": "Buy",
+                "path": "/buy"
+            },
+            {
+                "title": "Sell",
+                "path": "/sell"
+            }
+        ]
+    },
+    {
+        "title": "Production",
+        "id": "pd",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/bxs-package.svg",
+        "childrens": [
+            {
+                "title": "Bill of Material",
+                "path": "/bill_of_material"
+            },
+            {
+                "title": "Production Orders",
+                "path": "/production_orders"
+            },
+            {
+                "title": "Issues",
+                "path": "/issues"
+            },
+            {
+                "title": "Receipts",
+                "path": "/receipts"
+            }
+        ]
+    },
+    {
+        "title": "Job Work",
+        "id": "jw",
+        "type": "dropdown_btn",
+        "icon": "/images/sidebar_icons/bxs-palette.svg",
+        "childrens": [
+            {
+                "title": "Job Orders",
+                "path": "/job_orders"
+            },
+            {
+                "title": "Received Goods",
+                "path": "/received_goods"
+            },
+            {
+                "title": "Sent Goods",
+                "path": "/sent_goods"
+            }
+        ]
+    },
+    {
+        "title": "Taxation",
+        "id": "tx",
+        "type": "dropdown_btn2",
+        "icon": "/images/sidebar_icons/Layer_x0020_1.svg",
+        "childrens": [
+            {
+                "title": "Income Tax",
+                "path": "/income_tax"
+            },
+            {
+                "title": "GST",
+                "childrens": [
+                    {
+                        "title": "GSTR 1",
+                        "path": "gstr1"
+                    },
+                    {
+                        "title": "GSTR 3B",
+                        "path": "gstr3b"
+                    },
+                    {
+                        "title": "GSTR 9",
+                        "path": "gstr9"
+                    }
+                            ]
+                    
+            }
+        ]
+    },
+
+
+
+    {
+        "title": "AUTOMATION",
+        "type": "group"
+    },
+    {
+        "title": "Workflow Rules",
+        "id": "wr",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bxs-arrow-from-top.svg",
+        "path": "workflow_rules"
+    },
+    {
+        "title": "Recurring Transaction",
+        "id": "rt",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bx-transfer-alt.svg",
+        "path": "recurring_transaction"
+    },
+    {
+        "title": "OTHERS",
+        "type": "group"
+    },
+    {
+        "title": "Tasks",
+        "id": "tk",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bx-task.svg",
+        "path": "tasks"
+    },
+    {
+        "title": "Reports",
+        "id": "rs",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bxs-report.svg",
+        "path": "reports"
+    },
+    {
+        "title": "MODULE",
+        "type": "group"
+    },
+    {
+        "title": "List of Modules",
+        "id": "lm",
+        "type": "btn",
+        "icon": "/images/sidebar_icons/bx-list-ul.svg",
+        "path": "module"
+    }
+]

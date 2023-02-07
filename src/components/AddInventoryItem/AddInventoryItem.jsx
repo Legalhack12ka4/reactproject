@@ -23,6 +23,7 @@ const getBase64 = (file) => {
 };
 
 const AddInventoryItem = (props, {onClick}) => {
+
   const scannerRef = useRef(null);
   const [image, setImage] = React.useState([]);
   const [fileNames, setFileNames] = React.useState([]);
@@ -31,8 +32,6 @@ const AddInventoryItem = (props, {onClick}) => {
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
   const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
-  // const [superVariantRows, setSuperVariantRows] = useState([{id:1, name:"row1",value: ""},{id:2, name:"row2",value: ""},{id:3, name:"row3",value: ""}]);
-  // ,{id:4, name:"row4",type: "typebox"}
   const [withResource, setWithResource] = useState(true);
   const [bomRows, setBomRows] = useState([
     { id: 1, name: "row1", value: "" },
@@ -41,7 +40,7 @@ const AddInventoryItem = (props, {onClick}) => {
     { id: 4, name: "row4", value: "" },
   ]);
 
-  // const [currentIndex, setCurrentIndex] = React.useState(0);
+
   const [isMaterialModalOpen, setIsMaterialModalOpen] = useState(false);
   const [isSerialModalOpen, setIsSerialModalOpen] = useState(false);
   const [bomEnable, setBomEnable] = useState(false);
@@ -55,7 +54,7 @@ const AddInventoryItem = (props, {onClick}) => {
   const [serialValueTo, setSerialValueTo] = useState(0);
   const [otherInputValue, setOtherInputValue] = useState("");
   const containerRef = useRef(null);
-  // const hiddenFileInput = React.useRef(null);
+
 
   // bom value state
   const [cost, setCost] = useState(Array(bomRows.length).fill(0));
@@ -88,6 +87,7 @@ const AddInventoryItem = (props, {onClick}) => {
   //popover
 
   const [popOverVisible, setPopOverVisible] = useState(false);
+  
   //Body assigned handlepopover
 const resetRef= useRef()
 
@@ -153,50 +153,7 @@ const popVisible = () =>
     </div>
   );
 
-  // const handleClick = (event) => {
-  //   hiddenFileInput.current.click();
-  // };
-
-  // const handleChange = (e) => {
-  //   if (e.target.files.length > 5) {
-  //     alert("You can only upload 5 images");
-  //     return;
-  //   }
-  //   setImage(e.target.files);
-  //   setCurrentIndex(0);
-  //   const files = e.target.files;
-
-  //   const names = [];
-
-  //   for (let i = 0; i < files.length; i++) {
-  //     names.push(files[i].name);
-  //   }
-
-  //   setFileNames(names);
-  // };
-  // const handleDelete = () => {
-  //   const index = fileNames.indexOf(image[currentIndex].name);
-  //   fileNames.splice(index, 1);
-  //   const newImages = [...image];
-  //   newImages.splice(index, 1);
-  //   setImage(newImages);
-  //   setFileNames(fileNames);
-  //   setCurrentIndex(0);
-  //   if (currentIndex > 0) {
-  //     setCurrentIndex(currentIndex - 1);
-  //   } else if (currentIndex === 0) {
-  //     setCurrentIndex(0);
-  //   } else {
-  //     setCurrentIndex(0);
-  //   }
-  // };
-
-  // const handlePrevClick = () => {
-  //   setCurrentIndex((currentIndex - 1 + image.length) % image.length);
-  // };
-  // const handleNextClick = () => {
-  //   setCurrentIndex((currentIndex + 1) % image.length);
-  // };
+  
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -276,14 +233,7 @@ const popVisible = () =>
     setIsGenerateModalOpen(false);
   };
 
-  //   const deleteBomRow = (id) => {
-  //     setBomRows(bomRows.filter(row => row.id !== id));
-  //     setCost(cost.filter((_, index) => bomRows[index].id !== id));
-  //     setQty(qty.filter((_, index) => bomRows[index].id !== id));
-  //     setValue(value.filter((_, index) => bomRows[index].id !== id));
-  //     setTotalSum(totalSum - value[id]);
-  //     // console.log(id)
-  // }
+
   const deleteBomRow = (id) => {
     setBomRows(bomRows.filter((row) => row.id !== id));
     setCost((prevCost) =>
@@ -301,12 +251,7 @@ const popVisible = () =>
       prevValue.filter((item, index) => bomRows[index].id !== id)
     );
   };
-  // const deleteBomRow = (id) => {
-  //   setBomRows(bomRows.filter(row => row.id !== id));
-  //   setCost(prevCost => prevCost.filter((item, index) => bomRows[index].id !== id));
-  //   setValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-  //   setShowFormattedValue(prevValue => prevValue.filter((item, index) => bomRows[index].id !== id));
-  // }
+ 
   const handleBomAddRow = () => {
     const newRows = [...bomRows, { id: Date.now() }, { id: Date.now() + 1 }];
     setBomRows(newRows);
@@ -323,16 +268,7 @@ const popVisible = () =>
     }
   }, [bomRows]);
 
-  // const handleVarientAddRow = () => {
-  //   let index = superVariantRows.length -1;
-  //   const newRows = [...superVariantRows];
-  //   newRows.splice(index, 0, {id: superVariantRows.length + 1, name: `row${superVariantRows.length+1}`, type: "dropdown"});
-  //   setSuperVariantRows(newRows);
-  // }
-  // const deleteVariantsRow = (id) => {
-  //   setSuperVariantRows(superVariantRows.filter(row => row.id !== id));
-  //   // console.log(id)
-  // }
+
   const handleBomChange = (checked) => {
     // console.log(`switch bom ${checked}`);
     setBomEnable(checked);
@@ -377,28 +313,6 @@ const popVisible = () =>
     },
   ];
 
-  // useEffect(() => {
-  //   hiddenFileInput.current.ondragover = () => {
-  //     hiddenFileInput.current.className = "hover";
-  //     return false;
-  //   };
-  //   hiddenFileInput.current.ondrop = (e) => {
-  //     e.preventDefault();
-  //     hiddenFileInput.current.className = "hidden";
-  //     const file = e.dataTransfer.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = (event) => {
-  //       document.getElementById("image_droped").className = "visible";
-  //       document.getElementById("image_droped").src = event.target.result;
-  //     };
-  //     reader.readAsDataURL(file);
-  //   };
-  // }, []);
-
-  // let dots = [];
-  // for (let i = 0; i < image.length; i++) {
-  //   dots.push(i);
-  // }
 
   const selectOption = [
     {
@@ -519,13 +433,6 @@ const popVisible = () =>
 
   const [open, setOpen] = useState(false);
 
-  // const hide = () => {
-  //   setOpen(false);
-  // };
-
-  // const handleOpenChange = (newOpen) => {
-  //   setOpen(newOpen);
-  // };
 
   const formatAmount = (value) => {
     if (value >= 10000000) {
@@ -716,102 +623,7 @@ const popVisible = () =>
             />
           </Modal>
         </div>
-        {/* <div
-          className={`${
-            image.length === 0 ? "img_uploader_main" : "img_uploader_main_pre"
-          }`}
-        >
-          <div
-            className="upload_image_container"
-            onClick={image.length === 0 ? handleClick : ""}
-          >
-            <p className="item_image_heading"> Item Image</p>
-            <div
-              className={`${
-                image.length === 0 ? "img_uploader" : "imguploader_pre"
-              }`}
-            >
-              <div className="image_prev">
-                {image.length > 0 && (
-                  <button onClick={handleDelete} className="close_image">
-                    <img src="/images/icons/image_close_icon.svg" alt="" />
-                  </button>
-                )}
-                {image[currentIndex] instanceof File && (
-                  <>
-                    <div className="img_prev_container">
-                      <img
-                        className="image"
-                        src={URL.createObjectURL(image[currentIndex])}
-                        alt="image"
-                      />
-                    </div>
-                    {image.length > 0 && (
-                      <div className="image_pagination">
-                        <div className="dots_container">
-                          {dots.map((dot, index) => {
-                            return (
-                              <span
-                                key={index}
-                                className={
-                                  index === currentIndex
-                                    ? "dotActive"
-                                    : "dotNotActive"
-                                }
-                                onClick={() => {
-                                  setCurrentIndex(index);
-                                }}
-                              ></span>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                    <p className="image_name">
-                      {image[currentIndex].name.length > 20
-                        ? image[currentIndex].name.substring(0, 14) +
-                          "..." +
-                          image[currentIndex].name.substring(
-                            image[currentIndex].name.length - 5
-                          )
-                        : image[currentIndex].name}
-                    </p>
-
-                    <hr className="image_line" />
-                  </>
-                )}
-                <input
-                  type="file"
-                  name="image"
-                  id="file-input"
-                  multiple
-                  max={5}
-                  ref={hiddenFileInput}
-                  onChange={handleChange}
-                  style={{ display: "none" }}
-                />
-              </div>
-              <h3 onClick={handleClick}>
-                {image.length === 0
-                  ? "Drop files here or click to upload"
-                  : "+ Add Images"}
-              </h3>
-
-              {image.length === 0 && (
-                <p className="image_desc">
-                  <span>
-                    You Can add up to{" "}
-                    <span className="image_text_bold">5 Images</span>
-                  </span>
-                  <span>
-                    each not exceeding{" "}
-                    <span className="image_text_bold">2 MB.</span>
-                  </span>
-                </p>
-              )}
-            </div>
-          </div>
-        </div> */}
+       
       </div>
 
       {/* modals */}

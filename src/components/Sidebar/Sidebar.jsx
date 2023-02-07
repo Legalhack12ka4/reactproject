@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Menu, Button } from "antd";
-import { NavLink, useLocation } from "react-router-dom";
-import {
-  MailOutlined,
-  SettingOutlined,
-  PieChartOutlined,
-  AppstoreOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
 
 import "./Sidebar.scss";
 import "../Sidebar_btn/Sidebar_btn.scss";
-import items from "../Sidebar_btn/data/sidebar.json";
-import Sidebar_btn from "../Sidebar_btn/Sidebar_btn";
+import items from "./data/sidebar.json";
 
 const Sidebar = () => {
   const [isTriggered, setIsTriggred] = useState(false);
