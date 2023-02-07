@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect,useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./ContactsData.scss";
-import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button } from "antd";
+import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
@@ -15,6 +15,10 @@ import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 import CalendarComp from "../../Calendar/CalendarComp"
 // import 'react-date-range/dist/styles.css'; // main style file
 // import 'react-date-range/dist/theme/default.css'; // theme css file
+import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
+import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
+import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
+import alert from "../../../assets/Images/Confirmation/confirm.svg";
 
 
 const filterfield = {
@@ -39,8 +43,40 @@ const ContactsData = (props) => {
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
   //const [oldData, setoldData] = useState([]);
+  const [confirm, setCofirm] = useState(false);
+  const [deleteRecord, setDeleteRecord] = useState(null)
+   const [popOverVisible, setPopOverVisible] = useState(false);
+   const [open, setOpen] = useState(false);
+
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
 
 
+  const handleConfirmCancel = (record) => {
+  setDeleteRecord(record)
+    setCofirm(true);
+    setPopOverVisible(false)
+  };
+
+  const handleConfirm = () => {
+    setCofirm(false);
+    setDeleteRecord(null)
+    // setPopOverVisible(false)
+  };
+
+  const handleSubmit = () =>
+  {
+  //  alert("Data", record)
+    deleteUser(deleteRecord);
+    getData();
+    setCofirm(false);
+    getData();
+  }
   useEffect(() => {
     getData();
   }, []);
@@ -74,11 +110,13 @@ const ContactsData = (props) => {
 //delete data
 const deleteUser = (record)=>
 {
+  
   console.log(record);
   console.log(record.id);
   axios
   .delete(
     `${config.baseUrl}/contact/${record.id}/`);
+    setDeleteRecord(null)
        getData();
        console.log(fetchcontact)
 }
@@ -110,6 +148,7 @@ const deleteUser = (record)=>
       label: "Manger",
     },
   ];
+
   function showCanvas() {
     var m = document.querySelector(".menu1");
     m.classList.add("smenu");
@@ -123,6 +162,7 @@ const deleteUser = (record)=>
     console.log(oldData);
     console.log(oldData.id);
     showCanvas();
+
   //  getFormData();
   //  setoldData(oldData);
     // props.setFormData(oldData);
@@ -232,57 +272,52 @@ const deleteUser = (record)=>
       width: 60,
       render: (text, record) => (
         <>
-        <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-           <span style={{display:"flex"}}>
-           <Button
-              className="btn btn-primary mx-2 my-2"
-               onClick={() => handleUpdate(record)}
-           >
-             Edit
-           </Button>
-        
-           <button 
-            style={{marginLeft:"20px"}}
-             onClick={(e) =>
-               Swal.fire({
-                 title: "Are you sure?",
-                 text: "Once deleted, you will not be able to recover!",
-                 icon: "warning",
-                 showCancelButton: true,
-                 confirmButtonColor: "#3085d6",
-                 cancelButtonColor: "#d33",
-                 confirmButtonText: "Yes, delete it!",
-               }).then((result) => {
-                getData();
-                 if (result.isConfirmed) {
-                  getData();
-                   console.log(result.isConfirmed)
-                 // getData();
-                   if (deleteUser(record)) {
-                   // alert("2",getData())
-                     toast.warning("Deleted Successfuly", {
-                       position: "top-right",
-                       autoClose: 2000,
-                       hideProgressBar: false,
-                       closeOnClick: true,
-                       pauseOnHover: false,
-                       draggable: true,
-                       progress: undefined,
-                     });
-                   }
-                 }
-               })
-              
-             }
-            
-           >
-          Delete
-           </button>
-           <ToastContainer/>
-       </span>
+        <Popover   
+      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
+       content={
+                 <>
+           
+                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+                 <img src={deletelogo} />
+                 <div>
+                 <button 
+                 className="actionlabel"
+                 onClick={() => { handleConfirmCancel(record); hide(); }}
+                //onClick={hide}
+                 >
+                Delete
+                 </button>
+                 </div>
+                 </div>
+                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                  <img src={editlogo} />
+                  <div>
+                 <button
+      
+                    className="actionlabel"
+                    onClick={() => handleUpdate(record)}
+                 >
+                Update
+                 </button>
+                 </div>
+                 </div>
+                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                  <img src={statuslogo} />
+                  <div>
+                 <button
+                  className="actionlabel"
+                  style={{minWidth: "max-content"}}
+                    // onClick={() => handleUpdate(record)}
+                 >
+                  Set as Activate
+                 </button>
+                 </div>
+                 </div>
+                 </>
         } title="" height={100} trigger="click">
         <img src={editdelete} style={{cursor:"pointer"}} />
         </Popover>
+          
         </>
      
       
@@ -443,6 +478,56 @@ const deleteUser = (record)=>
 
   return (
     <div className="contacts-data">
+        {/* <Popover
+          getPopupContainer={(trigger) => trigger.parentElement} 
+      content={
+        <>
+           
+        <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+        <img src={deletelogo} />
+        <div>
+        <button 
+        className="actionlabel"
+       // onClick={() => handleConfirmCancel(record)}    
+       onClick={hide}
+        >
+       Delete
+        </button>
+        </div>
+        </div>
+        <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+         <img src={editlogo} />
+         <div>
+        <button
+
+           className="actionlabel"
+           // onClick={() => handleUpdate(record)}
+        >
+       Update
+        </button>
+        </div>
+        </div>
+        <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+         <img src={statuslogo} />
+         <div>
+        <button
+         className="actionlabel"
+         style={{minWidth: "max-content"}}
+           // onClick={() => handleUpdate(record)}
+        >
+         Set as Activate
+        </button>
+        </div>
+        </div>
+        </>
+      }
+      title="Title"
+      trigger="click"
+      open={open}
+     onOpenChange={handleOpenChange}
+    >
+      <Button type="primary">Click me</Button>
+    </Popover> */}
       <Page_heading parent={"Business Account"} child={"contacts"} />
 
       <div className="contacts-table-container">
@@ -605,7 +690,95 @@ const deleteUser = (record)=>
               keyword: search,
             }}
           />
+ <Modal
+        open={confirm}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirm}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleSubmit}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Delete
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
 
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Contact
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
           {/* <SearchDropdown/> */}
         </div>
       </div>

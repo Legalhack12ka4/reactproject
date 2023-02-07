@@ -379,3 +379,9 @@ padding: 20px !important;
 {
   //height: 162px  !important;
 }
+
+//modal fotter button space
+.ant-modal .ant-modal-footer .ant-btn+.ant-btn:not(.ant-dropdown-trigger) {
+
+  margin-inline-start: 16px !important;
+  }
