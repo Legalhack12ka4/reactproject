@@ -30,6 +30,7 @@ import NewEstimate from './components/Sales/Estimate/New Estimate/NewEstimate';
 import SalesOrder from './components/Sales/SalesOrder/SalesOrder';
 import Invoice from './components/Sales/Invoice/Invoice';
 import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
+import ItemandService from './components/ItemandService/ItemandService';
 
 function App() {
   return (
@@ -51,7 +52,8 @@ function App() {
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
-          <Route path='add_inventory' element={<AddInventoryItem/>} />
+          {/* <Route path='add_inventory' element={<AddInventoryItem/>} /> */}
+          <Route path='add_inventory' element={<ItemandService/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
