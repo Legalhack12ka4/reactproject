@@ -12,8 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import config from "../Database/config";
 import { useFormik } from "formik";
 import { contactSchemas } from "../../Schemas";
+import ContactsData from "./Contacts-Data/ContactsData";
 
 
+var ChildStateModificationFunc;
 const resetValue = {
    name: "" ,
    mobile:"",
@@ -26,7 +28,7 @@ const resetValue = {
 
   const initialFieldValues = {
     name: "",
-    mobile: "",
+    mobile_no: "",
     email: "",
     dob: "",
     position: "",
@@ -40,6 +42,11 @@ function Contacts(props) {
   // useEffect(() => {
   //   getData();
   // }, []);
+  
+  ChildStateModificationFunc = (modVal)=>{
+    setFormData(modVal)
+}
+
 
   // const getData = async () => {
   //   await axios.get("http://127.0.0.1:8000/contact/").then(
@@ -89,38 +96,50 @@ function Contacts(props) {
     },
   });
 
-
-
-  // const handleChange = (field, value) => {
-  //   setCustFilter({ ...custfilter, [field]: value });
-  //   console.log("value", value);
-  //   console.log("field", value);
-  //   setVisible(true);
-  // };
-
-
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const getData = async () => {
-  //   await axios.get(`${config.baseUrl}/contact/`).then(
-  //     res => {
-  //       setloading(false);
-  //       setFetchcontact(
-  //       res
-  //          // id: row.id
-  //         )
-      
-  //       console.log(res);
-  //     }
-      
-  //   );
-  // };
-
   const handleFormSubmit = () => {
-
+    if (formData.id)
+    {
+      // props.onSubmit(setFormData);
+      axios
+        .put(
+          `${config.baseUrl}/contact/` + formData.id + "/",
+          {
+        
+            name: formData.name,
+            mobile: formData.mobile,
+            email: formData.email,
+            dob:formData.dob,
+            "is_active": true,
+            "is_deleted": false,
+            "position": 1
+        ,
+            "ownership": 1,
+            "company_id": 1,
+            "created_by": 1,
+            "updated_by": 1
+          },
+          formData
+        )
+        .then((response) => {
+         // closeModal();
+         // handleCancel();
+         handleclose();
+         props.onClick();
+   //       getData();
+          toast.success("Updated Successfuly", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        
+         
+        });
+    }
+    else{
     axios
       .post(
         `${config.baseUrl}/contact/`,
@@ -156,6 +175,7 @@ function Contacts(props) {
       
        
       });
+    }
   }
   
   const handleDrpChange = (field, value) => {
@@ -438,7 +458,7 @@ const position = [
       
       <div className="contactform">
         <div className="contacts">
-          <h1 className="box_heading1">New Contact</h1>
+          <h1 className="box_heading1"> {formData.id ? "Update Contact" : "Add Contact"}</h1>
           <div className="contact_details">
             <div className="form-left">
             <div className="form_field">
@@ -484,7 +504,7 @@ const position = [
               </Tooltip>
               <br />
               <div className={`${
-                    errors.mobile && touched.mobile && "inputError"
+                    errors.mobile_no && touched.mobile_no && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
@@ -498,7 +518,7 @@ const position = [
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
-                {errors.mobile && touched.mobile && (
+                {errors.mobile_no && touched.mobile_no && (
                     <div className="error_icon">
                     <img
                       src="/images/icons/exclamation_icon.svg"
@@ -507,8 +527,8 @@ const position = [
                   </div>
                   )}
               </div>
-              {errors.mobile &&  touched.mobile &&(
-                    <p className="error_text">{errors.mobile}</p>
+              {errors.mobile_no &&  touched.mobile_no &&(
+                    <p className="error_text">{errors.mobile_no}</p>
                   )}
               </div>
               <div className="form_field">
@@ -616,10 +636,10 @@ const position = [
               
 
               <div className="contactbutton_bottom">
-                {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
-                  Submit
-                </input> */}
-                <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/>
+                 <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+                  {formData.id ? "Update" :"Submit"}
+                </button> 
+                {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
                 <button 
                   type="button"
                   className="contactcancelbutton"
@@ -634,8 +654,10 @@ const position = [
       </div>
       </form>
        <ToastContainer/> 
+     
     </>
   );
 }
 
 export default Contacts;
+export {ChildStateModificationFunc}

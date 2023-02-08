@@ -408,7 +408,7 @@ function Accounts() {
           open={isModalOpen}
           onOk={handleOk}
           width={740}
-          bodyStyle={{height:355}}
+          bodyStyle={{height:345}}
           onCancel={handleCancel}
           style={{ top: 20 }}
           className={"footerconfirm"}
@@ -478,6 +478,7 @@ function Accounts() {
                <div>
              <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Code</p>
              <input
+             disabled
                  className="accountcode"
                   type="text"
                   placeholder="0009"
@@ -498,7 +499,7 @@ function Accounts() {
               <textarea
               resizable={false}
               className="description"
-              style={{width:"680px", height:"80px", outline:"none"}}
+              style={{width:"668.4px", height:"68.4px", outline:"none"}}
                   type="text"
                   placeholder="Something about account"
                   name="terms"

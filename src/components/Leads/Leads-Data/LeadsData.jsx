@@ -4,7 +4,7 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./Leads-Data.scss";
 import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
-import Leads from "../Leads";
+import Leads,{ChildStateModificationFunc} from "../Leads";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import SearchDropdownAddButton from "../../AllDropdowns/SearchDropdownAddButton/SearchDropdownAddButton";
 import axios from "axios";
@@ -105,7 +105,23 @@ const LeadsData = () => {
     ownership: customer.Ownsership,
   }));
  
+//update
+function showCanvas() {
+  var m = document.querySelector(".menu1");
+  m.classList.add("smenu");
+  //document.root.style.backgroundColor='rgba(0,0,0,0.4)';
+  document.getElementById("gradient").classList.add("body_gradient");
+}
 
+const handleUpdate = (oldData) => {
+  console.log(oldData);
+  console.log(oldData.id);
+  showCanvas();
+
+    ChildStateModificationFunc(oldData)
+    console.log(oldData)
+
+};
   const ownership = [
     {
       value: "ubuntu",
@@ -211,37 +227,7 @@ const LeadsData = () => {
                  <button 
                  className="actionlabel"
                  onClick={() => handleConfirmCancel(record)}
-                  //  onClick={(e) =>
-                  //    Swal.fire({
-                  //      title: "Are you sure?",
-                  //      text: "Once deleted, you will not be able to recover!",
-                  //      icon: "warning",
-                  //      showCancelButton: true,
-                  //      confirmButtonColor: "#3085d6",
-                  //      cancelButtonColor: "#d33",
-                  //      confirmButtonText: "Yes, delete it!",
-                  //    }).then((result) => {
-                  //     getData();
-                  //      if (result.isConfirmed) {
-                  //       getData();
-                  //        console.log(result.isConfirmed)
-                  //      // getData();
-                  //        if (deleteUser(record)) {
-                  //        // alert("2",getData())
-                  //          toast.warning("Deleted Successfuly", {
-                  //            position: "top-right",
-                  //            autoClose: 2000,
-                  //            hideProgressBar: false,
-                  //            closeOnClick: true,
-                  //            pauseOnHover: false,
-                  //            draggable: true,
-                  //            progress: undefined,
-                  //          });
-                  //        }
-                  //      }
-                  //    })
-                    
-                   //}
+                
                   
                  >
                 Delete
@@ -254,7 +240,7 @@ const LeadsData = () => {
                  <button
       
                     className="actionlabel"
-                    // onClick={() => handleUpdate(record)}
+                    onClick={() => handleUpdate(record)}
                  >
                 Update
                  </button>

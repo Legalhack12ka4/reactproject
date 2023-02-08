@@ -23,6 +23,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import config from "../Database/config";
 
+var ChildStateModificationFunc;
 const initialFieldValues = {
   gsttreat: "",
   gstin: "",
@@ -83,6 +84,10 @@ function AddNewCustomer(props) {
   //     });
   // };
   // console.log(gno)
+
+  ChildStateModificationFunc = (modVal)=>{
+    setFormData(modVal)
+}
 
   const handleGstno = (e) => {
     //setPincode(e.target.value)
@@ -1214,6 +1219,7 @@ function AddNewCustomer(props) {
 }
 
 export default AddNewCustomer;
+export {ChildStateModificationFunc}
 
 {
   /* <div className="container_details1">

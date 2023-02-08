@@ -4,7 +4,7 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./ContactsData.scss";
 import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
-import Contacts from "../Contacts";
+import Contacts, {ChildStateModificationFunc} from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import axios from "axios";
 import config from "../../Database/config";
@@ -19,6 +19,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+import { Link } from "react-router-dom";
 
 
 const filterfield = {
@@ -42,15 +43,27 @@ const ContactsData = (props) => {
   const [visible, setVisible] = useState(false);
   const [custfilter, setCustFilter] = useState(filterfield);
   const [filterarray, setFilteraaray] = useState([]);
-  //const [oldData, setoldData] = useState([]);
+  const [oldData, setoldData] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
    const [popOverVisible, setPopOverVisible] = useState(false);
    const [open, setOpen] = useState(false);
+   
 
   const hide = () => {
     setOpen(false);
+   // document.getElementById("popoverhide").style.display="none";
+   // document.getElementById("popoverhide").style.display="block";
+    console.log(open)
+    console.log("line55")
   };
+  const popvisible = () => {
+    setOpen(false);
+    //document.getElementById("popoverhide").style.display="block";
+    console.log(open)
+    console.log("line55")
+  };
+
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -162,13 +175,12 @@ const deleteUser = (record)=>
     console.log(oldData);
     console.log(oldData.id);
     showCanvas();
-
-  //  getFormData();
-  //  setoldData(oldData);
-    // props.setFormData(oldData);
-    // <OffCanvasExample form={<Contacts  onClick={getData} />} />
-   // showModal();
+      ChildStateModificationFunc(oldData)
+      console.log(oldData)
   };
+console.log(oldData);
+//alert(oldData)
+
 //get form data
 
 
@@ -272,7 +284,7 @@ const deleteUser = (record)=>
       width: 60,
       render: (text, record) => (
         <>
-        <Popover   
+        <Popover  id="popoverhide"  defaultOpen={open} onOpenChange={setOpen}
       getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
        content={
                  <>
@@ -315,7 +327,7 @@ const deleteUser = (record)=>
                  </div>
                  </>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer"}} />
+        <img src={editdelete} style={{cursor:"pointer"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
         </Popover>
           
         </>
@@ -476,6 +488,11 @@ const deleteUser = (record)=>
     console.log(date); // native Date object
   }
 
+const getDataChild = () => 
+{
+setoldData(oldData)
+}
+
   return (
     <div className="contacts-data">
         {/* <Popover
@@ -498,13 +515,13 @@ const deleteUser = (record)=>
         <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
          <img src={editlogo} />
          <div>
-        <button
+        <Link to="addcustomer"><button
 
            className="actionlabel"
            // onClick={() => handleUpdate(record)}
         >
        Update
-        </button>
+        </button></Link>
         </div>
         </div>
         <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
@@ -527,7 +544,7 @@ const deleteUser = (record)=>
      onOpenChange={handleOpenChange}
     >
       <Button type="primary">Click me</Button>
-    </Popover> */}
+    </Popover>  */}
       <Page_heading parent={"Business Account"} child={"contacts"} />
 
       <div className="contacts-table-container">
@@ -609,7 +626,7 @@ const deleteUser = (record)=>
             setVisible(!visible);
           }}
         />
-        <OffCanvasExample form={<Contacts  onClick={getData} />} />
+        <OffCanvasExample form={<Contacts handledata={getDataChild} onClick={getData} />} />
         <div className="tableData">
           {filterarray.length > 0 && (
             <div className="tags" id="tags">
