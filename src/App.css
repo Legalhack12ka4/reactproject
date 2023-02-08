@@ -59,3 +59,12 @@ input{
 input::placeholder{
   color: #fff !important;
 }
+
+.btn_hover_animation{
+   transition: transform 0.3s ease-in-out;
+}
+
+.btn_hover_animation:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 2px 6px 0px #4359711f;
+}

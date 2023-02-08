@@ -13,6 +13,7 @@
       padding-bottom: 30px;
       display: flex;
       gap: 16px;
+      overflow: visible;
   
       .submit_button{
           background-color: #5C5AD0;
@@ -26,6 +27,8 @@
           width: 88px;
           height: 36px;
       }
+      
+      
   
       .cancel_button{
           background-color: #FFFFFF;
