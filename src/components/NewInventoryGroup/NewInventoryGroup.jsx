@@ -438,8 +438,8 @@ const resetOther = () => {
             
         </div>
         <div className="button">
-            <button className="submit_button">Submit</button>
-            <button className="cancel_button">Cancel</button>
+            <button className="submit_button btn_hover_animation">Submit</button>
+            <button className="cancel_button btn_hover_animation">Cancel</button>
         </div>
         </div>
 
@@ -458,6 +458,7 @@ const resetOther = () => {
             key="submit"
             type="primary"
             onClick={handleScannerSubmit}
+            className="btn_hover_animation"
             style={{
               width: "80px",
               height: "38px",
@@ -470,6 +471,7 @@ const resetOther = () => {
           <Button
             key="cancel"
             onClick={handleConfirmCancel}
+            className="btn_hover_animation"
             style={{
               width: "80px",
               height: "38px",
@@ -595,6 +597,7 @@ const resetOther = () => {
                                 <Button
                                   // key="submit"
                                   type="primary"
+                                  className="btn_hover_animation"
                                   onClick={() => {setPopOverVisible(false)}}
                                   style={{
                                     width: "80px",
@@ -608,6 +611,7 @@ const resetOther = () => {
 
                                 <Button
                                   key="cancel"
+                                  className="btn_hover_animation"
                                   onClick={()=>resetRef.current.getAlert()}
                                   style={{
                                     width: "80px",
@@ -769,6 +773,7 @@ const resetOther = () => {
           <Button
             key="submit"
             type="primary"
+            className="btn_hover_animation"
             onClick={handleScannerSubmit}
             style={{
               width: "80px",
@@ -782,6 +787,7 @@ const resetOther = () => {
           <Button
             key="cancel"
             onClick={handleConfirmCancelv}
+            className="btn_hover_animation"
             style={{
               width: "80px",
               height: "38px",
@@ -979,6 +985,7 @@ const resetOther = () => {
             <Button
               key="cancel"
               onClick={handleConfirm}
+              className="btn_hover_animation"
               style={{
                 width: "86px",
                 height: "38px",
@@ -994,6 +1001,7 @@ const resetOther = () => {
               key="submit"
               type="primary"
               onClick={handleCancel}
+              className="btn_hover_animation"
               style={{
                 width: "88px",
                 height: "38px",
@@ -1069,6 +1077,7 @@ const resetOther = () => {
             <Button
               key="cancel"
               onClick={handleConfirmv}
+              className="btn_hover_animation"
               style={{
                 width: "86px",
                 height: "38px",
@@ -1084,6 +1093,7 @@ const resetOther = () => {
               key="submit"
               type="primary"
               onClick={handleCancel}
+              className="btn_hover_animation"
               style={{
                 width: "88px",
                 height: "38px",

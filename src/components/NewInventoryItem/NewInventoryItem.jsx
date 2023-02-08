@@ -200,8 +200,8 @@ const NewInventoryItem = () => {
             </div>
         </div>
         <div className="button">
-            <button className="submit_button">Submit</button>
-            <button className="cancel_button">Cancel</button>
+            <button className="submit_button btn_hover_animation" >Submit</button>
+            <button className="cancel_button btn_hover_animation">Cancel</button>
         </div>
         </div>
 
