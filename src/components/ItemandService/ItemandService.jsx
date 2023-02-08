@@ -1,5 +1,6 @@
 import { Switch } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./ItemandService.scss";
@@ -16,6 +17,7 @@ const ItemandService = () => {
   const handleMethodClick = (index) => {
     setMethodSelected(methodSelected === index ? null : index);
     };
+
 
   return (
     <div className="item_and_service_main">
@@ -90,15 +92,15 @@ const ItemandService = () => {
           
           
           <div
-          className={`${methodSelected=== 1 && "selected"} item `}
+          className={`${methodSelected === 1 && "selected"} item `}
             onClick={() => handleMethodClick(1)}
             
           >
             <div className="item_text"><h1>Item Group</h1> <p>Collection of items that share similar attributes.</p></div>
-            <div className={`${methodSelected=== 1 && "selected"} radio_selector `}></div>
+            <div className={`${methodSelected === 1 && "selected"} radio_selector `}></div>
           </div>
           <div
-          className={`${methodSelected=== 2 && "selected"} item `}
+          className={`${methodSelected === 2 && "selected"} item `}
             onClick={() => handleMethodClick(2)}
           >
             <div className="item_text"><h1>Item</h1> <p>Piece of information, details or note.</p></div>
@@ -107,120 +109,12 @@ const ItemandService = () => {
         </div>
 
         <div className="button">
-            <button className="submit_button">Submit</button>
+            <Link to={`${selected === 1 && methodSelected === 1 ? "new_inventory_group" : selected === 1 && methodSelected === 2 ? "new_inventory_item":"" } `}><button className="submit_button">Submit</button></Link>
             <button className="cancel_button">Cancel</button>
         </div>
      </div>
         }
       </div>
-
-
-
-    {/* <div className="new_inventory_item_form_container">
-        <div className="header">
-            <h1>Create Item</h1>
-            <p>Without an Item group you can't create an Item.</p>
-        </div>
-        <div className="form">
-        <div className="inventory_form_container">
-            <div>
-              <div className="add_inventory_item_form">
-                <div className="input_group">
-                  <p>Name</p>
-                  <div className="input_container">
-                    <img src="/images/icons/cube.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
-                  </div>
-                </div>
-
-                <div className="input_group">
-                  <p>HSN Code</p>
-                  <div className="input_container">
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
-                  </div>
-                </div>
-
-                <div className="input_group">
-                  <p>Foreign Name</p>
-                  <div className="input_container">
-                    <img src="/images/icons/cube.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
-                  </div>
-                </div>
-
-                <div className="input_group">
-                  <p>Barcode</p>
-                  <div className="input_container">
-                    <img src="/images/icons/barcode.svg" alt="" />
-                    <div className="barcode_scanner">
-                      <input
-                        type="text"
-                        placeholder="placeholder"
-                        id="barcode_input"
-                        // value={data}
-                      />
-                    </div>
-                    <img
-                      src="/images/icons/barcodeBtn.svg"
-                      alt=""
-                    //   onClick={showModal}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </div>
-                </div>
-
-                <div className="input_group">
-                  <p>Tags</p>
-                  <SearchDropdown width={330} />
-                </div>
-
-                <div className="input_group">
-                  <p>Unit of Measurement</p>
-                  <SearchDropdown width={330} />
-                </div>
-               
-                <div className="input_group">
-                  <p>Description</p>
-                  <div className="input_container">
-                    <input type="text" placeholder="Placeholder" />
-                  </div>
-                </div>
-              </div>
-
-              <hr className="form_hr" />
-
-              <div className="add_inventory_item_form">
-                <div className="input_group">
-                  <p>Selling Account</p>
-                  <SearchDropdown width={330} />
-                </div>
-
-                <div className="input_group">
-                  <p>Tax Preferences</p>
-                  <SearchDropdown width={330} />
-                </div>
-
-                <div className="input_group">
-                  <p>Cost Account</p>
-                  <SearchDropdown width={330} />
-                </div>
-
-                <div className="input_group">
-                  <p>Tax Rates</p>
-                  <SearchDropdown width={330} />
-                </div>
-              </div>
-
-              <div className="btn_container">
-                <button className="submit_btn">Submit</button>
-                <button className="cancel_btn">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    </div> */}
     </div>
   );
 };
