@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
 import { Button, Empty, Modal, Popover, Skeleton, Slider, Space, Table, Tag, Tooltip } from "antd";
@@ -21,7 +21,7 @@ import deletelogo from "../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../assets/Images/ActionStatus/status.svg";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
-
+import {ChildStateModificationFunc}from "../Customers/AddNewCustomer"
 
 const filterfield = {
   gsttreat: "",
@@ -149,6 +149,22 @@ const Customer = (props) => {
     });
   };
   // console.log(fetchcustomer)
+
+
+  //update data
+
+const handleUpdate = (oldData) => {
+  console.log(oldData);
+  console.log(oldData.id);
+  console.log(props.path)
+  //console.log(path)  
+ // ChildStateModificationFunc(oldData)
+  
+  //showCanvas();
+ //   ChildStateModificationFunc(oldData)
+    console.log(oldData)
+};
+
 
 //delete data
 const deleteUser = (record)=>
@@ -537,64 +553,34 @@ const deleteUser = (record)=>
       key: "action",
       width: 60,
       // fixed:"right",
-      render: (text, record) => (
-        <>
+      render: (text, record) =>  (
+
+      
         <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-                 <>
-           
+                 <div>
                  <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
                  <img src={deletelogo} />
                  <div>
                  <button 
                  className="actionlabel"
-                 onClick={() => handleConfirmCancel(record)}
-                  //  onClick={(e) =>
-                  //    Swal.fire({
-                  //      title: "Are you sure?",
-                  //      text: "Once deleted, you will not be able to recover!",
-                  //      icon: "warning",
-                  //      showCancelButton: true,
-                  //      confirmButtonColor: "#3085d6",
-                  //      cancelButtonColor: "#d33",
-                  //      confirmButtonText: "Yes, delete it!",
-                  //    }).then((result) => {
-                  //     getData();
-                  //      if (result.isConfirmed) {
-                  //       getData();
-                  //        console.log(result.isConfirmed)
-                  //      // getData();
-                  //        if (deleteUser(record)) {
-                  //        // alert("2",getData())
-                  //          toast.warning("Deleted Successfuly", {
-                  //            position: "top-right",
-                  //            autoClose: 2000,
-                  //            hideProgressBar: false,
-                  //            closeOnClick: true,
-                  //            pauseOnHover: false,
-                  //            draggable: true,
-                  //            progress: undefined,
-                  //          });
-                  //        }
-                  //      }
-                  //    })
-                    
-                   //}
-                  
+                 onClick={() => handleConfirmCancel(record)}          
                  >
                 Delete
                  </button>
                  </div>
                  </div>
                  <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                  <img src={editlogo} />
+                 <Link to="addcustomer"><img src={editlogo} /></Link>
                   <div>
-                 <button
-      
+            <Link key={record.id} to="/">
+             <button
                     className="actionlabel"
-                    // onClick={() => handleUpdate(record)}
+                     onClick={() => handleUpdate(record)}
                  >
-                Update
-                 </button>
+                  {/* <a href="customers/addcustomer">  Update</a> */}
+                 Update
+                 </button></Link>
+
                  </div>
                  </div>
                  <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
@@ -609,90 +595,12 @@ const deleteUser = (record)=>
                  </button>
                  </div>
                  </div>
-                 </>
+                 </div>
+                 
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer"}} />
+      <img src={editdelete} style={{cursor:"pointer"}} />
         </Popover>
-        {/* <Popover  width={162}    getPopupContainer={(trigger) => trigger.parentElement}   showArrow={false} content={
-          <>
-           
-           <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-           <img src={deletelogo} />
-           <div>
-           <button 
-           className="actionlabel"
-           
-             onClick={(e) =>
-               Swal.fire({
-                 title: "Are you sure?",
-                 text: "Once deleted, you will not be able to recover!",
-                 icon: "warning",
-                 showCancelButton: true,
-                 confirmButtonColor: "#3085d6",
-                 cancelButtonColor: "#d33",
-                 confirmButtonText: "Yes, delete it!",
-               }).then((result) => {
-                getData();
-                 if (result.isConfirmed) {
-                  getData();
-                   console.log(result.isConfirmed)
-                 // getData();
-                   if (deleteUser(record)) {
-                   // alert("2",getData())
-                     toast.warning("Deleted Successfuly", {
-                       position: "top-right",
-                       autoClose: 2000,
-                       hideProgressBar: false,
-                       closeOnClick: true,
-                       pauseOnHover: false,
-                       draggable: true,
-                       progress: undefined,
-                     });
-                   }
-                 }
-               })
-              
-             }
-            
-           >
-          Delete
-           </button>
-           </div>
-           </div>
-           <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-            <img src={editlogo} />
-            <div>
-           <button
-
-              className="actionlabel"
-              // onClick={() => handleUpdate(record)}
-           >
-          Update
-           </button>
-           </div>
-           </div>
-           <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-            <img src={statuslogo} />
-            <div>
-           <button
-            className="actionlabel"
-            style={{minWidth: "max-content"}}
-              // onClick={() => handleUpdate(record)}
-           >
-            Set as Activate
-           </button>
-           </div>
-           </div>
-           </>
-         
-      
-        } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer", marginLeft:"50%"}} />
-        </Popover> */}
-        </>
-     
-      
-
+       
           ),
       resizable: true,
       align: "left",

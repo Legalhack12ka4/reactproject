@@ -14,21 +14,22 @@ import config from "../Database/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
+var ChildStateModificationFunc;
 const initialFieldValues = {
     name: "",
-    mobile: "",
+    mobile_no: "",
     email: "",
-    company: "",
+    company_name: "",
     lead: "",
     ownership: "",
   };
 
   const resetValue = {
     name: "",
-    mobile: "",
+    mobile_no: "",
     email: "",
-    company: "",
-    lead: "",
+    company_name: "",
+    lead_source_type: "",
     ownership: "",
   };
 
@@ -51,18 +52,65 @@ const clearValue= () =>
 
 }
 
+//send state to leaddata
+ChildStateModificationFunc = (modVal)=>{
+  setFormData(modVal)
+}
+
+
 
 const handleFormSubmit = () => {
-
+  if (formData.id)
+  {
+    // props.onSubmit(setFormData);
+    axios
+      .put(
+        `${config.baseUrl}/leads/` + formData.id + "/",
+        {
+          name: formData.name,
+          mobile_no: formData.mobile_no,
+          email: formData.email,
+          company_name:formData.company_name,
+          lead_source_type: formData.lead_source_type,
+          "is_active": true,
+          "is_deleted": false,
+          "status": 1,
+          "ownership": 1,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
+        },
+        formData
+      )
+      .then((response) => {
+       // closeModal();
+       // handleCancel();
+       handleclose();
+       props.onClick();
+ //       getData();
+        toast.success("Updated Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      
+       
+      });
+  }
+  else{
   axios
     .post(
       `${config.baseUrl}/leads/`,
       {
         name: formData.name,
-        mobile_no: formData.mobile,
+        mobile_no: formData.mobile_no,
         email: formData.email,
-        company_name:formData.company,
-        lead_source_type: formData.lead,
+        company_name:formData.company_name,
+        lead_source_type: formData.lead_source_type,
         "is_active": true,
         "is_deleted": false,
         "status": 1,
@@ -91,6 +139,7 @@ const handleFormSubmit = () => {
     
      
     });
+  }
 }
 
 const handleDrpChange = (field, value) => {
@@ -404,7 +453,7 @@ const getContact = () => {
       
       <div className="contactform">
         <div className="contacts">
-          <h1 className="box_heading1">New Lead</h1>
+          <h1 className="box_heading1">{formData.id ? "Update Lead" : "New Lead"}</h1>
           <div className="contact_details">
             <div className="form-left">
             <div className="form_field">
@@ -424,7 +473,7 @@ const getContact = () => {
                   className="inputcontact"
                   placeholder="Placeholder"
                   name="name"
-                  value={values.name}
+                  value={formData.name}
                   onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
                 />
@@ -450,7 +499,7 @@ const getContact = () => {
               </Tooltip>
               <br />
               <div className={`${
-                    errors.mobile && touched.mobile && "inputError"
+                    errors.mobile_no && touched.mobile_no && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
@@ -460,12 +509,12 @@ const getContact = () => {
                  
                   className="inputcontact"
                   placeholder="Placeholder"
-                    name="mobile"
-                    value={values.mobile}
+                    name="mobile_no"
+                    value={formData.mobile_no}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
-                {errors.mobile && touched.mobile && (
+                {errors.mobile_no && touched.mobile_no && (
                     <div className="error_icon">
                     <img
                       src="/images/icons/exclamation_icon.svg"
@@ -474,8 +523,8 @@ const getContact = () => {
                   </div>
                   )}
               </div>
-              {errors.mobile &&  touched.mobile &&(
-                    <p className="error_text">{errors.mobile}</p>
+              {errors.mobile_no &&  touched.mobile_no &&(
+                    <p className="error_text">{errors.mobile_no}</p>
                   )}
               </div>
               <div className="form_field">
@@ -495,7 +544,7 @@ const getContact = () => {
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="email"
-                    value={values.email}
+                    value={formData.email}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -521,19 +570,19 @@ const getContact = () => {
               </Tooltip>
               <br />
               <div className={`${
-                    errors.company && touched.company && "inputError"
+                    errors.company_name && touched.company_name && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={company} className="customerimg" />
                 <input
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
-                    name="company"
-                    value={values.company}
+                    name="company_name"
+                    value={formData.company_name}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
-                {errors.company && touched.company && (
+                {errors.company_name && touched.company_name && (
                     <div className="error_icon">
                     <img
                       src="/images/icons/exclamation_icon.svg"
@@ -542,8 +591,8 @@ const getContact = () => {
                   </div>
                   )}
               </div>
-              {errors.company &&  touched.company &&(
-                    <p className="error_text">{errors.company}</p>
+              {errors.company_name &&  touched.company_name &&(
+                    <p className="error_text">{errors.company_name}</p>
                   )}
               </div>
 
@@ -559,7 +608,7 @@ const getContact = () => {
                   <input
                     type="radio"
                     value="Contacts"
-                    name="lead"
+                    name="lead_source_type"
                     checked={checked == "contacts" ? true : false}
                     onClick={(e) => setChecked("contacts")}
                   />
@@ -586,10 +635,10 @@ const getContact = () => {
               </Tooltip>
               <br />
               {checked == "contacts" ? (
-                <SearchDropdown options={contacts} width={330} name="lead" value={values.lead} 
+                <SearchDropdown options={contacts} width={330} name="lead_source_type" value={formData.lead_source_type} 
                 onChange={handleDrpChange} />
               ) : (
-                <SearchDropdownAddButton  width={330} name="lead" value={values.lead} 
+                <SearchDropdownAddButton  width={330} name="lead_source_type" value={formData.lead_source_type} 
                 onChange={handleDrpChange} />
               )}
   
@@ -621,17 +670,17 @@ const getContact = () => {
               <br />
               <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
                   onChange={handleDrpChange}
-                  value={values.position}
+                  value={formData.position}
                   error={errors.position && touched.position ? true : false}
                   errorMsg="Ownership is required"/>
               </div>
               
 
               <div className="contactbutton_bottom">
-                {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
-                  Submit
-                </input> */}
-                <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}} />
+              <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+                  {formData.id ? "Update" :"Submit"}
+                </button> 
+                {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}} /> */}
                 <button 
                   type="button"
                   className="contactcancelbutton"
@@ -651,3 +700,4 @@ const getContact = () => {
 }
 
 export default Leads;
+export {ChildStateModificationFunc}
