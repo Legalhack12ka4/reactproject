@@ -31,6 +31,8 @@ import SalesOrder from './components/Sales/SalesOrder/SalesOrder';
 import Invoice from './components/Sales/Invoice/Invoice';
 import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
 import ItemandService from './components/ItemandService/ItemandService';
+import NewInventoryItem from './components/NewInventoryItem/NewInventoryItem';
+import NewInventoryGroup from './components/NewInventoryGroup/NewInventoryGroup';
 
 function App() {
   return (
@@ -53,7 +55,9 @@ function App() {
           <Route path='leads/add_leads' element={<Leads/>} />
           <Route path='contacts' element={<ContactsData/>} />
           {/* <Route path='add_inventory' element={<AddInventoryItem/>} /> */}
-          <Route path='add_inventory' element={<ItemandService/>} />
+          <Route path='item_&_service' element={<ItemandService/>} />
+          <Route path='item_&_service/new_inventory_item' element={<NewInventoryItem/>} />
+          <Route path='item_&_service/new_inventory_group' element={<NewInventoryGroup/>} />
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />

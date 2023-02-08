@@ -16,7 +16,7 @@
         "id": "is",
         "type": "btn",
         "icon": "/images/sidebar_icons/bxs-cube.svg",
-        "path": "/add_inventory"
+        "path": "/item_&_service"
     },
     {
         "title": "Banking",
