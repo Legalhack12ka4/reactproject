@@ -14,6 +14,8 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+//import { ChildStateModificationFunc } from "../Vendors";
+import { ChildStateModificationFunc } from "../Vendors";
 
 const filterfield = {
   gsttreat: "",
@@ -154,6 +156,18 @@ const deleteUser = (record)=>
        getData();
       // console.log(currency)
 }
+
+
+
+  //Get data in textbox on edit button
+  const handleUpdate = (oldData) => {
+    console.log(oldData);
+    console.log(oldData.id);
+  //  showCanvas();
+      ChildStateModificationFunc(oldData)
+      console.log(oldData)
+  };
+//console.log(oldData);
 
   const columnsData = [
     {
@@ -403,38 +417,6 @@ const deleteUser = (record)=>
                  <button 
                  className="actionlabel"
                  onClick={() => handleConfirmCancel(record)}
-                  //  onClick={(e) =>
-                  //    Swal.fire({
-                  //      title: "Are you sure?",
-                  //      text: "Once deleted, you will not be able to recover!",
-                  //      icon: "warning",
-                  //      showCancelButton: true,
-                  //      confirmButtonColor: "#3085d6",
-                  //      cancelButtonColor: "#d33",
-                  //      confirmButtonText: "Yes, delete it!",
-                  //    }).then((result) => {
-                  //     getData();
-                  //      if (result.isConfirmed) {
-                  //       getData();
-                  //        console.log(result.isConfirmed)
-                  //      // getData();
-                  //        if (deleteUser(record)) {
-                  //        // alert("2",getData())
-                  //          toast.warning("Deleted Successfuly", {
-                  //            position: "top-right",
-                  //            autoClose: 2000,
-                  //            hideProgressBar: false,
-                  //            closeOnClick: true,
-                  //            pauseOnHover: false,
-                  //            draggable: true,
-                  //            progress: undefined,
-                  //          });
-                  //        }
-                  //      }
-                  //    })
-                    
-                   //}
-                  
                  >
                 Delete
                  </button>
@@ -446,7 +428,7 @@ const deleteUser = (record)=>
                  <button
       
                     className="actionlabel"
-                    // onClick={() => handleUpdate(record)}
+                     onClick={() => handleUpdate(record)}
                  >
                 Update
                  </button>

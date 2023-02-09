@@ -1,5 +1,5 @@
 import { Button, Modal, Popover, Space, Table, Typography } from "antd";
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Page_heading from "../../Page_Heading/Page_heading";
@@ -13,6 +13,7 @@ import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+import config from "../../Database/config";
 
 function Accounts() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -22,6 +23,8 @@ function Accounts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
+  const [reportingl, setReportingl]=useState([]);
+  const [reportingl3, setReportingl3]=useState([]);
   
 //for modal delete
 
@@ -56,6 +59,108 @@ function Accounts() {
     setIsModalOpen(false);
     //   setFormData(resetValue);
   };
+
+//dropodwn withtwo dropodwn
+const getReporting = () => {
+  return fetch(`${config.baseUrl}/reporting/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setReportingl(data);
+      console.log(data);
+    });
+};
+// const getReportingl3 = () => {
+//   return fetch(`${config.baseUrl}/reporting/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setReportingl3(data);
+//       console.log(data);
+//     });
+// };
+
+
+   useEffect(() => {
+    getReporting();
+  //  getReportingl3();
+}, []);
+
+const reporting3 =  reportingl.map((place)=>({
+  
+  
+  label: place.reporting_l3,
+  value: place.reporting_l3,
+  
+}))
+  
+
+const reporting =
+// [
+  // {
+  //       label: 'Manager',
+  //       options: [
+          
+  //           reportingl.map((place)=>({
+  
+  
+  //             label: place.reporting_l2,
+  //             value: place.reporting_l2,
+              
+  //           })),
+        
+  //         {
+  //           label: 'Lucy',
+  //           value: 'lucy',
+  //         },
+  //       ],
+  //     },
+ 
+    reportingl.map((place)=>({
+  
+  
+  label: place.reporting_l2,
+  value: place.reporting_l2,
+  
+}))
+  
+// ]
+
+// const reporting=[
+//   {
+//     label: 'Manager',
+//     options: [
+//       {
+//         label: 'Jack',
+//         value: 'jack',
+//       },
+//       {
+//         label: 'Lucy',
+//         value: 'lucy',
+//       },
+//     ],
+//   },
+//   {
+//     label: 'Engineer',
+//     options: [
+//       {
+//         label: 'yiminghe',
+//         value: 'Yiminghe',
+//       },
+//     ],
+//   },
+// ]
+// const reporting=[
+//   {
+//     label: 'Manager',
+//     options: [
+//       { label: 'Jack', value: 'jack' },
+//       { label: 'Lucy', value: 'lucy' },
+//     ],
+//   },
+//   {
+//     label: 'Engineer',
+//     options: [{ label: 'yiminghe', value: 'Yiminghe' }],
+//   },
+// ];
 
   const dataSource = [
     {
@@ -294,38 +399,7 @@ function Accounts() {
                  <button 
                  className="actionlabel"
                  onClick={() => handleConfirmCancel(record)}
-                  //  onClick={(e) =>
-                  //    Swal.fire({
-                  //      title: "Are you sure?",
-                  //      text: "Once deleted, you will not be able to recover!",
-                  //      icon: "warning",
-                  //      showCancelButton: true,
-                  //      confirmButtonColor: "#3085d6",
-                  //      cancelButtonColor: "#d33",
-                  //      confirmButtonText: "Yes, delete it!",
-                  //    }).then((result) => {
-                  //     getData();
-                  //      if (result.isConfirmed) {
-                  //       getData();
-                  //        console.log(result.isConfirmed)
-                  //      // getData();
-                  //        if (deleteUser(record)) {
-                  //        // alert("2",getData())
-                  //          toast.warning("Deleted Successfuly", {
-                  //            position: "top-right",
-                  //            autoClose: 2000,
-                  //            hideProgressBar: false,
-                  //            closeOnClick: true,
-                  //            pauseOnHover: false,
-                  //            draggable: true,
-                  //            progress: undefined,
-                  //          });
-                  //        }
-                  //      }
-                  //    })
-                    
-                   //}
-                  
+                 
                  >
                 Delete
                  </button>
@@ -467,11 +541,11 @@ function Accounts() {
            
            <div>
              <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Type</p>
-             <SearchDropdown width={330} />
+             <SearchDropdown width={330} options={reporting}/>
 
 
                  <p style={{marginTop:"18px", fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Parent Account</p>
-                 <SearchDropdown width={330} />
+                 <SearchDropdown width={330} options={reporting3}/>
 
                </div> 
            

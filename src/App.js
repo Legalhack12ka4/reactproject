@@ -33,6 +33,7 @@ import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
 import ItemandService from './components/ItemandService/ItemandService';
 import NewInventoryItem from './components/NewInventoryItem/NewInventoryItem';
 import NewInventoryGroup from './components/NewInventoryGroup/NewInventoryGroup';
+import ItemPreview from './components/AddInventoryItem/ItemGroup/ItemPreview';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
           <Route path="Sales/sales_order" element={<SalesOrder/>}/>
           <Route path="Sales/invoice" element={<Invoice/>}/>
           <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
+          <Route path="itempreview" element={<ItemPreview/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

@@ -44,8 +44,28 @@ const initialFieldValues = {
   ownership: "",
 };
 
+const resetValue = {
+  gsttreat: "",
+  gstin: "",
+  businessname: "",
+  category: "",
+  pancard: "",
+  currency: "",
+  payment: "",
+  credit: "",
+  email: "",
+  pincode: "",
+  street1: "",
+  street2: "",
+  city: "",
+  state: "",
+  pos: "",
+  contact: "",
+  ownership: "",
+};
+
 function AddNewCustomer(props) {
-  const [formData, setFormData] = useState(initialFieldValues);
+  const [formData, setFormData] = useState(resetValue);
   const [customer, setCustomer] = useState([]);
   const [payment, setPayment] = useState([]);
   const [currencydrp, setCurrencydrp] = useState([]);
@@ -85,9 +105,7 @@ function AddNewCustomer(props) {
   // };
   // console.log(gno)
 
-  ChildStateModificationFunc = (modVal)=>{
-    setFormData(modVal)
-}
+
 
   const handleGstno = (e) => {
     //setPincode(e.target.value)
@@ -148,6 +166,11 @@ function AddNewCustomer(props) {
     getDataPos();
    // getData();
   }, []);
+
+  //send state to leaddata
+ChildStateModificationFunc = (modVal)=>{
+  setFormData(modVal)
+}
 
   const handleFormSubmit = () => {
     axios
@@ -729,7 +752,7 @@ function AddNewCustomer(props) {
                   options={gsttreatment}
                   onChange={handleDrpChange}
                   name="gsttreat"
-                  value={values.gsttreat}
+                  value={formData.gsttreat}
                   error={errors.gsttreat && touched.gsttreat ? true : false}
                   errorMsg="GST Treatment is required"
                   />
@@ -757,7 +780,7 @@ function AddNewCustomer(props) {
                     placeholder="Placeholder"
                     name="gstin"
                     maxLength={15}
-                    value={values.gstin}
+                    value={formData.gstin}
                     onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
@@ -797,7 +820,7 @@ function AddNewCustomer(props) {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="businessname"
-                    value={values.businessname}
+                    value={formData.businessname}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
@@ -823,7 +846,7 @@ function AddNewCustomer(props) {
                 <SearchDropdown
                   options={typeCategory}
                   width={330}
-                  value={values.category}
+                  value={formData.category}
                   onChange={handleDrpChange}
                   name="category"
                   error={errors.category && touched.category ? true : false}
@@ -849,7 +872,7 @@ function AddNewCustomer(props) {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pancard"
-                    value={values.pancard}
+                    value={formData.pancard}
                     maxLength={10}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
@@ -881,7 +904,7 @@ function AddNewCustomer(props) {
                     <SearchDropdown
                       width={155}
                       options={currency}
-                      value={values.currency}
+                      value={formData.currency}
                       onChange={handleDrpChange}
                       name="currency"
                       error={errors.currency && touched.currency ? true : false}
@@ -897,7 +920,7 @@ function AddNewCustomer(props) {
                     <SearchDropdown
                       width={155}
                       options={paymentterms}
-                      value={values.payment}
+                      value={formData.payment}
                       onChange={handleDrpChange}
                       name="payment"
                       error={errors.payment && touched.payment ? true : false}
@@ -928,7 +951,7 @@ function AddNewCustomer(props) {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     // placeholder="Placeholder"
                     name="credit"
-                    value={values.credit}
+                    value={formData.credit}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
                     onFocus={ handleCreditFocus}
@@ -971,7 +994,7 @@ function AddNewCustomer(props) {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="email"
-                    value={values.email}
+                    value={formData.email}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
@@ -1011,7 +1034,7 @@ function AddNewCustomer(props) {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pincode"
-                    value={values.pincode}
+                    value={formData.pincode}
                     onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
                     onBlur={(e)=>{handleBlur(e);}}
                     autoComplete="off"
@@ -1205,7 +1228,9 @@ function AddNewCustomer(props) {
 
             
             <div className="customerbutton_bottom">
-                  <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
+         <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+                  {formData.id ? "Update" :"Submit"}
+                </button> 
                   <button type="button" className="customercancelbutton"  onClick={handleClose}>
                     Cancel
                   </button>

@@ -21,7 +21,10 @@ import deletelogo from "../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../assets/Images/ActionStatus/status.svg";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
-import {ChildStateModificationFunc}from "../Customers/AddNewCustomer"
+//import AddNewCustomer, { UpdateParentCustomer}from "../Customers/AddNewCustomer"
+import {ChildStateModificationFunc} from "../Customers/AddNewCustomer";
+import AddNewCustomer from "../Customers/AddNewCustomer";
+;
 
 const filterfield = {
   gsttreat: "",
@@ -59,8 +62,29 @@ const Customer = (props) => {
   const [inputValue, setInputValue] = useState(0);
   const [currentValue, setCurrentValue] = useState(0)
   const [confirm, setCofirm] = useState(false);
+  const [confirmupdate, setCofirmUpdate] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
+  const [updateRecord, setUpdateRecord]= useState(null)
   
+//for update
+
+const handleConfirmCancelUpdate = () => {
+//setUpdateRecord(record)
+    setCofirmUpdate(true);
+  
+   // handleUpdate(updateRecord)
+   // console.log(updateRecord)
+    //setPopOverVisible(false)
+  };
+  console.log(updateRecord)
+
+  const handleConfirmUpdate = () => {
+    setCofirmUpdate(false);
+    setDeleteRecord(null)
+    // setPopOverVisible(false)
+  };
+
+
 //for modal delete
 
   const handleConfirmCancel = (record) => {
@@ -154,15 +178,12 @@ const Customer = (props) => {
   //update data
 
 const handleUpdate = (oldData) => {
-  console.log(oldData);
+
+  handleConfirmCancelUpdate();
+  console.log(oldData)
   console.log(oldData.id);
-  console.log(props.path)
-  //console.log(path)  
- // ChildStateModificationFunc(oldData)
   
-  //showCanvas();
- //   ChildStateModificationFunc(oldData)
-    console.log(oldData)
+  ChildStateModificationFunc(oldData)
 };
 
 
@@ -570,16 +591,16 @@ const deleteUser = (record)=>
                  </div>
                  </div>
                  <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                 <Link to="addcustomer"><img src={editlogo} /></Link>
+               <img src={editlogo} />
                   <div>
-            <Link key={record.id} to="/">
+          
              <button
                     className="actionlabel"
-                     onClick={() => handleUpdate(record)}
+                     onClick={()=> handleUpdate(record)}
                  >
                   {/* <a href="customers/addcustomer">  Update</a> */}
                  Update
-                 </button></Link>
+                 </button>
 
                  </div>
                  </div>
@@ -1238,6 +1259,97 @@ const deleteUser = (record)=>
             </p>
           </div>
         </div>
+      </Modal>
+
+      <Modal
+        open={confirmupdate}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirmUpdate}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleSubmit}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Delete
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+         <AddNewCustomer/>
+        {/* <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Customer
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div> */}
       </Modal>
           </div>
         </div>
