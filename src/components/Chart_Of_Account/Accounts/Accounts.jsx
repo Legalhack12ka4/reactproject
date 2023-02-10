@@ -1,4 +1,4 @@
-import { Button, Modal, Popover, Space, Table, Typography } from "antd";
+import { Button, Modal, Popover, Select, Space, Table, Typography } from "antd";
 import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
@@ -15,39 +15,66 @@ import { toast } from "react-toastify";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import config from "../../Database/config";
 
+const resetValue = {
+  account_type: "",
+  account_code: "",
+  parent_code: "",
+  account_name: "",
+  description: "",
+};
+
 function Accounts() {
+  const [formData, setFormData] = useState(resetValue);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirm, setCofirm] = useState(false);
-  const [deleteRecord, setDeleteRecord] = useState(null)
-  const [reportingl, setReportingl]=useState([]);
-  const [reportingl3, setReportingl3]=useState([]);
-  
-//for modal delete
+  const [deleteRecord, setDeleteRecord] = useState(null);
+  const [reportingl, setReportingl] = useState([]);
+  const [reportingl3, setReportingl3] = useState([]);
+  const [creditAmount, setCreditAmount] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  const { Option, OptGroup } = Select;
+
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
+  const handleInputChange = event => {
+    setInputValue(event.target.value);
+  };
+
+  const firstFunction = () => {
+    console.log("First function called");
+  };
+
+  const secondFunction = () => {
+    console.log("Second function called");
+  };
+  //for modal delete
 
   const handleConfirmCancel = (record) => {
-    setDeleteRecord(record)
-      setCofirm(true);
-      //setPopOverVisible(false)
-    };
-  
-    const handleConfirm = () => {
-      setCofirm(false);
-      setDeleteRecord(null)
-      // setPopOverVisible(false)
-    };
-  
-    const handleSubmit = () =>
-    {
+    setDeleteRecord(record);
+    setCofirm(true);
+    //setPopOverVisible(false)
+  };
+
+  const handleConfirm = () => {
+    setCofirm(false);
+    setDeleteRecord(null);
+    // setPopOverVisible(false)
+  };
+
+  const handleSubmit = () => {
     //  alert("Data", record)
-     // deleteUser(deleteRecord);
-   //   getData();
-      setCofirm(false);
-   //   getData();
-    }
+    // deleteUser(deleteRecord);
+    //   getData();
+    setCofirm(false);
+    //   getData();
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -60,107 +87,64 @@ function Accounts() {
     //   setFormData(resetValue);
   };
 
-//dropodwn withtwo dropodwn
-const getReporting = () => {
-  return fetch(`${config.baseUrl}/reporting/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setReportingl(data);
-      console.log(data);
-    });
-};
-// const getReportingl3 = () => {
-//   return fetch(`${config.baseUrl}/reporting/`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setReportingl3(data);
-//       console.log(data);
-//     });
-// };
+  //dropodwn withtwo dropodwn
+  const handleReporting3 = (e) => {
+    console.log("l3", e.target.value);
+  };
 
+  const handleSubmitChecked = (e) => {
+    // e.preventDefault();
+    console.log("You clicked submit.", e.target.value);
+   // getReporting(e.target)
+  };
+  // \\onchange
 
-   useEffect(() => {
+  const handleDrpChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+    //setFieldValue(field, value);
+    //setFieldTouched(field, false);
+    console.log(field);
+    console.log(value);
+    //getReporting();
+  };
+
+  console.log(formData);
+  //console.log(abc)
+  let abc = formData.account_type;
+  console.log(abc);
+
+  const getReporting = (account_type) => {
+    // return fetch(`${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=Current Assets&company_id=1`)
+    return fetch(
+      `${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=${
+        formData.account_type == abc ? "Non-current Assets" : "Current Assets"
+      }&company_id=1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setReportingl(data);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
     getReporting();
-  //  getReportingl3();
-}, []);
+    //  getReportingl3();
+  }, []);
 
-const reporting3 =  reportingl.map((place)=>({
-  
-  
-  label: place.reporting_l3,
-  value: place.reporting_l3,
-  
-}))
-  
+  const reporting3 = reportingl.map((place) => ({
+    label: place.reporting_l3,
+    value: place.reporting_l3,
+  }));
 
-const reporting =
-// [
-  // {
-  //       label: 'Manager',
-  //       options: [
-          
-  //           reportingl.map((place)=>({
-  
-  
-  //             label: place.reporting_l2,
-  //             value: place.reporting_l2,
-              
-  //           })),
-        
-  //         {
-  //           label: 'Lucy',
-  //           value: 'lucy',
-  //         },
-  //       ],
-  //     },
- 
-    reportingl.map((place)=>({
-  
-  
-  label: place.reporting_l2,
-  value: place.reporting_l2,
-  
-}))
-  
-// ]
-
-// const reporting=[
-//   {
-//     label: 'Manager',
-//     options: [
-//       {
-//         label: 'Jack',
-//         value: 'jack',
-//       },
-//       {
-//         label: 'Lucy',
-//         value: 'lucy',
-//       },
-//     ],
-//   },
-//   {
-//     label: 'Engineer',
-//     options: [
-//       {
-//         label: 'yiminghe',
-//         value: 'Yiminghe',
-//       },
-//     ],
-//   },
-// ]
-// const reporting=[
-//   {
-//     label: 'Manager',
-//     options: [
-//       { label: 'Jack', value: 'jack' },
-//       { label: 'Lucy', value: 'lucy' },
-//     ],
-//   },
-//   {
-//     label: 'Engineer',
-//     options: [{ label: 'yiminghe', value: 'Yiminghe' }],
-//   },
-// ];
+  const reporting =reportingl.map((place) => ({
+    label: place.reporting_l2,
+    value: place.reporting_l2,
+  }));
+  const l3g = [{
+    label:"wedwe",
+   // value:reporting,
+  }]
 
   const dataSource = [
     {
@@ -303,7 +287,7 @@ const reporting =
       fixed: "left",
       align: "left",
       width: "auto",
-      showSorterTooltip:{ title: '' },
+      showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.account_name > record2.account_name;
       },
@@ -317,17 +301,27 @@ const reporting =
       resizable: true,
       width: "auto",
       align: "left",
-      showSorterTooltip:{ title: '' },
-     // ellipsis:true,
-      textWrap: 'ellipsis' | 'word-break',
+      showSorterTooltip: { title: "" },
+      // ellipsis:true,
+      textWrap: "ellipsis" | "word-break",
       sorter: (record1, record2) => {
         return record1.account_code > record2.account_code;
       },
-      render :(text,record)=>
-      {
-        return <div  style={{marginRight:"117px", display:"flex", justifyContent:"end", textOverflow: 'ellipsis',
-        overflow: 'hidden'}}>{text}</div>
-      }
+      render: (text, record) => {
+        return (
+          <div
+            style={{
+              marginRight: "117px",
+              display: "flex",
+              justifyContent: "end",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {text}
+          </div>
+        );
+      },
     },
 
     {
@@ -339,7 +333,7 @@ const reporting =
       fixed: "left",
       align: "left",
       width: "auto",
-      showSorterTooltip:{ title: '' },
+      showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.account_type > record2.account_type;
       },
@@ -352,7 +346,7 @@ const reporting =
       resizable: true,
       width: "auto",
       align: "left",
-      showSorterTooltip:{ title: '' },
+      showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.module_type > record2.module_type;
       },
@@ -365,77 +359,102 @@ const reporting =
       resizable: true,
       width: 150,
       align: "left",
-      showSorterTooltip:{ title: '' },
+      showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.module_type > record2.module_type;
       },
       render: (status, record, text) => (
         <>
-        <div style={{display:"flex", alignItems:"center"}}>
-        <div 
-        className="bullet_item"
-        ></div>
-          <Typography.Text
-            style={
-              record.status === "Active"
-                ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
-                : ""
-            }
-          >
-            {record.status}
-          </Typography.Text>
-          <span
-            style={{ marginLeft: "46px", display:"flex", alignItems:"center" }}
-            //    className={`${this.props.className}-delete`}
-            //  onClick={(e) => { this.onDelete(record.key, e); }}
-          >
-            
-            <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-                 <>
-           
-                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                 <img src={deletelogo} />
-                 <div>
-                 <button 
-                 className="actionlabel"
-                 onClick={() => handleConfirmCancel(record)}
-                 
-                 >
-                Delete
-                 </button>
-                 </div>
-                 </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                  <img src={editlogo} />
-                  <div>
-                 <button
-      
-                    className="actionlabel"
-                    // onClick={() => handleUpdate(record)}
-                 >
-                Update
-                 </button>
-                 </div>
-                 </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-                  <img src={statuslogo} />
-                  <div>
-                 <button
-                  className="actionlabel"
-                  style={{minWidth: "max-content"}}
-                    // onClick={() => handleUpdate(record)}
-                 >
-                  Set as Activate
-                 </button>
-                 </div>
-                 </div>
-                 </>
-        } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer"}} />
-        </Popover>
-  
-            {/* <img src={editdelete} /> */}
-          </span>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div className="bullet_item"></div>
+            <Typography.Text
+              style={
+                record.status === "Active"
+                  ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                  : ""
+              }
+            >
+              {record.status}
+            </Typography.Text>
+            <span
+              style={{
+                marginLeft: "46px",
+                display: "flex",
+                alignItems: "center",
+              }}
+              //    className={`${this.props.className}-delete`}
+              //  onClick={(e) => { this.onDelete(record.key, e); }}
+            >
+              <Popover
+                getPopupContainer={(trigger) => trigger.parentElement}
+                showArrow={false}
+                content={
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "11px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <img src={deletelogo} />
+                      <div>
+                        <button
+                          className="actionlabel"
+                          onClick={() => handleConfirmCancel(record)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "11px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <img src={editlogo} />
+                      <div>
+                        <button
+                          className="actionlabel"
+                          // onClick={() => handleUpdate(record)}
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "11px",
+                      }}
+                    >
+                      <img src={statuslogo} />
+                      <div>
+                        <button
+                          className="actionlabel"
+                          style={{ minWidth: "max-content" }}
+                          // onClick={() => handleUpdate(record)}
+                        >
+                          Set as Activate
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                }
+                title=""
+                height={100}
+                trigger="click"
+              >
+                <img src={editdelete} style={{ cursor: "pointer" }} />
+              </Popover>
+
+              {/* <img src={editdelete} /> */}
+            </span>
           </div>
         </>
       ),
@@ -482,7 +501,7 @@ const reporting =
           open={isModalOpen}
           onOk={handleOk}
           width={740}
-          bodyStyle={{height:345}}
+          bodyStyle={{ height: 345 }}
           onCancel={handleCancel}
           style={{ top: 20 }}
           className={"footerconfirm"}
@@ -496,9 +515,9 @@ const reporting =
                 height: "38px",
                 backgroundColor: "#5C5AD0",
                 fontSize: "14px",
-                fontWeight:"400"
+                fontWeight: "400",
               }}
-            //  onClick={() => handleFormSubmit()}
+              //  onClick={() => handleFormSubmit()}
             >
               Submit
             </Button>,
@@ -510,7 +529,7 @@ const reporting =
                 height: "38px",
                 fontSize: "14px",
                 color: "#8E9CAA",
-                border:".5px solid #C2CAD2"
+                border: ".5px solid #C2CAD2",
               }}
             >
               Cancel
@@ -533,53 +552,126 @@ const reporting =
             </svg>
           }
         >
-          <div style={{padding: "0px 30px 0px 30px"}}>
-            <p className="subtitle">Create New Chart of Account according to your Need</p>
-            <hr style={{marginTop:"20px"}}/>
-        
-          <div style={{marginTop:"20px", display:"flex", gap:"20px"}}>
-           
-           <div>
-             <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Type</p>
-             <SearchDropdown width={330} options={reporting}/>
+          <div style={{ padding: "0px 30px 0px 30px" }}>
+            <p className="subtitle">
+              Create New Chart of Account according to your Need
+            </p>
+            <hr style={{ marginTop: "20px" }} />
 
+            <div style={{ marginTop: "20px", display: "flex", gap: "20px" }}>
+              <div>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                  Account Type
+                </p>
+                {/* <Select defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
+    <OptGroup label="Manager">
+      <Option value="jack">
+     
+        Jack
+      </Option>
+      <Option value="lucy">Lucy</Option>
+    </OptGroup>
+    <OptGroup label="Engineer">
+      <Option value="Yiminghe">yiminghe</Option>
+    </OptGroup>
+   </Select> */}
 
-                 <p style={{marginTop:"18px", fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Parent Account</p>
-                 <SearchDropdown width={330} options={reporting3}/>
+               <SearchDropdown
+          
+                  width={330}
+                  OptGroup={<OptGroup label="Assets"></OptGroup>}
+                  options={reporting}
+                  onChange={handleDrpChange}
+                  // onBlur={(e) => {
+                  //   handleSubmitChecked(e);
+                  // }}
+                  name="account_type"
+                  value={formData.account_type}
+                />  
+              
+{/* <input
+      type="text"
+      value={inputValue}
+      onChange={event => {
+        handleInputChange(event);
+        firstFunction();
+        secondFunction();
+      }}
+      /> */}
+                <p
+                  style={{
+                    marginTop: "18px",
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                  Parent Account
+                </p>
+                <SearchDropdown width={330} options={reporting3} />
+              </div>
 
-               </div> 
-           
-               <div>
-             <p style={{fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Code</p>
-             <input
-             disabled
-                 className="accountcode"
+              <div>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                  Account Code
+                </p>
+                <input
+                  disabled
+                  className="accountcode"
                   type="text"
                   placeholder="0009"
                   name="terms"
-                /> 
-                 <p style={{marginTop:"18px",fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Account Name</p>
-              <input
-              className="parmentaccount"
-             
+                />
+                <p
+                  style={{
+                    marginTop: "18px",
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                  Account Name
+                </p>
+                <input
+                  className="parmentaccount"
                   type="text"
-                 // placeholder="Something about account"
+                  // placeholder="Something about account"
                   name="terms"
-                /> 
-               </div> 
-          </div>
-          <div>
-          <p style={{marginTop:"18px",fontSize: "14px", color: "#566A7F",fontWeight:"400"}}>Description</p>
+                />
+              </div>
+            </div>
+            <div>
+              <p
+                style={{
+                  marginTop: "18px",
+                  fontSize: "14px",
+                  color: "#566A7F",
+                  fontWeight: "400",
+                }}
+              >
+                Description
+              </p>
               <textarea
-              resizable={false}
-              className="description"
-              style={{width:"668.4px", height:"68.4px", outline:"none"}}
-                  type="text"
-                  placeholder="Something about account"
-                  name="terms"
-                /> 
-          </div>
-
+                resizable={false}
+                className="description"
+                style={{ width: "668.4px", height: "68.4px", outline: "none" }}
+                type="text"
+                placeholder="Something about account"
+                name="terms"
+              />
+            </div>
           </div>
         </Modal>
         {/* <OffCanvasExample  form={<AccountForm/>}/> */}
@@ -615,95 +707,95 @@ const reporting =
             keyword: search,
           }}
         />
-         <Modal
-        open={confirm}
-     //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleConfirm}
-        style={{ top: 20 }}
-        className={"deleteconfirm"}
-        footer={[
-          <div style={{ marginLeft: "331px" }}>
-            <Button
-              key="cancel"
-              onClick={handleConfirm}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#8E9CAA",
-                borderColor: "#C2CAD2",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              onClick={handleSubmit}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#DA2F58",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#FFFFFF",
-              }}
-            >
-              Delete
-            </Button>
-          </div>,
-        ]}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
-              </div>
-            </div>
-
-            <div>
-              <p
+        <Modal
+          open={confirm}
+          //   onOk={handleMaterialOk}
+          width={"max-content"}
+          onCancel={handleConfirm}
+          style={{ top: 20 }}
+          className={"deleteconfirm"}
+          footer={[
+            <div style={{ marginLeft: "331px" }}>
+              <Button
+                key="cancel"
+                onClick={handleConfirm}
                 style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
+                  width: "86px",
+                  height: "38px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  color: "#8E9CAA",
+                  borderColor: "#C2CAD2",
                 }}
               >
-                Delete Account
+                Cancel
+              </Button>
+              <Button
+                key="submit"
+                type="primary"
+                onClick={handleSubmit}
+                style={{
+                  width: "88px",
+                  height: "38px",
+                  backgroundColor: "#DA2F58",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  color: "#FFFFFF",
+                }}
+              >
+                Delete
+              </Button>
+            </div>,
+          ]}
+          closeIcon={
+            <div className="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13.51"
+                height="13"
+                viewBox="0 0 13.51 13"
+              >
+                <path
+                  id="Path_34362"
+                  data-name="Path 34362"
+                  d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                  transform="translate(-2.248 -2.248)"
+                  fill="#697a8d"
+                />
+              </svg>
+            </div>
+          }
+        >
+          <div className="confirmCoontainer">
+            <div className="confirmresources">
+              <div className="imgsetting">
+                <div className="imgbackground">
+                  <img src={alert} style={{ width: "38px", height: "38px" }} />
+                </div>
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    fontSize: "22px",
+                    color: "#2B3347",
+                    fontWeight: "500",
+                    padding: "21px 0px 0px 0px",
+                  }}
+                >
+                  Delete Account
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="confirmationtext">
+                Are you sure you want to close this window? <br /> All the value
+                which you filled in the fields will be deleted.
+                <br /> This action cannot recover the value.
               </p>
             </div>
           </div>
-          <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
-            </p>
-          </div>
-        </div>
-      </Modal>
+        </Modal>
       </div>
     </div>
   );
