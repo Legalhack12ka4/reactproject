@@ -15,6 +15,9 @@ import { toast } from "react-toastify";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import config from "../../Database/config";
 
+import axios from 'axios';
+//import { OptionGroup } from 'react-form-elements';
+
 const resetValue = {
   account_type: "",
   account_code: "",
@@ -32,12 +35,16 @@ function Accounts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null);
-  const [reportingl, setReportingl] = useState([]);
+  //const [reportingl, setReportingl] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [reportingl3, setReportingl3] = useState([]);
   const [creditAmount, setCreditAmount] = useState("");
   const [inputValue, setInputValue] = useState("");
+  const [fetchaccount, setFetchaccount] = useState([]);
+  const [loading, setloading] = useState(true);
 
-  const { Option, OptGroup } = Select;
+  const { Option } = Select;
+
 
   function handleChange(value) {
     console.log(`selected ${value}`);
@@ -113,169 +120,89 @@ function Accounts() {
   let abc = formData.account_type;
   console.log(abc);
 
-  const getReporting = (account_type) => {
-    // return fetch(`${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=Current Assets&company_id=1`)
-    return fetch(
-      `${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=${
-        formData.account_type == abc ? "Non-current Assets" : "Current Assets"
-      }&company_id=1`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setReportingl(data);
-        console.log(data);
+  const getReporting = () => {
+    axios.get(`http://127.0.0.1:8000/backend/reporting/?reporting_l1=Assets&company_id=1`)
+      .then((response) => {
+        setGroups(response.data);
+        console.log(response.data);
       });
+  };
+
+  // const getReporting = (account_type) => {
+  //    return fetch(`${config.baseUrl}/reporting/?reporting_l1=Assets&company_id=1`)
+  //   // return fetch(
+  //   //   `${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=${
+  //   //     !formData.account_type ? "Current Assets" : "Non-current Assets"  }&company_id=1`
+  //   // )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setReportingl(data);
+  //       console.log(data);
+  //     });
+  // };
+
+    const onBlur = (e) => {
+    console.log(e.target.value)
+    console.log(formData.account_type)
+    //setGst(!gst);
+   // console.log(gst);
   };
 
   useEffect(() => {
     getReporting();
+    console.log(formData.account_type)
     //  getReportingl3();
-  }, []);
+  }, [formData.account_type]);
 
-  const reporting3 = reportingl.map((place) => ({
+  const reporting3 = 
+  groups.map((place) => ({
     label: place.reporting_l3,
     value: place.reporting_l3,
   }));
 
-  const reporting =reportingl.map((place) => ({
-    label: place.reporting_l2,
-    value: place.reporting_l2,
-  }));
-  const l3g = [{
-    label:"wedwe",
-   // value:reporting,
-  }]
+  // const reporting =
+  // reportingl.map((place) => ({
+  //   label: place.reporting_l2,
+  //   value: place.reporting_l2,
+  // }));
+  // const l3g = [{
+  //   label:"wedwe",
+  //  // value:reporting,
+  // }]
 
-  const dataSource = [
-    {
-      key: "1",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "2",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "3",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "4",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "5",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "6",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "7",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "8",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "9",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "10",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "11",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "12",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "13",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "14",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "15",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-    {
-      key: "16",
-      account_name: "Cleaning Expenses",
-      account_code: "0019",
-      account_type: "Cost of Goods Sold",
-      description: "Expenses regarding Goods",
-      status: "Active",
-    },
-  ];
+
+  //fetch account data
+  useEffect(() => {
+    getData();
+    
+  }, []);
+  const getData = async () => {
+    await axios.get(`${config.baseUrl}/chartofaccount/`).then((res) => {
+      setloading(false);
+      setFetchaccount(
+        res.data.map((row) => ({
+          Key: row.id,
+          Account_Name: row.account_name,
+          Account_Code: row.account_code,
+          Description: row.description,
+       
+          // id: row.id
+        }))
+      );
+      console.log(res);
+    });
+  };
+  console.log(fetchaccount);
+
+  const dataSource = fetchaccount.map((customer) => ({
+    key: customer.Key,
+    id: customer.Key,
+    account_name: customer.Account_Name,
+    account_code: customer.Account_Code,
+    description: customer.Description,
+    status:"Active"
+
+  }));
 
   const columnsData = [
     {
@@ -483,7 +410,7 @@ function Accounts() {
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.account_type.toLowerCase().includes(search.toLowerCase())
+    record.account_name.toLowerCase().includes(search.toLowerCase())
   );
   return (
     <div className="account-data">
@@ -582,18 +509,41 @@ function Accounts() {
     </OptGroup>
    </Select> */}
 
-               <SearchDropdown
+<Select style={{width:"330px", marginTop:"7px", borderRadius:"6px !important"}} placeholder="Select Value" size={"large"} >
+       <Select.OptGroup className="abc" key="sfsad" label="Assets" style={{fontSize:"20px"}}></Select.OptGroup>
+      {groups.length > 0 ? (
+             
+        groups.map(group => (
+        // <OptionGroup label="efrwe">
+          <Select key={group.reporting_l2} label={group.reporting_l2}>
+           {group.options ? group.options.map(option => (
+           
+  <Option key={"Assets"} value={"Asetjh"}>
+    {"Assets"}
+  </Option>
+
+)) : null}
+          </Select>
+          // </OptionGroup>
+        ))
+      ) : (
+        <Option disabled>Loading...</Option>
+      )}
+    </Select>
+
+               {/* <SearchDropdown
           
                   width={330}
                   OptGroup={<OptGroup label="Assets"></OptGroup>}
                   options={reporting}
                   onChange={handleDrpChange}
+                  onBlur={onBlur}
                   // onBlur={(e) => {
                   //   handleSubmitChecked(e);
                   // }}
                   name="account_type"
                   value={formData.account_type}
-                />  
+                />   */}
               
 {/* <input
       type="text"
@@ -691,15 +641,20 @@ function Accounts() {
           // scroll={{ y: 800, x: 720 }}
           scroll={{ x: "1100px" }}
           //    style={{ width: "100%" }}
-          pagination={{
-            current: page,
-            pageSize: pageSize,
-            onChange: (page, pageSize) => {
-              setPage(page);
-              setPageSize(pageSize);
-            },
-            total: 100,
-          }}
+        //  loading={true}
+          pagination={
+            !loading && {
+              current: page,
+              pageSize: pageSize,
+              onChange: (page, pageSize) => {
+                setPage(page);
+                setPageSize(pageSize);
+              },
+              total: fetchaccount.length,
+              showTotal: (total, range) =>
+                `Showing ${range[1]}-${range[1]} of ${total} ChartOfAccounts`,
+            }
+          }
           rowClassName={(record) =>
             record.key % 2 === 0 ? "highlight_row" : ""
           }
