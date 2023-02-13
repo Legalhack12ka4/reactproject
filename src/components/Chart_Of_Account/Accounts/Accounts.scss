@@ -188,3 +188,18 @@ border-radius: 5px !important;
     border: 0.5px solid #d9dee3 !important;
     color: #697a8d !important;
   }
+
+  .ant-select-arrow {
+    font-size: 10px !important;
+  }
+
+  .ant-select-item-option:hover:not(.ant-select-item-option-disabled) {
+    // background-color: #697A8D !important;
+    color: #697a8d !important;
+  }
+
+  .ant-select-item-option-selected {
+    background-color: #5c5ad133 !important;
+    color: #697a8d !important;
+    font-weight: none !important;
+  }

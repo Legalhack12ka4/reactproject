@@ -17,11 +17,12 @@ import config from "../../Database/config";
 
 import axios from 'axios';
 //import { OptionGroup } from 'react-form-elements';
+const { OptGroup } = Select;
 
 const resetValue = {
   account_type: "",
   account_code: "",
-  parent_code: "",
+  parent_account: "",
   account_name: "",
   description: "",
 };
@@ -107,39 +108,75 @@ function Accounts() {
   // \\onchange
 
   const handleDrpChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-    //setFieldValue(field, value);
-    //setFieldTouched(field, false);
+    setFormData({ ...formData,account_type: value.value });
     console.log(field);
     console.log(value);
-    //getReporting();
   };
+
+  const handleDrpChangel3 = (field, value) => {
+    setFormData({ ...formData,[field]: value });
+    console.log(field);
+    console.log(value);
+  };
+  // useEffect(() => {
+  //   setFormData(value);
+  // }, [value]);
 
   console.log(formData);
   //console.log(abc)
-  let abc = formData.account_type;
-  console.log(abc);
+ // let abc = formData.account_type;
+//  console.log(abc);
 
+  // const getReporting = () => {
+  //   axios.get(`http://127.0.0.1:8000/backend/reporting/`)
+  //     .then((response) => {
+  //       setGroups(response.data);
+  //       console.log(response.data);
+  //     });
+  // };
+
+ // let abc="Current Assets"
   const getReporting = () => {
-    axios.get(`http://127.0.0.1:8000/backend/reporting/?reporting_l1=Assets&company_id=1`)
-      .then((response) => {
-        setGroups(response.data);
-        console.log(response.data);
+  return fetch(`${config.baseUrl}/reporting/?company_id=1${formData.account_type && `&reporting_l2=${formData.account_type}`}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGroups(data);
+        console.log(data);
       });
   };
 
-  // const getReporting = (account_type) => {
-  //    return fetch(`${config.baseUrl}/reporting/?reporting_l1=Assets&company_id=1`)
-  //   // return fetch(
-  //   //   `${config.baseUrl}/reporting/?reporting_l1=Assets&reporting_l2=${
-  //   //     !formData.account_type ? "Current Assets" : "Non-current Assets"  }&company_id=1`
-  //   // )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setReportingl(data);
-  //       console.log(data);
-  //     });
-  // };
+  const groupedData = groups.reduce((acc, curr) => {
+    if (!acc[curr.reporting_l1]) {
+      acc[curr.reporting_l1] = [];
+    }
+    if (!acc[curr.reporting_l1].includes(curr.reporting_l2)) {
+      acc[curr.reporting_l1].push(curr.reporting_l2);
+    }
+    return acc;
+  }, {});
+
+  const options = Object.keys(groupedData).map(key => (
+    <OptGroup label={key} key={key.id}>
+      {groupedData[key].map(child => (
+        <Option value={child} key={child.id}>
+          {child}
+        </Option>
+      ))}
+    </OptGroup>
+  ));
+
+  // const uniqueData = groups.reduce((acc, item) => {
+  //   if (!acc[item.reporting_l2]) {
+  //     acc[item.reporting_l2] = item;
+  //   }
+  //   return acc;
+  // }, {});
+  // const uniqueDatal1 = groups.reduce((acc, item) => {
+  //   if (!acc[item.reporting_l1]) {
+  //     acc[item.reporting_l1] = item;
+  //   }
+  //   return acc;
+  // }, {});
 
     const onBlur = (e) => {
     console.log(e.target.value)
@@ -156,6 +193,7 @@ function Accounts() {
 
   const reporting3 = 
   groups.map((place) => ({
+    key:place.id,
     label: place.reporting_l3,
     value: place.reporting_l3,
   }));
@@ -494,7 +532,7 @@ function Accounts() {
                     fontWeight: "400",
                   }}
                 >
-                  Account Type
+                  Reporting Account
                 </p>
                 {/* <Select defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
     <OptGroup label="Manager">
@@ -509,33 +547,83 @@ function Accounts() {
     </OptGroup>
    </Select> */}
 
-<Select style={{width:"330px", marginTop:"7px", borderRadius:"6px !important"}} placeholder="Select Value" size={"large"} >
-       <Select.OptGroup className="abc" key="sfsad" label="Assets" style={{fontSize:"20px"}}></Select.OptGroup>
-      {groups.length > 0 ? (
-             
-        groups.map(group => (
-        // <OptionGroup label="efrwe">
-          <Select key={group.reporting_l2} label={group.reporting_l2}>
-           {group.options ? group.options.map(option => (
-           
-  <Option key={"Assets"} value={"Asetjh"}>
-    {"Assets"}
-  </Option>
+                {/* <Select
+                 name="account_type"
+                 value={formData.account_type || undefined}
+                  onChange={handleDrpChange}
+                        showSearch
+                  style={{
+                    width: "330px",
+                    marginTop: "7px",
+                    borderRadius: "6px !important",
+                  }}
+                  placeholder="Select Value"
+                  size={"large"}
+                >
+                   {
+                     Object.values(uniqueDatal1).map((group) => (
+                  <Select.OptGroup
+                    className="abc"
+                    key={group.id}
+                    label={group.reporting_l1}
+                    style={{ fontSize: "20px" }}
+                  >
+                     {groups.length > 0 ? (
+                     Object.values(uniqueData).map((group) => (
+                      <Select
+                        key={group.id}
+                        label={group.reporting_l2}
+                        value={group.reporting_l2}
+                      >
+                      </Select>
+                    ))
+                  ) : (
+                    <Option disabled>Loading...</Option>
+                  )}
+                  </Select.OptGroup>
+                  ))
+                }
+                  {/* {groups.length > 0 ? (
+                     Object.values(uniqueData).map((group) => (
+                      <Select
+                        key={group.id}
+                        label={group.reporting_l2}
+                        value={group.reporting_l2}
+                      >
+                      </Select>
+                    ))
+                  ) : (
+                    <Option disabled>Loading...</Option>
+                  )} 
+                </Select> */}
 
-)) : null}
-          </Select>
-          // </OptionGroup>
+                {/* <Select
+ //value={formData.account_type || undefined}
+ onChange={handleDrpChange}
+  style={{ width: '200px' }}
+  placeholder="Select a value"
+>
+{
+  groups && groups.map((parent) => (
+    <Select.OptGroup key={parent.id} label={parent.reporting_l1}>
+      {
+        parent.children.map((child) => (
+          <Select.Option key={child.id} value={child.reporting_l2}>
+            {child.reporting_l2}
+          </Select.Option>
         ))
-      ) : (
-        <Option disabled>Loading...</Option>
-      )}
-    </Select>
+      }
+    </Select.OptGroup>
+  ))
+}
 
-               {/* <SearchDropdown
+</Select> */}
+
+                 {/* <SearchDropdown
           
                   width={330}
-                  OptGroup={<OptGroup label="Assets"></OptGroup>}
-                  options={reporting}
+               //   OptGroup={<OptGroup label="Assets"></OptGroup>}
+                //  options={reporting}
                   onChange={handleDrpChange}
                   onBlur={onBlur}
                   // onBlur={(e) => {
@@ -543,9 +631,26 @@ function Accounts() {
                   // }}
                   name="account_type"
                   value={formData.account_type}
-                />   */}
-              
-{/* <input
+                  options={options}
+                />     */}
+
+<Select 
+  name="account_type"
+  value={formData.account_type || undefined}
+   onChange={handleDrpChange}
+         showSearch
+   style={{
+     width: "330px",
+     marginTop: "7px",
+     borderRadius: "6px !important",
+   }}
+   onFocus={()=> setFormData((value)=>({...value, account_type:"", parent_account:"" }))}
+   placeholder="Select Value"
+   size={"large"}>
+      {options}
+    </Select>
+
+                {/* <input
       type="text"
       value={inputValue}
       onChange={event => {
@@ -564,7 +669,12 @@ function Accounts() {
                 >
                   Parent Account
                 </p>
-                <SearchDropdown width={330} options={reporting3} />
+                <SearchDropdown width={330} 
+                name="parent_account"
+                value={formData.parent_account}
+                onChange={handleDrpChangel3}
+                  //onFocus={()=> setFormData((value)=>({...value, account_type:"" }))}
+                options={formData.account_type && reporting3} />
               </div>
 
               <div>
@@ -641,7 +751,7 @@ function Accounts() {
           // scroll={{ y: 800, x: 720 }}
           scroll={{ x: "1100px" }}
           //    style={{ width: "100%" }}
-        //  loading={true}
+          //  loading={true}
           pagination={
             !loading && {
               current: page,

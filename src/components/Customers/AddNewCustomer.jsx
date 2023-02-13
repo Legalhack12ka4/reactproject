@@ -1228,9 +1228,10 @@ ChildStateModificationFunc = (modVal)=>{
 
             
             <div className="customerbutton_bottom">
-         <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+         {/* <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
-                </button> 
+                </button>  */}
+                <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
                   <button type="button" className="customercancelbutton"  onClick={handleClose}>
                     Cancel
                   </button>
