@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { Input, Checkbox, Tooltip, Modal } from "antd";
+import { Input, Checkbox, Tooltip, Modal, Popover } from "antd";
 import { Link } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
@@ -483,30 +483,29 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       </Modal>
       <div className="table_nav">
         <div className="tableBtn_container">
+          
+        <div className="new_btn_or_reports_main">
+    <div className="view_reports_container">
+      <img src="images/icons/report_icon.svg" alt="" />
+      <p>View Reports</p>
+    </div>
+    <div className="new_btn_container">
+    <Link exact to={props.path} onClick={props.onClick}>
+              <div className="tableBtn addNewBtn" onClick={showCanvas}>
+                <GoPlus />
+                <div style={{ color: "white" }}>
+                  {" "}
+                  <div className="addNewBtn_text">New {props.addBtnName}</div>
+                </div>
+              </div>
+            </Link>
+    </div>
+  </div>
+
           <div style={{ display: "flex" }} >
-            {props.customer == "" ?
-             <div className={`${props.filterLength > 0 && "filter"} tableBtn `} 
-             style={{ width: "101.5px", position:"relative", cursor:"default" }} ref={fliterRef}>
-              <div className="btn_icon">
-              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
-              </div>
-              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
-              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
-            </div> :
-             <div
-              className={`${props.filterLength > 0 && "filter"} tableBtn `}
-              
-              onClick={showFilterModal}
-              style={{ width: "101.5px", position:"relative" }}
-              ref={fliterRef}
-            >
-              <div className="btn_icon">
-              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
-              </div>
-              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
-              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
-            </div>}
-            {props.customer == "" ? <div
+          <div className="total_table_result">{props.results_length}</div>
+            
+            {/* {props.customer == "" ? <div
               className="tableBtn export"
               style={{ width: "101.5px",   cursor:"default"  }}
               ref={menuRef}
@@ -525,7 +524,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   <div className="export_icon">
                     <img src="/images/icons/print_icon.svg" alt="print_icon" />
                   </div>
-                  {/* <span>Print</span> */}
                   <ReactToPrint
                     trigger={() => <span>Print</span>}
                     content={() => componentRef.current}
@@ -575,7 +573,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   <div className="export_icon">
                     <img src="/images/icons/print_icon.svg" alt="print_icon" />
                   </div>
-                  {/* <span>Print</span> */}
                   <ReactToPrint
                     trigger={() => <span>Print</span>}
                     content={() => componentRef.current}
@@ -605,7 +602,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   Copy
                 </div>
               </div>
-            </div>}
+            </div>} */}
 
             {/* <div className="tableBtn">
             <div className="btn_icon">
@@ -613,7 +610,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
             </div>
             Filter
           </div> */}
-            <Link exact to={props.path} onClick={props.onClick}>
+            {/* <Link exact to={props.path} onClick={props.onClick}>
               <div className="tableBtn addNewBtn" onClick={showCanvas}>
                 <GoPlus />
                 <div style={{ color: "white" }}>
@@ -621,10 +618,10 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   <div className="addNewBtn_text">New {props.addBtnName}</div>
                 </div>
               </div>
-            </Link>
+            </Link> */}
           </div>
 
-          <div style={{ display: "flex", gap: "20px" }}>
+          <div style={{ display: "flex", }}>
           {props.customer == "" ? <div className="search_customer" >
               <div className="search_icon" >
                 <CgSearch size={20} color="#697A8D" />
@@ -644,10 +641,33 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <input
            
                 type="text"
-                placeholder="Search Customer"
+                placeholder="Search here..."
                 onChange={handleChange}
               />
-      </div>}
+      </div>
+      }
+      {props.customer == "" ?
+             <div className={`${props.filterLength > 0 && "filter"} tableBtn `} 
+             style={{ width: "101.5px", position:"relative", cursor:"default" }} ref={fliterRef}>
+              <div className="btn_icon">
+              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
+              </div>
+              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
+              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
+            </div> :
+             <div
+              className={`${props.filterLength > 0 && "filter"} tableBtn `}
+              
+              onClick={showFilterModal}
+              style={{ width: "101.5px", position:"relative" }}
+              ref={fliterRef}
+            >
+              <div className="btn_icon">
+              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
+              </div>
+              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
+              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
+            </div>}
               {/* <div className="searchbar_typehead">
                 <Select
                   styles={customStyle}
@@ -663,15 +683,36 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               {/* <div className="searchbar_typehead">
           <Select styles={customStyle}/>
           </div> */}
-      
 
-            <div className="settings" ref={menuRef}>
+          
+      
+<Popover  
+content={
+                <div className="setting_container">
+                  <div className="setting_btn" style={{paddingBottom:"20px"}}>
+                    <img src="images/icons/import_data_icon.svg" alt="" />
+                    <p>Import Data</p>
+                  </div>
+                  <div className="setting_btn" style={{paddingBottom:"20px"}}>
+                    <img src="images/icons/export_data_icon.svg" alt="" />
+                    <p>Export Data</p>
+                  </div>
+                  <div className="setting_btn">
+                    <img src="images/icons/Preferences_icon.svg" alt="" />
+                    <p>Preferences</p>
+                  </div>
+                </div>
+              } trigger="click" placement="bottomRight" showArrow={false} getPopupContainer={(trigger) => trigger.parentElement} 
+              >
+                <div className="settings" ref={menuRef}>
               <img className="setting_icon"
                 src="/images/icons/setting.svg"
                 alt="icon"
                 onClick={openSetting}
               />
-              <DragDropContext onDragEnd={handleDragEnd}>
+              
+
+              {/* <DragDropContext onDragEnd={handleDragEnd}>
                 <div
                   className={`table_setting_dropdown ${
                     settingOpen ? "active" : "inactive"
@@ -727,8 +768,11 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                     )}
                   </Droppable>
                 </div>
-              </DragDropContext>
+              </DragDropContext> */}
             </div>
+               
+              </Popover>
+            
           </div>
         </div>
       </div>

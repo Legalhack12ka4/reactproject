@@ -71,7 +71,8 @@
 //Breadcrumb
 
 .ant-breadcrumb-link {
-  font-weight: 700 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
   color: #566a7F !important;
   .subchild a {
     color: #a1acb8 !important;
@@ -84,6 +85,7 @@
 }
 
 .ant-breadcrumb-separator {
+  font-size: 14px !important;
   color: #a1acb8 !important;
 }
 
@@ -272,7 +274,7 @@ th {
 }
 .ant-table-cell {
   padding: 9px 12px !important;
-  font-size: 13px;
+  font-size: 14px;
   color: #697a8d;
 }
 
@@ -316,7 +318,7 @@ th {
 
 //style for over on customer back
 .ant-breadcrumb a {
-  padding: 0px 4px 5px 3px !important;
+  // padding: 0px 4px 5px 3px !important;
 }
 
 [class^="ant-tag"],

@@ -32,10 +32,13 @@
         "icon": "/images/sidebar_icons/bxs-business.svg",
         "childrens": [
             {
+<<<<<<< Updated upstream
                 "title": "Leads",
                 "path": "/leads"
             },
             {
+=======
+>>>>>>> Stashed changes
                 "title": "Contacts",
                 "path": "/contacts"
             },
