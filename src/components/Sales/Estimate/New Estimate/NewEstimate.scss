@@ -1,22 +1,15 @@
 .newestimate{
-    // border: 1px solid;
     margin: auto;
     width: 95%;
     max-width: 2200px;
     padding: 5px;
-    // height: 780px;
     margin-top: 30px;
-    //overflow: scroll;
     position: relative;
     .newestimate-container{
-        // border: 1px solid;
         display: flex;
         gap:30px;
         overflow: scroll;
-        //padding: 20px;
-       // background-color: #ffff;
         border-radius: 8px;
-        //box-shadow:  0px 2px 6px 0px #4359711f;
         .container1estimate
         {
            // padding: 20px;

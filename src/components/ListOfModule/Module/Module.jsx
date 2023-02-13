@@ -23,9 +23,13 @@ function Module() {
    <img src={link}/>
    <Link exact to="/module/module_currencytable" className='currency_btn'>Currency</Link>
    </div>
-   <div>
+   <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/customers/customerPage" className='currency_btn'>Customer</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/itempreview" className='currency_btn'>Item Preview</Link>
    </div>
    </div>
     </div>

@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+ import { React, useState, useRef } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./Leads-Data.scss";

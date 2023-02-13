@@ -19,6 +19,7 @@ import { addCustomerSchemas } from "../../Schemas";
 import config from "../Database/config";
 import { useRef } from "react";
 
+var ChildStateModificationFunc;
 const initialFieldValues = {
   gsttreat: "",
   gstin: "",
@@ -56,8 +57,66 @@ function Vendors(props) {
   //const [pincode, setPincode]= useState([])
 
   //const [gst, setGst] = useState(false);
-  const handleFormSubmit = () => {
 
+
+  ChildStateModificationFunc = (modVal)=> {
+    setFormData(modVal)
+    alert("kjhgkuh")
+}
+  const handleFormSubmit = () => {
+    if (formData.id)
+    {
+      axios
+      .put(
+        `${config.baseUrl}/customervendor/` + formData.id + "/",
+      {
+          gst_no:values.gstin,
+        business_name: values.businessname,
+     
+        pan_card: values.pancard,
+    
+        credit_limit: 20,
+        email: values.email,
+        pincode: values.pincode,
+        street1: values.street1,
+        street2: values.street2,
+        "place_of_supply": 1,
+        "contact": 1,
+        "ownership": 1,
+        "is_active": true,
+        "is_deleted": false,
+        "type": 1,
+      "type_category": 7,
+      "payment_terms": 2,
+      "currency": 20,
+      "ownership": 1,
+      "gst_treatment": 1,
+      "place_of_supply": 2,
+      "contact": 4,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+      },
+      values
+    )
+    .then((response) => {
+     // getData();
+    
+      toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+      handleClose();
+     
+    });
+  }
+  else
+  {
     axios
       .post(
         `${config.baseUrl}/customervendor/`,
@@ -106,6 +165,7 @@ function Vendors(props) {
         handleClose();
        
       });
+    }
   }
 
 
@@ -1198,7 +1258,10 @@ const {
               </div>
             </div>
             <div className="customerbutton_bottom">
-                  <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
+                  {/* <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/> */}
+                  <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+                  {formData.id ? "Update" :"Submit"}
+                </button> 
                   <button type="button" className="customercancelbutton"  onClick={handleClose}>
                     Cancel
                   </button>
@@ -1210,3 +1273,4 @@ const {
 }
 
 export default Vendors;
+export {ChildStateModificationFunc}
