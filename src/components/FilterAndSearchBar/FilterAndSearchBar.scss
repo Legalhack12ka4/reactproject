@@ -19,8 +19,8 @@
         background-color: #ffff;
         border-radius: 8px;
         gap: 12px;
-        width: 350px;
-        border: 1px solid #C2CAD2;
+        width: 270px;
+        // border: 1px solid #C2CAD2;
         // box-shadow:  0px 2px 6px 0px #4359711f;
 
         .searchbar_typehead{
@@ -47,7 +47,7 @@
         input::placeholder{
             font-size: 13px;
             font-weight: 400;
-            color: #697A8D;
+            color: #697A8D !important;
             
         }
     }
@@ -55,7 +55,70 @@
     .tableBtn_container{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 18px;
+
+        .total_table_result{
+            font-size: 16px;
+            font-weight: 400;
+            color: #566A7F;
+        }
+        .new_btn_or_reports_main{
+            position: absolute;
+            top: 16px;
+            right: -15px;
+            display: flex;
+            align-items: center;
+        gap: 20px;
+
+        .view_reports_container{
+            display: flex;
+            align-items: center;
+            gap: 8px;   
+            height: 30px;
+            padding-right: 20px;
+            border-right: 1px solid #C2CAD2;
+
+            p{
+                font-size: 14px;
+                font-weight: 600;
+                color: #5C5AD0;
+            }
+        }
+
+        .new_btn_container{
+            .addNewBtn{
+                background-color: #5C5AD0;
+                padding: 0px 20px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            
+            .tableBtn{
+                // margin-right: 20px;
+                // width: 93.5px;
+                // height: 37px;
+                // border: .5px solid;
+                // border-radius: 6px;
+                // display: flex;
+                // align-items: center;
+                // cursor: pointer;
+                // color: #697A8D;
+                // gap: 8px;
+                // font-size: 13px;
+                // font-weight: 400;
+                // // box-shadow:  0px 2px 6px 0px #4359711f;
+                // border: 1px solid #C2CAD2;
+        }
+    }
+        }
         .tableBtn{
             margin-right: 20px;
             width: 93.5px;
@@ -299,6 +362,21 @@
         visibility: hidden;
         transform: translateY(-20px);
         transition: .2s ease;
+    }
+}
+
+.setting_container{
+    .setting_btn{
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+        // padding-top: 10px;
+
+        p{
+            font-size: 14px;
+            font-weight: 400;
+            color: #566A7F;
+        }
     }
 }
 

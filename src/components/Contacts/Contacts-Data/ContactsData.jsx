@@ -549,6 +549,7 @@ setoldData(oldData)
 
       <div className="contacts-table-container">
         <FilterAndSearchBar
+          results_length={`${cusomizeData.length} Contacts`}
           filterdata={[
             <div className="contact_filter_container">
               <div className="customer_filter_filed">
