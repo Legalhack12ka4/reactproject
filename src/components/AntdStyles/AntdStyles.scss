@@ -95,6 +95,30 @@
 
 // antd table designe
 
+.ant-table-wrapper
+  .ant-table-container {
+  border-start-start-radius: 0px !important;
+  border-start-end-radius: 0px !important;
+}
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:first-child {
+  border-start-start-radius: 0px !important;
+}
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:last-child
+  > *:last-child {
+  border-start-end-radius: 0px !important;
+}
+
+
+
 .ant-checkbox-checked:after {
   position: absolute;
   top: 0;
@@ -139,7 +163,7 @@
 }
 
 .ant-table-container {
-  box-shadow: 0px 2px 6px 0px #4359711f;
+  // box-shadow: 0px 2px 6px 0px #4359711f;
   border-radius: 8px;
   // border: 1px solid;
   overflow: hidden;
@@ -262,7 +286,12 @@ th {
 
 .ant-table-row {
   td {
-    border-bottom: 0.5px solid #c2cad2 !important;
+    border-bottom: .5px solid #c2cad2 !important;
+  }
+}
+.ant-table-row-selected{
+  td{
+    border-bottom: none !important;
   }
 }
 .highlight-row {
@@ -387,3 +416,15 @@ padding: 20px !important;
 
   margin-inline-start: 16px !important;
   }
+
+
+
+
+
+
+
+
+
+
+
+

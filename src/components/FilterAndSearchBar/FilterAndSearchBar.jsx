@@ -18,6 +18,7 @@ import { GoPlus } from "react-icons/go";
 import { event } from "jquery";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import { getContainer } from "rsuite/esm/DOMHelper";
+import DateRangePicker from "../DateRangePicker/DateRangePicker";
 
 const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -503,7 +504,31 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   </div>
 
           <div style={{ display: "flex" }} >
-          <div className="total_table_result">{props.results_length}</div>
+          {/* <div className="total_table_result">{props.results_length}</div> */}
+          {props.customer == "" ? <div className="search_customer" >
+              <div className="search_icon" >
+                <CgSearch size={20} color="#697A8D" />
+              </div>
+              <input
+              disabled
+                
+                //type="text"
+               // placeholder="Search Customer"
+              //  onChange={handleChange}
+              />
+      </div>:
+            <div className="search_customer">
+              <div className="search_icon">
+                <CgSearch size={20} color="#697A8D" />
+              </div>
+              <input
+           
+                type="text"
+                placeholder="Search for Contacts"
+                onChange={handleChange}
+              />
+      </div>
+      }
             
             {/* {props.customer == "" ? <div
               className="tableBtn export"
@@ -621,31 +646,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
             </Link> */}
           </div>
 
-          <div style={{ display: "flex", }}>
-          {props.customer == "" ? <div className="search_customer" >
-              <div className="search_icon" >
-                <CgSearch size={20} color="#697A8D" />
-              </div>
-              <input
-              disabled
-                
-                //type="text"
-               // placeholder="Search Customer"
-              //  onChange={handleChange}
-              />
-      </div>:
-            <div className="search_customer">
-              <div className="search_icon">
-                <CgSearch size={20} color="#697A8D" />
-              </div>
-              <input
-           
-                type="text"
-                placeholder="Search here..."
-                onChange={handleChange}
-              />
-      </div>
-      }
+          <div style={{ display: "flex" , gap: "10px" }}>
+            <DateRangePicker />
+          
       {props.customer == "" ?
              <div className={`${props.filterLength > 0 && "filter"} tableBtn `} 
              style={{ width: "101.5px", position:"relative", cursor:"default" }} ref={fliterRef}>

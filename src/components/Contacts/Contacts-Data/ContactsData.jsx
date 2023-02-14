@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect,useMemo } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./ContactsData.scss";
-import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal } from "antd";
+import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal, Typography } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts, {ChildStateModificationFunc} from "../Contacts";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
@@ -65,7 +65,7 @@ const ContactsData = (props) => {
   };
 
 
-  const handleOpenChange = (newOpen: boolean) => {
+  const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
   };
 
@@ -93,6 +93,7 @@ const ContactsData = (props) => {
   useEffect(() => {
     getData();
   }, []);
+  // console.log(selectedRows)
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/contact/`).then((res) => {
@@ -194,26 +195,47 @@ console.log(oldData);
     email: contact.Email,
     dob: contact.DOB,
     position: contact.Position,
+    companyname:"Reformiqo",
+    status:"Customer",
     ownership: contact.Ownership,
   }));
   const columnsData = [
     {
-      title: "Name",
-      label: "Name",
+      title: "Contact Name",
+      label: "Contact Name",
       dataIndex: "name",
       key: "name",
       resizable: true,
       fixed: "left",
       align: "left",
       width: "max-content",
+      render: (text, record) => {
+        let initials = "";
+        if (record.name) {
+          const nameArr = record.name.split(" ");
+          if (nameArr.length > 1) {
+            initials = nameArr[0].charAt(0) + nameArr[nameArr.length - 1].charAt(0);
+          } else {
+            initials = nameArr[0].charAt(0);
+          }
+        }
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
+            </div>
+            <span style={{ marginLeft: 8 }}><div><p style={{fontSize:""}}>{record.name}</p><div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}><img src="images/icons/user_avatar.svg" alt="user" /> {record.position}</div></div></span>
+          </div>
+        );
+      },
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.name > record2.name;
       },
     },
     {
-      title: "Mobile No.",
-      label: "Mobile No.",
+      title: "Contact details",
+      label: "Contact details",
       dataIndex: "mobile",
       key: "mobile",
       resizable: true,
@@ -221,40 +243,74 @@ console.log(oldData);
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
-        return record1.mobile > record2.mobile;
+        return record1.contactdetails > record2.contactdetails;
       },
+      render: (text, record) => (
+        <div>
+          <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+            <img src="images/icons/mail_gray_icon.svg" alt="mail" />
+            {record.email}
+          </div>
+          <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+          <img src="images/icons/phone_icon_gray.svg" alt="phone" />
+            {record.mobile}
+          </div>
+        </div>
+      ),
     },
     {
-      title: "Email",
-      label: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: "Lead Source",
+      label: "Lead Source",
+      dataIndex: "leadsource",
+      key: "leadsource",
       resizable: true,
       width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
-        return record1.email > record2.email;
+        return record1.leadsource > record2.leadsource;
       },
+      render: (text, record) => (
+        <div>
+          <div style={{display: "flex", alignItems: "center", gap: "5px", width: "max-content", padding: "4px 16px", borderRadius: "19px", backgroundColor:"#ECEEF1"}}>
+            Parth Goswami
+          </div>
+        </div>
+      ),
     },
     {
-      title: "DOB",
-      label: "DOB",
-      dataIndex: "dob",
-      key: "dob",
+      title: "Status",
+      label: "Status",
+      dataIndex: "status",
+      key: "  ",
       resizable: true,
       width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
-        return record1.dob > record2.dob;
+        return record1.status > record2.status;
       },
+      render: (text, record) => (
+        <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
+        <div className="bullet_item"></div>
+            <Typography.Text
+              style={
+                record.status === "Customer"
+                  ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                  : ""
+              }
+            >
+              {record.status}
+            </Typography.Text>
+        </div>
+      ),
+
     },
     {
-      title: "Position",
-      label: "Position",
-      dataIndex: "position",
-      key: "position",
+      title: "Company Name",
+      label: "Company Name",
+      dataIndex: "companyname",
+      key: "companyname",
       resizable: true,
       width: "max-content",
       align: "left",
@@ -275,6 +331,14 @@ console.log(oldData);
       sorter: (record1, record2) => {
         return record1.ownership > record2.ownership;
       },
+      render: (text, record) => (
+        <div>
+          <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+            <img src="images/icons/profile.png" alt="" style={{width:"30px"}} />
+            <p>{record.ownership}</p>
+          </div>
+        </div>
+      ),
     },
     {
       title: "",
@@ -708,6 +772,36 @@ setoldData(oldData)
               keyword: search,
             }}
           />
+
+          {
+            selectedRows.length > 1 && (
+              <div className="bulk_changes_container">
+                    <div className="selected_container">
+                      {selectedRows.length} Contacts Selected
+                      <span onClick={()=>{setSelectedRows([]); setSelectedRowKeys([])}}>Unselect all</span>
+                    </div>
+                    <div className="modify_container">
+                      <div className="send_email">
+                      <img src="images/icons/mail_gray_icon.svg" alt="mail" />
+                        <p>Send Email</p>
+                      </div>
+                      <div className="change_status">
+                        <img src="images/icons/reload_icon.svg" alt="" />
+                        <p>Change Status</p>
+                      </div>
+                      <div className="change_position">
+                        <img src="images/icons/user_avatar.svg" alt="user" />
+                        <p>Change Position</p>
+                      </div>
+                    </div>
+
+                    <div className="delete_container">
+                      <img src="images/icons/delete_red_icon.svg" alt="" />
+                      <p>Delete</p>
+                    </div>
+          </div>
+            )
+          }
  <Modal
         open={confirm}
      //   onOk={handleMaterialOk}
