@@ -22,7 +22,7 @@
         .estimateheader
         {
           display: flex;
-          height: 170px;
+        //  height: 170px;
           gap:198px;
           justify-content: space-between;
 
@@ -80,13 +80,9 @@ color: #FFFFFF;
 
         .bill
         {
-       //   width: 777px;
-         // height: 101px;
-          border: 0.5px solid #C2CAD233;
           margin-top: 15px;
-        //  margin-left: 30px;
-          background-color: #5C5AD11A;
-          border-radius: 6px;
+          background-color: #F5F6F8;
+          padding: 1px;
         }
         .billabel
         {
@@ -103,7 +99,7 @@ color: #FFFFFF;
   display: flex;
   align-items: center;
     height: 28px;
-    margin-top: 30px;
+  //  margin-top: 30px;
    // margin-left: 30px;
         }
 .showcustomer
@@ -394,5 +390,28 @@ color: #FFFFFF;
     font-weight: 600;
         }
 
+    }
+    .reference_input{
+      display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 0.5px solid #D9DEE3;
+    width: 304.4px;
+    height: 36.4px;
+    border-radius: 5px;
+    padding: 0px 12px;
+    margin-top: 7px;
+      input{
+          border: none;
+          outline: none;
+          width: 100%;
+      }
+    }
+    .preferncelabel
+    {
+      color: #566A7F;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0px;
     }
 }

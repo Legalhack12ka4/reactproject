@@ -35,8 +35,23 @@ const ModuleCurrencyTable = () => {
   const [pageSize, setPageSize] = useState(10)
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
-  
-//for modal delete
+  const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
+
+//cofirmation modal 
+const handleConfirmData = () => {
+  setCofirmData(true);
+ // setPopOverVisible(false)
+};
+
+
+const handleConfirmDataClose = () => {
+  setCofirmData(false);
+  // setPopOverVisible(false)
+};
+
+
+
+  //for modal delete
 
   const handleConfirmCancel = (record) => {
     setDeleteRecord(record)
@@ -458,6 +473,7 @@ console.log(formData)
   const handleCancel = () => {
     setIsModalOpen(false);
     setFormData(resetValue);
+    setCofirmData(false)
   };
 
 
@@ -479,7 +495,7 @@ console.log(formData)
           open={isModalOpen}
           onOk={handleOk}
           width={764}
-          onCancel={handleCancel}
+          onCancel={handleConfirmData}
           style={{ top: 20 }}
           footer={[
             <Button
@@ -498,7 +514,8 @@ console.log(formData)
             </Button>,
             <Button
               key="cancel"
-              onClick={handleCancel}
+           //   onClick={handleCancel}
+              onClick={handleConfirmData}
               style={{
                 width: "80px",
                 height: "38px",
@@ -685,6 +702,97 @@ console.log(formData)
                 }}
               >
                 Delete Currency
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
+         {/* Confirmation */}
+
+         <Modal
+        open={confirmData}
+       // onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirmDataClose}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirmDataClose}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleCancel}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Submit
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Warning
               </p>
             </div>
           </div>

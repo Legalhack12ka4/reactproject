@@ -4,7 +4,7 @@ import Page_heading from "../Page_Heading/Page_heading";
 import "./AddNewCustomer.scss";
 import axios from "axios";
 import "../AllDropdowns/SearchDropdown/SearchDropdown.scss";
-import { Breadcrumb, Tooltip } from "antd";
+import { Breadcrumb, Modal, Tooltip } from "antd";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
@@ -22,6 +22,7 @@ import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import config from "../Database/config";
+import alert from "../../assets/Images/Confirmation/confirm.svg";
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
@@ -79,10 +80,27 @@ function AddNewCustomer(props) {
   const [creditAmount, setCreditAmount] = useState('');
   const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
   const [creditBox, setCreditBox] = useState(false);
+  const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   //const [pincode, setPincode]= useState([])
 
   const [gst, setGst] = useState(false);
    //let gstinparams = customer.gstin;
+
+ //cofirmation modal 
+ const handleConfirmData = () => {
+  setCofirmData(true);
+ // setPopOverVisible(false)
+};
+
+
+const handleConfirmDataClose = () => {
+  setCofirmData(false);
+  // setPopOverVisible(false)
+};
+
+const handleCancel = () => {
+  setCofirmData(false)
+};
 
   const getData = (gstin) => {
     axios.get(
@@ -1233,13 +1251,104 @@ ChildStateModificationFunc = (modVal)=>{
                   {formData.id ? "Update" :"Submit"}
                 </button>  */}
                 <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
-                  <button type="button" className="customercancelbutton"  onClick={handleClose}>
+                  <button type="button" className="customercancelbutton"  onClick={handleConfirmData}>
                     Cancel
                   </button>
                 </div>
           </form>
         </div>
         <ToastContainer />
+            {/* Confirmation */}
+
+      <Modal
+        open={confirmData}
+       // onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirmDataClose}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirmDataClose}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={(e) => {handleCancel(e); handleClose(e);}}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Submit
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Warning
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
       </div>
     // </div>
   );
