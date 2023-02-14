@@ -56,6 +56,7 @@ const DateRangePickerComp = () => {
             range[0].endDate,
             "dd/MM/yyyy"
           )}`}
+           placeholder="Select date range"
           readOnly
           className="inputBox"
           onClick={() => setOpen((open) => !open)}

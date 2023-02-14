@@ -17,11 +17,11 @@
 .rdrEndEdge {
   background-color: #5C5AD0 !important;
 }
-// .rdrInRange + .rdrDayNumber {
-//   span {
-//     color: black !important;
-//   }
-// }
+.rdrInRange + .rdrDayNumber {
+  span {
+    color: black !important;
+  }
+}
 
 // .rdrCalendarwrapper:not(.rdrDateRangeWrapper)
 //   .rdrDayHovered
@@ -61,10 +61,11 @@
   position: relative;
 }
 .calendarInput {
-  width: 316px;
-  height: 38px;
+  width: 240px;
+  height: 36px;
   // border: 1px solid;
-  box-shadow:  0px 2px 6px 0px #4359711f;
+  // box-shadow:  0px 2px 6px 0px #4359711f;
+  border: 1px solid #C2CAD2;
   border-radius: 8px;
   background-color: #ffff;
   // margin-bottom: 10px;
@@ -79,6 +80,7 @@
     height: 100%;
     border: none;
     outline: none;
+    border-radius: 8px;
   }
 }
 
@@ -105,12 +107,12 @@
 
 }
 
-// .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
-// .rdrDay:not(.rdrDayPassive),
-// .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
-// .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-//   color: black;
-// }
+.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive),
+.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+  color: black;
+}
 
 .rdrCalendarWrapper:not(.rdrDateRangeWrapper)
   .rdrDayHovered
