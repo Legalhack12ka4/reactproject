@@ -62,17 +62,18 @@ function NewEstimate() {
       .then((response) => response.json())
       .then((data) => {
         setCustomer(data);
-        // console.log(data);
+         console.log(data);
       });
   };
   const customerdata = customer.map((cust) => ({
-    label: (<div onClick={handleClick}>{cust.name}</div>),
-    value: cust.name,
+    key:cust.id,
+    label: (<div onClick={handleClick}>{cust.business_name}</div>),
+    value: cust.business_name,
 
   }));
 
   useEffect(() => {
-    getCustomer();
+    getCustomer()
    // getData();
   }, []);
 
@@ -142,7 +143,10 @@ function NewEstimate() {
            
             </div>
           </div>
-{/* //collapse */}
+
+            </div>
+
+            {/* //collapse */}
           <div className='bill'>
         <p className='billabel'>Bill to</p>
         <div style={{marginLeft:"30px", marginTop:"15px", marginBottom:"15px"}}>
@@ -194,6 +198,26 @@ function NewEstimate() {
 
         </div>
             </div>
+
+            <div style={{padding:"30px", display:"flex", alignItems:"center", gap:"20px"}}>
+              <div>
+                <p className='preferncelabel'>
+                  Sales Person
+                </p>
+                <SearchDropown width={330}/>
+              </div>
+              <div>
+                <p className='preferncelabel'>
+                  # Reference
+                </p>
+                <div className="reference_input">
+                <input
+                       className='reference'
+                        type="text"
+                      
+                      />
+                      </div>
+              </div>
             </div>
 
 {/* //table */}

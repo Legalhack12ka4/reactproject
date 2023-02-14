@@ -76,9 +76,7 @@ function Accounts() {
   //cofirmation modal 
   const handleConfirmData = () => {
     setCofirmData(true);
-   // setPopOverVisible(false)
   };
-
 
   const handleConfirmDataClose = () => {
     setCofirmData(false);
@@ -100,35 +98,26 @@ function Accounts() {
   };
 
   const handleSubmit = () => {
-    //  alert("Data", record)
-    // deleteUser(deleteRecord);
-    //   getData();
     setCofirm(false);
-    //   getData();
   };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+  
   const handleCancel = () => {
     setCofirmData(false)
     setCofirm(false)
     setIsModalOpen(false);
-    //   setFormData(resetValue);
+    setFormData(resetValue);
   };
 
-  //dropodwn withtwo dropodwn
-  const handleReporting3 = (e) => {
-    console.log("l3", e.target.value);
-  };
-
-  const handleSubmitChecked = (e) => {
-    // e.preventDefault();
-    console.log("You clicked submit.", e.target.value);
-   // getReporting(e.target)
+  const onCancel = () => {
+    if (Object.values(formData).every(val => val === "")) {
+   setIsModalOpen(false)
+    } else {
+      handleConfirmData();
+    }
   };
   // \\onchange
 
@@ -143,24 +132,7 @@ function Accounts() {
     console.log(field);
     console.log(value);
   };
-  // useEffect(() => {
-  //   setFormData(value);
-  // }, [value]);
-
   console.log(formData);
-  //console.log(abc)
- // let abc = formData.account_type;
-//  console.log(abc);
-
-  // const getReporting = () => {
-  //   axios.get(`http://127.0.0.1:8000/backend/reporting/`)
-  //     .then((response) => {
-  //       setGroups(response.data);
-  //       console.log(response.data);
-  //     });
-  // };
-
- // let abc="Current Assets"
   const getReporting = () => {
   return fetch(`${config.baseUrl}/reporting/?company_id=1${formData.account_type && `&reporting_l2=${formData.account_type}`}`)
       .then((response) => response.json())
@@ -169,7 +141,6 @@ function Accounts() {
         console.log(data);
       });
   };
-
   const groupedData = groups.reduce((acc, curr) => {
     if (!acc[curr.reporting_l1]) {
       acc[curr.reporting_l1] = [];
@@ -189,19 +160,6 @@ function Accounts() {
       ))}
     </OptGroup>
   ));
-
-  // const uniqueData = groups.reduce((acc, item) => {
-  //   if (!acc[item.reporting_l2]) {
-  //     acc[item.reporting_l2] = item;
-  //   }
-  //   return acc;
-  // }, {});
-  // const uniqueDatal1 = groups.reduce((acc, item) => {
-  //   if (!acc[item.reporting_l1]) {
-  //     acc[item.reporting_l1] = item;
-  //   }
-  //   return acc;
-  // }, {});
 
     const onBlur = (e) => {
     console.log(e.target.value)
@@ -223,17 +181,6 @@ function Accounts() {
     value: place.reporting_l3,
   }));
 
-  // const reporting =
-  // reportingl.map((place) => ({
-  //   label: place.reporting_l2,
-  //   value: place.reporting_l2,
-  // }));
-  // const l3g = [{
-  //   label:"wedwe",
-  //  // value:reporting,
-  // }]
-
-
   //fetch account data
   useEffect(() => {
     getData();
@@ -248,6 +195,7 @@ function Accounts() {
           Account_Name: row.account_name,
           Account_Code: row.account_code,
           Description: row.description,
+
        
           // id: row.id
         }))
@@ -492,7 +440,10 @@ function Accounts() {
           onOk={handleConfirmDataClose}
           width={740}
           bodyStyle={{ height: 345 }}
-          onCancel={handleConfirmData}
+         // onCancel={handleConfirmData}
+        //  onCancel={!formData && Object.values(formData).some(val => val !== "") ?  handleConfirmData : handleConfirmDataClose}
+         // onCancel={!formData || Object.values(formData).every(val => val === "") ? handleclosemodal : handleConfirmData}
+    onCancel={onCancel}
           style={{ top: 20 }}
           className={"footerconfirm"}
           footer={[
@@ -513,7 +464,8 @@ function Accounts() {
             </Button>,
             <Button
               key="cancel"
-              onClick={handleConfirmData}
+              onClick={onCancel}
+              // {formData && Object.values(formData).some(val => val !== "") && ()}
               style={{
                 width: "86px",
                 height: "38px",
@@ -559,106 +511,7 @@ function Accounts() {
                 >
                   Account Type
                 </p>
-                {/* <Select defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
-    <OptGroup label="Manager">
-      <Option value="jack">
-     
-        Jack
-      </Option>
-      <Option value="lucy">Lucy</Option>
-    </OptGroup>
-    <OptGroup label="Engineer">
-      <Option value="Yiminghe">yiminghe</Option>
-    </OptGroup>
-   </Select> */}
-
-                {/* <Select
-                 name="account_type"
-                 value={formData.account_type || undefined}
-                  onChange={handleDrpChange}
-                        showSearch
-                  style={{
-                    width: "330px",
-                    marginTop: "7px",
-                    borderRadius: "6px !important",
-                  }}
-                  placeholder="Select Value"
-                  size={"large"}
-                >
-                   {
-                     Object.values(uniqueDatal1).map((group) => (
-                  <Select.OptGroup
-                    className="abc"
-                    key={group.id}
-                    label={group.reporting_l1}
-                    style={{ fontSize: "20px" }}
-                  >
-                     {groups.length > 0 ? (
-                     Object.values(uniqueData).map((group) => (
-                      <Select
-                        key={group.id}
-                        label={group.reporting_l2}
-                        value={group.reporting_l2}
-                      >
-                      </Select>
-                    ))
-                  ) : (
-                    <Option disabled>Loading...</Option>
-                  )}
-                  </Select.OptGroup>
-                  ))
-                }
-                  {/* {groups.length > 0 ? (
-                     Object.values(uniqueData).map((group) => (
-                      <Select
-                        key={group.id}
-                        label={group.reporting_l2}
-                        value={group.reporting_l2}
-                      >
-                      </Select>
-                    ))
-                  ) : (
-                    <Option disabled>Loading...</Option>
-                  )} 
-                </Select> */}
-
-                {/* <Select
- //value={formData.account_type || undefined}
- onChange={handleDrpChange}
-  style={{ width: '200px' }}
-  placeholder="Select a value"
->
-{
-  groups && groups.map((parent) => (
-    <Select.OptGroup key={parent.id} label={parent.reporting_l1}>
-      {
-        parent.children.map((child) => (
-          <Select.Option key={child.id} value={child.reporting_l2}>
-            {child.reporting_l2}
-          </Select.Option>
-        ))
-      }
-    </Select.OptGroup>
-  ))
-}
-
-</Select> */}
-
-                 {/* <SearchDropdown
-          
-                  width={330}
-               //   OptGroup={<OptGroup label="Assets"></OptGroup>}
-                //  options={reporting}
-                  onChange={handleDrpChange}
-                  onBlur={onBlur}
-                  // onBlur={(e) => {
-                  //   handleSubmitChecked(e);
-                  // }}
-                  name="account_type"
-                  value={formData.account_type}
-                  options={options}
-                />     */}
-
+             
 <Select 
   name="account_type"
   value={formData.account_type || undefined}
@@ -677,16 +530,6 @@ function Accounts() {
    >
       {options}
     </Select>
-
-                {/* <input
-      type="text"
-      value={inputValue}
-      onChange={event => {
-        handleInputChange(event);
-        firstFunction();
-        secondFunction();
-      }}
-      /> */}
                 <p
                   style={{
                     marginTop: "18px",
@@ -891,7 +734,7 @@ function Accounts() {
         </Modal>
 
            {/* Confirmation */}
-
+           {/* {formData && Object.values(formData).some(val => val !== "") && ( */}
       <Modal
         open={confirmData}
        // onOk={handleMaterialOk}
@@ -968,7 +811,7 @@ function Accounts() {
                   padding: "21px 0px 0px 0px",
                 }}
               >
-                Delete Product
+                Warning
               </p>
             </div>
           </div>
@@ -981,6 +824,7 @@ function Accounts() {
           </div>
         </div>
       </Modal>
+          {/* // )} */}
       </div>
     </div>
   );

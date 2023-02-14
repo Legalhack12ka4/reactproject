@@ -10,7 +10,7 @@ import custlogo from "../../../assets/Images/NewEstimate/custlogo.svg";
 import arrow from "../../../assets/Images/NewEstimate/arrow.svg";
 import email from "../../../assets/Images/FormIcon/Email.svg";
 import phone from "../../../assets/Images/FormIcon/Phone.svg";
-
+import SearchDropown from "../../AllDropdowns/SearchDropdown/SearchDropdown"
 import { Button, Collapse, message, Switch, Upload } from 'antd';
 import icon from "../../../assets/Images/Confirmation/editdelete.svg"
 import { UploadOutlined } from '@ant-design/icons';
@@ -68,8 +68,9 @@ function SalesOrder() {
       });
   };
   const customerdata = customer.map((cust) => ({
-    label: (<div onClick={handleClick}>{cust.name}</div>),
-    value: cust.name,
+    key:cust.id,
+    label: (<div onClick={handleClick}>{cust.business_name}</div>),
+    value: cust.business_name,
 
   }));
 
@@ -143,7 +144,10 @@ function SalesOrder() {
            
             </div>
           </div>
-{/* //collapse */}
+
+            </div>
+
+            {/* //collapse */}
           <div className='bill'>
         <p className='billabel'>Bill to</p>
         <div style={{marginLeft:"30px", marginTop:"15px", marginBottom:"15px"}}>
@@ -153,7 +157,9 @@ function SalesOrder() {
     </Panel>
    
   </Collapse> */}
-  {!isShown && <SearchDropdown  width={250} options={customerdata} />}
+   {!isShown && <SearchDropown  width={250} options={customerdata} />}
+   {/* {!isShown && <div onClick={handleClick}  className="showcustomer">Select Customer <img src={arrow} style={{transform: "rotate(90deg)"}}/></div>} */}
+
 {/* 👇️ show elements on click */}
 {isShown && (
   <div style={{display:"flex", gap:"70px"}}>
@@ -193,6 +199,26 @@ function SalesOrder() {
 
         </div>
             </div>
+
+            <div style={{padding:"30px", display:"flex", alignItems:"center", gap:"20px"}}>
+              <div>
+                <p className='preferncelabel'>
+                  Sales Person
+                </p>
+                <SearchDropown width={330}/>
+              </div>
+              <div>
+                <p className='preferncelabel'>
+                  # Reference
+                </p>
+                <div className="reference_input">
+                <input
+                       className='reference'
+                        type="text"
+                      
+                      />
+                      </div>
+              </div>
             </div>
 
 {/* //table */}
@@ -359,7 +385,7 @@ function SalesOrder() {
         <div>
         {isShown && (
   <div className='customerinfo'>
-   <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+    <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
       <div style={{color:"#2B3347", fontSize:"16px", fontWeight:"500"}}>Customer Details</div> 
       <div><img src={customerdetilslogo} style={{transform: "rotate(90deg)"}}/></div>
     </div >

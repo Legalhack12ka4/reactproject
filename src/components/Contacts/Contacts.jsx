@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import config from "../Database/config";
 import { useFormik } from "formik";
 import { contactSchemas } from "../../Schemas";
+import alert from "../../assets/Images/Confirmation/confirm.svg";
 import ContactsData from "./Contacts-Data/ContactsData";
 
 
@@ -658,7 +659,8 @@ const position = [
                 <button 
                   type="button"
                   className="contactcancelbutton"
-                  onClick={handleclose}
+                  //onClick={handleclose}
+                  onClick={handleConfirmData}
                 >
                   Cancel
                 </button>
@@ -698,7 +700,7 @@ const position = [
             <Button
               key="submit"
               type="primary"
-              onClick={handleCancel}
+              onClick={(e) => {handleCancel(e);handleclose(e)}}
               style={{
                 width: "88px",
                 height: "38px",
@@ -748,7 +750,7 @@ const position = [
                   padding: "21px 0px 0px 0px",
                 }}
               >
-                Delete Product
+                Warning
               </p>
             </div>
           </div>
