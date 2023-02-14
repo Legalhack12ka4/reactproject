@@ -73,7 +73,7 @@ function AddNewCustomer(props) {
   const [contact, setContact] = useState([]);
   const [gstnoErr, setGstnoErr] = useState({});
   const [area, setArea] = useState([]);
-  //const [gno, setGno]= useState([]);
+  const [gno, setGno]= useState([]);
   const [city, setCity] = useState([]);
   const [statedrp, setStatedrp] = useState([]);
   const [creditAmount, setCreditAmount] = useState('');
@@ -84,26 +84,27 @@ function AddNewCustomer(props) {
   const [gst, setGst] = useState(false);
    //let gstinparams = customer.gstin;
 
-  // const getData = (gstin) => {
-  //   axios.get(
-  //  //  `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-  //         client_id: "JarZChUcsytSBbnkpt",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setGno(data);
-  //       console.log("data", data);
-  //       console.log(data)
-  //     });
-  // };
-  // console.log(gno)
+  const getData = (gstin) => {
+    axios.get(
+ //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
+     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24AALCR9442F1Z6`,
+      {
+        headers: {
+          'Authorization': "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
+          'client_id': "JarZChUcsytSBbnkpt",
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setGno(data);
+        console.log("data", data);
+        console.log(data)
+      });
+  };
+  console.log(gno)
 
 
 
@@ -164,7 +165,7 @@ function AddNewCustomer(props) {
     getArea();
     getContact();
     getDataPos();
-   // getData();
+   getData();
   }, []);
 
   //send state to leaddata
