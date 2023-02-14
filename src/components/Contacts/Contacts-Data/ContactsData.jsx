@@ -292,7 +292,7 @@ console.log(oldData);
       },
       render: (text, record) => (
         <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
-        <div className="bullet_item"></div>
+        <div className="table_bullet_item"></div>
             <Typography.Text
               style={
                 record.status === "Customer"
