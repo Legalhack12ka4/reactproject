@@ -152,15 +152,14 @@ padding: 20px 0px 0px 30px;
       padding-top: 10px;
   }
 
-:where(.css-dev-only-do-not-override-k83k30).ant-select-dropdown .ant-select-item-group {
+.ant-select-dropdown .ant-select-item-group {
    // color: rgba(0, 0, 0, 0.45);
-    color: #8E9CAA !important;
+    color:#5C5AD0 !important;
     font-size: 12px;
     cursor: default;
     padding: 11px 0px 11px 10px !important;
 }
-
-:where(.css-dev-only-do-not-override-k83k30).ant-select-single.ant-select-lg .ant-select-selector {
+.ant-select-single.ant-select-lg .ant-select-selector {
 border-radius: 5px !important;
 }
 

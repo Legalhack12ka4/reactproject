@@ -43,25 +43,48 @@ function Accounts() {
   const [inputValue, setInputValue] = useState("");
   const [fetchaccount, setFetchaccount] = useState([]);
   const [loading, setloading] = useState(true);
+  const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
+  const [open, setOpen] = useState(false);
+  let suffixIcon;
+  if (open) {
+    suffixIcon = <svg xmlns="http://www.w3.org/2000/svg" 
+    width="12.5" 
+    height="12.5"
+     viewBox="0 0 16 16.001">
+    <path id="Path_23" data-name="Path 23" 
+    d="M8.342,15.185a6.8,6.8,0,0,0,4.187-1.443L16.291,17.5,17.5,16.291l-3.76-3.76a6.834,6.834,0,1,0-5.4,2.653Zm0-11.974A5.132,5.132,0,1,1,3.211,8.342,5.137,5.137,0,0,1,8.342,3.211Z" transform="translate(-1.5 -1.5)" fill="#8e9caa"/>
+    </svg>;
+  } else {
+    suffixIcon =  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="11.504"
+    height="6.289"
+    viewBox="0 0 11.504 6.289"
+  >
+    <path
+      id="Path_125"
+      data-name="Path 125"
+      d="M11.43,14.84a1.21,1.21,0,0,0,1.62,0l4.4-4.19a1,1,0,1,0-1.42-1.41L12.36,12.7a.25.25,0,0,1-.33,0L7.9,9.11a1,1,0,0,0-1.32,1.51Z"
+      transform="translate(-6.237 -8.862)"
+      fill="#8e9caa"
+    />
+  </svg>;
+  }
 
   const { Option } = Select;
 
-
-  function handleChange(value) {
-    console.log(`selected ${value}`);
-  }
-
-  const handleInputChange = event => {
-    setInputValue(event.target.value);
+  //cofirmation modal 
+  const handleConfirmData = () => {
+    setCofirmData(true);
+   // setPopOverVisible(false)
   };
 
-  const firstFunction = () => {
-    console.log("First function called");
+
+  const handleConfirmDataClose = () => {
+    setCofirmData(false);
+    // setPopOverVisible(false)
   };
 
-  const secondFunction = () => {
-    console.log("Second function called");
-  };
   //for modal delete
 
   const handleConfirmCancel = (record) => {
@@ -91,6 +114,8 @@ function Accounts() {
     setIsModalOpen(false);
   };
   const handleCancel = () => {
+    setCofirmData(false)
+    setCofirm(false)
     setIsModalOpen(false);
     //   setFormData(resetValue);
   };
@@ -290,8 +315,8 @@ function Accounts() {
     },
 
     {
-      title: "Account Type",
-      label: "Account Type",
+      title: "Reporting Account",
+      label: "Reporting Account",
       dataIndex: "account_type",
       key: "account_type",
       resizable: true,
@@ -464,10 +489,10 @@ function Accounts() {
         <Modal
           title="Create Account"
           open={isModalOpen}
-          onOk={handleOk}
+          onOk={handleConfirmDataClose}
           width={740}
           bodyStyle={{ height: 345 }}
-          onCancel={handleCancel}
+          onCancel={handleConfirmData}
           style={{ top: 20 }}
           className={"footerconfirm"}
           footer={[
@@ -488,7 +513,7 @@ function Accounts() {
             </Button>,
             <Button
               key="cancel"
-              onClick={handleCancel}
+              onClick={handleConfirmData}
               style={{
                 width: "86px",
                 height: "38px",
@@ -532,7 +557,7 @@ function Accounts() {
                     fontWeight: "400",
                   }}
                 >
-                  Reporting Account
+                  Account Type
                 </p>
                 {/* <Select defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
     <OptGroup label="Manager">
@@ -646,7 +671,10 @@ function Accounts() {
    }}
    onFocus={()=> setFormData((value)=>({...value, account_type:"", parent_account:"" }))}
    placeholder="Select Value"
-   size={"large"}>
+   size={"large"}
+   suffixIcon={suffixIcon}
+   onDropdownVisibleChange={(o) => setOpen(o)}
+   >
       {options}
     </Select>
 
@@ -667,7 +695,7 @@ function Accounts() {
                     fontWeight: "400",
                   }}
                 >
-                  Parent Account
+                  Reporting Account
                 </p>
                 <SearchDropdown width={330} 
                 name="parent_account"
@@ -861,6 +889,98 @@ function Accounts() {
             </div>
           </div>
         </Modal>
+
+           {/* Confirmation */}
+
+      <Modal
+        open={confirmData}
+       // onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirmDataClose}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirmDataClose}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleCancel}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Submit
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Product
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
       </div>
     </div>
   );
