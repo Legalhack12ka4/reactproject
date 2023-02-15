@@ -1112,6 +1112,7 @@ const deleteUser = (record)=>
               rowSelection={!loading && {
                 type: "checkbox",
                 columnTitle: "",
+                columnWidth: "40px",
                 selectedRowKeys,
                 onChange: (selectedRowKeys, selectedRows) => {
                   setSelectedRowKeys(selectedRowKeys);
