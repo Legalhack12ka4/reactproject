@@ -110,7 +110,9 @@ const ContactsData = (props) => {
               ? "Owner"
               : row.position == 2
               ? "Accountant"
-              : "Manger",
+              :  row.position == 2
+               ?"Manger"
+               :"SalesPerson",
           Ownership: row.ownership == 1 ? "ubuntu" : "window",
           // id: row.id
         }))

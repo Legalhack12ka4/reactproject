@@ -14,6 +14,7 @@ import { useFormik } from "formik";
 import { contactSchemas } from "../../Schemas";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import ContactsData from "./Contacts-Data/ContactsData";
+import SearchDropdownAddButtonContact from "../AllDropdowns/SearchDropdownAddButtonContact/SearchDropdownAddButtonContact";
 
 
 var ChildStateModificationFunc;
@@ -438,21 +439,25 @@ const ownershipwithemail = [
 
 
 
-const position = [
-  {
-    value: 1,
-    label: "Owner",
-  },
-  {
-    value: 2,
-    label: "Accountant",
-  },
-  {
-    value: 3,
-    label: "Manger",
-  },
+// const position = [
+//   {
+//     value: 1,
+//     label: "Owner",
+//   },
+//   {
+//     value: 2,
+//     label: "Accountant",
+//   },
+//   {
+//     value: 3,
+//     label: "Manger",
+//   },
+//   {
+//     value: 4,
+//     label: "SalesPerson",
+//   },
 
-];
+// ];
 
   //input validation
 
@@ -624,15 +629,19 @@ const position = [
                 </label>{" "}
               </Tooltip>
               <br />
-
-              <SearchDropdown width={331} options={position}
+                <SearchDropdownAddButtonContact  width={331}
+                  name="position" value={formData.position}
+                onChange={handleDrpChange}
+                error={errors.position && touched.position ? true : false}
+                errorMsg="Position is required"/>
+              {/* <SearchDropdown width={331} options={position}
                 name="position"
              //   onChange={(e) => {handleChange(e); handleDrpChange(e);}}
                 onChange={handleDrpChange}
                 value={formData.position}
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"
-                  />
+                  /> */}
               </div>
 
               <div className="dropdownBtn">
