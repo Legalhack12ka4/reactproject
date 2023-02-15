@@ -35,6 +35,8 @@
     .selected_container{
         display: flex;
         align-items: center;
+        background-color: #FFFFFF;
+        border-radius: 6px 0px 0px 6px;
         gap: 20px;
         font-size: 14px;
         font-weight: 400;
@@ -57,6 +59,7 @@
         align-items: center;
         gap: 20px;
         font-size: 14px;
+        background-color: #FFFFFF;
         font-weight: 400;
         color: #697A8D;
         border-right: 3px solid #F3F3F8;
@@ -79,6 +82,8 @@
         font-weight: 400;
         color: #DA2F58;
         height: 100%;
+        background-color: #FFFFFF;
+        border-radius: 0px 6px 6px 0px;
         padding: 0px 20px;
         cursor: pointer;
     }
@@ -93,4 +98,22 @@
     height: 8px;
     background-color: #28A745;
     margin-right: 5px;
+}
+
+
+
+
+.table-action-buttons {
+display: inline-block;
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+padding: 8px;
+background-color: #f5f5f5;
+visibility: hidden;
+}
+
+.hovered-row .table-action-buttons {
+visibility: visible;
 }
