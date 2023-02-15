@@ -46,22 +46,28 @@ const ContactsData = (props) => {
   const [oldData, setoldData] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
-   const [popOverVisible, setPopOverVisible] = useState(false);
-   const [open, setOpen] = useState(false);
+  const [popOverVisible, setPopOverVisible] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [changeStatus, setChangeStatus] = useState(false);
+  const [hoveredRow, setHoveredRow] = useState(null);
+
+
+ 
+  console.log(hoveredRow);
    
 
   const hide = () => {
     setOpen(false);
    // document.getElementById("popoverhide").style.display="none";
    // document.getElementById("popoverhide").style.display="block";
-    console.log(open)
-    console.log("line55")
+    // console.log(open)
+    // console.log("line55")
   };
   const popvisible = () => {
     setOpen(false);
     //document.getElementById("popoverhide").style.display="block";
-    console.log(open)
-    console.log("line55")
+    // console.log(open)
+    // console.log("line55")
   };
 
 
@@ -93,7 +99,7 @@ const ContactsData = (props) => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(selectedRows)
+  // console.log(selectedRows)
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/contact/`).then((res) => {
@@ -117,24 +123,24 @@ const ContactsData = (props) => {
           // id: row.id
         }))
       );
-      console.log(res);
+      // console.log(res);
       setLoading(false);
     });
   };
-  console.log(fetchcontact);
+  // console.log(fetchcontact);
 
 //delete data
 const deleteUser = (record)=>
 {
   
-  console.log(record);
-  console.log(record.id);
+  // console.log(record);
+  // console.log(record.id);
   axios
   .delete(
     `${config.baseUrl}/contact/${record.id}/`);
     setDeleteRecord(null)
        getData();
-       console.log(fetchcontact)
+      //  console.log(fetchcontact)
 }
 
   //All dropdowns
@@ -175,13 +181,13 @@ const deleteUser = (record)=>
 
   //Get data in textbox on edit button
   const handleUpdate = (oldData) => {
-    console.log(oldData);
-    console.log(oldData.id);
+    // console.log(oldData);
+    // console.log(oldData.id);
     showCanvas();
       ChildStateModificationFunc(oldData)
-      console.log(oldData)
+      // console.log(oldData)
   };
-console.log(oldData);
+// console.log(oldData);
 //alert(oldData)
 
 //get form data
@@ -253,7 +259,7 @@ console.log(oldData);
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <img src="images/icons/mail_gray_icon.svg" alt="mail" />
-            <div style={{ maxWidth: '200px' }}>{record.email}</div>
+            <div style={{ maxWidth: '210px' }}>{record.email}</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <img src="images/icons/phone_icon_gray.svg" alt="phone" />
@@ -407,7 +413,25 @@ console.log(oldData);
       resizable: true,
       align: "left",
     },
+    {
+      title: '',
+      key: 'action',
+      render: (text, record, index) => {
+        const showButton = record.id === index;
+        console.log(index, record)
+        return (
+          <div
+            className="action-column"
+            style={{ display: showButton ? 'block' : 'none' }}
+          >
+            <Button>Button</Button>
+          </div>
+        );
+      },
+    },
   ];
+  // console.log(hoveredRow)
+
 
   const [columns, setColumns] = useState(columnsData);
 
@@ -451,21 +475,21 @@ console.log(oldData);
     );
     //console.log(filterarray);
   }, [custfilter]);
-  console.log(filterarray);
+  // console.log(filterarray);
 
-  console.log(custfilter);
+  // console.log(custfilter);
 
   const handleChange = (field, value) => {
     setCustFilter({ ...custfilter, [field]: value });
-    console.log("value", value);
-    console.log("field", value);
+    // console.log("value", value);
+    // console.log("field", value);
     setVisible(true);
   };
 
   //clear filter
 
   const clearfilter = () => {
-    console.log("button click");
+    // console.log("button click");
     setCustFilter(filterfield);
   };
 
@@ -477,8 +501,8 @@ console.log(oldData);
   const onChangedob = (e) => {
     const { value, name } = e.target;
     setCustFilter({ ...custfilter, [name]: value });
-    console.log(value);
-    console.log(name);
+    // console.log(value);
+    // console.log(name);
   };
 
   const cusomizeData = dataSource.filter(
@@ -494,22 +518,22 @@ console.log(oldData);
       // && record.ownership.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(cusomizeData);
+  // console.log(cusomizeData);
 
   var strDate = custfilter.dob;
   var convertedDate = new Date(strDate)
     .toLocaleDateString("IN")
     .replaceAll("/", "-");
-  console.log(convertedDate); // 2-23-2021
+  // console.log(convertedDate); // 2-23-2021
 
   //tags
 
   const log = (index, key) => {
-    console.log(key);
+    // console.log(key);
     setFilteraaray(filterarray.filter((item, i) => i.key !== index.key));
     setCustFilter({ ...custfilter, [key]: "" });
   };
-  console.log(filterarray);
+  // console.log(filterarray);
 
   //
 
@@ -554,7 +578,7 @@ console.log(oldData);
   }
 
   const handleSelect=(date)=>{
-    console.log(date); // native Date object
+    // console.log(date); // native Date object
   }
 
 const getDataChild = () => 
@@ -746,9 +770,14 @@ setoldData(oldData)
 
           <Table
             ref={componentRef}
+            onRow={(record, index) => ({
+              onMouseEnter: () =>     setHoveredRow(index),
+              onMouseLeave: () => setHoveredRow(null),
+            })}
             rowSelection={!loading &&{
               type: "checkbox",
               columnTitle: "",
+              // columnWidth: "0px",
               selectedRowKeys,
               onChange: (selectedRowKeys, selectedRows) => {
                 setSelectedRowKeys(selectedRowKeys);
@@ -790,9 +819,44 @@ setoldData(oldData)
                       <img src="images/icons/mail_gray_icon.svg" alt="mail" />
                         <p>Send Email</p>
                       </div>
-                      <div className="change_status">
+                      <div className="change_status" onClick={()=> setChangeStatus(!changeStatus)}>
                         <img src="images/icons/reload_icon.svg" alt="" />
                         <p>Change Status</p>
+                        {changeStatus && (
+                          <div className="change_status_dropdown">
+
+                            <div className="new_lead">
+                              <div></div>
+                              <p>New Lead</p>
+                            </div>
+
+                            <div className="not_interested">
+                              <div></div>
+                              <p>Not Intrested</p>
+                            </div>
+
+                            <div className="junk">
+                              <div></div>
+                              <p>Junk</p>
+                            </div>
+
+                            <div className="prospective">
+                              <div></div>
+                              <p>Prospective</p>
+                            </div>
+
+                            <div className="customer">
+                              <div></div>
+                              <p>Customer</p>
+                            </div>
+
+                            <div className="vendor">
+                              <div></div>
+                              <p>Vendor</p>
+                            </div>
+
+                          </div>
+                        )}
                       </div>
                       <div className="change_position">
                         <img src="images/icons/user_avatar.svg" alt="user" />
