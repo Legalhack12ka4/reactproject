@@ -9,3 +9,12 @@
     border-color: #5c5ad0 !important;
     box-shadow: none !important;
 }
+
+.ant-btn >span {
+    display: inline-block;
+    color: #5c5ad0 !important;
+}
+.ant-btn >.anticon+span,.ant-btn >span+.anticon {
+    margin-inline-start: 8px;
+    color: #5c5ad0 !important;
+}

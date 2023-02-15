@@ -30,6 +30,7 @@ const text = `
 function NewEstimate() {
   const [isShown, setIsShown] = useState(false);
   const [customer, setCustomer] = useState([]);
+  const [contact, setContact] = useState([]);
 
   const handleClick = event => {
     // 👇️ toggle shown state
@@ -56,6 +57,19 @@ function NewEstimate() {
   
 
   //Dropdown customer
+  const getContactSalesPerson = () => {
+    return fetch(`${config.baseUrl}/contact/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setContact(data);
+         console.log(data);
+      });
+  };
+  const getSalesPerson = contact.map((place) => ({
+    key: place.id,
+    label: place.name,
+    value: place.name,
+  }));
 
   const getCustomer = () => {
     return fetch(`${config.baseUrl}/customervendor/`)
@@ -74,6 +88,7 @@ function NewEstimate() {
 
   useEffect(() => {
     getCustomer()
+    getContactSalesPerson();
    // getData();
   }, []);
 
@@ -204,7 +219,7 @@ function NewEstimate() {
                 <p className='preferncelabel'>
                   Sales Person
                 </p>
-                <SearchDropown width={330}/>
+                <SearchDropown width={330} options={getSalesPerson}/>
               </div>
               <div>
                 <p className='preferncelabel'>

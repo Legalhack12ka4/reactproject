@@ -1,4 +1,4 @@
-import { Button, Modal, Popover, Select, Space, Table, Typography } from "antd";
+import { Button, Modal, Popover, Select, Space, Spin, Table, Typography } from "antd";
 import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
@@ -11,18 +11,18 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import config from "../../Database/config";
 
-import axios from 'axios';
+import axios from "axios";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
 const resetValue = {
   account_type: "",
   account_code: "",
-  parent_account: "",
+  reporting: "",
   account_name: "",
   description: "",
 };
@@ -39,7 +39,6 @@ function Accounts() {
   //const [reportingl, setReportingl] = useState([]);
   const [groups, setGroups] = useState([]);
   const [reportingl3, setReportingl3] = useState([]);
-  const [creditAmount, setCreditAmount] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [fetchaccount, setFetchaccount] = useState([]);
   const [loading, setloading] = useState(true);
@@ -47,33 +46,44 @@ function Accounts() {
   const [open, setOpen] = useState(false);
   let suffixIcon;
   if (open) {
-    suffixIcon = <svg xmlns="http://www.w3.org/2000/svg" 
-    width="12.5" 
-    height="12.5"
-     viewBox="0 0 16 16.001">
-    <path id="Path_23" data-name="Path 23" 
-    d="M8.342,15.185a6.8,6.8,0,0,0,4.187-1.443L16.291,17.5,17.5,16.291l-3.76-3.76a6.834,6.834,0,1,0-5.4,2.653Zm0-11.974A5.132,5.132,0,1,1,3.211,8.342,5.137,5.137,0,0,1,8.342,3.211Z" transform="translate(-1.5 -1.5)" fill="#8e9caa"/>
-    </svg>;
+    suffixIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12.5"
+        height="12.5"
+        viewBox="0 0 16 16.001"
+      >
+        <path
+          id="Path_23"
+          data-name="Path 23"
+          d="M8.342,15.185a6.8,6.8,0,0,0,4.187-1.443L16.291,17.5,17.5,16.291l-3.76-3.76a6.834,6.834,0,1,0-5.4,2.653Zm0-11.974A5.132,5.132,0,1,1,3.211,8.342,5.137,5.137,0,0,1,8.342,3.211Z"
+          transform="translate(-1.5 -1.5)"
+          fill="#8e9caa"
+        />
+      </svg>
+    );
   } else {
-    suffixIcon =  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="11.504"
-    height="6.289"
-    viewBox="0 0 11.504 6.289"
-  >
-    <path
-      id="Path_125"
-      data-name="Path 125"
-      d="M11.43,14.84a1.21,1.21,0,0,0,1.62,0l4.4-4.19a1,1,0,1,0-1.42-1.41L12.36,12.7a.25.25,0,0,1-.33,0L7.9,9.11a1,1,0,0,0-1.32,1.51Z"
-      transform="translate(-6.237 -8.862)"
-      fill="#8e9caa"
-    />
-  </svg>;
+    suffixIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="11.504"
+        height="6.289"
+        viewBox="0 0 11.504 6.289"
+      >
+        <path
+          id="Path_125"
+          data-name="Path 125"
+          d="M11.43,14.84a1.21,1.21,0,0,0,1.62,0l4.4-4.19a1,1,0,1,0-1.42-1.41L12.36,12.7a.25.25,0,0,1-.33,0L7.9,9.11a1,1,0,0,0-1.32,1.51Z"
+          transform="translate(-6.237 -8.862)"
+          fill="#8e9caa"
+        />
+      </svg>
+    );
   }
 
   const { Option } = Select;
 
-  //cofirmation modal 
+  //cofirmation modal
   const handleConfirmData = () => {
     setCofirmData(true);
   };
@@ -97,44 +107,83 @@ function Accounts() {
     // setPopOverVisible(false)
   };
 
-  const handleSubmit = () => {
-    setCofirm(false);
-  };
+  // const handleSubmit = () => {
+  //   setCofirm(false);
+  // };
+
+  const handleSubmitModal = () =>
+    {
+    //  alert("Data", record)
+      deleteUser(deleteRecord);
+      getData();
+      setCofirm(false);
+      getData();
+    }
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const handleCancel = () => {
-    setCofirmData(false)
-    setCofirm(false)
+    setCofirmData(false);
+    setCofirm(false);
     setIsModalOpen(false);
     setFormData(resetValue);
   };
 
   const onCancel = () => {
-    if (Object.values(formData).every(val => val === "")) {
-   setIsModalOpen(false)
+    if (Object.values(formData).every((val) => val === "")) {
+      setIsModalOpen(false);
     } else {
       handleConfirmData();
     }
   };
   // \\onchange
 
-  const handleDrpChange = (field, value) => {
-    setFormData({ ...formData,account_type: value.value });
-    console.log(field);
+  const onChange = (e) => {
+    const { value, name } = e.target;
+
+    setFormData({ ...formData, [name]: value });
     console.log(value);
+    console.log(name);
   };
 
-  const handleDrpChangel3 = (field, value) => {
-    setFormData({ ...formData,[field]: value });
+  const handleDrpChange = (field, value) => {
+    setFormData({ ...formData, account_type: value.value });
     console.log(field);
     console.log(value);
   };
+  const reporting3 = groups.map((place) => ({
+    key: place.id,
+    label: place.reporting_l3,
+    value: place.reporting_l3,
+  }));
+
+  const handleDrpChangel3 = (field, value) => {
+    const selectedOption = reporting3.find((option) => option.value === value);
+    setFormData({
+      ...formData,
+      [field]: value,
+      reporting: selectedOption.key, // Add the id to the state
+    });
+    console.log(field);
+    console.log(value);
+    console.log(selectedOption);
+  };
+
+  // const handleDrpChangel3 = (field, value) => {
+  //   setFormData({ ...formData,[field]: value });
+  //   console.log(field);
+  //   console.log(value);
+  // };
+
   console.log(formData);
   const getReporting = () => {
-  return fetch(`${config.baseUrl}/reporting/?company_id=1${formData.account_type && `&reporting_l2=${formData.account_type}`}`)
+    return fetch(
+      `${config.baseUrl}/reporting/?company_id=1${
+        formData.account_type && `&reporting_l2=${formData.account_type}`
+      }`
+    )
       .then((response) => response.json())
       .then((data) => {
         setGroups(data);
@@ -151,9 +200,9 @@ function Accounts() {
     return acc;
   }, {});
 
-  const options = Object.keys(groupedData).map(key => (
+  const options = Object.keys(groupedData).map((key) => (
     <OptGroup label={key} key={key.id}>
-      {groupedData[key].map(child => (
+      {groupedData[key].map((child) => (
         <Option value={child} key={child.id}>
           {child}
         </Option>
@@ -161,31 +210,81 @@ function Accounts() {
     </OptGroup>
   ));
 
-    const onBlur = (e) => {
-    console.log(e.target.value)
-    console.log(formData.account_type)
-    //setGst(!gst);
-   // console.log(gst);
-  };
-
   useEffect(() => {
     getReporting();
-    console.log(formData.account_type)
+    console.log(formData.account_type);
     //  getReportingl3();
   }, [formData.account_type]);
 
-  const reporting3 = 
-  groups.map((place) => ({
-    key:place.id,
-    label: place.reporting_l3,
-    value: place.reporting_l3,
-  }));
-
+  // console.log(reporting3.key)
+  //insert data to account
   //fetch account data
   useEffect(() => {
     getData();
-    
-  }, []);
+  }, [groups]);
+
+  const handleFormSubmit = () => {
+    axios
+      .post(
+        `${config.baseUrl}/chartofaccount/`,
+        {
+          reporting: formData.reporting,
+          account_code: "0001",
+          account_name: formData.account_name,
+          description: formData.description,
+          is_active: true,
+          is_deleted: false,
+          status: 1,
+          type: 1,
+          modual_type: 1,
+          item_type: 1,
+          transaction_side: 1,
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
+        },
+        formData
+      )
+      .then((response) => {
+        getData();
+        setFormData(resetValue)
+        // setFormData({
+        //   reporting: "",
+        //   account_code: "",
+        //   account_name: "",
+        //   description: "",
+        //   account_type: "",
+        // });
+        //  closeModal();
+        getData();
+        handleCancel();
+        getData();
+        toast.success("Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        getData();
+      });
+  };
+
+//delete data
+const deleteUser = (record)=>
+{
+  console.log(record);
+  console.log(record.id);
+  axios
+  .delete(
+    `${config.baseUrl}/chartofaccount/${record.id}/`);
+       getData();
+    //   console.log(currency)
+}
+
+
   const getData = async () => {
     await axios.get(`${config.baseUrl}/chartofaccount/`).then((res) => {
       setloading(false);
@@ -195,14 +294,19 @@ function Accounts() {
           Account_Name: row.account_name,
           Account_Code: row.account_code,
           Description: row.description,
+          // Reporting: groups.map((option) => option.id === row.reporting && option.reporting_l3)
+          Reporting: reporting3.find(
+            (option) => option.key === row.reporting && option.label
+          ).label,
 
-       
           // id: row.id
         }))
       );
       console.log(res);
     });
   };
+  // console.log(reporting3.find((option) => option.key === 1 && option.label).value)
+  console.log(groups.map((option) => option.id === 1 && option.reporting_l3));
   console.log(fetchaccount);
 
   const dataSource = fetchaccount.map((customer) => ({
@@ -211,8 +315,8 @@ function Accounts() {
     account_name: customer.Account_Name,
     account_code: customer.Account_Code,
     description: customer.Description,
-    status:"Active"
-
+    reporting: customer.Reporting,
+    status: "Active",
   }));
 
   const columnsData = [
@@ -265,8 +369,8 @@ function Accounts() {
     {
       title: "Reporting Account",
       label: "Reporting Account",
-      dataIndex: "account_type",
-      key: "account_type",
+      dataIndex: "reporting",
+      key: "reporting",
       resizable: true,
       fixed: "left",
       align: "left",
@@ -440,10 +544,7 @@ function Accounts() {
           onOk={handleConfirmDataClose}
           width={740}
           bodyStyle={{ height: 345 }}
-         // onCancel={handleConfirmData}
-        //  onCancel={!formData && Object.values(formData).some(val => val !== "") ?  handleConfirmData : handleConfirmDataClose}
-         // onCancel={!formData || Object.values(formData).every(val => val === "") ? handleclosemodal : handleConfirmData}
-    onCancel={onCancel}
+          onCancel={onCancel}
           style={{ top: 20 }}
           className={"footerconfirm"}
           footer={[
@@ -458,7 +559,7 @@ function Accounts() {
                 fontSize: "14px",
                 fontWeight: "400",
               }}
-              //  onClick={() => handleFormSubmit()}
+              onClick={() => handleFormSubmit()}
             >
               Submit
             </Button>,
@@ -511,25 +612,38 @@ function Accounts() {
                 >
                   Account Type
                 </p>
-             
-<Select 
-  name="account_type"
-  value={formData.account_type || undefined}
-   onChange={handleDrpChange}
-         showSearch
-   style={{
-     width: "330px",
-     marginTop: "7px",
-     borderRadius: "6px !important",
-   }}
-   onFocus={()=> setFormData((value)=>({...value, account_type:"", parent_account:"" }))}
-   placeholder="Select Value"
-   size={"large"}
-   suffixIcon={suffixIcon}
-   onDropdownVisibleChange={(o) => setOpen(o)}
-   >
-      {options}
-    </Select>
+    
+                <Select
+                  name="account_type"
+                  value={formData.account_type || undefined}
+                  onChange={handleDrpChange}
+                  showSearch
+                  style={{
+                    width: "330px",
+                    marginTop: "7px",
+                    borderRadius: "6px !important",
+                  }}
+                  onFocus={() =>
+                    setFormData((value) => ({
+                      ...value,
+                      account_type: "",
+                      reporting: "",
+                    }))
+                  }
+                  placeholder="Select Value"
+                  size={"large"}
+                  suffixIcon={suffixIcon}
+                  onDropdownVisibleChange={(o) => setOpen(o)}
+                >
+                  {loading ? (
+    <div>
+      <p>Loading...</p>
+    </div>
+  ) : (
+    options
+  )}
+                </Select>
+
                 <p
                   style={{
                     marginTop: "18px",
@@ -540,12 +654,20 @@ function Accounts() {
                 >
                   Reporting Account
                 </p>
-                <SearchDropdown width={330} 
-                name="parent_account"
-                value={formData.parent_account}
-                onChange={handleDrpChangel3}
-                  //onFocus={()=> setFormData((value)=>({...value, account_type:"" }))}
-                options={formData.account_type && reporting3} />
+                <SearchDropdown
+                  width={330}
+                  name="reporting"
+                  values={formData.reporting || undefined}
+                  onChange={handleDrpChangel3}
+                  options={formData.account_type && reporting3}
+                  // options={
+                  //   formData.account_type && reporting3.length > 0 ? (
+                  //     reporting3
+                  //   ) : (
+                  //     <Spin size="large" />
+                  //   )
+                  // }
+                />
               </div>
 
               <div>
@@ -579,7 +701,9 @@ function Accounts() {
                   className="parmentaccount"
                   type="text"
                   // placeholder="Something about account"
-                  name="terms"
+                  name="account_name"
+                  value={formData.account_name}
+                  onChange={onChange}
                 />
               </div>
             </div>
@@ -600,7 +724,9 @@ function Accounts() {
                 style={{ width: "668.4px", height: "68.4px", outline: "none" }}
                 type="text"
                 placeholder="Something about account"
-                name="terms"
+                name="description"
+                value={formData.description}
+                onChange={onChange}
               />
             </div>
           </div>
@@ -669,7 +795,7 @@ function Accounts() {
               <Button
                 key="submit"
                 type="primary"
-                onClick={handleSubmit}
+                onClick={handleSubmitModal}
                 style={{
                   width: "88px",
                   height: "38px",
@@ -733,98 +859,99 @@ function Accounts() {
           </div>
         </Modal>
 
-           {/* Confirmation */}
-           {/* {formData && Object.values(formData).some(val => val !== "") && ( */}
-      <Modal
-        open={confirmData}
-       // onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleConfirmDataClose}
-        style={{ top: 20 }}
-        className={"deleteconfirm"}
-        footer={[
-          <div style={{ marginLeft: "331px" }}>
-            <Button
-              key="cancel"
-              onClick={handleConfirmDataClose}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#8E9CAA",
-                borderColor: "#C2CAD2",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              onClick={handleCancel}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#DA2F58",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#FFFFFF",
-              }}
-            >
-              Submit
-            </Button>
-          </div>,
-        ]}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
-              </div>
-            </div>
-
-            <div>
-              <p
+        {/* Confirmation */}
+        {/* {formData && Object.values(formData).some(val => val !== "") && ( */}
+        <Modal
+          open={confirmData}
+          // onOk={handleMaterialOk}
+          width={"max-content"}
+          onCancel={handleConfirmDataClose}
+          style={{ top: 20 }}
+          className={"deleteconfirm"}
+          footer={[
+            <div style={{ marginLeft: "331px" }}>
+              <Button
+                key="cancel"
+                onClick={handleConfirmDataClose}
                 style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
+                  width: "86px",
+                  height: "38px",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  color: "#8E9CAA",
+                  borderColor: "#C2CAD2",
                 }}
               >
-                Warning
+                Cancel
+              </Button>
+              <Button
+                key="submit"
+                type="primary"
+                onClick={handleCancel}
+                style={{
+                  width: "88px",
+                  height: "38px",
+                  backgroundColor: "#DA2F58",
+                  fontSize: "14px",
+                  fontWeight: "700",
+                  color: "#FFFFFF",
+                }}
+              >
+                Submit
+              </Button>
+            </div>,
+          ]}
+          closeIcon={
+            <div className="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="13.51"
+                height="13"
+                viewBox="0 0 13.51 13"
+              >
+                <path
+                  id="Path_34362"
+                  data-name="Path 34362"
+                  d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                  transform="translate(-2.248 -2.248)"
+                  fill="#697a8d"
+                />
+              </svg>
+            </div>
+          }
+        >
+          <div className="confirmCoontainer">
+            <div className="confirmresources">
+              <div className="imgsetting">
+                <div className="imgbackground">
+                  <img src={alert} style={{ width: "38px", height: "38px" }} />
+                </div>
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    fontSize: "22px",
+                    color: "#2B3347",
+                    fontWeight: "500",
+                    padding: "21px 0px 0px 0px",
+                  }}
+                >
+                  Warning
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="confirmationtext">
+                Are you sure you want to close this window? <br /> All the value
+                which you filled in the fields will be deleted.
+                <br /> This action cannot recover the value.
               </p>
             </div>
           </div>
-          <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
-            </p>
-          </div>
-        </div>
-      </Modal>
-          {/* // )} */}
+        </Modal>
+        <ToastContainer />
+        {/* // )} */}
       </div>
     </div>
   );
