@@ -93,7 +93,7 @@ const ContactsData = (props) => {
   useEffect(() => {
     getData();
   }, []);
-  // console.log(selectedRows)
+  console.log(selectedRows)
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/contact/`).then((res) => {
@@ -208,7 +208,9 @@ console.log(oldData);
       resizable: true,
       fixed: "left",
       align: "left",
-      width: "max-content",
+      // width: "max-content",
+      // width: "max-content",
+      // style: { maxWidth: "100px" },
       render: (text, record) => {
         let initials = "";
         if (record.name) {
@@ -224,7 +226,7 @@ console.log(oldData);
             <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
             </div>
-            <span style={{ marginLeft: 8 }}><div><p style={{fontSize:""}}>{record.name}</p><div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}><img src="images/icons/user_avatar.svg" alt="user" /> {record.position}</div></div></span>
+            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p style={{fontSize:""}}>{record.name}</p><div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}><img src="images/icons/user_avatar.svg" alt="user" /> {record.position}</div></div></span>
           </div>
         );
       },
@@ -239,7 +241,7 @@ console.log(oldData);
       dataIndex: "mobile",
       key: "mobile",
       resizable: true,
-      width: "max-content",
+      // width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -247,12 +249,12 @@ console.log(oldData);
       },
       render: (text, record) => (
         <div>
-          <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <img src="images/icons/mail_gray_icon.svg" alt="mail" />
-            {record.email}
+            <div style={{ maxWidth: '200px' }}>{record.email}</div>
           </div>
-          <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
-          <img src="images/icons/phone_icon_gray.svg" alt="phone" />
+          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+            <img src="images/icons/phone_icon_gray.svg" alt="phone" />
             {record.mobile}
           </div>
         </div>
@@ -264,7 +266,7 @@ console.log(oldData);
       dataIndex: "leadsource",
       key: "leadsource",
       resizable: true,
-      width: "max-content",
+      // width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -284,7 +286,6 @@ console.log(oldData);
       dataIndex: "status",
       key: "  ",
       resizable: true,
-      width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -312,7 +313,7 @@ console.log(oldData);
       dataIndex: "companyname",
       key: "companyname",
       resizable: true,
-      width: "max-content",
+      // width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -325,7 +326,8 @@ console.log(oldData);
       dataIndex: "ownership",
       key: "ownership",
       resizable: true,
-      width: "150px",
+      // width: "150px",
+      // width: "max-content",
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -345,7 +347,8 @@ console.log(oldData);
       label: "Action",
       dataIndex: "action",
       key: "action",
-      width: 60,
+      // width: 60,
+      // width: "max-content",
       render: (text, record) => (
         <>
         <Popover  id="popoverhide"  defaultOpen={open} onOpenChange={setOpen}
@@ -753,7 +756,7 @@ setoldData(oldData)
             dataSource={tableData}
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
             // scroll={{ y: 800, x: 720 }}
-            scroll={!loading && { x: "1100px" }}
+            // scroll={!loading && { x: ("30px", "800px" )}}
             pagination={!loading &&{
               current: page,
               pageSize: pageSize,
