@@ -8,15 +8,42 @@ import Page_heading from '../Page_Heading/Page_heading'
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../TagsInput/TagsInput";
+import config from '../Database/config'
 
 
+const resetValue = {
+  "Initiallitemrow": [
+    {
+      resources:"",
+    production_batch: "",
+    production_hours: "",
+}],
+  "Initiallitemrow1": [
+
+  ],
+  group_name: "",
+  type: "",
+  uom: "",
+  managed_by: "",
+  tax_preferences: "",
+  cost_account:"",
+  manufacturing_account:"",
+  tax_rates:"",
+  selling_account:"",
+  inventory_account:"",
+};
 
 
 
 
 const NewInventoryGroup = () => {
-
-
+  const [formData, setFormData] = useState(resetValue)
+  const [taxrate, setTaxRate] = useState([])
+  const [reportingl4, setReportingl4] = useState([]) //to get l4 from chartofaccount api
+  const [unitofm, setUnitOfM] = useState([]) //to get uom data
+  const [itemtype, setItemType] = useState([]) //to get itemtype from master)
+  const [resourcesmc, setResourcemc]= useState([]) //for resources
+  const [itemmaterial, setItemMaterial] = useState([]) //item data
   const scannerRef = useRef(null);
   const containerRef = useRef(null);
   const resetRef= useRef()
@@ -60,6 +87,15 @@ const NewInventoryGroup = () => {
       return newValue;
     });
   };
+
+  //modalclose
+  // const onCancel = () => {
+  //   if (Object.values(formData).every((val) => val === "")) {
+  //     setIsBOMModalOpen(false);
+  //   } else {
+  //     handleConfirmCancel();
+  //   }
+  // };
   const [focus, setFocus] = useState([]);
   const [isFocusedIndex, setIsFocusedIndex] = useState(
     Array(bomRows.length).fill(false)
@@ -99,23 +135,235 @@ const NewInventoryGroup = () => {
   const [serialValue, setSerialValue] = useState("");
   const [otherInputValue, setOtherInputValue] = useState("");
 
+////Dropdown Chartofaccount accuntnam
+console.log("abc")
+
+useEffect(() => {
+  getaccountname();
+  getunitmeasure();
+  getTypesoftype();
+  gettax();
+  getresourcesdata();
+  getitembom();
+}, []);
+
+const getaccountname = () => {
+  return fetch(`${config.baseUrl}/chartofaccount/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setReportingl4(data);
+      // console.log(data);
+    });
+};
+const reportingl4name = reportingl4.map((rep) => ({
+  key:rep.id,
+  label: rep.account_name,
+  value: rep.account_name,
+}));
+
+const gettax = () => {
+  return fetch(`${config.baseUrl}/taxes/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setTaxRate(data);
+      // console.log(data);
+    });
+};
+const taxratedata = taxrate.map((rep) => ({
+  key:rep.id,
+  label: rep.tax_group,
+  value: rep.tax_group,
+}));
+
+//rates
+const getunitmeasure = () => {
+  return fetch(`${config.baseUrl}/uom/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setUnitOfM(data);
+      // console.log(data);
+    });
+};
+const unitofdata = unitofm.map((rep) => ({
+  key:rep.id,
+  label: rep.symbol,
+  value: rep.symbol,
+}));
+
+//asssigned resources
+
+const getresourcesdata = () => {
+  return fetch(`${config.baseUrl}/resource/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setResourcemc(data);
+       console.log(data);
+    });
+};
+const resourcesd = resourcesmc.map((rep) => ({
+  key:rep.id,
+  label: rep.name,
+  value: rep.name,
+}));
+
+//item resources
+
+const getitembom = () => {
+  return fetch(`${config.baseUrl}/item/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setItemMaterial(data);
+       console.log(data);
+    });
+};
+const itembomdata  = itemmaterial.map((rep) => ({
+  key:rep.id,
+  label: rep.name,
+  value: rep.name,
+}));
+
+
+ //Dropdown get type
+ const getTypesoftype = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setItemType(data);
+       console.log(data);
+    });
+};
+
+const gettypeitem = itemtype
+.filter((place) => place.field === "Type" && place.module === "ItemGroup")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+const getmanageby = itemtype
+.filter((place) => place.field === "ManagedBy"  && place.module === "ItemGroup")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+const getpreference = itemtype
+.filter((place) => place.field === "TaxPreference"  && place.module === "ItemGroup")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+const getbomtype = itemtype
+.filter((place) => place.field === "Type"  && place.module === "BOM")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
 
 
 
+// const getunitmeasure = () => {
+//   return fetch(`${config.baseUrl}/uom/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setUnitOfM(data);
+//       // console.log(data);
+//     });
+// };
+// const unitofdata = reportingl4.map((rep) => ({
+//   key:rep.id,
+//   label: rep.account_name,
+//   value: rep.account_name,
+// }));
+
+//onchange
+const handleDrpChange= (field, value) => {
+  const selectedType = gettypeitem.find((option) => option.value === value);
+  const selectedMange = getmanageby.find((option) => option.value === value);
+  const selectedUom = unitofdata.find((option) => option.value === value);
+  const selectedpreference = getpreference.find((option) => option.value === value);
+  const selectedaccount = reportingl4name.find((option) => option.value === value);
+  const selectedrate = taxratedata.find((option) => option.value === value);
+  setFormData((prevState) => {
+    let newState = { ...prevState };
+    
+    newState[field] = value;
+    
+    if (selectedType) {
+      newState.type = selectedType.key;
+    }
+    
+    if (selectedUom) {
+      newState.uom = selectedUom.key;
+    }
+    
+    if (selectedMange) {
+      newState.managed_by = selectedMange.key;
+    }
+    if (selectedpreference) {
+      newState.tax_preferences = selectedpreference.key;
+    }
+    if (selectedaccount) {
+      newState.cost_account = selectedaccount.key;
+    }
+    if (selectedaccount) {
+      newState.manufacturing_account = selectedaccount.key;
+    }
+    if (selectedrate) {
+      newState.tax_rates = selectedrate.key;
+    }
+    if (selectedaccount) {
+      newState.selling_account = selectedaccount.key;
+    }
+    if (selectedaccount) {
+      newState.inventory_account = selectedaccount.key;
+    }
+    
+    return newState;
+  });
+};
 
 
+//bom
 
+const handleDrpBOMChange= (field, value) => {
+  const selectedResource = resourcesd.find((option) => option.value === value);
+  console.log(selectedResource)
+  setFormData((prevState) => {
+    let newState = { ...prevState };
+    
+    newState.Initiallitemrow = [      {        ...newState.Initiallitemrow[0],
+        resources: selectedResource ? selectedResource.key : "",
+      },
+    ];
 
+    return newState;
+  });
+};
+console.log(formData)
+const onChange = (e) => {
+  const { value, name } = e.target;
 
+  setFormData({ ...formData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
 
+console.log(formData);
 
+//bomchange
+const onBOMChange = (e) => {
+  const { value, name } = e.target;
 
-
-
-
-
-
-
+  setFormData({
+    ...formData,
+    Initiallitemrow: [{ ...formData.Initiallitemrow[0], [name]: value }]
+  });
+};
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -262,38 +510,6 @@ const resetOther = () => {
 
 
 
-
-
-
-
-
-  const bodymaterial = [
-    {
-      value: "Body Welding Machine",
-      label: (
-        <div onClick={() => setIsMaterialModalOpen(false)}>
-          Body Welding Machine
-        </div>
-      ),
-    },
-    {
-      value: "Body Cutter Polish Machine",
-      label: (
-        <div onClick={() => setIsMaterialModalOpen(false)}>
-          Body Cutter Polish Machine
-        </div>
-      ),
-    },
-    {
-      value: "Body Panels Assemble Machine",
-      label: (
-        <div onClick={() => setIsMaterialModalOpen(false)}>
-          Body Panels Assemble Machine
-        </div>
-      ),
-    },
-  ];
-
   const selectOption = [
     {
       value: "Value 1",
@@ -332,24 +548,46 @@ const resetOther = () => {
                   <p>Group Name</p>
                   <div className="input_container">
                     <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
+                    <input type="text" placeholder="placeholder"
+                    name="group_name"
+                    value={formData.group_name}
+                    onChange={onChange}
+                    />
                   </div>
                 </div>
 
             <div className="input_group">
                   <p>Type</p>
-                  <SearchDropdown width={194} />
+                  <SearchDropdown width={194} options={gettypeitem} 
+                  name="type"
+                  value={gettypeitem.find(
+                    (option) => option.key === formData.type && option.label
+                  )?.label} 
+                  labelKey="label"
+                  onChange={handleDrpChange}/>
                 </div>
 
 
                 <div className="input_group">
                   <p>Unit of Measurement</p>
-                  <SearchDropdown width={209} />
+                  <SearchDropdown width={209} options={unitofdata}
+                    name="uom"
+                    labelKey="label"
+                    value={unitofdata.find(
+                      (option) => option.key === formData.uom && option.label
+                    )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
                 <div className="input_group">
                   <p>Manage by</p>
-                  <SearchDropdown width={237} />
+                  <SearchDropdown width={237} options={getmanageby}
+                   name="managed_by"
+                   labelKey="label"
+                   value={getmanageby.find(
+                    (option) => option.key === formData.managed_by && option.label
+                  )?.label}
+                   onChange={handleDrpChange} />
                 </div>
 
             </div>
@@ -405,32 +643,70 @@ const resetOther = () => {
 
             <div className="input_group">
                   <p>Tax Preference</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330} options={getpreference} 
+                    name="tax_preferences"
+                    labelKey="label"
+                    value={getpreference.find(
+                     (option) => option.key === formData.tax_preferences && option.label
+                   )?.label}
+                    onChange={handleDrpChange}
+                  />
                 </div>
 
                 <div className="input_group">
                   <p>Cost Account</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330}  options={reportingl4name}
+                    name="cost_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.cost_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
                 <div className="input_group">
                   <p>Manufacturing Account</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330}  options={reportingl4name}
+                    name="manufacturing_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.manufacturing_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
                 <div className="input_group">
                   <p>Tax Rates</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330} options={taxratedata}
+                    name="tax_rates"
+                    labelKey="label"
+                   // value={formData.tax_rates}
+                    value={taxratedata.find(
+                     (option) => option.key === formData.tax_rates && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
                 <div className="input_group">
                   <p>Sales Account</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330}  options={reportingl4name}
+                    name="selling_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.selling_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
                 <div className="input_group">
                   <p>Inventory Account</p>
-                  <SearchDropdown width={330} />
+                  <SearchDropdown width={330}  options={reportingl4name}
+                    name="inventory_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.inventory_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
                 </div>
 
             </div>
@@ -571,8 +847,11 @@ const resetOther = () => {
                                   <input
                                     className="productioninput"
                                     type="text"
-                                    value="05 Pcs"
+                                  //  value="05 Pcs"
                                     style={{ padding: "0px 10px" }}
+                                    name="production_batch"
+                                    value={formData.Initiallitemrow[0].production_batch}
+                                    onChange={onBOMChange}
                                   />
                                 </div>
                                 <div>
@@ -630,23 +909,29 @@ const resetOther = () => {
                           title={""}
                           visible={popOverVisible === index}
                         >
-                          <SearchDropdown
-                            options={bodymaterial}
-                            ref={resetRef}
-                            popVisible={popVisible}
-                            onChange={() => handlePopOver(index)}
-                            editBtnClick={()=>editBtnClick(index)}
-                            width={250}
-                            editBtn={true}
-                          />
+                        <SearchDropdown
+                          options={resourcesd}
+                          ref={resetRef}
+                          popVisible={popVisible}
+                          onChange={(e) => {handlePopOver(index); handleDrpBOMChange(e)}}
+                          //onChange={handleDrpBOMChange}
+                        editBtnClick={()=>editBtnClick(index)}
+                          width={250}
+                          editBtn={true}
+                          name="resources"
+                          value={resourcesd.find(
+                            (option) => option.key === formData.Initiallitemrow[0].resources && option.label
+                          )?.label}
+                         // value={formData.Initiallitemrow[0].resources}
+                        />
                         </Popover>
                       </li>
                     )}
                     <li className="type">
-                      <SearchDropdown width={138} />
+                      <SearchDropdown width={138} options={getbomtype} />
                     </li>
                     <li className="material">
-                      <SearchDropdown width={250} />
+                      <SearchDropdown width={250} options={itembomdata} />
                     </li>
                     <li className="options">
                       <SelectAllDropdown option={selectOption} />
