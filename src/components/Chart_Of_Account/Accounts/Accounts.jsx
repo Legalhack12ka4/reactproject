@@ -28,6 +28,7 @@ const resetValue = {
 };
 
 function Accounts() {
+  const [lastAccountId, setLastAccountId] = useState(null); // account code
   const [formData, setFormData] = useState(resetValue);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -284,10 +285,22 @@ const deleteUser = (record)=>
     //   console.log(currency)
 }
 
+// const fetchData = async () => {
+//   try {
+//     const response = await axios.get(`${config.baseUrl}/chartofaccount/`);
+//     const accountData = response.data;
+//     setLastAccountId(accountData[accountData.length - 1].id);
+//     setFetchaccount(accountData.map((row) => ({ /* map to desired object format */ })));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/chartofaccount/`).then((res) => {
       setloading(false);
+      const maxId = res.data.reduce((acc, row) => Math.max(acc, row.id), 0);
+      setLastAccountId(maxId);
       setFetchaccount(
         res.data.map((row) => ({
           Key: row.id,
@@ -308,6 +321,8 @@ const deleteUser = (record)=>
   // console.log(reporting3.find((option) => option.key === 1 && option.label).value)
   console.log(groups.map((option) => option.id === 1 && option.reporting_l3));
   console.log(fetchaccount);
+
+  const accountValue = lastAccountId ? lastAccountId + 1 : '';
 
   const dataSource = fetchaccount.map((customer) => ({
     key: customer.Key,
@@ -681,12 +696,20 @@ const deleteUser = (record)=>
                   Account Code
                 </p>
                 <input
+  disabled
+  className="accountcode"
+  type="text"
+  placeholder="0009"
+  name="terms"
+  value={accountValue}
+/>
+                {/* <input
                   disabled
                   className="accountcode"
                   type="text"
                   placeholder="0009"
                   name="terms"
-                />
+                /> */}
                 <p
                   style={{
                     marginTop: "18px",

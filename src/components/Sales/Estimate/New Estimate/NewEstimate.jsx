@@ -65,11 +65,21 @@ function NewEstimate() {
          console.log(data);
       });
   };
-  const getSalesPerson = contact.map((place) => ({
+
+  const getSalesPerson = contact
+  .filter((place) => place.position === 4)
+  .map((place) => ({
     key: place.id,
     label: place.name,
     value: place.name,
   }));
+
+
+  // const getSalesPerson = contact.map((place) => ({
+  //   key: place.id,
+  //   label: place.name,
+  //   value: place.name,
+  // }));
 
   const getCustomer = () => {
     return fetch(`${config.baseUrl}/customervendor/`)

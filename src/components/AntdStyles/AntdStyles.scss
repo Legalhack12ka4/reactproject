@@ -437,8 +437,11 @@ th {
   color: #697a8d !important;
 }
 
-
-
+//dropodwn addbutton padding
+.ant-space-align-center {
+  align-items: center;
+  padding: 5px 5px 8px 5px !important;
+}
 
 // :where(.css-dev-only-do-not-override-k83k30)[class^="ant-pagination"],
 // :where(.css-dev-only-do-not-override-k83k30)[class*=" ant-pagination"] {
