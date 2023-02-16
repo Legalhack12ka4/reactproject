@@ -181,7 +181,7 @@ const onChangeValue = (e) => {
             //   }
             />
          {/* //   onClick={addItem}  */}
-            <Button type="text" icon={<PlusOutlined />} onClick={() => {handleFormSubmit()}}>
+            <Button type="text" icon={<PlusOutlined  style={{color:"#5C5AD0"}} />} onClick={() => {handleFormSubmit()}}>
               Add Position
             </Button>
           </Space>

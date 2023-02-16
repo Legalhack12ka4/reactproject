@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 //import "../SearchDropdown/SearchDropdown.scss";
 import { PlusOutlined } from '@ant-design/icons';
 import { Divider, Input, Select, Space, Button } from 'antd';
-import type { InputRef } from 'antd';
+// import type { InputRef } from 'antd';
 import axios from 'axios';
 import config from '../../Database/config';
 import { toast } from 'react-toastify';
@@ -181,7 +181,7 @@ const onChangeValue = (e) => {
             //   }
             />
          {/* //   onClick={addItem}  */}
-            <Button type="text" icon={<PlusOutlined />} onClick={() => {handleFormSubmit()}}>
+            <Button type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} onClick={() => {handleFormSubmit()}}>
               Add Source
             </Button>
           </Space>
