@@ -49,6 +49,7 @@ const ContactsData = (props) => {
   const [popOverVisible, setPopOverVisible] = useState(false);
   const [open, setOpen] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
+  const [changePosition, setChangePosition] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
 
 
@@ -858,9 +859,18 @@ setoldData(oldData)
                           </div>
                         )}
                       </div>
-                      <div className="change_position">
+                      <div className="change_position" onClick={()=> setChangePosition(!changePosition)}>
                         <img src="images/icons/user_avatar.svg" alt="user" />
                         <p>Change Position</p>
+                        {
+                          changePosition && (
+                            <div className="change_position_dropdown">
+                              <p>Position</p>
+                              <SearchDropdown  width={330}/>
+                              <button>Submit</button>
+                            </div>
+                          )
+                        }
                       </div>
                     </div>
 
