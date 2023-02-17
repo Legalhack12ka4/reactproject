@@ -10,6 +10,7 @@ import axios from "axios";
 import config from "../../Database/config";
 import dob from "../../../assets/Images/FormIcon/DOB.svg";
 import Swal from "sweetalert2";
+import { CloseOutlined } from '@ant-design/icons';
 import { toast, ToastContainer } from "react-toastify";
 import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 import CalendarComp from "../../Calendar/CalendarComp"
@@ -214,12 +215,14 @@ const deleteUser = (record)=>
       label: "Contact Name",
       dataIndex: "name",
       key: "name",
+      // disabled: true,
       resizable: true,
       fixed: "left",
       align: "left",
       // width: "max-content",
-      // width: "max-content",
       // style: { maxWidth: "100px" },
+      // width: `${width} ? "600px" : "1000px"`,
+      width: 200,
       render: (text, record) => {
         let initials = "";
         if (record.name) {
@@ -251,6 +254,7 @@ const deleteUser = (record)=>
       key: "mobile",
       resizable: true,
       // width: "max-content",
+      width: 250,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -276,6 +280,7 @@ const deleteUser = (record)=>
       key: "leadsource",
       resizable: true,
       // width: "max-content",
+      width: 200,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -296,12 +301,13 @@ const deleteUser = (record)=>
       key: "  ",
       resizable: true,
       align: "left",
+      width: 140,
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.status > record2.status;
       },
       render: (text, record) => (
-        <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"5px",}}>
         <div className="table_bullet_item"></div>
             <Typography.Text
               style={
@@ -323,6 +329,7 @@ const deleteUser = (record)=>
       key: "companyname",
       resizable: true,
       // width: "max-content",
+      width: 150,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -337,6 +344,7 @@ const deleteUser = (record)=>
       resizable: true,
       // width: "150px",
       // width: "max-content",
+      width: 150,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -356,7 +364,7 @@ const deleteUser = (record)=>
       label: "Action",
       dataIndex: "action",
       key: "action",
-      // width: 60,
+      width: 60,
       // width: "max-content",
       render: (text, record) => (
         <>
@@ -403,7 +411,7 @@ const deleteUser = (record)=>
                  </div>
                  </>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+        <img src={editdelete} style={{cursor:"pointer", position:"absolute", left:"-15px",top:"25px"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
         </Popover>
           
         </>
@@ -414,27 +422,12 @@ const deleteUser = (record)=>
       resizable: true,
       align: "left",
     },
-    {
-      title: '',
-      key: 'action',
-      render: (text, record, index) => {
-        const showButton = record.id === index;
-        console.log(index, record)
-        return (
-          <div
-            className="action-column"
-            style={{ display: showButton ? 'block' : 'none' }}
-          >
-            <Button>Button</Button>
-          </div>
-        );
-      },
-    },
   ];
   // console.log(hoveredRow)
 
 
   const [columns, setColumns] = useState(columnsData);
+  // console.log(columns)
 
   const componentRef = useRef();
 
@@ -578,6 +571,8 @@ const deleteUser = (record)=>
     else setSelectedColumns(selectedColumns.filter(col => col !== value));
   }
 
+
+
   const handleSelect=(date)=>{
     // console.log(date); // native Date object
   }
@@ -643,6 +638,7 @@ setoldData(oldData)
 
       <div className="contacts-table-container">
         <FilterAndSearchBar
+        selectedColumnsLength={selectedColumns.length}
           results_length={`${cusomizeData.length} Contacts`}
           filterdata={[
             <div className="contact_filter_container">
@@ -725,7 +721,7 @@ setoldData(oldData)
         <div className="tableData">
           {filterarray.length > 0 && (
             <div className="tags" id="tags">
-              <div className="appliedtag ">Applied Filters :</div>
+              <div className="appliedtag ">Filtered by </div>
               {filterarray.map((customerfilter, index) => {
                 return (
                   customerfilter.value && (
@@ -743,6 +739,7 @@ setoldData(oldData)
                         key={customerfilter.key}
                         className="tag1"
                         closable
+                        closeIcon={<img src="images/icons/tag_close_icon.svg" style={{marginLeft:"4px"}}/>}
                         onClose={(e) => {
                           log(index, customerfilter.key);
                         }}
@@ -779,6 +776,7 @@ setoldData(oldData)
               type: "checkbox",
               columnTitle: "",
               // columnWidth: "0px",
+              columnWidth: "40px",
               selectedRowKeys,
               onChange: (selectedRowKeys, selectedRows) => {
                 setSelectedRowKeys(selectedRowKeys);
@@ -787,7 +785,7 @@ setoldData(oldData)
             }}
             dataSource={tableData}
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
-            // scroll={{ y: 800, x: 720 }}
+            scroll={{ x: 720 }}
             // scroll={!loading && { x: ("30px", "800px" )}}
             pagination={!loading &&{
               current: page,
@@ -811,7 +809,7 @@ setoldData(oldData)
           {
             selectedRows.length > 1 && (
               <div className="bulk_changes_container">
-                    <div className="selected_container">
+                    <div className="selected_container" >
                       {selectedRows.length} Contacts Selected
                       <span onClick={()=>{setSelectedRows([]); setSelectedRowKeys([])}}>Unselect all</span>
                     </div>
@@ -820,59 +818,62 @@ setoldData(oldData)
                       <img src="images/icons/mail_gray_icon.svg" alt="mail" />
                         <p>Send Email</p>
                       </div>
-                      <div className="change_status" onClick={()=> setChangeStatus(!changeStatus)}>
+                     <Popover trigger="click" showArrow={false} content={
+                      <div className="change_status_dropdown">
+
+                      <div className="new_lead">
+                        <div></div>
+                        <p>New Lead</p>
+                      </div>
+
+                      <div className="not_interested">
+                        <div></div>
+                        <p>Not Intrested</p>
+                      </div>
+
+                      <div className="junk">
+                        <div></div>
+                        <p>Junk</p>
+                      </div>
+
+                      <div className="prospective">
+                        <div></div>
+                        <p>Prospective</p>
+                      </div>
+
+                      <div className="customer">
+                        <div></div>
+                        <p>Customer</p>
+                      </div>
+
+                      <div className="vendor">
+                        <div></div>
+                        <p>Vendor</p>
+                      </div>
+
+                    </div>
+                     }>
+                     <div className="change_status" onClick={()=> setChangeStatus(!changeStatus)}>
                         <img src="images/icons/reload_icon.svg" alt="" />
                         <p>Change Status</p>
-                        {changeStatus && (
-                          <div className="change_status_dropdown">
-
-                            <div className="new_lead">
-                              <div></div>
-                              <p>New Lead</p>
-                            </div>
-
-                            <div className="not_interested">
-                              <div></div>
-                              <p>Not Intrested</p>
-                            </div>
-
-                            <div className="junk">
-                              <div></div>
-                              <p>Junk</p>
-                            </div>
-
-                            <div className="prospective">
-                              <div></div>
-                              <p>Prospective</p>
-                            </div>
-
-                            <div className="customer">
-                              <div></div>
-                              <p>Customer</p>
-                            </div>
-
-                            <div className="vendor">
-                              <div></div>
-                              <p>Vendor</p>
-                            </div>
-
-                          </div>
-                        )}
                       </div>
-                      <div className="change_position" onClick={()=> setChangePosition(!changePosition)}>
-                        <img src="images/icons/user_avatar.svg" alt="user" />
-                        <p>Change Position</p>
-                        {
-                          changePosition && (
-                            <div className="change_position_dropdown">
+                     </Popover>
+
+                     <Popover style={{marginBottom:"20px"}} position="topLeft" trigger="click" showArrow={false} content={<div className="change_position_dropdown">
                               <p>Position</p>
                               <SearchDropdown  width={330}/>
-                              <button>Submit</button>
-                            </div>
-                          )
-                        }
+                              <button className="btn_hover_animation">Submit</button>
+                            </div>}>
+                     <div className="change_position" onClick={()=> setChangePosition(!changePosition)}>
+                        <img src="images/icons/user_avatar.svg" alt="user" />
+                        <p>Change Position</p>
                       </div>
+                     </Popover>
+                      
                     </div>
+
+
+                    
 
                     <div className="delete_container">
                       <img src="images/icons/delete_red_icon.svg" alt="" />
@@ -881,6 +882,7 @@ setoldData(oldData)
           </div>
             )
           }
+
  <Modal
         open={confirm}
      //   onOk={handleMaterialOk}

@@ -25,274 +25,40 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  // const [search, setSearch] = useState("");
-
-  //   const [dateRange, setDateRange] = useState([
-  //     {
-  //       startDate: new Date(),
-  //       endDate: addDays(new Date(), 7),
-  //       key: 'selection'
-  //     }
-  //   ]);
-
   const menuRef = useRef(null);
-  const fliterRef =useRef(null);
+  const fliterRef = useRef(null);
+  const [columns, setColumns] = useState(
+    props.columns.slice(0, props.columns.length - 1)
+  );
+  const [visible, setVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [firstColumn, setFirstColumn] = useState(columns[0].title);
 
-  const dataSource = [
-    {
-      key: "1",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "2",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "3",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "4",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "5",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "6",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "7",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "8",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "9",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "10",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "11",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "12",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "13",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "14",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "15",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
-    {
-      key: "16",
-      business_name: "Reformiqo Business Service Pvt. Ltd",
-      type: "Customer",
-      account: "Account Receivable",
-      unadjusted_account: "Unadjested Receipts",
-      type_category: "Wholeseler",
-      email: "parth@gmail.com",
-      phone: 9988998899,
-      address: "Reformiqo Business Service Pvt. Ltd.",
-    },
+  console.log(firstColumn);
 
-    // ...
-  ];
-  const columnsData = [
-    {
-      title: "Business Name",
-      label: "Business Name",
-      dataIndex: "business_name",
-      key: "business_name",
-      resizable: true,
-      fixed: "left",
-      align: "left",
-      width: 270,
-    },
-    {
-      title: "Type",
-      label: "Type",
-      dataIndex: "type",
-      key: "type",
-      resizable: true,
-      width: 100,
-      align: "left",
-    },
-    {
-      title: "Account",
-      label: "Account",
-      dataIndex: "account",
-      key: "account",
-      resizable: true,
-      width: 170,
-      align: "left",
-    },
-    {
-      title: "Unadjusted Account",
-      label: "Unadjusted Account",
-      dataIndex: "unadjusted_account",
-      key: "unadjusted_account",
-      resizable: true,
-      width: 180,
-      align: "left",
-    },
-    {
-      title: "Type Category",
-      label: "Type Category",
-      dataIndex: "type_category",
-      key: "type_category",
-      resizable: true,
-      width: 150,
-      align: "left",
-    },
-    {
-      title: "Email",
-      label: "Email",
-      dataIndex: "email",
-      key: "email",
-      resizable: true,
-      width: 150,
-      align: "left",
-    },
-  ];
-  const [columns, setColumns] = useState(props.columns);
-  
-
-  const csvLink = {
-    filename: "customer_data.csv",
-    headers: columns,
-    data: dataSource,
+  const handleVisibleChange = (newVisible) => {
+    setVisible(newVisible);
   };
 
-  const downloadPdf = () => {
-    const doc = new jsPDF();
-    doc.text("Customer Data", 20, 10);
-    doc.autoTable({
-      columns: columns.map((col) => ({ ...col, dataKey: col.key })),
-      body: dataSource,
-    });
-    doc.save("customer_data.pdf");
+  const handleContentClick = () => {
+    setVisible(false);
   };
+
+  // const csvLink = {
+  //   filename: "customer_data.csv",
+  //   headers: columns,
+  //   data: dataSource,
+  // };
+
+  // const downloadPdf = () => {
+  //   const doc = new jsPDF();
+  //   doc.text("Customer Data", 20, 10);
+  //   doc.autoTable({
+  //     columns: columns.map((col) => ({ ...col, dataKey: col.key })),
+  //     body: dataSource,
+  //   });
+  //   doc.save("customer_data.pdf");
+  // };
 
   const openExport = () => {
     setExportOpen(!exportOpen);
@@ -304,7 +70,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   const openSetting = () => {
     setSettingOpen(!settingOpen);
   };
-
+  console.log(settingOpen);
   useEffect(() => {
     let handleClickOutside = (event) => {
       if (!menuRef.current.contains(event.target)) {
@@ -331,8 +97,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       props.setColumns(tempData);
     }
     console.log(e.destination.index);
-
-
   };
 
   const componentRef = useRef();
@@ -344,85 +108,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     document.getElementById("gradient").classList.add("body_gradient");
   }
 
-  // const customStyle = {
-  //   control: (base, state) => ({
-  //     ...base,
-  //     background: "white",
-  //     width: "300px",
-  //     border: "none",
-  //     borderRadius: "5px",
-  //     boxShadow: "none",
-  //     height: "40px",
-  //     marginLeft: "-8px",
-
-  //     "&:hover": {
-  //       border: "none",
-  //     },
-  //   }),
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //     color: state.isSelected ? "white" : "black",
-  //     backgroundColor: state.isSelected ? "#697A8D" : "white",
-  //     "&:hover": {
-  //       backgroundColor: "#697A8D",
-  //       color: "white",
-  //     },
-  //   }),
-  //   menu: (provided, state) => ({
-  //     ...provided,
-  //     borderRadius: "5px",
-  //     border: "none",
-  //     boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-  //     zIndex: "5",
-  //     width: "300px",
-  //   }),
-  //   menuList: (provided, state) => ({
-  //     ...provided,
-  //     padding: "0px",
-  //   }),
-  //   singleValue: (provided, state) => ({
-  //     ...provided,
-  //     color: "#697A8D",
-  //     fontSize: "14px",
-  //     fontWeight: "400",
-  //     lineHeight: "20px",
-  //     letterSpacing: "0.25px",
-  //   }),
-  //   input: (provided, state) => ({
-  //     ...provided,
-  //     color: "#697A8D",
-  //     fontSize: "14px",
-  //     fontWeight: "400",
-  //     lineHeight: "20px",
-  //     letterSpacing: "0.25px",
-  //     height: "40px",
-  //     // maxHeight: "30px",
-  //     margin: "0px",
-  //   }),
-  //   placeholder: (provided, state) => ({
-  //     ...provided,
-  //     color: "#697A8D",
-  //     fontSize: "14px",
-  //     fontWeight: "400",
-  //     lineHeight: "20px !important",
-  //     letterSpacing: "0.25px",
-  //     // marginTop: "-5px",
-  //   }),
-  //   indicatorSeparator: (provided, state) => ({
-  //     ...provided,
-  //     display: "none",
-  //   }),
-  //   dropdownIndicator: (provided, state) => ({
-  //     ...provided,
-  //     color: "#697A8D",
-  //     fontSize: "14px",
-  //     fontWeight: "400",
-  //     lineHeight: "20px",
-  //     letterSpacing: "0.25px",
-  //   }),
-  // };
-
-
   //Search
   const [search, setSearch] = useState("");
 
@@ -430,7 +115,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     setSearch(event.target.value);
   };
   props.onData(search);
-
 
   //Modal Filter
 
@@ -446,6 +130,15 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     setIsFilterModalOpen(false);
   };
 
+  const selectedCheckboxes = columns.filter((column) => column.selected);
+
+  console.log(
+    columns.filter((column) =>
+      column.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+    )
+  );
+  console.log(searchQuery);
+
   // useEffect(() => {
   //   handleChange();
   // },[search])
@@ -453,23 +146,45 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     <>
       <Modal
         open={isFilterModalOpen}
-      getContainer={() =>fliterRef.current}
+        getContainer={() => fliterRef.current}
         width={"max-content"}
         onOk={handleFilterOk}
         onCancel={handleFilterCancel}
         footer={""}
         closable={false}
-        style={{ top: 230, left:287, position:"absolute", maxWidth:"2200px" }}
+        style={{
+          top: 230,
+          left: 287,
+          position: "absolute",
+          maxWidth: "2200px",
+        }}
       >
-        <div className="filter_dropdown_btn" style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-          <div style={{fontSize:"18px"}}>
-          Filters
-          </div>
-         {props.change == "" ? <span className='closeModal' onClick={handleFilterOk}>&times;</span> :<div  style={{color: "#5C5AD0", fontWeight:"500", fontSize:"14px"}} onClick={(e) => {props.onFilter(); handleFilterCancel(e) }}>
-            Clear Filter
-          </div>}
+        <div
+          className="filter_dropdown_btn"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ fontSize: "18px" }}>Filters</div>
+          {props.change == "" ? (
+            <span className="closeModal" onClick={handleFilterOk}>
+              &times;
+            </span>
+          ) : (
+            <div
+              style={{ color: "#5C5AD0", fontWeight: "500", fontSize: "14px" }}
+              onClick={(e) => {
+                props.onFilter();
+                handleFilterCancel(e);
+              }}
+            >
+              Clear Filter
+            </div>
+          )}
           {console.log(props.change)}
-          </div>
+        </div>
 
         <hr
           style={{
@@ -484,194 +199,123 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       </Modal>
       <div className="table_nav">
         <div className="tableBtn_container">
-          
-        <div className="new_btn_or_reports_main">
-    <div className="view_reports_container">
-      <img src="images/icons/report_icon.svg" alt="" />
-      <p>View Reports</p>
-    </div>
-    <div className="new_btn_container">
-    <Link exact to={props.path} onClick={props.onClick}>
-              <div className="tableBtn addNewBtn" onClick={showCanvas}>
-                <GoPlus />
-                <div style={{ color: "white" }}>
-                  {" "}
-                  <div className="addNewBtn_text">New {props.addBtnName}</div>
-                </div>
-              </div>
-            </Link>
-    </div>
-  </div>
-
-          <div style={{ display: "flex" }} >
-          {/* <div className="total_table_result">{props.results_length}</div> */}
-          {props.customer == "" ? <div className="search_customer" >
-              <div className="search_icon" >
-                <CgSearch size={20} color="#697A8D" />
-              </div>
-              <input
-              disabled
-                
-                //type="text"
-               // placeholder="Search Customer"
-              //  onChange={handleChange}
-              />
-      </div>:
-            <div className="search_customer">
-              <div className="search_icon">
-                <CgSearch size={20} color="#697A8D" />
-              </div>
-              <input
-           
-                type="text"
-                placeholder="Search for Contacts"
-                onChange={handleChange}
-              />
-      </div>
-      }
-            
-            {/* {props.customer == "" ? <div
-              className="tableBtn export"
-              style={{ width: "101.5px",   cursor:"default"  }}
-              ref={menuRef}
-            >
-              <div className="btn_icon">
-                <BiExport size={15} />
-              </div>
-              <span>Export</span>
-
-              <div
-                className={`export_dropdown ${
-                  exportOpen ? "active" : "inactive"
-                }`}
-              >
-                <div className="export_dropdown_btn">
-                  <div className="export_icon">
-                    <img src="/images/icons/print_icon.svg" alt="print_icon" />
-                  </div>
-                  <ReactToPrint
-                    trigger={() => <span>Print</span>}
-                    content={() => componentRef.current}
-                  />
-                </div>
-                <CSVLink {...csvLink} className="csvLink">
-                  <div className="export_dropdown_btn">
-                    <div className="export_icon">
-                      <img
-                        src="/images/icons/document_icon.svg"
-                        alt="document_icon"
-                      />
-                    </div>
-                    <span>Csv</span>
-                  </div>
-                </CSVLink>
-                <div className="export_dropdown_btn" onClick={downloadPdf}>
-                  <div className="export_icon">
-                    <img src="/images/icons/pdf_icon.svg" alt="pdf_icon" />
-                  </div>
-                  <span>Pdf</span>
-                </div>
-                <div className="export_dropdown_btn">
-                  <div className="export_icon">
-                    <img src="/images/icons/copy_icon.svg" alt="copy_icon" />
-                  </div>
-                  Copy
-                </div>
-              </div>
-            </div>  :<div
-              className="tableBtn export"
-              onClick={openExport}
-              style={{ width: "101.5px" }}
-              ref={menuRef}
-            >
-              <div className="btn_icon">
-                <BiExport size={15} />
-              </div>
-              <span>Export</span>
-
-              <div
-                className={`export_dropdown ${
-                  exportOpen ? "active" : "inactive"
-                }`}
-              >
-                <div className="export_dropdown_btn">
-                  <div className="export_icon">
-                    <img src="/images/icons/print_icon.svg" alt="print_icon" />
-                  </div>
-                  <ReactToPrint
-                    trigger={() => <span>Print</span>}
-                    content={() => componentRef.current}
-                  />
-                </div>
-                <CSVLink {...csvLink} className="csvLink">
-                  <div className="export_dropdown_btn">
-                    <div className="export_icon">
-                      <img
-                        src="/images/icons/document_icon.svg"
-                        alt="document_icon"
-                      />
-                    </div>
-                    <span>Csv</span>
-                  </div>
-                </CSVLink>
-                <div className="export_dropdown_btn" onClick={downloadPdf}>
-                  <div className="export_icon">
-                    <img src="/images/icons/pdf_icon.svg" alt="pdf_icon" />
-                  </div>
-                  <span>Pdf</span>
-                </div>
-                <div className="export_dropdown_btn">
-                  <div className="export_icon">
-                    <img src="/images/icons/copy_icon.svg" alt="copy_icon" />
-                  </div>
-                  Copy
-                </div>
-              </div>
-            </div>} */}
-
-            {/* <div className="tableBtn">
-            <div className="btn_icon">
-              <img src={filter} size={15} />
+          <div className="new_btn_or_reports_main">
+            <div className="view_reports_container">
+              <img src="images/icons/report_icon.svg" alt="" />
+              <p>View Reports</p>
             </div>
-            Filter
-          </div> */}
-            {/* <Link exact to={props.path} onClick={props.onClick}>
-              <div className="tableBtn addNewBtn" onClick={showCanvas}>
-                <GoPlus />
-                <div style={{ color: "white" }}>
-                  {" "}
-                  <div className="addNewBtn_text">New {props.addBtnName}</div>
+            <div className="new_btn_container">
+              <Link exact to={props.path} onClick={props.onClick}>
+                <div className="tableBtn addNewBtn" onClick={showCanvas}>
+                  <GoPlus />
+                  <div style={{ color: "white" }}>
+                    {" "}
+                    <div className="addNewBtn_text">New {props.addBtnName}</div>
+                  </div>
                 </div>
-              </div>
-            </Link> */}
+              </Link>
+            </div>
           </div>
 
-          <div style={{ display: "flex" , gap: "10px" }}>
+          <div style={{ display: "flex" }}>
+            {/* <div className="total_table_result">{props.results_length}</div> */}
+            {props.customer == "" ? (
+              <div className="search_customer">
+                <div className="search_icon">
+                  <CgSearch size={20} color="#697A8D" />
+                </div>
+                <input
+                  disabled
+
+                  //type="text"
+                  // placeholder="Search Customer"
+                  //  onChange={handleChange}
+                />
+              </div>
+            ) : (
+              <div className="search_customer">
+                <div className="search_icon">
+                  <CgSearch size={20} color="#697A8D" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search for Contacts"
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+          </div>
+
+          <div style={{ display: "flex", gap: "10px" }}>
             <DateRangePicker />
-          
-      {props.customer == "" ?
-             <div className={`${props.filterLength > 0 && "filter"} tableBtn `} 
-             style={{ width: "101.5px", position:"relative", cursor:"default" }} ref={fliterRef}>
-              <div className="btn_icon">
-              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
+
+            {props.customer == "" ? (
+              <div
+                className={`${props.filterLength > 0 && "filter"} tableBtn `}
+                style={{
+                  width: "101.5px",
+                  position: "relative",
+                  cursor: "default",
+                }}
+                ref={fliterRef}
+              >
+                <div className="btn_icon">
+                  {props.filterLength > 0 ? (
+                    <img
+                      src={filterblue}
+                      id="filtericon"
+                      height="12px"
+                      width="12px"
+                    />
+                  ) : (
+                    <img
+                      src={filter}
+                      id="filtericon"
+                      height="12px"
+                      width="12px"
+                    />
+                  )}
+                </div>
+                <div className={`${props.filterLength > 0 && "filterl"}  `}>
+                  Filter
+                </div>
+                {props.filterLength > 0 && (
+                  <div className="filterlength">{props.filterLength}</div>
+                )}
               </div>
-              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
-              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
-            </div> :
-             <div
-              className={`${props.filterLength > 0 && "filter"} tableBtn `}
-              
-              onClick={showFilterModal}
-              style={{ width: "101.5px", position:"relative" }}
-              ref={fliterRef}
-            >
-              <div className="btn_icon">
-              {props.filterLength > 0 ? <img src={filterblue} id="filtericon" height="12px" width="12px" /> : <img src={filter} id="filtericon" height="12px" width="12px" />}
+            ) : (
+              <div
+                className={`${props.filterLength > 0 && "filter"} tableBtn `}
+                onClick={showFilterModal}
+                style={{ width: "101.5px", position: "relative" }}
+                ref={fliterRef}
+              >
+                <div className="btn_icon">
+                  {props.filterLength > 0 ? (
+                    <img
+                      src={filterblue}
+                      id="filtericon"
+                      height="12px"
+                      width="12px"
+                    />
+                  ) : (
+                    <img
+                      src={filter}
+                      id="filtericon"
+                      height="12px"
+                      width="12px"
+                    />
+                  )}
+                </div>
+                <div className={`${props.filterLength > 0 && "filterl"}  `}>
+                  Filter
+                </div>
+                {props.filterLength > 0 && (
+                  <div className="filterlength">{props.filterLength}</div>
+                )}
               </div>
-              <div className={`${props.filterLength > 0 && "filterl"}  `}>Filter</div>
-              {props.filterLength > 0 && <div className="filterlength">{props.filterLength}</div>}
-            </div>}
-              {/* <div className="searchbar_typehead">
+            )}
+            {/* <div className="searchbar_typehead">
                 <Select
                   styles={customStyle}
                   placeholder="Search Customer"
@@ -683,20 +327,38 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                 />
               </div> */}
 
-              {/* <div className="searchbar_typehead">
+            {/* <div className="searchbar_typehead">
           <Select styles={customStyle}/>
           </div> */}
 
-          
-      
-<Popover  
-content={
+            <Popover
+              open={visible}
+              onOpenChange={handleVisibleChange}
+              content={
                 <div className="setting_container">
-                  <div className="setting_btn" style={{paddingBottom:"20px"}}>
+                  <div
+                    className="setting_btn"
+                    style={{ paddingBottom: "20px" }}
+                    onClick={() => {
+                      openSetting();
+                      handleContentClick();
+                    }}
+                  >
+                    <img src="images/icons/columns_icon.svg" alt="" />
+                    <p>Columns</p>
+                  </div>
+
+                  <div
+                    className="setting_btn"
+                    style={{ paddingBottom: "20px" }}
+                  >
                     <img src="images/icons/import_data_icon.svg" alt="" />
                     <p>Import Data</p>
                   </div>
-                  <div className="setting_btn" style={{paddingBottom:"20px"}}>
+                  <div
+                    className="setting_btn"
+                    style={{ paddingBottom: "20px" }}
+                  >
                     <img src="images/icons/export_data_icon.svg" alt="" />
                     <p>Export Data</p>
                   </div>
@@ -705,76 +367,154 @@ content={
                     <p>Preferences</p>
                   </div>
                 </div>
-              } trigger="click" placement="bottomRight" showArrow={false} getPopupContainer={(trigger) => trigger.parentElement} 
-              >
-                <div className="settings" ref={menuRef}>
-              <img className="setting_icon"
-                src="/images/icons/setting.svg"
-                alt="icon"
-                onClick={openSetting}
+              }
+              trigger="click"
+              placement="bottomRight"
+              showArrow={false}
+              getPopupContainer={(trigger) => trigger.parentElement}
+            >
+              <div className="settings">
+                <img
+                  className="setting_icon"
+                  src="/images/icons/setting.svg"
+                  alt="icon"
+                />
+              </div>
+            </Popover>
+            <div>
+              <div
+                className="gradient-overlay"
+                style={{
+                  display: settingOpen ? "block" : "none",
+                }}
               />
               
+              <div className="settings" ref={menuRef}>
+              {/* <img
+                  className="setting_icon"
+                  src="/images/icons/setting.svg"
+                  alt="icon"
+                /> */}
 
-              {/* <DragDropContext onDragEnd={handleDragEnd}>
+              <DragDropContext onDragEnd={handleDragEnd}>
                 <div
                   className={`table_setting_dropdown ${
                     settingOpen ? "active" : "inactive"
                   }`}
                 >
                   <h5>Manage Columns</h5>
+                  <p className="manage_column_title">
+                    Select the columns you'd like to see in table.
+                  </p>
                   <hr />
+                  <div className="selected_count">
+                    <h2 className="selected_columns">Slected Columns</h2>{" "}
+                    <div className="count">
+                      {props.selectedColumnsLength - 1}
+                    </div>
+                  </div>
+
+                  <div className="columns_search">
+                    <CgSearch size={20} color="#697A8D" />
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      value={searchQuery}
+                      id="columnSearch"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </div>
                   <Droppable droppableId="draggable_item">
                     {(provider) => (
-                      <div ref={provider.innerRef} {...provider.droppableProps}>
-                        {columns.map((item, index) => {
-  if (index === 0) {
-    return (
-      <Draggable draggableId={item.key} index={index} key={item.key} isDragDisabled={true}>
-        {(provider) => (
-          <div className="columns_fields" ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps}>
-            <div className="chekbox_title">
-              <div>
-                <Checkbox value={item.dataIndex} onChange={props.onSelectColumn} defaultChecked={true} disabled={true}/>
-              </div>
-              <p>{item.title}</p>
-            </div>
-            <div>
-              <img src="/images/icons/bx-dialpad-alt.svg" alt="icon"/>
-            </div>
-          </div>
-        )}
-      </Draggable>
-    );
-  }
-  else {
-    return (
-      <Draggable draggableId={item.key} index={index} key={item.key}>
-        {(provider) => (
-          <div className="columns_fields" ref={provider.innerRef} {...provider.draggableProps} {...provider.dragHandleProps}>
-            <div className="chekbox_title">
-              <div>
-                <Checkbox value={item.dataIndex} onChange={props.onSelectColumn} defaultChecked={true}/>
-              </div>
-              <p>{item.title}</p>
-            </div>
-            <div>
-              <img src="/images/icons/bx-dialpad-alt.svg" alt="icon"/>
-            </div>
-          </div>
-        )}
-      </Draggable>
-    );
-  }
-})}
+                      <div
+                        ref={provider.innerRef}
+                        {...provider.droppableProps}
+                        className="field_container"
+                      >
+                        {columns
+                          .filter((column) =>
+                            column.title
+                              .toLowerCase()
+                              .includes(searchQuery.trim().toLowerCase())
+                          )
+                          .map((item, index) => {
+                            if (firstColumn === item.title) {
+                              return (
+                                <Draggable
+                                  draggableId={item.key}
+                                  index={index}
+                                  key={item.key}
+                                  isDragDisabled={true}
+                                >
+                                  {(provider) => (
+                                    <div
+                                      className="columns_fields disabled"
+                                      ref={provider.innerRef}
+                                      {...provider.draggableProps}
+                                      {...provider.dragHandleProps}
+                                    >
+                                      <div className="chekbox_title">
+                                        <img
+                                          src="images/icons/lock_icon.svg"
+                                          alt=""
+                                        />
+                                        <p>{item.title}</p>
+                                      </div>
+                                      <div className="drag_icon">
+                                        <img
+                                          src="/images/icons/bx-dialpad-alt.svg"
+                                          alt="icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              );
+                            } else {
+                              return (
+                                <Draggable
+                                  draggableId={item.key}
+                                  index={index}
+                                  key={item.key}
+                                >
+                                  {(provider) => (
+                                    <div
+                                      className="columns_fields"
+                                      ref={provider.innerRef}
+                                      {...provider.draggableProps}
+                                      {...provider.dragHandleProps}
+                                    >
+                                      <div className="chekbox_title">
+                                        <div>
+                                          <Checkbox
+                                            value={item.dataIndex}
+                                            onChange={props.onSelectColumn}
+                                            defaultChecked={true}
+                                          />
+                                        </div>
+                                        <p>{item.title}</p>
+                                      </div>
+                                      <div className="drag_icon">
+                                        <img
+                                          src="/images/icons/bx-dialpad-alt.svg"
+                                          alt="icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  )}
+                                </Draggable>
+                              );
+                            }
+                          })}
                         {provider.placeholder}
                       </div>
                     )}
                   </Droppable>
                 </div>
-              </DragDropContext> */}
+              </DragDropContext>
             </div>
-               
-              </Popover>
+
+            </div>
             
           </div>
         </div>
@@ -784,4 +524,3 @@ content={
 };
 
 export default FilterAndSearchBar;
-
