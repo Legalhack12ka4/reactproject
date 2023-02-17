@@ -94,12 +94,13 @@
   margin-bottom: 20px;
   display: flex;
 align-items: center;
+padding-left: 20px;
 }
 .appliedtag
 {
-  color:#2B3347;
+  color:#566A7F;
   font-size: 14px;
-  margin-right: 18px;
+  margin-right: 25px;
    .ant-tooltip-inner  {
     font-size: 12px  !important;
     color: black  !important;
@@ -110,8 +111,9 @@ align-items: center;
 {
   background-color: rgb(222, 222, 242);
   color: #5C5AD0  !important;
-  height: 22px;
+  height: 26px;
   font-size: 12px !important;
+  padding-block: 2px;
   cursor: pointer;
   font-weight: 500;
   border-color: transparent;
@@ -129,7 +131,7 @@ margin-left: 5px !important;
 .btnfilter
 {
   margin-left: 10px;
-  color: #5C5AD0;
+  color: #697A8D;
   outline: none;
   font-size: 14px;
   border: none;
