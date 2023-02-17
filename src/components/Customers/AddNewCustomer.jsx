@@ -276,13 +276,15 @@ ChildStateModificationFunc = (modVal)=>{
 
         setCity(data.data[0].district);
       }
-      if(data.status == "Error")
+      if(data.status == "Pincode Not Available")
       {
     //   alert(data.status)
         setStatedrp("");
         setCity("");
     }
        
+    console.log(setStatedrp(data.data[0].state_name))
+    console.log(setCity(data.data[0].district))
       
 });
   };

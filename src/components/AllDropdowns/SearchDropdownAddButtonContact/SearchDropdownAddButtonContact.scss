@@ -9,3 +9,17 @@
     border-color: #5c5ad0 !important;
     box-shadow: none !important;
 }
+.drpError {
+    .ant-select .ant-select-selector {
+      border-radius: 5px !important;
+      border: 1px solid #da2f58 !important;
+      color: #697a8d !important;
+    }
+    position: relative;
+    .error_text {
+      position: absolute;
+      // top: 43px;
+      font-size: 12px;
+      color: #da2f58;
+    }
+  }

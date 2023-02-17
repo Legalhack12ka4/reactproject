@@ -30,7 +30,7 @@ const resetValue = {
 
   const initialFieldValues = {
     name: "",
-    mobile_no: "",
+    mobile: "",
     email: "",
     dob: "",
     position: "",
@@ -116,6 +116,7 @@ const handleCancel = () => {
   const handleFormSubmit = () => {
     if (formData.id)
     {
+
       // props.onSubmit(setFormData);
       axios
         .put(
@@ -525,7 +526,7 @@ const ownershipwithemail = [
               </Tooltip>
               <br />
               <div className={`${
-                    errors.mobile_no && touched.mobile_no && "inputError"
+                    errors.mobile && touched.mobile && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={Phone} className="customerimg" />
                 <input
@@ -539,7 +540,7 @@ const ownershipwithemail = [
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
-                {errors.mobile_no && touched.mobile_no && (
+                {errors.mobile && touched.mobile && (
                     <div className="error_icon">
                     <img
                       src="/images/icons/exclamation_icon.svg"
@@ -548,8 +549,8 @@ const ownershipwithemail = [
                   </div>
                   )}
               </div>
-              {errors.mobile_no &&  touched.mobile_no &&(
-                    <p className="error_text">{errors.mobile_no}</p>
+              {errors.mobile &&  touched.mobile &&(
+                    <p className="error_text">{errors.mobile}</p>
                   )}
               </div>
               <div className="form_field">
@@ -630,7 +631,8 @@ const ownershipwithemail = [
               </Tooltip>
               <br />
                 <SearchDropdownAddButtonContact  width={331}
-                  name="position" value={formData.position}
+                  name="position" 
+                  value={formData.position}
                 onChange={handleDrpChange}
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"/>
@@ -654,8 +656,8 @@ const ownershipwithemail = [
               <br />
               <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
                   onChange={handleDrpChange}
-                 // value={values.position}
-                  error={errors.position && touched.position ? true : false}
+                  value={formData.ownership}
+                  error={errors.ownership && touched.ownership ? true : false}
                   errorMsg="Ownership is required"/>
               </div>
               

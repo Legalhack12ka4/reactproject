@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { get } from 'jquery';
 import "./SearchDropdownAddButtonContact.scss";
+//import "../../AllDropdowns/SearchDropdown/SearchDropdown.scss";
 
 
 const resetValue = {
@@ -135,7 +136,8 @@ const onChangeValue = (e) => {
   console.log(formData)
 
   return (
-    <div className='srchdrp'>
+    <>
+     <div className={`srchdrp ${error && "drpError"}`}>
 
 <Select
       style={{ width: 330, padding:0 }}
@@ -211,8 +213,12 @@ const onChangeValue = (e) => {
   /> */}
 
 
-  
+
     </div>
+        {error && (
+          <p className="error_text">{errorMsg}</p>
+        )}
+        </>
   )
 }
 

@@ -17,6 +17,8 @@ const resetValue = {
       resources:"",
     production_batch: "",
     production_hours: "",
+    type_of_bom:"",
+    bom_category:""
 }],
   "Initiallitemrow1": [
 
@@ -266,20 +268,6 @@ const getbomtype = itemtype
 
 
 
-// const getunitmeasure = () => {
-//   return fetch(`${config.baseUrl}/uom/`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setUnitOfM(data);
-//       // console.log(data);
-//     });
-// };
-// const unitofdata = reportingl4.map((rep) => ({
-//   key:rep.id,
-//   label: rep.account_name,
-//   value: rep.account_name,
-// }));
-
 //onchange
 const handleDrpChange= (field, value) => {
   const selectedType = gettypeitem.find((option) => option.value === value);
@@ -330,16 +318,26 @@ const handleDrpChange= (field, value) => {
 
 //bom
 
-const handleDrpBOMChange= (field, value) => {
-  const selectedResource = resourcesd.find((option) => option.value === value);
-  console.log(selectedResource)
+const handleDrpBOMChange = (field, value) => {
+  console.log("Selected value:", value);
+
+  const selectedOption = field === "resources"
+    ? resourcesd.find((option) => option.value === value)
+    : getbomtype.find((option) => option.value === value);
+  
+  console.log("Selected option:", selectedOption);
+
   setFormData((prevState) => {
     let newState = { ...prevState };
     
-    newState.Initiallitemrow = [      {        ...newState.Initiallitemrow[0],
-        resources: selectedResource ? selectedResource.key : "",
+    newState.Initiallitemrow = [
+      {
+        ...newState.Initiallitemrow[0],
+        [field]: selectedOption ? selectedOption.key : "",
       },
     ];
+
+    console.log("New state:", newState);
 
     return newState;
   });
@@ -913,8 +911,8 @@ const resetOther = () => {
                           options={resourcesd}
                           ref={resetRef}
                           popVisible={popVisible}
-                          onChange={(e) => {handlePopOver(index); handleDrpBOMChange(e)}}
-                          //onChange={handleDrpBOMChange}
+                          //onChange={(e) => { handleDrpBOMChange(e);handlePopOver(index);}}
+                          onChange={handleDrpBOMChange}
                         editBtnClick={()=>editBtnClick(index)}
                           width={250}
                           editBtn={true}
@@ -928,7 +926,13 @@ const resetOther = () => {
                       </li>
                     )}
                     <li className="type">
-                      <SearchDropdown width={138} options={getbomtype} />
+                      <SearchDropdown width={138} options={getbomtype} 
+                       name="type_of_bom"
+                       value={getbomtype.find(
+                         (option) => option.key === formData.Initiallitemrow[0].type_of_bom && option.label
+                       )?.label}
+                      onChange={handleDrpBOMChange}
+                      />
                     </li>
                     <li className="material">
                       <SearchDropdown width={250} options={itembomdata} />
