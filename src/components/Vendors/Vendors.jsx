@@ -239,17 +239,24 @@ const getArea = (pincode) => {
       .then((response) => response.json())
       .then((data) => {
         setArea(data);
-console.log(data)
-        // if(data[0].Status == "Success")
-        // {
-        setStatedrp(data[0].state_name);
-        setCity(data[0].district);
-      // }
-      // else
-      // {
-      //   setStatedrp("");
-      //   setCity("");
-      // }
+
+        if(data.status == "Success")
+        {
+       //   alert(data.status)
+        setStatedrp(data.data[0].state_name);
+
+        setCity(data.data[0].district);
+      }
+      if(data.status == "Pincode Not Available")
+      {
+    //   alert(data.status)
+        setStatedrp("");
+        setCity("");
+    }
+       
+    console.log(setStatedrp(data.data[0].state_name))
+    console.log(setCity(data.data[0].district))
+      
 });
   };
   console.log(area);

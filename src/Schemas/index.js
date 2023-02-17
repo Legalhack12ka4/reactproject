@@ -15,6 +15,8 @@ export const  addCustomerSchemas = Yup.object().shape({
     street1: Yup.string().required('Street 1 is required'),
     street2: Yup.string().required('Street 2 is required'),
     gsttreat: Yup.string().required('GST Treatment is required'),
+    currency: Yup.string().required('Currency is required'),
+    payment: Yup.string().required('Payment Terms is required'),
     category: Yup.string().required('GST Treatment is required'),
     pos: Yup.string().required('Place of Supply is required'),
     contact: Yup.string().required('Contact is required'),
@@ -25,7 +27,7 @@ export const  addCustomerSchemas = Yup.object().shape({
 export const  contactSchemas = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
-    mobile_no: Yup.string().required('Mobile No. is required'),
+    mobile: Yup.string().required('Mobile No. is required'),
     dob: Yup.string().required('Date of Birth is required'),
     position: Yup.string().required('Position is required'),
     ownership: Yup.string().required('Ownership is required'),
@@ -34,12 +36,12 @@ export const  contactSchemas = Yup.object().shape({
 
 
 export const chartOfAccountSchema = Yup.object().shape({
-    accounttype: Yup.string().required('Account Type is required'),
-    accountname: Yup.string().required('Account Name is required'),
-    accountcode: Yup.string().required('Account Code is required'),
-    moduletype: Yup.string().required('Module Type is required'),
-    itemtype: Yup.string().required('Item Type is required'),
-    reportingl1: Yup.string().required('Reporting Level 1 is required'),
-    reportingl2: Yup.string().required('Reporting Level 2 is required'),
-    reportingl3: Yup.string().required('Reporting Level 3 is required'),
+    account_type: Yup.string().required('Account Type is required'),
+    account_name: Yup.string().required('Account Name is required'),
+    reporting: Yup.string().required('Reporting is required'),
+    description: Yup.string().required('Description is required'),
+    // itemtype: Yup.string().required('Item Type is required'),
+    // reportingl1: Yup.string().required('Reporting Level 1 is required'),
+    // reportingl2: Yup.string().required('Reporting Level 2 is required'),
+    // reportingl3: Yup.string().required('Reporting Level 3 is required'),
 });

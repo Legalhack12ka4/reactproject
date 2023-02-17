@@ -1,4 +1,13 @@
-import { Button, Modal, Popover, Select, Space, Spin, Table, Typography } from "antd";
+import {
+  Button,
+  Modal,
+  Popover,
+  Select,
+  Space,
+  Spin,
+  Table,
+  Typography,
+} from "antd";
 import { React, useState, useRef, useEffect } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
@@ -14,12 +23,21 @@ import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import config from "../../Database/config";
+import { useFormik } from "formik";
 
 import axios from "axios";
+import { chartOfAccountSchema } from "../../../Schemas";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
 const resetValue = {
+  account_type: "",
+  account_code: "",
+  reporting: "",
+  account_name: "",
+  description: "",
+};
+const initialFieldValues = {
   account_type: "",
   account_code: "",
   reporting: "",
@@ -112,14 +130,34 @@ function Accounts() {
   //   setCofirm(false);
   // };
 
-  const handleSubmitModal = () =>
-    {
+  // validation
+
+  const {
+    errors,
+    values,
+    handleBlur,
+    touched,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormik({
+    initialValues: initialFieldValues,
+
+    validationSchema: chartOfAccountSchema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  console.log(errors);
+
+  const handleSubmitModal = () => {
     //  alert("Data", record)
-      deleteUser(deleteRecord);
-      getData();
-      setCofirm(false);
-      getData();
-    }
+    deleteUser(deleteRecord);
+    getData();
+    setCofirm(false);
+    getData();
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -151,6 +189,8 @@ function Accounts() {
 
   const handleDrpChange = (field, value) => {
     setFormData({ ...formData, account_type: value.value });
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
     console.log(field);
     console.log(value);
   };
@@ -167,6 +207,8 @@ function Accounts() {
       [field]: value,
       reporting: selectedOption.key, // Add the id to the state
     });
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
     console.log(field);
     console.log(value);
     console.log(selectedOption);
@@ -230,16 +272,16 @@ function Accounts() {
         `${config.baseUrl}/chartofaccount/`,
         {
           reporting: formData.reporting,
-          account_code: "0001",
+          account_code: accountValue,
           account_name: formData.account_name,
           description: formData.description,
           is_active: true,
           is_deleted: false,
-          status: 1,
-          type: 1,
-          modual_type: 1,
-          item_type: 1,
-          transaction_side: 1,
+          status: 12,
+          type: 12,
+          modual_type: 12,
+          item_type: 12,
+          transaction_side: 12,
           company_id: 1,
           created_by: 1,
           updated_by: 1,
@@ -248,7 +290,7 @@ function Accounts() {
       )
       .then((response) => {
         getData();
-        setFormData(resetValue)
+        setFormData(resetValue);
         // setFormData({
         //   reporting: "",
         //   account_code: "",
@@ -273,28 +315,25 @@ function Accounts() {
       });
   };
 
-//delete data
-const deleteUser = (record)=>
-{
-  console.log(record);
-  console.log(record.id);
-  axios
-  .delete(
-    `${config.baseUrl}/chartofaccount/${record.id}/`);
-       getData();
+  //delete data
+  const deleteUser = (record) => {
+    console.log(record);
+    console.log(record.id);
+    axios.delete(`${config.baseUrl}/chartofaccount/${record.id}/`);
+    getData();
     //   console.log(currency)
-}
+  };
 
-// const fetchData = async () => {
-//   try {
-//     const response = await axios.get(`${config.baseUrl}/chartofaccount/`);
-//     const accountData = response.data;
-//     setLastAccountId(accountData[accountData.length - 1].id);
-//     setFetchaccount(accountData.map((row) => ({ /* map to desired object format */ })));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(`${config.baseUrl}/chartofaccount/`);
+  //     const accountData = response.data;
+  //     setLastAccountId(accountData[accountData.length - 1].id);
+  //     setFetchaccount(accountData.map((row) => ({ /* map to desired object format */ })));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const getData = async () => {
     await axios.get(`${config.baseUrl}/chartofaccount/`).then((res) => {
@@ -312,17 +351,17 @@ const deleteUser = (record)=>
             (option) => option.key === row.reporting && option.label
           ).label,
 
-          // id: row.id
+          id: row.id,
         }))
       );
-      console.log(res);
+      // console.log(res);
     });
   };
   // console.log(reporting3.find((option) => option.key === 1 && option.label).value)
-  console.log(groups.map((option) => option.id === 1 && option.reporting_l3));
+  // console.log(groups.map((option) => option.id === 1 && option.reporting_l3));
   console.log(fetchaccount);
 
-  const accountValue = lastAccountId ? lastAccountId + 1 : '';
+  const accountValue = lastAccountId ? lastAccountId + 1 : "";
 
   const dataSource = fetchaccount.map((customer) => ({
     key: customer.Key,
@@ -558,41 +597,42 @@ const deleteUser = (record)=>
           open={isModalOpen}
           onOk={handleConfirmDataClose}
           width={740}
-          bodyStyle={{ height: 345 }}
+          // bodyStyle={{ height: 370 }}
           onCancel={onCancel}
           style={{ top: 20 }}
           className={"footerconfirm"}
-          footer={[
-            <Button
-              key="submit"
-              type="primary"
-              //  onClick={handleSubmit}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#5C5AD0",
-                fontSize: "14px",
-                fontWeight: "400",
-              }}
-              onClick={() => handleFormSubmit()}
-            >
-              Submit
-            </Button>,
-            <Button
-              key="cancel"
-              onClick={onCancel}
-              // {formData && Object.values(formData).some(val => val !== "") && ()}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                color: "#8E9CAA",
-                border: ".5px solid #C2CAD2",
-              }}
-            >
-              Cancel
-            </Button>,
-          ]}
+          footer=""
+          //</div>footer={[
+          // <Button
+          //   key="submit"
+          //   type="primary"
+          //   //  onClick={handleSubmit}
+          //   style={{
+          //     width: "88px",
+          //     height: "38px",
+          //     backgroundColor: "#5C5AD0",
+          //     fontSize: "14px",
+          //     fontWeight: "400",
+          //   }}
+          //   onClick={() => handleFormSubmit()}
+          // >
+          //   Submit
+          // </Button>,
+          // <Button
+          //   key="cancel"
+          //   onClick={onCancel}
+          //   // {formData && Object.values(formData).some(val => val !== "") && ()}
+          //   style={{
+          //     width: "86px",
+          //     height: "38px",
+          //     fontSize: "14px",
+          //     color: "#8E9CAA",
+          //     border: ".5px solid #C2CAD2",
+          //   }}
+          // >
+          //   Cancel
+          // </Button>,
+          //  ]}
           closeIcon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -610,14 +650,15 @@ const deleteUser = (record)=>
             </svg>
           }
         >
-          <div style={{ padding: "0px 30px 0px 30px" }}>
+          <div style={{ padding: "0px 30px 0px 30px", paddingBottom: "30px" }}>
             <p className="subtitle">
               Create New Chart of Account according to your Need
             </p>
             <hr style={{ marginTop: "20px" }} />
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <div style={{ marginTop: "20px", display: "grid", gridTemplateColumns:"repeat(2,1fr)" ,gap: "20px" }}>
 
-            <div style={{ marginTop: "20px", display: "flex", gap: "20px" }}>
-              <div>
+               <div>
                 <p
                   style={{
                     fontSize: "14px",
@@ -627,38 +668,75 @@ const deleteUser = (record)=>
                 >
                   Account Type
                 </p>
-    
-                <Select
-                  name="account_type"
-                  value={formData.account_type || undefined}
-                  onChange={handleDrpChange}
-                  showSearch
+                <div className={`srchdrp ${errors.account_type && "drpError"}`}>
+                  {/* <div className={`${
+                    errors.account_type && touched.account_type && "inputError"
+                  } srchdrp`} > */}
+                  <Select
+                    name="account_type"
+                    value={formData.account_type || undefined}
+                    onChange={handleDrpChange}
+                    // error={errors.account_type && touched.account_type ? true : false}
+                    // errorMsg="Reporting is required"
+                    showSearch
+                    style={{
+                      width: "330px",
+                     // marginTop: "7px",
+                      borderRadius: "6px !important",
+                    }}
+                    onFocus={() =>
+                      setFormData((value) => ({
+                        ...value,
+                        account_type: "",
+                        reporting: "",
+                      }))
+                    }
+                    placeholder="Select Value"
+                    size={"large"}
+                    suffixIcon={suffixIcon}
+                    onDropdownVisibleChange={(o) => setOpen(o)}
+                  >
+                    {loading ? (
+                      <div>
+                        <p>Loading...</p>
+                      </div>
+                    ) : (
+                      options
+                    )}
+                  </Select>
+                </div>
+                {errors.account_type && touched.account_type && (
+                  <p className="error_text">{errors.account_type}</p>
+                )}
+                </div>
+                 <div>
+                <p
                   style={{
-                    width: "330px",
-                    marginTop: "7px",
-                    borderRadius: "6px !important",
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
                   }}
-                  onFocus={() =>
-                    setFormData((value) => ({
-                      ...value,
-                      account_type: "",
-                      reporting: "",
-                    }))
-                  }
-                  placeholder="Select Value"
-                  size={"large"}
-                  suffixIcon={suffixIcon}
-                  onDropdownVisibleChange={(o) => setOpen(o)}
                 >
-                  {loading ? (
-    <div>
-      <p>Loading...</p>
-    </div>
-  ) : (
-    options
-  )}
-                </Select>
+                  Account Code
+                </p>
+                <input
+                  disabled
+                  className="accountcode"
+                  type="text"
+                  placeholder="0009"
+                  name="account_code"
+                  value={accountValue}
+                />
+                {/* <input
+                  disabled
+                  className="accountcode"
+                  type="text"
+                  placeholder="0009"
+                  name="terms"
+                /> */}
 
+              </div>
+                <div>
                 <p
                   style={{
                     marginTop: "18px",
@@ -675,6 +753,8 @@ const deleteUser = (record)=>
                   values={formData.reporting || undefined}
                   onChange={handleDrpChangel3}
                   options={formData.account_type && reporting3}
+                  error={errors.reporting && touched.reporting ? true : false}
+                  errorMsg="Reporting is required"
                   // options={
                   //   formData.account_type && reporting3.length > 0 ? (
                   //     reporting3
@@ -683,33 +763,9 @@ const deleteUser = (record)=>
                   //   )
                   // }
                 />
-              </div>
-
+                </div>
+               
               <div>
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#566A7F",
-                    fontWeight: "400",
-                  }}
-                >
-                  Account Code
-                </p>
-                <input
-  disabled
-  className="accountcode"
-  type="text"
-  placeholder="0009"
-  name="terms"
-  value={accountValue}
-/>
-                {/* <input
-                  disabled
-                  className="accountcode"
-                  type="text"
-                  placeholder="0009"
-                  name="terms"
-                /> */}
                 <p
                   style={{
                     marginTop: "18px",
@@ -720,40 +776,123 @@ const deleteUser = (record)=>
                 >
                   Account Name
                 </p>
-                <input
-                  className="parmentaccount"
-                  type="text"
-                  // placeholder="Something about account"
-                  name="account_name"
-                  value={formData.account_name}
-                  onChange={onChange}
-                />
+                <div
+                  className={`${
+                    errors.account_name && touched.account_name && "inputError"
+                  } parmentaccount`}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <input
+                    // className="parmentaccount"
+                    type="text"
+                    // placeholder="Something about account"
+                    name="account_name"
+                    value={formData.account_name}
+                    onChange={(e) => {
+                      handleChange(e);
+                      onChange(e);
+                    }}
+                    onBlur={handleBlur}
+                  />
+                  {errors.account_name && touched.account_name && (
+                    <div className="error_icon">
+                      <img
+                        src="/images/icons/exclamation_icon.svg"
+                        alt="error"
+                      />
+                    </div>
+                  )}
+                </div>
+                {errors.account_name && touched.account_name && (
+                  <p className="error_text">{errors.account_name}</p>
+                )}
               </div>
-            </div>
-            <div>
-              <p
-                style={{
-                  marginTop: "18px",
-                  fontSize: "14px",
-                  color: "#566A7F",
-                  fontWeight: "400",
-                }}
+
+              </div>
+
+              <div>
+                <p
+                  style={{
+                    marginTop: "18px",
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                  Description
+                </p>
+                <div
+                  className={`${
+                    errors.description && touched.description && "inputError"
+                  } description`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "668.4px",
+                    height: "68.4px",
+                    outline: "none",
+                    resize: "none",
+                  }}
+                >
+                  <textarea
+                    resizable={false}
+                    // className="description"
+                    style={{
+                      width: "668.4px",
+                      height: "68.4px",
+                      outline: "none",
+                      border: "none",
+                      resize: "none",
+                    }}
+                    type="text"
+                    placeholder="Something about account"
+                    name="description"
+                    value={formData.description}
+                    onChange={(e) => {
+                      handleChange(e);
+                      onChange(e);
+                    }}
+                  />
+                  {errors.description && touched.description && (
+                    <div className="error_icon">
+                      <img
+                        src="/images/icons/exclamation_icon.svg"
+                        alt="error"
+                      />
+                    </div>
+                  )}
+                </div>
+                {errors.description && touched.description && (
+                  <p className="error_text">{errors.description}</p>
+                )}
+              </div>
+              <div
+                className="contactbutton_bottom"
+                style={{ marginTop: "24px" }}
               >
-                Description
-              </p>
-              <textarea
-                resizable={false}
-                className="description"
-                style={{ width: "668.4px", height: "68.4px", outline: "none" }}
-                type="text"
-                placeholder="Something about account"
-                name="description"
-                value={formData.description}
-                onChange={onChange}
-              />
-            </div>
+                <button
+                  type="submit"
+                  className="contactsavebutton"
+                  onClick={() => {
+                    handleFormSubmit();
+                  }}
+                >
+                  {formData.id ? "Update" : "Submit"}
+                </button>
+                {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
+                <button
+                  type="button"
+                  className="contactcancelbutton"
+                  //onClick={handleclose}
+                  onClick={onCancel}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </Modal>
+
         {/* <OffCanvasExample  form={<AccountForm/>}/> */}
         <Table
           ref={componentRef}
