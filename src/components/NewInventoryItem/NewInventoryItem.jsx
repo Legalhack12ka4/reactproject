@@ -81,7 +81,7 @@ const NewInventoryItem = () => {
             <p>Without an Item group you can't create an Item.</p>
         </div>
 
-        <div className="item_form_container">
+        <div className="item_form_container" style={{overflow:"scroll"}}>
             
             <div className="input_box_container">
 

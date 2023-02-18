@@ -16,7 +16,7 @@ function PageNotFound() {
   return (
     <div className='not-found'>
      
-   <div style={{display:"flex", gap:"150px", padding:"170px 190px"}}>
+   <div style={{display:"flex", gap:"150px"}}>
     <div>
       <p className='error'>404 Error</p>
       <div style={{display:"flex", gap:"39px", marginTop:"34px"}}>

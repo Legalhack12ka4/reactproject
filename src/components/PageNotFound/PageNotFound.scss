@@ -1,6 +1,6 @@
 .not-found
 {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     z-index: 2;
+    padding:0px 40px;
 }
 
 .error

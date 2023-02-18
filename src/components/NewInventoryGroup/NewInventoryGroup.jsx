@@ -538,7 +538,7 @@ const resetOther = () => {
             <p>Without an Item group you can't create an Item.</p>
         </div>
 
-        <div className="group_form_container">
+        <div className="group_form_container" style={{overflow:"scroll"}}>
 
             <div className="top_input_container">
 

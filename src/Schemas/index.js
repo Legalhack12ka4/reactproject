@@ -27,7 +27,7 @@ export const  addCustomerSchemas = Yup.object().shape({
 export const  contactSchemas = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
-    mobile: Yup.string().required('Mobile No. is required'),
+    mobile: Yup.string().matches(/(1|2|3|4|5|6|7|8|9)\d{9}$/, 'Invalid, Please enter 10 digit').required('Mobile No. is required'),
     dob: Yup.string().required('Date of Birth is required'),
     position: Yup.string().required('Position is required'),
     ownership: Yup.string().required('Ownership is required'),

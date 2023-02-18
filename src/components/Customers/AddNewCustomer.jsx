@@ -761,7 +761,7 @@ ChildStateModificationFunc = (modVal)=>{
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form_first_container">
               
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 1}}>
+              <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">GST Treatment</label>{" "}
@@ -781,7 +781,7 @@ ChildStateModificationFunc = (modVal)=>{
                   </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 1}}>
+              <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -820,7 +820,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 1}}>
+              <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -859,7 +859,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+              <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Type Category</label>
                 </Tooltip>
@@ -875,7 +875,7 @@ ChildStateModificationFunc = (modVal)=>{
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 1}}>
+              <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label" style={{ marginTop: "5px" }}>
                     Pancard
@@ -912,7 +912,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
                   <div style={{ width: "50%" }}>
                     <Tooltip title="prompt text" color="#5C5AD0">
@@ -952,7 +952,7 @@ ChildStateModificationFunc = (modVal)=>{
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 2}}>
+              <div className="form_field field7" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -996,7 +996,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+              <div className="form_field field8" style={{ gridRowStart: 2, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1034,7 +1034,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+              <div className="form_field field9" style={{ gridRowStart: 3, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1074,7 +1074,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 2}}>
+              <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1111,7 +1111,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 2}}>
+              <div className="form_field field11" style={{ gridRowStart: 5, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1148,7 +1148,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 2}}>
+              <div className="form_field field12" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1171,7 +1171,7 @@ ChildStateModificationFunc = (modVal)=>{
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 3}}>
+              <div className="form_field field13" style={{ gridRowStart: 1, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1193,7 +1193,7 @@ ChildStateModificationFunc = (modVal)=>{
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 3}}>
+              <div className="form_field field14" style={{ gridRowStart: 2, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
@@ -1209,7 +1209,7 @@ ChildStateModificationFunc = (modVal)=>{
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              <div className="form_field field15" style={{ gridRowStart: 3, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Contacts</label>
@@ -1227,7 +1227,7 @@ ChildStateModificationFunc = (modVal)=>{
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 3}}>
+              <div className="form_field field16" style={{ gridRowStart: 4, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Ownership</label>

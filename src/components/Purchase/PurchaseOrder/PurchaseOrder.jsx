@@ -380,7 +380,7 @@ function PurchaseOrder() {
 
 {/* //second panel */}
 
-        <div>
+<div className='save_as_draft_container'>
         {isShown && (
   <div className='customerinfo'>
     <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>

@@ -56,7 +56,6 @@ const SearchDropdown =  forwardRef(({ onChange, options, name, value, error,erro
 
  useImperativeHandle (ref, () => ({
   getAlert () {
-    console.log("hoja bhai")
     props.popVisible();
     handleReset();
   }

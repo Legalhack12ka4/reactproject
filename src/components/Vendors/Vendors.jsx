@@ -796,7 +796,7 @@ const {
       <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form_first_container">
               
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 1}}>
+              <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">GST Treatment</label>{" "}
@@ -806,9 +806,9 @@ const {
                 <SearchDropdown
                   width={331}
                   options={gsttreatment}
-                   onChange={handleDrpChange}
+                  onChange={handleDrpChange}
                   name="gsttreat"
-                  value={values.gsttreat}
+                  value={formData.gsttreat}
                   error={errors.gsttreat && touched.gsttreat ? true : false}
                   errorMsg="GST Treatment is required"
                   />
@@ -816,7 +816,7 @@ const {
                   </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 1}}>
+              <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -836,8 +836,8 @@ const {
                     placeholder="Placeholder"
                     name="gstin"
                     maxLength={15}
-                    value={values.gstin}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    value={formData.gstin}
+                    onChange={(e)=>{handleChange(e); onChange(e)}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -855,7 +855,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 1}}>
+              <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -876,7 +876,7 @@ const {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="businessname"
-                    value={values.businessname}
+                    value={formData.businessname}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                   />
@@ -894,7 +894,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+              <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Type Category</label>
                 </Tooltip>
@@ -902,7 +902,7 @@ const {
                 <SearchDropdown
                   options={typeCategory}
                   width={330}
-                  value={values.category}
+                  value={formData.category}
                   onChange={handleDrpChange}
                   name="category"
                   error={errors.category && touched.category ? true : false}
@@ -910,7 +910,7 @@ const {
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 1}}>
+              <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label" style={{ marginTop: "5px" }}>
                     Pancard
@@ -928,7 +928,7 @@ const {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pancard"
-                    value={values.pancard}
+                    value={formData.pancard}
                     maxLength={10}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
@@ -947,7 +947,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
                   <div style={{ width: "50%" }}>
                     <Tooltip title="prompt text" color="#5C5AD0">
@@ -960,14 +960,11 @@ const {
                     <SearchDropdown
                       width={155}
                       options={currency}
-                      value={values.currency}
+                      value={formData.currency}
                       onChange={handleDrpChange}
                       name="currency"
                       error={errors.currency && touched.currency ? true : false}
                       errorMsg="Currency is required"
-
-                      
-
                     />
                   </div>
                   <div style={{ width: "50%" }}>
@@ -979,7 +976,7 @@ const {
                     <SearchDropdown
                       width={155}
                       options={paymentterms}
-                      value={values.payment}
+                      value={formData.payment}
                       onChange={handleDrpChange}
                       name="payment"
                       error={errors.payment && touched.payment ? true : false}
@@ -990,7 +987,7 @@ const {
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 2}}>
+              <div className="form_field field7" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1010,7 +1007,7 @@ const {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     // placeholder="Placeholder"
                     name="credit"
-                    value={values.credit}
+                    value={formData.credit}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
                     onFocus={ handleCreditFocus}
@@ -1033,7 +1030,8 @@ const {
                     <p className="error_text">{errors.credit}</p>
                   )}
               </div>
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+
+              <div className="form_field field8" style={{ gridRowStart: 2, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1052,7 +1050,7 @@ const {
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="email"
-                    value={values.email}
+                    value={formData.email}
                     onChange={(e)=>{handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                     autoComplete="off"
@@ -1071,7 +1069,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+              <div className="form_field field9" style={{ gridRowStart: 3, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1086,13 +1084,13 @@ const {
                 >
                   <img src={pin} className="customerimg" />
                   <input
-                     type="number"
-                     ref={inputRef}
-                     onKeyPress={handleKeyPress}
+                   type="number"
+                   //ref={inputRef}
+                 //onKeyPress={handleKeyPress}
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="pincode"
-                    value={values.pincode}
+                    value={formData.pincode}
                     onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
                     onBlur={(e)=>{handleBlur(e);}}
                     autoComplete="off"
@@ -1111,7 +1109,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 2}}>
+              <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1148,7 +1146,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 5, gridColumnStart: 2}}>
+              <div className="form_field field11" style={{ gridRowStart: 5, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1185,7 +1183,7 @@ const {
                   )}
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 6, gridColumnStart: 2}}>
+              <div className="form_field field12" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1208,7 +1206,7 @@ const {
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 1, gridColumnStart: 3}}>
+              <div className="form_field field13" style={{ gridRowStart: 1, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1230,7 +1228,7 @@ const {
                 </div>
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 2, gridColumnStart: 3}}>
+              <div className="form_field field14" style={{ gridRowStart: 2, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
@@ -1246,7 +1244,7 @@ const {
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              <div className="form_field field15" style={{ gridRowStart: 3, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Contacts</label>
@@ -1264,7 +1262,7 @@ const {
                 />
               </div>
 
-              <div className="form_field" style={{ gridRowStart: 4, gridColumnStart: 3}}>
+              <div className="form_field field16" style={{ gridRowStart: 4, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Ownership</label>
@@ -1283,12 +1281,13 @@ const {
                 />
               </div>
             </div>
+
+            
             <div className="customerbutton_bottom">
-                  {/* <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/> */}
-                  <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
-                  {/* <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+         {/* <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
                 </button>  */}
+                <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
                   <button type="button" className="customercancelbutton"  onClick={handleConfirmData}>
                     Cancel
                   </button>
