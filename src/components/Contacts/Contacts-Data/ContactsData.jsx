@@ -52,6 +52,7 @@ const ContactsData = (props) => {
   const [changeStatus, setChangeStatus] = useState(false);
   const [changePosition, setChangePosition] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
+  const [addSouce, setAddSource] = useState([]);
 
 
  
@@ -103,6 +104,30 @@ const ContactsData = (props) => {
   }, []);
   // console.log(selectedRows)
 
+  //get data positon
+
+const othersource =addSouce.map((place)=>({
+  label: place.position_name,
+  value: place.position_name,
+}))
+
+useEffect (()=>
+{
+  getSource();
+}, [])
+
+const getSource = () => {
+  return fetch(`${config.baseUrl}/position/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAddSource(data);
+      console.log(data);
+    });
+};
+
+console.log(addSouce)
+//
+
   const getData = async () => {
     await axios.get(`${config.baseUrl}/contact/`).then((res) => {
       
@@ -113,6 +138,9 @@ const ContactsData = (props) => {
           Mobile: row.mobile,
           Email: row.email,
           DOB: row.dob,
+          // Position:othersource.find(
+          //   (option) => option.key === row.reporting && option.label
+          // ).label,
           Position:
             row.position == 1
               ? "Owner"

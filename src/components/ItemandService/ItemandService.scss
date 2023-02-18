@@ -40,7 +40,7 @@
         .item{
             border: .5px solid #C2CAD2;
             width: 252px;
-            height: 74px;
+           // height: 74px;
             border-radius: 6px;
             display: flex;
             position: relative;
@@ -75,7 +75,7 @@
                 // margin-right: 10px;
             }
             .item_text{
-                padding: 12px 0px 10px 0px;
+                padding: 12px 1px 10px 0px;
                 line-height: 15px;
                 h1{
                     font-size: 14px;

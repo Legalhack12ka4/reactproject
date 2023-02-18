@@ -77,7 +77,7 @@
      padding: 20px;
      box-shadow:  0px 2px 6px 0px #4359711f;
      background-color: #ffff;
-     width: 1030px;
+   //  width: 1030px;
      border-radius: 8px;
     //  border: 1px solid;
 }
@@ -435,7 +435,107 @@ margin-left: -9px;
     }
 
 
+    // @media (max-width: 900px) {
+    //     .form_first_container {
+    //         display: grid;
+    //         gap: 20px;
+    //         grid-template-columns: repeat(2, 1fr);
+    //     }
+    //     .customerform {
+    //         overflow: scroll;
+    //         padding: 20px;
+    //         box-shadow: 0px 2px 6px 0px #4359711f;
+    //         background-color: #ffff;
+    //         /* width: 1030px; */
+    //         border-radius: 8px;
+    //     }
+    //   }
 
-
-
+    @media (max-width: 900px) {
+        .customerform{ max-width: 700px !important; min-width: 700px !important;}
+        .form_first_container {
+            max-width: 722px !important;
+        .field1
+        {
+            grid-row-start: 1 !important;
+            grid-column-start: 1 !important;
+        }
+        .field2
+        {
+            grid-row-start: 2 !important;
+            grid-column-start: 1 !important;
+        }
+        .field3
+        {
+            grid-row-start: 3 !important;
+            grid-column-start: 1 !important;
+        }
+        .field4
+        {
+            grid-row-start: 4 !important;
+    grid-column-start: 1 !important;
+        }
+        .field5
+        {
+            grid-row-start: 5 !important;
+    grid-column-start: 1 !important;
+        }
+        .field6
+        {
+            grid-row-start: 6 !important;
+            grid-column-start: 1 !important;
+        }
+        .field7
+        {
+            grid-row-start: 7 !important;
+    grid-column-start: 1 !important;
+        }
+        .field8
+        {
+            grid-row-start: 8 !important;
+    grid-column-start: 1 !important;
+        }
+        .field9
+        {
+            grid-row-start: 1 !important;
+            grid-column-start: 2 !important;
+        }
+        .field10
+        {
+            grid-row-start: 2 !important;
+    grid-column-start: 2 !important;
+        }
+        .field11
+        {
+            grid-row-start: 3 !important;
+    grid-column-start: 2 !important;
+        }
+        .field12
+        {
+            grid-row-start: 4 !important;
+    grid-column-start: 2 !important;
+        }
+        .field13
+        {
+            grid-row-start: 5 !important;
+    grid-column-start: 2 !important;
+        }
+        .field14
+        {
+            grid-row-start: 6 !important;
+    grid-column-start: 2 !important;
+        }
+        .field15
+        {
+            grid-row-start: 7 !important;
+    grid-column-start: 2 !important;
+        }
+        .field16
+        {
+            grid-row-start: 8 !important;
+            grid-column-start: 2 !important; 
+        }
+  }
+  
+ }
  

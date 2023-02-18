@@ -415,3 +415,16 @@ color: #FFFFFF;
       margin-bottom: 0px;
     }
 }
+
+@media (max-width: 900px) {
+  .newestimate-container{
+    display: block !important;
+  }
+  .save_as_draft_container{
+    margin-top: 30px;
+    max-width: 300px;
+    display:flex;
+    gap:20px;
+  }
+  
+}

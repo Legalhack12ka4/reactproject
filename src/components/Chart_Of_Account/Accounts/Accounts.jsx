@@ -148,9 +148,11 @@ function Accounts() {
     onSubmit: (values) => {
       console.log(values);
     },
+
   });
   console.log(errors);
-
+  console.log(values)
+console.log(chartOfAccountSchema)
   const handleSubmitModal = () => {
     //  alert("Data", record)
     deleteUser(deleteRecord);
@@ -189,8 +191,8 @@ function Accounts() {
 
   const handleDrpChange = (field, value) => {
     setFormData({ ...formData, account_type: value.value });
-    setFieldValue(field, value);
-    setFieldTouched(field, false);
+    setFieldValue("account_type", value.value);
+    setFieldTouched("account_type", false);
     console.log(field);
     console.log(value);
   };
@@ -426,7 +428,7 @@ function Accounts() {
       dataIndex: "reporting",
       key: "reporting",
       resizable: true,
-      fixed: "left",
+     // fixed: "left",
       align: "left",
       width: "auto",
       showSorterTooltip: { title: "" },
@@ -668,10 +670,12 @@ function Accounts() {
                 >
                   Account Type
                 </p>
-                <div className={`srchdrp ${errors.account_type && "drpError"}`}>
+                {/* <SearchDropdown width={330} options={options/> */}
+                <div className={`srchdrp ${errors.account_type  && touched.account_type && "drpError"}`}>
                   {/* <div className={`${
                     errors.account_type && touched.account_type && "inputError"
                   } srchdrp`} > */}
+                
                   <Select
                     name="account_type"
                     value={formData.account_type || undefined}
@@ -739,7 +743,7 @@ function Accounts() {
                 <div>
                 <p
                   style={{
-                    marginTop: "18px",
+                  //  marginTop: "18px",
                     fontSize: "14px",
                     color: "#566A7F",
                     fontWeight: "400",
@@ -768,7 +772,7 @@ function Accounts() {
               <div>
                 <p
                   style={{
-                    marginTop: "18px",
+                  //  marginTop: "18px",
                     fontSize: "14px",
                     color: "#566A7F",
                     fontWeight: "400",
@@ -899,6 +903,7 @@ function Accounts() {
           rowSelection={{
             type: "checkbox",
             columnTitle: "",
+            columnWidth: "40px",
             selectedRowKeys,
             onChange: (selectedRowKeys, selectedRows) => {
               setSelectedRowKeys(selectedRowKeys);
@@ -908,7 +913,7 @@ function Accounts() {
           dataSource={filteredData}
           columns={columns}
           // scroll={{ y: 800, x: 720 }}
-          scroll={{ x: "1100px" }}
+          scroll={{ x: "800px" }}
           //    style={{ width: "100%" }}
           //  loading={true}
           pagination={

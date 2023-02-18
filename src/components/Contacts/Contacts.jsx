@@ -41,6 +41,7 @@ function Contacts(props) {
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
  // const [fetchcontact, setFetchcontact] = useState([]);
   //const [fetchcontact, setFetchcontact] = useState([]);
+  const [addSouce, setAddSource] = useState([]);
   const [loading, setloading] = useState(true);
   // useEffect(() => {
   //   getData();
@@ -195,9 +196,37 @@ const handleCancel = () => {
       });
     }
   }
+
+   //get data positon
+
+const othersource =addSouce.map((place)=>({
+  key:place.id,
+  label: place.position_name,
+  value: place.position_name,
+}))
+
+useEffect (()=>
+{
+  getSource();
+}, [])
+
+const getSource = () => {
+  return fetch(`${config.baseUrl}/position/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAddSource(data);
+      console.log(data);
+    });
+};
+
+
+console.log(addSouce)
   
   const handleDrpChange = (field, value) => {
-     setFormData({ ...formData, [field]: value });
+    const selectedOption = othersource.find((option) => option.value === value);
+    console.log(selectedOption) 
+    setFormData({ ...formData, [field]: value,
+    position:selectedOption.key });
     setFieldValue(field, value);
     setFieldTouched(field, false);
     console.log(field)
@@ -632,7 +661,10 @@ const ownershipwithemail = [
               <br />
                 <SearchDropdownAddButtonContact  width={331}
                   name="position" 
-                  value={formData.position}
+                  value={othersource.find(
+                    (option) => option.key === formData.position && option.label
+                  )?.label}
+                 // value={formData.position}
                 onChange={handleDrpChange}
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"/>
@@ -657,8 +689,9 @@ const ownershipwithemail = [
               <SearchDropdown width={331} options={ownershipwithemail}  name="ownership"
                   onChange={handleDrpChange}
                   value={formData.ownership}
-                  error={errors.ownership && touched.ownership ? true : false}
-                  errorMsg="Ownership is required"/>
+              //    error={errors.ownership && touched.ownership ? true : false}
+               //   errorMsg="Ownership is required"
+               />
               </div>
               
 
