@@ -125,7 +125,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
 
   const handleSidebarClick = (e) => {
     if (e.target.id === 'sidebar_main') {
-      document.getElementById("sidebar_main").classList.toggle("hideSidebar");
+      isSmallScreen && document.getElementById("sidebar_main").classList.toggle("hideSidebar");
     }
   };
 
@@ -172,7 +172,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                 {/* Nrrmal Btn */}
 
                 {item.type == "btn" && (
-                  <NavLink to={item.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
+                  <NavLink to={item.path} onClick={()=>{isSmallScreen && document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                     <div className="btn normal" onClick={resetDrp}>
                       <div className="btn_container plain" id={item.id}>
                         <div className="btn_icon">
@@ -224,7 +224,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                       {item.childrens.map((btn, index, row) => {
                         // console.log(btn,index,row.length)
                         return (
-                          <NavLink to={btn.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
+                          <NavLink to={btn.path} onClick={()=>{isSmallScreen && document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                             <span
                               className={`v-line ${
                                 index === 0 && "first-v-line"
@@ -278,7 +278,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                       return (
                         <>
                           {btn.path && (
-                            <NavLink to={btn.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
+                            <NavLink to={btn.path} onClick={()=>{isSmallScreen && document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                               <div className="btn dropdown_margin bullet_item"
                                 onClick={()=> dropdownBtnActive(item.id)}>
                                 <div className="btn_container">
@@ -324,7 +324,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                             {btn.childrens &&
                               btn.childrens.map((btn2) => {
                                 return (
-                                  <NavLink to={btn2.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
+                                  <NavLink to={btn2.path} onClick={()=>{isSmallScreen && document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                                     <div className="btn dropdown_margin bullet_item" >
                                       <div className="btn_container" onClick={()=> subDropdownBtnActive(item.id)}>
                                         <div className="bullet_box">
