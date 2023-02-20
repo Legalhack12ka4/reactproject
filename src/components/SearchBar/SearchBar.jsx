@@ -78,8 +78,8 @@ document.addEventListener("keydown", e =>{
     {
       !searchTriggered &&(
         <div className="search_bar">
-          <div className="ham_burger">
-          <img src="images/searchbar_icons/ham_burger_icon.svg" alt="hamBurger" />
+          <div className="ham_burger" onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
+          <img src="/images/searchbar_icons/ham_burger_icon.svg" alt="hamBurger" />
         </div>
       <div className="search_logo" onClick={handleSearch}>
         

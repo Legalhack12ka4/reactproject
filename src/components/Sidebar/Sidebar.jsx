@@ -16,6 +16,21 @@ const Sidebar = () => {
   const [subDropdown, setSubDropdown] = useState(false);
   const [subActive, setSubActive] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  console.log("isSmallScreen", isSmallScreen);
   
 
 
@@ -69,7 +84,6 @@ myDiv.current.removeEventListener('scroll', handleScroll);
 
   }
 
-  console.log("sidebarmini", isMinimized);
 
   function dropdown_open(id){
     setSubDropdown(false)
@@ -109,12 +123,18 @@ myDiv.current.removeEventListener('scroll', handleScroll);
     setOpenId("")
   }
 
+  const handleSidebarClick = (e) => {
+    if (e.target.id === 'sidebar_main') {
+      document.getElementById("sidebar_main").classList.toggle("hideSidebar");
+    }
+  };
+
   
 
   return (
-    <>
+    <div id="sidebar_main" onClick={handleSidebarClick} className={`${isSmallScreen && "hideSidebar" } sidebar_main_container_app`}>
       <div
-        className="sidebar"
+        className={` ${isSmallScreen && "sidebarSaprate"} sidebar`}
         id="sidebar"
         onMouseLeave={leaveMouse}
         onMouseEnter={enterMouse}
@@ -126,9 +146,11 @@ myDiv.current.removeEventListener('scroll', handleScroll);
               src="/images/sidebar_icons/logo_main.svg"
               alt="sidebar_logo"
             />}
-            <div className="collapse_btn" onClick={handleClick}>
+            {isSmallScreen ? <div className="collapse_btn" onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
               <img src="/images/sidebar_icons/icon.svg" alt="arrow" />
-            </div>
+            </div> :<div className="collapse_btn" onClick={handleClick}>
+              <img src="/images/sidebar_icons/icon.svg" alt="arrow" />
+            </div>}
           </div>
           <div className={`${scrollTop && 'not-at-top'} menu-innner-shadow `}></div>
 
@@ -150,7 +172,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                 {/* Nrrmal Btn */}
 
                 {item.type == "btn" && (
-                  <NavLink to={item.path}>
+                  <NavLink to={item.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                     <div className="btn normal" onClick={resetDrp}>
                       <div className="btn_container plain" id={item.id}>
                         <div className="btn_icon">
@@ -202,7 +224,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                       {item.childrens.map((btn, index, row) => {
                         // console.log(btn,index,row.length)
                         return (
-                          <NavLink to={btn.path}>
+                          <NavLink to={btn.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                             <span
                               className={`v-line ${
                                 index === 0 && "first-v-line"
@@ -256,7 +278,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                       return (
                         <>
                           {btn.path && (
-                            <NavLink to={btn.path}>
+                            <NavLink to={btn.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                               <div className="btn dropdown_margin bullet_item"
                                 onClick={()=> dropdownBtnActive(item.id)}>
                                 <div className="btn_container">
@@ -302,7 +324,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                             {btn.childrens &&
                               btn.childrens.map((btn2) => {
                                 return (
-                                  <NavLink to={btn2.path}>
+                                  <NavLink to={btn2.path} onClick={()=>{document.getElementById("sidebar_main").classList.toggle("hideSidebar")}}>
                                     <div className="btn dropdown_margin bullet_item" >
                                       <div className="btn_container" onClick={()=> subDropdownBtnActive(item.id)}>
                                         <div className="bullet_box">
@@ -328,7 +350,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

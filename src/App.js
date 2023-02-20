@@ -42,7 +42,7 @@ function App() {
 
           
           <div className='main'>
-          <div className='sidebar_main_container_app'><Sidebar/></div>
+          <Sidebar/>
           
           <div className='rightScreen'>
           <SearchBar />
