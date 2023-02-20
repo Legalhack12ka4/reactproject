@@ -247,12 +247,12 @@ function NewEstimate() {
 
 {/* //table */}
 
-            <div className='eslist' style={{padding:"0px 30px"}}>
-              <div >  <p className='eslistlabel'>Item Details</p></div>
-              <div style={{marginLeft:"283px"}}>  <p className='eslistlabel'>Qty</p></div>
-              <div  style={{marginLeft:"96px"}}>  <p className='eslistlabel'>Rate</p></div>
-              <div  style={{marginLeft:"20px"}}>  <p className='eslistlabel'>Tax</p></div>
-              <div  style={{marginLeft:"155px"}}>  <p className='eslistlabel'>Amount</p></div>
+            <div className='eslist' style={{padding:"0px 30px", gap:"20px"}}>
+              <div style={{width:"250px"}} >  <p className='eslistlabel'>Item Details</p></div>
+              <div style={{width:"100px", textAlign:"right"}}>  <p className='eslistlabel'>Qty</p></div>
+              <div  style={{width:"100px", textAlign:"right"}}>  <p className='eslistlabel'>Rate</p></div>
+              <div  style={{width:"138px"}}>  <p className='eslistlabel'>Tax</p></div>
+              <div  style={{width:"41.5px", paddingLeft:"20px"}}>  <p className='eslistlabel'>Amount</p></div>
             </div>
 
             <div style={{display:"flex", alignItems:"center", marginTop:"20px", gap:"20px", padding:"0px 20px 0px 30px"}}>

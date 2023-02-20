@@ -12,6 +12,7 @@
         border-radius: 8px;
         .container1estimate
         {
+          max-width: 810px;
            // padding: 20px;
             background-color: #ffff;
             border-radius: 8px;
@@ -229,6 +230,7 @@ color: #FFFFFF;
         }
         .calculation
         {
+       
           margin-left: 18px;
           min-width: 41.5px;
         }
@@ -416,7 +418,7 @@ color: #FFFFFF;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1435px) {
   .newestimate-container{
     display: block !important;
   }
