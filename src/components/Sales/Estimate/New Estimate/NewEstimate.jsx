@@ -181,8 +181,8 @@ function NewEstimate() {
     </Panel>
    
   </Collapse> */}
-   {!isShown && <SearchDropown  width={250} options={customerdata} />}
-   {/* {!isShown && <div onClick={handleClick}  className="showcustomer">Select Customer <img src={arrow} style={{transform: "rotate(90deg)"}}/></div>} */}
+   {/* {!isShown && <SearchDropown  width={250} options={customerdata} />} */}
+   {!isShown && <div onClick={handleClick}  className="showcustomer">Select Customer <img src={arrow} style={{transform: "rotate(90deg)"}}/></div>}
 
 {/* 👇️ show elements on click */}
 {isShown && (

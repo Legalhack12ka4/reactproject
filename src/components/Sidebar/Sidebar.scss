@@ -63,6 +63,8 @@ body{
         position: relative;
         width: 150px;
         height: 53px;
+        display: flex;
+        align-items: center;
 
         img{
             width: 100%;
@@ -179,3 +181,9 @@ body{
     }
 
 }
+
+
+
+@media (max-width: 1024px) {
+   
+  }

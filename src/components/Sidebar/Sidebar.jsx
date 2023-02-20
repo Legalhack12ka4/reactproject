@@ -15,11 +15,16 @@ const Sidebar = () => {
   const [drpActive, setDrpActive] = useState("");
   const [subDropdown, setSubDropdown] = useState(false);
   const [subActive, setSubActive] = useState("");
+  const [isMinimized, setIsMinimized] = useState(false);
+  
+
 
 
   function enterMouse() {
     if (isTriggered) {
       document.getElementById("sidebar").classList.remove("sidebar_mini");
+      setIsMinimized(false);
+
     }
   }
 
@@ -48,6 +53,8 @@ myDiv.current.removeEventListener('scroll', handleScroll);
   function leaveMouse() {
     if (isTriggered) {
       document.getElementById("sidebar").classList.add("sidebar_mini");
+      setIsMinimized(true);
+
     }
   }
 
@@ -55,9 +62,14 @@ myDiv.current.removeEventListener('scroll', handleScroll);
     setIsTriggred(!isTriggered);
     if (!isTriggered) {
       document.getElementById("sidebar").classList.toggle("sidebar_mini");
+      setIsMinimized(true);
+
     }
     document.getElementById("sidebar").classList.toggle("closeSidebar");
+
   }
+
+  console.log("sidebarmini", isMinimized);
 
   function dropdown_open(id){
     setSubDropdown(false)
@@ -109,10 +121,11 @@ myDiv.current.removeEventListener('scroll', handleScroll);
       >
         <div className="sidebar_container">
           <div className="sidebar_logo">
-            <img
-              src="/images/sidebar_icons/Brand-logo.png"
+            {isMinimized ? <img src="/images/sidebar_icons/sidebar_mini_icon.svg" alt="sidebar_logo"/> :
+             <img
+              src="/images/sidebar_icons/logo_main.svg"
               alt="sidebar_logo"
-            />
+            />}
             <div className="collapse_btn" onClick={handleClick}>
               <img src="/images/sidebar_icons/icon.svg" alt="arrow" />
             </div>

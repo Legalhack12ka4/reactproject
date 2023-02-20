@@ -5,6 +5,7 @@ import "./SearchBar.scss";
 
 import {MdOutlineClose} from "react-icons/md"
 import {CgSearch} from "react-icons/cg"
+import {RxHamburgerMenu} from "react-icons/rx"
 
 
 const SearchBar = () => {
@@ -77,10 +78,14 @@ document.addEventListener("keydown", e =>{
     {
       !searchTriggered &&(
         <div className="search_bar">
+          <div className="ham_burger">
+          <img src="images/searchbar_icons/ham_burger_icon.svg" alt="hamBurger" />
+        </div>
       <div className="search_logo" onClick={handleSearch}>
-        <CgSearch size={23} color="#697A8D" />
-        <p onClick={handleSearch}>Search (Ctrl+/)</p>
+        
+        <div className="search_icon_main"><CgSearch size={23} color="#697A8D" /></div>
       </div>
+      <p onClick={handleSearch}>Search (Ctrl+/)</p>
       
       <div className="profile_btn">
       <div className="bell_icon">
