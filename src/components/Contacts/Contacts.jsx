@@ -715,7 +715,6 @@ const ownershipwithemail = [
       </div>
       </form>
        <ToastContainer/> 
-<<<<<<< Updated upstream
      
            {/* Confirmation */}
 
@@ -808,8 +807,6 @@ const ownershipwithemail = [
           </div>
         </div>
       </Modal>
-=======
->>>>>>> Stashed changes
     </>
   );
 }

@@ -3,17 +3,10 @@ import { useRef, useEffect } from "react";
 import Page_heading from "../Page_Heading/Page_heading";
 
 import { Switch } from "antd";
-<<<<<<< Updated upstream
 import { Modal, Button, Tooltip, Popover } from "antd";
 import { Upload, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
-=======
-import { Modal, Button, Tooltip } from "antd";
-import { Upload,  message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import alert from "../../assets/Images/Confirmation/alert.webp"
->>>>>>> Stashed changes
 import "./AddInventoryItem.scss";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import SelectAllDropdown from "../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
@@ -53,10 +46,7 @@ const AddInventoryItem = (props, {onClick}) => {
   const [bomEnable, setBomEnable] = useState(false);
   const [variantEnable, setVariantEnable] = useState(false);
   const [confirm, setCofirm] = useState(false);
-<<<<<<< Updated upstream
   const [confirmv, setCofirmv] = useState(false);
-=======
->>>>>>> Stashed changes
   const [colors, setColors] = useState(true);
   const [sizes, setSizes] = useState(true);
   const [serial, setSerial] = useState(true);
@@ -191,7 +181,6 @@ const popVisible = () =>
 
   const handleMaterialCancel = () => {
     setIsMaterialModalOpen(false);
-<<<<<<< Updated upstream
   };
 
   //assigned
@@ -211,33 +200,14 @@ const popVisible = () =>
 
   const handleConfirmv = () => {
     setCofirmv(false);
-=======
-  }
-  const handleConfirmCancel = () => {
-    //setIsModalOpen(false);
-   // setIsBOMVariantOpen(false);
-   // setIsBOMModalOpen(false);
-   setCofirm(true)
-  };
-  const handleConfirm = () => {
-    //setIsModalOpen(false);
-   // setIsBOMVariantOpen(false);
-   // setIsBOMModalOpen(false);
-   setCofirm(false)
->>>>>>> Stashed changes
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
     setIsBOMVariantOpen(false);
-<<<<<<< Updated upstream
     setIsBOMModalOpen(false);
     setCofirm(false);
     setCofirmv(false);
-=======
-   setIsBOMModalOpen(false);
-    setCofirm(false)
->>>>>>> Stashed changes
   };
   const handleScannerCancel = () => {
     setIsScannerModalOpen(false);
@@ -921,11 +891,7 @@ const popVisible = () =>
           <Button
             key="cancel"
             onClick={handleConfirmCancel}
-<<<<<<< Updated upstream
             style={{
-=======
-              style={{
->>>>>>> Stashed changes
               width: "80px",
               height: "38px",
               fontSize: "12px",
