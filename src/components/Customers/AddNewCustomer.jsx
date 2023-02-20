@@ -22,7 +22,10 @@ import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import config from "../Database/config";
+<<<<<<< Updated upstream
 import alert from "../../assets/Images/Confirmation/confirm.svg";
+=======
+>>>>>>> Stashed changes
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
