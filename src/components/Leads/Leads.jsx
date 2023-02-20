@@ -14,10 +14,7 @@ import config from "../Database/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
-<<<<<<< Updated upstream
 var ChildStateModificationFunc;
-=======
->>>>>>> Stashed changes
 const initialFieldValues = {
     name: "",
     mobile_no: "",
@@ -31,22 +28,8 @@ const initialFieldValues = {
     name: "",
     mobile_no: "",
     email: "",
-<<<<<<< Updated upstream
     company_name: "",
     lead_source_type: "",
-=======
-    company: "",
-    lead: "",
-    ownership: "",
-  };
-
-  const resetValue = {
-    name: "",
-    mobile: "",
-    email: "",
-    company: "",
-    lead: "",
->>>>>>> Stashed changes
     ownership: "",
   };
 
@@ -167,59 +150,6 @@ const handleDrpChange = (field, value) => {
  console.log(value)
 };
 
-<<<<<<< Updated upstream
-=======
-//inert
-
-const handleFormSubmit = () => {
-
-  axios
-    .post(
-      `${config.baseUrl}/leads/`,
-      {
-        name: formData.name,
-        mobile_no: formData.mobile,
-        email: formData.email,
-        company_name:formData.company,
-        lead_source_type: formData.lead,
-        "is_active": true,
-        "is_deleted": false,
-        "status": 1,
-        "ownership": 1,
-        "company_id": 1,
-        "created_by": 1,
-        "updated_by": 1
-      },
-      formData
-    )
-    .then((response) => {
-      // getData();
-      props.onClick();
-      handleclose();
-
-       toast.success("Added Successfuly", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-      });
-    
-     
-    });
-}
-
-const handleDrpChange = (field, value) => {
-  setFormData({ ...formData, [field]: value });
- setFieldValue(field, value);
- setFieldTouched(field, false);
- console.log(field)
- console.log(value)
-};
-
->>>>>>> Stashed changes
 const onChange = (e) => {
 const { value, name } = e.target;
 
@@ -498,7 +428,6 @@ const getContact = () => {
     label: con.name,
     value:con.name,
   }));
-<<<<<<< Updated upstream
 
   useEffect (()=>{
     getContact();
@@ -515,12 +444,6 @@ const getContact = () => {
         e.preventDefault();
       }
   }
-=======
-
-  useEffect (()=>{
-    getContact();
-  },[])
->>>>>>> Stashed changes
 
   return (
     <>
@@ -550,11 +473,7 @@ const getContact = () => {
                   className="inputcontact"
                   placeholder="Placeholder"
                   name="name"
-<<<<<<< Updated upstream
                   value={formData.name}
-=======
-                  value={values.name}
->>>>>>> Stashed changes
                   onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
                 />
@@ -590,13 +509,8 @@ const getContact = () => {
                  
                   className="inputcontact"
                   placeholder="Placeholder"
-<<<<<<< Updated upstream
                     name="mobile_no"
                     value={formData.mobile_no}
-=======
-                    name="mobile"
-                    value={values.mobile}
->>>>>>> Stashed changes
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -630,11 +544,7 @@ const getContact = () => {
                   className="inputcontact"
                   placeholder="Placeholder"
                     name="email"
-<<<<<<< Updated upstream
                     value={formData.email}
-=======
-                    value={values.email}
->>>>>>> Stashed changes
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -667,13 +577,8 @@ const getContact = () => {
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
-<<<<<<< Updated upstream
                     name="company_name"
                     value={formData.company_name}
-=======
-                    name="company"
-                    value={values.company}
->>>>>>> Stashed changes
                     onChange={(e) => {handleChange(e); onChange(e);}}
                     onBlur={handleBlur}
                 />
@@ -730,11 +635,7 @@ const getContact = () => {
               </Tooltip>
               <br />
               {checked == "contacts" ? (
-<<<<<<< Updated upstream
                 <SearchDropdown options={contacts} width={330} name="lead_source_type" value={formData.lead_source_type} 
-=======
-                <SearchDropdown options={contacts} width={330} name="lead" value={values.lead} 
->>>>>>> Stashed changes
                 onChange={handleDrpChange} />
               ) : (
                 <SearchDropdownAddButton  width={330} name="lead_source_type" value={formData.lead_source_type} 
@@ -776,17 +677,10 @@ const getContact = () => {
               
 
               <div className="contactbutton_bottom">
-<<<<<<< Updated upstream
               <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
                 </button> 
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}} /> */}
-=======
-                {/* <input type="submit" className="contactsavebutton"  onClick={() => handleFormSubmit()}>
-                  Submit
-                </input> */}
-                <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}} />
->>>>>>> Stashed changes
                 <button 
                   type="button"
                   className="contactcancelbutton"

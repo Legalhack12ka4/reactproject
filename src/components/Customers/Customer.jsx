@@ -1129,7 +1129,6 @@ const deleteUser = (record)=>
               // }}
             
               dataSource={tableData}
-<<<<<<< Updated upstream
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
 
              
@@ -1151,9 +1150,6 @@ const deleteUser = (record)=>
               //   };
               // })}
               // scroll={{ y: 800, x: 1000 }}
-=======
-            columns={tableColumns}
->>>>>>> Stashed changes
               scroll={!loading && { x: ("30px", "800px" )}}
              style={{ maxWidth: 2200, width: "100%" }}
               pagination={!loading && {
