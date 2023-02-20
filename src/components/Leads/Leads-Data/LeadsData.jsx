@@ -273,6 +273,7 @@ const handleUpdate = (oldData) => {
   ];
 
   const [columns, setColumns] = useState(columnsData);
+  const [columns, setColumns] = useState(columnsData);
 
   const componentRef = useRef();
 
@@ -330,8 +331,11 @@ useEffect (()=>{
 
   // Table Search
 
+
   const handleData = (newData) => {
     setSearch(newData);
+  };
+  const [search, setSearch] = useState("");
   };
   const [search, setSearch] = useState("");
 
@@ -390,8 +394,61 @@ useEffect (()=>{
       record.ownership.includes(custfilter.ownership)
       && record.name.toLowerCase().includes(search.toLowerCase())
     
+    record.email.toLowerCase().includes(search.toLowerCase())
+  );
+  //Filter field
+
+  useEffect(() => {
+    setFilteraaray(
+      Object.entries(custfilter)
+        .map(([key, value]) => {
+          if (value) {
+            return { key, value };
+          }
+        })
+        .filter((item) => item)
+    );
+    //console.log(filterarray);
+  }, [custfilter]);
+  console.log(filterarray);
+
+  console.log(custfilter);
+
+  const handleChange = (field, value) => {
+    setCustFilter({ ...custfilter, [field]: value });
+    console.log("value", value);
+    console.log("field", value);
+    setVisible(true);
+  };
+
+  //clear filter
+
+  const clearfilter = () => {
+    console.log("button click");
+    setCustFilter(filterfield);
+  };
+
+  // useEffect(() => {
+  //  setCustFilter({...custfilter, ["credit"] :currentValue})
+
+  // }, [currentValue]);
+
+  const onChangeCredit = (e) => {
+    const { value, name } = e.target;
+    setCustFilter({ ...custfilter, [name]: value });
+  };
+
+  const cusomizeData = dataSource.filter(
+    (record) =>
+      record.lead_source_type.includes(custfilter.lead) &&
+      record.ownership.includes(custfilter.ownership)
+      && record.name.toLowerCase().includes(search.toLowerCase())
+    
   );
 
+  console.log(cusomizeData);
+
+  //tags
   console.log(cusomizeData);
 
   //tags
@@ -402,8 +459,15 @@ useEffect (()=>{
     setCustFilter({ ...custfilter, [key]: "" });
   };
   console.log(filterarray.length);
+  const log = (index, key) => {
+    console.log(key);
+    setFilteraaray(filterarray.filter((item, i) => i.key !== index.key));
+    setCustFilter({ ...custfilter, [key]: "" });
+  };
+  console.log(filterarray.length);
 
  // selectedColumns 
+  //table
 
  const [selectedColumns, setSelectedColumns] = useState(columns.map(col => col.dataIndex));
  const handleSelectColumn = (e) => {
@@ -439,16 +503,45 @@ useEffect (()=>{
         : columns,
     [loading, columns]
   );
+  const tableData = useMemo(
+    () => (loading ? Array(10).fill({}) : cusomizeData),
+    [loading, cusomizeData]
+  );
+  const tableColumns = useMemo(
+    () =>
+      loading
+        ? columns.map((column) => ({
+            ...column,
+            sorter: false,
+            render: function renderPlaceholder() {
+              return (
+                <Skeleton
+                  key={column.key}
+                  title
+                  active={true}
+                  paragraph={false}
+                />
+              );
+            },
+            // cell: <Skeleton />,
+          }))
+        : columns,
+    [loading, columns]
+  );
   return (
     <div className="leads-data">
       <Page_heading parent={"Business Account"} child={"Leads"} />
+    <div className="leads-data">
+      <Page_heading parent={"Business Account"} child={"Leads"} />
 
+      <div className="leads-table-container">
       <div className="leads-table-container">
         <FilterAndSearchBar
    getPopupContainer={(trigger) => trigger.parentElement} 
         
           filterdata={[
             <div className="contact_filter_container">
+              {/* <div className="leadinput" style={{ marginTop: "5px" }}>
               {/* <div className="leadinput" style={{ marginTop: "5px" }}>
                 <img src={company} className="customerimg" />
                 <input
@@ -511,76 +604,26 @@ useEffect (()=>{
                 className="customer_filter_filed"
                 style={{ marginBottom: "20px", marginTop: "20px" }}
               >
-                <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">Ownership</label>{" "}
-                </Tooltip>
-                <SearchDropdown
-                  width={330}
-                  name="ownership"
-                  options={ownership}
-                  value={custfilter.ownership}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>,
-          ]}
-          change={filterarray}
-          customer={fetchlead.length}
-          filterLength={filterarray.length}
-          columns={columnsData}
-          setColumns={setColumns}
-          dataSource={dataSource}
-          addBtnName={"Lead"}
-          onData={handleData}
-          onFilter={(e) => {
-            clearfilter(e);
-            setVisible(!visible);
-          }}
-        />
-        <OffCanvasExample form={<Leads onClick={getData}/>} />
-        <div className="tableData">
-          {filterarray.length > 0 && (
-            <div className="tags" id="tags">
-              <div className="appliedtag ">Applied Filters :</div>
-              {filterarray.map((customerfilter, index) => {
-                return (
-                  customerfilter.value && (
-                    <Tooltip
-                      className="tlpclr"
-                      id="tlpclr"
-                      title={`${
-                        (customerfilter.key === "lead" && "Lead Source Type") ||
-                        (customerfilter.key === "ownership" && "Ownership")
-                      } : ${customerfilter.value}`}
-                      color="#EBECF0"
-                    >
-                      <Tag
-                        key={customerfilter.key}
-                        className="tag1"
-                        closable
-                        onClose={(e) => {
-                          log(index, customerfilter.key);
-                        }}
-                      >
-                        {customerfilter.value}
-                      </Tag>
-                    </Tooltip>
-                  )
-                );
-              })}
 
-              <button
-                type="submit"
-                className="btnfilter"
-                onClick={(e) => {
-                  setVisible(!visible);
-                  clearfilter(e);
-                }}
+              <div
+                className="customer_filter_filed"
+                style={{ marginBottom: "20px", marginTop: "20px" }}
               >
-                Clear All
-              </button>
+                <Tooltip title="prompt text" color="#5C5AD0">
+                    {" "}
+                    <label className="label">Ownership</label>{" "}
+                  </Tooltip>
+                  <SearchDropdown
+                    width={330}
+                    name="gsttreat"
+                    />
+                </div>
+  
+            
             </div>
+          )}
+
+          <Table
           )}
 
           <Table
@@ -596,7 +639,35 @@ useEffect (()=>{
                 },
               }
             }
+            rowSelection={
+              !loading && {
+                type: "checkbox",
+                columnTitle: "",
+                selectedRowKeys,
+                onChange: (selectedRowKeys, selectedRows) => {
+                  setSelectedRowKeys(selectedRowKeys);
+                  setSelectedRows(selectedRows);
+                },
+              }
+            }
             // loading={{indicator : <div><Spin/></div>, spinning:loading}}
+            dataSource={tableData}
+            columns={tableColumns}
+            scroll={!loading && { x: "800px" }}
+            //    style={{ width: "100%" }}
+            pagination={
+              !loading && {
+                current: page,
+                pageSize: pageSize,
+                onChange: (page, pageSize) => {
+                  setPage(page);
+                  setPageSize(pageSize);
+                },
+                total: cusomizeData.length,
+                showTotal: (total, range) =>
+                  `Showing ${range[1]}-${range[1]} of ${total} Leads`,
+              }
+            }
             dataSource={tableData}
             columns={tableColumns}
             scroll={!loading && { x: "800px" }}

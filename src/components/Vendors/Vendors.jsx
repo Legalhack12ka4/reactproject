@@ -239,24 +239,17 @@ const getArea = (pincode) => {
       .then((response) => response.json())
       .then((data) => {
         setArea(data);
-
-        if(data.status == "Success")
-        {
-       //   alert(data.status)
-        setStatedrp(data.data[0].state_name);
-
-        setCity(data.data[0].district);
-      }
-      if(data.status == "Pincode Not Available")
-      {
-    //   alert(data.status)
-        setStatedrp("");
-        setCity("");
-    }
-       
-    console.log(setStatedrp(data.data[0].state_name))
-    console.log(setCity(data.data[0].district))
-      
+console.log(data)
+        // if(data[0].Status == "Success")
+        // {
+        setStatedrp(data[0].state_name);
+        setCity(data[0].district);
+      // }
+      // else
+      // {
+      //   setStatedrp("");
+      //   setCity("");
+      // }
 });
   };
   console.log(area);
@@ -267,6 +260,95 @@ const getArea = (pincode) => {
     getArea(e.target.value);
     //alert("Blur");
   };
+
+  useEffect(() => {
+    getDataPaymentTerms();
+    getDataCuurrency();
+    getArea();
+    getContact();
+    getDataPos();
+   // getData();
+  }, []);
+  
+// //Dropdown PaymentTerms
+// const getDataPaymentTerms = () => {
+//   return fetch(`${config.baseUrl}/paymentterms/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setPayment(data);
+//       // console.log(data);
+//     });
+// };
+
+// //Dropdown Contact
+// const getContact = () => {
+//   return fetch(`${config.baseUrl}/contact/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setContact(data);
+//       console.log(data);
+//     });
+// };
+
+// //Dropdown currency
+// const getDataCuurrency = () => {
+//   fetch(`${config.baseUrl}/currency/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setCurrencydrp(data);
+//       // console.log(data);
+//     });
+// };
+// // console.log(currencydrp)
+
+
+// //Dropdown Place of supply
+
+// const getDataPos = () => {
+//   fetch(`${config.baseUrl}/state/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setPos(data);
+//        console.log(data);
+//     });
+// };
+// console.log(pos)
+
+// const getArea = (pincode) => {
+//   return fetch(`${config.baseUrl}/pincode?pincode=${pincode}`)
+//     //return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
+    
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setArea(data);
+
+//         if(data.status == "Success")
+//         {
+//        //   alert(data.status)
+//         setStatedrp(data.data[0].state_name);
+
+//         setCity(data.data[0].district);
+//       }
+//       if(data.status == "Pincode Not Available")
+//       {
+//     //   alert(data.status)
+//         setStatedrp("");
+//         setCity("");
+//     }
+       
+//     console.log(setStatedrp(data.data[0].state_name))
+//     console.log(setCity(data.data[0].district))
+      
+// });
+//   };
+//   console.log(area);
+
+//   const handlePincode = (e) => {
+//     //setPincode(e.target.value)
+//     console.log("Pincode value", e.target.value);
+//     getArea(e.target.value);
+//     //alert("Blur");
+//   };
 
   useEffect(() => {
     getDataPaymentTerms();
@@ -367,6 +449,7 @@ const {
 
 
  
+ 
 
 
 
@@ -393,6 +476,7 @@ const {
     setCreditBox(false)
   };
 
+ 
  
 
   const paymentterms = payment.map((pay) => ({
