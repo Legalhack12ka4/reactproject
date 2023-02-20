@@ -34,6 +34,8 @@ import ItemandService from './components/ItemandService/ItemandService';
 import NewInventoryItem from './components/NewInventoryItem/NewInventoryItem';
 import NewInventoryGroup from './components/NewInventoryGroup/NewInventoryGroup';
 import ItemPreview from './components/AddInventoryItem/ItemGroup/ItemPreview';
+import ItemTable from './components/AddInventoryItem/ItemTable/ItemTable';
+import ItemGroupTable from './components/AddInventoryItem/ItemGroupTable/ItemGroupTable';
 
 function App() {
   return (
@@ -76,6 +78,8 @@ function App() {
           <Route path="Sales/invoice" element={<Invoice/>}/>
           <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
           <Route path="itempreview" element={<ItemPreview/>}/>
+          <Route path="itemtable" element={<ItemTable/>}/>
+          <Route path="itemgrouptable" element={<ItemGroupTable/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

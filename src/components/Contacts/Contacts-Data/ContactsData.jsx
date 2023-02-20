@@ -392,7 +392,9 @@ const deleteUser = (record)=>
       label: "Action",
       dataIndex: "action",
       key: "action",
-      width: 60,
+      fixed:"right",
+      align:"center",
+      width: 40,
       // width: "max-content",
       render: (text, record) => (
         <>
@@ -439,7 +441,7 @@ const deleteUser = (record)=>
                  </div>
                  </>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer", position:"absolute", left:"-15px",top:"25px"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
         </Popover>
           
         </>

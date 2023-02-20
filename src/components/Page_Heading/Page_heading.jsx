@@ -8,7 +8,7 @@ import home from "../../assets/Images/FilterIcon/Icon.svg"
 import { GoPlus } from "react-icons/go";
 
 
-const Page_heading = ({ parent, child, subchild, props }) => {
+const Page_heading = ({ parent, child, subchild, main , props }) => {
 
 
 
@@ -29,7 +29,7 @@ const Page_heading = ({ parent, child, subchild, props }) => {
 <>
     <div className="page-heading-menu">
     <div className="page_heading">
-    <h1>{child.charAt(0).toUpperCase() + child.slice(1)}</h1>
+     <h1>{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1>
     <Breadcrumb>
    <Breadcrumb.Item>
    <Link exact to="/" className="heading_parent">  Home</Link>
