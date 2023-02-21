@@ -34,7 +34,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [firstColumn, setFirstColumn] = useState(columns[0].title);
 
-  console.log(firstColumn);
+  const [activeOption, setActiveOption] = useState('Item Groups');
+
+ 
 
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
@@ -245,6 +247,25 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               </div>
             )}
           </div>
+
+          <div className="switch-button">
+      <Link to="/itemgrouptable">
+      <div
+        className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}
+        onClick={() => setActiveOption('Item Groups')}
+      >
+        Item Groups
+      </div>
+      </Link>
+      <Link to="/itemtable">
+      <div
+        className={`option ${activeOption === 'Item' ? 'active' : ''}`}
+        onClick={() => setActiveOption('Item')}
+      >
+        Item
+      </div>
+      </Link>
+    </div>
 
           <div style={{ display: "flex", gap: "10px" }}>
             <DateRangePicker />
@@ -524,3 +545,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 };
 
 export default FilterAndSearchBar;
+
+
+

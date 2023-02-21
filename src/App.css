@@ -60,6 +60,15 @@ input::placeholder{
   color: #fff !important;
 }
 
+input::placeholder {
+  transition: all 0.2s ease-out;
+  transform: translateX(0);
+}
+
+input:focus::placeholder {
+  transform: translateX(5px);
+}
+
 .btn_hover_animation{
    transition: transform 0.3s ease-in-out;
 }
