@@ -31,14 +31,14 @@ function Module() {
    <img src={link}/>
    <Link exact to="/itempreview" className='currency_btn'>Item Preview</Link>
    </div>
-   <div style={{marginBottom:"20px"}}>
+   {/* <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/itemtable" className='currency_btn'>Item Table</Link>
    </div>
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/itemgrouptable" className='currency_btn'>Item Group Table</Link>
-   </div>
+   </div> */}
    </div>
     </div>
     </div>

@@ -529,12 +529,12 @@ const resetOther = () => {
 
   return (
     <div className="new_inventory_group_main">
-        <Page_heading parent={"Item or Service"} child={"Add Inventory Item"} />
+        <Page_heading parent={"Item & Service"} child={"Add Inventory Item"} />
 
         <div className="new_inventory_group_container">
 
         <div className="header">
-            <h1>Create Group</h1>
+            <h1>Create Item Group</h1>
             <p>Without an Item group you can't create an Item.</p>
         </div>
 
@@ -554,7 +554,7 @@ const resetOther = () => {
                   </div>
                 </div>
 
-            <div className="input_group">
+            {/* <div className="input_group">
                   <p>Type</p>
                   <SearchDropdown width={194} options={gettypeitem} 
                   name="type"
@@ -563,12 +563,12 @@ const resetOther = () => {
                   )?.label} 
                   labelKey="label"
                   onChange={handleDrpChange}/>
-                </div>
+                </div> */}
 
 
                 <div className="input_group">
                   <p>Unit of Measurement</p>
-                  <SearchDropdown width={209} options={unitofdata}
+                  <SearchDropdown width={330} options={unitofdata}
                     name="uom"
                     labelKey="label"
                     value={unitofdata.find(
@@ -579,7 +579,7 @@ const resetOther = () => {
 
                 <div className="input_group">
                   <p>Manage by</p>
-                  <SearchDropdown width={237} options={getmanageby}
+                  <SearchDropdown width={330} options={getmanageby}
                    name="managed_by"
                    labelKey="label"
                    value={getmanageby.find(
@@ -589,54 +589,8 @@ const resetOther = () => {
                 </div>
 
             </div>
-
-            <div className="bom_switch_container">
-
-                <div className="bom_switch">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="52.123" height="53" viewBox="0 0 52.123 53">
-                    <g id="Settings" opacity="0.35">
-                        <path id="Path_26" data-name="Path 26" d="M7.256,41.412l5.324,9.169a2.669,2.669,0,0,0,3.636.967l3.716-2.136a21.515,21.515,0,0,0,5.044,2.947v4.235a2.656,2.656,0,0,0,2.662,2.65H38.286a2.656,2.656,0,0,0,2.662-2.65V52.359a21.568,21.568,0,0,0,5.044-2.947l3.716,2.136a2.678,2.678,0,0,0,3.636-.967l5.324-9.169a2.654,2.654,0,0,0-.972-3.62l-3.652-2.1A20.27,20.27,0,0,0,54.04,29.8l3.652-2.1a2.649,2.649,0,0,0,.972-3.62L53.34,14.907a2.668,2.668,0,0,0-3.636-.967l-3.716,2.136a21.408,21.408,0,0,0-5.042-2.947V8.894a2.656,2.656,0,0,0-2.662-2.65H27.636a2.656,2.656,0,0,0-2.662,2.65v4.235a21.568,21.568,0,0,0-5.044,2.947l-3.713-2.136a2.666,2.666,0,0,0-3.636.967L7.256,24.076a2.654,2.654,0,0,0,.972,3.62l3.652,2.1a20.269,20.269,0,0,0,0,5.894l-3.652,2.1A2.649,2.649,0,0,0,7.256,41.412Zm25.7-19.268a10.6,10.6,0,1,1-10.648,10.6A10.635,10.635,0,0,1,32.96,22.144Z" transform="translate(-6.9 -6.244)" fill="#c2cad2"/>
-                    </g>
-                </svg>
-                <div className="switch_toggler">
-                    <p>Set a Parent BOM for items that will add to this group item.</p>
-                    <div style={{display: "flex", gap: "10px"}}>
-                    <Switch
-                      unCheckedChildren="__"
-                      onChange={handleBomChange}
-                      onClick={setIsBOMModalOpen}
-                    />
-                    <p>Parent BOM</p>
-                    </div>
-                   
-                  </div>
-
-                </div>
-
-                <div className="variant_switch">
-
-                <svg id="bxs-collection" xmlns="http://www.w3.org/2000/svg" width="47.7" height="53" viewBox="0 0 47.7 53">
-                    <path id="Path_34430" data-name="Path 34430" d="M44.65,22.7H7.55A5.305,5.305,0,0,0,2.25,28V49.2a5.305,5.305,0,0,0,5.3,5.3h37.1a5.305,5.305,0,0,0,5.3-5.3V28A5.305,5.305,0,0,0,44.65,22.7ZM7.55,12.1h37.1v5.3H7.55Zm5.3-10.6h26.5V6.8H12.85Z" transform="translate(-2.25 -1.5)" fill="#c2cad2" opacity="0.35"/>
-                </svg>
-
-                <div className="switch_toggler">
-                    <p>Add variants for this group item.</p>
-                    <div style={{display: "flex", gap: "10px"}}>
-                    <Switch
-                      unCheckedChildren="__"
-                      onChange={handleVarientChange}
-                      onClick={setIsBOMVariantOpen}
-                    />
-                    <p>Enable Variant</p>
-                    </div>
-                   
-                  </div>
-
-                </div>
-
-            </div>
-
+      <hr style={{marginRight:"20px", marginLeft:"20px", border:"1px solid #C2CAD2"}}/>
+            
             <div className="bottom_input_container">
 
             <div className="input_group">
@@ -661,7 +615,7 @@ const resetOther = () => {
                    )?.label}
                     onChange={handleDrpChange}/>
                 </div>
-
+{/* 
                 <div className="input_group">
                   <p>Manufacturing Account</p>
                   <SearchDropdown width={330}  options={reportingl4name}
@@ -669,6 +623,17 @@ const resetOther = () => {
                     labelKey="label"
                     value={reportingl4name.find(
                      (option) => option.key === formData.manufacturing_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
+                </div> */}
+                
+                <div className="input_group">
+                  <p>Inventory Account</p>
+                  <SearchDropdown width={330}  options={reportingl4name}
+                    name="inventory_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.inventory_account && option.label
                    )?.label}
                     onChange={handleDrpChange}/>
                 </div>
@@ -695,7 +660,7 @@ const resetOther = () => {
                    )?.label}
                     onChange={handleDrpChange}/>
                 </div>
-
+{/* 
                 <div className="input_group">
                   <p>Inventory Account</p>
                   <SearchDropdown width={330}  options={reportingl4name}
@@ -705,9 +670,56 @@ const resetOther = () => {
                      (option) => option.key === formData.inventory_account && option.label
                    )?.label}
                     onChange={handleDrpChange}/>
+                </div> */}
+
+            </div>
+            <div className="bom_switch_container">
+
+                {/* <div className="bom_switch">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="52.123" height="53" viewBox="0 0 52.123 53">
+                    <g id="Settings" opacity="0.35">
+                        <path id="Path_26" data-name="Path 26" d="M7.256,41.412l5.324,9.169a2.669,2.669,0,0,0,3.636.967l3.716-2.136a21.515,21.515,0,0,0,5.044,2.947v4.235a2.656,2.656,0,0,0,2.662,2.65H38.286a2.656,2.656,0,0,0,2.662-2.65V52.359a21.568,21.568,0,0,0,5.044-2.947l3.716,2.136a2.678,2.678,0,0,0,3.636-.967l5.324-9.169a2.654,2.654,0,0,0-.972-3.62l-3.652-2.1A20.27,20.27,0,0,0,54.04,29.8l3.652-2.1a2.649,2.649,0,0,0,.972-3.62L53.34,14.907a2.668,2.668,0,0,0-3.636-.967l-3.716,2.136a21.408,21.408,0,0,0-5.042-2.947V8.894a2.656,2.656,0,0,0-2.662-2.65H27.636a2.656,2.656,0,0,0-2.662,2.65v4.235a21.568,21.568,0,0,0-5.044,2.947l-3.713-2.136a2.666,2.666,0,0,0-3.636.967L7.256,24.076a2.654,2.654,0,0,0,.972,3.62l3.652,2.1a20.269,20.269,0,0,0,0,5.894l-3.652,2.1A2.649,2.649,0,0,0,7.256,41.412Zm25.7-19.268a10.6,10.6,0,1,1-10.648,10.6A10.635,10.635,0,0,1,32.96,22.144Z" transform="translate(-6.9 -6.244)" fill="#c2cad2"/>
+                    </g>
+                </svg>
+                <div className="switch_toggler">
+                    <p>Set a Parent BOM for items that will add to this group item.</p>
+                    <div style={{display: "flex", gap: "10px"}}>
+                    <Switch
+                      unCheckedChildren="__"
+                      onChange={handleBomChange}
+                      onClick={setIsBOMModalOpen}
+                    />
+                    <p>Parent BOM</p>
+                    </div>
+                   
+                  </div>
+
+                </div> */}
+
+                <div className="variant_switch">
+
+                <svg id="bxs-collection" xmlns="http://www.w3.org/2000/svg" width="47.7" height="53" viewBox="0 0 47.7 53">
+                    <path id="Path_34430" data-name="Path 34430" d="M44.65,22.7H7.55A5.305,5.305,0,0,0,2.25,28V49.2a5.305,5.305,0,0,0,5.3,5.3h37.1a5.305,5.305,0,0,0,5.3-5.3V28A5.305,5.305,0,0,0,44.65,22.7ZM7.55,12.1h37.1v5.3H7.55Zm5.3-10.6h26.5V6.8H12.85Z" transform="translate(-2.25 -1.5)" fill="#c2cad2" opacity="0.35"/>
+                </svg>
+
+                <div className="switch_toggler">
+                    <p>Add variants for this group item.</p>
+                    <div style={{display: "flex", gap: "10px"}}>
+                    <Switch
+                      unCheckedChildren="__"
+                      onChange={handleVarientChange}
+                      onClick={setIsBOMVariantOpen}
+                    />
+                    <p>Enable Variant</p>
+                    </div>
+                   
+                  </div>
+
                 </div>
 
             </div>
+
             
             
         </div>
