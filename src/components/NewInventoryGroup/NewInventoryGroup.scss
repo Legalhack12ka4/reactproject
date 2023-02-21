@@ -47,7 +47,7 @@
     .new_inventory_group_container {
     //  width: max-content;
    //   min-width: 1050px;
-      max-width: 1300px;
+      max-width: 1134px;
       background-color: #ffff;
       border-radius: 6px 6px 6px 6px;
       box-shadow: 0px 2px 6px 0px #4359711f;
@@ -138,9 +138,10 @@
 
 
       .bottom_input_container{
+        max-width: 1030px;
         display: grid;
         grid-template-columns: repeat(3,1fr);
-        margin-top: 10px;
+      //  margin-top: 10px;
       padding: 20px;
       gap: 20px;
         p {

@@ -21,13 +21,14 @@ const ItemandService = () => {
 
   return (
     <div className="item_and_service_main">
-      <Page_heading main={"Goods & Services"}parent={"Item or Service"} child={"Choose type"} />
+      <Page_heading main={"Items & Services"}parent={"Item or Service"}  child={"Choose type"} />
       <div className="choose_item_container1">
         <h1 className="container_heading">Choose an Item Type</h1>
         <div className="item_type_container1">
 
           {/* //first */}
-          <div
+         <Link exact to="/itemgrouptable"> 
+         <div
           className={`${selected=== 1 && "selected"} item `}
             onClick={() => handleClick(1)}
             
@@ -37,13 +38,13 @@ const ItemandService = () => {
                 <path id="Path_34435" data-name="Path 34435" d="M3.049,25.21,8.827,28.1a1.446,1.446,0,0,0,1.291,0l5.132-2.567L20.382,28.1a1.43,1.43,0,0,0,1.291,0l5.778-2.889a1.446,1.446,0,0,0,.8-1.293V16.695a1.446,1.446,0,0,0-.8-1.293l-4.979-2.489V6.584a1.446,1.446,0,0,0-.8-1.293L15.9,2.4a1.444,1.444,0,0,0-1.293,0L8.825,5.291a1.447,1.447,0,0,0-.8,1.293v6.33L3.049,15.4a1.442,1.442,0,0,0-.8,1.291v7.222A1.446,1.446,0,0,0,3.049,25.21Zm6.423-9.789,3.27,1.635-4.208,2.1-3.27-1.635ZM15.25,11.81l4.333-2.167v3.27L15.25,15.08ZM24.3,17.056l-4.163,2.081L16.865,17.5l4.163-2.081ZM9.472,25.191l-.09-.045V21.967l4.423-2.213v3.27Zm11.556,0v-3.27l4.333-2.167v3.27ZM15.25,5.31l3.27,1.635L14.357,9.026l-3.27-1.635Z" transform="translate(-2.25 -2.249)" fill={`${selected === 1 ? "#5C5AD0":"#c2cad2"} `}/>
                 </svg>
             </div>
-            <div className="item_text"><h1 style={{paddingLeft:"37px"}}>Raw Material & Traded Items</h1>
-             <p style={{paddingLeft:"38px"}}>The item which is tracked and their quantities are monitored.</p></div>
+            <div className="item_text"><h1 style={{textAlign:"center"}}>Raw Material & Traded Items</h1>
+             <p style={{padding:"0px 10px", textAlign:"center"}}>The Stock of these items will be tracked under Inventory account.</p></div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
-          </div>
+          </div></Link>
 
         {/* //second */}
-          <div
+        <Link exact to="/itemgrouptable1">  <div
           className={`${selected=== 2 && "selected"} item `}
             onClick={() => handleClick(2)}
             
@@ -54,13 +55,13 @@ const ItemandService = () => {
             </svg>
 
            </div>
-            <div className="item_text"><h1 style={{paddingLeft:"73px"}}>No Traded Items</h1>
-            <p style={{paddingLeft:"53px"}}>The item is not tracked and quantities are not monitored.</p></div>
+            <div className="item_text"><h1 style={{textAlign:"center"}}>No Traded Items</h1>
+            <p style={{padding:"0px 10px", textAlign:"center"}}>These item will be debited/credited directly under profit & loss account.</p></div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
-          </div>
+          </div></Link>
 
         {/* //third */}
-          <div
+        <Link exact to="/itemgrouptable2">  <div
           className={`${selected=== 3 && "selected"} item `}
             onClick={() => handleClick(3)}
             
@@ -70,13 +71,13 @@ const ItemandService = () => {
                 <path id="Path_34435" data-name="Path 34435" d="M3.049,25.21,8.827,28.1a1.446,1.446,0,0,0,1.291,0l5.132-2.567L20.382,28.1a1.43,1.43,0,0,0,1.291,0l5.778-2.889a1.446,1.446,0,0,0,.8-1.293V16.695a1.446,1.446,0,0,0-.8-1.293l-4.979-2.489V6.584a1.446,1.446,0,0,0-.8-1.293L15.9,2.4a1.444,1.444,0,0,0-1.293,0L8.825,5.291a1.447,1.447,0,0,0-.8,1.293v6.33L3.049,15.4a1.442,1.442,0,0,0-.8,1.291v7.222A1.446,1.446,0,0,0,3.049,25.21Zm6.423-9.789,3.27,1.635-4.208,2.1-3.27-1.635ZM15.25,11.81l4.333-2.167v3.27L15.25,15.08ZM24.3,17.056l-4.163,2.081L16.865,17.5l4.163-2.081ZM9.472,25.191l-.09-.045V21.967l4.423-2.213v3.27Zm11.556,0v-3.27l4.333-2.167v3.27ZM15.25,5.31l3.27,1.635L14.357,9.026l-3.27-1.635Z" transform="translate(-2.25 -2.249)" fill={`${selected === 3 ? "#5C5AD0":"#c2cad2"} `}/>
                 </svg>
             </div>
-            <div className="item_text"><h1 style={{paddingLeft:"66px"}}>Manufactured Items</h1> 
-            <p style={{paddingLeft:"33px"}}>An item that is formed into a specific design during manufacture.</p></div>
+            <div className="item_text"><h1 style={{textAlign:"center"}}>Manufactured Items</h1> 
+            <p style={{padding:"0px 10px", textAlign:"center"}}>An item that is formed into a specific design during manufacture.</p></div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
-          </div>
+          </div></Link>
 
       {/* //fouth */}
-          <div
+      <Link exact to="/itemgrouptable3">  <div
           className={`${selected=== 4 && "selected"} item `}
             onClick={() => handleClick(4)}
             
@@ -86,13 +87,13 @@ const ItemandService = () => {
              <path id="bxs-palette" d="M13.807,33.435A15.974,15.974,0,0,0,18,34l.226,0a4.809,4.809,0,0,0,4.269-6.888l-.317-.664a3.2,3.2,0,0,1,4.269-4.271h0l.661.318A4.811,4.811,0,0,0,34,18.226a15.884,15.884,0,0,0-.565-4.416A16,16,0,0,0,2.153,20.24,16.113,16.113,0,0,0,13.807,33.435ZM23.6,8.4a2.4,2.4,0,1,1-2.4,2.4,2.4,2.4,0,0,1,2.4-2.4Zm-8-1.6a2.4,2.4,0,1,1-2.4,2.4A2.4,2.4,0,0,1,15.6,6.8ZM13.2,23.61a2.4,2.4,0,1,1-2.4-2.4,2.4,2.4,0,0,1,2.4,2.4Zm-4-10.4a2.4,2.4,0,1,1-2.4,2.4,2.4,2.4,0,0,1,2.4-2.4Z" transform="translate(-2 -2.001)" fill={`${selected === 4 ? "#5C5AD0":"#c2cad2"} `}/>
             </svg>
             </div>
-            <div className="item_text"><h1 style={{paddingLeft:"83px"}}>Jobwork Item</h1> 
-            <p style={{paddingLeft:"50px", paddingRight:"42px"}}>The item which will go outside for the Value edition.</p></div>
+            <div className="item_text"><h1 style={{textAlign:"center"}}>Items Received for Jobwork</h1> 
+            <p style={{padding:"0px 25px", textAlign:"center"}}>The items received from Customer for the Job work.</p></div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
-          </div>
+          </div></Link>
 
       {/* //fifth */}
-          <div
+      <Link exact to="/itemgrouptable4">  <div
           className={`${selected=== 5 && "selected"} item `}
             onClick={() => handleClick(5)}
             
@@ -103,13 +104,14 @@ const ItemandService = () => {
             </svg>
 
             </div>
-            <div className="item_text"><h1 style={{paddingLeft:"106px"}}>Services</h1> 
-            <p style={{paddingLeft:"49px"}}>Something that you provide or perform for another person.</p></div>
+            <div className="item_text"><h1 style={{textAlign:"center"}}>Services</h1> 
+            <p style={{padding:"0px 25px", textAlign:"center"}}>Something that you provide or perform for another person.</p></div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
-          </div>
+          </div></Link>
 
       {/* //sixth */}
-          <div
+      <Link exact to ="/itemgrouptable5"> 
+      <div
           className={`${selected=== 6 && "selected"} item `}
             onClick={() => handleClick(6)}
             
@@ -121,11 +123,12 @@ const ItemandService = () => {
 
             </div>
             <div className="item_text">
-              <h1 style={{paddingLeft:"94px"}}>Fixed Assets</h1> 
-              <p style={{paddingLeft:"46px", paddingRight:"40px"}}>Purchase for long-term use quickly not convertedinto cash.</p>
+              <h1 style={{textAlign:"center"}}>Fixed Assets</h1> 
+              <p style={{padding:"0px 35px", textAlign:"center"}}>Purchase for long-term use quickly not convertedinto cash.</p>
               </div>
             {/* <div className={`${selected=== 1 && "selected"} radio_selector `}></div> */}
           </div>
+          </Link>
  
         </div>
       </div>

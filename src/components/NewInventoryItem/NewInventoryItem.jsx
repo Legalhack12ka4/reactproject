@@ -90,11 +90,12 @@ const NewInventoryItem = () => {
                   <SearchDropdown width={330} />
                 </div>
 
+         
                 <div className="input_group">
-                  <p>HSN Code</p>
-                  <div className="input_container">
+                  <p>Manage By</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
                     <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
                   </div>
                 </div>
 
@@ -105,7 +106,44 @@ const NewInventoryItem = () => {
                     <input type="text" placeholder="placeholder" />
                   </div>
                 </div>
+               
+                <div className="input_group">
+                  <p>Tax Preference</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
+                  </div>
+                </div>
+                <div className="input_group">
+                  <p>Foreign Name</p>
+                  <div className="input_container">
+                    <img src="/images/icons/cube.svg" alt="" />
+                    <input type="text" placeholder="placeholder" />
+                  </div>
+                </div>
+                <div className="input_group">
+                  <p>Tax Rates</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
+                  </div>
+                </div>
 
+                <div className="input_group">
+                  <p>HSN Code</p>
+                  <div className="input_container">
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" />
+                  </div>
+                </div>
+    
+                <div className="input_group">
+                  <p>Cost Account</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
+                  </div>
+                </div>
                 <div className="input_group">
                   <p>Barcode</p>
                   <div className="input_container">
@@ -128,19 +166,33 @@ const NewInventoryItem = () => {
                 </div>
 
                 <div className="input_group">
-                  <p>Foreign Name</p>
-                  <div className="input_container">
-                    <img src="/images/icons/cube.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
+                  <p>Sales Account</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
+                  </div>
+                </div>
+                
+                <div className="input_group">
+                  <p>Unit of Measurement</p>
+                  <div className="input_container" style={{backgroundColor: "#eceef1"}}>
+                    <input type="text" disabled style={{backgroundColor: "#eceef1"}} />
                   </div>
                 </div>
 
                 <div className="input_group">
-                  <p>Unit of Measurement</p>
-                  <div className="input_container" style={{backgroundColor: "#eceef1"}}>
-                    <input type="text"  style={{backgroundColor: "#eceef1"}} />
+                  <p>Inventory Account</p>
+                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
+                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
                   </div>
                 </div>
+
+              
+              
+          
+
+          
 
                 <div className="input_group">
                   <p>Description</p>

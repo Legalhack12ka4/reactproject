@@ -79,6 +79,8 @@
       gap: 10px;
 
       .input_box_container {
+        border-right: 1px solid #C2CAD2;
+        padding-right: 20px;
         // border: 1px solid;
         display: grid;
         height: max-content;
@@ -139,10 +141,10 @@
 }
 
 .img_uploader_main_length_0 {
-  max-width: 280px;
+  max-width: 290px;
   min-width: 260px;
   max-height: 315px;
-  padding: 0px 20px;
+  padding: 0px 10px;
   background-color: #ffff;
   overflow: hidden;
   border-radius: 6px;
@@ -186,7 +188,7 @@
     font-size: 15px;
     color: #697a8d;
     font-weight: 500;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 }
 

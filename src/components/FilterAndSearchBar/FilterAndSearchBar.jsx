@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Input, Checkbox, Tooltip, Modal, Popover } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ReactToPrint from "react-to-print";
 import { CSVLink } from "react-csv";
 import jsPDF from "jspdf";
@@ -34,9 +34,26 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [firstColumn, setFirstColumn] = useState(columns[0].title);
 
-  const [activeOption, setActiveOption] = useState('Item Groups');
+  // const [activeOption, setActiveOption] = useState('Item Groups');
+  const location = useLocation();
+  const [activeOption, setActiveOption] = useState('');
+  const visibleRoutes = ['/itemgrouptable','/itemgrouptable1','/itemgrouptable2','/itemgrouptable3','/itemgrouptable4',
+                        '/itemgrouptable5', '/itemtable', '/itemtable1', '/itemtable2', '/itemtable3', '/itemtable4', '/itemtable5'];
 
  
+  //usefefect for switch
+
+  useEffect(() => {
+ 
+    const path = location.pathname;
+    setActiveOption(path === '/itemgrouptable' ? 'Item Groups' : 
+    path === '/itemgrouptable1' ? 'Item Groups' : 
+    path === '/itemgrouptable2' ? 'Item Groups' : 
+    path === '/itemgrouptable3' ? 'Item Groups' : 
+    path === '/itemgrouptable4' ? 'Item Groups' : 
+    path === '/itemgrouptable5' ? 'Item Groups' : 'Item',
+    );
+  }, [location]);
 
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
@@ -247,8 +264,47 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               </div>
             )}
           </div>
+          {/* <div className="switch-button">
+  <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
+    <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
+      Item Groups
+    </div>
+  </Link>
+  <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
+    <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
+      Item
+    </div>
+  </Link>
+</div> */}
 
-          <div className="switch-button">
+{!visibleRoutes.includes(location.pathname)  ? "" :<div className="switch-button">
+      <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
+        <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
+          Item Groups
+        </div>
+      </Link>
+      <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
+        <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
+          Item
+        </div>
+      </Link>
+     
+      
+    </div>}
+    {/* {!visibleRoutes.includes(location.pathname) ? "" :<div className="switch-button">
+      <Link to="/itemgrouptable1" onClick={() => setActiveOption('Item Groups')}>
+        <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
+          Item Groups
+        </div>
+      </Link>
+      <Link to="/itemtable1" onClick={() => setActiveOption('Item')}>
+        <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
+          Item
+        </div>
+      </Link>
+    </div>} */}
+
+          {/* <div className="switch-button">
       <Link to="/itemgrouptable">
       <div
         className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}
@@ -265,7 +321,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         Item
       </div>
       </Link>
-    </div>
+    </div> */}
 
           <div style={{ display: "flex", gap: "10px" }}>
             <DateRangePicker />

@@ -79,7 +79,17 @@ function App() {
           <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
           <Route path="itempreview" element={<ItemPreview/>}/>
           <Route path="itemtable" element={<ItemTable/>}/>
+          <Route path="itemtable1" element={<ItemTable/>}/>
+          <Route path="itemtable2" element={<ItemTable/>}/>
+          <Route path="itemtable3" element={<ItemTable/>}/>
+          <Route path="itemtable4" element={<ItemTable/>}/>
+          <Route path="itemtable5" element={<ItemTable/>}/>
           <Route path="itemgrouptable" element={<ItemGroupTable/>}/>
+          <Route path="itemgrouptable1" element={<ItemGroupTable/>}/>
+          <Route path="itemgrouptable2" element={<ItemGroupTable/>}/>
+          <Route path="itemgrouptable3" element={<ItemGroupTable/>}/>
+          <Route path="itemgrouptable4" element={<ItemGroupTable/>}/>
+          <Route path="itemgrouptable5" element={<ItemGroupTable/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

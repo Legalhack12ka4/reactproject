@@ -7,6 +7,7 @@ import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
+import { Link, useLocation } from "react-router-dom";
 
 function ItemTable() {
 
@@ -17,6 +18,7 @@ function ItemTable() {
     const [loading, setloading] = useState(true);
     const componentRef = useRef();
 
+    const location = useLocation();
 
     const dataSource = [
         {
@@ -278,7 +280,19 @@ function ItemTable() {
 
   return (
     <div className="account-data">
-    <Page_heading parent={"Items & Services"} child={"Raw Material & Traded Items"} />
+    <Page_heading parent={"Items & Services"}   
+     subchild={
+            <Link exact to="/item_&_service">
+              {"Back"}
+            </Link>
+          } 
+          child={location.pathname === "/itemgrouptable" ? "Raw Material & Traded Items" : 
+          location.pathname === "/itemgrouptable1" ? "No Traded Items" : 
+          location.pathname === "/itemgrouptable2" ? "Manufactured Items" : 
+          location.pathname === "/itemgrouptable3" ? "Item Received for Jobwork" : 
+          location.pathname === "/itemgrouptable4" ? "Services" : 
+          location.pathname === "/itemgrouptable5" ? "Fixed Assets" : ""
+          } />
     <div className="account-table-container">
       <FilterAndSearchBar
         columns={columnsData}
@@ -309,7 +323,7 @@ function ItemTable() {
         //    style={{ width: "100%" }}
         //  loading={true}
         pagination={
-          !loading && {
+          {
             current: page,
             pageSize: pageSize,
             onChange: (page, pageSize) => {
@@ -318,7 +332,7 @@ function ItemTable() {
             },
             total: 10,
             showTotal: (total, range) =>
-              `Showing ${range[1]}-${range[1]} of ${total} ChartOfAccounts`,
+              `Showing ${range[1]}-${range[1]} of ${total} Item Group`,
           }
         }
         rowClassName={(record) =>

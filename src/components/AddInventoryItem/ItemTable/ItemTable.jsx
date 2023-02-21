@@ -8,6 +8,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
+import { Link, useLocation } from "react-router-dom";
 
 function ItemTable() {
 
@@ -18,6 +19,7 @@ function ItemTable() {
     const [loading, setloading] = useState(true);
     const componentRef = useRef();
 
+    const location = useLocation();
 
     const dataSource = [
         {
@@ -284,7 +286,19 @@ function ItemTable() {
 
   return (
     <div className="account-data">
-    <Page_heading main={"Items & Services"} parent={"Items & Services"} child={"Raw Material & Traded Items"} />
+    <Page_heading  parent={"Items & Services"} 
+       subchild={
+        <Link exact to="/item_&_service">
+          {"Back"}
+        </Link>
+      }
+      child={location.pathname === "/itemtable" ? "Raw Material & Traded Items" : 
+          location.pathname === "/itemtable1" ? "No Traded Items" : 
+          location.pathname === "/itemtable2" ? "Manufactured Items" : 
+          location.pathname === "/itemtable3" ? "Item Received for Jobwork" : 
+          location.pathname === "/itemtable4" ? "Services" : 
+          location.pathname === "/itemtable5" ? "Fixed Assets" : ""
+          }/>
     <div className="account-table-container">
       <FilterAndSearchBar
         columns={columnsData}
@@ -315,7 +329,7 @@ function ItemTable() {
         //    style={{ width: "100%" }}
         //  loading={true}
         pagination={
-          !loading && {
+          {
             current: page,
             pageSize: pageSize,
             onChange: (page, pageSize) => {
@@ -324,7 +338,7 @@ function ItemTable() {
             },
             total: 10,
             showTotal: (total, range) =>
-              `Showing ${range[1]}-${range[1]} of ${total} ChartOfAccounts`,
+              `Showing ${range[1]}-${range[1]} of ${total} Items`,
           }
         }
         rowClassName={(record) =>
