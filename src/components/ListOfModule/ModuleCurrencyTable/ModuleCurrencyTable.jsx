@@ -501,6 +501,7 @@ console.log(formData)
             <Button
               key="submit"
               type="primary"
+              className="btn_hover_animation"
               //  onClick={handleSubmit}
               style={{
                 width: "80px",
@@ -515,6 +516,7 @@ console.log(formData)
             <Button
               key="cancel"
            //   onClick={handleCancel}
+           className="btn_hover_animation"
               onClick={handleConfirmData}
               style={{
                 width: "80px",
@@ -636,6 +638,7 @@ console.log(formData)
           <div style={{ marginLeft: "331px" }}>
             <Button
               key="cancel"
+              className="btn_hover_animation"
               onClick={handleConfirm}
               style={{
                 width: "86px",
@@ -650,6 +653,7 @@ console.log(formData)
             </Button>
             <Button
               key="submit"
+              className="btn_hover_animation"
               type="primary"
               onClick={handleSubmitModal}
               style={{
@@ -727,6 +731,7 @@ console.log(formData)
           <div style={{ marginLeft: "331px" }}>
             <Button
               key="cancel"
+              className="btn_hover_animation"
               onClick={handleConfirmDataClose}
               style={{
                 width: "86px",
@@ -741,6 +746,7 @@ console.log(formData)
             </Button>
             <Button
               key="submit"
+              className="btn_hover_animation"
               type="primary"
               onClick={handleCancel}
               style={{

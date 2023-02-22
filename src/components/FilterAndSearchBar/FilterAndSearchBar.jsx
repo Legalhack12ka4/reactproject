@@ -223,7 +223,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <img src="images/icons/report_icon.svg" alt="" />
               <p>View Reports</p>
             </div>
-            <div className="new_btn_container">
+            <div className="new_btn_container btn_hover_animation">
               <Link exact to={props.path} onClick={props.onClick}>
                 <div className="tableBtn addNewBtn" onClick={showCanvas}>
                   <GoPlus />
@@ -277,13 +277,14 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   </Link>
 </div> */}
 
-{!visibleRoutes.includes(location.pathname)  ? "" :<div className="switch-button">
-      <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
+{!visibleRoutes.includes(location.pathname)  ? "" :<div className={`${activeOption === "Item" ? "itemActive":"itemGroupActive"} switch-button`}>
+      <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')} style={{zIndex:"2"}}>
         <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
           Item Groups
         </div>
       </Link>
-      <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
+      <div className="switch_toggler"></div>
+      <Link to="/itemtable" onClick={() => setActiveOption('Item')} style={{zIndex:"2"}}>
         <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
           Item
         </div>
