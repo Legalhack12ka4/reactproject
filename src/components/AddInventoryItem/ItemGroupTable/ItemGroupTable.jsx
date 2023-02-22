@@ -281,11 +281,11 @@ function ItemTable() {
   return (
     <div className="account-data">
     <Page_heading parent={"Items & Services"}   
-     subchild={
-            <Link exact to="/item_&_service">
-              {"Back"}
-            </Link>
-          } 
+    //  subchild={
+    //         <Link exact to="/item_&_service">
+    //           {"Back"}
+    //         </Link>
+    //       } 
           child={location.pathname === "/itemgrouptable" ? "Raw Material & Traded Items" : 
           location.pathname === "/itemgrouptable1" ? "No Traded Items" : 
           location.pathname === "/itemgrouptable2" ? "Manufactured Items" : 

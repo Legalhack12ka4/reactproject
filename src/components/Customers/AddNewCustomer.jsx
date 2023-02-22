@@ -914,7 +914,7 @@ ChildStateModificationFunc = (modVal)=>{
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-                  <div style={{ width: "50%" }}>
+                  <div >
                     <Tooltip title="prompt text" color="#5C5AD0">
                       {" "}
                       <label className="label" style={{ marginTop: "5px" }}>
@@ -932,7 +932,7 @@ ChildStateModificationFunc = (modVal)=>{
                       errorMsg="Currency is required"
                     />
                   </div>
-                  <div style={{ width: "50%" }}>
+                  <div>
                     <Tooltip title="prompt text" color="#5C5AD0">
                       {" "}
                       <label className="label">Payment Terms</label>

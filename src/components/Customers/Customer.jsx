@@ -572,7 +572,9 @@ const deleteUser = (record)=>
       label: "Action",
       dataIndex: "action",
       key: "action",
-      width: 60,
+      fixed: "right",
+      align: "center",
+      width: 40,
       // fixed:"right",
       render: (text, record) =>  (
 

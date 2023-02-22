@@ -287,11 +287,11 @@ function ItemTable() {
   return (
     <div className="account-data">
     <Page_heading  parent={"Items & Services"} 
-       subchild={
-        <Link exact to="/item_&_service">
-          {"Back"}
-        </Link>
-      }
+      //  subchild={
+      //   <Link exact to="/item_&_service">
+      //     {"Back"}
+      //   </Link>
+      // }
       child={location.pathname === "/itemtable" ? "Raw Material & Traded Items" : 
           location.pathname === "/itemtable1" ? "No Traded Items" : 
           location.pathname === "/itemtable2" ? "Manufactured Items" : 
@@ -336,7 +336,7 @@ function ItemTable() {
               setPage(page);
               setPageSize(pageSize);
             },
-            total: 10,
+            total: 60,
             showTotal: (total, range) =>
               `Showing ${range[1]}-${range[1]} of ${total} Items`,
           }
