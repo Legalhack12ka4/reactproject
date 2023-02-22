@@ -238,7 +238,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 
           <div style={{ display: "flex" }}>
             {/* <div className="total_table_result">{props.results_length}</div> */}
-            {props.customer == "" ? (
+            {props.customer == ""  ? (
               <div className="search_customer">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
@@ -251,7 +251,23 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   //  onChange={handleChange}
                 />
               </div>
-            ) : (
+            ) :  visibleRoutes.includes(location.pathname) ?
+
+            
+            <div className="options-container">
+            <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
+              <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
+                Item Groups
+              </div>
+            </Link>
+            <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
+              <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
+                Item
+              </div>
+            </Link>
+          </div>
+          
+            :
               <div className="search_customer">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
@@ -262,70 +278,44 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   onChange={handleChange}
                 />
               </div>
-            )}
+            
+            }
           </div>
-          {/* <div className="switch-button">
-  <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
-    <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
-      Item Groups
-    </div>
-  </Link>
-  <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
-    <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
-      Item
-    </div>
-  </Link>
-</div> */}
+     
 
-{!visibleRoutes.includes(location.pathname)  ? "" :<div className={`${activeOption === "Item" ? "itemActive":"itemGroupActive"} switch-button`}>
+
+{/* // latest */}
+
+{/* {!visibleRoutes.includes(location.pathname)  ? "" :
+<>
       <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')} style={{zIndex:"2"}}>
         <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
           Item Groups
         </div>
       </Link>
-      <div className="switch_toggler"></div>
+   
       <Link to="/itemtable" onClick={() => setActiveOption('Item')} style={{zIndex:"2"}}>
         <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
           Item
         </div>
       </Link>
-     
-      
-    </div>}
-    {/* {!visibleRoutes.includes(location.pathname) ? "" :<div className="switch-button">
-      <Link to="/itemgrouptable1" onClick={() => setActiveOption('Item Groups')}>
-        <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
-          Item Groups
-        </div>
-      </Link>
-      <Link to="/itemtable1" onClick={() => setActiveOption('Item')}>
-        <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
-          Item
-        </div>
-      </Link>
-    </div>} */}
+      </>
+    }  */}
+    
 
-          {/* <div className="switch-button">
-      <Link to="/itemgrouptable">
-      <div
-        className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}
-        onClick={() => setActiveOption('Item Groups')}
-      >
-        Item Groups
-      </div>
-      </Link>
-      <Link to="/itemtable">
-      <div
-        className={`option ${activeOption === 'Item' ? 'active' : ''}`}
-        onClick={() => setActiveOption('Item')}
-      >
-        Item
-      </div>
-      </Link>
-    </div> */}
+        
 
           <div style={{ display: "flex", gap: "10px" }}>
-            <DateRangePicker />
+          {!visibleRoutes.includes(location.pathname)?<DateRangePicker />:  <div className="search_customer">
+                <div className="search_icon">
+                  <CgSearch size={20} color="#697A8D" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search for Contacts"
+                  onChange={handleChange}
+                />
+              </div>}
 
             {props.customer == "" ? (
               <div
@@ -481,6 +471,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   }`}
                 >
                   <h5>Manage Columns</h5>
+                  <span  className='closecolumn' onClick={() => setSettingOpen(false)}>&times;</span>
                   <p className="manage_column_title">
                     Select the columns you'd like to see in table.
                   </p>

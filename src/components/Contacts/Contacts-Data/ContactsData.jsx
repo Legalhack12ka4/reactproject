@@ -308,7 +308,7 @@ const deleteUser = (record)=>
       key: "leadsource",
       resizable: true,
       // width: "max-content",
-      width: 200,
+      width: 190,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -329,7 +329,7 @@ const deleteUser = (record)=>
       key: "  ",
       resizable: true,
       align: "left",
-      width: 140,
+      width: 130,
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
         return record1.status > record2.status;
@@ -357,7 +357,7 @@ const deleteUser = (record)=>
       key: "companyname",
       resizable: true,
       // width: "max-content",
-      width: 150,
+      width: 140,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
@@ -372,7 +372,7 @@ const deleteUser = (record)=>
       resizable: true,
       // width: "150px",
       // width: "max-content",
-      width: 150,
+      width: 140,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {

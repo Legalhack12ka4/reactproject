@@ -1191,6 +1191,7 @@ height: 38px;
 .deleteconfirm
 {
     padding: 0px !important;
+    top: 0px !important;
 
 .ant-modal-footer{
 background-color: #F5F6F8 !important;
@@ -1200,6 +1201,7 @@ padding: 20px 0px;
  .ant-modal-content
 {
     padding: 0px !important;
+     border-radius: 0px 0px 8px 8px !important;
 }
 }
 

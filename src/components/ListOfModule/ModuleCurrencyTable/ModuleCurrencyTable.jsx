@@ -496,7 +496,8 @@ console.log(formData)
           onOk={handleOk}
           width={764}
           onCancel={handleConfirmData}
-          style={{ top: 20 }}
+          style={{ top: 0 }}
+         className={"footerconfirm1"}
           footer={[
             <Button
               key="submit"
@@ -547,7 +548,7 @@ console.log(formData)
           }
         >
           <div className="addPaymentTermModal">
-            <hr />
+            <hr style={{ border: "1px solid #c2cad2"}}/>
             <div className="addPaymentTermModalInputContainer">
               <div className="addPaymentTermModalInput">
                 <p>Currency Code</p>
@@ -725,7 +726,7 @@ console.log(formData)
        // onOk={handleMaterialOk}
         width={"max-content"}
         onCancel={handleConfirmDataClose}
-        style={{ top: 20 }}
+        style={{ top: 0 }}
         className={"deleteconfirm"}
         footer={[
           <div style={{ marginLeft: "331px" }}>

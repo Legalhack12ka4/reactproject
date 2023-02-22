@@ -656,7 +656,7 @@ console.log(chartOfAccountSchema)
             <p className="subtitle">
               Create New Chart of Account according to your Need
             </p>
-            <hr style={{ marginTop: "20px" }} />
+            <hr style={{ marginTop: "20px",     border: "1px solid #c2cad2"}} />
             <form onSubmit={handleSubmit} autoComplete="off">
               <div style={{ marginTop: "20px", display: "grid", gridTemplateColumns:"repeat(2,1fr)" ,gap: "20px" }}>
 
