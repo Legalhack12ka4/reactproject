@@ -876,7 +876,7 @@ console.log(chartOfAccountSchema)
               >
                 <button
                   type="submit"
-                  className="contactsavebutton"
+                  className="contactsavebutton btn_hover_animation"
                   onClick={() => {
                     handleFormSubmit();
                   }}
@@ -886,7 +886,7 @@ console.log(chartOfAccountSchema)
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
                 <button
                   type="button"
-                  className="contactcancelbutton"
+                  className="contactcancelbutton btn_hover_animation"
                   //onClick={handleclose}
                   onClick={onCancel}
                 >

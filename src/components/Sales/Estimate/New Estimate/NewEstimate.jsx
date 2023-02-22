@@ -478,10 +478,10 @@ function NewEstimate() {
 )}
         <div className='conatiner2estimate'>
         <p>
-        <button className='draft'> <img src={draft} style={{marginRight:"5px"}}/>Save as Draft</button> </p>
+        <button className='draft btn_hover_animation'> <img src={draft} style={{marginRight:"5px"}}/>Save as Draft</button> </p>
              <div style={{display:"flex", marginTop:"20px", gap:"20px"}}>
-              <div> <button className='draftbody'>Save as Draft</button></div>
-              <div> <button className='draftbody'>Save as Draft</button></div>
+              <div> <button className='draftbody btn_hover_animation'>Save as Draft</button></div>
+              <div> <button className='draftbody btn_hover_animation'>Save as Draft</button></div>
              </div>
   
     </div>

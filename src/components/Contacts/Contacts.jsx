@@ -696,13 +696,13 @@ const ownershipwithemail = [
               
 
               <div className="contactbutton_bottom">
-                 <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
+                 <button type="submit" className="contactsavebutton btn_hover_animation"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
                 </button> 
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
                 <button 
                   type="button"
-                  className="contactcancelbutton"
+                  className="contactcancelbutton btn_hover_animation"
                   //onClick={handleclose}
                   onClick={handleConfirmData}
                 >

@@ -1371,8 +1371,8 @@ const {
          {/* <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
                 </button>  */}
-                <input type="submit" className="customersavebutton"  onClick={() => handleFormSubmit()}/>
-                  <button type="button" className="customercancelbutton"  onClick={handleConfirmData}>
+                <input type="submit" className="customersavebutton btn_hover_animation"  onClick={() => handleFormSubmit()}/>
+                  <button type="button" className="customercancelbutton btn_hover_animation"  onClick={handleConfirmData}>
                     Cancel
                   </button>
                 </div>
