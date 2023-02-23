@@ -500,6 +500,26 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                         {...provider.droppableProps}
                         className="field_container"
                       >
+                        <div
+                                      className="columns_fields disabled"
+                                      ref={provider.innerRef}
+                                      {...provider.draggableProps}
+                                      {...provider.dragHandleProps}
+                                    >
+                                      <div className="chekbox_title">
+                                        <img
+                                          src="images/icons/lock_icon.svg"
+                                          alt=""
+                                        />
+                                        <p>{columns[0].title}</p>
+                                      </div>
+                                      <div className="drag_icon">
+                                        <img
+                                          src="/images/icons/bx-dialpad-alt.svg"
+                                          alt="icon"
+                                        />
+                                      </div>
+                                    </div>
                         {columns
                           .filter((column) =>
                             column.title
@@ -521,6 +541,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                                       ref={provider.innerRef}
                                       {...provider.draggableProps}
                                       {...provider.dragHandleProps}
+                                      style={{display:"none"}}
                                     >
                                       <div className="chekbox_title">
                                         <img

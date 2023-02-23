@@ -36,7 +36,7 @@ import NewInventoryGroup from './components/NewInventoryGroup/NewInventoryGroup'
 import ItemPreview from './components/AddInventoryItem/ItemGroup/ItemPreview';
 import ItemTable from './components/AddInventoryItem/ItemTable/ItemTable';
 import ItemGroupTable from './components/AddInventoryItem/ItemGroupTable/ItemGroupTable';
-import UnitOfMasurement from './components/Unit of Masurement/UnitOfMasurement';
+import UnitOfMeasurement from './components/UnitofMeasurement/UnitOfMeasurement';
 
 function App() {
   return (
@@ -91,7 +91,7 @@ function App() {
           <Route path="itemgrouptable3" element={<ItemGroupTable/>}/>
           <Route path="itemgrouptable4" element={<ItemGroupTable/>}/>
           <Route path="itemgrouptable5" element={<ItemGroupTable/>}/>
-          <Route path="unitofmasurement" element={<UnitOfMasurement/>}/>
+          <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>
