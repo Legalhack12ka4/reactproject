@@ -5,11 +5,9 @@ import editdelete from "../../assets/Images/Confirmation/editdelete.svg";
 import Page_heading from "../Page_Heading/Page_heading";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 
-import "./UnitOfMasurement.scss";
+import "./UnitOfMeasurement.scss";
 
 const UnitOfMasurement = () => {
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [activeTab, setActiveTab] = useState("unit_of_masurement");
   const [visible, setVisible] = useState(false);
   const [unitOfMasurementRows, setUnitOfMasurementRows ] = useState([
@@ -17,6 +15,11 @@ const UnitOfMasurement = () => {
     { id: 2, name: "row2", value: "" },
     { id: 3, name: "row3", value: "" },
     { id: 4, name: "row4", value: "" },
+  ]);
+
+  const [conversionOptionsRows, setConversionOptionsRows ] = useState([
+    { id: 1, name: "row1", value: "" },
+    { id: 2, name: "row2", value: "" },
   ]);
 
   const showPopover = (index) => {
@@ -29,6 +32,13 @@ const UnitOfMasurement = () => {
 
   const handleAddRow = () => {
     setUnitOfMasurementRows(prevRows => [
+      ...prevRows,
+      { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
+      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
+    ]);
+  }
+  const handleAddConversionRow = () => {
+    setConversionOptionsRows(prevRows => [
       ...prevRows,
       { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
       { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
@@ -181,7 +191,35 @@ const UnitOfMasurement = () => {
 
       {activeTab === "conversion_setting" && (
         <div className="conversion_options">
-          <div className="conversion_options_heading">Conversion Options</div>
+          <div className="conversion_options_heading">
+            <div className="conversion_name">Conversion Name</div>
+            <div className="convert_from">Convert from</div>
+            <div className="convert_to">Convert to</div>
+          </div>
+          <div className="conversion_options_row_container">
+            {conversionOptionsRows.map((item, index) => {
+              return (
+                <div className="conversion_options_row">
+                  <div className="conversion_name">
+                    <input type="text" disabled className="conversion_name_input" />
+                  </div>
+                  <div className="convert_from">
+                    <input type="text" className="convert_from_input" value={1} disabled />
+                    <SearchDropdown width={155} />
+                  </div>
+                  =
+                  <div className="convert_to">
+                    <input type="text" placeholder="Qty"  className="convert_to_input" />
+                    <SearchDropdown width={155} />
+                  </div>
+                  <div className="edit_delete">
+                    <img src="images/icons/delete.svg" alt="" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="add_btn" onClick={handleAddConversionRow}>+ Add</div>
         </div>
       )}
     </div>

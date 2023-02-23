@@ -33,7 +33,7 @@ function Module() {
    </div>
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
-   <Link exact to="/unitofmasurement" className='currency_btn'>Unit of Masurement</Link>
+   <Link exact to="/unitofmeasurement" className='currency_btn'>Unit of Measurement</Link>
    </div>
    {/* <div style={{marginBottom:"20px"}}>
    <img src={link}/>
