@@ -721,6 +721,7 @@ const deleteUser = (record)=>
 
       <div className="Vendors-table-container">
         <FilterAndSearchBar
+         selectedColumnsLength={selectedColumns.length}
           filterdata={[
             <div className="customer_filter_container">
               <div

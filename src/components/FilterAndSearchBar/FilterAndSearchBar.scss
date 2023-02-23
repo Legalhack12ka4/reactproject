@@ -287,10 +287,22 @@
   position: relative;
   margin-right: -5px;
   // cursor: pointer;
+  // .setting_icon {
+  //   cursor: pointer;
+    
+  // }
   .setting_icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease-in-out;
     cursor: pointer;
   }
+  
+  .setting_icon.clicked {
+    transform: rotate(90deg);
+  }
   .table_setting_dropdown {
+    
     width: 352px;
     //  height: 440px;
     max-height: 602px;
@@ -348,7 +360,7 @@
     }
 
     .columns_search{
-        width: 328px;
+        width: 325px;
         height: 27px;
         border-radius: 6px;
         border: 1px solid #c2cad2;
@@ -364,10 +376,31 @@
         }
     }
 
+     
     .field_container {
       overflow: scroll;
       max-height: 300px;
+     padding-right: 3px;
     }
+    ::-webkit-scrollbar {
+      height: 8px !important;
+      width: 2px !important;
+      direction: rtl;
+      
+      }
+      
+      ::-webkit-scrollbar-thumb {
+      background-color:#c2cad2;
+      border-radius: 10px;
+      margin-right: 3px;
+   
+      }
+      ::-webkit-scrollbar-thumb:hover {
+      background: #566a76;
+      cursor: pointer;
+   
+      } 
+
 
     .disabled{
         background-color: #ECEEF1;
@@ -473,7 +506,7 @@
  // background-color: #C2CAD2;
   border-radius: 20px;
   overflow: hidden;
-  gap:20px;
+  gap:10px;
 }
 
 .options-container a {

@@ -598,7 +598,7 @@ console.log(chartOfAccountSchema)
           title="Create Account"
           open={isModalOpen}
           onOk={handleConfirmDataClose}
-          width={740}
+          width={390}
           // bodyStyle={{ height: 370 }}
           onCancel={onCancel}
           style={{ top: 20 }}
@@ -654,13 +654,13 @@ console.log(chartOfAccountSchema)
         >
           <div style={{ padding: "0px 30px 0px 30px", paddingBottom: "30px" }}>
             <p className="subtitle">
-              Create New Chart of Account according to your Need
+              Create New Chart of Account
             </p>
-            <hr style={{ marginTop: "20px",     border: "1px solid #c2cad2"}} />
+            <hr style={{ marginTop: "20px",     border: "1px solid #eceef1"}} />
             <form onSubmit={handleSubmit} autoComplete="off">
-              <div style={{ marginTop: "20px", display: "grid", gridTemplateColumns:"repeat(2,1fr)" ,gap: "20px" }}>
+              <div style={{ marginTop: "20px",  gridTemplateColumns:"repeat(2,1fr)" ,gap: "20px" }}>
 
-               <div>
+              <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
                     fontSize: "14px",
@@ -668,7 +668,35 @@ console.log(chartOfAccountSchema)
                     fontWeight: "400",
                   }}
                 >
-                  Account Type
+                  Account Code
+                </p>
+                <input
+                  disabled
+                  className="accountcode"
+                  type="text"
+                  placeholder="0009"
+                  name="account_code"
+                  value={accountValue}
+                />
+                {/* <input
+                  disabled
+                  className="accountcode"
+                  type="text"
+                  placeholder="0009"
+                  name="terms"
+                /> */}
+
+              </div>
+
+               <div style={{marginBottom: "20px"}}>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#566A7F",
+                    fontWeight: "400",
+                  }}
+                >
+                   Type
                 </p>
                 {/* <SearchDropdown width={330} options={options/> */}
                 <div className={`srchdrp ${errors.account_type  && touched.account_type && "drpError"}`}>
@@ -713,34 +741,8 @@ console.log(chartOfAccountSchema)
                   <p className="error_text">{errors.account_type}</p>
                 )}
                 </div>
-                 <div>
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#566A7F",
-                    fontWeight: "400",
-                  }}
-                >
-                  Account Code
-                </p>
-                <input
-                  disabled
-                  className="accountcode"
-                  type="text"
-                  placeholder="0009"
-                  name="account_code"
-                  value={accountValue}
-                />
-                {/* <input
-                  disabled
-                  className="accountcode"
-                  type="text"
-                  placeholder="0009"
-                  name="terms"
-                /> */}
-
-              </div>
-                <div>
+                 
+                <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
                   //  marginTop: "18px",
@@ -749,7 +751,7 @@ console.log(chartOfAccountSchema)
                     fontWeight: "400",
                   }}
                 >
-                  Reporting Account
+                  Sub Type
                 </p>
                 <SearchDropdown
                   width={330}
@@ -769,7 +771,7 @@ console.log(chartOfAccountSchema)
                 />
                 </div>
                
-              <div>
+              <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
                   //  marginTop: "18px",
@@ -832,7 +834,7 @@ console.log(chartOfAccountSchema)
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    width: "668.4px",
+                    width: "318.4px",
                     height: "68.4px",
                     outline: "none",
                     resize: "none",
@@ -872,7 +874,7 @@ console.log(chartOfAccountSchema)
               </div>
               <div
                 className="contactbutton_bottom"
-                style={{ marginTop: "24px" }}
+                style={{ marginTop: "30px" }}
               >
                 <button
                   type="submit"
@@ -885,6 +887,7 @@ console.log(chartOfAccountSchema)
                 </button>
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
                 <button
+             
                   type="button"
                   className="contactcancelbutton btn_hover_animation"
                   //onClick={handleclose}
