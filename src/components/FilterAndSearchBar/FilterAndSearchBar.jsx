@@ -37,8 +37,8 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   // const [activeOption, setActiveOption] = useState('Item Groups');
   const location = useLocation();
   const [activeOption, setActiveOption] = useState('');
-  const visibleRoutes = ['/itemgrouptable','/itemgrouptable1','/itemgrouptable2','/itemgrouptable3','/itemgrouptable4',
-                        '/itemgrouptable5', '/itemtable', '/itemtable1', '/itemtable2', '/itemtable3', '/itemtable4', '/itemtable5'];
+  const visibleRoutes = ['/item_&_service/raw_material_&_traded_item','/item_&_service/no_traded_item','/item_&_service/manufactured_item','/item_&_service/items_jobwork','/item_&_service/services',
+                        '/item_&_service/fixed_assets', '/itemtable', '/itemtable1', '/itemtable2', '/itemtable3', '/itemtable4', '/itemtable5'];
   
  
   //usefefect for switch
@@ -287,23 +287,25 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   //  onChange={handleChange}
                 />
               </div>
-            ) :  visibleRoutes.includes(location.pathname) ?
+             ) :
+            visibleRoutes.includes(location.pathname) ?
 
             
-            <div className="options-container">
-            <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
-              <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
-                Item Groups
-              </div>
-            </Link>
-            <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
-              <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
-                Item
-              </div>
-            </Link>
-          </div>
+          //   <div className="options-container">
+          //   <Link to="/itemgrouptable" onClick={() => setActiveOption('Item Groups')}>
+          //     <div className={`option ${activeOption === 'Item Groups' ? 'active' : ''}`}>
+          //       Item Groups
+          //     </div>
+          //   </Link>
+          //   <Link to="/itemtable" onClick={() => setActiveOption('Item')}>
+          //     <div className={`option ${activeOption === 'Item' ? 'active' : ''}`}>
+          //       Item
+          //     </div>
+          //   </Link>
+          // </div>
+          props.swichdata
           
-            :
+           :
               <div className="search_customer">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />

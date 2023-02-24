@@ -7,6 +7,7 @@ import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
 import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
+import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
 import { Link, useLocation } from "react-router-dom";
 
 function ItemTable() {
@@ -16,10 +17,255 @@ function ItemTable() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [loading, setloading] = useState(true);
+    const [activeTable, setActiveTable] = useState("ItemGroup")
     const componentRef = useRef();
 
     const location = useLocation();
+    const dataSourceItem = [
+      {
+        key: "1",
+        item_name: "Gray Grick Shirt",
+        group_name: "Grick Shirt",
+        foreign_name:"CK Gray Shirt",
+        barcode: "GS-GG-0001",
+        hsn_code:"61051010",
+        status:"Active",
+        price:"₹499.00",
+        uom: "Pcs",
+      
+     
+      },
+      {
+          key: "2",
+          item_name: "Polo White Perl",
+          group_name: "Polo Shirt",
+          foreign_name:"Polo Black",
+          barcode: "GS-GG-0001",
+          hsn_code:"61051010",
+          status:"Active",
+          price:"₹899.00",
+          uom: "Pcs",
+        },
+       
+        {
+          key: "3",
+          item_name: "CK Coral",
+          group_name: "Grick Shirt",
+          foreign_name:"CK Gray Shirt",
+          barcode: "GS-GG-0001",
+        hsn_code:"61051010",
+        status:"Inactive",
+        price:"₹999.00",
+        uom: "Pcs",
+        },
+        {
+          key: "4",
+          item_name: "Polo Coral",
+          group_name: "Polo Shirt",
+          foreign_name:"Polo Red",
+          barcode: "GS-GG-0001",
+          hsn_code:"61051010",
+          status:"Active",
+          price:"₹1.20 K",
+          uom: "Pcs",
+        },
+        {
+          key: "5",
+          item_name: "Gray Grick Shirt",
+          group_name: "Grick Shirt",
+          foreign_name:"CK Gray Shirt",
+          barcode: "GS-GG-0001",
+          hsn_code:"61051010",
+          status:"Inactive",
+          price:"₹2.10 K",
+          uom: "Pcs",
+        },
+        {
+          key: "6",
+          item_name: "Gray Grick Shirt",
+          group_name: "Grick Shirt",
+          foreign_name:"CK Gray Shirt",
+          barcode: "GS-GG-0001",
+          hsn_code:"61051010",
+          status:"Active",
+          price:"₹0.9 K",
+          uom: "Pcs",
+        },
+        
+     
+    ];
+    const columnsDataItem = [
+      {
+        title: "Item Name",
+        label: "Item Name",
+        dataIndex: "item_name",
+        key: "item_name",
+        resizable: true,
+        fixed: "left",
+        align: "left",
+        width: 220,
+        render: (text, record) => {
+          return (
+            <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
+              <div style={{width:"36px", height:"36px", borderRadius:"50%"}}>
+              <img src={shirt} alt="" style={{width:"36px", height:"36px", borderRadius:"50%"}}/>
+              </div>
+            <div
+              style={{
+                  color:'#5C5AD0',
+                  fontWeight:"600"
+              }}
+            >
+              {record.item_name}
+            </div>
+            </div>
+          );
+        },
+      },
+      {
+        title: "Group Name",
+        label: "Group Name",
+        dataIndex: "group_name",
+        key: "group_name",
+        width: 140,
+       
+      },
+      {
+        title: "Foreign Name",
+        label: "Foreign Name",
+        dataIndex: "foreign_name",
+        key: "foreign_name",
+        width: 140,
+      },
+      {
+        title: "Barcode",
+        label: "Barcode",
+        dataIndex: "barcode",
+        key: "barcode",
+        width: 140,
+      },
+      {
+        title: "HSN Code",
+        label: "HSN Code",
+        dataIndex: "hsn_code",
+        key: "hsn_code",
+        width: 130,
+      },
+      {
+        title: "Status",
+        label: "Status",
+        dataIndex: "status",
+        key: "status",
+        width: 120,
+        render: (status, record, text) => (
+            <>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {record.status === "Active" ? <div className="bullet_item"></div> :
+                <div className="bullet_itemred"></div>}
+                <Typography.Text
+                  style={
+                    record.status === "Active"
+                      ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                      :  { color: "#DA2F58", fontSize: "14px", fontWeight: "600" }
+                  }
+                >
+                  {record.status}
+                </Typography.Text>
+              </div>
+            </>
+          ),
+        
+      },
+      {
+        title: "Price",
+        label: "Price",
+        dataIndex: "price",
+        key: "price",
+        width: 110,
+        render: (status, record, text) => (
+          <>
+            <div style={{color:"#566A7F", fontWeight:"700"}}>
+              {record.price}
+            </div>
+          </>
+        ),
+      },
 
+      {
+        title: "UOM",
+        label: "UOM",
+        dataIndex: "uom",
+        key: "uom",
+        width: 100,
+      },
+     
+    
+        {
+          title: "",
+          label: "Action",
+          dataIndex: "action",
+          key: "action",
+          resizable: true,
+          fixed: "right",
+          align: "center",
+          width: 40,
+          render: (text, record) => (
+            <>
+            <Popover  id="popoverhide" 
+          getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
+           content={
+                     <>
+               
+                     <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+                     <img src={deletelogo} />
+                     <div>
+                     <button 
+                     className="actionlabel"
+                  //   onClick={() => { handleConfirmCancel(record); hide(); }}
+                    //onClick={hide}
+                     >
+                    Delete
+                     </button>
+                     </div>
+                     </div>
+                     <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                      <img src={editlogo} />
+                      <div>
+                     <button
+          
+                        className="actionlabel"
+                       // onClick={() => handleUpdate(record)}
+                     >
+                    Update
+                     </button>
+                     </div>
+                     </div>
+                     <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                      <img src={statuslogo} />
+                      <div>
+                     <button
+                      className="actionlabel"
+                      style={{minWidth: "max-content"}}
+                        // onClick={() => handleUpdate(record)}
+                     >
+                      Set as Activate
+                     </button>
+                     </div>
+                     </div>
+                     </>
+            } title="" height={100} trigger="click">
+            <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"20px"}} />
+            </Popover>
+              
+            </>
+         
+          
+    
+              ),
+          resizable: true,
+          align: "left",
+        },
+    ];
     const dataSource = [
         {
           key: "1",
@@ -88,6 +334,7 @@ function ItemTable() {
           sales_account: "Sales",
         },
       ];
+
     
       const columnsData = [
         {
@@ -274,9 +521,12 @@ function ItemTable() {
     setSearch(event.target.value);
   };
 
-  const filteredData = dataSource.filter((record) =>
+  const filteredData = 
+  activeTable === "ItemGroup" ? dataSource.filter((record) =>
     record.group_name.toLowerCase().includes(search.toLowerCase())
-  );
+  ) :  dataSourceItem.filter((record) =>
+  record.item_name.toLowerCase().includes(search.toLowerCase())
+);
 
   return (
     <div className="account-data">
@@ -286,18 +536,31 @@ function ItemTable() {
     //           {"Back"}
     //         </Link>
     //       } 
-          child={location.pathname === "/itemgrouptable" ? "Raw Material & Traded Items" : 
-          location.pathname === "/itemgrouptable1" ? "No Traded Items" : 
-          location.pathname === "/itemgrouptable2" ? "Manufactured Items" : 
-          location.pathname === "/itemgrouptable3" ? "Item Received for Jobwork" : 
-          location.pathname === "/itemgrouptable4" ? "Services" : 
-          location.pathname === "/itemgrouptable5" ? "Fixed Assets" : ""
+          child={location.pathname === "/item_&_service/raw_material_&_traded_item" ? "Raw Material & Traded Items " : 
+          location.pathname === "/item_&_service/no_traded_item" ? "No Traded Items" : 
+          location.pathname === "/item_&_service/manufactured_item" ? "Manufactured Items" : 
+          location.pathname === "/item_&_service/items_jobwork" ? "Item Received for Jobwork" : 
+          location.pathname === "/item_&_service/services" ? "Services" : 
+          location.pathname === "/item_&_service/fixed_assets" ? "Fixed Assets" : ""
           } />
     <div className="account-table-container">
       <FilterAndSearchBar
+      swichdata={   <div className="options-container">
+      <div onClick={() => setActiveTable('ItemGroup')}>
+        <div className={`option ${activeTable === 'ItemGroup' ? 'active' : ''}`}>
+          Item Groups
+        </div>
+      </div>
+      <div onClick={() => setActiveTable('Item')}>
+        <div className={`option ${activeTable === 'Item' ? 'active' : ''}`}>
+          Item
+        </div>
+      </div>
+    </div>}
         columns={columnsData}
         setColumns={setColumns}
-      //  addBtnName={"Goods & Services"}
+       addBtnName={activeTable === "ItemGroup" ? "Item Group" : "Item"}
+       path={activeTable === "ItemGroup" ? "/item_&_service/new_inventory_group" : "/item_&_service/new_inventory_item"}
      //   onClick={showModal}
         onData={handleData}
       />
@@ -317,7 +580,7 @@ function ItemTable() {
           },
         }}
         dataSource={filteredData}
-        columns={columns}
+        columns={activeTable === "ItemGroup" ? columns :  columnsDataItem}
         // scroll={{ y: 800, x: 720 }}
         scroll={{ x: "800px" }}
         //    style={{ width: "100%" }}

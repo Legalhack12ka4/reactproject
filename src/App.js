@@ -86,12 +86,12 @@ function App() {
           <Route path="itemtable3" element={<ItemTable/>}/>
           <Route path="itemtable4" element={<ItemTable/>}/>
           <Route path="itemtable5" element={<ItemTable/>}/>
-          <Route path="itemgrouptable" element={<ItemGroupTable/>}/>
-          <Route path="itemgrouptable1" element={<ItemGroupTable/>}/>
-          <Route path="itemgrouptable2" element={<ItemGroupTable/>}/>
-          <Route path="itemgrouptable3" element={<ItemGroupTable/>}/>
-          <Route path="itemgrouptable4" element={<ItemGroupTable/>}/>
-          <Route path="itemgrouptable5" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/raw_material_&_traded_item" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/no_traded_item" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/manufactured_item" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/items_jobwork" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/services" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/fixed_assets" element={<ItemGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
           <Route path="login" element={<LoginPage/>}/>
           </Routes>

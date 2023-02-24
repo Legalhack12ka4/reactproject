@@ -1,6 +1,6 @@
 .new_inventory_item_main {
   // border: 1px solid;
-  margin: auto;
+    margin: auto;
   width: 95%;
   //   max-width: 1077px;
   //   padding: 5px;
@@ -46,7 +46,7 @@
   .new_inventory_item_container {
  //   width: max-content;
   //  min-width: 1050px;
-    max-width: 1300px;
+    max-width: 1140px;
     background-color: #ffff;
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0px 2px 6px 0px #4359711f;
@@ -72,17 +72,20 @@
     }
 
     .item_form_container {
+      position: relative;
+
     //   border: 1px solid;
-      margin-top: 10px;
-      padding: 20px;
+      //margin-top: 10px;
+     // padding: 20px;
       display: flex;
-      gap: 10px;
+      gap: 30px;
 
       .input_box_container {
-        border-right: 1px solid #C2CAD2;
-        padding-right: 20px;
+      //  border-right: 1px solid #C2CAD2;
+      //  padding-right: 20px;
         // border: 1px solid;
-        display: grid;
+       // display: grid;
+       padding: 20px 0px 20px 20px;
         height: max-content;
 
         grid-template-columns: repeat(2, 1fr);
@@ -130,9 +133,22 @@
             }
           }
         }
+        .input_container1 {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border: 0.5px solid #d9dee3;
+          width: 129.4px;
+          height: 37px;
+          border-radius: 5px;
+          padding: 0px 12px;}
+
+        
+
       }
 
       .image_uploader_container{
+        padding: 20px 0px 20px 0px;
         max-width: 400px;
         // display: none;
       }
@@ -141,10 +157,10 @@
 }
 
 .img_uploader_main_length_0 {
-  max-width: 290px;
+  max-width: 330px;
   min-width: 260px;
   max-height: 315px;
-  padding: 0px 10px;
+ // padding: 0px 10px;
   background-color: #ffff;
   overflow: hidden;
   border-radius: 6px;
@@ -246,6 +262,65 @@
     margin-bottom: 15px;
   }
 }
+
+
+.input_containerdes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0.5px solid #d9dee3;
+  width: 304.4px;
+  height: 119.4px;
+  border-radius: 5px;
+  padding: 0px 12px;}
+
+  .input_group
+  {
+    p {
+      font-size: 14px;
+      color: #566a7f;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+  }
+  .input_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 0.5px solid #d9dee3;
+    width: 305px;
+    height: 37px;
+    border-radius: 5px;
+    padding: 0px 12px;
+  
+
+  }
+
+    .item_create_container
+    {
+    /* border: 1px solid red; */
+    //width: 370px;
+    /* background: red; */
+    /* background-color: red; */
+    box-shadow: inset 0 0 10px #00000020;
+    border-radius: 8px;
+    padding: 18px 22px 15px 21px;
+    p {
+      font-size: 14px;
+      color: #566a7f;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .input_container1 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 0.5px solid #d9dee3;
+      width: 129.4px;
+      height: 37px;
+      border-radius: 5px;
+      padding: 0px 12px;}
+    }
 
 // new inventory item form
 
