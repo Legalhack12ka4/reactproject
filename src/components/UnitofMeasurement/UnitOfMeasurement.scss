@@ -13,7 +13,7 @@
 
     .navigation_container{
         display: flex;
-        gap: 3px;
+        gap: 10px;
 
         div{
             font-size: 14px;
@@ -43,12 +43,14 @@
         overflow: hidden;
         margin-top: 30px;
         margin-bottom: 10px;
+        width: 724px;
 
 
         .table_input_form{
             background-color: #ffff;
             display: flex;
             align-items: center;
+
 
             .UOM_input_field{
                 padding:20px 0px 20px 20px;
@@ -62,9 +64,9 @@
                     height: 36px;
                     border: 1px solid #C2CAD2;
                     border-radius: 5px;
-                    // padding: 0px 10px;
                     font-size: 14px;
                     font-weight: 400;
+                    padding-left: 14px;
                     color: #566A7F;
                     margin-top: 8px;
                 }

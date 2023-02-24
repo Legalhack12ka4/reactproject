@@ -90,7 +90,7 @@ const UnitOfMasurement = () => {
               <input
                 type="text"
                 className="UOM_input"
-                style={{ width: "218px" }}
+                style={{ width: "204px" }}
               />
             </div>
             <div className="UOM_input_field">
