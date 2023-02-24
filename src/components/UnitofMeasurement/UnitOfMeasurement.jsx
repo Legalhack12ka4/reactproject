@@ -1,11 +1,12 @@
 import { render } from "@testing-library/react";
 import { Popover, Select, Table } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import editdelete from "../../assets/Images/Confirmation/editdelete.svg";
 import Page_heading from "../Page_Heading/Page_heading";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 
 import "./UnitOfMeasurement.scss";
+import { useRef } from "react";
 
 const UnitOfMasurement = () => {
   const [activeTab, setActiveTab] = useState("unit_of_masurement");
@@ -13,14 +14,15 @@ const UnitOfMasurement = () => {
   const [unitOfMasurementRows, setUnitOfMasurementRows ] = useState([
     { id: 1, name: "row1", value: "" },
     { id: 2, name: "row2", value: "" },
-    { id: 3, name: "row3", value: "" },
-    { id: 4, name: "row4", value: "" },
   ]);
 
   const [conversionOptionsRows, setConversionOptionsRows ] = useState([
     { id: 1, name: "row1", value: "" },
     { id: 2, name: "row2", value: "" },
   ]);
+
+  const conversionRef = useRef(null)
+  const uomRef = useRef(null)
 
   const showPopover = (index) => {
     setVisible(index);
@@ -30,12 +32,24 @@ const UnitOfMasurement = () => {
     setVisible(false);
   };
 
+  useEffect(() => {
+    if (conversionRef.current) {
+      conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
+    }
+  }, [conversionOptionsRows]);
+  useEffect(() => {
+    if (uomRef.current) {
+      uomRef.current.scrollTop = uomRef.current.scrollHeight;
+    }
+  }, [unitOfMasurementRows]);
+
   const handleAddRow = () => {
     setUnitOfMasurementRows(prevRows => [
       ...prevRows,
       { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
       { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
     ]);
+    uomRef.current.scrollTop = uomRef.current.scrollHeight;
   }
   const handleAddConversionRow = () => {
     setConversionOptionsRows(prevRows => [
@@ -43,6 +57,7 @@ const UnitOfMasurement = () => {
       { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
       { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
     ]);
+    conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
   }
 
   const UnitOfMasurementData = [
@@ -157,22 +172,28 @@ const UnitOfMasurement = () => {
       {activeTab === "packing_setting" && (
         <div className="packing_option">
           <div className="packing_option_heading">
-            <div className="unit_of_measurement" >Unit of Measurement</div>
-            <div className="qty">Qty</div>
             <div className="package_name">Package Name</div>
+            <div className="unit_of_measurement" >Standard Uom</div>
+            <div className="qty">Base Qty</div>
+            <div className="pack_qty">Pack Qty</div>
           </div>
-          <div className="packing_setting_rows_container">
+          <div className="packing_setting_rows_container" ref={uomRef} >
           {unitOfMasurementRows.map((item, index) => {
             return (
               <div className="packing_option_row">
+
+                <div className="package_name">
+                  <input type="text"  className="package_name_input" />
+                </div>
+
                 <div className="unit_of_measurement">
                   <SearchDropdown width={155} />
                 </div>
                 <div className="qty">
-                  <input type="text" placeholder="1" className="qty_input" />
-                </div>
-                <div className="package_name">
-                  <input type="text" disabled  className="package_name_input" />
+                  <input type="text" placeholder="1" disabled className="qty_input" />
+                </div> X
+                <div className="pack_qty">
+                  <input type="text" placeholder="1" className="pack_qty_input" />
                 </div>
                 <div className="edit_delete">
                   <img src="images/icons/delete.svg" alt="" />
@@ -196,7 +217,7 @@ const UnitOfMasurement = () => {
             <div className="convert_from">Convert from</div>
             <div className="convert_to">Convert to</div>
           </div>
-          <div className="conversion_options_row_container">
+          <div className="conversion_options_row_container" ref={conversionRef}>
             {conversionOptionsRows.map((item, index) => {
               return (
                 <div className="conversion_options_row">
