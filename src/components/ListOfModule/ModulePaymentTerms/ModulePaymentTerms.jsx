@@ -417,7 +417,8 @@ const deleteUser = (record)=>
                 width: "80px",
                 height: "38px",
                 backgroundColor: "#5C5AD0",
-                fontSize: "12px",
+                fontSize: "14px",
+                fontWeight:"500"
               }}
               onClick={() => handleFormSubmit()}
             >
@@ -430,9 +431,10 @@ const deleteUser = (record)=>
               style={{
                 width: "80px",
                 height: "38px",
-                fontSize: "12px",
-                color: "#8E9CAA",
+                fontSize: "14px",
+                color: "#697a8d",
                 borderColor: "#8E9CAA",
+                fontWeight:"500"
               }}
             >
               Cancel
@@ -456,7 +458,10 @@ const deleteUser = (record)=>
           }
         >
           <div className="addPaymentTermModal">
-            <hr style={{border: "1px solid #c2cad2"}}/>
+          <p className="subtitle">
+              Create Payment Term according to use
+            </p>
+            <hr style={{border: "1px solid #eceef1", marginTop:"20px"}}/>
             <div className="addPaymentTermModalInputContainer">
               <div className="addPaymentTermModalInput">
                 <p>Terms</p>
@@ -471,6 +476,7 @@ const deleteUser = (record)=>
               <div className="addPaymentTermModalInput">
                 <p>Days</p>
                 <input
+                className="currency"
                   type="text"
                   placeholder="5 Days"
                   name="days"

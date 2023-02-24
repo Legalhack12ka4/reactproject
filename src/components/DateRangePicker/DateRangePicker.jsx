@@ -8,16 +8,24 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./DateRangePicker.scss";
 
-const DateRangePickerComp = () => {
+const DateRangePickerComp = ({daterange}) => {
   // date state
   const [range, setRange] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: null,
+      endDate: null,
       key: "selection",
     },
   ]);
 
+  console.log(daterange(range));
+
+  const getRange = () =>
+  {
+    daterange(range)
+    
+  }
+  console.log(range);
   // open close
   const [open, setOpen] = useState(false);
 
@@ -52,10 +60,12 @@ const DateRangePickerComp = () => {
       <div className="calendarInput">
         <img src="/images/icons/calendar.svg" alt="" />
         <input
-          value={`${format(range[0].startDate, "dd/MM/yyyy")} to ${format(
-            range[0].endDate,
-            "dd/MM/yyyy"
-          )}`}
+       // className="placeholdertext"
+         value={
+          range[0].startDate && range[0].endDate
+            ? `${format(range[0].startDate, "dd/MM/yyyy")} to ${format(range[0].endDate, "dd/MM/yyyy")}`
+            : null
+        }
            placeholder="Select date range"
           readOnly
           className="inputBox"
@@ -66,7 +76,7 @@ const DateRangePickerComp = () => {
       <div ref={refOne} className="dateRangePicker">
         {open && (
           <DateRangePicker
-            onChange={(item) => setRange([item.selection])}
+            onChange={(item) => {setRange([item.selection]);daterange(range);}}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
             ranges={range}

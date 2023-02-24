@@ -45,6 +45,12 @@ padding: 0px !important;
     color:#566A7F;
 }
 
+.addPaymentTermModalInput ::placeholder{
+    color: #697a8d !important;
+    font-weight: 500;
+    opacity: 0.5 !important;
+    font-size: 13px !important;
+}
 .paymentinput
 {
     border: 0.5px solid;
@@ -95,6 +101,7 @@ padding: 0px !important;
    // margin-right: 24px;
    // font-weight: bold;
 }
+
 
 //modal
 

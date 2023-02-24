@@ -505,10 +505,11 @@ console.log(formData)
               className="btn_hover_animation"
               //  onClick={handleSubmit}
               style={{
-                width: "80px",
+                width: "92px",
                 height: "38px",
                 backgroundColor: "#5C5AD0",
-                fontSize: "12px",
+                fontSize: "14px",
+                fontWeight:"500"
               }}
               onClick={() => handleFormSubmit()}
             >
@@ -520,11 +521,12 @@ console.log(formData)
            className="btn_hover_animation"
               onClick={handleConfirmData}
               style={{
-                width: "80px",
+                width: "92px",
                 height: "38px",
-                fontSize: "12px",
-                color: "#8E9CAA",
+                fontSize: "14px",
+                color: "#697a8d",
                 borderColor: "#8E9CAA",
+                fontWeight:"500"
               }}
             >
               Cancel
@@ -548,11 +550,15 @@ console.log(formData)
           }
         >
           <div className="addPaymentTermModal">
-            <hr style={{ border: "1px solid #c2cad2"}}/>
+          <p className="subtitle">
+              Create Currency according to use
+            </p>
+            <hr style={{border: "1px solid #eceef1", marginTop:"20px"}}/>
             <div className="addPaymentTermModalInputContainer">
               <div className="addPaymentTermModalInput">
                 <p>Currency Code</p>
                 <input
+                className="currency"
                   type="text"
                   placeholder="INR"
                   name="currency_name"
@@ -563,6 +569,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Symbol</p>
                 <input
+                   className="currency"
                   type="text"
                   placeholder="₹"
                   name="symbol"
@@ -573,6 +580,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Name</p>
                 <input
+                   className="currency"
                   type="text"
                   placeholder="Indian Rupee"
                   name="country_name"

@@ -834,6 +834,7 @@ const deleteUser = (record)=>
 
         <div className="customer-table-container">
           <FilterAndSearchBar
+           selectedColumnsLength={selectedColumns.length}
            getPopupContainer={(trigger) => trigger.parentElement} 
             filterdata=
             {[

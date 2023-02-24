@@ -39,10 +39,45 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [activeOption, setActiveOption] = useState('');
   const visibleRoutes = ['/itemgrouptable','/itemgrouptable1','/itemgrouptable2','/itemgrouptable3','/itemgrouptable4',
                         '/itemgrouptable5', '/itemtable', '/itemtable1', '/itemtable2', '/itemtable3', '/itemtable4', '/itemtable5'];
-
+  
  
   //usefefect for switch
+  //const [visible, setVisible] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const popRef = useRef(null);
 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (visible && !popRef.current.contains(e.target)) {
+        setIsClicked(false);
+        setVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [visible]);
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
+    setIsClicked(visible);
+  };
+
+  const handleIconClick = () => {
+    setIsClicked((prevState) => !prevState);
+  };
+
+  // const handleContentClick = () => {
+  //   setVisible(false);
+  //   setIsClicked(false);
+  // };
+
+  // const openSetting = () => {
+  //   console.log("Open setting");
+  // };
   useEffect(() => {
  
     const path = location.pathname;
@@ -55,12 +90,13 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
     );
   }, [location]);
 
-  const handleVisibleChange = (newVisible) => {
-    setVisible(newVisible);
-  };
+  // const handleVisibleChange = (newVisible) => {
+  //   setVisible(newVisible);
+  // };
 
   const handleContentClick = () => {
-    setVisible(false);
+    setVisible(!visible);
+    setIsClicked(!visible);
   };
 
   // const csvLink = {
@@ -306,7 +342,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         
 
           <div style={{ display: "flex", gap: "10px" }}>
-          {!visibleRoutes.includes(location.pathname)?<DateRangePicker />:  <div className="search_customer">
+          {!visibleRoutes.includes(location.pathname)?props.datepickerfilter:  <div className="search_customer">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
                 </div>
@@ -401,7 +437,8 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 
             <Popover
               open={visible}
-              onOpenChange={handleVisibleChange}
+              //onOpenChange={() => {handleVisibleChange(); handleVisibleChange1();}}
+               onOpenChange={handleVisibleChange}
               content={
                 <div className="setting_container">
                   <div
@@ -412,6 +449,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                       handleContentClick();
                     }}
                   >
+                   
                     <img src="images/icons/columns_icon.svg" alt="" />
                     <p>Columns</p>
                   </div>
@@ -442,11 +480,11 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               getPopupContainer={(trigger) => trigger.parentElement}
             >
               <div className="settings">
-                <img
-                  className="setting_icon"
-                  src="/images/icons/setting.svg"
-                  alt="icon"
-                />
+              <div className={`setting_icon ${isClicked ? "clicked" : ""}`}  onClick={handleIconClick}>
+                <svg id="Settings" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+              <path id="Path_26" data-name="Path 26" d="M7.009,16.861l1.634,2.768a.827.827,0,0,0,1.116.292l1.141-.645a6.631,6.631,0,0,0,1.548.89v1.278a.809.809,0,0,0,.817.8h3.269a.809.809,0,0,0,.817-.8V20.165a6.647,6.647,0,0,0,1.548-.89l1.141.645a.83.83,0,0,0,1.116-.292l1.634-2.768a.794.794,0,0,0-.3-1.093l-1.121-.634a6.019,6.019,0,0,0,0-1.779l1.121-.634a.793.793,0,0,0,.3-1.093L21.155,8.859a.827.827,0,0,0-1.116-.292L18.9,9.212a6.6,6.6,0,0,0-1.548-.89V7.044a.809.809,0,0,0-.817-.8H13.265a.809.809,0,0,0-.817.8V8.322a6.647,6.647,0,0,0-1.548.89L9.76,8.567a.832.832,0,0,0-.62-.081.814.814,0,0,0-.5.373L7.009,11.627a.794.794,0,0,0,.3,1.093l1.121.634a6.019,6.019,0,0,0,0,1.779l-1.121.634A.793.793,0,0,0,7.009,16.861Zm7.89-5.817a3.2,3.2,0,1,1-3.269,3.2A3.238,3.238,0,0,1,14.9,11.044Z" transform="translate(-6.9 -6.244)" fill={`${isClicked? "#5C5AD0":"#697a8d"} `}/>
+            </svg>
+            </div>
               </div>
             </Popover>
             <div>

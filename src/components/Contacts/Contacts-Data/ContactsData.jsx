@@ -21,6 +21,8 @@ import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import { Link } from "react-router-dom";
+import DateRangePicker from "../../DateRangePicker/DateRangePicker";
+import format from "date-fns/format";
 
 
 const filterfield = {
@@ -30,6 +32,7 @@ const filterfield = {
   dob: "",
   position: "",
   ownership: "",
+  updated_date_time: "",
 };
 
 
@@ -53,11 +56,26 @@ const ContactsData = (props) => {
   const [changePosition, setChangePosition] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [addSouce, setAddSource] = useState([]);
-
+  const [dateRange , setDateRange] = useState([]) //for date filter
+  const [startdate, setStartdate] = useState([]);
+  const [enddate, setEnddate] = useState([]);
 
  
+//daterangefunction
+
+const filterdaterange = (date) =>
+{
+  setDateRange(date[0].startDate)
+  setStartdate(date[0].startDate)
+  setEnddate(date[0].endDate)
+  console.log(date)
+}
+console.log(startdate)
+console.log(enddate)
+// console.log(dateRange[0].startDate, "yyyy-MM-dd")
+//console.log(dateRange[0].startDate)
+
   console.log(hoveredRow);
-   
 
   const hide = () => {
     setOpen(false);
@@ -150,6 +168,7 @@ console.log(addSouce)
                ?"Manger"
                :"SalesPerson",
           Ownership: row.ownership == 1 ? "ubuntu" : "window",
+          Updated_Date_Time: row.updated_date_time
           // id: row.id
         }))
       );
@@ -236,6 +255,7 @@ const deleteUser = (record)=>
     companyname:"Reformiqo",
     status:"Customer",
     ownership: contact.Ownership,
+    updated_date_time: contact.Updated_Date_Time
   }));
   const columnsData = [
     {
@@ -387,6 +407,20 @@ const deleteUser = (record)=>
         </div>
       ),
     },
+    // {
+    //   title: "Updated Date Time ",
+    //   label: "Updated Date Time  ",
+    //   dataIndex: "updated_date_time",
+    //   key: "updated_date_time",
+    //   visible:false,
+    //   resizable: true,
+    //   // width: "150px",
+    //   // width: "max-content",
+    //   width: 140,
+    //   align: "left",
+    //   showSorterTooltip: { title: "" },
+     
+    // },
     {
       title: "",
       label: "Action",
@@ -528,13 +562,65 @@ const deleteUser = (record)=>
     // console.log(value);
     // console.log(name);
   };
+  const onChangedate = (e) => {
+    const { value, name } = e.target;
+    setCustFilter({ ...custfilter, [name]: value });
+     console.log(value);
+     console.log(name);
+  };
+  // const onChangedate = (e) => {
+  //   const { value, name } = e.target;
+  
+  //   if (name === "updated_date_time") {
+  //     setDateRange(value); // set the selected date range in the state
+  //     setCustFilter({
+  //       ...custfilter,
+  //       [name]: value.join(" - ") // join the dates with a hyphen and store in updated_date_time field
+  //     });
+  //   } else {
+  //     setCustFilter({
+  //       ...custfilter,
+  //       [name]: value
+  //     });
+  //   }
+  // };
+  console.log(custfilter)
 
-  const cusomizeData = dataSource.filter(
+  // useEffect(() => {
+  //   console.log(startdate);
+  // }, [startdate]);
+
+  // const datafilter = (dateRange) => {
+  //   const [startDate, endDate] = dateRange.map((date) => new Date(date));
+  //   setStartdate(startDate);
+  //   setEnddate(endDate);
+  //   console.log(startDate);
+  // };
+  
+ 
+  // console.log(startdate);
+  // console.log(enddate);
+
+
+
+//   const fromDate = new Date(startdate);
+// const toDate = new Date(enddate);
+
+  const cusomizeData = 
+    
+    dataSource.filter(
     (record) =>
       record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
-      && record.name.toLowerCase().includes(search.toLowerCase())
+      && record.name.toLowerCase().includes(search.toLowerCase())&&
+      // && record.updated_date_time.includes(custfilter.updated_date_time)
+
+      (!startdate || !enddate ||
+        (new Date(record.updated_date_time) >= startdate &&
+        new Date(record.updated_date_time) <= enddate))
+    //   new Date(record.updated_date_time) >= startdate && // filter records from fromDate
+    // new Date(record.updated_date_time) <= enddate  // filter records up to toDate
       // && record.email.toLowerCase().includes(search.toLowerCase())
       // || record.dob.toString().includes(search.toString())
       // && record.mobile.toString().includes(search.toString())
@@ -614,62 +700,25 @@ setoldData(oldData)
 
   return (
     <div className="contacts-data">
-        {/* <Popover
-          getPopupContainer={(trigger) => trigger.parentElement} 
-      content={
-        <>
-           
-        <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-        <img src={deletelogo} />
-        <div>
-        <button 
-        className="actionlabel"
-       // onClick={() => handleConfirmCancel(record)}    
-       onClick={hide}
-        >
-       Delete
-        </button>
-        </div>
-        </div>
-        <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-         <img src={editlogo} />
-         <div>
-        <Link to="addcustomer"><button
-
-           className="actionlabel"
-           // onClick={() => handleUpdate(record)}
-        >
-       Update
-        </button></Link>
-        </div>
-        </div>
-        <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-         <img src={statuslogo} />
-         <div>
-        <button
-         className="actionlabel"
-         style={{minWidth: "max-content"}}
-           // onClick={() => handleUpdate(record)}
-        >
-         Set as Activate
-        </button>
-        </div>
-        </div>
-        </>
-      }
-      title="Title"
-      trigger="click"
-      open={open}
-     onOpenChange={handleOpenChange}
-    >
-      <Button type="primary">Click me</Button>
-    </Popover>  */}
       <Page_heading parent={"Business Account"} child={"contacts"} />
 
       <div className="contacts-table-container">
         <FilterAndSearchBar
         selectedColumnsLength={selectedColumns.length}
           results_length={`${cusomizeData.length} Contacts`}
+          datepickerfilter={
+            <DateRangePicker
+            daterange={filterdaterange}
+            name="updated_date_time"
+            value={dateRange}
+            onChange={onChangedate}
+          // onChange={(value) => {
+            //   setDateRange(value);
+            //   if (value.length === 2) {
+            //     datafilter(value);
+            //   }
+            // }}
+          />}
           filterdata={[
             <div className="contact_filter_container">
               <div className="customer_filter_filed">
@@ -730,6 +779,20 @@ setoldData(oldData)
                     onChange={onChangedob}
                   /> */}
                 </div>
+
+                {/* <DateRangePicker
+            daterange={filterdaterange}
+            name="updated_date_time"
+            value={dateRange}
+            onChange={onChangedate}
+          /> */}
+                {/* <DateRangePicker
+                daterange={filterdaterange}
+                    name="updated_date_time"
+                    //   options={ownership}
+                       value={custfilter.updated_date_time}
+                       onChange={onChangedate}
+                /> */}
               </div>
             </div>,
           ]}
@@ -749,6 +812,7 @@ setoldData(oldData)
         />
         <OffCanvasExample form={<Contacts handledata={getDataChild} onClick={getData} />} />
         <div className="tableData">
+        {/* <button onClick={() => { setStartdate(null); setEnddate(null) }}>Clear</button> */}
           {filterarray.length > 0 && (
             <div className="tags" id="tags">
               <div className="appliedtag ">Filtered by </div>
@@ -761,7 +825,8 @@ setoldData(oldData)
                       title={`${
                         (customerfilter.key === "position" && "Position") ||
                         (customerfilter.key === "ownership" && "Ownership") ||
-                        (customerfilter.key === "dob" && "Date of Birth")
+                        (customerfilter.key === "dob" && "Date of Birth") ||
+                        (customerfilter.key === "updated_date_time" && "Date")
                       } : ${customerfilter.value}`}
                       color="#EBECF0"
                     >
