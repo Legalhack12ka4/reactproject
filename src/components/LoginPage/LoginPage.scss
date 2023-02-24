@@ -21,7 +21,7 @@
             position: fixed;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -50%) !important;
+            transform: translate(-105%, -43%) !important;
         }
     }
 
@@ -229,5 +229,12 @@
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%) !important;
+        }
+        .login-page-main .page-image-container .login-logo{
+            position: fixed;
+            left: 50%;
+            top: 15%;
+            transform: translate(-50%, -50%) !important;
+            width: 300px;
         }
   }
