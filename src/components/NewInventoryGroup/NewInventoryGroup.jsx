@@ -538,7 +538,7 @@ const resetOther = () => {
             <p>Without an Item group you can't create an Item.</p>
         </div>
 
-        <div className="group_form_container" style={{overflow:"scroll"}}>
+        <div className="group_form_container" style={{overflow:"scroll", display:"flex", padding:"20px"}}>
 
             <div className="top_input_container">
 
@@ -565,10 +565,10 @@ const resetOther = () => {
                   onChange={handleDrpChange}/>
                 </div> */}
 
-
+                <div style={{display:"flex", gap:"20px", marginBottom:"18px",marginTop:"18px"}}>
                 <div className="input_group">
                   <p>Unit of Measurement</p>
-                  <SearchDropdown width={330} options={unitofdata}
+                  <SearchDropdown width={155} options={unitofdata}
                     name="uom"
                     labelKey="label"
                     value={unitofdata.find(
@@ -579,7 +579,7 @@ const resetOther = () => {
 
                 <div className="input_group">
                   <p>Manage by</p>
-                  <SearchDropdown width={330} options={getmanageby}
+                  <SearchDropdown width={155} options={getmanageby}
                    name="managed_by"
                    labelKey="label"
                    value={getmanageby.find(
@@ -587,15 +587,12 @@ const resetOther = () => {
                   )?.label}
                    onChange={handleDrpChange} />
                 </div>
+                </div>
 
-            </div>
-      <hr style={{marginRight:"20px", marginLeft:"20px", border:"1px solid #C2CAD2"}}/>
-            
-            <div className="bottom_input_container">
-
-            <div className="input_group">
+                <div style={{display:"flex", gap:"20px"}}>
+                <div className="input_group">
                   <p>Tax Preference</p>
-                  <SearchDropdown width={330} options={getpreference} 
+                  <SearchDropdown width={155} options={getpreference} 
                     name="tax_preferences"
                     labelKey="label"
                     value={getpreference.find(
@@ -604,10 +601,65 @@ const resetOther = () => {
                     onChange={handleDrpChange}
                   />
                 </div>
-
                 <div className="input_group">
+                  <p>Tax Rates</p>
+                  <SearchDropdown width={155} options={taxratedata}
+                    name="tax_rates"
+                    labelKey="label"
+                   // value={formData.tax_rates}
+                    value={taxratedata.find(
+                     (option) => option.key === formData.tax_rates && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
+                </div>
+                </div>
+
+            </div>
+      {/* <hr style={{marginRight:"20px", marginLeft:"20px", border:"1px solid #C2CAD2"}}/> */}
+            
+            <div className="bottom_input_container">
+
+            <div style={{display:"flex", gap:"20px", marginBottom:"18px"}}>
+           <div className="input_group">
+                  <p>Item Group Type</p>
+                  <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
+                  
+                    <input type="text" placeholder="placeholder"
+                    style={{backgroundColor:"#ECEEF1"}}
+                    disabled
+                    name="group_name"
+                    value="Inventory Item"
+                    onChange={onChange}
+                    />
+                  </div>
+                </div>
+           <div className="input_group">
+                  <p>Inventory Account</p>
+                  <SearchDropdown width={155}  options={reportingl4name}
+                    name="inventory_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.inventory_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
+                </div>
+           </div>
+
+           <div style={{display:"flex", gap:"20px", marginBottom:"18px"}}>
+         
+           <div className="input_group">
+                  <p>Sales Account</p>
+                  <SearchDropdown width={155}  options={reportingl4name}
+                    name="selling_account"
+                    labelKey="label"
+                    value={reportingl4name.find(
+                     (option) => option.key === formData.selling_account && option.label
+                   )?.label}
+                    onChange={handleDrpChange}/>
+                </div>
+           <div className="input_group">
                   <p>Cost Account</p>
-                  <SearchDropdown width={330}  options={reportingl4name}
+                  <SearchDropdown width={155}  options={reportingl4name}
                     name="cost_account"
                     labelKey="label"
                     value={reportingl4name.find(
@@ -615,6 +667,34 @@ const resetOther = () => {
                    )?.label}
                     onChange={handleDrpChange}/>
                 </div>
+           </div>
+
+
+           <div style={{display:"flex", gap:"20px"}}>
+         
+         <div className="input_group">
+                <p>Variance Account</p>
+                <SearchDropdown width={155}  options={reportingl4name}
+                  name="selling_account"
+                  labelKey="label"
+                  value={reportingl4name.find(
+                   (option) => option.key === formData.selling_account && option.label
+                 )?.label}
+                  onChange={handleDrpChange}/>
+              </div>
+         <div className="input_group">
+                <p>WIP Account</p>
+                <SearchDropdown width={155}  options={reportingl4name}
+                  name="cost_account"
+                  labelKey="label"
+                  value={reportingl4name.find(
+                   (option) => option.key === formData.cost_account && option.label
+                 )?.label}
+                  onChange={handleDrpChange}/>
+              </div>
+         </div>
+
+                
 {/* 
                 <div className="input_group">
                   <p>Manufacturing Account</p>
@@ -627,39 +707,10 @@ const resetOther = () => {
                     onChange={handleDrpChange}/>
                 </div> */}
                 
-                <div className="input_group">
-                  <p>Inventory Account</p>
-                  <SearchDropdown width={330}  options={reportingl4name}
-                    name="inventory_account"
-                    labelKey="label"
-                    value={reportingl4name.find(
-                     (option) => option.key === formData.inventory_account && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
+               
 
-                <div className="input_group">
-                  <p>Tax Rates</p>
-                  <SearchDropdown width={330} options={taxratedata}
-                    name="tax_rates"
-                    labelKey="label"
-                   // value={formData.tax_rates}
-                    value={taxratedata.find(
-                     (option) => option.key === formData.tax_rates && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
+              
 
-                <div className="input_group">
-                  <p>Sales Account</p>
-                  <SearchDropdown width={330}  options={reportingl4name}
-                    name="selling_account"
-                    labelKey="label"
-                    value={reportingl4name.find(
-                     (option) => option.key === formData.selling_account && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
 {/* 
                 <div className="input_group">
                   <p>Inventory Account</p>
@@ -697,7 +748,7 @@ const resetOther = () => {
 
                 </div> */}
 
-                <div className="variant_switch">
+                {/* <div className="variant_switch">
 
                 <svg id="bxs-collection" xmlns="http://www.w3.org/2000/svg" width="47.7" height="53" viewBox="0 0 47.7 53">
                     <path id="Path_34430" data-name="Path 34430" d="M44.65,22.7H7.55A5.305,5.305,0,0,0,2.25,28V49.2a5.305,5.305,0,0,0,5.3,5.3h37.1a5.305,5.305,0,0,0,5.3-5.3V28A5.305,5.305,0,0,0,44.65,22.7ZM7.55,12.1h37.1v5.3H7.55Zm5.3-10.6h26.5V6.8H12.85Z" transform="translate(-2.25 -1.5)" fill="#c2cad2" opacity="0.35"/>
@@ -716,7 +767,7 @@ const resetOther = () => {
                    
                   </div>
 
-                </div>
+                </div> */}
 
             </div>
 

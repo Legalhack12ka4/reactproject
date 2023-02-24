@@ -27,7 +27,7 @@ const ItemandService = () => {
         <div className="item_type_container1">
 
           {/* //first */}
-         <Link exact to="/itemgrouptable"> 
+         <Link exact to="/item_&_service/raw_material_&_traded_item"> 
          <div
           className={`${selected=== 1 && "selected"} item `}
             onClick={() => handleClick(1)}
@@ -44,7 +44,7 @@ const ItemandService = () => {
           </div></Link>
 
         {/* //second */}
-        <Link exact to="/itemgrouptable1">  <div
+        <Link exact to="/item_&_service/no_traded_item">  <div
           className={`${selected=== 2 && "selected"} item `}
             onClick={() => handleClick(2)}
             
@@ -61,7 +61,7 @@ const ItemandService = () => {
           </div></Link>
 
         {/* //third */}
-        <Link exact to="/itemgrouptable2">  <div
+        <Link exact to="/item_&_service/manufactured_item">  <div
           className={`${selected=== 3 && "selected"} item `}
             onClick={() => handleClick(3)}
             
@@ -77,7 +77,7 @@ const ItemandService = () => {
           </div></Link>
 
       {/* //fouth */}
-      <Link exact to="/itemgrouptable3">  <div
+      <Link exact to="/item_&_service/items_jobwork">  <div
           className={`${selected=== 4 && "selected"} item `}
             onClick={() => handleClick(4)}
             
@@ -93,7 +93,7 @@ const ItemandService = () => {
           </div></Link>
 
       {/* //fifth */}
-      <Link exact to="/itemgrouptable4">  <div
+      <Link exact to="/item_&_service/services">  <div
           className={`${selected=== 5 && "selected"} item `}
             onClick={() => handleClick(5)}
             
@@ -110,7 +110,7 @@ const ItemandService = () => {
           </div></Link>
 
       {/* //sixth */}
-      <Link exact to ="/itemgrouptable5"> 
+      <Link exact to ="/item_&_service/fixed_assets"> 
       <div
           className={`${selected=== 6 && "selected"} item `}
             onClick={() => handleClick(6)}
