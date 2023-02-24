@@ -20,6 +20,21 @@ const NewInventoryItem = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+  const [multiUom, setMultiUom] = useState(false);
+  const [conversionUom, setConversionUom] = useState(false);
+  const [unitOfMasurementRows, setUnitOfMasurementRows] = useState([
+    { id: 1, name: "row1", value: "" },
+  ]);
+  const [unitOfMasurementRows2, setUnitOfMeasurementRows2] = useState([
+    { id: 1, name: "row1", value: "" },
+  ]);
+
+  const [conversionOptionsRows, setConversionOptionsRows] = useState([
+    { id: 1, name: "row1", value: "" },
+  ]);
+
+  const uomRef = React.useRef(null);
+  const conversionRef = React.useRef(null);
 
   // img uploader
 
@@ -34,6 +49,7 @@ const NewInventoryItem = () => {
       file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
     );
   };
+
   const handleImgChange = ({ fileList: newFileList }) =>
     setFileList(newFileList);
   const uploadButton = (
@@ -64,6 +80,32 @@ const NewInventoryItem = () => {
       </div>
     </div>
   );
+
+  const handleMultiUomChange = (checked) => {
+    setMultiUom(checked);
+  };
+
+  const handleConversionUomChange = (checked) => {
+    setConversionUom(checked);
+  };
+
+  const handleAddRow = () => {
+    setUnitOfMasurementRows((prevRows) => [
+      ...prevRows,
+      { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
+      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" },
+    ]);
+    uomRef.current.scrollTop = uomRef.current.scrollHeight;
+  };
+
+  const handleAddConversionRow = () => {
+    setConversionOptionsRows((prevRows) => [
+      ...prevRows,
+      { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
+      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" },
+    ]);
+    conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
+  };
 
   return (
     <div className="new_inventory_item_main">
@@ -519,6 +561,7 @@ const NewInventoryItem = () => {
                   fontSize: "14px",
                   maxWidth: "702px",
                 }}
+                className={`${multiUom && "widthSmall"}`}
               >
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
@@ -530,7 +573,7 @@ const NewInventoryItem = () => {
             <div style={{ display: "flex", gap: "16px" }}>
               <Switch
                 unCheckedChildren="__"
-                //  onChange={handleVarientChange}
+                onChange={handleMultiUomChange}
                 // onClick={setIsBOMVariantOpen}
               />
 
@@ -541,10 +584,65 @@ const NewInventoryItem = () => {
                 <p style={{ color: "#8E9CAA", fontSize: "14px" }}>
                   Select or Add Uom as per your need
                 </p>
+                {multiUom && (
+                  <div className="enableMultiUom">
+                    <div className="packing_option">
+                      <div className="packing_option_heading">
+                        <div className="package_name">Multi Uom</div>
+                        <div className="unit_of_measurement">Standard Uom</div>
+                        <div className="qty">Base Qty</div>
+                        <div className="pack_qty">Pack Qty</div>
+                      </div>
+                      <div
+                        className="packing_setting_rows_container"
+                        ref={uomRef}
+                      >
+                        {unitOfMasurementRows.map((item, index) => {
+                          return (
+                            <div className="packing_option_row">
+                              <div className="unit_of_measurement">
+                                <SearchDropdown width={155} />
+                              </div>
+                              <div className="package_name">
+                                <input
+                                  type="text"
+                                  disabled
+                                  className="package_name_input"
+                                />
+                              </div>
+                              <div className="qty">
+                                <input
+                                  type="text"
+                                  disabled
+                                  className="qty_input"
+                                />
+                              </div>{" "}
+                              X
+                              <div className="pack_qty">
+                                <input
+                                  type="text"
+                                  disabled
+                                  className="pack_qty_input"
+                                />
+                              </div>
+                              <div className="edit_delete">
+                                <img
+                                  src="/images/icons/delete.svg"
+                                  alt="delete"
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="add_btn" onClick={handleAddRow}>
+                        + Add
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-
-            <div></div>
           </div>
 
           <hr style={{ margin: "20px 0px", border: "0.5px solid #ECEEF1" }} />
@@ -562,6 +660,7 @@ const NewInventoryItem = () => {
           <div style={{ display: "flex", gap: "30px" }}>
             <div>
               <p
+                className={`${conversionUom && "widthSmall"}`}
                 style={{
                   color: "#8E9CAA",
                   fontSize: "14px",
@@ -578,7 +677,7 @@ const NewInventoryItem = () => {
             <div style={{ display: "flex", gap: "16px" }}>
               <Switch
                 unCheckedChildren="__"
-                //  onChange={handleVarientChange}
+                onChange={handleConversionUomChange}
                 // onClick={setIsBOMVariantOpen}
               />
 
@@ -589,6 +688,74 @@ const NewInventoryItem = () => {
                 <p style={{ color: "#8E9CAA", fontSize: "14px" }}>
                   Select or Add Uom as per your need
                 </p>
+                {conversionUom && (
+                  <div className="enableConversionUom">
+                    <div className="conversion_options">
+                      <div className="conversion_options_heading">
+                        <div className="conversion_name">Conversion Name</div>
+                        <div className="convert_from">Convert from</div>
+                        <div className="convert_to">Convert to</div>
+                      </div>
+                      <div
+                        className="conversion_options_row_container"
+                        ref={conversionRef}
+                      >
+                        {conversionOptionsRows.map((item, index) => {
+                          return (
+                            <div className="conversion_options_row">
+                              <div className="conversion_name">
+                                {/* <input
+                                  type="text"
+                                  disabled
+                                  className="conversion_name_input"
+                                /> */}
+                                <SearchDropdown width={180} />
+                              </div>
+                              <div className="convert_from">
+                              {/* <SearchDropdown width={155} />
+                               */}
+                                <input
+                                  type="text"
+                                  className="convert_from_input"
+                                  // value={1}
+                                  disabled
+                                />
+                                 <input
+                                  type="text"
+                                  className="convert_from_input1"
+                                  // value={1}
+                                  disabled
+                                />
+                                
+                              </div>
+                              =
+                              <div className="convert_to">
+                                <input
+                                  type="text"
+                                  // placeholder="Qty"
+                                  disabled
+                                  className="convert_to_input"
+                                />
+                                <input
+                                  type="text"
+                                  // placeholder="Qty"
+                                  disabled
+                                  className="convert_to_input1"
+                                />
+                              </div>
+                              <div className="edit_delete">
+                                <img src="/images/icons/delete.svg" alt="" />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div className="add_btn" onClick={handleAddConversionRow}>
+                        + Add
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
