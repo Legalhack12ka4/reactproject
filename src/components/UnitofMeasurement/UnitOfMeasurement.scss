@@ -114,6 +114,7 @@
 
         .table_row{
             display: flex;
+            align-items: center;
             font-size: 14px;
             font-weight: 500;
             color: #697A8D;
@@ -189,7 +190,7 @@
         }
     .packing_setting_rows_container{
         
-        max-height: 134px;
+        max-height: 136px;
         overflow-x: scroll;
         .packing_option_row{
             display: flex;
@@ -286,6 +287,7 @@
 
 .conversion_options{
     margin-top: 30px;
+    overflow: hidden;
     margin-bottom: 10px;
     background-color: #ffff;
     border-radius: 6px;
@@ -315,7 +317,7 @@
     }
 
     .conversion_options_row_container{
-        max-height: 134px;
+        max-height: 136px;
         overflow-x: scroll;
 
         .conversion_options_row{

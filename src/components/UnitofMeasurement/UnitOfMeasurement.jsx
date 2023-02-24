@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import editdelete from "../../assets/Images/Confirmation/editdelete.svg";
 import Page_heading from "../Page_Heading/Page_heading";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import deletelogo from "../../assets/Images/ActionStatus/Delete.svg";
+import editlogo from "../../assets/Images/ActionStatus/edit.svg";
+import statuslogo from "../../assets/Images/ActionStatus/status.svg";
 
 import "./UnitOfMeasurement.scss";
 import { useRef } from "react";
@@ -11,21 +14,30 @@ import { useRef } from "react";
 const UnitOfMasurement = () => {
   const [activeTab, setActiveTab] = useState("unit_of_masurement");
   const [visible, setVisible] = useState(false);
-  const [unitOfMasurementRows, setUnitOfMasurementRows ] = useState([
+  const [open, setOpen] = useState(false);
+  const [unitOfMasurementRows, setUnitOfMasurementRows] = useState([
     { id: 1, name: "row1", value: "" },
     { id: 2, name: "row2", value: "" },
   ]);
 
-  const [conversionOptionsRows, setConversionOptionsRows ] = useState([
+  const [conversionOptionsRows, setConversionOptionsRows] = useState([
     { id: 1, name: "row1", value: "" },
     { id: 2, name: "row2", value: "" },
   ]);
 
-  const conversionRef = useRef(null)
-  const uomRef = useRef(null)
+  const conversionRef = useRef(null);
+  const uomRef = useRef(null);
+
+  const popvisible = () => {
+    setOpen(false);
+    //document.getElementById("popoverhide").style.display="block";
+    // console.log(open)
+    // console.log("line55")
+  };
 
   const showPopover = (index) => {
     setVisible(index);
+    console.log(index);
   };
 
   const hidePopover = () => {
@@ -44,21 +56,21 @@ const UnitOfMasurement = () => {
   }, [unitOfMasurementRows]);
 
   const handleAddRow = () => {
-    setUnitOfMasurementRows(prevRows => [
+    setUnitOfMasurementRows((prevRows) => [
       ...prevRows,
       { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
-      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
+      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" },
     ]);
     uomRef.current.scrollTop = uomRef.current.scrollHeight;
-  }
+  };
   const handleAddConversionRow = () => {
-    setConversionOptionsRows(prevRows => [
+    setConversionOptionsRows((prevRows) => [
       ...prevRows,
       { id: prevRows.length + 1, name: `row${prevRows.length + 1}`, value: "" },
-      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" }
+      { id: prevRows.length + 2, name: `row${prevRows.length + 2}`, value: "" },
     ]);
     conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
-  }
+  };
 
   const UnitOfMasurementData = [
     { unitName: "1 Psc", qty: 1, uqc: "PCS (pieces)" },
@@ -151,15 +163,93 @@ const UnitOfMasurement = () => {
                   <div className="qty">{item.qty}</div>
                   <div className="uqc">{item.uqc}</div>
                   <Popover
-                    content={( <div className="popover_content">
-                    <div>Edit</div>
-                    <div >Delete</div>
-                  </div>)}
-                    open={index === visible}
+                    id="popoverhide"
+                    defaultOpen={open}
+                    placement="bottomRight"
+                    onOpenChange={setOpen}
+                    getPopupContainer={(trigger) => trigger.parentElement}
+                    showArrow={false}
+                    content={
+                      <>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "11px",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          <img src={deletelogo} />
+                          <div>
+                            <button
+                              className="actionlabel"
+                              //  onClick={() => { handleConfirmCancel(record); hide(); }}
+                              //onClick={hide}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "11px",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          <img src={editlogo} />
+                          <div>
+                            <button
+                              className="actionlabel"
+                              // onClick={() => handleUpdate(record)}
+                            >
+                              Update
+                            </button>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "11px",
+                          }}
+                        >
+                          <img src={statuslogo} />
+                          <div>
+                            <button
+                              className="actionlabel"
+                              style={{ minWidth: "max-content" }}
+                              // onClick={() => handleUpdate(record)}
+                            >
+                              Set as Activate
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    }
+                    title=""
+                    height={100}
                     trigger="click"
-                    onOpenChange={(visible) => setVisible(visible)}
                   >
-                    <div className="edit_delete"><img src={editdelete} alt="" onClick={()=>showPopover(index)} /></div>
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        height: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        width: "20px",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={editdelete}
+                        onClick={(e) => {
+                          setOpen(open);
+                          popvisible(e);
+                        }}
+                      />
+                    </div>
                   </Popover>
                 </div>
               );
@@ -173,38 +263,46 @@ const UnitOfMasurement = () => {
         <div className="packing_option">
           <div className="packing_option_heading">
             <div className="package_name">Package Name</div>
-            <div className="unit_of_measurement" >Standard Uom</div>
+            <div className="unit_of_measurement">Standard Uom</div>
             <div className="qty">Base Qty</div>
             <div className="pack_qty">Pack Qty</div>
           </div>
-          <div className="packing_setting_rows_container" ref={uomRef} >
-          {unitOfMasurementRows.map((item, index) => {
-            return (
-              <div className="packing_option_row">
-
-                <div className="package_name">
-                  <input type="text"  className="package_name_input" />
+          <div className="packing_setting_rows_container" ref={uomRef}>
+            {unitOfMasurementRows.map((item, index) => {
+              return (
+                <div className="packing_option_row">
+                  <div className="package_name">
+                    <input type="text" className="package_name_input" />
+                  </div>
+                  <div className="unit_of_measurement">
+                    <SearchDropdown width={155} />
+                  </div>
+                  <div className="qty">
+                    <input
+                      type="text"
+                      placeholder="1"
+                      disabled
+                      className="qty_input"
+                    />
+                  </div>{" "}
+                  X
+                  <div className="pack_qty">
+                    <input
+                      type="text"
+                      placeholder="1"
+                      className="pack_qty_input"
+                    />
+                  </div>
+                  <div className="edit_delete">
+                    <img src="images/icons/delete.svg" alt="" />
+                  </div>
                 </div>
-
-                <div className="unit_of_measurement">
-                  <SearchDropdown width={155} />
-                </div>
-                <div className="qty">
-                  <input type="text" placeholder="1" disabled className="qty_input" />
-                </div> X
-                <div className="pack_qty">
-                  <input type="text" placeholder="1" className="pack_qty_input" />
-                </div>
-                <div className="edit_delete">
-                  <img src="images/icons/delete.svg" alt="" />
-                </div>
-              </div>
-            )
-            })
-          }
+              );
+            })}
           </div>
-            <div className="add_btn" onClick={handleAddRow}>+ Add</div>
-
+          <div className="add_btn" onClick={handleAddRow}>
+            + Add
+          </div>
         </div>
       )}
 
@@ -222,15 +320,28 @@ const UnitOfMasurement = () => {
               return (
                 <div className="conversion_options_row">
                   <div className="conversion_name">
-                    <input type="text" disabled className="conversion_name_input" />
+                    <input
+                      type="text"
+                      disabled
+                      className="conversion_name_input"
+                    />
                   </div>
                   <div className="convert_from">
-                    <input type="text" className="convert_from_input" value={1} disabled />
+                    <input
+                      type="text"
+                      className="convert_from_input"
+                      value={1}
+                      disabled
+                    />
                     <SearchDropdown width={155} />
                   </div>
                   =
                   <div className="convert_to">
-                    <input type="text" placeholder="Qty"  className="convert_to_input" />
+                    <input
+                      type="text"
+                      placeholder="Qty"
+                      className="convert_to_input"
+                    />
                     <SearchDropdown width={155} />
                   </div>
                   <div className="edit_delete">
@@ -240,7 +351,9 @@ const UnitOfMasurement = () => {
               );
             })}
           </div>
-          <div className="add_btn" onClick={handleAddConversionRow}>+ Add</div>
+          <div className="add_btn" onClick={handleAddConversionRow}>
+            + Add
+          </div>
         </div>
       )}
     </div>
