@@ -41,11 +41,11 @@ function Module() {
    </div>
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
-   <Link exact to="/service_group" className='currency_btn'>Service Group</Link>
+   <Link exact to="/manufactured_group" className='currency_btn'>Manufactured Group</Link>
    </div>
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
-   <Link exact to="/service_item" className='currency_btn'>Service Item</Link>
+   <Link exact to="/manufactured_item" className='currency_btn'>Manufactured Item</Link>
    </div>
   
 

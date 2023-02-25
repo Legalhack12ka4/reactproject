@@ -79,10 +79,13 @@ input:focus::placeholder {
 }
 
 /* //input hover boder */
-
+.focus-outline{
+  /* border: 1px solid transparent !important;
+    outline: 1px solid #5c5ad0 !important;
+    box-shadow: 0 0 0 2.5px #5c5ad011 !important; */
+}
 .focus-outline:focus-within
 {
-    border: 1px solid transparent !important;
     outline: 1px solid #5c5ad0 !important;
     box-shadow: 0 0 0 2.5px #5c5ad011 !important;
 }
