@@ -44,6 +44,9 @@ import NoItemGroupTable from './components/AddInventoryItem/NoTradedItem/NoItemG
 import ServiceGroup from './components/ItemandService/ServiceGroup/ServiceGroup';
 import ServiceItem from './components/ItemandService/ServiceItem/ServiceItem';
 import ServiceItemGroupTable from './components/AddInventoryItem/Service/ServiceItemGroupTable';
+import ManufacturedGroup from './components/ItemandService/ManufacturedGroup/ManufacturedGroup';
+import ManufacturedItem from './components/ItemandService/ManufacturedItem/ManufacturedItem';
+import ManufacturedItemTable from './components/AddInventoryItem/ManufacturedItem/ManufacturedItemTable';
 
 function App() {
   return (
@@ -73,6 +76,8 @@ function App() {
           <Route path="item_&_service/non_traded_item" element={<NonInventoryItem/>}/>
           <Route path="item_&_service/service_group" element={<ServiceGroup/>}/>
           <Route path="item_&_service/service_item" element={<ServiceItem/>}/>
+          <Route path="item_&_service/manufactured_group" element={<ManufacturedGroup/>}/>
+          <Route path="item_&_service/manufactured_item_form" element={<ManufacturedItem/>}/>
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
@@ -98,11 +103,12 @@ function App() {
           <Route path="itemtable5" element={<ItemTable/>}/>
           <Route path="item_&_service/raw_material_&_traded_item" element={<ItemGroupTable/>}/>
           <Route path="item_&_service/no_traded_item" element={<NoItemGroupTable/>}/>
-          <Route path="item_&_service/manufactured_item" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/manufactured_item" element={<ManufacturedItemTable/>}/>
           <Route path="item_&_service/items_jobwork" element={<ItemGroupTable/>}/>
           <Route path="item_&_service/services" element={<ServiceItemGroupTable/>}/>
           <Route path="item_&_service/fixed_assets" element={<ItemGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
+          
    
          
           <Route path="login" element={<LoginPage/>}/>
