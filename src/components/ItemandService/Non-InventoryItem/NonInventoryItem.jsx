@@ -319,7 +319,7 @@ const NewInventoryItem = () => {
               </div>
             </div>
           </div>
-          <div className="item_create_container">
+          <div className="item_create_container11">
             <p
               style={{
                 fontSize: "16px",
