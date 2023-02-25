@@ -306,7 +306,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           props.swichdata
           
            :
-              <div className="search_customer">
+              <div className="search_customer focus-outline">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
                 </div>

@@ -38,6 +38,12 @@ import ItemTable from './components/AddInventoryItem/ItemTable/ItemTable';
 import ItemGroupTable from './components/AddInventoryItem/ItemGroupTable/ItemGroupTable';
 import UnitOfMeasurement from './components/UnitofMeasurement/UnitOfMeasurement';
 import LoginPage from './components/LoginPage/LoginPage';
+import NonInventoryGroup from './components/ItemandService/Non-InventoryGroup/NonInventoryGroup';
+import NonInventoryItem from './components/ItemandService/Non-InventoryItem/NonInventoryItem';
+import NoItemGroupTable from './components/AddInventoryItem/NoTradedItem/NoItemGroupTable';
+import ServiceGroup from './components/ItemandService/ServiceGroup/ServiceGroup';
+import ServiceItem from './components/ItemandService/ServiceItem/ServiceItem';
+import ServiceItemGroupTable from './components/AddInventoryItem/Service/ServiceItemGroupTable';
 
 function App() {
   return (
@@ -63,6 +69,10 @@ function App() {
           <Route path='item_&_service' element={<ItemandService/>} />
           <Route path='item_&_service/new_inventory_item' element={<NewInventoryItem/>} />
           <Route path='item_&_service/new_inventory_group' element={<NewInventoryGroup/>} />
+          <Route path="item_&_service/non_traded_group" element={<NonInventoryGroup/>}/>
+          <Route path="item_&_service/non_traded_item" element={<NonInventoryItem/>}/>
+          <Route path="item_&_service/service_group" element={<ServiceGroup/>}/>
+          <Route path="item_&_service/service_item" element={<ServiceItem/>}/>
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
@@ -87,12 +97,14 @@ function App() {
           <Route path="itemtable4" element={<ItemTable/>}/>
           <Route path="itemtable5" element={<ItemTable/>}/>
           <Route path="item_&_service/raw_material_&_traded_item" element={<ItemGroupTable/>}/>
-          <Route path="item_&_service/no_traded_item" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/no_traded_item" element={<NoItemGroupTable/>}/>
           <Route path="item_&_service/manufactured_item" element={<ItemGroupTable/>}/>
           <Route path="item_&_service/items_jobwork" element={<ItemGroupTable/>}/>
-          <Route path="item_&_service/services" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/services" element={<ServiceItemGroupTable/>}/>
           <Route path="item_&_service/fixed_assets" element={<ItemGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
+   
+         
           <Route path="login" element={<LoginPage/>}/>
           </Routes>
           {/* <Footer /> */}

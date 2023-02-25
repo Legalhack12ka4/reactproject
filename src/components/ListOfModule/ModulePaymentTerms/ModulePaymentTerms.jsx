@@ -466,6 +466,7 @@ const deleteUser = (record)=>
               <div className="addPaymentTermModalInput">
                 <p>Terms</p>
                 <input
+                className=" focus-outline"
                   type="text"
                   placeholder="Net 5"
                   name="terms"
@@ -476,7 +477,7 @@ const deleteUser = (record)=>
               <div className="addPaymentTermModalInput">
                 <p>Days</p>
                 <input
-                className="currency"
+                className="currency  focus-outline"
                   type="text"
                   placeholder="5 Days"
                   name="days"
@@ -487,6 +488,7 @@ const deleteUser = (record)=>
               <div className="addPaymentTermModalInput">
                 <p>Discount %</p>
                 <input
+                   className=" focus-outline"
                   type="text"
                   placeholder="10%"
                   name="discount"
@@ -497,6 +499,7 @@ const deleteUser = (record)=>
               <div className="addPaymentTermModalInput">
                 <p>Interest %</p>
                 <input
+                   className=" focus-outline"
                   type="text"
                   placeholder="1%"
                   name="interest"

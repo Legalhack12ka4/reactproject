@@ -121,10 +121,10 @@ function NewEstimate() {
             <div>
               <div style={{display: "flex", alignItems: "center",gap: "20px"}}>
               <p className='estimatelabel' style={{minWidth:"111px"}}>Estimate #  </p>
-                  <div className="inputestimate_container">
+                  <div className="inputestimate_container focus-outline">
                     <div className="settingestimate">
                       <input
-                      className='estimate1'
+                      className='estimate1 '
                         type="text"
                         placeholder="EST-0090"
                       />
@@ -140,7 +140,7 @@ function NewEstimate() {
             <div style={{display: "flex", alignItems: "center",gap: "20px",marginBottom: "10px",marginTop: "10px", marginLeft:"13px"}}>
               <p className='estimatedateexpiry'>Estimate Date :  </p>
                  
-                    <div className="inputestimate_container">
+                    <div className="inputestimate_container focus-outline">
                       <input
                        className='estimate1'
                         type="text"
@@ -154,9 +154,9 @@ function NewEstimate() {
                   <div style={{display: "flex", alignItems: "center",gap: "20px", marginLeft:"29px"}}>
               <p className='estimatedateexpiry'>Expiry Date :  </p>
                  
-                    <div className="inputestimate_container">
+                    <div className="inputestimate_container focus-outline">
                       <input
-                       className='estimate1'
+                       className='estimate1 '
                         type="text"
                         placeholder="DD-MM-YYYY"
                       />
@@ -235,7 +235,7 @@ function NewEstimate() {
                 <p className='preferncelabel'>
                   # Reference
                 </p>
-                <div className="reference_input">
+                <div className="reference_input focus-outline">
                 <input
                        className='reference'
                         type="text"
@@ -257,7 +257,7 @@ function NewEstimate() {
 
             <div style={{display:"flex", alignItems:"center", marginTop:"20px", gap:"20px", padding:"0px 20px 0px 30px"}}>
              
-                  <div className="inputestimate1_container">
+                  <div className="inputestimate1_container focus-outline">
                       <input
                        className='inputestimate1'
                         type="text"
@@ -266,7 +266,7 @@ function NewEstimate() {
                     </div>
                     
                   
-              <div className="inputestimate2_container">
+              <div className="inputestimate2_container focus-outline">
                       <input
                        className='inputestimate2'
                         type="text"
@@ -274,7 +274,7 @@ function NewEstimate() {
                       />
                     </div>
               
-             <div className="inputestimate3_container">
+             <div className="inputestimate3_container focus-outline">
                       <input
                        className='inputestimate3'
                         type="text"
@@ -282,7 +282,7 @@ function NewEstimate() {
                       />
                     </div>
              
-                <div className="inputestimate4_container">
+                <div className="inputestimate4_container focus-outline">
                       <input
                        className='inputestimate4'
                         type="text"
@@ -319,7 +319,7 @@ function NewEstimate() {
             fontWeight:"500",
         marginTop:"43px"
                   }}>Notes</p>
-          <div className="notes_container">
+          <div className="notes_container focus-outline ">
                       <input
                        className='notes'
                         type="text"
