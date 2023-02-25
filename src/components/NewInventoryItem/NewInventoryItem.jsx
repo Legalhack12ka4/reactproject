@@ -5,6 +5,7 @@ import { Upload, Modal, Switch } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
+import Page_heading from "../Page_Heading/Page_heading";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -109,6 +110,7 @@ const NewInventoryItem = () => {
 
   return (
     <div className="new_inventory_item_main">
+         <Page_heading parent={"Item & Service"} child={"Add Inventory Item"} />
       <div className="new_inventory_item_container">
         <div className="header">
           <h1>Create Item</h1>
@@ -122,62 +124,30 @@ const NewInventoryItem = () => {
               <SearchDropdown width={330} />
             </div>
 
-            {/* <div className="input_group">
-                  <p>Manage By</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
-                  </div>
-                </div> */}
+           
 
             <div className="input_group" style={{ marginBottom: "18px" }}>
               <p>Name</p>
-              <div className="input_container">
+              <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
                 <input type="text" placeholder="placeholder" />
               </div>
             </div>
 
-            {/* <div className="input_group">
-                  <p>Tax Preference</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
-                  </div>
-                </div> */}
-            {/* <div className="input_group">
-                  <p>Foreign Name</p>
-                  <div className="input_container">
-                    <img src="/images/icons/cube.svg" alt="" />
-                    <input type="text" placeholder="placeholder" />
-                  </div>
-                </div> */}
-            {/* <div className="input_group">
-                  <p>Tax Rates</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
-                  </div>
-                </div> */}
+          
 
             <div className="input_group" style={{ marginBottom: "18px" }}>
               <p>HSN Code</p>
-              <div className="input_container">
+              <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
                 <input type="text" placeholder="placeholder" />
               </div>
             </div>
 
-            {/* <div className="input_group">
-                  <p>Cost Account</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
-                  </div>
-                </div> */}
+       
             <div className="input_group" style={{ marginBottom: "18px" }}>
               <p>Barcode</p>
-              <div className="input_container">
+              <div className="input_container focus-outline">
                 <img src="/images/icons/barcode.svg" alt="" />
                 <div className="barcode_scanner">
                   <input
@@ -200,8 +170,8 @@ const NewInventoryItem = () => {
               <div className="input_group">
                 <p>Purchase Price</p>
                 <div
-                  className="input_container1"
-                  style={{ width: "150px !important" }}
+                  className="input_container1 focus-outline"
+                  style={{ width: "150px !important" } }
                 >
                   <input type="text" />
                 </div>
@@ -209,7 +179,7 @@ const NewInventoryItem = () => {
               <div className="input_group">
                 <p>Sale Price</p>
                 <div
-                  className="input_container1"
+                  className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
                   <input type="text" />
@@ -221,7 +191,7 @@ const NewInventoryItem = () => {
               <div className="input_group">
                 <p>Minimum Stock</p>
                 <div
-                  className="input_container1"
+                  className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
                   <input type="text" />
@@ -230,51 +200,14 @@ const NewInventoryItem = () => {
               <div className="input_group">
                 <p>Maximum Stock</p>
                 <div
-                  className="input_container1"
+                  className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
                   <input type="text" />
                 </div>
               </div>
             </div>
-            {/* 
-                <div className="input_group">
-                  <p>Sales Account</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}} />
-                  </div>
-                </div> */}
-
-            {/* <div className="input_group">
-                  <p>Unit of Measurement</p>
-                  <div className="input_container" style={{backgroundColor: "#eceef1"}}>
-                    <input type="text" disabled style={{backgroundColor: "#eceef1"}} />
-                  </div>
-                </div> */}
-
-            {/* <div className="input_group">
-                  <p>Inventory Account</p>
-                  <div className="input_container"  style={{backgroundColor: "#eceef1"}}>
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder" disabled style={{backgroundColor: "#eceef1"}}/>
-                  </div>
-                </div> */}
-
-            {/* 
-                <div className="input_group">
-                  <p>Description</p>
-                  <div className="input_container">
-                    <input type="textarea" placeholder="Placeholder" />
-                  </div>
-                </div>
-
-                <div className="input_group">
-                  <p>Tags</p>
-                  <div className="input_container">
-                    <input type="textarea" placeholder="Placeholder" />
-                  </div>
-                </div> */}
+         
           </div>
 
           <div className="image_uploader_container">
@@ -320,15 +253,60 @@ const NewInventoryItem = () => {
               style={{ marginTop: "15px", marginBottom: "18px" }}
             >
               <p>Description</p>
-              <div className="input_containerdes">
-                <input type="textarea" placeholder="Placeholder" />
+              {/* <div
+                  className={`${
+                    errors.description && touched.description && "inputError"
+                  } description  focus-outline`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "318.4px",
+                    height: "68.4px",
+                    outline: "none",
+                    resize: "none",
+                    overflow:"hidden"
+                  }}
+                >
+                  <textarea
+                    resizable={false}
+                    // className="description"
+                    style={{
+                      width: "668.4px",
+                      height: "68.4px",
+                      outline: "none",
+                      border: "none",
+                      resize: "none",
+                    }}
+                    type="text"
+                    placeholder="Something about account"
+                    name="description"
+                    value={formData.description}
+                    // onChange={(e) => {
+                    //   handleChange(e);
+                    //   onChange(e);
+                    //}}
+                  />
+                </div>*/}
+              <div className="input_containerdes focus-outline">
+                <textarea   resizable={false}
+                  style={{
+                    width: "668.4px",
+                    height: "102.4px",
+                    outline: "none",
+                    border: "none",
+                    resize: "none",
+                  }}
+                  type="text"
+                className="input_containerdes " 
+                 //placeholder="Placeholder"
+                  />
               </div>
-            </div>
+            </div> 
 
             <div className="input_group">
               <p>Tags</p>
-              <div className="input_container">
-                <input type="textarea" placeholder="Placeholder" />
+              <div className="input_container focus-outline">
+                <input type="text" placeholder="Placeholder" />
               </div>
             </div>
           </div>

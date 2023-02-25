@@ -39,6 +39,16 @@ function Module() {
    <img src={link}/>
    <Link exact to="/login" className='currency_btn'>Login</Link>
    </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/service_group" className='currency_btn'>Service Group</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/service_item" className='currency_btn'>Service Item</Link>
+   </div>
+  
+
    {/* <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/itemtable" className='currency_btn'>Item Table</Link>

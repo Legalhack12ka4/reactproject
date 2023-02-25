@@ -18,7 +18,7 @@ const DateRangePickerComp = ({daterange}) => {
     },
   ]);
 
-  console.log(daterange(range));
+  console.log(daterange && daterange(range));
 
   const getRange = () =>
   {
@@ -57,9 +57,10 @@ const DateRangePickerComp = ({daterange}) => {
 
   return (
     <div className="calendarWrap">
-      <div className="calendarInput">
+      <div className="calendarInput focus-outline">
         <img src="/images/icons/calendar.svg" alt="" />
         <input
+       
        // className="placeholdertext"
          value={
           range[0].startDate && range[0].endDate
@@ -76,7 +77,7 @@ const DateRangePickerComp = ({daterange}) => {
       <div ref={refOne} className="dateRangePicker">
         {open && (
           <DateRangePicker
-            onChange={(item) => {setRange([item.selection]);daterange(range);}}
+            onChange={(item) => {setRange([item.selection]);  daterange && daterange(range);}}
             editableDateInputs={true}
             moveRangeOnFirstSelection={false}
             ranges={range}

@@ -116,7 +116,7 @@ const UnitOfMasurement = () => {
               <p>Unit Name</p>
               <input
                 type="text"
-                className="UOM_input"
+                className="UOM_input focus-outline"
                 style={{ width: "204px" }}
               />
             </div>
@@ -272,7 +272,7 @@ const UnitOfMasurement = () => {
               return (
                 <div className="packing_option_row">
                   <div className="package_name">
-                    <input type="text" className="package_name_input" />
+                    <input type="text" className="package_name_input focus-outline" />
                   </div>
                   <div className="unit_of_measurement">
                     <SearchDropdown width={155} />
@@ -290,7 +290,7 @@ const UnitOfMasurement = () => {
                     <input
                       type="text"
                       placeholder="1"
-                      className="pack_qty_input"
+                      className="pack_qty_input focus-outline"
                     />
                   </div>
                   <div className="edit_delete">
@@ -340,7 +340,7 @@ const UnitOfMasurement = () => {
                     <input
                       type="text"
                       placeholder="Qty"
-                      className="convert_to_input"
+                      className="convert_to_input focus-outline"
                     />
                     <SearchDropdown width={155} />
                   </div>

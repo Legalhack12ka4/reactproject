@@ -10,7 +10,7 @@ import shirt5 from "../../../assets/Images/ItemPreview/Shirt5.svg"
 import dob from "../../../assets/Images/FormIcon/DOB.svg";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Space, Tag, Upload } from 'antd';
-
+import DateRangePicker from "../../DateRangePicker/DateRangePicker"
 function ItemPreview() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
@@ -42,15 +42,16 @@ function ItemPreview() {
           {/* //second */}
           <div style={{ display: "flex", alignItems: "center" }}>
             <div className="dateheader">
-              <div className="previewinput">
+              <div className="previewinput focus-outline">
                 <img src={dob} className="customerimg" />
                 {/* <DateRangePickerComp /> */}
                 <input
                   type="text"
-                  className="inputpreview"
+                  className="inputpreview "
                   placeholder="Select Date to filter Data"
                   name="name"
                 />
+                {/* <DateRangePicker/> */}
               </div>
             </div>
             <div className="editheader">

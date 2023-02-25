@@ -18,14 +18,14 @@ const LoginPage = () => {
             </div>
 
             <div className="credentials">
-                <div className="login-email">
+                <div className="login-email" >
                 <label htmlFor="email-box">Email or Contact No.</label>
-                <input id="email-box" placeholder='Example@reformiqo.com' type="text" />
+                <input id="email-box" placeholder='Example@reformiqo.com' className='focus-outline' type="text" />
                 </div>
 
                 <div className="login-password">
                 <label htmlFor="password-box">Password</label>
-                <input id="password-box" placeholder='Password' type="password" />
+                <input id="password-box" placeholder='Password' className='focus-outline' type="password" />
                 <div className="password_eye">
                     <img src="images/icons/eye_icon.svg" alt="eye" />
                 </div>

@@ -558,7 +558,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Code</p>
                 <input
-                className="currency"
+                className="currency  focus-outline"
                   type="text"
                   placeholder="INR"
                   name="currency_name"
@@ -569,7 +569,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Symbol</p>
                 <input
-                   className="currency"
+                   className="currency focus-outline"
                   type="text"
                   placeholder="₹"
                   name="symbol"
@@ -580,7 +580,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Name</p>
                 <input
-                   className="currency"
+                   className="currency focus-outline"
                   type="text"
                   placeholder="Indian Rupee"
                   name="country_name"

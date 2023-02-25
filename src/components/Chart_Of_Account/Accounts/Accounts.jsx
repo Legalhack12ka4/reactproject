@@ -785,11 +785,12 @@ console.log(chartOfAccountSchema)
                 <div
                   className={`${
                     errors.account_name && touched.account_name && "inputError"
-                  } parmentaccount`}
+                  } parmentaccount  focus-outline`}
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <input
                     // className="parmentaccount"
+                   
                     type="text"
                     // placeholder="Something about account"
                     name="account_name"
@@ -830,7 +831,7 @@ console.log(chartOfAccountSchema)
                 <div
                   className={`${
                     errors.description && touched.description && "inputError"
-                  } description`}
+                  } description  focus-outline`}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -838,6 +839,7 @@ console.log(chartOfAccountSchema)
                     height: "68.4px",
                     outline: "none",
                     resize: "none",
+                    overflow:"hidden"
                   }}
                 >
                   <textarea
