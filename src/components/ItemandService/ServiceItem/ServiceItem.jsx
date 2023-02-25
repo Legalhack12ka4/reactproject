@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../Non-InventoryItem/NonInventoryItem.scss'
+import './ServiceItem.scss'
 
 import { Upload, Modal, Switch } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -319,7 +319,7 @@ const ServiceItem = () => {
               </div>
             </div>
           </div>
-          <div className="item_create_container">
+          <div className="item_create_container12">
             <p
               style={{
                 fontSize: "16px",
