@@ -29,7 +29,6 @@ const Page_heading = ({ parent, child, subchild, main , props }) => {
 <>
     <div className="page-heading-menu">
     <div className="page_heading">
-     <h1>{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1>
     <Breadcrumb>
    <Breadcrumb.Item>
    <Link exact to="/" className="heading_parent">  Home</Link>
@@ -44,29 +43,19 @@ const Page_heading = ({ parent, child, subchild, main , props }) => {
     <Breadcrumb.Item>{" "}
         {child.charAt(0).toUpperCase() + child.slice(1)}</Breadcrumb.Item>
   </Breadcrumb>
+
+  <h1>{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1>
+  <p className="heading-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, natus.</p>
   </div>
   
-      {/* <div className="page_heading">
-        <span className="heading_parent">{parent} /</span>{" "}
-        {child.charAt(0).toUpperCase() + child.slice(1)}
-      </div> */}
+  
+     
 
       <div className="searchbar-main " id="searchbarInput">
       <input type="text" name="" id="" />
       <ImCross className="searchbar-cross" onClick={searchbarOn} color={"gray"} size={12} />
     </div>
-      {/* <div className="menu">
 
-        <img className="search-icon" src="/images/searchbar_icons/Search-Icon.svg" alt="" onClick={searchbarOn} />
-        <img className="app-icon" src="/images/searchbar_icons/App.svg" alt="" />
-
-        <div className="notification_bell">
-          <img src="/images/searchbar_icons/icon-bell.svg" alt="" />
-          <div className="notification_count">4</div>
-        </div>
-
-        <img src="/images/searchbar_icons/User-Avtar.svg" alt="user" />
-      </div> */}
     </div>
   </>
   );
