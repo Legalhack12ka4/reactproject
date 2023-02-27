@@ -38,6 +38,11 @@ const ServiceItem = () => {
   const conversionRef = React.useRef(null);
 
   // img uploader
+  const handleClose = () => {
+    window.history.back(-1);
+   // setFormData(resetValue);
+  };
+  
 
   const handleImgCancel = () => setPreviewOpen(false);
   const handleImgPreview = async (file) => {
@@ -175,7 +180,7 @@ const ServiceItem = () => {
               </div>
             </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px" }}>
               <div className="input_group">
                 <p>Purchase Price</p>
                 <div
@@ -453,7 +458,7 @@ const ServiceItem = () => {
 
         <div className="button">
           <button className="submit_button btn_hover_animation">Submit</button>
-          <button className="cancel_button btn_hover_animation">Cancel</button>
+          <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
       </div>
     </div>
