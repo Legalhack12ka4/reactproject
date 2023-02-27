@@ -59,6 +59,10 @@ const ManufacturedItem = () => {
   const uomRef = React.useRef(null);
   const conversionRef = React.useRef(null);
 
+  const handleClose = () => {
+    window.history.back(-1);
+   // setFormData(resetValue);
+  };
   // img uploader
 
   const handleImgCancel = () => setPreviewOpen(false);
@@ -550,7 +554,7 @@ const ManufacturedItem = () => {
 
         <div className="button">
           <button className="submit_button btn_hover_animation">Submit</button>
-          <button className="cancel_button btn_hover_animation">Cancel</button>
+          <button className="cancel_button btn_hover_animation"  onClick={handleClose}>Cancel</button>
         </div>
       </div>
     </div>

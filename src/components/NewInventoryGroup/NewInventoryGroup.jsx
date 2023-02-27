@@ -90,6 +90,10 @@ const NewInventoryGroup = () => {
     });
   };
 
+  const handleClose = () => {
+    window.history.back(-1);
+    setFormData(resetValue);
+  };
   //modalclose
   // const onCancel = () => {
   //   if (Object.values(formData).every((val) => val === "")) {
@@ -776,7 +780,7 @@ const resetOther = () => {
         </div>
         <div className="button">
             <button className="submit_button btn_hover_animation">Submit</button>
-            <button className="cancel_button btn_hover_animation">Cancel</button>
+            <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
         </div>
 

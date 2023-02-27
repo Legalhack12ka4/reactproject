@@ -82,6 +82,10 @@ const NewInventoryItem = () => {
     </div>
   );
 
+  const handleClose = () => {
+    window.history.back(-1);
+   // setFormData(resetValue);
+  };
   const handleMultiUomChange = (checked) => {
     setMultiUom(checked);
   };
@@ -737,7 +741,7 @@ const NewInventoryItem = () => {
 
         <div className="button">
           <button className="submit_button btn_hover_animation">Submit</button>
-          <button className="cancel_button btn_hover_animation">Cancel</button>
+          <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
       </div>
     </div>
