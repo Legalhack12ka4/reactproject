@@ -452,7 +452,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                     }}
                   >
                    
-                    <img src="images/icons/columns_icon.svg" alt="" />
+                    <img src="/images/icons/columns_icon.svg" alt="" />
                     <p>Columns</p>
                   </div>
 
@@ -460,18 +460,18 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                     className="setting_btn"
                     style={{ paddingBottom: "20px" }}
                   >
-                    <img src="images/icons/import_data_icon.svg" alt="" />
+                    <img src="/images/icons/import_data_icon.svg" alt="" />
                     <p>Import Data</p>
                   </div>
                   <div
                     className="setting_btn"
                     style={{ paddingBottom: "20px" }}
                   >
-                    <img src="images/icons/export_data_icon.svg" alt="" />
+                    <img src="/images/icons/export_data_icon.svg" alt="" />
                     <p>Export Data</p>
                   </div>
                   <div className="setting_btn">
-                    <img src="images/icons/Preferences_icon.svg" alt="" />
+                    <img src="/images/icons/Preferences_icon.svg" alt="" />
                     <p>Preferences</p>
                   </div>
                 </div>
