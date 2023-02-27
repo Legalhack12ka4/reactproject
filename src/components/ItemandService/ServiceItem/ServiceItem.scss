@@ -318,11 +318,12 @@
   
   
   .enableConversionUom{
-    margin-left: -50px;
+    // margin-left: -50px;
     margin-top: 30px;
     border-radius: 6px;
     border: .3px solid #697a8d36;
     background-color: #ffff;
+    max-width: 802px;
   
     .conversion_options{
       margin-top: 0px;
@@ -330,7 +331,7 @@
       margin-bottom: 0px;
       background-color: #ffff;
       border-radius: 6px;
-      width: 796px;
+      width: 802px;
       box-shadow: 0px 2px 6px 0px #43597138;
   
       .conversion_options_heading{
@@ -356,7 +357,8 @@
       }
   
       .conversion_options_row_container{
-          max-height: 136px;
+          max-height: 256px;
+          width: 804px;
           overflow-x: scroll;
   
           .conversion_options_row{
@@ -367,7 +369,7 @@
   
               .conversion_name{
                   border-right: 1px dashed #C2CAD2;
-                  padding: 10px 20px;
+                  padding: 2px 20px 10px 20px;
   
                   .conversion_name_input{
                       border: .5px solid #C2CAD2;
@@ -468,11 +470,12 @@
   }
   
   .enableMultiUom {
-    margin-left: -50px;
+    // margin-left: -50px;
     margin-top: 30px;
     border-radius: 6px;
     border: .3px solid #697a8d36;
     box-shadow: 0px 2px 6px 0px #4359711f;
+    max-width: 611px;
     .packing_option{
       margin-bottom: 0px;
       border-radius: 6px;
@@ -505,7 +508,7 @@
       }
   .packing_setting_rows_container{
       
-      max-height: 136px;
+      max-height: 256px;
       overflow-x: scroll;
       .packing_option_row{
           display: flex;

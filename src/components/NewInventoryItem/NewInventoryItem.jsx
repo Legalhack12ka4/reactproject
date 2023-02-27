@@ -521,7 +521,7 @@ const NewInventoryItem = () => {
         </div>
 
         <div style={{ padding: "0px 20px 20px 20px" }}>
-          <p
+          {/* <p
             style={{
               color: "#566A7F",
               fontSize: "16px",
@@ -530,25 +530,9 @@ const NewInventoryItem = () => {
             }}
           >
             Multi Uom
-          </p>
+          </p> */}
           <div style={{ display: "flex", gap: "30px" }}>
-            <div>
-              <p
-                style={{
-                  color: "#8E9CAA",
-                  fontSize: "14px",
-                  maxWidth: "702px",
-                }}
-                className={`${multiUom && "widthSmall"}`}
-              >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum.
-              </p>
-            </div>
-
-            <div style={{ display: "flex", gap: "16px" }}>
+          <div style={{ display: "flex", gap: "16px" }}>
               <Switch
                 unCheckedChildren="__"
                 onChange={handleMultiUomChange}
@@ -559,8 +543,11 @@ const NewInventoryItem = () => {
                 <p style={{ color: "#566A7F", fontSize: "16px" }}>
                   Enable Multi Uom
                 </p>
-                <p style={{ color: "#8E9CAA", fontSize: "14px" }}>
-                  Select or Add Uom as per your need
+                <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                justo duo dolores et ea rebum.
                 </p>
                 {multiUom && (
                   <div className="enableMultiUom">
@@ -621,38 +608,25 @@ const NewInventoryItem = () => {
                 )}
               </div>
             </div>
-          </div>
-
-          <hr style={{ margin: "20px 0px", border: "0.5px solid #ECEEF1" }} />
-
-          <p
-            style={{
-              color: "#566A7F",
-              fontSize: "16px",
-              fontWeight: "600",
-              marginBottom: "11px",
-            }}
-          >
-            Conversion Uom
-          </p>
-          <div style={{ display: "flex", gap: "30px" }}>
             <div>
               <p
-                className={`${conversionUom && "widthSmall"}`}
                 style={{
                   color: "#8E9CAA",
                   fontSize: "14px",
                   maxWidth: "702px",
                 }}
+                className={`${multiUom && "widthSmall"}`}
               >
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                justo duo dolores et ea rebum.
+              
               </p>
             </div>
 
-            <div style={{ display: "flex", gap: "16px" }}>
+           
+          </div>
+
+          <hr style={{ margin: "20px 0px", border: "0.5px solid #ECEEF1" }} />
+
+          <div style={{ display: "flex", gap: "16px" }}>
               <Switch
                 unCheckedChildren="__"
                 onChange={handleConversionUomChange}
@@ -663,8 +637,11 @@ const NewInventoryItem = () => {
                 <p style={{ color: "#566A7F", fontSize: "16px" }}>
                   Enable Conversion Uom
                 </p>
-                <p style={{ color: "#8E9CAA", fontSize: "14px" }}>
-                  Select or Add Uom as per your need
+                <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                justo duo dolores et ea rebum.
                 </p>
                 {conversionUom && (
                   <div className="enableConversionUom">
@@ -680,7 +657,8 @@ const NewInventoryItem = () => {
                       >
                         {conversionOptionsRows.map((item, index) => {
                           return (
-                            <div className="conversion_options_row">
+                           <div>
+                             <div className="conversion_options_row">
                               <div className="conversion_name">
                                 {/* <input
                                   type="text"
@@ -725,6 +703,8 @@ const NewInventoryItem = () => {
                                 <img src="/images/icons/delete.svg" alt="" />
                               </div>
                             </div>
+                           </div>
+                           
                           );
                         })}
                       </div>
@@ -736,9 +716,23 @@ const NewInventoryItem = () => {
                 )}
               </div>
             </div>
+          <div style={{ display: "flex", gap: "30px" }}>
+            <div>
+              <p
+                style={{
+                  color: "#8E9CAA",
+                  fontSize: "14px",
+                  maxWidth: "702px",
+                }}
+              >
+                
+              </p>
+            </div>
+
 
             <div></div>
           </div>
+          
         </div>
 
         <div className="button">
