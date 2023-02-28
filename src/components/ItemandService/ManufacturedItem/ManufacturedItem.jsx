@@ -134,14 +134,18 @@ const ManufacturedItem = () => {
     conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
   };
 
+  const handleDeleteRow = (id) => {
+    setResourcePlaningRows((prevRows) => prevRows.filter((row) => row.id !== id));
+  };
+
   return (
     <div className="new_inventory_item_main">
          <Page_heading parent={"Item & Service"} child={"Add Inventory Item"} />
       <div className="new_inventory_item_container">
-        <div className="header">
+        {/* <div className="header">
           <h1>Create Item</h1>
           <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
           <div className="input_box_container">
@@ -314,17 +318,12 @@ const ManufacturedItem = () => {
             >
               Item Group details
             </p>
-            <p
-              style={{ fontSize: "14px", color: "#8E9CAA", fontWeight: "400" }}
-            >
-              Lorem ipsum dolor, sit amet consectetur{" "}
-            </p>
             <div
               style={{
                 display: "flex",
                 gap: "20px",
-                marginBottom: "18px",
-                marginTop: "38px",
+                marginBottom: "20px",
+                marginTop: "20px",
               }}
             >
               <div className="input_group">
@@ -361,7 +360,7 @@ const ManufacturedItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Tax Preference</p>
                 <div
@@ -396,7 +395,7 @@ const ManufacturedItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Item Group Type</p>
                 <div
@@ -431,7 +430,7 @@ const ManufacturedItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Sales Account</p>
                 <div
@@ -502,23 +501,15 @@ const ManufacturedItem = () => {
             </div>
           </div>
 
-          <hr
-            style={{
-              position: "absolute",
-              left: "20px",
-              bottom: 0,
-              width: "690px",
-              border: ".5px solid #ECEEF1",
-            }}
-          />
         </div>
 
             <div className="resource_planing_rows_container">
                 <div className="headers">
-                    <p className='assined-resource-group'>Assigned Resource Group</p>
-                    <p className='type'>Type</p>
-                    <p className='components'>Components</p>
-                    <p className='options'>Options</p>
+                    <p className='assined-resource-group'>Assigned Resource</p>
+                    <p className='resource_option'>Resource Options</p>
+                    <p className='type'>Group Type</p>
+                    <p className='components'>Item Group</p>
+                    <p className='options'>Component Options</p>
                     <p className='qty'>Qty</p>
                 </div>
 
@@ -527,21 +518,24 @@ const ManufacturedItem = () => {
                         return (
                             <div className="resource_planing_row" key={index}>
                                 <div className="Assigned_Resource_Group_input">
-                                    <input type="text" disabled />
-                                </div>
-                                <div className="resource_planing_row_type">
                                     <SearchDropdown width={181} />
                                 </div>
+                                <div className="Resource_option_input">
+                                    <input type="text"  />
+                                </div>
                                 <div className="resource_planing_row_type">
-                                    <SearchDropdown width={293} />
+                                    <SearchDropdown width={135} />
+                                </div>
+                                <div className="resource_planing_row_type">
+                                    <SearchDropdown width={210} />
                                 </div>
                                 <div className="resource_planing_row_option">
                                     <input type="text"  />
                                 </div>
                                 <div className="resource_planing_row_qty">
-                                    <input type="text" placeholder="00" className='focus-outline' />
+                                    <input type="text" placeholder="00" disabled className='focus-outline' />
                                 </div>
-                                <div className="delete-row">
+                                <div className="delete-row" onClick={() => handleDeleteRow(item.id)}>
                                     <img src="/images/icons/delete.svg" alt="delete" />
                                 </div>
                             </div>
@@ -552,8 +546,8 @@ const ManufacturedItem = () => {
                 <div className="add-row-btn"><p onClick={handleAddRow}>+ Add</p></div>    
             </div>
 
-        <div className="button">
-          <button className="submit_button btn_hover_animation">Submit</button>
+        <div className="button" style={{marginLeft:"20px"}}>
+          <button className="submit_button btn_hover_animation">Create Item</button>
           <button className="cancel_button btn_hover_animation"  onClick={handleClose}>Cancel</button>
         </div>
       </div>

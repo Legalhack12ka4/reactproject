@@ -533,14 +533,14 @@ const resetOther = () => {
 
   return (
     <div className="new_inventory_group_main">
-        <Page_heading parent={"Item & Service"} child={"Add Inventory Item"} />
+        <Page_heading parent={"Item & Service"} child={"Raw Material & Traded Item"} main={"Raw Material & Traded Item Group"} />
 
         <div className="new_inventory_group_container">
 
-        <div className="header">
+        {/* <div className="header">
             <h1>Create Item Group</h1>
             <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="group_form_container" style={{overflow:"scroll", display:"flex", padding:"20px"}}>
 
@@ -779,7 +779,7 @@ const resetOther = () => {
             
         </div>
         <div className="button">
-            <button className="submit_button btn_hover_animation">Submit</button>
+            <button className="submit_button btn_hover_animation">Create Group</button>
             <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
         </div>

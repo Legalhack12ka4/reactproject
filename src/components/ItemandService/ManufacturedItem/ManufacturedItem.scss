@@ -11,19 +11,22 @@
 
 
         .assined-resource-group{
-            padding: 0px 150px 0px 20px
+            padding: 0px 113px 0px 20px
         }
         .type{
-            padding: 0px 175px 0px 0px
+            padding: 0px 112px 0px 0px
+        }
+        .resource_option{
+            padding: 0px 42px 0px 0px
         }
         .components{
-            padding: 0px 240px 0px 0px
+            padding: 0px 187px 0px 0px
         }
         .options{
-            padding: 0px 190px 0px 0px
+            padding: 0px 125px 0px 0px
         }
         .qty{
-            padding: 0px 56px 0px 0px
+            padding: 0px 54px 0px 0px
         }
 
 
@@ -40,25 +43,35 @@
             padding: 0px 20px;
             border-bottom: 1px solid #C2CAD230;
 
-
             .Assigned_Resource_Group_input{
                 padding: 10px 0px;
-                padding-right: 10px;
+                padding-right: 20px;
+                border-right: 1px dashed #C2CAD2;
+
+                .srchdrp{
+                    margin-top: 0px !important;
+                }
+            }
+            .Resource_option_input{
+                padding: 10px 0px;
+                padding-right: 20px;
+                padding-left: 20px;
                 border-right: 1px dashed #C2CAD2;
                 
                 input{
                     border: .5px solid #ECEEF1;
-                width: 270px;
+                width: 69px;
                 height: 37px;
                 border-radius: 5px;
-                background-color: #ECEEF1;
+                background-color: #ffff;
+                padding: 0px 14px;
                 }
             }
         }
         .resource_planing_row_type{
             padding: 10px 0px;
-                padding-right: 10px;
-                padding-left: 10px;
+                padding-right: 20px;
+                padding-left: 20px;
                 border-right: 1px dashed #C2CAD2;
 
                 .srchdrp{
@@ -67,30 +80,32 @@
         }
         .resource_planing_row_option{
             padding: 10px 0px;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding-right: 20px;
+            padding-left: 20px;
             border-right: 1px dashed #C2CAD2;
 
             input{
                 border: .5px solid #ECEEF1;
-                width: 98px;
+                width: 69px;
                 height: 37px;
                 border-radius: 5px;
-                background-color: #ECEEF1;
+                background-color: #ffff;
+                padding: 0px 14px;
             }
         }
         .resource_planing_row_qty{
             padding: 10px 0px;
-            padding-right: 10px;
-            padding-left: 10px;
+            padding-right: 20px;
+            padding-left: 20px;
 
             input{
                 border: .5px solid #ECEEF1;
-                width: 107px;
+                width: 86px;
                 height: 37px;
                 border-radius: 5px;
                 padding: 0px 14px;
                 text-align: right;
+                background-color: #ECEEF1;
             }::placeholder{
                 color: #435971!important;
             }
@@ -122,4 +137,7 @@
             cursor: pointer;
         }
     }
+
+
+    
 }

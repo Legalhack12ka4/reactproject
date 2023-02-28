@@ -533,10 +533,10 @@ const resetOther = () => {
 
         <div className="new_inventory_group_container1" style={{width:"300px !important"}}>
 
-        <div className="header">
+        {/* <div className="header">
             <h1>Create Item Group</h1>
             <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="group_form_container" style={{overflow:"scroll", display:"flex", padding:"20px"}}>
 
@@ -554,7 +554,18 @@ const resetOther = () => {
                   </div>
                 </div>
 
-                <div style={{display:"flex", gap:"20px", marginBottom:"18px",marginTop:"18px"}}>
+                <div className="input_group" style={{marginTop:"20px"}}>
+                  <p>Type</p>
+                  <SearchDropdown width={330} options={unitofdata}
+                    name="uom"
+                    labelKey="label"
+                    value={unitofdata.find(
+                      (option) => option.key === formData.uom && option.label
+                    )?.label}
+                    onChange={handleDrpChange}/>
+                </div>
+
+                <div style={{display:"flex", gap:"20px", marginBottom:"20px",marginTop:"20px"}}>
                 <div className="input_group">
                   <p>Unit of Measurement</p>
                   <SearchDropdown width={155} options={unitofdata}
@@ -570,7 +581,7 @@ const resetOther = () => {
                   <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
                   
                     <input type="text" placeholder="placeholder"
-                    style={{backgroundColor:"#ECEEF1"}}
+                    style={{backgroundColor:"#ECEEF1", color:"#4359714D"}}
                     disabled
                     name="group_name"
                     value="Non-Inventory Item"
@@ -606,7 +617,7 @@ const resetOther = () => {
                 </div>
 
 
-                <div style={{display:"flex", gap:"20px", marginTop:"18px"}}>
+                <div style={{display:"flex", gap:"20px", marginTop:"20px"}}>
                 <div className="input_group">
                 <p>Sales Account</p>
                   <SearchDropdown width={155}  options={reportingl4name}
@@ -632,7 +643,7 @@ const resetOther = () => {
             </div>
         </div>
         <div className="button">
-            <button className="submit_button btn_hover_animation">Submit</button>
+            <button className="submit_button btn_hover_animation">Create Group</button>
             <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
         </div>

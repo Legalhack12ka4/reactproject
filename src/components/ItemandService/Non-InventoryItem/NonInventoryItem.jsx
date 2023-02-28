@@ -117,21 +117,21 @@ const NewInventoryItem = () => {
     <div className="new_inventory_item_main1">
            <Page_heading parent={"Item & Service"} child={"Non Inventory Item"} />
       <div className="new_inventory_item_container1">
-        <div className="header">
+        {/* <div className="header">
           <h1>Create Item</h1>
           <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
           <div className="input_box_container">
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Item Group</p>
               <SearchDropdown width={330} />
             </div>
 
            
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
@@ -141,7 +141,7 @@ const NewInventoryItem = () => {
 
           
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>HSN Code</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
@@ -149,78 +149,20 @@ const NewInventoryItem = () => {
               </div>
             </div>
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
-              <p>Type</p>
-              <SearchDropdown width={330}/>
-              {/* <div className="input_container focus-outline">
-                <img src="/images/icons/HSNSearch.svg" alt="" />
-                <input type="text" placeholder="placeholder" />
-              </div> */}
-            </div>
-
-       
-            {/* <div className="input_group" style={{ marginBottom: "18px" }}>
-              <p>Barcode</p>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
+              <p>Purchase Price</p>
               <div className="input_container focus-outline">
-                <img src="/images/icons/barcode.svg" alt="" />
-                <div className="barcode_scanner">
-                  <input
-                    type="text"
-                    placeholder="placeholder"
-                    id="barcode_input"
-                    // value={data}
-                  />
-                </div>
-                <img
-                  src="/images/icons/barcodeBtn.svg"
-                  alt=""
-                  //   onClick={showModal}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-            </div> */}
-
-            <div style={{ display: "flex", gap: "20px"}}>
-              <div className="input_group">
-                <p>Purchase Price</p>
-                <div
-                  className="input_container1 focus-outline"
-                  style={{ width: "150px !important" } }
-                >
-                  <input type="text" />
-                </div>
-              </div>
-              <div className="input_group">
-                <p>Sale Price</p>
-                <div
-                  className="input_container1 focus-outline"
-                  style={{ width: "150px !important" }}
-                >
-                  <input type="text" />
-                </div>
+                <input type="text" placeholder="Indicative Price" />
               </div>
             </div>
 
-            {/* <div style={{ display: "flex", gap: "20px" }}>
-              <div className="input_group">
-                <p>Minimum Stock</p>
-                <div
-                  className="input_container1 focus-outline"
-                  style={{ width: "150px !important" }}
-                >
-                  <input type="text" />
-                </div>
+            <div className="input_group">
+              <p>Sale Price</p>
+              <div className="input_container focus-outline">
+                <input type="text" placeholder="Indicative Price" />
               </div>
-              <div className="input_group">
-                <p>Maximum Stock</p>
-                <div
-                  className="input_container1 focus-outline"
-                  style={{ width: "150px !important" }}
-                >
-                  <input type="text" />
-                </div>
-              </div>
-            </div> */}
+            </div>
+
          
           </div>
 
@@ -264,43 +206,9 @@ const NewInventoryItem = () => {
 
             <div
               className="input_group"
-              style={{ marginTop: "15px", marginBottom: "18px" }}
+              style={{ marginTop: "20px", marginBottom: "20px" }}
             >
               <p>Description</p>
-              {/* <div
-                  className={`${
-                    errors.description && touched.description && "inputError"
-                  } description  focus-outline`}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "318.4px",
-                    height: "68.4px",
-                    outline: "none",
-                    resize: "none",
-                    overflow:"hidden"
-                  }}
-                >
-                  <textarea
-                    resizable={false}
-                    // className="description"
-                    style={{
-                      width: "668.4px",
-                      height: "68.4px",
-                      outline: "none",
-                      border: "none",
-                      resize: "none",
-                    }}
-                    type="text"
-                    placeholder="Something about account"
-                    name="description"
-                    value={formData.description}
-                    // onChange={(e) => {
-                    //   handleChange(e);
-                    //   onChange(e);
-                    //}}
-                  />
-                </div>*/}
               <div className="input_containerdes focus-outline">
                 <textarea   resizable={false}
                   style={{
@@ -335,17 +243,12 @@ const NewInventoryItem = () => {
             >
               Item Group details
             </p>
-            <p
-              style={{ fontSize: "14px", color: "#8E9CAA", fontWeight: "400" }}
-            >
-              Lorem ipsum dolor, sit amet consectetur{" "}
-            </p>
             <div
               style={{
                 display: "flex",
                 gap: "20px",
-                marginBottom: "18px",
-                marginTop: "38px",
+                marginBottom: "20px",
+                marginTop: "20px",
               }}
             >
               <div className="input_group">
@@ -382,7 +285,32 @@ const NewInventoryItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div className="input_group">
+                <p>Item Group Type</p>
+                <div
+                  style={{
+                    width: "330px !important",
+                    backgroundColor: "#ECEEF1",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    border: "0.5px solid #d9dee3",
+                    width: "304px",
+                    height: "36px",
+                    borderRadius: "5px",
+                    padding: "0px 12px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    disabled
+                    style={{ backgroundColor: "#ECEEF1", width: "330px" }}
+                  />
+                </div>
+              </div>
+
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Tax Preference</p>
                 <div
@@ -417,7 +345,7 @@ const NewInventoryItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "0px" }}>
               <div className="input_group">
                 <p>Sales Account</p>
                 <div
@@ -457,7 +385,7 @@ const NewInventoryItem = () => {
     
 
         <div className="button">
-          <button className="submit_button btn_hover_animation">Submit</button>
+          <button className="submit_button btn_hover_animation">Create Item</button>
           <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
       </div>

@@ -117,10 +117,10 @@ const ServiceItem = () => {
     <div className="new_inventory_item_main1">
            <Page_heading parent={"Item & Service"} child={"Service"} />
       <div className="new_inventory_item_container1">
-        <div className="header">
+        {/* <div className="header">
           <h1>Create Service</h1>
           <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
           <div className="input_box_container">
