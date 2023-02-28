@@ -1,54 +1,48 @@
-import React, {useState, useRef, useEffect} from 'react'
-import './ManufacturedGroup.scss'
+import React, { useState, useRef, useEffect } from "react";
+import "./ManufacturedGroup.scss";
 
-
-import SearchDropdown from '../../AllDropdowns/SearchDropdown/SearchDropdown'
-import { Button, Modal, Switch, Popover } from 'antd'
-import Page_heading from '../../Page_Heading/Page_heading'
+import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
+import { Button, Modal, Switch, Popover } from "antd";
+import Page_heading from "../../Page_Heading/Page_heading";
 import SelectAllDropdown from "../../AllDropdowns/SelectAllDropdown/SelectAllDropdown";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../../TagsInput/TagsInput";
-import config from '../../Database/config'
-
+import config from "../../Database/config";
 
 const resetValue = {
-  "Initiallitemrow": [
+  Initiallitemrow: [
     {
-      resources:"",
-    production_batch: "",
-    production_hours: "",
-    type_of_bom:"",
-    bom_category:""
-}],
-  "Initiallitemrow1": [
-
+      resources: "",
+      production_batch: "",
+      production_hours: "",
+      type_of_bom: "",
+      bom_category: "",
+    },
   ],
+  Initiallitemrow1: [],
   group_name: "",
   type: "",
   uom: "",
   managed_by: "",
   tax_preferences: "",
-  cost_account:"",
-  manufacturing_account:"",
-  tax_rates:"",
-  selling_account:"",
-  inventory_account:"",
+  cost_account: "",
+  manufacturing_account: "",
+  tax_rates: "",
+  selling_account: "",
+  inventory_account: "",
 };
 
-
-
-
 const ManufacturedGroup = () => {
-  const [formData, setFormData] = useState(resetValue)
-  const [taxrate, setTaxRate] = useState([])
-  const [reportingl4, setReportingl4] = useState([]) //to get l4 from chartofaccount api
-  const [unitofm, setUnitOfM] = useState([]) //to get uom data
-  const [itemtype, setItemType] = useState([]) //to get itemtype from master)
-  const [resourcesmc, setResourcemc]= useState([]) //for resources
-  const [itemmaterial, setItemMaterial] = useState([]) //item data
+  const [formData, setFormData] = useState(resetValue);
+  const [taxrate, setTaxRate] = useState([]);
+  const [reportingl4, setReportingl4] = useState([]); //to get l4 from chartofaccount api
+  const [unitofm, setUnitOfM] = useState([]); //to get uom data
+  const [itemtype, setItemType] = useState([]); //to get itemtype from master)
+  const [resourcesmc, setResourcemc] = useState([]); //for resources
+  const [itemmaterial, setItemMaterial] = useState([]); //item data
   const scannerRef = useRef(null);
   const containerRef = useRef(null);
-  const resetRef= useRef()
+  const resetRef = useRef();
   const [isBOMModalOpen, setIsBOMModalOpen] = useState(false);
   const [isBOMVariantOpen, setIsBOMVariantOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +57,7 @@ const ManufacturedGroup = () => {
     { id: 3, name: "row3", value: "" },
     { id: 4, name: "row4", value: "" },
   ]);
-  const [resourcePlaningRows, setResourcePlaningRows ] = useState([
+  const [resourcePlaningRows, setResourcePlaningRows] = useState([
     { id: 1, name: "row1", value: "" },
     { id: 2, name: "row2", value: "" },
     { id: 3, name: "row3", value: "" },
@@ -72,7 +66,7 @@ const ManufacturedGroup = () => {
   const resourceRef = useRef(null);
   useEffect(() => {
     if (resourceRef.current) {
-        resourceRef.current.scrollTop = resourceRef.current.scrollHeight;
+      resourceRef.current.scrollTop = resourceRef.current.scrollHeight;
     }
   }, [resourcePlaningRows]);
 
@@ -151,237 +145,241 @@ const ManufacturedGroup = () => {
   const [serialValue, setSerialValue] = useState("");
   const [otherInputValue, setOtherInputValue] = useState("");
 
-////Dropdown Chartofaccount accuntnam
-console.log("abc")
+  ////Dropdown Chartofaccount accuntnam
+  console.log("abc");
 
-const handleClose = () => {
-  window.history.back(-1);
- // setFormData(resetValue);
-};
+  const handleClose = () => {
+    window.history.back(-1);
+    // setFormData(resetValue);
+  };
 
+  useEffect(() => {
+    getaccountname();
+    getunitmeasure();
+    getTypesoftype();
+    gettax();
+    getresourcesdata();
+    getitembom();
+  }, []);
 
-useEffect(() => {
-  getaccountname();
-  getunitmeasure();
-  getTypesoftype();
-  gettax();
-  getresourcesdata();
-  getitembom();
-}, []);
+  const getaccountname = () => {
+    return fetch(`${config.baseUrl}/chartofaccount/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setReportingl4(data);
+        // console.log(data);
+      });
+  };
+  const reportingl4name = reportingl4.map((rep) => ({
+    key: rep.id,
+    label: rep.account_name,
+    value: rep.account_name,
+  }));
 
-const getaccountname = () => {
-  return fetch(`${config.baseUrl}/chartofaccount/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setReportingl4(data);
-      // console.log(data);
+  const gettax = () => {
+    return fetch(`${config.baseUrl}/taxes/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTaxRate(data);
+        // console.log(data);
+      });
+  };
+  const taxratedata = taxrate.map((rep) => ({
+    key: rep.id,
+    label: rep.tax_group,
+    value: rep.tax_group,
+  }));
+
+  //rates
+  const getunitmeasure = () => {
+    return fetch(`${config.baseUrl}/uom/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUnitOfM(data);
+        // console.log(data);
+      });
+  };
+  const unitofdata = unitofm.map((rep) => ({
+    key: rep.id,
+    label: rep.symbol,
+    value: rep.symbol,
+  }));
+
+  //asssigned resources
+
+  const getresourcesdata = () => {
+    return fetch(`${config.baseUrl}/resource/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setResourcemc(data);
+        console.log(data);
+      });
+  };
+  const resourcesd = resourcesmc.map((rep) => ({
+    key: rep.id,
+    label: rep.name,
+    value: rep.name,
+  }));
+
+  //item resources
+
+  const getitembom = () => {
+    return fetch(`${config.baseUrl}/item/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setItemMaterial(data);
+        console.log(data);
+      });
+  };
+  const itembomdata = itemmaterial.map((rep) => ({
+    key: rep.id,
+    label: rep.name,
+    value: rep.name,
+  }));
+
+  //Dropdown get type
+  const getTypesoftype = () => {
+    return fetch(`${config.baseUrl}/master/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setItemType(data);
+        console.log(data);
+      });
+  };
+
+  const gettypeitem = itemtype
+    .filter((place) => place.field === "Type" && place.module === "ItemGroup")
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
+
+  const getmanageby = itemtype
+    .filter(
+      (place) => place.field === "ManagedBy" && place.module === "ItemGroup"
+    )
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
+  const getpreference = itemtype
+    .filter(
+      (place) => place.field === "TaxPreference" && place.module === "ItemGroup"
+    )
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
+
+  const getbomtype = itemtype
+    .filter((place) => place.field === "Type" && place.module === "BOM")
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
+
+  //onchange
+  const handleDrpChange = (field, value) => {
+    const selectedType = gettypeitem.find((option) => option.value === value);
+    const selectedMange = getmanageby.find((option) => option.value === value);
+    const selectedUom = unitofdata.find((option) => option.value === value);
+    const selectedpreference = getpreference.find(
+      (option) => option.value === value
+    );
+    const selectedaccount = reportingl4name.find(
+      (option) => option.value === value
+    );
+    const selectedrate = taxratedata.find((option) => option.value === value);
+    setFormData((prevState) => {
+      let newState = { ...prevState };
+
+      newState[field] = value;
+
+      if (selectedType) {
+        newState.type = selectedType.key;
+      }
+
+      if (selectedUom) {
+        newState.uom = selectedUom.key;
+      }
+
+      if (selectedMange) {
+        newState.managed_by = selectedMange.key;
+      }
+      if (selectedpreference) {
+        newState.tax_preferences = selectedpreference.key;
+      }
+      if (selectedaccount) {
+        newState.cost_account = selectedaccount.key;
+      }
+      if (selectedaccount) {
+        newState.manufacturing_account = selectedaccount.key;
+      }
+      if (selectedrate) {
+        newState.tax_rates = selectedrate.key;
+      }
+      if (selectedaccount) {
+        newState.selling_account = selectedaccount.key;
+      }
+      if (selectedaccount) {
+        newState.inventory_account = selectedaccount.key;
+      }
+
+      return newState;
     });
-};
-const reportingl4name = reportingl4.map((rep) => ({
-  key:rep.id,
-  label: rep.account_name,
-  value: rep.account_name,
-}));
+  };
 
-const gettax = () => {
-  return fetch(`${config.baseUrl}/taxes/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setTaxRate(data);
-      // console.log(data);
+  //bom
+
+  const handleDrpBOMChange = (field, value) => {
+    console.log("Selected value:", value);
+
+    const selectedOption =
+      field === "resources"
+        ? resourcesd.find((option) => option.value === value)
+        : getbomtype.find((option) => option.value === value);
+
+    console.log("Selected option:", selectedOption);
+
+    setFormData((prevState) => {
+      let newState = { ...prevState };
+
+      newState.Initiallitemrow = [
+        {
+          ...newState.Initiallitemrow[0],
+          [field]: selectedOption ? selectedOption.key : "",
+        },
+      ];
+
+      console.log("New state:", newState);
+
+      return newState;
     });
-};
-const taxratedata = taxrate.map((rep) => ({
-  key:rep.id,
-  label: rep.tax_group,
-  value: rep.tax_group,
-}));
+  };
+  console.log(formData);
+  const onChange = (e) => {
+    const { value, name } = e.target;
 
-//rates
-const getunitmeasure = () => {
-  return fetch(`${config.baseUrl}/uom/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setUnitOfM(data);
-      // console.log(data);
+    setFormData({ ...formData, [name]: value });
+    console.log(value);
+    console.log(name);
+  };
+
+  console.log(formData);
+
+  //bomchange
+  const onBOMChange = (e) => {
+    const { value, name } = e.target;
+
+    setFormData({
+      ...formData,
+      Initiallitemrow: [{ ...formData.Initiallitemrow[0], [name]: value }],
     });
-};
-const unitofdata = unitofm.map((rep) => ({
-  key:rep.id,
-  label: rep.symbol,
-  value: rep.symbol,
-}));
-
-//asssigned resources
-
-const getresourcesdata = () => {
-  return fetch(`${config.baseUrl}/resource/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setResourcemc(data);
-       console.log(data);
-    });
-};
-const resourcesd = resourcesmc.map((rep) => ({
-  key:rep.id,
-  label: rep.name,
-  value: rep.name,
-}));
-
-//item resources
-
-const getitembom = () => {
-  return fetch(`${config.baseUrl}/item/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setItemMaterial(data);
-       console.log(data);
-    });
-};
-const itembomdata  = itemmaterial.map((rep) => ({
-  key:rep.id,
-  label: rep.name,
-  value: rep.name,
-}));
-
-
- //Dropdown get type
- const getTypesoftype = () => {
-  return fetch(`${config.baseUrl}/master/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setItemType(data);
-       console.log(data);
-    });
-};
-
-const gettypeitem = itemtype
-.filter((place) => place.field === "Type" && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-
-const getmanageby = itemtype
-.filter((place) => place.field === "ManagedBy"  && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-const getpreference = itemtype
-.filter((place) => place.field === "TaxPreference"  && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-
-const getbomtype = itemtype
-.filter((place) => place.field === "Type"  && place.module === "BOM")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-
-
-
-//onchange
-const handleDrpChange= (field, value) => {
-  const selectedType = gettypeitem.find((option) => option.value === value);
-  const selectedMange = getmanageby.find((option) => option.value === value);
-  const selectedUom = unitofdata.find((option) => option.value === value);
-  const selectedpreference = getpreference.find((option) => option.value === value);
-  const selectedaccount = reportingl4name.find((option) => option.value === value);
-  const selectedrate = taxratedata.find((option) => option.value === value);
-  setFormData((prevState) => {
-    let newState = { ...prevState };
-    
-    newState[field] = value;
-    
-    if (selectedType) {
-      newState.type = selectedType.key;
-    }
-    
-    if (selectedUom) {
-      newState.uom = selectedUom.key;
-    }
-    
-    if (selectedMange) {
-      newState.managed_by = selectedMange.key;
-    }
-    if (selectedpreference) {
-      newState.tax_preferences = selectedpreference.key;
-    }
-    if (selectedaccount) {
-      newState.cost_account = selectedaccount.key;
-    }
-    if (selectedaccount) {
-      newState.manufacturing_account = selectedaccount.key;
-    }
-    if (selectedrate) {
-      newState.tax_rates = selectedrate.key;
-    }
-    if (selectedaccount) {
-      newState.selling_account = selectedaccount.key;
-    }
-    if (selectedaccount) {
-      newState.inventory_account = selectedaccount.key;
-    }
-    
-    return newState;
-  });
-};
-
-
-//bom
-
-const handleDrpBOMChange = (field, value) => {
-  console.log("Selected value:", value);
-
-  const selectedOption = field === "resources"
-    ? resourcesd.find((option) => option.value === value)
-    : getbomtype.find((option) => option.value === value);
-  
-  console.log("Selected option:", selectedOption);
-
-  setFormData((prevState) => {
-    let newState = { ...prevState };
-    
-    newState.Initiallitemrow = [
-      {
-        ...newState.Initiallitemrow[0],
-        [field]: selectedOption ? selectedOption.key : "",
-      },
-    ];
-
-    console.log("New state:", newState);
-
-    return newState;
-  });
-};
-console.log(formData)
-const onChange = (e) => {
-  const { value, name } = e.target;
-
-  setFormData({ ...formData, [name]: value });
-  console.log(value);
-  console.log(name);
-};
-
-console.log(formData);
-
-//bomchange
-const onBOMChange = (e) => {
-  const { value, name } = e.target;
-
-  setFormData({
-    ...formData,
-    Initiallitemrow: [{ ...formData.Initiallitemrow[0], [name]: value }]
-  });
-};
+  };
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -391,7 +389,7 @@ const onBOMChange = (e) => {
 
   const handleConfirmCancel = () => {
     setCofirm(true);
-    setPopOverVisible(false)
+    setPopOverVisible(false);
   };
 
   const handleScannerSubmit = (data) => {
@@ -402,131 +400,125 @@ const onBOMChange = (e) => {
     setData(data);
   };
 
-  const popVisible = () =>
-{
-  setPopOverVisible(false)
-  
-}
+  const popVisible = () => {
+    setPopOverVisible(false);
+  };
 
-const handlePopOver = (index) => {
-  setPopOverVisible(index);
+  const handlePopOver = (index) => {
+    setPopOverVisible(index);
+  };
 
-};
+  const editBtnClick = (index) => {
+    setPopOverVisible(index);
+  };
 
-const editBtnClick = (index) => {
-   setPopOverVisible(index);
- };
+  const calculateValue = (cost, qty, index) => {
+    setValue((prevValue) => {
+      const newValue = [...prevValue];
+      newValue[index] = cost[index] * qty[index];
+      return newValue;
+    });
+  };
+  useEffect(() => {
+    setTotalSum(value.reduce((acc, curr) => acc + curr, 0));
+  }, [value]);
 
- const calculateValue = (cost, qty, index) => {
-  setValue((prevValue) => {
-    const newValue = [...prevValue];
-    newValue[index] = cost[index] * qty[index];
-    return newValue;
-  });
-};
-useEffect(() => {
-  setTotalSum(value.reduce((acc, curr) => acc + curr, 0));
-}, [value]);
+  const handleInputClick = (index) => {
+    setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
+      const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+      newIsCostBlurredIndex[index] = false;
+      return newIsCostBlurredIndex;
+    });
+  };
+  const handleCostBlur = (e, index) => {
+    const value = e.target.value;
+    const formattedValue = formatAmount(value);
+    setFormattedCost((prevCost) => {
+      const newCost = [...prevCost];
+      newCost[index] = formattedValue;
+      return newCost;
+    });
+    setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
+      const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
+      newIsCostBlurredIndex[index] = true;
+      return newIsCostBlurredIndex;
+    });
 
-const handleInputClick = (index) => {
-  setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
-    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
-    newIsCostBlurredIndex[index] = false;
-    return newIsCostBlurredIndex;
-  });
-};
-const handleCostBlur = (e, index) => {
-  const value = e.target.value;
-  const formattedValue = formatAmount(value);
-  setFormattedCost((prevCost) => {
-    const newCost = [...prevCost];
-    newCost[index] = formattedValue;
-    return newCost;
-  });
-  setIsCostBlurredIndex((prevIsCostBlurredIndex) => {
-    const newIsCostBlurredIndex = [...prevIsCostBlurredIndex];
-    newIsCostBlurredIndex[index] = true;
-    return newIsCostBlurredIndex;
-  });
+    setShowFormattedValue((prevValue) => {
+      const newValue = [...prevValue];
+      newValue[index] = true;
+      return newValue;
+    });
+  };
 
-  setShowFormattedValue((prevValue) => {
-    const newValue = [...prevValue];
-    newValue[index] = true;
-    return newValue;
-  });
-};
+  const formatAmount = (value) => {
+    if (value >= 10000000) {
+      return (value / 10000000).toFixed(2) + " Cr";
+    } else if (value >= 10000) {
+      return (value / 100000).toFixed(2) + " Lacs";
+    } else if (value >= 1000) {
+      return (value / 1000).toFixed(2) + " K";
+    } else {
+      return value;
+    }
+  };
 
-const formatAmount = (value) => {
-  if (value >= 10000000) {
-    return (value / 10000000).toFixed(2) + " Cr";
-  } else if (value >= 10000) {
-    return (value / 100000).toFixed(2) + " Lacs";
-  } else if (value >= 1000) {
-    return (value / 1000).toFixed(2) + " K";
-  } else {
-    return value;
-  }
-};
+  const handleBomAddRow = () => {
+    const newRows = [...bomRows, { id: Date.now() }, { id: Date.now() + 1 }];
+    setBomRows(newRows);
+    setCost((prevCost) => [...prevCost, 0, 0]);
+    setQty((prevQty) => [...prevQty, 0, 0]);
+    setValue((prevValue) => [...prevValue, 0, 0]);
 
-const handleBomAddRow = () => {
-  const newRows = [...bomRows, { id: Date.now() }, { id: Date.now() + 1 }];
-  setBomRows(newRows);
-  setCost((prevCost) => [...prevCost, 0, 0]);
-  setQty((prevQty) => [...prevQty, 0, 0]);
-  setValue((prevValue) => [...prevValue, 0, 0]);
-
-  containerRef.current.scrollTop = containerRef.current.scrollHeight;
-};
-useEffect(() => {
-  if (containerRef.current) {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
-  }
-}, [bomRows]);
+  };
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [bomRows]);
 
-const handleBomChange = (checked) => {
-  // console.log(`switch bom ${checked}`);
-  setBomEnable(checked);
-};
+  const handleBomChange = (checked) => {
+    // console.log(`switch bom ${checked}`);
+    setBomEnable(checked);
+  };
 
-const handleMaterialOk = () => {
-  setIsMaterialModalOpen(false);
-};
+  const handleMaterialOk = () => {
+    setIsMaterialModalOpen(false);
+  };
 
-const handleConfirm = () => {
-  setCofirm(false);
-  // setPopOverVisible(false)
-};
+  const handleConfirm = () => {
+    setCofirm(false);
+    // setPopOverVisible(false)
+  };
 
-const handleCancel = () => {
-  setIsModalOpen(false);
-  setIsBOMVariantOpen(false);
-  setIsBOMModalOpen(false);
-  setCofirm(false);
-  setCofirmv(false);
-};
-const handleConfirmv = () => {
-  setCofirmv(false);
-};
-const handleVarientChange = (checked) => {
-  // console.log(`switch varient ${checked}`);
-  setVariantEnable(checked);
-};
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setIsBOMVariantOpen(false);
+    setIsBOMModalOpen(false);
+    setCofirm(false);
+    setCofirmv(false);
+  };
+  const handleConfirmv = () => {
+    setCofirmv(false);
+  };
+  const handleVarientChange = (checked) => {
+    // console.log(`switch varient ${checked}`);
+    setVariantEnable(checked);
+  };
 
-const handleConfirmCancelv = () => {
-  setCofirmv(true);
-};
+  const handleConfirmCancelv = () => {
+    setCofirmv(true);
+  };
 
-const SerialModal = () => {
-  setIsSerialModalOpen(true);
-};
+  const SerialModal = () => {
+    setIsSerialModalOpen(true);
+  };
 
-const resetOther = () => {
-  document.getElementById("otherInput").value = "";
-  setOtherInputValue("");
-
-};
-
-
+  const resetOther = () => {
+    document.getElementById("otherInput").value = "";
+    setOtherInputValue("");
+  };
 
   const selectOption = [
     {
@@ -544,8 +536,8 @@ const resetOther = () => {
   ];
 
   const handleResourceChange = (checked) => {
-    setResourcePlaningEnable(checked)
-  }
+    setResourcePlaningEnable(checked);
+  };
 
   const handleAddRow = () => {
     setResourcePlaningRows((prevRows) => [
@@ -556,320 +548,320 @@ const resetOther = () => {
     resourceRef.current.scrollTop = resourceRef.current.scrollHeight;
   };
 
-
-
-
-    
+  const handleDeleteRow = (id) => {
+    setResourcePlaningRows((prevRows) =>
+      prevRows.filter((row) => row.id !== id)
+    );
+  };
 
   return (
     <div className="new_inventory_group_main5">
-        <Page_heading parent={"Item & Service"} child={"Manufactured Items"} />
+      <Page_heading parent={"Item & Service"} child={"Manufactured Items"} main={"Manufactured Items Group"} />
 
-        <div className="new_inventory_group_container5">
-
-        <div className="header">
-            <h1>Create Item Group</h1>
-            <p>Without an Item group you can't create an Item.</p>
-        </div>
-
-        <div className="group_form_container" style={{overflow:"scroll", display:"flex", padding:"20px 20px 10px 20px"}}>
-
-            <div className="top_input_container">
-
+      <div className="new_inventory_group_container5">
+        <div
+          className="group_form_container"
+          style={{
+            overflow: "scroll",
+            display: "flex",
+            padding: "20px 0px 10px 20px",
+          }}
+        >
+          <div className="top_input_container">
             <div className="input_group">
-                  <p>Group Name</p>
-                  <div className="input_container focus-outline">
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder"
-                    name="group_name"
-                    value={formData.group_name}
-                    onChange={onChange}
-                    />
-                  </div>
-                </div>
-
-            {/* <div className="input_group">
-                  <p>Type</p>
-                  <SearchDropdown width={194} options={gettypeitem} 
-                  name="type"
-                  value={gettypeitem.find(
-                    (option) => option.key === formData.type && option.label
-                  )?.label} 
-                  labelKey="label"
-                  onChange={handleDrpChange}/>
-                </div> */}
-
-                <div style={{display:"flex", gap:"20px",marginTop:"18px"}}>
-                <div className="input_group">
-                  <p>Unit of Measurement</p>
-                  <SearchDropdown width={155} options={unitofdata}
-                    name="uom"
-                    labelKey="label"
-                    value={unitofdata.find(
-                      (option) => option.key === formData.uom && option.label
-                    )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
-
-                <div className="input_group">
-                  <p>Manage by</p>
-                  <SearchDropdown width={155} options={getmanageby}
-                   name="managed_by"
-                   labelKey="label"
-                   value={getmanageby.find(
-                    (option) => option.key === formData.managed_by && option.label
-                  )?.label}
-                   onChange={handleDrpChange} />
-                </div>
-                </div>
-
+              <p>Group Name</p>
+              <div className="input_container focus-outline">
+                <img src="/images/icons/HSNSearch.svg" alt="" />
+                <input
+                  type="text"
+                  placeholder="placeholder"
+                  name="group_name"
+                  value={formData.group_name}
+                  onChange={onChange}
+                />
+              </div>
             </div>
-      {/* <hr style={{marginRight:"20px", marginLeft:"20px", border:"1px solid #C2CAD2"}}/> */}
-            
-            <div className="bottom_input_container">
 
-                <div style={{display:"flex", gap:"20px"}}>
-                <div className="input_group">
-                  <p>Tax Preference</p>
-                  <SearchDropdown width={155} options={getpreference} 
-                    name="tax_preferences"
-                    labelKey="label"
-                    value={getpreference.find(
-                     (option) => option.key === formData.tax_preferences && option.label
-                   )?.label}
-                    onChange={handleDrpChange}
-                  />
-                </div>
-                <div className="input_group">
-                  <p>Tax Rates</p>
-                  <SearchDropdown width={155} options={taxratedata}
-                    name="tax_rates"
-                    labelKey="label"
-                   // value={formData.tax_rates}
-                    value={taxratedata.find(
-                     (option) => option.key === formData.tax_rates && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
-                </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            >
+              <div className="input_group">
+                <p>Unit of Measurement</p>
+                <SearchDropdown
+                  width={155}
+                  options={unitofdata}
+                  name="uom"
+                  labelKey="label"
+                  value={
+                    unitofdata.find(
+                      (option) => option.key === formData.uom && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
 
-            <div style={{display:"flex", gap:"20px", marginTop:"18px"}}>
-           <div className="input_group">
-                  <p>Item Group Type</p>
-                  <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
-                  
-                    <input type="text" placeholder="placeholder"
-                    style={{backgroundColor:"#ECEEF1"}}
+              <div className="input_group">
+                <p>Manage by</p>
+                <SearchDropdown
+                  width={155}
+                  options={getmanageby}
+                  name="managed_by"
+                  labelKey="label"
+                  value={
+                    getmanageby.find(
+                      (option) =>
+                        option.key === formData.managed_by && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
+            </div>
+
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div className="input_group">
+                <p>Tax Preference</p>
+                <SearchDropdown
+                  width={155}
+                  options={getpreference}
+                  name="tax_preferences"
+                  labelKey="label"
+                  value={
+                    getpreference.find(
+                      (option) =>
+                        option.key === formData.tax_preferences && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
+              <div className="input_group">
+                <p>Tax Rates</p>
+                <SearchDropdown
+                  width={155}
+                  options={taxratedata}
+                  name="tax_rates"
+                  labelKey="label"
+                  // value={formData.tax_rates}
+                  value={
+                    taxratedata.find(
+                      (option) =>
+                        option.key === formData.tax_rates && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                gap: "20px",
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+            >
+              <div className="input_group">
+                <p>Item Group Type</p>
+                <div
+                  className="input_container1"
+                  style={{ backgroundColor: "#ECEEF1" }}
+                >
+                  <input
+                    type="text"
+                    placeholder="placeholder"
+                    style={{ backgroundColor: "#ECEEF1" }}
                     disabled
                     name="group_name"
                     value="Inventory Item"
                     onChange={onChange}
-                    />
-                  </div>
+                  />
                 </div>
-           <div className="input_group">
-                  <p>Inventory Account</p>
-                  <SearchDropdown width={155}  options={reportingl4name}
-                    name="inventory_account"
-                    labelKey="label"
-                    value={reportingl4name.find(
-                     (option) => option.key === formData.inventory_account && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div>
-           </div>
-
-                
-{/* 
-                <div className="input_group">
-                  <p>Manufacturing Account</p>
-                  <SearchDropdown width={330}  options={reportingl4name}
-                    name="manufacturing_account"
-                    labelKey="label"
-                    value={reportingl4name.find(
-                     (option) => option.key === formData.manufacturing_account && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div> */}
-                
-               
-
-              
-
-{/* 
-                <div className="input_group">
-                  <p>Inventory Account</p>
-                  <SearchDropdown width={330}  options={reportingl4name}
-                    name="inventory_account"
-                    labelKey="label"
-                    value={reportingl4name.find(
-                     (option) => option.key === formData.inventory_account && option.label
-                   )?.label}
-                    onChange={handleDrpChange}/>
-                </div> */}
-
+              </div>
+              <div className="input_group">
+                <p>Inventory Account</p>
+                <SearchDropdown
+                  width={155}
+                  options={reportingl4name}
+                  name="inventory_account"
+                  labelKey="label"
+                  value={
+                    reportingl4name.find(
+                      (option) =>
+                        option.key === formData.inventory_account &&
+                        option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
             </div>
 
-            <div className='third_input_container'>
-            <div style={{display:"flex", gap:"20px", marginBottom:"18px"}}>
-         
-         <div className="input_group">
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+              <div className="input_group">
                 <p>Sales Account</p>
-                <SearchDropdown width={155}  options={reportingl4name}
+                <SearchDropdown
+                  width={155}
+                  options={reportingl4name}
                   name="selling_account"
                   labelKey="label"
-                  value={reportingl4name.find(
-                   (option) => option.key === formData.selling_account && option.label
-                 )?.label}
-                  onChange={handleDrpChange}/>
+                  value={
+                    reportingl4name.find(
+                      (option) =>
+                        option.key === formData.selling_account && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
               </div>
-         <div className="input_group">
+              <div className="input_group">
                 <p>Cost Account</p>
-                <SearchDropdown width={155}  options={reportingl4name}
+                <SearchDropdown
+                  width={155}
+                  options={reportingl4name}
                   name="cost_account"
                   labelKey="label"
-                  value={reportingl4name.find(
-                   (option) => option.key === formData.cost_account && option.label
-                 )?.label}
-                  onChange={handleDrpChange}/>
-              </div>
-         </div>
-
-
-         <div style={{display:"flex", gap:"20px"}}>
-       
-       <div className="input_group">
-              <p>Variance Account</p>
-              <SearchDropdown width={155}  options={reportingl4name}
-                name="selling_account"
-                labelKey="label"
-                value={reportingl4name.find(
-                 (option) => option.key === formData.selling_account && option.label
-               )?.label}
-                onChange={handleDrpChange}/>
-            </div>
-       <div className="input_group">
-              <p>WIP Account</p>
-              <SearchDropdown width={155}  options={reportingl4name}
-                name="cost_account"
-                labelKey="label"
-                value={reportingl4name.find(
-                 (option) => option.key === formData.cost_account && option.label
-               )?.label}
-                onChange={handleDrpChange}/>
-            </div>
-       </div>
-            </div>
-            <div className="bom_switch_container">
-
-                {/* <div className="bom_switch">
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="52.123" height="53" viewBox="0 0 52.123 53">
-                    <g id="Settings" opacity="0.35">
-                        <path id="Path_26" data-name="Path 26" d="M7.256,41.412l5.324,9.169a2.669,2.669,0,0,0,3.636.967l3.716-2.136a21.515,21.515,0,0,0,5.044,2.947v4.235a2.656,2.656,0,0,0,2.662,2.65H38.286a2.656,2.656,0,0,0,2.662-2.65V52.359a21.568,21.568,0,0,0,5.044-2.947l3.716,2.136a2.678,2.678,0,0,0,3.636-.967l5.324-9.169a2.654,2.654,0,0,0-.972-3.62l-3.652-2.1A20.27,20.27,0,0,0,54.04,29.8l3.652-2.1a2.649,2.649,0,0,0,.972-3.62L53.34,14.907a2.668,2.668,0,0,0-3.636-.967l-3.716,2.136a21.408,21.408,0,0,0-5.042-2.947V8.894a2.656,2.656,0,0,0-2.662-2.65H27.636a2.656,2.656,0,0,0-2.662,2.65v4.235a21.568,21.568,0,0,0-5.044,2.947l-3.713-2.136a2.666,2.666,0,0,0-3.636.967L7.256,24.076a2.654,2.654,0,0,0,.972,3.62l3.652,2.1a20.269,20.269,0,0,0,0,5.894l-3.652,2.1A2.649,2.649,0,0,0,7.256,41.412Zm25.7-19.268a10.6,10.6,0,1,1-10.648,10.6A10.635,10.635,0,0,1,32.96,22.144Z" transform="translate(-6.9 -6.244)" fill="#c2cad2"/>
-                    </g>
-                </svg>
-                <div className="switch_toggler">
-                    <p>Set a Parent BOM for items that will add to this group item.</p>
-                    <div style={{display: "flex", gap: "10px"}}>
-                    <Switch
-                      unCheckedChildren="__"
-                      onChange={handleBomChange}
-                      onClick={setIsBOMModalOpen}
-                    />
-                    <p>Parent BOM</p>
-                    </div>
-                   
-                  </div>
-
-                </div> */}
-
-                {/* <div className="variant_switch">
-
-                <svg id="bxs-collection" xmlns="http://www.w3.org/2000/svg" width="47.7" height="53" viewBox="0 0 47.7 53">
-                    <path id="Path_34430" data-name="Path 34430" d="M44.65,22.7H7.55A5.305,5.305,0,0,0,2.25,28V49.2a5.305,5.305,0,0,0,5.3,5.3h37.1a5.305,5.305,0,0,0,5.3-5.3V28A5.305,5.305,0,0,0,44.65,22.7ZM7.55,12.1h37.1v5.3H7.55Zm5.3-10.6h26.5V6.8H12.85Z" transform="translate(-2.25 -1.5)" fill="#c2cad2" opacity="0.35"/>
-                </svg>
-
-                <div className="switch_toggler">
-                    <p>Add variants for this group item.</p>
-                    <div style={{display: "flex", gap: "10px"}}>
-                    <Switch
-                      unCheckedChildren="__"
-                      onChange={handleVarientChange}
-                      onClick={setIsBOMVariantOpen}
-                    />
-                    <p>Enable Variant</p>
-                    </div>
-                   
-                  </div>
-
-                </div> */}
-
-            </div>
-
-            
-            
-        </div>
-
-        <hr style={{border: "3px solid #F3F6F9"}}/>
-
-
-        <div className="enable_resource_planing_container" >
-
-            <div className="enable_resource_switch">
-                <p>Enable Resource Planning</p>
-                <Switch
-                    unCheckedChildren="__"  
-                    onChange={handleResourceChange}
-                    // onClick={setIsResourceModalOpen}
+                  value={
+                    reportingl4name.find(
+                      (option) =>
+                        option.key === formData.cost_account && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
                 />
+              </div>
             </div>
 
-            {resourcePlaningEnable && <div className="resource_planing_rows_container">
-                <div className="headers">
-                    <p className='assined-resource-group'>Assigned Resource Group</p>
-                    <p className='type'>Type</p>
-                    <p className='components'>Components</p>
-                    <p className='options'>Options</p>
-                    <p className='qty'>Qty</p>
-                </div>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div className="input_group">
+                <p>Variance Account</p>
+                <SearchDropdown
+                  width={155}
+                  options={reportingl4name}
+                  name="selling_account"
+                  labelKey="label"
+                  value={
+                    reportingl4name.find(
+                      (option) =>
+                        option.key === formData.selling_account && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
+              <div className="input_group">
+                <p>WIP Account</p>
+                <SearchDropdown
+                  width={155}
+                  options={reportingl4name}
+                  name="cost_account"
+                  labelKey="label"
+                  value={
+                    reportingl4name.find(
+                      (option) =>
+                        option.key === formData.cost_account && option.label
+                    )?.label
+                  }
+                  onChange={handleDrpChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="parent-bom">
+            <h2>Parent BOM</h2>
+            <p className="parent-bom-title">
+              A Parent Bill of Materials (BOM) is a structured list of
+              components, parts, and sub-assemblies that are required to
+              manufacture or assemble a finished product. The Parent BOM is
+              typically broken down into lower-level BOMs which detail the
+              components and sub-assemblies required for specific parts of the
+              finished product. These lower-level BOMs may also be known as
+              Child BOMs
+            </p>
 
-                <div className="resource_planing_rows_container" ref={resourceRef}>
-                    {resourcePlaningRows.map((item, index) => {
-                        return (
-                            <div className="resource_planing_row" key={index}>
-                                <div className="Assigned_Resource_Group_input">
-                                    <input type="text" disabled />
-                                </div>
-                                <div className="resource_planing_row_type">
-                                    <SearchDropdown width={181} />
-                                </div>
-                                <div className="resource_planing_row_type">
-                                    <SearchDropdown width={293} />
-                                </div>
-                                <div className="resource_planing_row_option">
-                                    <input type="text"  />
-                                </div>
-                                <div className="resource_planing_row_qty">
-                                    <input type="text" placeholder="00" className='focus-outline' />
-                                </div>
-                                <div className="delete-row">
-                                    <img src="/images/icons/delete.svg" alt="delete" />
-                                </div>
-                            </div>
-                        )
-                    })
-                    }
-                </div>
-                <div className="add-row-btn"><p onClick={handleAddRow}>+ Add</p></div>    
-            </div>}
+            <div className="enable_resource_planing_container ">
+          <div className="enable_resource_switch">
+            <Switch
+              unCheckedChildren="__"
+              onChange={handleResourceChange}
+              // onClick={setIsResourceModalOpen}
+            />
+            <p>Enable Resource Planning</p>
+          </div>
 
+          {(
+            <div className="resource_planing_rows_container main_resource_container">
+              <div className="headers">
+                <p className="assined-resource-group">
+                  Assigned Resource Group
+                </p>
+                <p className="type">Group Type</p>
+                <p className="components">Item Group</p>
+                <p className="qty">Qty</p>
+              </div>
+
+              <div
+                className="resource_planing_rows_container"
+                ref={resourceRef}
+              >
+                {resourcePlaningRows.map((item, index) => {
+                  return (
+                    <div className="resource_planing_row" key={index}>
+                      <div className="Assigned_Resource_Group_input_drp">
+                        {/* <input type="text" disabled={!resourcePlaningEnable && true} className={resourcePlaningEnable && "Assigned_Resource_Group_input_enable"} /> */}
+                        <SearchDropdown width={180} isDisabled={!resourcePlaningEnable} />
+                      </div>
+                      <div className="resource_planing_row_type">
+                        <SearchDropdown width={149} />
+                      </div>
+                      {/* <div className="resource_planing_row_type">
+                        <SearchDropdown width={198} />
+                      </div> */}
+                      <div className="resource_planing_row_type_input">
+                        <input type="text" />
+                      </div>
+                      <div className="resource_planing_row_option">
+                        <input type="text" />
+                      </div>
+                      <div
+                        className="delete-row"
+                        onClick={() => handleDeleteRow(item.id)}
+                      >
+                        <img src="/images/icons/delete.svg" alt="delete" />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="add-row-btn">
+                <p onClick={handleAddRow}>+ Add</p>
+              </div>
+            </div>
+          )}
         </div>
+          </div>
+        </div>
+
+        {/* <hr style={{border: "3px solid #F3F6F9"}}/> */}
+
+        
         <div className="button">
-            <button className="submit_button btn_hover_animation">Submit</button>
-            <button className="cancel_button btn_hover_animation"  onClick={handleClose}>Cancel</button>
+          <button className="submit_button btn_hover_animation">Create Group</button>
+          <button
+            className="cancel_button btn_hover_animation"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
-        </div>
+      </div>
 
       {/* Bill of material modal  */}
 
@@ -999,10 +991,13 @@ const resetOther = () => {
                                   <input
                                     className="productioninput"
                                     type="text"
-                                  //  value="05 Pcs"
+                                    //  value="05 Pcs"
                                     style={{ padding: "0px 10px" }}
                                     name="production_batch"
-                                    value={formData.Initiallitemrow[0].production_batch}
+                                    value={
+                                      formData.Initiallitemrow[0]
+                                        .production_batch
+                                    }
                                     onChange={onBOMChange}
                                   />
                                 </div>
@@ -1029,7 +1024,9 @@ const resetOther = () => {
                                   // key="submit"
                                   type="primary"
                                   className="btn_hover_animation"
-                                  onClick={() => {setPopOverVisible(false)}}
+                                  onClick={() => {
+                                    setPopOverVisible(false);
+                                  }}
                                   style={{
                                     width: "80px",
                                     height: "38px",
@@ -1043,7 +1040,7 @@ const resetOther = () => {
                                 <Button
                                   key="cancel"
                                   className="btn_hover_animation"
-                                  onClick={()=>resetRef.current.getAlert()}
+                                  onClick={() => resetRef.current.getAlert()}
                                   style={{
                                     width: "80px",
                                     height: "38px",
@@ -1061,31 +1058,43 @@ const resetOther = () => {
                           title={""}
                           visible={popOverVisible === index}
                         >
-                        <SearchDropdown
-                          options={resourcesd}
-                          ref={resetRef}
-                          popVisible={popVisible}
-                          //onChange={(e) => { handleDrpBOMChange(e);handlePopOver(index);}}
-                          onChange={handleDrpBOMChange}
-                        editBtnClick={()=>editBtnClick(index)}
-                          width={250}
-                          editBtn={true}
-                          name="resources"
-                          value={resourcesd.find(
-                            (option) => option.key === formData.Initiallitemrow[0].resources && option.label
-                          )?.label}
-                         // value={formData.Initiallitemrow[0].resources}
-                        />
+                          <SearchDropdown
+                            options={resourcesd}
+                            ref={resetRef}
+                            popVisible={popVisible}
+                            //onChange={(e) => { handleDrpBOMChange(e);handlePopOver(index);}}
+                            onChange={handleDrpBOMChange}
+                            editBtnClick={() => editBtnClick(index)}
+                            width={250}
+                            editBtn={true}
+                            name="resources"
+                            value={
+                              resourcesd.find(
+                                (option) =>
+                                  option.key ===
+                                    formData.Initiallitemrow[0].resources &&
+                                  option.label
+                              )?.label
+                            }
+                            // value={formData.Initiallitemrow[0].resources}
+                          />
                         </Popover>
                       </li>
                     )}
                     <li className="type">
-                      <SearchDropdown width={138} options={getbomtype} 
-                       name="type_of_bom"
-                       value={getbomtype.find(
-                         (option) => option.key === formData.Initiallitemrow[0].type_of_bom && option.label
-                       )?.label}
-                      onChange={handleDrpBOMChange}
+                      <SearchDropdown
+                        width={138}
+                        options={getbomtype}
+                        name="type_of_bom"
+                        value={
+                          getbomtype.find(
+                            (option) =>
+                              option.key ===
+                                formData.Initiallitemrow[0].type_of_bom &&
+                              option.label
+                          )?.label
+                        }
+                        onChange={handleDrpBOMChange}
                       />
                     </li>
                     <li className="material">
@@ -1368,12 +1377,9 @@ const resetOther = () => {
                   {otherInputValue && <TagsInput />}
                 </div>
               </li>
-              <div
-                  className="delete_btn"
-                  onClick={resetOther}
-                >
-                  <img src="/images/icons/delete.svg" alt="" />
-                </div>
+              <div className="delete_btn" onClick={resetOther}>
+                <img src="/images/icons/delete.svg" alt="" />
+              </div>
             </ul>
 
             {!colors || !sizes || !serial ? (
@@ -1599,11 +1605,8 @@ const resetOther = () => {
           </div>
         </div>
       </Modal>
-    
     </div>
-    
-  )
-}
+  );
+};
 
-export default ManufacturedGroup
-
+export default ManufacturedGroup;

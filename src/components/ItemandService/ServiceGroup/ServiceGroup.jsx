@@ -533,10 +533,10 @@ const resetOther = () => {
 
         <div className="new_inventory_group_container1" style={{width:"300px !important"}}>
 
-        <div className="header">
+        {/* <div className="header">
             <h1>Create Service Group</h1>
             <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="group_form_container" style={{overflow:"scroll", display:"flex", padding:"20px"}}>
 

@@ -82,6 +82,14 @@ const UnitOfMasurement = () => {
     { unitName: "1 Bottle", qty: 1, uqc: "BTL (bottles)" },
     { unitName: "1 Drum", qty: 1, uqc: "DRM (drums)" },
   ];
+
+  const handleDeleteRow = (id) => {
+    setUnitOfMasurementRows((prevRows) => prevRows.filter((row) => row.id !== id));
+  }
+
+  const handleDeleteConversionRow = (id) => {
+    setConversionOptionsRows((prevRows) => prevRows.filter((row) => row.id !== id));
+  }
   return (
     <div className="unit_of_masurement">
       <Page_heading parent={"Other Page"} child={"Unit of Measurement"} />
@@ -293,7 +301,7 @@ const UnitOfMasurement = () => {
                       className="pack_qty_input focus-outline"
                     />
                   </div>
-                  <div className="edit_delete">
+                  <div className="edit_delete" onClick={() => handleDeleteRow(item.id)}>
                     <img src="images/icons/delete.svg" alt="" />
                   </div>
                 </div>
@@ -344,7 +352,7 @@ const UnitOfMasurement = () => {
                     />
                     <SearchDropdown width={155} />
                   </div>
-                  <div className="edit_delete">
+                  <div className="edit_delete" onClick={() => handleDeleteConversionRow(item.id)} >
                     <img src="images/icons/delete.svg" alt="" />
                   </div>
                 </div>

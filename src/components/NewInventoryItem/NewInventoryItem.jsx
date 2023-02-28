@@ -112,25 +112,34 @@ const NewInventoryItem = () => {
     conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
   };
 
+  const handleDeleteMultiUomRow = (id) => {
+    setUnitOfMasurementRows((prevRows) => prevRows.filter((row) => row.id !== id));
+  };
+
+  const handleDeleteConversionUomRow = (id) => {
+    setConversionOptionsRows((prevRows) =>
+      prevRows.filter((row) => row.id !== id)
+    );
+  };
   return (
     <div className="new_inventory_item_main">
-         <Page_heading parent={"Item & Service"} child={"Add Inventory Item"} />
+         <Page_heading parent={"Item & Service"} child={"Raw Material & Traded Item"} />
       <div className="new_inventory_item_container">
-        <div className="header">
+        {/* <div className="header">
           <h1>Create Item</h1>
           <p>Without an Item group you can't create an Item.</p>
-        </div>
+        </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
           <div className="input_box_container">
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Item Group</p>
               <SearchDropdown width={330} />
             </div>
 
            
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
@@ -140,7 +149,7 @@ const NewInventoryItem = () => {
 
           
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>HSN Code</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
@@ -149,7 +158,7 @@ const NewInventoryItem = () => {
             </div>
 
        
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Barcode</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/barcode.svg" alt="" />
@@ -170,7 +179,7 @@ const NewInventoryItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Purchase Price</p>
                 <div
@@ -254,7 +263,7 @@ const NewInventoryItem = () => {
 
             <div
               className="input_group"
-              style={{ marginTop: "15px", marginBottom: "18px" }}
+              style={{ marginTop: "20px", marginBottom: "20px" }}
             >
               <p>Description</p>
               {/* <div
@@ -325,17 +334,12 @@ const NewInventoryItem = () => {
             >
               Item Group details
             </p>
-            <p
-              style={{ fontSize: "14px", color: "#8E9CAA", fontWeight: "400" }}
-            >
-              Lorem ipsum dolor, sit amet consectetur{" "}
-            </p>
             <div
               style={{
                 display: "flex",
                 gap: "20px",
                 marginBottom: "18px",
-                marginTop: "38px",
+                marginTop: "20px",
               }}
             >
               <div className="input_group">
@@ -518,7 +522,7 @@ const NewInventoryItem = () => {
               position: "absolute",
               left: "20px",
               bottom: 0,
-              width: "690px",
+              width: "1098px",
               border: ".5px solid #ECEEF1",
             }}
           />
@@ -594,7 +598,7 @@ const NewInventoryItem = () => {
                                   className="pack_qty_input"
                                 />
                               </div>
-                              <div className="edit_delete">
+                              <div className="edit_delete" onClick={() => handleDeleteMultiUomRow(item.id)}>
                                 <img
                                   src="/images/icons/delete.svg"
                                   alt="delete"
@@ -612,18 +616,7 @@ const NewInventoryItem = () => {
                 )}
               </div>
             </div>
-            <div>
-              <p
-                style={{
-                  color: "#8E9CAA",
-                  fontSize: "14px",
-                  maxWidth: "702px",
-                }}
-                className={`${multiUom && "widthSmall"}`}
-              >
-              
-              </p>
-            </div>
+            
 
            
           </div>
@@ -703,7 +696,7 @@ const NewInventoryItem = () => {
                                   className="convert_to_input1"
                                 />
                               </div>
-                              <div className="edit_delete">
+                              <div className="edit_delete" onClick={() => handleDeleteConversionUomRow(item.id)} >
                                 <img src="/images/icons/delete.svg" alt="" />
                               </div>
                             </div>
@@ -739,8 +732,10 @@ const NewInventoryItem = () => {
           
         </div>
 
+        <hr style={{border:"2px solid #F3F6F9"}} />
+
         <div className="button">
-          <button className="submit_button btn_hover_animation">Submit</button>
+          <button className="submit_button btn_hover_animation">Create Item</button>
           <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
       </div>
