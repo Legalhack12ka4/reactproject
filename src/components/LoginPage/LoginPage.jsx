@@ -1,5 +1,6 @@
 import { Switch } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './LoginPage.scss'
 
 
@@ -39,7 +40,7 @@ const LoginPage = () => {
             <label htmlFor="remember-me">Remember Me</label>
             </div>
 
-            <button className="sign-in-button btn_hover_animation">Sign In</button>
+            <Link exact to="/dashboard"><button className="sign-in-button btn_hover_animation">Sign In</button></Link>
 
             <div className="create-account-container"><p>New on our Platform? <span>Create an Account</span></p></div>
 

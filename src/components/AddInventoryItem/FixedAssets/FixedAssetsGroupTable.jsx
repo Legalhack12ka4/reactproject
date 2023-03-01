@@ -559,8 +559,8 @@ function NoItemGroupTable() {
     </div>}
         columns={columnsData}
         setColumns={setColumns}
-       addBtnName={activeTable === "ItemGroup" ? "Non Traded Groups" : "Non Traded Items"}
-       path={activeTable === "ItemGroup" ? "/item_&_service/non_traded_group" : "/item_&_service/non_traded_item"}
+       addBtnName={activeTable === "ItemGroup" ? "Fixed Assets Groups" : "Fixed Assets Items"}
+       path={activeTable === "ItemGroup" ? "/item_&_service/fixedassets_group" : "/item_&_service/non_traded_item"}
      //   onClick={showModal}
         onData={handleData}
       />
