@@ -4,7 +4,7 @@
         "id": "db",
         "type": "btn",
         "icon": "/images/sidebar_icons/bxs-dashboard.svg",
-        "path": "/"
+        "path": "/dashboard"
     },
     {
         "title": "MASTERS",

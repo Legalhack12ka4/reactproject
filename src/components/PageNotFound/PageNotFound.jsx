@@ -30,7 +30,7 @@ function PageNotFound() {
            <div>
           <button className='back' onClick={goBack}><img src={back} style={{marginRight:"8px"}}/>Go Back</button>
           </div>
-        <div> <Link exact to="/"><button className='home'>Go Home</button></Link> </div>
+        <div> <Link exact to="/dashboard"><button className='home'>Go Home</button></Link> </div>
       </div>
       <p className='doc'>Documention <img src={forward} style={{marginLeft:"11px"}}/></p>
       <p className='docdesc'>Drive into to learn all about our software.</p>

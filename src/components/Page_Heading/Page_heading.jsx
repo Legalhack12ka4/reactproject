@@ -31,7 +31,7 @@ const Page_heading = ({ parent, child, subchild, main , props }) => {
     <div className="page_heading">
     <Breadcrumb>
    <Breadcrumb.Item>
-   <Link exact to="/" className="heading_parent">  Home</Link>
+   <Link exact to="/dashboard" className="heading_parent">  Home</Link>
     </Breadcrumb.Item>
     <Breadcrumb.Item>
       <span className="heading_parent">{parent}</span>

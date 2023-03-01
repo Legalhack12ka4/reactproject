@@ -50,6 +50,9 @@ import ManufacturedItemTable from './components/AddInventoryItem/ManufacturedIte
 import JobWorkGroup from './components/ItemandService/JobWorkGroup/JobWorkGroup';
 import JobWorkItem from './components/ItemandService/JobWorkItem/JobWorkItem';
 import JobWorkGroupTable from './components/AddInventoryItem/JobWorkGroupTable/JobWorkGroupTable';
+import FixedAssetsGroup from './components/ItemandService/FixedAssetsGroup/FixedAssetsGroup';
+import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAssetsItem';
+import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
 
 function App() {
   return (
@@ -83,6 +86,8 @@ function App() {
           <Route path="item_&_service/manufactured_item_form" element={<ManufacturedItem/>}/>
           <Route path="item_&_service/jobwork_group" element={<JobWorkGroup/>}/>
           <Route path="item_&_service/jobwork_item" element={<JobWorkItem/>}/>
+          <Route path="item_&_service/fixedassets_group" element={<FixedAssetsGroup/>}/>
+          <Route path="item_&_service/fixedassets_item" element={<FixedAssetsItem/>}/>
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
@@ -93,7 +98,7 @@ function App() {
           <Route path='module' element={<Module/>} />
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
-          <Route path='/' element={<Dashboard/>} />
+          <Route path='dashboard' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
           <Route path="Sales/new_estimate" element={<NewEstimate/>}/>
           <Route path="Sales/sales_order" element={<SalesOrder/>}/>
@@ -111,12 +116,12 @@ function App() {
           <Route path="item_&_service/manufactured_item" element={<ManufacturedItemTable/>}/>
           <Route path="item_&_service/items_jobwork" element={<JobWorkGroupTable/>}/>
           <Route path="item_&_service/services" element={<ServiceItemGroupTable/>}/>
-          <Route path="item_&_service/fixed_assets" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/fixed_assets" element={<FixedAssetsGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
           
    
          
-          <Route path="login" element={<LoginPage/>}/>
+          <Route path="/" element={<LoginPage/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

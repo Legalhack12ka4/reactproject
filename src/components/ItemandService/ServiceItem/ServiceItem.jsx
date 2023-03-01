@@ -326,7 +326,7 @@ const ServiceItem = () => {
             </div>
           </div>
           </div>
-          <div className="item_create_container12">
+          <div className="item_create_container12" style={{marginTop:"20px"}}>
             <p
               style={{
                 fontSize: "16px",

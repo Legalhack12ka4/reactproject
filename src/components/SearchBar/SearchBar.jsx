@@ -6,6 +6,8 @@ import "./SearchBar.scss";
 import {MdOutlineClose} from "react-icons/md"
 import {CgSearch} from "react-icons/cg"
 import {RxHamburgerMenu} from "react-icons/rx"
+import { Popover } from "antd";
+import { Link } from "react-router-dom";
 
 
 const SearchBar = () => {
@@ -95,7 +97,29 @@ document.addEventListener("keydown", e =>{
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <img src="/images/searchbar_icons/msg.svg" alt="" />
         <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />
-        <img src="/images/searchbar_icons/User-Avtar.svg" alt="" />
+        <Popover    placement="topRight"  getPopupContainer={(trigger) => trigger.parentElement}  content={
+                 <div>
+               
+                 {/* <img src={deletelogo} /> */}
+                
+              <Link exact to="/login">   <button 
+              style={{color:"White",
+            fontWeight:700,
+            backgroundColor:"#DA2F58",
+            padding:"10px 20px",
+            borderRadius:"5px"
+            }}
+                 className="actionlabel btn_hover_animation"
+              //   onClick={() => handleConfirmCancel(record)}          
+                 >
+               LogOut
+                 </button></Link>
+                 </div>
+                 
+        } title="" height={100} trigger="click">
+      <img src="/images/searchbar_icons/User-Avtar.svg" alt="" style={{cursor:"pointer"}}/>
+        </Popover>
+      
       </div>
     </div>
       )

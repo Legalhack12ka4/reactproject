@@ -10,7 +10,7 @@ import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
 import { Link, useLocation } from "react-router-dom";
 
-function NoItemGroupTable() {
+function ItemTable() {
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
@@ -548,19 +548,19 @@ function NoItemGroupTable() {
       swichdata={   <div className="options-container">
       <div onClick={() => setActiveTable('ItemGroup')}>
         <div className={`option ${activeTable === 'ItemGroup' ? 'active' : ''}`}>
-           Item Groups
+          Item Groups
         </div>
       </div>
       <div onClick={() => setActiveTable('Item')}>
         <div className={`option ${activeTable === 'Item' ? 'active' : ''}`}>
-        Items
+          Item
         </div>
       </div>
     </div>}
         columns={columnsData}
         setColumns={setColumns}
-       addBtnName={activeTable === "ItemGroup" ? "Non Traded Groups" : "Non Traded Items"}
-       path={activeTable === "ItemGroup" ? "/item_&_service/non_traded_group" : "/item_&_service/non_traded_item"}
+       addBtnName={activeTable === "ItemGroup" ? "Item Group" : "Item"}
+       path={activeTable === "ItemGroup" ? "/item_&_service/new_inventory_group" : "/item_&_service/new_inventory_item"}
      //   onClick={showModal}
         onData={handleData}
       />
@@ -793,4 +793,4 @@ function NoItemGroupTable() {
   )
 }
 
-export default NoItemGroupTable
+export default ItemTable
