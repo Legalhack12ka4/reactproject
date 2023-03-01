@@ -548,18 +548,18 @@ function NoItemGroupTable() {
       swichdata={   <div className="options-container">
       <div onClick={() => setActiveTable('ItemGroup')}>
         <div className={`option ${activeTable === 'ItemGroup' ? 'active' : ''}`}>
-          No Traded Item Groups
+           Item Groups
         </div>
       </div>
       <div onClick={() => setActiveTable('Item')}>
         <div className={`option ${activeTable === 'Item' ? 'active' : ''}`}>
-        No Traded Item
+        Items
         </div>
       </div>
     </div>}
         columns={columnsData}
         setColumns={setColumns}
-       addBtnName={activeTable === "ItemGroup" ? "Non Traded Group" : "Non Traded Item"}
+       addBtnName={activeTable === "ItemGroup" ? "Non Traded Groups" : "NoN Traded Items"}
        path={activeTable === "ItemGroup" ? "/item_&_service/non_traded_group" : "/item_&_service/non_traded_item"}
      //   onClick={showModal}
         onData={handleData}

@@ -529,7 +529,7 @@ const resetOther = () => {
 
   return (
     <div className="new_inventory_group_main1">
-        <Page_heading parent={"Item & Service"} child={"Non Inventory Item"} />
+        <Page_heading  main={"Non Traded Item Group"} parent={"Item & Service"} child={"Non Traded Item"} />
 
         <div className="new_inventory_group_container1" style={{width:"300px !important"}}>
 

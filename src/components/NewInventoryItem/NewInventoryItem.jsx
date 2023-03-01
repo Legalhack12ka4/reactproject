@@ -122,7 +122,7 @@ const NewInventoryItem = () => {
     );
   };
   return (
-    <div className="new_inventory_item_main">
+    <div className="new_inventory_item_main" style={{overflow:"hidden"}}>
          <Page_heading parent={"Item & Service"} child={"Raw Material & Traded Item"} />
       <div className="new_inventory_item_container">
         {/* <div className="header">
@@ -130,7 +130,8 @@ const NewInventoryItem = () => {
           <p>Without an Item group you can't create an Item.</p>
         </div> */}
 
-        <div className="item_form_container" style={{ overflow: "scroll" }}>
+        <div className="item_form_container">
+        <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
             <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Item Group</p>
@@ -323,6 +324,7 @@ const NewInventoryItem = () => {
               </div>
             </div>
           </div>
+          </div>
           <div className="item_create_container">
             <p
               style={{
@@ -334,14 +336,15 @@ const NewInventoryItem = () => {
             >
               Item Group details
             </p>
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 gap: "20px",
                 marginBottom: "18px",
                 marginTop: "20px",
               }}
-            >
+            > */}
+            <div className="item_details_container">
               <div className="input_group">
                 <p>Unit of Measurement</p>
                 <div
@@ -374,9 +377,9 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}> */}
               <div className="input_group">
                 <p>Tax Preference</p>
                 <div
@@ -409,9 +412,9 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}> */}
               <div className="input_group">
                 <p>Item Group Type</p>
                 <div
@@ -444,9 +447,9 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}> */}
               <div className="input_group">
                 <p>Sales Account</p>
                 <div
@@ -479,9 +482,9 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px" }}>
+            {/* <div style={{ display: "flex", gap: "20px" }}> */}
               <div className="input_group">
                 <p>Variance Account</p>
                 <div
@@ -514,7 +517,8 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+              </div>
+            {/* </div> */}
           </div>
 
           <hr
@@ -528,7 +532,7 @@ const NewInventoryItem = () => {
           />
         </div>
 
-        <div style={{ padding: "0px 20px 20px 20px" }}>
+        <div style={{ padding: "20px 20px 20px 20px" }}>
           {/* <p
             style={{
               color: "#566A7F",
@@ -630,7 +634,7 @@ const NewInventoryItem = () => {
                 // onClick={setIsBOMVariantOpen}
               />
 
-              <div>
+              <div style={{overflow:"scroll"}}>
                 <p style={{ color: "#566A7F", fontSize: "16px" }}>
                   Enable Conversion Uom
                 </p>

@@ -123,6 +123,7 @@ const ServiceItem = () => {
         </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
+          <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
             <div className="input_group" style={{ marginBottom: "18px" }}>
               <p>Service Group</p>
@@ -324,6 +325,7 @@ const ServiceItem = () => {
               </div>
             </div>
           </div>
+          </div>
           <div className="item_create_container12">
             <p
               style={{
@@ -340,14 +342,15 @@ const ServiceItem = () => {
             >
               Lorem ipsum dolor, sit amet consectetur{" "}
             </p>
-            <div
+            <div className="item_details_container">
+            {/* <div
               style={{
                 display: "flex",
                 gap: "20px",
                 marginBottom: "18px",
                 marginTop: "38px",
               }}
-            >
+            > */}
               <div className="input_group">
                 <p>Unit of Measurement</p>
                 <div
@@ -380,9 +383,9 @@ const ServiceItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}> */}
               <div className="input_group">
                 <p>Tax Preference</p>
                 <div
@@ -415,9 +418,9 @@ const ServiceItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}> */}
               <div className="input_group">
                 <p>Sales Account</p>
                 <div

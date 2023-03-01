@@ -548,18 +548,18 @@ function ServiceItemGroupTable() {
       swichdata={   <div className="options-container">
       <div onClick={() => setActiveTable('ItemGroup')}>
         <div className={`option ${activeTable === 'ItemGroup' ? 'active' : ''}`}>
-          Service Groups
+          Item Groups
         </div>
       </div>
       <div onClick={() => setActiveTable('Item')}>
         <div className={`option ${activeTable === 'Item' ? 'active' : ''}`}>
-        Service Item
+       Items
         </div>
       </div>
     </div>}
         columns={columnsData}
         setColumns={setColumns}
-       addBtnName={activeTable === "ItemGroup" ? "Service Group" : "Service Item"}
+       addBtnName={activeTable === "ItemGroup" ? "Service Groups" : "Service Items"}
        path={activeTable === "ItemGroup" ? "/item_&_service/service_group" : "/item_&_service/service_item"}
      //   onClick={showModal}
         onData={handleData}
