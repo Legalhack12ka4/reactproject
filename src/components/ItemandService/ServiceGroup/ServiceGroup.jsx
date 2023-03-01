@@ -529,7 +529,7 @@ const resetOther = () => {
 
   return (
     <div className="new_inventory_group_main1">
-        <Page_heading parent={"Item & Service"} child={"Service"} />
+        <Page_heading main={"Service Group"} parent={"Item & Service"} child={"Service"} />
 
         <div className="new_inventory_group_container1" style={{width:"300px !important"}}>
 
@@ -632,7 +632,7 @@ const resetOther = () => {
             </div>
         </div>
         <div className="button">
-            <button className="submit_button btn_hover_animation">Submit</button>
+            <button className="submit_button btn_hover_animation">Create Group</button>
             <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
         </div>

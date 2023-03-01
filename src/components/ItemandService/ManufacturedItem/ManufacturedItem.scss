@@ -35,7 +35,7 @@
 
     .resource_planing_rows_container{
         max-height: 240px;
-        overflow-y: scroll;
+       // overflow-y: scroll;
         .resource_planing_row{
             // border: 1px solid;
             display: flex;
@@ -136,8 +136,11 @@
             color: #5C5AD0;
             cursor: pointer;
         }
-    }
-
-
-    
+    } 
 }
+
+// @media (max-width:1440px) {
+//     .resource_planing_rows_container {
+//     max-width: 700px;
+//     }
+//     }

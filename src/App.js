@@ -47,6 +47,9 @@ import ServiceItemGroupTable from './components/AddInventoryItem/Service/Service
 import ManufacturedGroup from './components/ItemandService/ManufacturedGroup/ManufacturedGroup';
 import ManufacturedItem from './components/ItemandService/ManufacturedItem/ManufacturedItem';
 import ManufacturedItemTable from './components/AddInventoryItem/ManufacturedItem/ManufacturedItemTable';
+import JobWorkGroup from './components/ItemandService/JobWorkGroup/JobWorkGroup';
+import JobWorkItem from './components/ItemandService/JobWorkItem/JobWorkItem';
+import JobWorkGroupTable from './components/AddInventoryItem/JobWorkGroupTable/JobWorkGroupTable';
 
 function App() {
   return (
@@ -78,6 +81,8 @@ function App() {
           <Route path="item_&_service/service_item" element={<ServiceItem/>}/>
           <Route path="item_&_service/manufactured_group" element={<ManufacturedGroup/>}/>
           <Route path="item_&_service/manufactured_item_form" element={<ManufacturedItem/>}/>
+          <Route path="item_&_service/jobwork_group" element={<JobWorkGroup/>}/>
+          <Route path="item_&_service/jobwork_item" element={<JobWorkItem/>}/>
           <Route path='vendors' element={<VendorsData/>} />
           <Route path='vendors/add_vendors' element={<Vendors/>} />
           <Route path='contacts/add_contacts' element={<Contacts/>} />
@@ -104,7 +109,7 @@ function App() {
           <Route path="item_&_service/raw_material_&_traded_item" element={<ItemGroupTable/>}/>
           <Route path="item_&_service/no_traded_item" element={<NoItemGroupTable/>}/>
           <Route path="item_&_service/manufactured_item" element={<ManufacturedItemTable/>}/>
-          <Route path="item_&_service/items_jobwork" element={<ItemGroupTable/>}/>
+          <Route path="item_&_service/items_jobwork" element={<JobWorkGroupTable/>}/>
           <Route path="item_&_service/services" element={<ServiceItemGroupTable/>}/>
           <Route path="item_&_service/fixed_assets" element={<ItemGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>

@@ -115,7 +115,7 @@ const NewInventoryItem = () => {
 
   return (
     <div className="new_inventory_item_main1">
-           <Page_heading parent={"Item & Service"} child={"Non Inventory Item"} />
+           <Page_heading parent={"Item & Service"} child={"Non Traded Item"} />
       <div className="new_inventory_item_container1">
         {/* <div className="header">
           <h1>Create Item</h1>
@@ -123,6 +123,7 @@ const NewInventoryItem = () => {
         </div> */}
 
         <div className="item_form_container" style={{ overflow: "scroll" }}>
+        <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
             <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Item Group</p>
@@ -232,6 +233,8 @@ const NewInventoryItem = () => {
               </div>
             </div>
           </div>
+          </div>
+
           <div className="item_create_container11">
             <p
               style={{
@@ -243,14 +246,15 @@ const NewInventoryItem = () => {
             >
               Item Group details
             </p>
-            <div
+            <div className="item_details_container">
+            {/* <div
               style={{
                 display: "flex",
                 gap: "20px",
                 marginBottom: "20px",
                 marginTop: "20px",
               }}
-            >
+            > */}
               <div className="input_group">
                 <p>Unit of Measurement</p>
                 <div
@@ -283,10 +287,10 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
             <div className="input_group">
-                <p>Item Group Type</p>
+                <p> Type</p>
                 <div
                   style={{
                     width: "330px !important",
@@ -299,7 +303,7 @@ const NewInventoryItem = () => {
                     height: "36px",
                     borderRadius: "5px",
                     padding: "0px 12px",
-                    marginBottom: "20px",
+                 //   marginBottom: "20px",
                   }}
                 >
                   <input
@@ -310,7 +314,7 @@ const NewInventoryItem = () => {
                 </div>
               </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}> */}
               <div className="input_group">
                 <p>Tax Preference</p>
                 <div
@@ -343,9 +347,9 @@ const NewInventoryItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "0px" }}>
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "0px" }}> */}
               <div className="input_group">
                 <p>Sales Account</p>
                 <div

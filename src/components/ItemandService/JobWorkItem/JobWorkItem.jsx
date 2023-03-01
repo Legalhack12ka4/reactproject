@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 // import "./NewInventoryItem.scss";
-import "./ManufacturedItem.scss"
+import "./JobWorkItem.scss"
 
 import { Upload, Modal, Switch } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -17,7 +17,7 @@ const getBase64 = (file) => {
   });
 };
 
-const ManufacturedItem = () => {
+const JobWorkItem = () => {
   const [fileList, setFileList] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -139,15 +139,15 @@ const ManufacturedItem = () => {
   };
 
   return (
-    <div className="new_inventory_item_main" style={{ overflow: "hidden" }}>
-         <Page_heading parent={"Item & Service"} child={"Manufactured Item"} />
+    <div className="new_inventory_item_main">
+         <Page_heading parent={"Item & Service"} child={"Item Received for Jobwork"} />
       <div className="new_inventory_item_container">
         {/* <div className="header">
           <h1>Create Item</h1>
           <p>Without an Item group you can't create an Item.</p>
         </div> */}
 
-        <div className="item_form_container">
+        <div className="item_form_container" style={{ overflow: "scroll" }}>
         <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
             <div className="input_group" style={{ marginBottom: "18px" }}>
@@ -240,6 +240,7 @@ const ManufacturedItem = () => {
             </div>
          
           </div>
+
           <div className="image_uploader_container">
             <div
               className={`${
@@ -307,8 +308,8 @@ const ManufacturedItem = () => {
               </div>
             </div>
           </div>
-          </div>
-          <div className="item_create_container">
+</div>
+          <div className="item_create_container_jobwork">
             <p
               style={{
                 fontSize: "16px",
@@ -319,7 +320,6 @@ const ManufacturedItem = () => {
             >
               Item Group details
             </p>
-            <div className="item_details_container">
             {/* <div
               style={{
                 display: "flex",
@@ -328,6 +328,7 @@ const ManufacturedItem = () => {
                 marginTop: "20px",
               }}
             > */}
+             <div className="item_details_container_job">
               <div className="input_group">
                 <p>Unit of Measurement</p>
                 <div
@@ -430,9 +431,9 @@ const ManufacturedItem = () => {
                   />
                 </div>
               </div>
-            {/* </div> */}
+            </div>
 
-            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}> */}
+            {/* <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Sales Account</p>
                 <div
@@ -465,9 +466,9 @@ const ManufacturedItem = () => {
                   />
                 </div>
               </div>
-            {/* </div> */}
+            </div>
 
-            {/* <div style={{ display: "flex", gap: "20px" }}> */}
+            <div style={{ display: "flex", gap: "20px" }}>
               <div className="input_group">
                 <p>Variance Account</p>
                 <div
@@ -500,14 +501,13 @@ const ManufacturedItem = () => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
         </div>
 
-            <div className="resource_planing_rows_container">
-                <div style={{overflowX:"scroll"}}>
-                <div className="headers" style={{width:"max-content"}}>
+            {/* <div className="resource_planing_rows_container">
+                <div className="headers">
                     <p className='assined-resource-group'>Assigned Resource</p>
                     <p className='resource_option'>Resource Options</p>
                     <p className='type'>Group Type</p>
@@ -546,9 +546,8 @@ const ManufacturedItem = () => {
                     })
                     }
                 </div>
-                </div>
                 <div className="add-row-btn"><p onClick={handleAddRow}>+ Add</p></div>    
-            </div>
+            </div> */}
 
         <div className="button" style={{marginLeft:"20px"}}>
           <button className="submit_button btn_hover_animation">Create Item</button>
@@ -559,6 +558,6 @@ const ManufacturedItem = () => {
   );
 };
 
-export default ManufacturedItem;
+export default JobWorkItem;
 
 
