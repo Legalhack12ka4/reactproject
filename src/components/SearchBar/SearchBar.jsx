@@ -102,7 +102,7 @@ document.addEventListener("keydown", e =>{
                
                  {/* <img src={deletelogo} /> */}
                 
-              <Link exact to="/login">   <button 
+              <Link exact to="/">   <button 
               style={{color:"White",
             fontWeight:700,
             backgroundColor:"#DA2F58",
