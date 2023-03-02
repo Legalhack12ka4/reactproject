@@ -1,0 +1,8 @@
+<svg id="Logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <rect id="Rectangle_17768" data-name="Rectangle 17768" width="18" height="18" fill="none"/>
+  <g id="Group_43646" data-name="Group 43646" transform="translate(0.001 0.935)">
+    <g id="bx-log-out-circle" transform="translate(2 2)">
+      <path id="Union_5" data-name="Union 5" d="M3.167,10.354l1-.953a5.1,5.1,0,0,0,6.979,0,4.571,4.571,0,0,0,0-6.671,5.094,5.094,0,0,0-6.979,0l-1-.954A6.456,6.456,0,0,1,7.655,0a6.45,6.45,0,0,1,4.486,1.777,5.878,5.878,0,0,1,0,8.578,6.456,6.456,0,0,1-4.486,1.776A6.46,6.46,0,0,1,3.167,10.354ZM0,6.066,3.485,3.373v2.02H9.76V6.738H3.485v2.02Z" transform="translate(0)" fill="rgba(67,89,113,0.7)"/>
+    </g>
+  </g>
+</svg>

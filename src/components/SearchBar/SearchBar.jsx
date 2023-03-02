@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 import "./SearchBar.scss";
-
-
+import setting from "../../assets/Images/ProfileIcon/Setting.svg"
+import profile from "../../assets/Images/ProfileIcon/Profile.svg"
+import logout from "../../assets/Images/ProfileIcon/Logout.svg"
 import {MdOutlineClose} from "react-icons/md"
 import {CgSearch} from "react-icons/cg"
 import {RxHamburgerMenu} from "react-icons/rx"
@@ -12,6 +13,15 @@ import { Link } from "react-router-dom";
 
 const SearchBar = () => {
 const [searchTriggered, setSearchTriggered] = useState(false);
+const [open, setOpen] = useState(false);
+
+const hide = () => {
+  setOpen(false);
+};
+
+const handleOpenChange = (newOpen) => {
+  setOpen(newOpen);
+};
 
 document.addEventListener("keydown", e =>{
   if(e.key === "/" && e.ctrlKey){
@@ -97,27 +107,37 @@ document.addEventListener("keydown", e =>{
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <img src="/images/searchbar_icons/msg.svg" alt="" />
         <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />
-        <Popover    placement="topRight"  getPopupContainer={(trigger) => trigger.parentElement}  content={
-                 <div>
-               
-                 {/* <img src={deletelogo} /> */}
-                
-              <Link exact to="/">   <button 
-              style={{color:"White",
-            fontWeight:700,
-            backgroundColor:"#DA2F58",
-            padding:"10px 20px",
-            borderRadius:"5px"
-            }}
-                 className="actionlabel btn_hover_animation"
-              //   onClick={() => handleConfirmCancel(record)}          
-                 >
-               LogOut
-                 </button></Link>
+        <Popover placement="topRight"
+          open={open}
+          onOpenChange={handleOpenChange}
+        getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
+
+                 <>
+                 <div style={{display:"flex", gap:"12px", width:"182px"}}>
+                  <img src="/images/searchbar_icons/User-Avtar.svg"/>
+                  <div style={{display:"grid"}}>
+                    <p1 style={{color:"#435971", fontSize:"14px", fontWeight:"500"}}>Parth Goswami</p1>
+                    <p1 style={{color:"#435971B3", fontSize:"12px", fontWeight:"500"}}>Key Person</p1>
+                  </div>
                  </div>
+                 <hr style={{border:"1px solid #4359711A", marginTop:"20px", marginBottom:"20px", marginLeft:"-20px", marginRight:"-20px"}}/>
+                 <div style={{display:"flex", gap:"13px", alignItems:"center", marginBottom:"20px"}}>
+                 <img src={profile}/>
+                 <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>My profile</p1>
+                 </div>
+                 <div style={{display:"flex", gap:"8px", alignItems:"center"}}>
+                <img src={setting}/>
+                <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>My profile</p1>
+                 </div>
+                 <hr style={{border:"1px solid #4359711A", marginTop:"20px", marginBottom:"20px", marginLeft:"-20px", marginRight:"-20px"}}/>
+                 <Link exact to="/">   <div style={{display:"flex", gap:"8px", alignItems:"center"}} onClick={hide}>
+                 <img src={logout}/>
+                 <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>Log Out</p1>
+                 </div></Link>
+                 </>
                  
         } title="" height={100} trigger="click">
-      <img src="/images/searchbar_icons/User-Avtar.svg" alt="" style={{cursor:"pointer"}}/>
+     <div style={{}}><img src="/images/searchbar_icons/User-Avtar.svg" alt="" style={{cursor:"pointer", marginRight:"20px"}}/></div> 
         </Popover>
       
       </div>
