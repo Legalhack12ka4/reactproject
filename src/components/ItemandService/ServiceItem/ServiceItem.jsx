@@ -125,14 +125,14 @@ const ServiceItem = () => {
         <div className="item_form_container" style={{ overflow: "scroll" }}>
           <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Service Group</p>
               <SearchDropdown width={330} />
             </div>
 
            
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
@@ -142,7 +142,7 @@ const ServiceItem = () => {
 
           
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>SAC Code</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
@@ -150,7 +150,7 @@ const ServiceItem = () => {
               </div>
             </div>
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Type</p>
               <SearchDropdown width={330}/>
               {/* <div className="input_container focus-outline">
@@ -265,7 +265,7 @@ const ServiceItem = () => {
 
             <div
               className="input_group"
-              style={{ marginTop: "15px", marginBottom: "18px" }}
+              style={{ marginTop: "20px", marginBottom: "20px" }}
             >
               <p>Description</p>
               {/* <div

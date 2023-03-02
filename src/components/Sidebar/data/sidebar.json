@@ -78,10 +78,6 @@
         "icon": "/images/sidebar_icons/bxs-cart-alt.svg",
         "childrens": [
             {
-                "title": "Estimate",
-                "path": "Sales/new_estimate"
-            },
-            {
                 "title": "Sales Order",
                 "path": "Sales/sales_order"
             },

@@ -544,7 +544,7 @@ const resetOther = () => {
 
             <div className="input_group">
                   <p>Group Name</p>
-                  <div className="input_container">
+                  <div className="input_container focus-outline">
                     <img src="/images/icons/HSNSearch.svg" alt="" />
                     <input type="text" placeholder="placeholder"
                     name="group_name"
