@@ -10,7 +10,7 @@
     position: relative;
     .account-table-container{
     //     // border: 1px solid;
-        padding: 20px;
+      //  padding: 20px;
         background-color: #ffff;
         border-radius: 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
@@ -18,5 +18,197 @@
 
     // border: 1px solid;
     // padding: 5px;
-    // padding-top: 30px;
+
+//bullte
+
+.bullet_item
+
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: #28A745;
+    margin-right: 5px;
 }
+.bullet_itemred
+
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: #DA2F58;
+    margin-right: 5px;
+}
+    // padding-top: 30px;
+
+
+
+    .addAccountModalInputContainer{
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+    .addAccountModalInput{
+    
+        p{
+            font-size: 13px;
+            font-weight: 500;
+            color: #697A8D;
+            margin-bottom: 5px;
+            margin-top: 20px;
+    
+        }
+    
+        input{
+            width: 122px;
+            height:38px;
+            border-radius: 5px;
+            outline: none;
+            border: .5px solid #C2CAD2;
+            padding: 0px 14px 0px 14px;
+        }
+    }
+}
+
+}
+
+
+.subtitle
+{
+    
+    margin-top: -10px  !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #697A8D;
+
+}
+
+.addAccountModalInputContainer{
+    margin-top: 20px;
+   
+}
+
+.footerconfirm
+{
+    padding: 0px !important;
+    top: 0px !important;
+
+.ant-modal-footer{
+//background-color: #F5F6F8 !important;
+border-radius: 8px;
+padding: 20px 0px 30px 30px;
+}
+.ant-modal-title
+{
+padding: 20px 0px 0px 30px;
+}
+ .ant-modal-content
+{
+    padding: 0px !important;
+    border-radius: 0px 0px 8px 8px !important;
+}
+}
+
+.accountcode::placeholder {
+    color: #697a8d !important;
+    font-weight: 500;
+    opacity: 0.5 !important;
+    font-size: 13px !important;
+  }
+
+  .accountcode
+
+  {
+        border: .5px solid #C2CAD2;
+        width: 318.4px;
+        height: 37px;
+        border-radius: 5px;
+        margin-top:8px;
+        padding-left: 10px;
+        background-color: #ECEEF1;
+  }
+  .parmentaccount
+
+  {
+        border: .5px solid #C2CAD2;
+        width: 318.4px;
+        height: 36.4px;
+        border-radius: 5px;
+        margin-top:8px;
+        padding-left: 10px;
+  }
+
+  .description::placeholder {
+    color: #697a8d !important;
+    font-weight: 500;
+    opacity: 0.5 !important;
+    font-size: 13px !important;
+    
+    // margin-top: 30px;
+    // margin-bottom: 30px;
+    // display: block;
+    //  position: absolute;
+    //   bottom: 25px;
+  }
+  .description
+  {
+    border: .5px solid #C2CAD2;
+        width: 329px;
+        height: 37px;
+        border-radius: 5px;
+      margin-top:8px;
+      padding-left: 10px;
+      resize:none;
+      padding-top: 10px;
+  }
+
+.ant-select-dropdown .ant-select-item-group {
+   // color: rgba(0, 0, 0, 0.45);
+    color:#5C5AD0 !important;
+    font-size: 12px;
+    cursor: default;
+    padding: 11px 0px 11px 10px !important;
+}
+.ant-select-single.ant-select-lg .ant-select-selector {
+border-radius: 5px !important;
+}
+
+.ant-select-selection-placeholder {
+    color: #697a8d !important;
+    font-weight: 500;
+    opacity: 0.5 !important;
+    font-size: 13px !important;
+  }
+  .ant-select-item {
+    font-size: 13px !important;
+    padding: 6px 14px !important;
+    border-radius: 0px !important;
+    color: #697a8d !important;
+    background-color: white;
+  }
+
+  .ant-select-dropdown {
+    border-radius: 6px !important;
+    padding: 0px !important;
+  }
+
+  .ant-select .ant-select-selector {
+    border-radius: 5px !important;
+    border: 0.5px solid #d9dee3 !important;
+    color: #697a8d !important;
+  }
+
+  .ant-select-arrow {
+    font-size: 10px !important;
+  }
+
+  .ant-select-item-option:hover:not(.ant-select-item-option-disabled) {
+    // background-color: #697A8D !important;
+    color: #697a8d !important;
+  }
+
+  .ant-select-item-option-selected {
+    background-color: #5c5ad133 !important;
+    color: #697a8d !important;
+    font-weight: none !important;
+  }

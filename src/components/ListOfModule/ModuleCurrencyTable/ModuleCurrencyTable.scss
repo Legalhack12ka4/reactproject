@@ -10,12 +10,13 @@
     position: relative;
     .currency-table-container{
         // border: 1px solid;
-        padding: 20px;
+       // padding: 20px;
         background-color: #ffff;
         border-radius: 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
     }
 }
+
 
 
 
@@ -44,6 +45,12 @@ padding: 0px !important;
     color:#566A7F;
 }
 
+.addPaymentTermModalInput ::placeholder{
+    color: #697a8d !important;
+    font-weight: 500;
+    opacity: 0.5 !important;
+    font-size: 13px !important;
+}
 .paymentinput
 {
     border: 0.5px solid;
@@ -93,4 +100,17 @@ padding: 0px !important;
     cursor: pointer;
    // margin-right: 24px;
    // font-weight: bold;
+}
+
+
+//modal
+
+.footerconfirm1
+{
+  
+ .ant-modal-content
+{
+   // padding: 0px !important;
+    border-radius: 0px 0px 8px 8px !important;
+}
 }

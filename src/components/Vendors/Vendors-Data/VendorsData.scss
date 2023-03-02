@@ -10,9 +10,31 @@
     position: relative;
     .Vendors-table-container{
         // border: 1px solid;
-        padding: 20px;
+       // padding: 20px;
         background-color: #ffff;
         border-radius: 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
     }
+
+    .tableData {
+        height: max-content;
+        max-width: 2220px;
+        user-select: none;
+    
+       ::-webkit-scrollbar {
+        height: 8px !important;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background-color:#c2cad2;
+          border-radius: 10px;
+          margin-right: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+        background: #566a76;
+        cursor: pointer;
+        } 
+        // box-shadow:  0px 2px 6px 0px #4359711f;
+       
+      }
 }

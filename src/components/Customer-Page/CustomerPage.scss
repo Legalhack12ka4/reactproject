@@ -62,36 +62,23 @@
 
 .customer-dashboard {
   // border: 1px solid;
-  display: flex;
+  display: grid;
   background-color: #ffff;
   box-shadow: 0px 2px 6px 0px #4359711f;
   border-radius: 8px;
-  justify-content: space-around;
-  // justify-content: left;
+  grid-template-columns: 1fr 1fr 1.2fr;
 
   .left-border {
     border-left: 5px solid #e8ecf1;
   }
 
-  // @media screen and (width: 50px) {
-  //     .customer-dashboard{
-  //         // border: 1px solid;
-  //         width: -700px;
-  //         display: flex;
-  //         background-color: #ffff;
-  //         margin-bottom: 10px;
-  //         .left-border{
-  //             border-left: 5px solid #E8ECF1;
-  //         }
-
-  //     }
-  //   }
 
   .customer-dashboard-card {
     // border: 1px solid;
     // width: 301px;
     height: 81px;
     margin: 14px 23px 13.4px 17px;
+    max-width: 380px;
 
     .customer-dashboard-card-heading {
       // border: 1px solid;
@@ -247,7 +234,7 @@
     max-width: 2200px;
 
     .customer-table {
-      width: 730px;
+      width: 2200px;
       // min-width: 1200px;
       // width: 100%;
       // max-width: 1200px;
@@ -255,7 +242,7 @@
 
       .table-width {
         width: 99%;
-        max-width: 1100px;
+        max-width: 2200px;
       }
     }
 

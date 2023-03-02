@@ -99,11 +99,11 @@
         "childrens": [
             {
                 "title": "Estimate",
-                "path": "/estimate"
+                "path": "Sales/new_estimate"
             },
             {
                 "title": "Sales Order",
-                "path": "/sales_order"
+                "path": "Sales/sales_order"
             },
             {
                 "title": "Packages",
@@ -119,7 +119,7 @@
             },
             {
                 "title": "Invoice",
-                "path": "/invoice"
+                "path": "Sales/invoice"
             },
             {
                 "title": "Payments",
@@ -147,7 +147,7 @@
             },
             {
                 "title": "Purchase Orders",
-                "path": "/purchase_orders"
+                "path": "Purchase/purchase_orders"
             },
             {
                 "title": "Goods Receipts",

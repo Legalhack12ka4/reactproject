@@ -23,19 +23,19 @@
   }
 }
 
-.rdrCalendarwrapper:not(.rdrDateRangeWrapper)
-  .rdrDayHovered
-  .rdrDayNumber:after {
-  content: "";
-  border: 1px solid red !important;
-  // border-radius: 1. 333em !important;
-  // position: absolute !important;
-  // top: -2px !important;
-  // bottom: -2px !important;
-  // left: Opx !important;
-  // right: Opx !important;
-  // background: transparent !important;
-}
+// .rdrCalendarwrapper:not(.rdrDateRangeWrapper)
+//   .rdrDayHovered
+//   .rdrDayNumber:after {
+//   content: "";
+//   //border: 1px solid red !important;
+//   // border-radius: 1. 333em !important;
+//   // position: absolute !important;
+//   // top: -2px !important;
+//   // bottom: -2px !important;
+//   // left: Opx !important;
+//   // right: Opx !important;
+//   // background: transparent !important;
+// }
 .rdrDateRangePickerWrapper {
   flex-direction: row-reverse !important;
   .rdrDefinedRangesWrapper {
@@ -61,15 +61,17 @@
   position: relative;
 }
 .calendarInput {
-  width: 316px;
-  height: 38px;
+  width: 240px;
+  height: 36px;
   // border: 1px solid;
-  box-shadow:  0px 2px 6px 0px #4359711f;
+  // box-shadow:  0px 2px 6px 0px #4359711f;
+  border: 1px solid #C2CAD2;
   border-radius: 8px;
   background-color: #ffff;
   // margin-bottom: 10px;
   display: flex;
   align-items: center;
+ // color: red !important;
 
   img {
     margin: 0px 13px;
@@ -79,7 +81,12 @@
     height: 100%;
     border: none;
     outline: none;
+    border-radius: 8px;
+   // color : red !important;
   }
+}
+.inputBox::placeholder{
+    color: #566A7F !important;
 }
 
 .rdrWeekDay {
@@ -116,14 +123,14 @@
   .rdrDayHovered
   .rdrDayNumber:after {
   content: "";
-  border: 8px solid red !important;
+ // border: 8px solid red !important;
   border-radius: 1.333em;
   position: absolute;
   top: -2px;
   bottom: -2px;
   left: 0px;
   right: 0px;
-  background: black !important;
+//  background: black !important;
 }
 
 .rdrStaticRangeSelected {

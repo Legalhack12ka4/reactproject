@@ -1,0 +1,240 @@
+.login-page-main{
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid;
+    height: 100vh;
+    width: 100vw;
+    background-color: #F3F6F9;
+    z-index: 2;
+
+    .page-image-container{
+        position: relative;
+        
+        .login-logo{
+            position: absolute;
+            top: 45px;
+            left: 45px;
+        }
+
+        .login-img{
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-105%, -43%) !important;
+        }
+    }
+
+
+    .login-card-container{
+        // border: 1px solid;
+        width: 376px;
+        max-height: 528px;
+        background-color: #FFFFFF;
+        border-radius: 6px;
+        box-shadow: 0px 2px 6px 0px #4359711f;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(35%, -50%);
+        padding: 45px;
+
+        .headers{
+            margin-bottom: 40px;
+            h2{
+                font-size: 22px;
+                font-weight: 600;
+                color: #5C5AD0;
+                margin-bottom: 12px;
+            }
+            p{
+                font-size: 14px;
+                font-weight: 500;
+                color: #697A8D;
+            }
+        }
+
+        .credentials{
+            .login-email{
+                margin-bottom: 20px;
+                label{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #566A7F;
+                }
+                #email-box{
+                    width: 345px;
+                    height: 36px;
+                    border: 1px solid #E0E0E0;
+                    border-radius: 5px;
+                    padding: 0 14px;
+                    margin-top: 10px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #697A8D;
+                }::placeholder{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #697A8D !important;
+                }
+            }
+
+            .login-password{
+                position: relative;
+                margin-bottom: 20px;
+                label{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #566A7F;
+                }
+                #password-box{
+                    width: 345px;
+                    height: 36px;
+                    border: 1px solid #E0E0E0;
+                    border-radius: 5px;
+                    padding: 0 14px;
+                    margin-top: 10px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #697A8D;
+                    display: flex;
+                }::placeholder{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #697A8D !important;
+                    display: flex !important;
+                    align-items: center !important;
+                }
+
+                .password_eye{
+                    position: absolute;
+                    top: 39px;
+                    right: 10px;
+                }
+                .forget_password{
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #5C5AD0;
+                    position: absolute;
+                    top: 1px;
+                    right: 0;
+                }
+            }
+        }
+        .remember-btn{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 22px;
+            
+            label{
+                font-size: 14px;
+                font-weight: 500;
+                color: #697A8D;
+            }
+        }
+
+        .sign-in-button{
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffff;
+            background-color: #5C5AD0;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            width: 376px;
+            height: 36px;
+            margin-bottom: 22px;
+            cursor: pointer;
+        }
+        
+        .create-account-container{
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #697A8D;
+            margin-bottom: 25px;
+
+            span{
+                font-weight: 600;
+                color: #5C5AD0;
+            }
+        }
+
+        .or-container{
+            position: relative;
+            margin-bottom: 25px;
+
+            hr{
+                border: .5px solid #ECEEF1;
+            }
+            .or-text{
+                // border: 1px solid;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px ;
+                font-weight: 400;
+                color: #697A8D;
+                width: 52px;
+                height: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -60%);
+                background-color: #ffff;
+            }
+
+        }
+    }
+
+   
+
+    .continue-with-google{
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        width: 193px;
+        height: 38px;
+        // border: 1px solid;
+        margin: auto;
+        border-radius: 5px;
+        box-shadow:  0px .5px 5px #000000 inset;
+        cursor: pointer;
+
+        img{
+            width: 20px;
+            height: 20px;
+            margin-left: 18px;
+        }
+        p{
+            font-size: 14px;
+            font-weight: 500;
+            color: #2B3347;
+            margin-left: 5px;
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 1250px) {
+        .login-card-container{
+            transform: translate(-50%,-50%) !important;
+
+        }
+
+        .login-page-main .page-image-container .login-img {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) !important;
+        }
+        .login-page-main .page-image-container .login-logo{
+            position: fixed;
+            left: 50%;
+            top: 15%;
+            transform: translate(-50%, -50%) !important;
+            width: 300px;
+        }
+  }

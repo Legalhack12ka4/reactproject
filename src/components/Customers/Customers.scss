@@ -1,10 +1,16 @@
+
+@-webkit-keyframes moving-gradient {
+  0% { background-position: -250px 0; }
+  100% { background-position: 250px 0; }
+}
+
 .customer-table-container {
   // border: 1px solid;
-  padding: 20px;
+  // padding: 20px;
   border-radius: 8px;
   box-shadow:  0px 2px 6px 0px #4359711f;
   background-color: #ffff;
-  height:70vh;
+  //height:70vh;
 }
 .customers {
   // border: 1px solid;
@@ -14,17 +20,39 @@
   padding: 5px;
   // height: 780px;
   margin-top: 30px;
-  overflow: scroll;
+  //overflow: scroll;
   position: relative;
 
   ::-webkit-scrollbar {
     width: 0;
+    
   }
   
   .tableData {
     height: max-content;
     max-width: 2220px;
+    user-select: none;
+    //overflow: scroll;
+    
+    
+
+   ::-webkit-scrollbar {
+    height: 8px !important;
+    direction: rtl;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background-color:#c2cad2;
+      border-radius: 10px;
+      margin-right: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+    background: #566a76;
+    cursor: pointer;
+  
+    } 
     // box-shadow:  0px 2px 6px 0px #4359711f;
+   
   }
 }
 
@@ -33,6 +61,23 @@
 }
 
 
+
+
+//Filter
+
+.customer_filter_container
+{
+  //  padding: 20px;
+    display: grid;
+   gap:20px;
+    grid-template-columns: repeat(2,1fr);
+    //column-gap: 20px;
+   
+   
+}
+
+
+//
 .select {
   width: 200px;
   margin-top: 50px;
@@ -41,4 +86,132 @@
 
 .table-row:hover {
   cursor: pointer;
+}
+
+//tags
+.tags
+{
+  margin-bottom: 20px;
+  display: flex;
+align-items: center;
+padding-left: 20px;
+}
+.appliedtag
+{
+  color:#566A7F;
+  font-size: 14px;
+  margin-right: 25px;
+   .ant-tooltip-inner  {
+    font-size: 12px  !important;
+    color: black  !important;
+  }
+}
+
+.tag1
+{
+  background-color: rgb(222, 222, 242);
+  color: #5C5AD0  !important;
+  height: 26px;
+  font-size: 12px !important;
+  padding-block: 2px;
+  cursor: pointer;
+  font-weight: 500;
+  border-color: transparent;
+
+}
+
+.ant-tag .ant-tag-close-icon 
+{
+color: #2B3347 !important;
+width: 5.51 !important;
+height: 5.51 !important;
+margin-left: 5px !important;
+}
+
+.btnfilter
+{
+  margin-left: 10px;
+  color: #697A8D;
+  outline: none;
+  font-size: 14px;
+  border: none;
+  background-color: none !important;
+  background: none;
+  cursor: pointer;
+}
+
+
+//tooltip
+
+.ant-tooltip .ant-tooltip-inner  {
+  font-size: 12px  !important;
+
+  //color: black  !important;
+
+}
+
+
+#tlpclr {
+        color: black  !important;
+        font-weight: 500;
+}
+
+
+
+//pagination
+
+.ant-pagination .ant-pagination-total-text {
+
+  //gap: 300px;
+ //padding-right: 820px !important;
+  font-weight: 500 !important;
+ // margin-right: 792px !important;
+
+ position: absolute;
+ left: 20px;
+
+}
+
+//slider
+.ant-slider:hover .ant-slider-track {
+  background-color: #5C5AD0 !important;
+ 
+}
+
+.ant-slider .ant-slider-track {
+  background-color: #5C5AD0 !important;
+}
+
+.ant-slider .ant-slider-handle::after {
+  content: "";
+  box-shadow: 0 0 0 2px #5C5AD0 !important;
+
+}
+
+
+.ant-table-body
+{
+  height: 12px;
+  background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
+  background-size: 500px 100px;
+  animation-name: moving-gradient;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.ant-skeleton.ant-skeleton-element.ant-skeleton-active{
+  width: 100%
+}
+
+.actionlabel
+{
+  outline: none;
+    border: none;
+    background-color: white;
+    color: #697A8D;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
 }

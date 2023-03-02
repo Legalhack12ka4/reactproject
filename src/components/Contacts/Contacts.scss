@@ -23,6 +23,9 @@
       }
 
 }
+.dropdownBtn{
+    // margin-bottom: 20px;
+}
 
 .contactform-right
 {
@@ -33,9 +36,10 @@
 
 .contactlabel
 {
-    font-size: 13px;
+    font-size: 14px;
     color:#566A7F;
     cursor: pointer;
+    font-weight: 500;
 }
 
 .contactinput
@@ -46,48 +50,62 @@
     border-radius: 5px;
     margin-top: 4px;
     display: flex;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     border-color: #D9DEE3;
+    display: flex;
+    align-items: center;
 }
 
 .contactinput:hover
 {
     // border:1px solid #5C5AD0 !important;
-    outline: 1px solid #5C5AD0 !important;
-    border:.5px solid transparent !important;
+    // outline: 1px solid #5C5AD0 !important;
+    // border:.5px solid transparent !important;
+}
+.contactinput:focus-within{
+    outline: 1px solid #5c5ad0 !important;
+    border: 1px solid transparent !important;
+  box-shadow: 0 0 0 2.5px #5c5ad011 !important;
 }
 
+.form-left{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .contactbutton_bottom
 {
     display: flex;
     gap: 12px;
     border-color: #D9DEE3;  
-   margin-top: 30px;
+   margin-top: 10px;
 }
 .contactcancelbutton
 {
   border: 1px  solid #C2CAD2;
    // border: none;
-    width: 79px;
+    width: 90px;
     height: 38px;
     border-radius: 6px;
-    color: #8E9CAA;
+    color: #697a8d;
     background-color: #FFFFFF;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
+    font-weight: 500;
     //font-weight: semibold;
 }
 .contactsavebutton
 {
     border: none;
-    width: 67px;
+    width: 92px;
     height: 38px;
     border-radius: 6px;
     color: white;
     background-color: #5C5AD0;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
+    font-weight: 500;
    // margin-right: 24px;
    // font-weight: bold;
 }

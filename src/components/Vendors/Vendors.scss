@@ -1,3 +1,5 @@
+@import '../../Colors.scss';
+
 .vendors_container{
     //    border: 1px solid;
   margin: auto;
@@ -24,12 +26,12 @@
     
 }
 .ant-select-selection-item{
-    .dropdown_title_heading{
-        font-size: 12px;
-        color:#697A8D !important;
-        font-weight: 400;
+    // .dropdown_title_heading{
+    //     font-size: 12px;
+    //     color:#697A8D !important;
+    //     font-weight: 400;
     
-    }
+    // }
 }
 .dropdown_title_heading{
     font-size: 13px;
@@ -96,6 +98,7 @@
     height: 24px;
     font-weight: bold;
     font-size: 18px;
+    min-width: max-content;
 }
 .addvendor_heading{
     // margin-left: 30px;
@@ -105,12 +108,12 @@
         font-weight: 400;
     }
 }
-.label
-{
-    font-size: 13px;
-    color:#566A7F;
-    cursor: pointer;
-}
+// .label
+// {
+//     font-size: 13px;
+//     color:#566A7F;
+//     cursor: pointer;
+// }
 .vendorinput
 {
     height: 38px;
@@ -270,7 +273,7 @@ width:16px;
 
 .name
 {
-font-size:13px; 
+// font-size:13px; 
 color:#566A7F; 
 //margin-top:3px;
 }
@@ -297,8 +300,9 @@ margin-left: -9px;
 .date
 {
     font-size:11px;
-    background-color: rgba(92, 90, 209, 0.2);
-    color: #5C5AD0;
+    background-color: #C2CAD2;
+    color: #FFFFFF;
+    font-weight: 500;
     //margin-bottom:6px;
    
 }

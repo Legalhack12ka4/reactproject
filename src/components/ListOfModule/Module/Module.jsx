@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./Module.scss"
 import link from "../../../assets/Images/ModulePaymentTerms/Link.svg";
+import CustomerPage from '../../Customer-Page/CustomerPage';
 // import { Padding } from '@syncfusion/ej2/charts';
 
 function Module() {
@@ -18,10 +19,44 @@ function Module() {
       <img src={link}/>
       <Link exact to="/module/module_paymenttable" className='payment_btn'>Payment Terms</Link>
       </div>
-   <div>
+   <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/module/module_currencytable" className='currency_btn'>Currency</Link>
    </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/customers/customerPage" className='currency_btn'>Customer</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/itempreview" className='currency_btn'>Item Preview</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/unitofmeasurement" className='currency_btn'>Unit of Measurement</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/login" className='currency_btn'>Login</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/manufactured_group" className='currency_btn'>Manufactured Group</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/manufactured_item" className='currency_btn'>Manufactured Item</Link>
+   </div>
+  
+
+   {/* <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/itemtable" className='currency_btn'>Item Table</Link>
+   </div>
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/itemgrouptable" className='currency_btn'>Item Group Table</Link>
+   </div> */}
    </div>
     </div>
     </div>

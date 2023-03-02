@@ -2,11 +2,14 @@
 
 .App{
   display: flex;
+  
 }
 .main{
   display: flex;
   /* border: 1px solid; */
   width: 100%;
+  -webkit-font-smoothing: antialiased;
+  
   }
 
 .rightScreen{
@@ -15,14 +18,86 @@
   margin-left: -10px;
   overflow: scroll;
   height:100vh;
+    
 }
-*::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
+ ::-webkit-scrollbar { 
+ width: 0px; 
+}   
+ 
+.rightScreen ::-webkit-scrollbar {
+  width: 0px ;
 }
 
+/* ::-webkit-scrollbar-thumb {
+  background-color:#c2cad2;
+  border-radius: 10px;
+  width: 5px  !important;
+  margin-right: 3px;
+
+}
+::-webkit-scrollbar-thumb:hover {
+background: #566a76;
+}  */
 
 @media screen and (width: 668px) {
  .sidebar{
   display: none;
+ }
+}
+
+
+
+/* input box style  */
+
+input{
+  border: none;
+  outline: none;
+  /* width: 82%; */
+  font-size: 14px;
+  font-weight: 500;
+}
+input::placeholder{
+  color: #fff !important;
+}
+
+input::placeholder {
+  transition: all 0.2s ease-out;
+  transform: translateX(0);
+}
+
+input:focus::placeholder {
+  transform: translateX(2px);
+}
+
+.btn_hover_animation{
+   transition: transform 0.3s ease-in-out;
+}
+
+.btn_hover_animation:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 2px 6px 0px #4359711f;
+}
+
+/* //input hover boder */
+.focus-outline{
+  /* border: 1px solid transparent !important;
+    outline: 1px solid #5c5ad0 !important;
+    box-shadow: 0 0 0 2.5px #5c5ad011 !important; */
+}
+.focus-outline:focus-within
+{
+    outline: 1px solid #5c5ad0 !important;
+    box-shadow: 0 0 0 2.5px #5c5ad011 !important;
+    border-radius: 6px !important;
+    transition: all 0.1s ease-out;
+}
+
+
+
+
+@media (max-width: 1024px) {
+
+ .rightScreen{
+  padding-left: 10px;
  }
 }
