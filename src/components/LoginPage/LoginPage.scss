@@ -29,7 +29,7 @@
     .login-card-container{
         // border: 1px solid;
         width: 376px;
-        height: 458px;
+        max-height: 528px;
         background-color: #FFFFFF;
         border-radius: 6px;
         box-shadow: 0px 2px 6px 0px #4359711f;
@@ -109,7 +109,7 @@
                 .password_eye{
                     position: absolute;
                     top: 39px;
-                    right: 7px;
+                    right: 10px;
                 }
                 .forget_password{
                     font-size: 14px;
