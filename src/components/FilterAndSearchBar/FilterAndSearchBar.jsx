@@ -256,7 +256,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         <div className="tableBtn_container">
           <div className="new_btn_or_reports_main">
             <div className="view_reports_container">
-              <img src="images/icons/report_icon.svg" alt="" />
+              <img src="/images/icons/report_icon.svg" alt="" />
               <p>View Reports</p>
             </div>
             <div className="new_btn_container btn_hover_animation">
@@ -275,7 +275,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           <div style={{ display: "flex" }}>
             {/* <div className="total_table_result">{props.results_length}</div> */}
             {props.customer == ""  ? (
-              <div className="search_customer">
+              <div className="search_customer focus-outline">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
                 </div>
@@ -344,7 +344,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         
 
           <div style={{ display: "flex", gap: "10px" }}>
-          {!visibleRoutes.includes(location.pathname)?props.datepickerfilter:  <div className="search_customer">
+          {!visibleRoutes.includes(location.pathname)?props.datepickerfilter:  <div className="search_customer focus-outline">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
                 </div>
@@ -548,7 +548,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                                     >
                                       <div className="chekbox_title">
                                         <img
-                                          src="images/icons/lock_icon.svg"
+                                          src="/images/icons/lock_icon.svg"
                                           alt=""
                                         />
                                         <p>{columns[0].title}</p>
@@ -585,7 +585,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                                     >
                                       <div className="chekbox_title">
                                         <img
-                                          src="images/icons/lock_icon.svg"
+                                          src="/images/icons/lock_icon.svg"
                                           alt=""
                                         />
                                         <p>{item.title}</p>

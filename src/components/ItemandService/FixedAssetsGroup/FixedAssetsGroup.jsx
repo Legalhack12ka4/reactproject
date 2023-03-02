@@ -586,7 +586,7 @@ const resetOther = () => {
                   <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
                   
                     <input type="text" placeholder="placeholder"
-                    style={{backgroundColor:"#ECEEF1"}}
+                    style={{backgroundColor:"#ECEEF1",color:"#435971B3"}}
                     disabled
                     name="group_name"
                     value="Non-Inventory Item"
@@ -610,7 +610,7 @@ const resetOther = () => {
                 </div>
                 <div className="input_group">
                   <p>Desprication Method</p>
-                  <div className="input_container1" >
+                  <div className="input_container1 focus-outline" >
                   <input type="text" 
                   //placeholder="placeholder"
                    

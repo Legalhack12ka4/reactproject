@@ -150,14 +150,14 @@ const ManufacturedItem = () => {
         <div className="item_form_container">
         <div style={{display:"flex", gap:"20px"}}>
           <div className="input_box_container">
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Item Group</p>
               <SearchDropdown width={330} />
             </div>
 
            
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
@@ -167,7 +167,7 @@ const ManufacturedItem = () => {
 
           
 
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>HSN Code</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
@@ -176,7 +176,7 @@ const ManufacturedItem = () => {
             </div>
 
        
-            <div className="input_group" style={{ marginBottom: "18px" }}>
+            <div className="input_group" style={{ marginBottom: "20px" }}>
               <p>Barcode</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/barcode.svg" alt="" />
@@ -197,7 +197,7 @@ const ManufacturedItem = () => {
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
               <div className="input_group">
                 <p>Purchase Price</p>
                 <div
@@ -280,7 +280,7 @@ const ManufacturedItem = () => {
 
             <div
               className="input_group"
-              style={{ marginTop: "15px", marginBottom: "18px" }}
+              style={{ marginTop: "20px", marginBottom: "20px" }}
             >
               <p>Description</p>
               
@@ -308,7 +308,7 @@ const ManufacturedItem = () => {
             </div>
           </div>
           </div>
-          <div className="item_create_container">
+          <div className="item_create_container" style={{marginBottom:"20px"}}>
             <p
               style={{
                 fontSize: "16px",
@@ -524,7 +524,7 @@ const ManufacturedItem = () => {
                                     <SearchDropdown width={181} />
                                 </div>
                                 <div className="Resource_option_input">
-                                    <input type="text"  />
+                                    <input type="text" className="focus-outline"  />
                                 </div>
                                 <div className="resource_planing_row_type">
                                     <SearchDropdown width={135} />
@@ -533,7 +533,7 @@ const ManufacturedItem = () => {
                                     <SearchDropdown width={210} />
                                 </div>
                                 <div className="resource_planing_row_option">
-                                    <input type="text"  />
+                                    <input type="text" className="focus-outline" />
                                 </div>
                                 <div className="resource_planing_row_qty">
                                     <input type="text" placeholder="00" disabled className='focus-outline' />

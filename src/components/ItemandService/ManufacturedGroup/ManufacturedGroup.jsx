@@ -825,11 +825,11 @@ const ManufacturedGroup = () => {
                       {/* <div className="resource_planing_row_type">
                         <SearchDropdown width={198} />
                       </div> */}
-                      <div className="resource_planing_row_type_input">
-                        <input type="text" />
+                      <div className="resource_planing_row_type_input ">
+                        <input type="text" className="focus-outline" />
                       </div>
                       <div className="resource_planing_row_option">
-                        <input type="text" />
+                        <input type="text" className="focus-outline" />
                       </div>
                       <div
                         className="delete-row"
