@@ -602,7 +602,7 @@ const popVisible = () =>
             fileList={fileList}
             onPreview={handleImgPreview}
             onChange={handleImgChange}
-            multiple={true}
+            // multiple={true}
             className={`${fileList.length === 0 ? "length_0" : ""}`}
             maxCount={6}
           >

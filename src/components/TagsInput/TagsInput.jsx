@@ -20,6 +20,8 @@ const TagsInput = (props) => {
 
   const [editingIndex, setEditingIndex] = useState(null);
   const tagRef = useRef(null);
+  const divRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleTagClick = (index) => {
       setEditingIndex(index);
@@ -31,11 +33,17 @@ const TagsInput = (props) => {
     newTags[index] = event.target.innerText;
     setTags(newTags);
   }
+  const handleDivClick = (event) => {
+    if (event.target === divRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   console.log(tags)
 
   return (
-    <div className="main_tag_container">
-      <div className="tag_contianer">
+    <div className="main_tag_container" ref={divRef}  onClick={handleDivClick}>
+      <div className="tag_contianer" ref={divRef}  onClick={handleDivClick}>
         {tags.map((tag, index) => (
            <div
            key={index}
@@ -50,12 +58,14 @@ const TagsInput = (props) => {
             </button>
           </div>
         ))}
-      </div>
-      <input
+        <input
+        ref={inputRef}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
       />
+      </div>
+      
     </div>
   );
 };
