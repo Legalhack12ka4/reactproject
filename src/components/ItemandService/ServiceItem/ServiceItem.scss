@@ -335,7 +335,7 @@
   
     .conversion_options{
       margin-top: 0px;
-      overflow: hidden;
+      // overflow: hidden;
       margin-bottom: 0px;
       background-color: #ffff;
       border-radius: 6px;
@@ -374,6 +374,7 @@
               align-items: center;
           border-bottom: 1px solid #C2CAD230;
               color: #697A8D;
+              // border-radius: 6px 6px 0px 0px;
   
               .conversion_name{
                   border-right: 1px dashed #C2CAD2;
@@ -492,7 +493,7 @@
       margin-bottom: 0px;
       border-radius: 6px;
       width: 611px;
-      overflow: hidden;
+      // overflow: hidden;
   
       .packing_option_heading{
           display: flex;
@@ -502,6 +503,7 @@
           font-weight: 500;
           background-color: #F5F6F8;
           color: #2B3347;
+          border-radius: 6px 6px 0px 0px;
   
           .unit_of_measurement{
               padding: 0px 38px 0px 30px;

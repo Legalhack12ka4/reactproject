@@ -681,7 +681,7 @@ const ManufacturedGroup = () => {
                 <input
                   type="text"
                   placeholder="placeholder"
-                  style={{ backgroundColor: "#ECEEF1" }}
+                  style={{ backgroundColor: "#ECEEF1", color: "#4359714D" }}
                   disabled
                   name="group_name"
                   value="Inventory Item"
