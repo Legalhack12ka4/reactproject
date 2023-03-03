@@ -859,7 +859,7 @@ const ManufacturedGroup = () => {
                       );
                     })}
                   </div>
-                  <div className="add-row-btn">
+                  <div className="add-row-btn" style={{padding:"5px 20px 0px 20px"}}>
                     <p onClick={handleAddRow}>+ Add</p>
                   </div>
                 </div>
