@@ -817,7 +817,7 @@ const ManufacturedGroup = () => {
                     <div className="resource_planing_row" key={index}>
                       <div className="Assigned_Resource_Group_input_drp">
                         {/* <input type="text" disabled={!resourcePlaningEnable && true} className={resourcePlaningEnable && "Assigned_Resource_Group_input_enable"} /> */}
-                        <SearchDropdown width={180} isDisabled={!resourcePlaningEnable} />
+                        {resourcePlaningEnable ? <SearchDropdown width={180} isDisabled={!resourcePlaningEnable} />:<div style={{width:"179px", height:"37px", border:".5px solid #ECEEF1", borderRadius:"5px", backgroundColor:"#ECEEF1"}}></div>}
                       </div>
                       <div className="resource_planing_row_type">
                         <SearchDropdown width={149} />
