@@ -299,14 +299,14 @@
     max-height: 362px;
     box-shadow: inset 0 0 10px #00000020;
     border-radius: 8px;
-    padding: 18px 22px 15px 21px;
+    padding: 18px 19px 15px 21px;
     .item_details_container {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
      // grid-template-columns: repeat(2, 1fr) 330px;
       //grid-auto-flow: dense;
-      max-width: 330px;
+      max-width: 331px;
     }
     
     
@@ -338,7 +338,7 @@
   
     .conversion_options{
       margin-top: 0px;
-      overflow: hidden;
+      // overflow: hidden;
       margin-bottom: 0px;
       background-color: #ffff;
       border-radius: 6px;
@@ -369,7 +369,7 @@
   
       .conversion_options_row_container{
           max-height: 136px;
-          overflow-x: scroll;
+          // overflow-x: scroll;
   
           .conversion_options_row{
               display: flex;
@@ -473,8 +473,13 @@
           font-size: 14px;
           font-weight: 700;
           color: #5C5AD0;
-          padding: 5px 20px 25px 20px;
-          cursor: pointer;
+          padding: 15px 20px 15px 20px;
+          // cursor: pointer;
+
+          p{
+            cursor: pointer;
+            width: max-content;
+          }
       }
   }
   }
@@ -489,7 +494,7 @@
       margin-bottom: 0px;
       border-radius: 6px;
       width: 611px;
-      overflow: hidden;
+      // overflow: hidden;
   
       .packing_option_heading{
           display: flex;
@@ -518,7 +523,7 @@
   .packing_setting_rows_container{
       
       max-height: 136px;
-      overflow-x: scroll;
+      // overflow-x: scroll;
       .packing_option_row{
           display: flex;
           // padding: 10px 0px;
@@ -605,8 +610,13 @@
           font-size: 14px;
           font-weight: 700;
           color: #5C5AD0;
-          padding: 5px 20px 25px 20px;
-          cursor: pointer;
+          padding: 15px 20px 15px 20px;
+          // cursor: pointer;
+
+          p{
+            cursor: pointer;
+            width: max-content;
+          }
       }
   }
   }

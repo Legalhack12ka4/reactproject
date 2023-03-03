@@ -269,7 +269,7 @@
             }
 
             .resource_planing_rows_container{
-                max-height: 255px;
+                max-height: 246px;
                 overflow-y: scroll;
                 .resource_planing_row{
                     // border: 1px solid;
@@ -385,8 +385,9 @@
             .add-row-btn{
                 
                 border-bottom: none;
+                padding-left: 20px;
                 p{
-                    padding: 17px 0px 15px 20px;
+                    // padding: 17px 0px 15px 20px;
                     width: 50px;
                     font-size: 14px;
                     font-weight: 700;
@@ -398,12 +399,21 @@
       }
     }
 }
-
-@media (max-width:1441px) {
+.manufactured_hr{
+  display: none;
+}
+@media (max-width:1439px) {
   .group_form_container1{
     display: block !important;
  //   gap:20px;
   }
+  .manufactured_hr{
+    display: block;
+    margin-left: -20px;
+    margin-top: 20px;
+    border: .5px solid #C2CAD2;
+  }
+  
   .new_inventory_group_main5 .parent-bom {
     padding: 20px 0px 0px 0px !important;
     max-width: 745px !important;

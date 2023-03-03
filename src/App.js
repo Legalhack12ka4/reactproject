@@ -70,6 +70,7 @@ function App() {
           <Routes>
           {/* <Route path='/' element={<Dashboard/>} /> */}
             <Route path='customers' element={<Customers />} />
+            <Route path='customers1' element={<AddInventoryItem />} />
           <Route path='customers/customerPage' element={<CustomerPage/>} />
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />

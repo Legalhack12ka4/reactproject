@@ -6,6 +6,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
+import TagsInput from "../TagsInput/TagsInput";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -240,7 +241,7 @@ const NewInventoryItem = () => {
                 fileList={fileList}
                 onPreview={handleImgPreview}
                 onChange={handleImgChange}
-                multiple={true}
+                // multiple={true}
                 className={`${fileList.length === 0 ? "length_0" : ""}`}
                 maxCount={6}
               >
@@ -319,8 +320,8 @@ const NewInventoryItem = () => {
 
             <div className="input_group">
               <p>Tags</p>
-              <div className="input_container focus-outline">
-                <input type="text" placeholder="Placeholder" />
+              <div className="tags_input_container focus-outline">
+                <TagsInput />
               </div>
             </div>
           </div>
@@ -519,20 +520,23 @@ const NewInventoryItem = () => {
               </div>
               </div>
             {/* </div> */}
+            
           </div>
 
-          <hr
+          {/* <hr
             style={{
               position: "absolute",
               left: "20px",
               bottom: 0,
-              width: "1098px",
+              width: "1080px",
               border: ".5px solid #ECEEF1",
             }}
-          />
+          /> */}
         </div>
+        <hr  style={{margin:"auto", width:"96.4%", border:".5px solid #ECEEF1"}}/>
 
         <div style={{ padding: "20px 20px 20px 20px" }}>
+        
           {/* <p
             style={{
               color: "#566A7F",
@@ -571,12 +575,12 @@ const NewInventoryItem = () => {
                         <div className="pack_qty">Pack Qty</div>
                       </div>
                       <div
-                        className="packing_setting_rows_container"
+                        className={`packing_setting_rows_container ${unitOfMasurementRows.length > 4 ? "container_scroll" : ""}`}
                         ref={uomRef}
                       >
                         {unitOfMasurementRows.map((item, index) => {
                           return (
-                            <div className="packing_option_row">
+                            <div className={`packing_option_row ${unitOfMasurementRows.length-1 === index && "last-row"}`}>
                               <div className="unit_of_measurement">
                                 <SearchDropdown width={155} />
                               </div>
@@ -612,8 +616,8 @@ const NewInventoryItem = () => {
                           );
                         })}
                       </div>
-                      <div className="add_btn" onClick={handleAddRow}>
-                        + Add
+                      <div className="add_btn" >
+                        <p onClick={handleAddRow}>+ Add</p>
                       </div>
                     </div>
                   </div>
@@ -653,13 +657,13 @@ const NewInventoryItem = () => {
                         <div className="convert_to">Convert to</div>
                       </div>
                       <div
-                        className="conversion_options_row_container"
+                        className={`conversion_options_row_container ${conversionOptionsRows.length > 4 ? "container_scroll" : ""}`}
                         ref={conversionRef}
                       >
                         {conversionOptionsRows.map((item, index) => {
                           return (
                            <div>
-                             <div className="conversion_options_row">
+                             <div className={`conversion_options_row ${conversionOptionsRows.length-1 === index && "last-row"}`}>
                               <div className="conversion_name">
                                 {/* <input
                                   type="text"
@@ -709,8 +713,8 @@ const NewInventoryItem = () => {
                           );
                         })}
                       </div>
-                      <div className="add_btn" onClick={handleAddConversionRow}>
-                        + Add
+                      <div className="add_btn" >
+                        <p onClick={handleAddConversionRow}>+ Add</p>
                       </div>
                     </div>
                   </div>
