@@ -556,7 +556,11 @@ const ManufacturedGroup = () => {
 
   return (
     <div className="new_inventory_group_main5">
-      <Page_heading parent={"Item & Service"} child={"Manufactured Items"} main={"Manufactured Items Group"} />
+      <Page_heading
+        parent={"Item & Service"}
+        child={"Manufactured Items"}
+        main={"Manufactured Items Group"}
+      />
 
       <div className="new_inventory_group_container5">
         <div
@@ -590,74 +594,74 @@ const ManufacturedGroup = () => {
                 marginBottom: "20px",
               }}
             > */}
-              <div className="input_group">
-                <p>Unit of Measurement</p>
-                <SearchDropdown
-                  width={155}
-                  options={unitofdata}
-                  name="uom"
-                  labelKey="label"
-                  value={
-                    unitofdata.find(
-                      (option) => option.key === formData.uom && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
+            <div className="input_group">
+              <p>Unit of Measurement</p>
+              <SearchDropdown
+                width={155}
+                options={unitofdata}
+                name="uom"
+                labelKey="label"
+                value={
+                  unitofdata.find(
+                    (option) => option.key === formData.uom && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
 
-              <div className="input_group">
-                <p>Manage by</p>
-                <SearchDropdown
-                  width={155}
-                  options={getmanageby}
-                  name="managed_by"
-                  labelKey="label"
-                  value={
-                    getmanageby.find(
-                      (option) =>
-                        option.key === formData.managed_by && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
+            <div className="input_group">
+              <p>Manage by</p>
+              <SearchDropdown
+                width={155}
+                options={getmanageby}
+                name="managed_by"
+                labelKey="label"
+                value={
+                  getmanageby.find(
+                    (option) =>
+                      option.key === formData.managed_by && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
             {/* </div> */}
 
             {/* <div style={{ display: "flex", gap: "20px" }}> */}
-              <div className="input_group">
-                <p>Tax Preference</p>
-                <SearchDropdown
-                  width={155}
-                  options={getpreference}
-                  name="tax_preferences"
-                  labelKey="label"
-                  value={
-                    getpreference.find(
-                      (option) =>
-                        option.key === formData.tax_preferences && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
-              <div className="input_group">
-                <p>Tax Rates</p>
-                <SearchDropdown
-                  width={155}
-                  options={taxratedata}
-                  name="tax_rates"
-                  labelKey="label"
-                  // value={formData.tax_rates}
-                  value={
-                    taxratedata.find(
-                      (option) =>
-                        option.key === formData.tax_rates && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
+            <div className="input_group">
+              <p>Tax Preference</p>
+              <SearchDropdown
+                width={155}
+                options={getpreference}
+                name="tax_preferences"
+                labelKey="label"
+                value={
+                  getpreference.find(
+                    (option) =>
+                      option.key === formData.tax_preferences && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
+            <div className="input_group">
+              <p>Tax Rates</p>
+              <SearchDropdown
+                width={155}
+                options={taxratedata}
+                name="tax_rates"
+                labelKey="label"
+                // value={formData.tax_rates}
+                value={
+                  taxratedata.find(
+                    (option) =>
+                      option.key === formData.tax_rates && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
             {/* </div> */}
 
             {/* <div
@@ -668,112 +672,112 @@ const ManufacturedGroup = () => {
                 marginBottom: "20px",
               }}
             > */}
-              <div className="input_group">
-                <p>Item Group Type</p>
-                <div
-                  className="input_container1"
+            <div className="input_group">
+              <p>Item Group Type</p>
+              <div
+                className="input_container1"
+                style={{ backgroundColor: "#ECEEF1" }}
+              >
+                <input
+                  type="text"
+                  placeholder="placeholder"
                   style={{ backgroundColor: "#ECEEF1" }}
-                >
-                  <input
-                    type="text"
-                    placeholder="placeholder"
-                    style={{ backgroundColor: "#ECEEF1" }}
-                    disabled
-                    name="group_name"
-                    value="Inventory Item"
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-              <div className="input_group">
-                <p>Inventory Account</p>
-                <SearchDropdown
-                  width={155}
-                  options={reportingl4name}
-                  name="inventory_account"
-                  labelKey="label"
-                  value={
-                    reportingl4name.find(
-                      (option) =>
-                        option.key === formData.inventory_account &&
-                        option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
+                  disabled
+                  name="group_name"
+                  value="Inventory Item"
+                  onChange={onChange}
                 />
               </div>
+            </div>
+            <div className="input_group">
+              <p>Inventory Account</p>
+              <SearchDropdown
+                width={155}
+                options={reportingl4name}
+                name="inventory_account"
+                labelKey="label"
+                value={
+                  reportingl4name.find(
+                    (option) =>
+                      option.key === formData.inventory_account && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
             {/* </div> */}
 
             {/* <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}> */}
-              <div className="input_group">
-                <p>Sales Account</p>
-                <SearchDropdown
-                  width={155}
-                  options={reportingl4name}
-                  name="selling_account"
-                  labelKey="label"
-                  value={
-                    reportingl4name.find(
-                      (option) =>
-                        option.key === formData.selling_account && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
-              <div className="input_group">
-                <p>Cost Account</p>
-                <SearchDropdown
-                  width={155}
-                  options={reportingl4name}
-                  name="cost_account"
-                  labelKey="label"
-                  value={
-                    reportingl4name.find(
-                      (option) =>
-                        option.key === formData.cost_account && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
+            <div className="input_group">
+              <p>Sales Account</p>
+              <SearchDropdown
+                width={155}
+                options={reportingl4name}
+                name="selling_account"
+                labelKey="label"
+                value={
+                  reportingl4name.find(
+                    (option) =>
+                      option.key === formData.selling_account && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
+            <div className="input_group">
+              <p>Cost Account</p>
+              <SearchDropdown
+                width={155}
+                options={reportingl4name}
+                name="cost_account"
+                labelKey="label"
+                value={
+                  reportingl4name.find(
+                    (option) =>
+                      option.key === formData.cost_account && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
             {/* </div> */}
 
             {/* <div style={{ display: "flex", gap: "20px" }}> */}
-              <div className="input_group">
-                <p>Variance Account</p>
-                <SearchDropdown
-                  width={155}
-                  options={reportingl4name}
-                  name="selling_account"
-                  labelKey="label"
-                  value={
-                    reportingl4name.find(
-                      (option) =>
-                        option.key === formData.selling_account && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
-              <div className="input_group">
-                <p>WIP Account</p>
-                <SearchDropdown
-                  width={155}
-                  options={reportingl4name}
-                  name="cost_account"
-                  labelKey="label"
-                  value={
-                    reportingl4name.find(
-                      (option) =>
-                        option.key === formData.cost_account && option.label
-                    )?.label
-                  }
-                  onChange={handleDrpChange}
-                />
-              </div>
+            <div className="input_group">
+              <p>Variance Account</p>
+              <SearchDropdown
+                width={155}
+                options={reportingl4name}
+                name="selling_account"
+                labelKey="label"
+                value={
+                  reportingl4name.find(
+                    (option) =>
+                      option.key === formData.selling_account && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
+            <div className="input_group">
+              <p>WIP Account</p>
+              <SearchDropdown
+                width={155}
+                options={reportingl4name}
+                name="cost_account"
+                labelKey="label"
+                value={
+                  reportingl4name.find(
+                    (option) =>
+                      option.key === formData.cost_account && option.label
+                  )?.label
+                }
+                onChange={handleDrpChange}
+              />
+            </div>
             {/* </div> */}
           </div>
+          <hr className="manufactured_hr" />
           <div className="parent-bom">
             <h2>Parent BOM</h2>
             <p className="parent-bom-title">
@@ -787,74 +791,89 @@ const ManufacturedGroup = () => {
             </p>
 
             <div className="enable_resource_planing_container ">
-          <div className="enable_resource_switch">
-            <Switch
-              unCheckedChildren="__"
-              onChange={handleResourceChange}
-              // onClick={setIsResourceModalOpen}
-            />
-            <p>Enable Resource Planning</p>
-          </div>
-
-          {(
-            <div className="resource_planing_rows_container main_resource_container">
-             
-              <div className="headers">
-                <p className="assined-resource-group">
-                  Assigned Resource Group
-                </p>
-                <p className="type">Group Type</p>
-                <p className="components">Item Group</p>
-                <p className="qty">Qty</p>
+              <div className="enable_resource_switch">
+                <Switch
+                  unCheckedChildren="__"
+                  onChange={handleResourceChange}
+                  // onClick={setIsResourceModalOpen}
+                />
+                <p>Enable Resource Planning</p>
               </div>
 
-              <div
-                className="resource_planing_rows_container"
-                ref={resourceRef}
-              >
-                {resourcePlaningRows.map((item, index) => {
-                  return (
-                    <div className="resource_planing_row" key={index}>
-                      <div className="Assigned_Resource_Group_input_drp">
-                        {/* <input type="text" disabled={!resourcePlaningEnable && true} className={resourcePlaningEnable && "Assigned_Resource_Group_input_enable"} /> */}
-                        {resourcePlaningEnable ? <SearchDropdown width={180} isDisabled={!resourcePlaningEnable} />:<div style={{width:"179px", height:"37px", border:".5px solid #ECEEF1", borderRadius:"5px", backgroundColor:"#ECEEF1"}}></div>}
-                      </div>
-                      <div className="resource_planing_row_type">
-                        <SearchDropdown width={149} />
-                      </div>
-                      {/* <div className="resource_planing_row_type">
+              {
+                <div className="resource_planing_rows_container main_resource_container">
+                  <div className="headers">
+                    <p className="assined-resource-group">
+                      Assigned Resource Group
+                    </p>
+                    <p className="type">Group Type</p>
+                    <p className="components">Item Group</p>
+                    <p className="qty">Qty</p>
+                  </div>
+
+                  <div
+                    className="resource_planing_rows_container"
+                    ref={resourceRef}
+                  >
+                    {resourcePlaningRows.map((item, index) => {
+                      return (
+                        <div className="resource_planing_row" key={index}>
+                          <div className="Assigned_Resource_Group_input_drp">
+                            {/* <input type="text" disabled={!resourcePlaningEnable && true} className={resourcePlaningEnable && "Assigned_Resource_Group_input_enable"} /> */}
+                            {resourcePlaningEnable ? (
+                              <SearchDropdown
+                                width={180}
+                                isDisabled={!resourcePlaningEnable}
+                              />
+                            ) : (
+                              <div
+                                style={{
+                                  width: "179px",
+                                  height: "37px",
+                                  border: ".5px solid #ECEEF1",
+                                  borderRadius: "5px",
+                                  backgroundColor: "#ECEEF1",
+                                }}
+                              ></div>
+                            )}
+                          </div>
+                          <div className="resource_planing_row_type">
+                            <SearchDropdown width={149} />
+                          </div>
+                          {/* <div className="resource_planing_row_type">
                         <SearchDropdown width={198} />
                       </div> */}
-                      <div className="resource_planing_row_type_input ">
-                        <input type="text" className="focus-outline" />
-                      </div>
-                      <div className="resource_planing_row_option">
-                        <input type="text" className="focus-outline" />
-                      </div>
-                      <div
-                        className="delete-row"
-                        onClick={() => handleDeleteRow(item.id)}
-                      >
-                        <img src="/images/icons/delete.svg" alt="delete" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="add-row-btn">
-                <p onClick={handleAddRow}>+ Add</p>
-              </div>
+                          <div className="resource_planing_row_type_input ">
+                            <input type="text" className="focus-outline" />
+                          </div>
+                          <div className="resource_planing_row_option">
+                            <input type="text" className="focus-outline" />
+                          </div>
+                          <div
+                            className="delete-row"
+                            onClick={() => handleDeleteRow(item.id)}
+                          >
+                            <img src="/images/icons/delete.svg" alt="delete" />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="add-row-btn">
+                    <p onClick={handleAddRow}>+ Add</p>
+                  </div>
+                </div>
+              }
             </div>
-          )}
-        </div>
           </div>
         </div>
 
         {/* <hr style={{border: "3px solid #F3F6F9"}}/> */}
 
-        
         <div className="button">
-          <button className="submit_button btn_hover_animation">Create Group</button>
+          <button className="submit_button btn_hover_animation">
+            Create Group
+          </button>
           <button
             className="cancel_button btn_hover_animation"
             onClick={handleClose}
