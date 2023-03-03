@@ -321,7 +321,6 @@ const NewInventoryItem = () => {
             <div className="input_group">
               <p>Tags</p>
               <div className="tags_input_container focus-outline">
-                {/* <input type="text" placeholder="Placeholder" /> */}
                 <TagsInput />
               </div>
             </div>
