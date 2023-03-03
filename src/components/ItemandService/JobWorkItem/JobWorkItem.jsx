@@ -7,6 +7,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../../Page_Heading/Page_heading";
+import TagsInput from "../../TagsInput/TagsInput";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -303,8 +304,8 @@ const JobWorkItem = () => {
 
             <div className="input_group">
               <p>Tags</p>
-              <div className="input_container focus-outline">
-                <input type="text" placeholder="Placeholder" />
+              <div className="tags_input_container focus-outline">
+                <TagsInput />
               </div>
             </div>
           </div>
