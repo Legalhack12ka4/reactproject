@@ -23,10 +23,11 @@
             padding: 0px 187px 0px 0px
         }
         .options{
-            padding: 0px 125px 0px 0px
+            padding: 0px 120px 0px 0px
         }
         .qty{
-            padding: 0px 54px 0px 0px
+            padding: 0px 50px 0px 0px;
+            margin-right: 11px;
         }
 
 
@@ -34,7 +35,7 @@
     }
 
     .resource_planing_rows_container{
-        max-height: 240px;
+        max-height: 236px;
        // overflow-y: scroll;
         .resource_planing_row{
             // border: 1px solid;
@@ -116,6 +117,7 @@
         }
     }::-webkit-scrollbar {
         width: 7px !important;
+        height: 7px !important;
         }
         ::-webkit-scrollbar-thumb {
             border: 4px solid rgba(0, 0, 0, 0);
@@ -124,11 +126,13 @@
             background-color: #566A7F33;
           }::-webkit-scrollbar{
             width: 10px !important;
+            height: 10px !important;
         }
 
     .add-row-btn{
         
         border-bottom: 3px solid #F3F6F9;
+        padding: 5px 20px 15px 20px;
         p{
             // padding: 17px 0px 15px 20px;
             width: 50px;
