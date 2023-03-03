@@ -318,7 +318,7 @@
 
     .conversion_options_row_container{
         max-height: 48.1vh;
-        overflow-y: scroll;
+        // overflow-y: scroll;
 
         .conversion_options_row{
             display: flex;
@@ -403,6 +403,10 @@
         font-weight: 700;
         color: #5C5AD0;
         padding: 16px 20px;
-        cursor: pointer;
+        // cursor: pointer;
+        p{
+            cursor: pointer;
+            width: max-content;
+        }
     }
 }

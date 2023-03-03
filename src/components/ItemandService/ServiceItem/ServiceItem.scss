@@ -365,9 +365,9 @@
       }
   
       .conversion_options_row_container{
-          max-height: 256px;
+          max-height: 235px;
           width: 804px;
-          overflow-x: scroll;
+          // overflow-x: scroll;
   
           .conversion_options_row{
               display: flex;
@@ -471,8 +471,12 @@
           font-size: 14px;
           font-weight: 700;
           color: #5C5AD0;
-          padding: 5px 20px 25px 20px;
-          cursor: pointer;
+          padding: 15px 20px 15px 20px;
+          border-top: 1px solid #C2CAD2;
+          p{
+            cursor: pointer;
+            width: max-content;
+          }
       }
   }
   }
@@ -516,8 +520,8 @@
       }
   .packing_setting_rows_container{
       
-      max-height: 256px;
-      overflow-x: scroll;
+      max-height: 235px;
+      // overflow-x: scroll;
       .packing_option_row{
           display: flex;
           // padding: 10px 0px;
@@ -604,8 +608,14 @@
           font-size: 14px;
           font-weight: 700;
           color: #5C5AD0;
-          padding: 5px 20px 25px 20px;
-          cursor: pointer;
+          padding: 15px 20px 15px 20px;
+          border-top: 1px solid #C2CAD2;
+          // cursor: pointer;
+
+          p{
+            cursor: pointer;
+            width: max-content;
+          }
       }
   }
   }

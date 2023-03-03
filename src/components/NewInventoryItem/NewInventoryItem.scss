@@ -300,6 +300,7 @@
   border-radius: 8px;
   padding: 20px;
   max-height: 436px;
+  margin-bottom: 20px;
   .item_details_container{
         display: grid;
         gap:20px;
@@ -363,10 +364,13 @@
         }
     }
 
+   
     .conversion_options_row_container{
         max-height: 136px;
-        overflow-x: scroll;
-
+        
+        .last-row{
+            border-bottom: none !important;
+        }
         .conversion_options_row{
             display: flex;
             align-items: center;
@@ -469,8 +473,11 @@
         font-size: 14px;
         font-weight: 700;
         color: #5C5AD0;
-        padding: 5px 20px 25px 20px;
-        cursor: pointer;
+        padding: 15px 20px 15px 20px;
+        p{
+          cursor: pointer;
+          width: max-content;
+        }
     }
 }
 }
@@ -513,8 +520,11 @@
     }
 .packing_setting_rows_container{
     
-    max-height: 136px;
-    overflow-x: scroll;
+    max-height: 235px;
+    // overflow-x: scroll;
+    .last-row{
+        border-bottom: none !important;
+    }
     .packing_option_row{
         display: flex;
         // padding: 10px 0px;
@@ -601,13 +611,27 @@
         font-size: 14px;
         font-weight: 700;
         color: #5C5AD0;
-        padding: 5px 20px 25px 20px;
-        cursor: pointer;
+        padding: 15px 20px 15px 20px;
+        // cursor: pointer;
+        p{
+          cursor: pointer;
+          width: max-content;
+        }
     }
 }
 }
+.tags_input_container{
+  border: .5px solid #697a8d36;
+  min-height: 37px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
 .widthSmall {
   width: 250px !important;
+}
+.container_scroll{
+  overflow-y: scroll;
 }
 
 @media (max-width:1420px) {
