@@ -140,9 +140,9 @@ const JobWorkItem = () => {
   };
 
   return (
-    <div className="new_inventory_item_main">
+    <div className="new_inventory_item_main_jobwork_item">
          <Page_heading parent={"Item & Service"} child={"Item Received for Jobwork"} />
-      <div className="new_inventory_item_container">
+      <div className="new_inventory_item_main_jobwork_item">
         {/* <div className="header">
           <h1>Create Item</h1>
           <p>Without an Item group you can't create an Item.</p>
