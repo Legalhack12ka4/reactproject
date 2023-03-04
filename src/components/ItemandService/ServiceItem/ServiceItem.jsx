@@ -460,7 +460,7 @@ const ServiceItem = () => {
     
 
         <div className="button">
-          <button className="submit_button btn_hover_animation">Submit</button>
+          <button className="submit_button btn_hover_animation">Create Item</button>
           <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
         </div>
       </div>
