@@ -107,7 +107,9 @@ document.addEventListener("keydown", e =>{
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <img src="/images/searchbar_icons/msg.svg" alt="" />
         <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />
+       
         <Popover placement="topRight"
+        className="profile_setting_container"
           open={open}
           onOpenChange={handleOpenChange}
         getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}  style={{ position: "absolute", top: "0", right: "0" }}
