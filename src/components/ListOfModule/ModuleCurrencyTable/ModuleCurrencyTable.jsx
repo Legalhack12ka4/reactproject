@@ -37,6 +37,27 @@ const ModuleCurrencyTable = () => {
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
 
+//special character validation
+const handleInputChange = (evt, property) => {
+  let newValue = evt.target.value;
+
+  if (property === 'currency_name') {
+    newValue = newValue.toUpperCase().replace(/[^A-Z\s]/g, "");
+  }
+  
+  if (property === 'symbol') {
+    newValue = newValue.replace(/[^@s._\-#$%^&*()+={}]/g, "");
+  }
+  if (property === 'country_name') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+  } 
+  setFormData(prevState => ({
+    ...prevState,
+    [property]: newValue
+  }));
+};
+
 //cofirmation modal 
 const handleConfirmData = () => {
   setCofirmData(true);
@@ -559,11 +580,12 @@ console.log(formData)
                 <p>Currency Code</p>
                 <input
                 className="currency  focus-outline"
+                maxLength={3}
                   type="text"
                   placeholder="INR"
                   name="currency_name"
                   value={formData.currency_name}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "currency_name")}}
                 />
               </div>
               <div className="addPaymentTermModalInput">
@@ -574,7 +596,7 @@ console.log(formData)
                   placeholder="₹"
                   name="symbol"
                   value={formData.symbol}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "symbol")}}
                 />
               </div>
               <div className="addPaymentTermModalInput">
@@ -585,7 +607,7 @@ console.log(formData)
                   placeholder="Indian Rupee"
                   name="country_name"
                   value={formData.country_name}
-                  onChange={onChange}
+                  onChange={(e)=> {onChange(e); handleInputChange(e, "country_name")}}
                 />
               </div>
             </div>

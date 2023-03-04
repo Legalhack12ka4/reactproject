@@ -63,6 +63,22 @@ function Accounts() {
   const [loading, setloading] = useState(true);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   const [open, setOpen] = useState(false);
+
+ //special character validation
+ const handleInputChange = (evt, property) => {
+  let newValue = evt.target.value;
+
+  if (property === 'account_name') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+  } 
+
+  setFormData(prevState => ({
+    ...prevState,
+    [property]: newValue
+  }));
+};
+
   let suffixIcon;
   if (open) {
     suffixIcon = (
@@ -798,6 +814,7 @@ console.log(chartOfAccountSchema)
                     onChange={(e) => {
                       handleChange(e);
                       onChange(e);
+                      handleInputChange(e, "account_name")
                     }}
                     onBlur={handleBlur}
                   />

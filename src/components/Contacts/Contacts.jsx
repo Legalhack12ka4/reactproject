@@ -38,6 +38,8 @@ const resetValue = {
   };
 function Contacts(props) {
   const [formData, setFormData] = useState(resetValue);
+
+
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
  // const [fetchcontact, setFetchcontact] = useState([]);
   //const [fetchcontact, setFetchcontact] = useState([]);
@@ -47,6 +49,44 @@ function Contacts(props) {
   //   getData();
   // }, []);
   
+  //special character validation
+  const handleInputChange = (evt, property) => {
+    let newValue = evt.target.value;
+  
+    if (property === 'name') {
+      newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+      newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+    } 
+    if (property === 'email') {
+      newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
+    }
+  
+    setFormData(prevState => ({
+      ...prevState,
+      [property]: newValue
+    }));
+  };
+
+  // const handleNameChange = evt => {
+  //   const newName = evt.target.value.replace(/[^a-zA-Z\s.]/g, "");
+  // //  const newEmail = evt.target.value.replace(/[^a-zA-Z@\d\s._-]/g, "");
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     name: newName,
+  //    // email: newEmail
+  //   }));
+  // };
+  // const handleEmailChange = evt => {
+  // //  const newName = evt.target.value.replace(/[^a-zA-Z\s.]/g, "");
+  //   const newEmail = evt.target.value.replace(/[^a-zA-Z@\d\s._-]/g, "");
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //    // name: newName,
+  //     email: newEmail
+  //   }));
+  // };
+
+
   ChildStateModificationFunc = (modVal)=>{
     setFormData(modVal)
 }
@@ -530,7 +570,7 @@ const ownershipwithemail = [
                   placeholder="Placeholder"
                   name="name"
                   value={formData.name}
-                  onChange={(e) => {handleChange(e); onChange(e);}}
+                  onChange={(e) => {handleChange(e); onChange(e); handleInputChange(e,"name");}}
                   onBlur={handleBlur}
                 />
                 {errors.name && touched.name && (
@@ -600,7 +640,7 @@ const ownershipwithemail = [
                   placeholder="Placeholder"
                     name="email"
                     value={formData.email}
-                    onChange={(e) => {handleChange(e); onChange(e);}}
+                    onChange={(e) => {handleChange(e); onChange(e);handleInputChange(e,"email");}}
                     onBlur={handleBlur}
                 />
                 {errors.email && touched.email && (
