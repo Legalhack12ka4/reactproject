@@ -39,6 +39,47 @@ const ModulePaymentTerms = () => {
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
 
+
+  //special character validation
+const handleInputChange = (evt, property) => {
+  let newValue = evt.target.value;
+
+  if (property === 'terms') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+  }
+  
+  if (property === 'days') {
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+    var firstNumber = newValue.match(/^\d+/)[0];
+    var remainingString = newValue.substr(firstNumber.length + 1);
+    remainingString = remainingString.charAt(0).toUpperCase() + remainingString.slice(1);
+    newValue = firstNumber + " " + remainingString;
+  }
+  if (property === 'discount') {
+    newValue = newValue.replace(/[^0-9%]/g, "");
+    if (newValue.indexOf('%') !== -1) {
+      var firstNumber = newValue.match(/^\d+/)[0];
+      var percentSymbol = newValue.match(/%/)[0];
+      newValue = firstNumber + percentSymbol;
+    }
+  }
+  if (property === 'interest') {
+    newValue = newValue.replace(/[^0-9%]/g, "");
+    if (newValue.indexOf('%') !== -1) {
+      var firstNumber = newValue.match(/^\d+/)[0];
+      var percentSymbol = newValue.match(/%/)[0];
+      newValue = firstNumber + percentSymbol;
+    }
+  }
+  
+  
+  setFormData(prevState => ({
+    ...prevState,
+    [property]: newValue
+  }));
+};
+
 //cofirmation modal 
 const handleConfirmData = () => {
   setCofirmData(true);
@@ -471,7 +512,7 @@ const deleteUser = (record)=>
                   placeholder="Net 5"
                   name="terms"
                   value={formData.terms}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "terms")}}
                 />
               </div>
               <div className="addPaymentTermModalInput">
@@ -482,7 +523,7 @@ const deleteUser = (record)=>
                   placeholder="5 Days"
                   name="days"
                   value={formData.days}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "days")}}
                 />
               </div>
               <div className="addPaymentTermModalInput">
@@ -493,7 +534,7 @@ const deleteUser = (record)=>
                   placeholder="10%"
                   name="discount"
                   value={formData.discount}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "discount")}}
                 />
               </div>
               <div className="addPaymentTermModalInput">
@@ -504,7 +545,7 @@ const deleteUser = (record)=>
                   placeholder="1%"
                   name="interest"
                   value={formData.interest}
-                  onChange={onChange}
+                  onChange={(e) => {onChange(e); handleInputChange(e, "interest")}}
                 />
               </div>
             </div>

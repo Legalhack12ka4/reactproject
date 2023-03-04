@@ -86,6 +86,30 @@ function AddNewCustomer(props) {
   const [gst, setGst] = useState(false);
    //let gstinparams = customer.gstin;
 
+//special character validation
+
+const handleInputChange = (evt, property) => {
+  let newValue = evt.target.value;
+
+  if (property === 'gstin') {
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+  } 
+  if (property === 'businessname') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+  }
+  if (property === 'pancard') {
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+  } 
+  if (property === 'email') {
+    newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
+  }
+  setFormData(prevState => ({
+    ...prevState,
+    [property]: newValue
+  }));
+};
+
  //cofirmation modal 
  const handleConfirmData = () => {
   setCofirmData(true);
@@ -802,7 +826,7 @@ ChildStateModificationFunc = (modVal)=>{
                     name="gstin"
                     maxLength={15}
                     value={formData.gstin}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);handleInputChange(e,"gstin")}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />
@@ -842,7 +866,7 @@ ChildStateModificationFunc = (modVal)=>{
                     placeholder="Placeholder"
                     name="businessname"
                     value={formData.businessname}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
                     onBlur={handleBlur}
                   />
                   {errors.businessname && touched.businessname && (
@@ -895,7 +919,7 @@ ChildStateModificationFunc = (modVal)=>{
                     name="pancard"
                     value={formData.pancard}
                     maxLength={10}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "pancard")}}
                     onBlur={handleBlur}
                   />
                   {errors.pancard && touched.pancard && (
@@ -1016,7 +1040,7 @@ ChildStateModificationFunc = (modVal)=>{
                     placeholder="Placeholder"
                     name="email"
                     value={formData.email}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "email")}}
                     onBlur={handleBlur}
                     autoComplete="off"
                   />

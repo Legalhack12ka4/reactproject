@@ -8,7 +8,14 @@ import './LoginPage.scss'
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [smallScreen , setSmallScreen] = useState(window.screen.width)
-
+    const [name, setName] = React.useState("");
+    const handleNameChange = evt => {
+      const newName = evt.target.value.replace(
+        /[^a-zA-Z@\d\s.]/g,
+        ""
+      );
+      setName(newName);
+    };
     const handlePasswordClick = () => 
     {
             setShowPassword(!showPassword)
@@ -45,7 +52,7 @@ const LoginPage = () => {
             <div className="credentials">
                 <div className="login-email" >
                 <label htmlFor="email-box">Email or Contact No.</label>
-                <input id="email-box" placeholder='Example@reformiqo.com' className='focus-outline' type="text" />
+                <input  id="email-box" placeholder='Example@reformiqo.com' className='focus-outline' type="text"  value={name} onChange={handleNameChange} />
                 </div>
 
                 <div className="login-password">
