@@ -570,7 +570,7 @@ const resetOther = () => {
                   <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
                   
                     <input type="text" placeholder="placeholder"
-                    style={{backgroundColor:"#ECEEF1"}}
+                    style={{backgroundColor:"#ECEEF1", color:"#4359714D"}}
                     disabled
                     name="group_name"
                     value="Non-Inventory Item"
@@ -579,6 +579,15 @@ const resetOther = () => {
                   </div>
                 </div>
                 </div>
+
+                <div className="input_group" style={{ marginBottom: "20px" }}>
+              <p>Type</p>
+              <SearchDropdown width={330}/>
+              {/* <div className="input_container focus-outline">
+                <img src="/images/icons/HSNSearch.svg" alt="" />
+                <input type="text" placeholder="placeholder" />
+              </div> */}
+            </div>
 
                 <div style={{display:"flex", gap:"20px"}}>
                 <div className="input_group">

@@ -150,14 +150,7 @@ const ServiceItem = () => {
               </div>
             </div>
 
-            <div className="input_group" style={{ marginBottom: "20px" }}>
-              <p>Type</p>
-              <SearchDropdown width={330}/>
-              {/* <div className="input_container focus-outline">
-                <img src="/images/icons/HSNSearch.svg" alt="" />
-                <input type="text" placeholder="placeholder" />
-              </div> */}
-            </div>
+
 
        
             {/* <div className="input_group" style={{ marginBottom: "18px" }}>

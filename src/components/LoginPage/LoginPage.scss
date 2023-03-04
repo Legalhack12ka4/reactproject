@@ -217,8 +217,28 @@
     }
 }
 
+.card_main_container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid;
+    transform: translate(-50%, -50%);
 
-@media screen and (max-width: 1250px) {
+    .top_image{
+        position: absolute;
+        left: 111px;
+        top: -418px;
+        transform: rotate(-2deg);
+    }
+    .bottom_image{
+        position: absolute;
+        right: 114px;
+        bottom: -421px;
+        transform: rotate(-156deg);
+    }
+}
+
+@media screen and (max-width: 1300px) {
         .login-card-container{
             transform: translate(-50%,-50%) !important;
 
