@@ -110,29 +110,29 @@ document.addEventListener("keydown", e =>{
         <Popover placement="topRight"
           open={open}
           onOpenChange={handleOpenChange}
-        getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-
+        getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}  style={{ position: "absolute", top: "0", right: "0" }}
+         content={
                  <>
-                 <div style={{display:"flex", gap:"12px", width:"182px"}}>
+                 <div className="search_main_cointainer_profile">
                   <img src="/images/searchbar_icons/User-Avtar.svg"/>
                   <div style={{display:"grid"}}>
-                    <p1 style={{color:"#435971", fontSize:"14px", fontWeight:"500"}}>Parth Goswami</p1>
-                    <p1 style={{color:"#435971B3", fontSize:"12px", fontWeight:"500"}}>Key Person</p1>
+                    <p1 className="profile_name">Parth Goswami</p1>
+                    <p1 className="profile_key" >Key Person</p1>
                   </div>
                  </div>
-                 <hr style={{border:"1px solid #4359711A", marginTop:"20px", marginBottom:"20px", marginLeft:"-20px", marginRight:"-20px"}}/>
-                 <div style={{display:"flex", gap:"13px", alignItems:"center", marginBottom:"20px"}}>
+                 <hr style={{border:"1px solid #4359711A", margin:"10px -20px"}}/>
+                 <div  className="popover-menu-item container_profile">
                  <img src={profile}/>
-                 <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>My profile</p1>
+                 <p1 className="p_profile_setting" >My profile</p1>
                  </div>
-                 <div style={{display:"flex", gap:"8px", alignItems:"center"}}>
+                 <div   className="popover-menu-item container_setting" >
                 <img src={setting}/>
-                <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>My profile</p1>
+                <p1 className="p_setting">Setting</p1>
                  </div>
-                 <hr style={{border:"1px solid #4359711A", marginTop:"20px", marginBottom:"20px", marginLeft:"-20px", marginRight:"-20px"}}/>
-                 <Link exact to="/">   <div style={{display:"flex", gap:"8px", alignItems:"center"}} onClick={hide}>
+                 <hr style={{border:"1px solid #4359711A",  margin:"10px -20px"}}/>
+                 <Link exact to="/">   <div  onClick={hide}  className="popover-menu-item container_logout">
                  <img src={logout}/>
-                 <p1 style={{color:"#435971B3", fontSize:"14px", fontWeight:"500"}}>Log Out</p1>
+                 <p1 className="p_logout">Log Out</p1>
                  </div></Link>
                  </>
                  
