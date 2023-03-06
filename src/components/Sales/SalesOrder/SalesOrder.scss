@@ -14,7 +14,8 @@
         background-color: #ffff;
         width: 843px;
         height: 677px;
-        border-radius: 6px;
+        border-radius: 6px 6px 0px 0px;
+        margin-bottom: 4px;
         box-shadow:  0px 2px 6px 0px #4359711f;
 
         .company-and-order-details-container{
@@ -226,7 +227,7 @@
 
                     .sales-order-item-details{
                         width: 266px;
-                        padding-left: 30px;
+                        margin-left: 30px;
 
                         input{
                             border: .5px solid #43597166;
@@ -246,7 +247,7 @@
 
                     .sales-order-item-qty{
                         width: 100px;
-                        padding-left: 20px;
+                        margin-left: 20px;
 
                         input{
                             border: .5px solid #43597166;
@@ -267,7 +268,7 @@
 
                     .sales-order-item-rate{
                         width: 100px;
-                        padding-left: 20px;
+                        margin-left: 20px;
 
                         input{
                             border: .5px solid #43597166;
@@ -287,7 +288,7 @@
 
                     .sales-order-item-tax{
                         width: 130px;
-                        padding: 0px 20px;
+                        margin: 0px 20px;
 
                         input{
                             border: .5px solid #43597166;
@@ -305,7 +306,7 @@
 
                     .sales-order-item-amount{
                         width: 111px;
-                        padding-left: 20px;
+                        margin-left: 20px;
                         p{
                             font-size: 14px;
                             font-weight: 500;
@@ -330,5 +331,139 @@
                 font-weight: 500;
             }
         }
+
+        .attachments-sub-total-container{
+            padding: 30px 70px 30px 30px;
+            display: flex;
+            justify-content: space-between;
+
+            .attachments-container{
+                .notes-input{
+                    p{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 8px;
+                    }
+                    input{
+                        border: .5px solid #43597166;
+                        height: 37px;
+                        border-radius: 6px;
+                        padding: 0px 14px;
+                        outline: none;
+                        width: 301px;
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 20px;
+                    }
+                }
+                .attachments-input{
+                    p{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 8px;
+                    }
+
+                    .upload-files-btn{ 
+                        border: .5px dashed #5C5AD0;
+                        img + span{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #435971B3 !important;
+                        margin-left: 9px;
+                    }
+                }
+                }
+            }
+
+            .sub-total-container{
+                width: 277px;
+                .sub-total-row{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #101329;
+                    margin-bottom: 16px;
+                }
+
+                .discount-container{
+                    display: flex;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                    margin-bottom: 16px;
+                    cursor: pointer;
+                }
+
+                .shiping-charge-container{
+                    display: flex;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                    margin-bottom: 16px;
+                    cursor: pointer;
+                }
+
+                .round-off-container{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+
+                    .add-round-off-heading{
+                        font-weight: 400;
+                        color: #435971B3;
+                        cursor: pointer;
+                    }
+
+                    .round-off-value{
+                        font-weight: 500;
+                        color: #101329;
+                    }
+                }
+
+                .total-container{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #101329;
+
+                    .total-value{
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .terms-and-conditions-container{
+        background-color: #ffff;
+        width: 783px;
+        padding: 20px 30px 30px 30px;
+        border-radius: 0px 0px 6px 6px;
+        box-shadow:  0px 2px 6px 0px #4359711f;
+
+        .terms-and-conditions-heading{
+            font-size: 14px;
+            font-weight: 500;
+            color: #101329;
+            margin-bottom: 8px;
+        }
+
+        .terms-and-condition-text{
+            font-size: 14px;
+            font-weight: 500;
+            color: #435971B3;
+            border: .5px solid #43597166;
+            padding: 11px;
+            height: 57px;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
     }
 }
+
