@@ -15,6 +15,8 @@ import { contactSchemas } from "../../Schemas";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import ContactsData from "./Contacts-Data/ContactsData";
 import SearchDropdownAddButtonContact from "../AllDropdowns/SearchDropdownAddButtonContact/SearchDropdownAddButtonContact";
+import CustomInput from "../CustomInput/CustomInput";
+
 
 
 var ChildStateModificationFunc;
@@ -564,7 +566,19 @@ const ownershipwithemail = [
                     errors.name && touched.name && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={name} className="customerimg" />
-                <input
+                <CustomInput
+                  inputType={"CamelAlphabetical"}
+                    name="name"
+                    placeholder="Placeholder"
+                   value={formData.name}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "name": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+                {/* <input
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
@@ -572,7 +586,7 @@ const ownershipwithemail = [
                   value={formData.name}
                   onChange={(e) => {handleChange(e); onChange(e); handleInputChange(e,"name");}}
                   onBlur={handleBlur}
-                />
+                /> */}
                 {errors.name && touched.name && (
                     <div className="error_icon">
                     <img
@@ -634,7 +648,20 @@ const ownershipwithemail = [
                     errors.email && touched.email && "inputError"
                   } contactinput`} style={{ marginTop: "5px" }}>
                 <img src={email} className="customerimg" />
-                <input
+                <CustomInput
+                 type="email"
+                  inputType={"email"}
+                  name="email"
+                    placeholder="Placeholder"
+                    value={formData.email}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "email": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+                {/* <input
                   type="text"
                   className="inputcontact"
                   placeholder="Placeholder"
@@ -642,7 +669,7 @@ const ownershipwithemail = [
                     value={formData.email}
                     onChange={(e) => {handleChange(e); onChange(e);handleInputChange(e,"email");}}
                     onBlur={handleBlur}
-                />
+                /> */}
                 {errors.email && touched.email && (
                     <div className="error_icon">
                     <img
