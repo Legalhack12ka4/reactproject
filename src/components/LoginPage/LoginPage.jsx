@@ -1,6 +1,7 @@
 import { Switch } from 'antd'
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import CustomInput from '../CustomInput/CustomInput'
 import './LoginPage.scss'
 
 
@@ -8,14 +9,14 @@ import './LoginPage.scss'
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [smallScreen , setSmallScreen] = useState(window.screen.width)
-    const [name, setName] = React.useState("");
-    const handleNameChange = evt => {
-      const newName = evt.target.value.replace(
-        /[^a-zA-Z@\d\s.]/g,
-        ""
-      );
-      setName(newName);
-    };
+    const [name, setName] = useState("");
+    // const handleNameChange = evt => {
+    //   const newName = evt.target.value.replace(
+    //     /[^a-zA-Z@\d\s.]/g,
+    //     ""
+    //   );
+    //   setName(newName);
+    // };
     const handlePasswordClick = () => 
     {
             setShowPassword(!showPassword)
@@ -52,7 +53,20 @@ const LoginPage = () => {
             <div className="credentials">
                 <div className="login-email" >
                 <label htmlFor="email-box">Email or Contact No.</label>
-                <input  id="email-box" placeholder='Example@reformiqo.com' className='focus-outline' type="text"  value={name} onChange={handleNameChange} />
+                {/* <input  id="email-box" placeholder='Example@reformiqo.com' className='focus-outline' type="text"  value={name}  /> */}
+                <CustomInput
+                 className='focus-outline' 
+                id="email-box" 
+                type="text" 
+                placeholder='Example@reformiqo.com'
+                value={name}
+                inputType={"AlphaNumeric"}
+                onChange={(e, newValue) =>
+                  setName(prevState => ({
+                    ...prevState,
+                    "name": newValue
+                  }))}
+              />
                 </div>
 
                 <div className="login-password">
