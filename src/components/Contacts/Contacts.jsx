@@ -549,7 +549,7 @@ const ownershipwithemail = [
       
       <div className="contactform">
         <div className="contacts">
-          <h1 className="box_heading1"> {formData.id ? "Update Contact" : "Add Contact"}</h1>
+          <h1 className="box_heading1"> {formData.id ? "Update Contact" : "New Contact"}</h1>
           <div className="contact_details">
             <div className="form-left">
             <div className="form_field">
@@ -695,6 +695,33 @@ const ownershipwithemail = [
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="contactlabel" style={{ marginTop: "15px" }}>
+                  Status
+                </label>{" "}
+              </Tooltip>
+              <br />
+                <SearchDropdown  width={331}
+                  name="position" 
+                  value={othersource.find(
+                    (option) => option.key === formData.position && option.label
+                  )?.label}
+                 // value={formData.position}
+                onChange={handleDrpChange}
+                error={errors.position && touched.position ? true : false}
+                errorMsg="Position is required"/>
+              {/* <SearchDropdown width={331} options={position}
+                name="position"
+             //   onChange={(e) => {handleChange(e); handleDrpChange(e);}}
+                onChange={handleDrpChange}
+                value={formData.position}
+                error={errors.position && touched.position ? true : false}
+                errorMsg="Position is required"
+                  /> */}
+              </div>
+
+              <div className="dropdownBtn">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="contactlabel" style={{ marginTop: "15px" }}>
                   Position
                 </label>{" "}
               </Tooltip>
@@ -716,6 +743,20 @@ const ownershipwithemail = [
                 error={errors.position && touched.position ? true : false}
                 errorMsg="Position is required"
                   /> */}
+              </div>
+
+              <div className="dropdownBtn">
+              <Tooltip title="prompt text" color="#5C5AD0">
+                {" "}
+                <label className="contactlabel" style={{ marginTop: "15px" }}>
+                  Lead Source
+                </label>{" "}
+              </Tooltip>
+              <br />
+              <SearchDropdown width={331}  name="leadsource"
+                  onChange={handleDrpChange}
+                  value={formData.leadsource}
+               />
               </div>
 
               <div className="dropdownBtn">
