@@ -93,12 +93,18 @@
     margin-top: 0px;
     display: flex;
     margin-left: 24px;
-    width: 130px;
+    width: 90%;
+    background-color: #ffff;
+    padding-bottom: 20px;
     color: #566A7F;
     height: 24px;
     font-weight: bold;
     font-size: 18px;
     min-width: max-content;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
 }
 .addvendor_heading{
     // margin-left: 30px;
