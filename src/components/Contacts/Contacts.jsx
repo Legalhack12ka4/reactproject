@@ -38,6 +38,181 @@ const resetValue = {
     position: "",
     ownership: "",
   };
+
+
+  const countryCodes = [
+    // {
+    //   code: "+1",
+    //   value: "United States"
+    // },
+    // {
+    //   code: "+7",
+    //   value: "Russia"
+    // },
+    {
+      code: "+20",
+      value: "Egypt"
+    },
+    {
+      code: "+27",
+      value: "South Africa"
+    },
+    {
+      code: "+30",
+      value: "Greece"
+    },
+    {
+      code: "+31",
+      value: "Netherlands"
+    },
+    {
+      code: "+32",
+      value: "Belgium"
+    },
+    {
+      code: "+33",
+      value: "France"
+    },
+    {
+      code: "+34",
+      value: "Spain"
+    },
+    {
+      code: "+36",
+      value: "Hungary"
+    },
+    {
+      code: "+39",
+      value: "Italy"
+    },
+    {
+      code: "+40",
+      value: "Romania"
+    },
+    {
+      code: "+41",
+      value: "Switzerland"
+    },
+    {
+      code: "+43",
+      value: "Austria"
+    },
+    {
+      code: "+44",
+      value: "United Kingdom"
+    },
+    {
+      code: "+45",
+      value: "Denmark"
+    },
+    {
+      code: "+46",
+      value: "Sweden"
+    },
+    {
+      code: "+47",
+      value: "Norway"
+    },
+    {
+      code: "+48",
+      value: "Poland"
+    },
+    {
+      code: "+49",
+      value: "Germany"
+    },
+    {
+      code: "+51",
+      value: "Peru"
+    },
+    {
+      code: "+52",
+      value: "Mexico"
+    },
+    {
+      code: "+53",
+      value: "Cuba"
+    },
+    {
+      code: "+54",
+      value: "Argentina"
+    },
+    {
+      code: "+55",
+      value: "Brazil"
+    },
+    {
+      code: "+56",
+      value: "Chile"
+    },
+    {
+      code: "+57",
+      value: "Colombia"
+    },
+    {
+      code: "+58",
+      value: "Venezuela"
+    },
+    {
+      code: "+60",
+      value: "Malaysia"
+    },
+    {
+      code: "+61",
+      value: "Australia"
+    },
+    {
+      code: "+62",
+      value: "Indonesia"
+    },
+    {
+      code: "+63",
+      value: "Philippines"
+    },
+    {
+      code: "+64",
+      value: "New Zealand"
+    },
+    {
+      code: "+65",
+      value: "Singapore"
+    },
+    {
+      code: "+66",
+      value: "Thailand"
+    },
+    {
+      code: "+81",
+      value: "Japan"
+    },
+    {
+      code: "+82",
+      value: "South Korea"
+    },
+    {
+      code: "+84",
+      value: "Vietnam"
+    },
+    {
+      code: "+86",
+      value: "China"
+    },
+    {
+      code: "+90",
+      value: "Turkey"
+    },
+    {
+      code: "+91",
+      value: "India"
+    },
+    {
+      code: "+92",
+      value: "Pakistan"
+   
+    } , 
+    // Add more country codes and values as needed
+  ];
+
 function Contacts(props) {
   const [formData, setFormData] = useState(resetValue);
 
@@ -47,27 +222,33 @@ function Contacts(props) {
   //const [fetchcontact, setFetchcontact] = useState([]);
   const [addSouce, setAddSource] = useState([]);
   const [loading, setloading] = useState(true);
+  const [selectedCode, setSelectedCode] = useState('+91');
+  // const [selectedCode, setSelectedCode] = useState(countryCodes[0].code);
+
+
+
+  
   // useEffect(() => {
   //   getData();
   // }, []);
   
   //special character validation
-  const handleInputChange = (evt, property) => {
-    let newValue = evt.target.value;
+  // const handleInputChange = (evt, property) => {
+  //   let newValue = evt.target.value;
   
-    if (property === 'name') {
-      newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-      newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
-    } 
-    if (property === 'email') {
-      newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
-    }
+  //   if (property === 'name') {
+  //     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+  //     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+  //   } 
+  //   if (property === 'email') {
+  //     newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
+  //   }
   
-    setFormData(prevState => ({
-      ...prevState,
-      [property]: newValue
-    }));
-  };
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     [property]: newValue
+  //   }));
+  // };
 
   // const handleNameChange = evt => {
   //   const newName = evt.target.value.replace(/[^a-zA-Z\s.]/g, "");
@@ -601,41 +782,59 @@ const ownershipwithemail = [
                   )}
               </div>
               <div className="form_field">
-              <Tooltip title="prompt text" color="#5C5AD0">
-                {" "}
-                <label className="contactlabel" style={{ marginTop: "5px" }}>
-                  Mobile No.
-                </label>{" "}
-              </Tooltip>
-              <br />
-              <div className={`${
-                    errors.mobile && touched.mobile && "inputError"
-                  } contactinput`} style={{ marginTop: "5px" }}>
-                <img src={Phone} className="customerimg" />
-                <input
-                  type="number"
-                  ref={inputRef}
-                  onKeyPress={handleKeyPress}
-                  className="inputcontact"
-                  placeholder="Placeholder"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={(e) => {handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                />
-                {errors.mobile && touched.mobile && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-              </div>
-              {errors.mobile &&  touched.mobile &&(
-                    <p className="error_text">{errors.mobile}</p>
-                  )}
-              </div>
+  <Tooltip title="prompt text" color="#5C5AD0">
+    {" "}
+    <label className="contactlabel" style={{ marginTop: "5px" }}>
+      Mobile No.
+    </label>{" "}
+  </Tooltip>
+  <br />
+  <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
+  <div className="countryCodeDropdown focus-outline">
+      <select value={selectedCode} onChange={(e) => setSelectedCode(e.target.value)}>
+        {countryCodes.map((country) => (
+          <option key={country.code} value={country.code}>
+            {country.code} ({country.value})
+          </option>
+        ))}
+      </select>
+    </div>
+    {/* <SearchDropdown options={countryCodes}/> */}
+  <div className={`${errors.mobile && touched.mobile && "inputError"} contactinput`} style={{ marginTop: "5px", maxWidth:"277px", minWidth:"277px" }}>
+    {/* <div className="countryCodeDropdown">
+      <select value={selectedCode} onChange={(e) => setSelectedCode(e.target.value)}>
+        {countryCodes.map((country) => (
+          <option key={country.code} value={country.code}>
+            {country.code}   ({country.value})
+          </option>
+        ))}
+      </select>
+    </div> */}
+    <img src={Phone} className="customerimg" />
+    <input
+   
+      type="number"
+      ref={inputRef}
+     // onKeyPress={handleKeyPress}
+      className="inputcontact"
+      placeholder="Placeholder"
+      name="mobile"
+      value={formData.mobile}
+      onChange={(e) => {handleChange(e); onChange(e);}}
+      onBlur={handleBlur}
+    />
+    {errors.mobile && touched.mobile && (
+      <div className="error_icon">
+        <img src="/images/icons/exclamation_icon.svg" alt="error" />
+      </div>
+    )}
+  </div>
+  </div>
+  {errors.mobile &&  touched.mobile &&(
+    <p className="error_text">{errors.mobile}</p>
+  )}
+</div>
+
               <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
@@ -683,7 +882,7 @@ const ownershipwithemail = [
                     <p className="error_text">{errors.email}</p> 
                   )}
               </div>
-              <div className="form_field">
+              {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="contactlabel" style={{ marginTop: "5px" }}>
@@ -716,7 +915,7 @@ const ownershipwithemail = [
               {errors.dob &&  touched.dob &&(
                     <p className="error_text">{errors.dob}</p>
                   )}
-              </div>
+              </div> */}
 
               <div className="dropdownBtn">
               <Tooltip title="prompt text" color="#5C5AD0">

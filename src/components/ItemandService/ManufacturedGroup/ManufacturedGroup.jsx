@@ -8,6 +8,7 @@ import SelectAllDropdown from "../../AllDropdowns/SelectAllDropdown/SelectAllDro
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../../TagsInput/TagsInput";
 import config from "../../Database/config";
+import CustomInput from "../../CustomInput/CustomInput";
 
 const resetValue = {
   Initiallitemrow: [
@@ -21,6 +22,8 @@ const resetValue = {
   ],
   Initiallitemrow1: [],
   group_name: "",
+  item_group:"",
+  qty:"",
   type: "",
   uom: "",
   managed_by: "",
@@ -576,13 +579,26 @@ const ManufacturedGroup = () => {
               <p>Group Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
-                <input
+                <CustomInput
+                    type="text"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="group_name"
+                    placeholder="Placeholder"
+                   value={formData.group_name}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "group_name": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                {/* <input
                   type="text"
                   placeholder="placeholder"
                   name="group_name"
                   value={formData.group_name}
                   onChange={onChange}
-                />
+                /> */}
               </div>
             </div>
 

@@ -613,12 +613,13 @@ const deleteUser = (record)=>
       record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
-      && record.name.toLowerCase().includes(search.toLowerCase())&&
+      && record.name.toLowerCase().includes(search.toLowerCase())
+      //&&
       // && record.updated_date_time.includes(custfilter.updated_date_time)
-
-      (!startdate || !enddate ||
-        (new Date(record.updated_date_time) >= startdate &&
-        new Date(record.updated_date_time) <= enddate))
+//For date range filter
+      // (!startdate || !enddate ||
+      //   (new Date(record.updated_date_time) >= startdate &&
+      //   new Date(record.updated_date_time) <= enddate))
     //   new Date(record.updated_date_time) >= startdate && // filter records from fromDate
     // new Date(record.updated_date_time) <= enddate  // filter records up to toDate
       // && record.email.toLowerCase().includes(search.toLowerCase())
@@ -706,19 +707,19 @@ setoldData(oldData)
         <FilterAndSearchBar
         selectedColumnsLength={selectedColumns.length}
           results_length={`${cusomizeData.length} Contacts`}
-          datepickerfilter={
-            <DateRangePicker
-            daterange={filterdaterange}
-            name="updated_date_time"
-            value={dateRange}
-            onChange={onChangedate}
-          // onChange={(value) => {
-            //   setDateRange(value);
-            //   if (value.length === 2) {
-            //     datafilter(value);
-            //   }
-            // }}
-          />}
+          // datepickerfilter={
+          //   <DateRangePicker
+          //   daterange={filterdaterange}
+          //   name="updated_date_time"
+          //   value={dateRange}
+          //   onChange={onChangedate}
+          // // onChange={(value) => {
+          //   //   setDateRange(value);
+          //   //   if (value.length === 2) {
+          //   //     datafilter(value);
+          //   //   }
+          //   // }}
+          // />}
           filterdata={[
             <div className="contact_filter_container">
               <div className="customer_filter_filed">

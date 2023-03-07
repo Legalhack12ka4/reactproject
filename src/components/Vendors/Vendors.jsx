@@ -19,6 +19,7 @@ import { addCustomerSchemas } from "../../Schemas";
 import config from "../Database/config";
 import { useRef } from "react";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
+import CustomInput from "../CustomInput/CustomInput";
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
@@ -901,7 +902,7 @@ const {
       </div>
       <div className="customerform">
       <form onSubmit={handleSubmit} autoComplete="off">
-            <div className="form_first_container">
+      <div className="form_first_container">
               
               <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -937,17 +938,33 @@ const {
                   } ${touched.gstin && "acive_input"} customerdropdown uppercaseLetter`}
                 >
                   <img src={gstno} className="customerimg" />
-                  <input
+                  <CustomInput
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"AlphaNumericUpperCase"}
+                  name="gstin"
+                    placeholder="Placeholder"
+                    maxLength={15}
+                   value={formData.gstin}
+                onChange={(e, newValue) => {handleChange(e); onChange(e);
+                  // handleGstno(e);
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "gstin": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+                  {/* <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
                     name="gstin"
                     maxLength={15}
                     value={formData.gstin}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "gstin")}}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);handleInputChange(e,"gstin")}}
                     onBlur={handleBlur}
                     autoComplete="off"
-                  />
+                  /> */}
                   {errors.gstin && touched.gstin && (
                     <div className="error_icon">
                     <img
@@ -978,7 +995,22 @@ const {
                   style={{ marginTop: "5px" }}
                 >
                   <img src={business} className="customerimg" />
-                  <input
+                  <CustomInput
+                   type="text"
+                   style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"CamelAlphabetical"}
+                    name="businessname"
+                    placeholder="Placeholder"
+                   value={formData.businessname}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "businessname": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+
+                  {/* <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -986,7 +1018,7 @@ const {
                     value={formData.businessname}
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
                     onBlur={handleBlur}
-                  />
+                  /> */}
                   {errors.businessname && touched.businessname && (
                     <div className="error_icon">
                     <img
@@ -1030,7 +1062,22 @@ const {
                   } customerdropdown uppercaseLetter`}
                 >
                   <img src={pan} className="customerimg" />
-                  <input
+                  <CustomInput
+                   type="text"
+                   maxLength={10}
+                   style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"AlphaNumericUpperCase"}
+                    name="pancard"
+                    placeholder="Placeholder"
+                   value={formData.pancard}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "pancard": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+                  {/* <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -1039,7 +1086,7 @@ const {
                     maxLength={10}
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "pancard")}}
                     onBlur={handleBlur}
-                  />
+                  /> */}
                   {errors.pancard && touched.pancard && (
                       <div className="error_icon">
                       <img
@@ -1056,7 +1103,7 @@ const {
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-                  <div>
+                  <div >
                     <Tooltip title="prompt text" color="#5C5AD0">
                       {" "}
                       <label className="label" style={{ marginTop: "5px" }}>
@@ -1152,7 +1199,22 @@ const {
                   } customerdropdown`}
                 >
                   <img src={email} className="customerimg" />
-                  <input
+                  <CustomInput
+                   type="email"
+                   style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"email"}
+                    name="email"
+                    placeholder="Placeholder"
+                   value={formData.email}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "email": newValue
+                  }))}}
+                  onBlur={handleBlur}
+                  />
+                 
+                  {/* <input
                     type="email"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -1161,7 +1223,7 @@ const {
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "email")}}
                     onBlur={handleBlur}
                     autoComplete="off"
-                  />
+                  /> */}
                   {errors.email && touched.email && (
                     <div className="error_icon">
                     <img
@@ -1176,7 +1238,120 @@ const {
                   )}
               </div>
 
+          
+
               <div className="form_field field9" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Street 1
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street1 && touched.street1 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street1"
+                    value={values.street1}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street1 && touched.street1 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street1 && touched.street1 && (
+                    <p className="error_text">{errors.street1}</p>
+                  )}
+              </div>
+
+              <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Street 2
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street2"
+                    value={values.street2}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )}
+              </div>
+
+              <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Area
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street2"
+                    value={values.street2}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )}
+              </div>
+
+              <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1216,81 +1391,8 @@ const {
                   )}
               </div>
 
-              <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Street 1
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street1 && touched.street1 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street1"
-                    value={values.street1}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street1 && touched.street1 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street1 && touched.street1 && (
-                    <p className="error_text">{errors.street1}</p>
-                  )}
-              </div>
 
-              <div className="form_field field11" style={{ gridRowStart: 5, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Street 2
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street2"
-                    value={values.street2}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )}
-              </div>
-
-              <div className="form_field field12" style={{ gridRowStart: 6, gridColumnStart: 2}}>
+              <div className="form_field field14" style={{ gridRowStart: 1, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1313,7 +1415,7 @@ const {
                 </div>
               </div>
 
-              <div className="form_field field13" style={{ gridRowStart: 1, gridColumnStart: 3}}>
+              <div className="form_field field15" style={{ gridRowStart: 2, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1335,7 +1437,23 @@ const {
                 </div>
               </div>
 
-              <div className="form_field field14" style={{ gridRowStart: 2, gridColumnStart: 3}}>
+              <div className="form_field field16" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              <Tooltip title="prompt text" color="#5C5AD0">
+                  <label className="label">Country</label>
+                </Tooltip>
+                <br />
+                <SearchDropdown
+                  width={331}
+                 // options={gsttraetmentOptional}
+                  value={values.pos}
+                  onChange={handleDrpChange}
+                  name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+                />
+              </div>
+
+              <div className="form_field field17" style={{ gridRowStart: 4, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
@@ -1351,7 +1469,7 @@ const {
                 />
               </div>
 
-              <div className="form_field field15" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              <div className="form_field field18" style={{ gridRowStart: 5, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Contacts</label>
@@ -1369,7 +1487,7 @@ const {
                 />
               </div>
 
-              <div className="form_field field16" style={{ gridRowStart: 4, gridColumnStart: 3}}>
+              <div className="form_field field19" style={{ gridRowStart: 6, gridColumnStart: 3}}>
               <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Ownership</label>

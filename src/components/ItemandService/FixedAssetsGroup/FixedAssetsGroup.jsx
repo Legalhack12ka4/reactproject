@@ -9,6 +9,7 @@ import SelectAllDropdown from "../../AllDropdowns/SelectAllDropdown/SelectAllDro
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../../TagsInput/TagsInput";
 import config from '../../Database/config'
+import CustomInput from '../../CustomInput/CustomInput'
 
 
 const resetValue = {
@@ -550,11 +551,24 @@ const resetOther = () => {
                   <p>Group Name</p>
                   <div className="input_container">
                     <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder"
+                    <CustomInput
+                    type="text"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="group_name"
+                    placeholder="Placeholder"
+                   value={formData.group_name}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "group_name": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                    {/* <input type="text" placeholder="placeholder"
                     name="group_name"
                     value={formData.group_name}
                     onChange={onChange}
-                    />
+                    /> */}
                   </div>
                 </div>
 
