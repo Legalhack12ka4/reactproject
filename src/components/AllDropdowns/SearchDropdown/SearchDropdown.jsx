@@ -61,6 +61,7 @@ const SearchDropdown =  forwardRef(({ onChange, options, name, value, error,erro
   }
  }))
 
+
   return (
     <>
       <div className={`srchdrp ${error && "drpError"}`}>
@@ -75,10 +76,26 @@ const SearchDropdown =  forwardRef(({ onChange, options, name, value, error,erro
         key={selectedOption}
         onBlur={() => setFocus(false)}
         onFocus={() => setFocus(true)}
-        filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-        }
-        onChange={handleChange}
+        // filterOption={(input, option) =>
+        //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+        // }
+        filterOption={(input, option) => {
+          const labelMatches = (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+          const valueMatches = (option?.value ?? "").toLowerCase().includes(input.toLowerCase());
+          const alphanumericRegex = /^[a-zA-Z0-9]*$/; // Only allows letters and numbers
+          const inputIsValid = alphanumericRegex.test(input);
+          return labelMatches || (valueMatches && inputIsValid);
+        }}
+        onKeyDown={(e) => {
+          const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+          const keyIsAlphanumeric = alphanumericRegex.test(e.key);
+          if (!keyIsAlphanumeric && e.key !== "Backspace" && e.key !== "Delete") {
+            e.preventDefault();
+          }
+        }}
+       onChange={handleChange}
+       // onChange={(e) => {console.log(e); handleChange(e); handleInputChange(e, "selectedOption")}}
+       // onSearch={(e) => handleInputChange(e, "selectedOption")}
         getPopupContainer={(trigger) => trigger.parentElement}
         style={{ width: props.width, padding: 0 }}
         size={"large"}

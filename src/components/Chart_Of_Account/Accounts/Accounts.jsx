@@ -27,6 +27,7 @@ import { useFormik } from "formik";
 
 import axios from "axios";
 import { chartOfAccountSchema } from "../../../Schemas";
+import CustomInput from "../../CustomInput/CustomInput";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
@@ -72,6 +73,11 @@ function Accounts() {
     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
   } 
+  if (property === 'description') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+  } 
+
 
   setFormData(prevState => ({
     ...prevState,
@@ -804,7 +810,20 @@ console.log(chartOfAccountSchema)
                   } parmentaccount  focus-outline`}
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <input
+                     <CustomInput
+                    type="text"
+                  inputType={"CamelAlphabetical"}
+                  name="account_name"
+                    placeholder="Placeholder"
+                    value={formData.account_name}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "account_name": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+                  {/* <input
                     // className="parmentaccount"
                    
                     type="text"
@@ -817,7 +836,7 @@ console.log(chartOfAccountSchema)
                       handleInputChange(e, "account_name")
                     }}
                     onBlur={handleBlur}
-                  />
+                  /> */}
                   {errors.account_name && touched.account_name && (
                     <div className="error_icon">
                       <img
@@ -859,6 +878,28 @@ console.log(chartOfAccountSchema)
                     overflow:"hidden"
                   }}
                 >
+                       {/* <CustomInput
+                        resizable={false}
+                        // className="description"
+                        style={{
+                          width: "668.4px",
+                          height: "68.4px",
+                          outline: "none",
+                          border: "none",
+                          resize: "none",
+                        }}
+                       type="textarea"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="description"
+                    placeholder="Placeholder"
+                   value={formData.description}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "description": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              /> */}
                   <textarea
                     resizable={false}
                     // className="description"
@@ -876,6 +917,7 @@ console.log(chartOfAccountSchema)
                     onChange={(e) => {
                       handleChange(e);
                       onChange(e);
+                      handleInputChange(e,"description");
                     }}
                   />
                   {errors.description && touched.description && (

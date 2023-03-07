@@ -39,25 +39,25 @@ const ModuleCurrencyTable = () => {
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
 
 //special character validation
-const handleInputChange = (evt, property) => {
-  let newValue = evt.target.value;
+// const handleInputChange = (evt, property) => {
+//   let newValue = evt.target.value;
 
-  if (property === 'currency_name') {
-    newValue = newValue.toUpperCase().replace(/[^A-Z\s]/g, "");
-  }
+//   if (property === 'currency_name') {
+//     newValue = newValue.toUpperCase().replace(/[^A-Z\s]/g, "");
+//   }
   
-  if (property === 'symbol') {
-    newValue = newValue.replace(/[^@._\-#$%^&*()+={}]/g, "");
-  }
-  if (property === 'country_name') {
-    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-    newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
-  } 
-  setFormData(prevState => ({
-    ...prevState,
-    [property]: newValue
-  }));
-};
+//   if (property === 'symbol') {
+//     newValue = newValue.replace(/[^@._\-#$%^&*()+={}]/g, "");
+//   }
+//   if (property === 'country_name') {
+//     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+//     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+//   } 
+//   setFormData(prevState => ({
+//     ...prevState,
+//     [property]: newValue
+//   }));
+// };
 
 //cofirmation modal 
 const handleConfirmData = () => {
@@ -546,6 +546,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Code</p>
                    <CustomInput
+                     className=" focus-outline"
                     maxLength={3}
                      placeholder="INR"
                      inputType={"Alphabetical"}
@@ -570,6 +571,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Symbol</p>
                 <CustomInput
+                  className=" focus-outline"
                      placeholder="₹"
                      inputType={"Symbol"}
                      value={formData.symbol}
@@ -592,6 +594,7 @@ console.log(formData)
               <div className="addPaymentTermModalInput">
                 <p>Currency Name</p>
                 <CustomInput
+                  className=" focus-outline"
                      type="text"
                     placeholder="Indian Rupee"
                      inputType={"CamelAlphabetical"}

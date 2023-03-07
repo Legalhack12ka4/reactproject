@@ -8,6 +8,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../../Page_Heading/Page_heading";
 import TagsInput from "../../TagsInput/TagsInput";
+import CustomInput from "../../CustomInput/CustomInput";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -18,7 +19,19 @@ const getBase64 = (file) => {
   });
 };
 
+const resetValue = {
+  name: "" ,
+  hsn_code:"",
+  barcode:"",
+  purchase:"",
+  sale: "",
+  min: "",
+  max:"",
+  tags:""
+ };
+
 const JobWorkItem = () => {
+  const [formData, setFormData] = useState(resetValue)
   const [fileList, setFileList] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -162,7 +175,20 @@ const JobWorkItem = () => {
               <p>Name</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/cube.svg" alt="" />
-                <input type="text" placeholder="placeholder" />
+                <CustomInput
+                    type="text"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="name"
+                    placeholder="Placeholder"
+                   value={formData.name}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "name": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                {/* <input type="text" placeholder="placeholder" /> */}
               </div>
             </div>
 
@@ -172,7 +198,20 @@ const JobWorkItem = () => {
               <p>HSN Code</p>
               <div className="input_container focus-outline">
                 <img src="/images/icons/HSNSearch.svg" alt="" />
-                <input type="text" placeholder="placeholder" />
+                <CustomInput
+                    type="text"
+                  inputType={"Numeric"}
+                    name="hsn_code"
+                    placeholder="Placeholder"
+                   value={formData.hsn_code}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "hsn_code": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                {/* <input type="text" placeholder="placeholder" /> */}
               </div>
             </div>
 
@@ -182,12 +221,25 @@ const JobWorkItem = () => {
               <div className="input_container focus-outline">
                 <img src="/images/icons/barcode.svg" alt="" />
                 <div className="barcode_scanner">
-                  <input
+                <CustomInput
+                    type="text"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="barcode"
+                    placeholder="Placeholder"
+                   value={formData.barcode}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "barcode": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                  {/* <input
                     type="text"
                     placeholder="placeholder"
                     id="barcode_input"
                     // value={data}
-                  />
+                  /> */}
                 </div>
                 <img
                   src="/images/icons/barcodeBtn.svg"
@@ -205,7 +257,20 @@ const JobWorkItem = () => {
                   className="input_container1 focus-outline"
                   style={{ width: "150px !important" } }
                 >
-                  <input type="text" />
+                    <CustomInput
+                    type="text"
+                  inputType={"Numeric"}
+                    name="purchase"
+                    placeholder="Placeholder"
+                   value={formData.purchase}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "purchase": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                  {/* <input type="text" /> */}
                 </div>
               </div>
               <div className="input_group">
@@ -214,7 +279,20 @@ const JobWorkItem = () => {
                   className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
-                  <input type="text" />
+                   <CustomInput
+                    type="text"
+                  inputType={"Numeric"}
+                    name="sale"
+                    placeholder="Placeholder"
+                   value={formData.sale}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "sale": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                  {/* <input type="text" /> */}
                 </div>
               </div>
             </div>
@@ -226,7 +304,20 @@ const JobWorkItem = () => {
                   className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
-                  <input type="text" />
+                    <CustomInput
+                    type="text"
+                  inputType={"Numeric"}
+                    name="min"
+                    placeholder="Placeholder"
+                   value={formData.min}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "min": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                  {/* <input type="text" /> */}
                 </div>
               </div>
               <div className="input_group">
@@ -235,7 +326,20 @@ const JobWorkItem = () => {
                   className="input_container1 focus-outline"
                   style={{ width: "150px !important" }}
                 >
-                  <input type="text" />
+                    <CustomInput
+                    type="text"
+                  inputType={"Numeric"}
+                    name="max"
+                    placeholder="Placeholder"
+                   value={formData.max}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "max": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                  {/* <input type="text" /> */}
                 </div>
               </div>
             </div>
