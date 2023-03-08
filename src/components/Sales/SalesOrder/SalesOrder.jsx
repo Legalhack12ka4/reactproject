@@ -21,6 +21,12 @@ const SalesOrder = () => {
     setFileList(newFileList);
   };
 
+  const handleDeleteOrderItemRow = (id) => {
+    setSalesOrderItemList(salesOrderItemList.filter((item) => item.id !== id));
+  };
+  
+
+
   return (
     <div className="sales-order-main-container">
       <Page_heading parent={"Transactions"} child={"Sales Order"} />
@@ -102,6 +108,9 @@ const SalesOrder = () => {
                   </div>
                   <div className="sales-order-item-amount">
                     <p>₹ 0.00</p>
+                  </div>
+                  <div className="delete-order-item-row" onClick={()=>handleDeleteOrderItemRow(item.id)}>
+                    <img src="/images/icons/cross-icon.svg" alt="" />
                   </div>
                 </div>
                 <hr className="item-bottom-hr" />
