@@ -32,11 +32,11 @@ function Module() {
     </div>
     <div className='Module'>
 
-    <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option} value={value} onChange={handleChange}/>
+    {/* <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option} value={value} onChange={handleChange}/>
     <SearchSelect width={150} name="ownership" addNew="User" lable="Lable" options={option} value={value} onChange={handleChange}/>
-    {/* <CategorySelect  /> */}
+    <CategorySelect  />
     <InputGroup />
-    <CustomInput label="Contact" width={330} icon/>
+    <CustomInput label="Contact" width={330} icon/> */}
 
 
       <div style={{padding:"20px 20px"}}>
