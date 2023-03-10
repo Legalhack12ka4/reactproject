@@ -28,6 +28,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { chartOfAccountSchema } from "../../../Schemas";
 import CustomInput from "../../CustomInput/CustomInput";
+import { CategorySelect, SearchSelect } from "../../Dropdowns/Dropdowns";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
@@ -267,15 +268,15 @@ console.log(chartOfAccountSchema)
     return acc;
   }, {});
 
-  const options = Object.keys(groupedData).map((key) => (
-    <OptGroup label={key} key={key.id}>
-      {groupedData[key].map((child) => (
-        <Option value={child} key={child.id}>
-          {child}
-        </Option>
-      ))}
-    </OptGroup>
-  ));
+  // const options = Object.keys(groupedData).map((key) => (
+  //   <OptGroup label={key} key={key.id}>
+  //     {groupedData[key].map((child) => (
+  //       <Option value={child} key={child.id}>
+  //         {child}
+  //       </Option>
+  //     ))}
+  //   </OptGroup>
+  // ));
 
   useEffect(() => {
     getReporting();
@@ -711,7 +712,7 @@ console.log(chartOfAccountSchema)
               </div>
 
                <div style={{marginBottom: "20px"}}>
-                <p
+                {/* <p
                   style={{
                     fontSize: "14px",
                     color: "#566A7F",
@@ -719,14 +720,28 @@ console.log(chartOfAccountSchema)
                   }}
                 >
                    Type
-                </p>
+                </p> */}
                 {/* <SearchDropdown width={330} options={options/> */}
                 <div className={`srchdrp ${errors.account_type  && touched.account_type && "drpError"}`}>
                   {/* <div className={`${
                     errors.account_type && touched.account_type && "inputError"
                   } srchdrp`} > */}
-                
-                  <Select
+                <CategorySelect
+                width={330}
+                name="account_type"
+                lable="Type"
+                value={formData.account_type || undefined}
+                onChange={handleDrpChange}
+                onFocus={() =>
+                  setFormData((value) => ({
+                    ...value,
+                    account_type: "",
+                    reporting: "",
+                  }))
+                }
+                options={groupedData}
+                 />
+                  {/* <Select
                     name="account_type"
                     value={formData.account_type || undefined}
                     onChange={handleDrpChange}
@@ -757,7 +772,7 @@ console.log(chartOfAccountSchema)
                     ) : (
                       options
                     )}
-                  </Select>
+                  </Select> */}
                 </div>
                 {errors.account_type && touched.account_type && (
                   <p className="error_text">{errors.account_type}</p>

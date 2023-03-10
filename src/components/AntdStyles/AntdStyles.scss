@@ -1,32 +1,54 @@
+@import '../../assets/Colors/Colors.scss';
+
 // switch styles
 
 .ant-switch.ant-switch-checked {
-  background-color: #5c5ad0 !important;
-  border-color: #5c5ad0 !important;
+  background-color: $primary-100 !important;
+  border-color: $primary-100 !important;
 }
 .ant-switch {
   min-width: 34px !important;
   padding: 0px !important;
-  height: 17px !important;
-  background: #4359711A !important;
+  height: 18px !important;
+  background: $secondary-500 !important;
+  border: 1px solid transparent;
 }
 .ant-switch.ant-switch-handle::before{
   background-color: #EDEEF2 !important;
 }
 .ant-switch-inner {
-  width: 34px !important;
+  width: 37px !important;
+  height: 18px !important;
 }
 .ant-switch-handle::before {
-  height: 11px !important;
-  width: 11px !important;
+  height: 12px !important;
+  width: 12px !important;
 
-  margin-top: 1px;
+  // margin-top: .5px;
+  top: .5px;
 }
 
 .ant-switch-checked {
   .ant-switch-handle::before {
-    margin-left: 7px;
+    margin-left: 6px;
   }
+}
+
+.ant-switch.ant-switch-checked:not([disabled]):hover{
+  box-shadow: 0px 1px 2px $primary-100;
+  border: 1px solid $primary-100;
+  background-color: $primary--300 !important;
+}
+
+.ant-switch.ant-switch-checked:not([disabled]):focus{
+  box-shadow: 0px 1px 2px $primary-100;
+  border: 1px solid $primary-100;
+  background-color: $primary--300 !important;
+}
+
+.ant-switch.ant-switch-checked:not([disabled]):active{
+  box-shadow: inset 0 3px 6px #00000029; 
+  background-color: $primary--300 !important;
 }
 
 //Pagination

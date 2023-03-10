@@ -1,0 +1,292 @@
+@import '../../assets/Colors/Colors.scss';
+
+// Contained Button
+
+.Contained-btn{
+    border: none;
+    outline: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    color: #ffff !important;
+    max-height: 38px;
+    background-color: $primary-100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+}
+.Contained-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+}
+.Contained-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+    border: 1px solid $primary-100;
+}
+.Contained-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+    background-color: $primary--300;
+}
+.Contained-btn:disabled{
+    background-color: $primary-600;
+    color: $primary-800 !important;
+    cursor: not-allowed;
+
+}
+
+
+// Sc text button
+
+.sc-text-btn{
+    border: none;
+    outline: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    color: $neutrals-600 !important;
+    background-color: $secondary-800;
+    cursor: pointer;
+    max-height: 38px;
+    border: 1px solid transparent;
+}
+
+.sc-text-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $secondary-300;
+    background-color: $secondary-100;
+    color: #ffff !important;
+}
+.sc-text-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $secondary-300;
+    background-color: $secondary-100;
+    color: #ffff !important;
+    border: 1px solid $secondary-500;
+}
+.sc-text-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+    background-color: $secondary-100;
+    color: #ffff !important;
+}
+.sc-text-btn:disabled{
+    background-color: $secondary-600;
+    color: $secondary-300 !important;
+    cursor: not-allowed;
+}
+
+
+
+// contained icon button
+
+.contained-icon-btn{
+    border: none;
+    outline: none;
+    padding: 11px 22px 11px 20px;
+    border-radius: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    background-color: $primary-100;
+    color: #ffff !important;
+    max-height: 38px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.contained-icon-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+}
+.contained-icon-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+    border: 1px solid $primary-100;
+}
+.contained-icon-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+    background-color: $primary--300;
+}
+.contained-icon-btn:disabled{
+    background-color: $primary-600;
+    color: $primary-800 !important;
+    cursor: not-allowed;
+}
+
+
+
+// ghot button 
+
+.ghost-btn{
+    border: 1px solid $primary-100;
+    outline: none;
+    padding: 11px 22px;
+    border-radius: 6px;
+    color: $primary-100 !important;
+    background-color: transparent;
+    max-height: 38px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.ghost-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $primary-100;
+}
+.ghost-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $primary-100;
+    border: 1px solid $primary-100;
+}
+.ghost-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+}
+.ghost-btn:disabled{
+    color: $primary-600 !important;
+    border: 1px solid $primary-600;
+    cursor: not-allowed;
+}
+
+
+
+// ghost icon button 
+
+.ghost-icon-btn{
+    border: 1px solid $primary-100;
+    outline: none;
+    padding: 11px 22px 11px 20px;
+    border-radius: 6px;
+    color: $primary-100 !important;
+    background-color: transparent;
+    max-height: 38px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.ghost-icon-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $primary-100;
+}
+.ghost-icon-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $primary-100;
+    border: 1px solid $primary-100;
+}
+.ghost-icon-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+}
+.ghost-icon-btn:disabled{
+    color: $primary-600 !important;
+    border: 1px solid $primary-600;
+    cursor: not-allowed;
+    img{
+        filter: brightness(200%)
+    }
+}
+
+
+// text button 
+
+.text-btn{
+    border: none;
+    outline: none;
+    color: $primary-100 !important;
+    max-height: max-content;
+    background-color: transparent;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.text-btn:not([disabled]):hover{
+    color: $primary--300 !important;
+}
+.text-btn:not([disabled]):focus{
+    color: $primary--300 !important;
+}
+.text-btn:not([disabled]):active{
+    color: $primary--300 !important;
+}
+.text-btn:disabled{
+    color: $primary-600 !important;
+    cursor: not-allowed;
+}
+
+// icon button 
+
+.icon-btn{
+    border: none;
+    outline: none;
+    color: $primary-100 !important;
+    // max-height: max-content;
+    background-color: transparent;
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    img{
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.icon-btn:not([disabled]):hover{
+    img{
+        filter: grayscale(20%)
+    }
+}
+.icon-btn:not([disabled]):focus{
+    img{
+        filter: grayscale(30%)
+    }
+}
+.icon-btn:not([disabled]):active{
+    img{
+        filter: grayscale(30%)
+    }
+}
+.icon-btn:disabled{
+    color: $primary-600 !important;
+    cursor: not-allowed;
+    img{
+        filter: brightness(200%)
+    }
+}
+
+
+// floating button 
+
+.floating-action-btn{
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: $primary-100;
+    cursor: pointer;
+    height: 38px;
+    width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+
+    img{
+        height: 12px;
+        width: 12px;
+    }
+}
+
+.floating-action-btn:not([disabled]):hover{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+}
+.floating-action-btn:not([disabled]):focus{
+    box-shadow: 0px 1px 2px $primary-100;
+    background-color: $primary--300;
+    border: 1px solid $primary-100;
+}
+.floating-action-btn:not([disabled]):active{
+    box-shadow: inset 0 3px 6px #00000029; 
+    background-color: $primary--300;
+}
+.floating-action-btn:disabled{
+    background-color: $primary-600;
+    cursor: not-allowed;
+    img{
+        filter: brightness(89%)
+    }
+}   

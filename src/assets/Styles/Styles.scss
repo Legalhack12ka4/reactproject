@@ -1,0 +1,108 @@
+@import '../../assets/Colors/Colors.scss';
+
+
+// Heading 22px
+
+.heading-sb{
+    font-size: 22px;
+    font-weight: 600;
+    color: $neutrals-100;
+}
+
+.heading-md{
+    font-size: 22px;
+    font-weight: 500;
+    color: $neutrals-100;
+}
+
+
+// Title 18px 
+
+.title-sb{
+    font-size: 18px;
+    font-weight: 600;
+    color: $neutrals-100;
+}
+
+.title-md{
+    font-size: 18px;
+    font-weight: 500;
+    color: $neutrals-100;
+}
+
+.title-rg{
+    font-size: 18px;
+    font-weight: 400;
+    color: $neutrals-100;
+}
+
+// Subtitle 16px 
+
+.subtitle-sb{
+    font-size: 16px;
+    font-weight: 600;
+    color: $neutrals-100;
+}
+
+.subtitle-md{
+    font-size: 16px;
+    font-weight: 500;
+    color: $neutrals-100;
+}
+
+
+// Body 16px
+
+.body-md{
+    font-size: 16px;
+    font-weight: 500;
+    color: $neutrals-500;
+}
+
+.body-rg{
+    font-size: 16px;
+    font-weight: 400;
+    color: $neutrals-500;
+}
+
+
+// Secondary Body 14px 
+
+.sc-body-sb{
+    font-size: 14px;
+    font-weight: 600;
+    color: $neutrals-500;
+    line-height: 18px;
+}
+
+.sc-body-md{
+    font-size: 14px;
+    font-weight: 500;
+    color: $neutrals-500;
+}
+
+.sc-body-rg{
+    font-size: 14px;
+    font-weight: 400;
+    color: $neutrals-500;
+}
+
+// Caption 12px
+
+.caption-sb{
+    font-size: 12px;
+    font-weight: 600;
+    color: $neutrals-500;
+}
+
+.caption-md{
+    font-size: 12px;
+    font-weight: 500;
+    color: $neutrals-500;
+}
+
+.caption-rg{
+    font-size: 12px;
+    font-weight: 400;
+    color: $neutrals-500;
+}
