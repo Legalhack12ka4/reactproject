@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import config from "../Database/config";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import CustomInput from "../CustomInput/CustomInput";
+import { SearchSelect } from "../Dropdowns/Dropdowns";
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
@@ -428,7 +429,7 @@ ChildStateModificationFunc = (modVal)=>{
           <p className="dropdown_title_heading">
             Registered Business - Composition
           </p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Business that is registered under the Composition
             <br /> Scheme in GST
           </p>
@@ -440,7 +441,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Unregistered Business</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Bussines that has not been registered
             <br /> under GST
           </p>
@@ -452,7 +453,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Consumer</p>
-          <p>A customer who is regular Consumer</p>
+          <p className="dropdown_desc_text">A customer who is regular Consumer</p>
         </div>
       ),
     },
@@ -461,7 +462,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Overseas</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Person with whom you do import or export of
             <br />
             supplies outside India
@@ -474,7 +475,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Special Economic Zone</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Business (Unit) that is located in a Special
             <br />
             Economic Zone (SEZ) of Inida or a SEZ Developer
@@ -488,7 +489,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Deemed Export</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Supply of goods to an Export Oriented Unit or
             <br />
             against Advanced Authorization/Export Promotion
@@ -503,7 +504,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">Tax Deductor</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             Department of the State/Central government,
             <br />
             government agancies or local authorites
@@ -516,7 +517,7 @@ ChildStateModificationFunc = (modVal)=>{
       label: (
         <div>
           <p className="dropdown_title_heading">SEZ Developer</p>
-          <p style={{ fontSize: "12px" }}>
+          <p className="dropdown_desc_text" style={{ fontSize: "12px" }}>
             A person/origanisation who owns at least 26% of
             <br />
             the equity in creating business units in a Special
@@ -793,7 +794,7 @@ ChildStateModificationFunc = (modVal)=>{
                 </Tooltip>
                 <br />
                 <div>
-                <SearchDropdown
+                <SearchSelect
                   width={331}
                   options={gsttreatment}
                   onChange={handleDrpChange}
@@ -1339,7 +1340,8 @@ ChildStateModificationFunc = (modVal)=>{
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
                 <br />
-                <SearchDropdown
+                <SearchSelect
+                  multi
                   width={331}
                   options={gsttraetmentOptional}
                   value={values.pos}
@@ -1375,7 +1377,7 @@ ChildStateModificationFunc = (modVal)=>{
                 </Tooltip>
                 <br />
 
-                <SearchDropdown
+                <SearchSelect
                   width={331}
                   options={ownershipwithemail}
                   
@@ -1387,6 +1389,8 @@ ChildStateModificationFunc = (modVal)=>{
                 />
               </div>
             </div>
+
+            
 
             
             <div className="customerbutton_bottom">

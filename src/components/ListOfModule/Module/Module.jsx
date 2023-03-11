@@ -17,9 +17,12 @@ function Module() {
   }
 
   const option = [
-    { value: '1', label: 'Option 1' },
-    { value: '2', label: 'Option 2' },
-    { value: '3', label: 'Option 3' },
+    { value: '1', label: 'Option ' },
+    { value: '2', label: 'Option ' },
+    { value: '3', label: 'Option ' },
+    { value: '4', label: 'Option 4' },
+    { value: '5', label: 'Option 5' },
+    { value: '6', label: 'Option 6' },
   ];
 
   return (
@@ -32,11 +35,10 @@ function Module() {
     </div>
     <div className='Module'>
 
-    {/* <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option} value={value} onChange={handleChange}/>
-    <SearchSelect width={150} name="ownership" addNew="User" lable="Lable" options={option} value={value} onChange={handleChange}/>
-    <CategorySelect  />
-    <InputGroup />
-    <CustomInput label="Contact" width={330} icon/> */}
+    <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option}  value={value} onChange={handleChange}/>
+    {/* <CategorySelect  /> */}
+    <InputGroup width={20} options={option} addNew />
+    {/* <CustomInput label="Contact" width={330} icon/> */}
 
 
       <div style={{padding:"20px 20px"}}>
@@ -73,18 +75,11 @@ function Module() {
    <Link exact to="/manufactured_item" className='currency_btn'>Manufactured Item</Link>
    </div>
 
+   <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option}  value={value} onChange={handleChange}/>
    
   
   
 
-   {/* <div style={{marginBottom:"20px"}}>
-   <img src={link}/>
-   <Link exact to="/itemtable" className='currency_btn'>Item Table</Link>
-   </div>
-   <div style={{marginBottom:"20px"}}>
-   <img src={link}/>
-   <Link exact to="/itemgrouptable" className='currency_btn'>Item Group Table</Link>
-   </div> */}
    </div>
     </div>
     </div>
