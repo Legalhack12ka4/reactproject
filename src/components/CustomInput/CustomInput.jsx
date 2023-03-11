@@ -82,15 +82,15 @@ const CustomInput = ({
 
   return (
     <div className="custom-input-container ">
-      <label htmlFor={id} className="input-label sc-body-md">
+      {label && <label htmlFor={id} className="input-label sc-body-md">
         {label}
-      </label>
+      </label>}
       <div className="input-box">
         {icon && <img className="input-icon" src="/images/icons/barcode.svg" alt="icon" />}
       <input
         resizable={resizable}
         id={id}
-        style={{maxWidth: icon ? width-49:width-29, padding: icon ? "0px 14px 0px 34px":"0px 14px"}}
+        style={{width:icon ? width-49:width-29, padding: icon ? "0px 14px 0px 34px":"0px 14px",maxWidth: icon ? width-49:width-29, padding: icon ? "0px 14px 0px 34px":"0px 14px"}}
         maxLength={maxLength}
         name={name}
         onBlur={onBlur}

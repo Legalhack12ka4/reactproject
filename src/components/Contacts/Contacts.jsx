@@ -44,7 +44,7 @@ const resetValue = {
 
   const countryCodes = [
     {
-      label: "+1 United States",
+      label: "+1  United States",
       value: "United States"
     },
     {
@@ -1081,7 +1081,7 @@ const ownershipwithemail = [
     <p className="error_text">{errors.mobile}</p>
   )}
 </div>
-<InputGroup width={98} options={countryCodes} addNew />
+<InputGroup width={98}  options={countryCodes} addNew />
 
               <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
