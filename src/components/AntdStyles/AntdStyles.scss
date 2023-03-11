@@ -66,16 +66,16 @@
 .ant-pagination .ant-pagination-item-active {
   border-color: #5c5ad0 !important;
 }
-:where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"]
-  [class^="ant-select"],
-:where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"]
-  [class^="ant-select"],
-:where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"]
-  [class*=" ant-select"],
-:where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"]
-  [class*=" ant-select"] {
-  border-color: #5c5ad0 !important;
-}
+// :where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"]
+//   [class^="ant-select"],
+// :where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"]
+//   [class^="ant-select"],
+// :where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"]
+//   [class*=" ant-select"],
+// :where(.css-dev-only-do-not-override-k83k30)[class*=" ant-select"]
+//   [class*=" ant-select"] {
+//   border-color: #5c5ad0 !important;
+// }
 // .ant-tooltip-placement-top .ant-tooltip-arrow {
 // display: none !important
 // }
@@ -349,23 +349,23 @@ th {
 }
 
 // select or dropdown style
-.ant-select-selection-item .dropdown_title_heading {
-  font-size: 14px !important;
-  color: #566a7f !important;
-  font-weight: 500 !important;
-}
-.ant-select-selection-item {
-  font-size: 14px !important;
-  color: #566a7f !important;
-  font-weight: 500 !important;
-}
+// .ant-select-selection-item .dropdown_title_heading {
+//   font-size: 14px !important;
+//   color: $neutrals-400 !important;
+//   font-weight: 500 !important;
+// }
+// .ant-select-selection-item {
+//   font-size: 14px !important;
+//   color: #566a7f !important;
+//   font-weight: 500 !important;
+// }
 
-.ant-select-disabled.ant-select:not(.ant-select-customize-input)
-  .ant-select-selector {
-  color: rgba(0, 0, 0, 0.25);
-  background: #eceef1;
-  cursor: not-allowed;
-}
+// .ant-select-disabled.ant-select:not(.ant-select-customize-input)
+//   .ant-select-selector {
+//   color: rgba(0, 0, 0, 0.25);
+//   background: #eceef1;
+//   cursor: not-allowed;
+// }
 
 //style for over on customer back
 .ant-breadcrumb a {
