@@ -16,6 +16,8 @@ import alert from "../../assets/Images/Confirmation/confirm.svg";
 import ContactsData from "./Contacts-Data/ContactsData";
 import SearchDropdownAddButtonContact from "../AllDropdowns/SearchDropdownAddButtonContact/SearchDropdownAddButtonContact";
 import CustomInput from "../CustomInput/CustomInput";
+import { InputGroup, SearchSelect } from "../Dropdowns/Dropdowns";
+
 
 
 
@@ -41,177 +43,415 @@ const resetValue = {
 
 
   const countryCodes = [
-    // {
-    //   code: "+1",
-    //   value: "United States"
-    // },
-    // {
-    //   code: "+7",
-    //   value: "Russia"
-    // },
     {
-      code: "+20",
+      label: "+1 United States",
+      value: "United States"
+    },
+    {
+      label: "+7 Russia",
+      value: "Russia"
+    },
+    {
+      label: "+20 Egypt",
       value: "Egypt"
     },
     {
-      code: "+27",
+      label: "+27 South Africa",
       value: "South Africa"
     },
     {
-      code: "+30",
+      label: "+30 Greece",
       value: "Greece"
     },
     {
-      code: "+31",
+      label: "+31 Netherlands",
       value: "Netherlands"
     },
     {
-      code: "+32",
+      label: "+32 Belgium",
       value: "Belgium"
     },
     {
-      code: "+33",
+      label: "+33 France",
       value: "France"
     },
     {
-      code: "+34",
+      label: "+34 Spain",
       value: "Spain"
     },
     {
-      code: "+36",
+      label: "+36 Hungary",
       value: "Hungary"
     },
     {
-      code: "+39",
+      label: "+39 Italy",
       value: "Italy"
     },
     {
-      code: "+40",
+      label: "+40 Romania",
       value: "Romania"
     },
     {
-      code: "+41",
+      label: "+41 Switzerland",
       value: "Switzerland"
     },
     {
-      code: "+43",
+      label: "+43 Austria",
       value: "Austria"
     },
     {
-      code: "+44",
+      label: "+44 United Kingdom",
       value: "United Kingdom"
     },
     {
-      code: "+45",
+      label: "+45 Denmark",
       value: "Denmark"
     },
     {
-      code: "+46",
+      label: "+46 Sweden",
       value: "Sweden"
     },
     {
-      code: "+47",
+      label: "+47 Norway",
       value: "Norway"
     },
     {
-      code: "+48",
+      label: "+48 Poland",
       value: "Poland"
     },
     {
-      code: "+49",
+      label: "+49 Germany",
       value: "Germany"
     },
     {
-      code: "+51",
+      label: "+51 Peru",
       value: "Peru"
     },
     {
-      code: "+52",
+      label: "+52 Mexico",
       value: "Mexico"
     },
     {
-      code: "+53",
+      label: "+53 Cuba",
       value: "Cuba"
     },
     {
-      code: "+54",
+      label: "+54 Argentina",
       value: "Argentina"
     },
     {
-      code: "+55",
+      label: "+55 Brazil",
       value: "Brazil"
     },
     {
-      code: "+56",
+      label: "+56 Chile",
       value: "Chile"
     },
     {
-      code: "+57",
+      label: "+57 Colombia",
       value: "Colombia"
     },
     {
-      code: "+58",
+      label: "+58 Venezuela",
       value: "Venezuela"
     },
     {
-      code: "+60",
+      label: "+60 Malaysia",
       value: "Malaysia"
     },
     {
-      code: "+61",
+      label: "+61 Australia",
       value: "Australia"
     },
     {
-      code: "+62",
+      label: "+62 Indonesia",
       value: "Indonesia"
     },
     {
-      code: "+63",
+      label: "+63 Philippines",
       value: "Philippines"
     },
     {
-      code: "+64",
+      label: "+64 New Zealand",
       value: "New Zealand"
     },
     {
-      code: "+65",
+      label: "+65 Singapore",
       value: "Singapore"
     },
     {
-      code: "+66",
+      label: "+66 Thailand",
       value: "Thailand"
     },
     {
-      code: "+81",
+      label: "+81 Japan",
       value: "Japan"
     },
     {
-      code: "+82",
+      label: "+82 South Korea",
       value: "South Korea"
     },
     {
-      code: "+84",
+      label: "+84 Vietnam",
       value: "Vietnam"
     },
     {
-      code: "+86",
+      label: "+86 China",
       value: "China"
     },
     {
-      code: "+90",
+      label: "+90 Turkey",
       value: "Turkey"
     },
     {
-      code: "+91",
+      label: "+91 India",
       value: "India"
     },
     {
-      code: "+92",
+      label: "+92 Pakistan",
       value: "Pakistan"
-   
-    } , 
-    // Add more country codes and values as needed
+    },
+    {
+      label: "+93 Afghanistan",
+      value: "Afghanistan"
+    },
+    {
+      label: "+94 Sri Lanka",
+      value: "Sri Lanka"
+    },
+    {
+      label: "+95 Myanmar",
+      value: "Myanmar"
+    },
+    {
+      label: "+98 Iran",
+      value: "Iran"
+    },
+    {
+      label: "+212 Morocco",
+      value: "Morocco"
+    },
+    {
+      label: "+213 Algeria",
+      value: "Algeria"
+    },
+    {
+      label: "+216 Tunisia",
+      value: "Tunisia"
+    },
+    {
+      label: "+218 Libya",
+      value: "Libya"
+    },
+    {
+      label: "+220 Gambia",
+      value: "Gambia"
+    },
+    {
+      label: "+221 Senegal",
+      value: "Senegal"
+    },
+    {
+      label: "+222 Mauritania",
+      value: "Mauritania"
+    },
+    {
+      label: "+223 Mali",
+      value: "Mali"
+    },
+    {
+      label: "+224 Guinea",
+      value: "Guinea"
+    },
+    {
+      label: "+225 Ivory Coast",
+      value: "Ivory Coast"
+    },
+    {
+      label: "+226 Burkina Faso",
+      value: "Burkina Faso"
+    },
+    {
+      label: "+227 Niger",
+      value: "Niger"
+    },
+    {
+      label: "+228 Togo",
+      value: "Togo"
+    },
   ];
+  // const countryCodes = [
+  //   // {
+  //   //   label: "+1",
+  //   //   value: "United States"
+  //   // },
+  //   // {
+  //   //   label: "+7",
+  //   //   value: "Russia"
+  //   // },
+  //   // {
+  //   //   label: "+20",
+  //   //   value: "Egypt"
+  //   // },
+  //   // {
+  //   //   label: "+27",
+  //   //   value: "South Africa"
+  //   // },
+  //   // {
+  //   //   label: "+30",
+  //   //   value: "Greece"
+  //   // },
+  //   // {
+  //   //   label: "+31",
+  //   //   value: "Netherlands"
+  //   // },
+  //   // {
+  //   //   label: "+32",
+  //   //   value: "Belgium"
+  //   // },
+  //   // {
+  //   //   label: "+33",
+  //   //   value: "France"
+  //   // },
+  //   // {
+  //   //   label: "+34",
+  //   //   value: "Spain"
+  //   // },
+  //   // {
+  //   //   label: "+36",
+  //   //   value: "Hungary"
+  //   // },
+  //   // {
+  //   //   label: "+39",
+  //   //   value: "Italy"
+  //   // },
+  //   // {
+  //   //   label: "+40",
+  //   //   value: "Romania"
+  //   // },
+  //   // {
+  //   //   label: "+41",
+  //   //   value: "Switzerland"
+  //   // },
+  //   // {
+  //   //   label: "+43",
+  //   //   value: "Austria"
+  //   // },
+  //   // {
+  //   //   label: "+44",
+  //   //   value: "United Kingdom"
+  //   // },
+  //   // {
+  //   //   label: "+45",
+  //   //   value: "Denmark"
+  //   // },
+  //   // {
+  //   //   label: "+46",
+  //   //   value: "Sweden"
+  //   // },
+  //   // {
+  //   //   label: "+47",
+  //   //   value: "Norway"
+  //   // },
+  //   // {
+  //   //   label: "+48",
+  //   //   value: "Poland"
+  //   // },
+  //   // {
+  //   //   label: "+49",
+  //   //   value: "Germany"
+  //   // },
+  //   // {
+  //   //   label: "+51",
+  //   //   value: "Peru"
+  //   // },
+  //   // {
+  //   //   label: "+52",
+  //   //   value: "Mexico"
+  //   // },
+  //   // {
+  //   //   label: "+53",
+  //   //   value: "Cuba"
+  //   // },
+  //   // {
+  //   //   label: "+54",
+  //   //   value: "Argentina"
+  //   // },
+  //   // {
+  //   //   label: "+55",
+  //   //   value: "Brazil"
+  //   // },
+  //   // {
+  //   //   label: "+56",
+  //   //   value: "Chile"
+  //   // },
+  //   // {
+  //   //   label: "+57",
+  //   //   value: "Colombia"
+  //   // },
+  //   // {
+  //   //   label: "+58",
+  //   //   value: "Venezuela"
+  //   // },
+  //   // {
+  //   //   label: "+60",
+  //   //   value: "Malaysia"
+  //   // },
+  //   // {
+  //   //   label: "+61",
+  //   //   value: "Australia"
+  //   // },
+  //   // {
+  //   //   label: "+62",
+  //   //   value: "Indonesia"
+  //   // },
+  //   // {
+  //   //   label: "+63",
+  //   //   value: "Philippines"
+  //   // },
+  //   // {
+  //   //   label: "+64",
+  //   //   value: "New Zealand"
+  //   // },
+  //   // {
+  //   //   label: "+65",
+  //   //   value: "Singapore"
+  //   // },
+  //   // {
+  //   //   label: "+66",
+  //   //   value: "Thailand"
+  //   // },
+  //   // {
+  //   //   label: "+81",
+  //   //   value: "Japan"
+  //   // },
+  //   // {
+  //   //   label: "+82",
+  //   //   value: "South Korea"
+  //   // },
+  //   // {
+  //   //   label: "+84",
+  //   //   value: "Vietnam"
+  //   // },
+  //   // {
+  //   //   label: "+86",
+  //   //   value: "China"
+  //   // },
+  //   // {
+  //   //   label: "+90",
+  //   //   value: "Turkey"
+  //   // },
+  //   // {
+  //   //   label: "+91",
+  //   //   value: "India"
+  //   // },
+  //   // {
+  //   //   label: "+92",
+  //   //   value: "Pakistan"
+   
+  //   // } , 
+  //   // Add more country codes and values as needed
+  // ];
 
 function Contacts(props) {
   const [formData, setFormData] = useState(resetValue);
@@ -795,6 +1035,7 @@ const ownershipwithemail = [
     </label>{" "}
   </Tooltip>
   <br />
+  
   <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
   <div className="countryCodeDropdown focus-outline">
       <select value={selectedCode} onChange={(e) => setSelectedCode(e.target.value)}>
@@ -840,6 +1081,7 @@ const ownershipwithemail = [
     <p className="error_text">{errors.mobile}</p>
   )}
 </div>
+<InputGroup width={98} options={countryCodes} addNew />
 
               <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
