@@ -8,7 +8,7 @@ import "./Dashboard.scss";
 const Dashboard = () => {
   return (
     <>
-        <div className="dashboard_details">
+        {/* <div className="dashboard_details">
 
           <div className="dashboard_container">
           <div className="sales_order">
@@ -144,7 +144,7 @@ const Dashboard = () => {
       </div>
           </div>
       
-    </div>
+    </div> */}
 
 
     </>
