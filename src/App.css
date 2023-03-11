@@ -64,9 +64,9 @@ input{
   font-size: 14px;
   font-weight: 500;
 }
-input::placeholder{
-  color: #fff !important;
-}
+/* input::placeholder{
+ // color: #fff !important;
+} */
 
 input::placeholder {
   transition: all 0.2s ease-out;

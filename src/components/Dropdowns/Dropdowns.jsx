@@ -3,6 +3,7 @@ import { Button, Divider, Input, Select, Space } from "antd";
 import { useImperativeHandle } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import './Dropdowns.scss'
+import CustomInput from "../CustomInput/CustomInput";
 
 const { OptGroup, Option } = Select;
 
@@ -280,13 +281,34 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
 
  console.log("openDD",open)
 
+ function renderOption(option) {
+  const label = option.label.trim();
+  const code = label.split(' ')[0];
+  const value = option.value;
+  const shouldShowCountry = !(code === label && label.indexOf(" ") !== -1);
+  return (
+    <Option key={value} value={value}>
+      {shouldShowCountry ? code : ''}
+    </Option>
+  );
+}
+
+//  function renderOption(option) {
+//   const code = option.split(' ')[0]; // Get the country code from the label
+//   return (
+//     <Option key={option.value} value={option.value}>
+//       {code}
+//     </Option>
+//   );
+
+// }
     return (
-        <div className="input-group srchdrp">
-           <Select
+        <div className="input-group srchdrp focus-outline">
+         <div>  <Select
        
        disabled={props.isDisabled}
        optionFilterProp="children"
-       value={selectedOption || undefined}
+       value={selectedOption || "India"}
        key={selectedOption}
        filterOption={(input, option) => {
          const labelMatches = (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
@@ -306,7 +328,7 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
          <>
            {props.addNew && <div className="search-input-box" type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} >
            <Input
-        placeholder="Search fruits"
+        placeholder="Search Country"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         style={{ marginBottom: 8 }}
@@ -317,11 +339,8 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
        )}
 
 
-     >{filteredOptions.map(({ value, label }) => (
-        <Option key={value} value={value}>
-          {label}
-        </Option>
-      ))}</Select>
+     >{filteredOptions.map((option) => renderOption(option))}</Select>
+    </div><CustomInput className="mobile_input" placeholder="Enter Number" width={232}/>
         </div>
     )
 }
