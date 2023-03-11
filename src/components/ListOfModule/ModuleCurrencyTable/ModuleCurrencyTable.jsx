@@ -17,6 +17,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+import CustomInput from "../../CustomInput/CustomInput";
 
 const resetValue = {
 
@@ -36,6 +37,27 @@ const ModuleCurrencyTable = () => {
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
+
+//special character validation
+// const handleInputChange = (evt, property) => {
+//   let newValue = evt.target.value;
+
+//   if (property === 'currency_name') {
+//     newValue = newValue.toUpperCase().replace(/[^A-Z\s]/g, "");
+//   }
+  
+//   if (property === 'symbol') {
+//     newValue = newValue.replace(/[^@._\-#$%^&*()+={}]/g, "");
+//   }
+//   if (property === 'country_name') {
+//     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+//     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
+//   } 
+//   setFormData(prevState => ({
+//     ...prevState,
+//     [property]: newValue
+//   }));
+// };
 
 //cofirmation modal 
 const handleConfirmData = () => {
@@ -183,9 +205,7 @@ else{
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-      });
-    
-     
+      });     
     });
   }
 }
@@ -348,38 +368,6 @@ console.log(formData)
                  <button 
                  className="actionlabel"
                  onClick={() => handleConfirmCancel(record)}
-                  //  onClick={(e) =>
-                  //    Swal.fire({
-                  //      title: "Are you sure?",
-                  //      text: "Once deleted, you will not be able to recover!",
-                  //      icon: "warning",
-                  //      showCancelButton: true,
-                  //      confirmButtonColor: "#3085d6",
-                  //      cancelButtonColor: "#d33",
-                  //      confirmButtonText: "Yes, delete it!",
-                  //    }).then((result) => {
-                  //     getData();
-                  //      if (result.isConfirmed) {
-                  //       getData();
-                  //        console.log(result.isConfirmed)
-                  //      // getData();
-                  //        if (deleteUser(record)) {
-                  //        // alert("2",getData())
-                  //          toast.warning("Deleted Successfuly", {
-                  //            position: "top-right",
-                  //            autoClose: 2000,
-                  //            hideProgressBar: false,
-                  //            closeOnClick: true,
-                  //            pauseOnHover: false,
-                  //            draggable: true,
-                  //            progress: undefined,
-                  //          });
-                  //        }
-                  //      }
-                  //    })
-                    
-                   //}
-                  
                  >
                 Delete
                  </button>
@@ -557,36 +545,75 @@ console.log(formData)
             <div className="addPaymentTermModalInputContainer">
               <div className="addPaymentTermModalInput">
                 <p>Currency Code</p>
-                <input
+                   <CustomInput
+                     className=" focus-outline"
+                    maxLength={3}
+                     placeholder="INR"
+                     inputType={"Alphabetical"}
+                     value={formData.currency_name}
+                     name="currency_name"
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "currency_name": newValue
+                        }))}
+              />
+                {/* <input
                 className="currency  focus-outline"
+                maxLength={3}
                   type="text"
                   placeholder="INR"
                   name="currency_name"
                   value={formData.currency_name}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "currency_name")}}
+                /> */}
               </div>
               <div className="addPaymentTermModalInput">
                 <p>Currency Symbol</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                     placeholder="₹"
+                     inputType={"Symbol"}
+                     value={formData.symbol}
+                     name="symbol"
+                     onChange={(e,newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "symbol": newValue
+                        }))}
+              />
+                {/* <input
                    className="currency focus-outline"
                   type="text"
                   placeholder="₹"
                   name="symbol"
                   value={formData.symbol}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "symbol")}}
+                /> */}
               </div>
               <div className="addPaymentTermModalInput">
                 <p>Currency Name</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                     type="text"
+                    placeholder="Indian Rupee"
+                     inputType={"CamelAlphabetical"}
+                     value={formData.country_name}
+                     name="country_name"
+                     onChange={(e,newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "country_name": newValue
+                        }))}
+              />
+                {/* <input
                    className="currency focus-outline"
                   type="text"
                   placeholder="Indian Rupee"
                   name="country_name"
                   value={formData.country_name}
-                  onChange={onChange}
-                />
+                  onChange={(e)=> {onChange(e); handleInputChange(e, "country_name")}}
+                /> */}
               </div>
             </div>
           </div>

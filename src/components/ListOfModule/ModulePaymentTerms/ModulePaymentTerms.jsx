@@ -18,6 +18,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+import CustomInput from "../../CustomInput/CustomInput";
 
 const resetValue = {
   terms: "",
@@ -38,6 +39,47 @@ const ModulePaymentTerms = () => {
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
+
+
+  //special character validation
+const handleInputChange = (evt, property) => {
+  let newValue = evt.target.value;
+
+  if (property === 'terms') {
+    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+  }
+  
+  if (property === 'days') {
+    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
+    var firstNumber = newValue.match(/^\d+/)[0];
+    var remainingString = newValue.substr(firstNumber.length + 1);
+    remainingString = remainingString.charAt(0).toUpperCase() + remainingString.slice(1);
+    newValue = firstNumber + " " + remainingString;
+  }
+  if (property === 'discount') {
+    newValue = newValue.replace(/[^0-9%]/g, "");
+    if (newValue.indexOf('%') !== -1) {
+      var firstNumber = newValue.match(/^\d+/)[0];
+      var percentSymbol = newValue.match(/%/)[0];
+      newValue = firstNumber + percentSymbol;
+    }
+  }
+  if (property === 'interest') {
+    newValue = newValue.replace(/[^0-9%]/g, "");
+    if (newValue.indexOf('%') !== -1) {
+      var firstNumber = newValue.match(/^\d+/)[0];
+      var percentSymbol = newValue.match(/%/)[0];
+      newValue = firstNumber + percentSymbol;
+    }
+  }
+  
+  
+  setFormData(prevState => ({
+    ...prevState,
+    [property]: newValue
+  }));
+};
 
 //cofirmation modal 
 const handleConfirmData = () => {
@@ -465,47 +507,99 @@ const deleteUser = (record)=>
             <div className="addPaymentTermModalInputContainer">
               <div className="addPaymentTermModalInput">
                 <p>Terms</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="Net 5"
+                  name="terms"
+                  inputType={"AlphaNumericUpperCase"}
+                  value={formData.terms}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "terms": newValue
+                        }))}
+              />
+                {/* <input
                 className=" focus-outline"
                   type="text"
                   placeholder="Net 5"
                   name="terms"
                   value={formData.terms}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "terms")}}
+                /> */}
               </div>
               <div className="addPaymentTermModalInput">
                 <p>Days</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="5 Days"
+                  name="days"
+                  inputType={"AlphaNumericUpperCase"}
+                  value={formData.days}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "days": newValue
+                        }))}
+              />
+                {/* <input
                 className="currency  focus-outline"
                   type="text"
                   placeholder="5 Days"
                   name="days"
                   value={formData.days}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "days")}}
+                /> */}
               </div>
               <div className="addPaymentTermModalInput">
                 <p>Discount %</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="10%"
+                  name="discount"
+                  inputType={"NumericPercentage"}
+                  value={formData.discount}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "discount": newValue
+                        }))}
+              />
+                {/* <input
                    className=" focus-outline"
                   type="text"
                   placeholder="10%"
                   name="discount"
                   value={formData.discount}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "discount")}}
+                /> */}
               </div>
               <div className="addPaymentTermModalInput">
                 <p>Interest %</p>
-                <input
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="1%"
+                  name="interest"
+                  inputType={"NumericPercentage"}
+                  value={formData.interest}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "interest": newValue
+                        }))}
+              />
+                {/* <input
                    className=" focus-outline"
                   type="text"
                   placeholder="1%"
                   name="interest"
                   value={formData.interest}
-                  onChange={onChange}
-                />
+                  onChange={(e) => {onChange(e); handleInputChange(e, "interest")}}
+                /> */}
               </div>
             </div>
           </div>

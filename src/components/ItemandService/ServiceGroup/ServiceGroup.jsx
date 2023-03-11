@@ -7,6 +7,7 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../../TagsInput/TagsInput";
 import config from '../../Database/config'
 import SelectAllDropdown from '../../AllDropdowns/SelectAllDropdown/SelectAllDropdown'
+import CustomInput from '../../CustomInput/CustomInput'
 
 
 const resetValue = {
@@ -546,11 +547,24 @@ const resetOther = () => {
                   <p>Group Name</p>
                   <div className="input_container focus-outline">
                     <img src="/images/icons/HSNSearch.svg" alt="" />
-                    <input type="text" placeholder="placeholder"
+                    <CustomInput
+                    type="text"
+                  inputType={"AlphaNumericUpperCase"}
+                    name="group_name"
+                    placeholder="Placeholder"
+                   value={formData.group_name}
+                onChange={(e, newValue) => 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "group_name": newValue
+                  }))}
+                  //onBlur={handleBlur}
+              />
+                    {/* <input type="text" placeholder="placeholder"
                     name="group_name"
                     value={formData.group_name}
                     onChange={onChange}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -570,7 +584,7 @@ const resetOther = () => {
                   <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
                   
                     <input type="text" placeholder="placeholder"
-                    style={{backgroundColor:"#ECEEF1"}}
+                    style={{backgroundColor:"#ECEEF1", color:"#4359714D"}}
                     disabled
                     name="group_name"
                     value="Non-Inventory Item"
@@ -579,6 +593,15 @@ const resetOther = () => {
                   </div>
                 </div>
                 </div>
+
+                <div className="input_group" style={{ marginBottom: "20px" }}>
+              <p>Type</p>
+              <SearchDropdown width={330}/>
+              {/* <div className="input_container focus-outline">
+                <img src="/images/icons/HSNSearch.svg" alt="" />
+                <input type="text" placeholder="placeholder" />
+              </div> */}
+            </div>
 
                 <div style={{display:"flex", gap:"20px"}}>
                 <div className="input_group">

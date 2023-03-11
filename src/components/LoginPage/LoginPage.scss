@@ -19,6 +19,7 @@
 
         .login-img{
             position: fixed;
+            width: 40%;
             left: 50%;
             top: 50%;
             transform: translate(-105%, -43%) !important;
@@ -108,7 +109,7 @@
 
                 .password_eye{
                     position: absolute;
-                    top: 39px;
+                    top: 35.5px;
                     right: 10px;
                 }
                 .forget_password{
@@ -217,8 +218,27 @@
     }
 }
 
+.card_main_container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-@media screen and (max-width: 1250px) {
+    .top_image{
+        position: absolute;
+        left: 111px;
+        top: -418px;
+        transform: rotate(-2deg);
+    }
+    .bottom_image{
+        position: absolute;
+        right: 114px;
+        bottom: -421px;
+        transform: rotate(-156deg);
+    }
+}
+
+@media screen and (max-width: 1300px) {
         .login-card-container{
             transform: translate(-50%,-50%) !important;
 

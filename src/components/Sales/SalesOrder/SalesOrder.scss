@@ -1,0 +1,473 @@
+.sales-order-main-container{
+    // border: 1px solid;
+    margin: auto;
+    width: 95%;
+    max-width: 2200px;
+    padding: 5px;
+    // height: 780px;
+    margin-top: 30px;
+    //overflow: scroll;
+    position: relative;
+
+
+    .sales-order-container{
+        background-color: #ffff;
+        width: 843px;
+        // height: 677px;
+        border-radius: 6px 6px 0px 0px;
+        margin-bottom: 4px;
+        box-shadow:  0px 2px 6px 0px #4359711f;
+
+        .company-and-order-details-container{
+            padding: 30px 30px 20px 30px;
+            // height: 184px;
+            display: flex;
+            justify-content: space-between;
+
+
+            .company-details{
+                img{
+                    width: 150px;
+                    height: 23px;
+                    margin-bottom: 20px;
+                }
+                .company-address{
+                    max-width: 270px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #101329;
+                    line-height: 1.5;
+                }
+            }
+
+            .order-details{
+                display: flex;
+                flex-direction:  column;
+                align-items: end;
+                
+                .sales-order-id-container{
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    margin-bottom: 10px;
+                    .sales-order-id-heading{
+                        font-size: 22px;
+                        font-weight: 600;
+                        color: #5C5AD0;
+                    }
+                    .sales-order-id{
+                        display: flex;
+                        justify-content: space-between;
+                        border: .5px solid #43597166;
+                        border-radius: 6px;
+                        height: 37px;
+                        width: 154px;
+                        background-color: #4359711A;
+                        
+
+                        .order-number{
+                            padding: 11px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                            
+                        }
+                        .setting-icon{
+                            padding: 11px;
+                            border-left: .5px solid #43597166;
+                        }
+
+                        
+                    }
+                }
+
+                .order-date-container{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 20px;
+                    margin-bottom: 10px;
+    
+                    .order-date-heading{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                    }
+    
+                    .sales-order-date-input{
+                        display: flex;
+                        justify-content: space-between;
+                        border: .5px solid #43597166;
+                        border-radius: 6px;
+                        height: 37px;
+                        width: 154px;
+                        overflow: hidden;
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+    
+                        input{
+                            padding: 11px;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+
+                .expected-shipment-date-container{
+                    display: flex;
+                    // justify-content: space-between;
+                    align-items: center;
+                    gap: 20px;
+    
+                    .expected-shipment-date-heading{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                    }
+    
+                    .expected-shipment-date-input{
+                        display: flex;
+                        justify-content: space-between;
+                        border: .5px solid #43597166;
+                        border-radius: 6px;
+                        height: 37px;
+                        width: 154px;
+                        overflow: hidden;
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+    
+                        input{
+                            padding: 11px;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+            }
+
+            
+
+            
+            
+        }
+
+        .contact-customer-container{
+            width: 783px;
+            height: 122px;
+            margin: auto;
+            display: flex;
+            background-color: #4359710D;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            
+            .select-contact{
+                padding: 30px 0px 30px 30px;
+
+                .select-customer-heading{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #101329;
+                }
+            }
+            .select-customer{
+                padding: 30px 0px 30px 30px;
+                .select-customer-heading{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #101329;
+                }
+            }
+        }
+
+        .sales-order-items-container{
+            .sales-order-items-heading{
+                display: flex;
+                align-items: center;
+                height: 34px;
+                background-color: #4359710D;
+                font-size: 12px;
+                    font-weight: 600;
+                    color: #101329;
+
+                .heading-item-details{
+                    width: 266px;
+                    padding-left: 30px;
+                    
+                }
+
+                .heading-qty{
+                    width: 100px;
+                    padding-left: 20px;
+                }
+
+                .heading-rate{
+                    width: 100px;
+                    padding-left: 20px;
+                }
+
+                .heading-tax{
+                    width: 130px;
+                    padding: 0px 20px;
+                }
+
+                .heading-amount{
+                    // width: 120px;
+                    padding-left: 20px;
+                }
+            }
+
+            .sales-order-items-row-container{
+                margin-bottom: 20px;
+                .sales-order-items-row{
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 0px;
+
+                    .sales-order-item-details{
+                        width: 266px;
+                        margin-left: 30px;
+
+                        input{
+                            border: .5px solid #43597166;
+                            height: 37px;
+                            border-radius: 6px;
+                            padding: 0px 14px;
+                            outline: none;
+                            width: 237px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                        }::placeholder{
+                            color: #4359714D !important;
+                        }
+                        
+                    }
+
+                    .sales-order-item-qty{
+                        width: 100px;
+                        margin-left: 20px;
+
+                        input{
+                            border: .5px solid #43597166;
+                            height: 37px;
+                            border-radius: 6px;
+                            padding: 0px 14px;
+                            outline: none;
+                            text-align: right;
+                            width: 71px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                        }
+                        ::placeholder{
+                            color: #4359714D !important;
+                        }
+                    }
+
+                    .sales-order-item-rate{
+                        width: 100px;
+                        margin-left: 20px;
+
+                        input{
+                            border: .5px solid #43597166;
+                            height: 37px;
+                            border-radius: 6px;
+                            padding: 0px 14px;
+                            outline: none;
+                            width: 71px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                            text-align: right;
+                        }::placeholder{
+                            color: #4359714D !important;
+                        }
+                    }
+
+                    .sales-order-item-tax{
+                        width: 130px;
+                        margin: 0px 20px;
+
+                        input{
+                            border: .5px solid #43597166;
+                            height: 37px;
+                            border-radius: 6px;
+                            padding: 0px 14px;
+                            outline: none;
+                            width: 101px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                            background-color: #4359711A;
+                        }
+                    }
+
+                    .sales-order-item-amount{
+                        width: 111px;
+                        margin-left: 20px;
+                        p{
+                            font-size: 14px;
+                            font-weight: 500;
+                            color: #101329;
+                        }
+                    }
+                    .delete-order-item-row{
+                        margin-left: -37px;
+                        cursor: pointer;
+                    }
+                }
+
+                .item-bottom-hr{
+                    width: 783px;
+                    border: .5px solid #4359714D;
+                    margin: auto;
+                }
+            }
+
+            .add-item-row-btn{
+                margin-left: 30px;
+                width: max-content;
+                cursor: pointer;
+                color: #5C5AD0;
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+
+        .attachments-sub-total-container{
+            padding: 30px 70px 30px 30px;
+            display: flex;
+            justify-content: space-between;
+
+            .attachments-container{
+                .notes-input{
+                    p{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 8px;
+                    }
+                    input{
+                        border: .5px solid #43597166;
+                        height: 37px;
+                        border-radius: 6px;
+                        padding: 0px 14px;
+                        outline: none;
+                        width: 301px;
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 20px;
+                    }
+                }
+                .attachments-input{
+                    p{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #101329;
+                        margin-bottom: 8px;
+                    }
+
+                    .upload-files-btn{ 
+                        border: .5px dashed #5C5AD0;
+                        img + span{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #435971B3 !important;
+                        margin-left: 9px;
+                    }
+                }
+                }
+            }
+
+            .sub-total-container{
+                width: 277px;
+                .sub-total-row{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #101329;
+                    margin-bottom: 16px;
+                }
+
+                .discount-container{
+                    display: flex;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                    margin-bottom: 16px;
+                    cursor: pointer;
+                }
+
+                .shiping-charge-container{
+                    display: flex;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #5C5AD0;
+                    margin-bottom: 16px;
+                    cursor: pointer;
+                }
+
+                .round-off-container{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+
+                    .add-round-off-heading{
+                        font-weight: 400;
+                        color: #435971B3;
+                        cursor: pointer;
+                    }
+
+                    .round-off-value{
+                        font-weight: 500;
+                        color: #101329;
+                    }
+                }
+
+                .total-container{
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #101329;
+
+                    .total-value{
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .terms-and-conditions-container{
+        background-color: #ffff;
+        width: 783px;
+        padding: 20px 30px 30px 30px;
+        border-radius: 0px 0px 6px 6px;
+        box-shadow:  0px 2px 6px 0px #4359711f;
+
+        .terms-and-conditions-heading{
+            font-size: 14px;
+            font-weight: 500;
+            color: #101329;
+            margin-bottom: 8px;
+        }
+
+        .terms-and-condition-text{
+            font-size: 14px;
+            font-weight: 500;
+            color: #435971B3;
+            border: .5px solid #43597166;
+            padding: 11px;
+            height: 57px;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
+    }
+}
+
