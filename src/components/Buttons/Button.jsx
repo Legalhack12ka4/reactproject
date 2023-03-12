@@ -2,48 +2,48 @@ import { Switch } from 'antd'
 import React from 'react'
 import './Buttons.scss'
 
-export const ContainedButton = () => {
+export const ContainedButton = ({value, width}) => {
   return (
-    <button className='sc-body-sb Contained-btn'>ContainedButton</button>
+    <button className='sc-body-sb Contained-btn' style={{width:width}}>{value}</button>
   )
 }
 
-export const ContainedSecondaryButton = () => {
+export const ContainedSecondaryButton = ({value, width}) => {
     return (
-        <button className='sc-body-sb sc-text-btn'>ContainedSecondaryButton</button>
+        <button className='sc-body-sb sc-text-btn' style={{width:width}}>{value}</button>
     )
     }
 
 
-export const ContainedIconButton = () => {
+export const ContainedIconButton = ({value, width}) => {
     return (
-        <button className='contained-icon-btn sc-body-sb'>
+        <button className='contained-icon-btn sc-body-sb' style={{width:width}}>
             <img src="/images/icons/send_icon.svg" alt="icon" />
-            <p>ContainedIconButton</p>
+            <p>{value}</p>
         </button>
     )
     }
 
 
-export const GhostButton = () => {
+export const GhostButton = ({value, width}) => {
     return (
-        <button className='ghost-btn sc-body-sb' >GhostButton</button>
+        <button className='ghost-btn sc-body-sb' style={{width:width}} >{value}</button>
     )
     }
 
-export const GhostIconButton = () => {
+export const GhostIconButton = ({value, width}) => {
     return (
-        <button className='ghost-icon-btn sc-body-sb' >
+        <button className='ghost-icon-btn sc-body-sb' style={{width:width}}>
             <img src="/images/icons/send-primary-icon.svg" alt="icon" />
-            <p>GhostIconButton</p>
+            <p>{value}</p>
         </button>
     )
     }
 
 
-export const TextButton = () => {
+export const TextButton = ({value, width}) => {
     return (
-        <button className='text-btn sc-body-sb' >TextButton</button>
+        <button className='text-btn sc-body-sb' style={{width:width}}>{value}</button>
     )
     }
 
