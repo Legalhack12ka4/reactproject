@@ -1,3 +1,5 @@
+@import  '../../assets/Colors/Colors.scss';
+
 .login-page-main{
     position: fixed;
     top: 0;
@@ -26,10 +28,20 @@
         }
     }
 
+    .card-background-image{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 750px;
+        width: 750px;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
 
-    .login-card-container{
-        // border: 1px solid;
-        width: 376px;
+
+    .new-password-container{
+        width: 336px;
         max-height: 528px;
         background-color: #FFFFFF;
         border-radius: 6px;
@@ -37,88 +49,198 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(35%, -50%);
-        padding: 45px;
+        transform: translate(-50%, -50%);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         .headers{
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             h2{
-                font-size: 22px;
-                font-weight: 600;
-                color: #5C5AD0;
-                margin-bottom: 12px;
+                color: $primary-100;
+                margin-bottom: 8px;
             }
             p{
-                font-size: 14px;
-                font-weight: 500;
-                color: #697A8D;
+                color: $neutrals-500;
+            }
+        }
+        .credentials{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+
+            .password{
+                position:relative;
+                margin-bottom: 20px;
+
+                .password_eye{
+                    position: absolute;
+                    top: 34.5px;
+                    right: 10px;
+                    width: 20px;
+                    height: 20px;
+
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .confirm-password{
+                position:relative;
+
+                .password_eye{
+                    position: absolute;
+                    top: 34.5px;
+                    right: 10px;
+                    width: 20px;
+                    height: 20px;
+
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .back-to-signin{
+            margin-top: 20px;
+            span{
+                color: $primary-100;
+                cursor: pointer;
+            }
+        }
+    }
+    .forget-password-container{
+        width: 352px;
+        max-height: 528px;
+        background-color: #FFFFFF;
+        border-radius: 6px;
+        box-shadow: 0px 2px 6px 0px #4359711f;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .headers{
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h2{
+                color: $primary-100;
+                margin-bottom: 8px;
+            }
+            p{
+                color: $neutrals-500;
+            }
+        }
+        .credentials{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-to-signin{
+            margin-top: 20px;
+            span{
+                color: $primary-100;
+                cursor: pointer;
+            }
+        }
+
+    }
+    .login-card-container{
+        // border: 1px solid;
+        width: 330px;
+        max-height: 528px;
+        background-color: #FFFFFF;
+        border-radius: 6px;
+        box-shadow: 0px 2px 6px 0px #4359711f;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 40px;
+
+
+        .headers{
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            h2{
+                color: $primary-100;
+                margin-bottom: 8px;
+            }
+            p{
+                color: $neutrals-500;
             }
         }
 
         .credentials{
+            
             .login-email{
                 margin-bottom: 20px;
-                label{
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #566A7F;
-                }
-                #email-box{
-                    width: 345px;
-                    height: 36px;
-                    border: 1px solid #E0E0E0;
-                    border-radius: 5px;
-                    padding: 0 14px;
-                    margin-top: 10px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #697A8D;
-                }::placeholder{
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #697A8D !important;
-                }
+
             }
 
             .login-password{
                 position: relative;
                 margin-bottom: 20px;
-                label{
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #566A7F;
-                }
-                #password-box{
-                    width: 345px;
-                    height: 36px;
-                    border: 1px solid #E0E0E0;
-                    border-radius: 5px;
-                    padding: 0 14px;
-                    margin-top: 10px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #697A8D;
-                    display: flex;
-                }::placeholder{
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #697A8D !important;
-                    display: flex !important;
-                    align-items: center !important;
-                }
+                // label{
+                //     font-size: 14px;
+                //     font-weight: 500;
+                //     color: #566A7F;
+                // }
+                // #password-box{
+                //     // width: 345px;
+                //     // height: 36px;
+                //     // border: 1px solid #E0E0E0;
+                //     // border-radius: 5px;
+                //     // padding: 0 14px;
+                //     // margin-top: 10px;
+                //     // font-size: 14px;
+                //     // font-weight: 500;
+                //     // color: #697A8D;
+                //     // display: flex;
+                // }::placeholder{
+                //     font-size: 14px;
+                //     font-weight: 500;
+                //     color: #697A8D !important;
+                //     display: flex !important;
+                //     align-items: center !important;
+                // }
 
                 .password_eye{
                     position: absolute;
-                    top: 35.5px;
+                    top: 34.5px;
                     right: 10px;
+                    width: 20px;
+                    height: 20px;
+
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
                 .forget_password{
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #5C5AD0;
+                    color: $primary-100;
                     position: absolute;
-                    top: 1px;
-                    right: 0;
+                    cursor: pointer;
+                    top: 82px;
+                    right: -1px;
                 }
             }
         }
@@ -126,12 +248,10 @@
             display: flex;
             gap: 10px;
             align-items: center;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             
             label{
-                font-size: 14px;
-                font-weight: 500;
-                color: #697A8D;
+                color: $neutrals-500;
             }
         }
 
@@ -139,7 +259,7 @@
             font-size: 14px;
             font-weight: 700;
             color: #ffff;
-            background-color: #5C5AD0;
+            background-color: $primary-100;
             border-radius: 5px;
             outline: none;
             border: none;
@@ -154,7 +274,7 @@
             font-size: 14px;
             font-weight: 500;
             color: #697A8D;
-            margin-bottom: 25px;
+            margin-top: 20px;
 
             span{
                 font-weight: 600;

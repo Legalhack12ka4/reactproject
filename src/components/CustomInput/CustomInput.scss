@@ -3,7 +3,7 @@
 .custom-input-container{
     display: flex;
     flex-direction: column;
-    max-width: 330px;
+    max-width: 330px !important;
     .input-label{
         color: $neutrals-400;
         margin-bottom: 8px;
@@ -21,8 +21,9 @@
         }
     input{
         border: .5px solid $neutrals-700;
-        border-radius: 4px;
-        height: 37px;
+        border-radius: 6px;
+        background-color: #ffff;
+        height: 36px;
         color: $neutrals-100;
         font-size: 14px;
         font-weight: 400;
