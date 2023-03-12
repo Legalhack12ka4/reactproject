@@ -255,10 +255,11 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
       <div className="table_nav">
         <div className="tableBtn_container">
           <div className="new_btn_or_reports_main">
-            <div className="view_reports_container">
+            {props.activeMode}
+            {/* <div className="view_reports_container">
               <img src="/images/icons/report_icon.svg" alt="" />
               <p>View Reports</p>
-            </div>
+            </div> */}
             <div className="new_btn_container btn_hover_animation">
               <Link exact to={props.path} onClick={props.onClick}>
                 <div className="tableBtn addNewBtn" onClick={showCanvas}>

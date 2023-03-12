@@ -23,6 +23,7 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import { Link } from "react-router-dom";
 import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
+import { ToggleButton } from "../../Buttons/Button";
 
 
 const filterfield = {
@@ -59,6 +60,7 @@ const ContactsData = (props) => {
   const [dateRange , setDateRange] = useState([]) //for date filter
   const [startdate, setStartdate] = useState([]);
   const [enddate, setEnddate] = useState([]);
+  const [activeMode, setActiveMode] = useState("grid");
 
  
 //daterangefunction
@@ -629,6 +631,8 @@ const deleteUser = (record)=>
       // && record.ownership.toLowerCase().includes(search.toLowerCase())
   );
 
+  console.log(cusomizeData)
+
   // console.log(cusomizeData);
 
   var strDate = custfilter.dob;
@@ -703,7 +707,8 @@ setoldData(oldData)
     <div className="contacts-data">
       <Page_heading parent={"Business Account"} child={"contacts"} />
 
-      <div className="contacts-table-container">
+      {activeMode === "table" && <div className="contacts-table-container">
+        <div className="filter-searchbar-container">
         <FilterAndSearchBar
         selectedColumnsLength={selectedColumns.length}
           results_length={`${cusomizeData.length} Contacts`}
@@ -810,7 +815,20 @@ setoldData(oldData)
             clearfilter(e);
             setVisible(!visible);
           }}
+          activeMode={ <div className="options-container">
+          <div onClick={() => setActiveMode('grid')}>
+            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+              Grid
+            </div>
+          </div>
+          <div onClick={() => setActiveMode('table')}>
+            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+              Table
+            </div>
+          </div>
+        </div> }
         />
+        </div>
         <OffCanvasExample form={<Contacts handledata={getDataChild} onClick={getData} />} />
         <div className="tableData">
         {/* <button onClick={() => { setStartdate(null); setEnddate(null) }}>Clear</button> */}
@@ -1070,7 +1088,197 @@ setoldData(oldData)
       </Modal>
           {/* <SearchDropdown/> */}
         </div>
-      </div>
+      </div>}
+
+
+      
+
+      {activeMode === "grid" &&<div className="contacts-grid-container">
+        <FilterAndSearchBar
+        selectedColumnsLength={selectedColumns.length}
+          results_length={`${cusomizeData.length} Contacts`}
+          filterdata={[
+            <div className="contact_filter_container">
+              <div className="customer_filter_filed">
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Position</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="position"
+                  options={position}
+                  value={custfilter.position}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ marginBottom: "20px", marginTop: "20px" }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="ownership"
+                  options={ownership}
+                  value={custfilter.ownership}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="customer_filter_filed">
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="contactlabel" style={{ marginTop: "5px" }}>
+                    Date of Birth
+                  </label>{" "}
+                </Tooltip>
+                <br />
+                <div className="contactinput" style={{ marginTop: "5px" }}>
+                  <img src={dob} className="customerimg" />
+
+          <CalendarComp    name="dob"
+                    value={custfilter.dob}
+                    onChange={onChangedob}/>
+                </div>
+              </div>
+            </div>,
+          ]}
+          change={filterarray}
+          onSelectColumn={handleSelectColumn}
+          customer={fetchcontact.length}
+          filterLength={filterarray.length}
+          columns={columns}
+          setColumns={setColumns}
+          addBtnName={"Contacts"}
+          onData={handleData}
+          filter={<Contacts />}
+          onFilter={(e) => {
+            clearfilter(e);
+            setVisible(!visible);
+          }}
+          activeMode={ <div className="options-container">
+          <div onClick={() => setActiveMode('grid')}>
+            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+              Grid
+            </div>
+          </div>
+          <div onClick={() => setActiveMode('table')}>
+            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+              Table
+            </div>
+          </div>
+        </div> }
+        />
+        <OffCanvasExample form={<Contacts handledata={getDataChild} onClick={getData} />} />
+        <div className="tableData">
+          {filterarray.length > 0 && (
+            <div className="tags" id="tags">
+              <div className="appliedtag ">Filtered by </div>
+              {filterarray.map((customerfilter, index) => {
+                return (
+                  customerfilter.value && (
+                    <Tooltip
+                      className="tlpclr"
+                      id="tlpclr"
+                      title={`${
+                        (customerfilter.key === "position" && "Position") ||
+                        (customerfilter.key === "ownership" && "Ownership") ||
+                        (customerfilter.key === "dob" && "Date of Birth") ||
+                        (customerfilter.key === "updated_date_time" && "Date")
+                      } : ${customerfilter.value}`}
+                      color="#EBECF0"
+                    >
+                      <Tag
+                        key={customerfilter.key}
+                        className="tag1"
+                        closable
+                        closeIcon={<img src="images/icons/tag_close_icon.svg" style={{marginLeft:"4px"}}/>}
+                        onClose={(e) => {
+                          log(index, customerfilter.key);
+                        }}
+                      >
+                        {customerfilter.key == "dob"
+                          ? convertedDate
+                          : customerfilter.value}
+                      </Tag>
+                    </Tooltip>
+                  )
+                );
+              })}
+
+              <button
+                type="submit"
+                className="btnfilter"
+                onClick={(e) => {
+                  setVisible(!visible);
+                  clearfilter(e);
+                }}
+              >
+                Clear All
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="grid-data-container">
+
+          {cusomizeData.map((data, index) => {
+            return (
+          <div className="card-container">
+            <div className="profile-container">
+              <img src="/images/searchbar_icons/User-Avtar.svg" className="user-avtar" alt="" />
+              <div className="name-option-container">
+                <h2 className="title-sb name">{data.name}</h2>
+                <p className="caption-md">Key Person</p>
+                <div className="lead-option-container">
+                <div className="lead caption-sb">Lead</div>
+                <img src="/static/media/editdelete.8e23e097a7fbc2580a94edf69fc92a76.svg" alt="icon" />
+                </div>
+                
+
+              </div>
+            </div>
+
+            <div className="business-details-container">
+              <div className="account">
+                <p className="caption-md">Account</p>
+                <h5 className="sc-body-md business-name">Reformiqo Business Service Pvt. Ltd</h5>
+              </div>
+
+              <div className="email">
+                <p className="caption-md">Email</p>
+                <h5 className="sc-body-md email-id">parth.goswami@reformiqo.com</h5>
+              </div>
+
+              <div className="phone">
+                <p className="caption-md">Phone</p>
+                <h5 className="sc-body-md mobile">{data.mobile}</h5>
+              </div>
+
+              <div className="lead">
+                <p className="caption-md">Lead Source</p>
+                <h5 className="sc-body-md lead-source">Itme 2022 <span className="caption-md">(18 Feb 2022 - 1:30 PM)</span></h5>
+              </div>
+
+              <div className="ownership">
+                <p className="caption-md">Ownership</p>
+                <h5 className="sc-body-md ownership-name">Ashish Jaria</h5>
+              </div>
+            </div>
+
+          </div>)
+          })}
+
+
+        </div>
+
+        </div>}
+
     </div>
   );
 };
