@@ -237,8 +237,8 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
   const [open, setOpen] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
-  const filteredOptions = options.filter(({ label }) =>
-    label.toLowerCase().includes(searchValue.toLowerCase())
+  const filteredOptions = options.filter(({ value }) =>
+    value.toLowerCase().includes(searchValue.toLowerCase())
   );
   let suffixIcon;
   if (open) {
@@ -266,42 +266,14 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
   };
 
   const handleChange = (value) => {
+    const selectedOption = options.find(option => option.value === value);
     setSelectedOption(value);
     onChange(name, value);
     console.log(name)
     console.log(value)
+    console.log(selectedOption.code); // This will log the country code of the selected option
   };
 
-//  useImperativeHandle (ref, () => ({
-//   getAlert () {
-//     props.popVisible();
-//     handleReset();
-//   }
-//  }))
-
- console.log("openDD",open)
-
- function renderOption(option) {
-  const label = option.label.trim();
-  const code = label.split(' ')[0];
-  const value = option.value;
-  const shouldShowCountry = !(code === label && label.indexOf(" ") !== -1);
-  return (
-    <Option key={value} value={value}>
-      {shouldShowCountry ? code : ''}
-    </Option>
-  );
-}
-
-//  function renderOption(option) {
-//   const code = option.split(' ')[0]; // Get the country code from the label
-//   return (
-//     <Option key={option.value} value={option.value}>
-//       {code}
-//     </Option>
-//   );
-
-// }
     return (
         <div className="input-group srchdrp focus-outline">
          <div>  <Select
@@ -324,11 +296,13 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
        removeIcon={<img src="/images/icons/cross-icon-primary.svg" alt="icon" />}
         suffixIcon={suffixIcon}
         onDropdownVisibleChange={(o) => setOpen(o)}
+        // optionLabelProp="value"
         dropdownRender={(menu) => (
          <>
            {props.addNew && <div className="search-input-box" type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} >
            <Input
         placeholder="Search Country"
+        // allowClear
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         style={{ marginBottom: 8 }}
@@ -339,7 +313,11 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
        )}
 
 
-     >{filteredOptions.map((option) => renderOption(option))}</Select>
+     >{filteredOptions.map(({ value, label }) => (
+        <Option  key={value} value={value}>
+        {label}
+        </Option>
+      ))}</Select>
     </div><CustomInput className="mobile_input" placeholder="Enter Number" width={232}/>
         </div>
     )
