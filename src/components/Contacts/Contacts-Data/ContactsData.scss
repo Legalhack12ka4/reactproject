@@ -1,4 +1,5 @@
 @import '../../../assets/Colors/Colors.scss';
+@import '../../../assets/Colors/Colors.scss';
 
 .contacts-data{
     // border: 1px solid;
@@ -13,8 +14,9 @@
     .contacts-table-container{
         // border: 1px solid;
         // padding: 20px;
+        max-height: 100px;
         background-color: #ffff;
-        border-radius: 8px;
+        border-radius: 8px 8px 8px 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
 
         .filter-searchbar-container{
@@ -45,18 +47,18 @@
         background-color: #FFFFFF;
         border-radius: 6px 0px 0px 6px;
         gap: 20px;
-        font-size: 14px;
-        font-weight: 400;
-        color: #697A8D;
+        // font-size: 14px;
+        // font-weight: 400;
+        //color: #697A8D;
         border-right: 3px solid #F3F3F8;
-        height: 100%;
-        padding: 0px 20px;
+      //  height: 100%;
+        padding: 18px 20px;
         width: 230px;
 
         span{
             color: #5C5AD0;
-            font-size: 12px;
-            font-weight: 600;
+           // font-size: 12px;
+           // font-weight: 600;
             cursor: pointer;
         }
     }
@@ -70,8 +72,8 @@
         font-weight: 400;
         color: #697A8D;
         border-right: 3px solid #F3F3F8;
-        height: 100%;
-        padding: 0px 20px;
+        //height: 100%;
+        padding: 18px 20px;
         // width: 230px;
 
         // .change_status{
@@ -88,23 +90,31 @@
             gap: 8px;
             cursor: pointer;
             padding: 17px 0px;
+            font-weight: 500;
 
         }
     }
-
+   
     .delete_container{
         display: flex;
         align-items: center;
         gap: 8px;
         font-size: 14px;
-        font-weight: 400;
-        color: #DA2F58;
-        height: 100%;
+        font-weight: 500;
+        color:$danger-100;
+       // height: 100%;
         background-color: #FFFFFF;
         border-radius: 0px 6px 6px 0px;
-        padding: 0px 20px;
+        padding: 18px 20px;
         cursor: pointer;
     }
+}
+
+.change_status_dropdown
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
 }
 
 
@@ -115,7 +125,8 @@
     width: 8px;
     height: 8px;
     background-color: #28A745;
-    margin-right: 5px;
+  //  margin-right: 5px;
+    border: 2px solid $success-700;
 }
 
 
@@ -168,45 +179,67 @@
        
     }
     .new_lead{
-        color: #54A0FF;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #54A0FF;
+        background-color: $info-100;
+        border: 2px solid $info-700;
          }
         }
     .not_interested{
-        color: #DA2F58;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #DA2F58;
+        background-color: $danger-100;
+        border: 2px solid $danger-700;
          }
         }
     .junk{
-        color: #9B59B6;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #9B59B6;
+        background-color: #FF561E;
+        border: 2px solid #FFECE6;
          }
     }
     .prospective{
-        color: #34495E;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #34495E;
+        background-color: $primary-100;
+        border: 2px solid $primary-900;
          }
     }
     .customer{
-        color: #30CB83;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #30CB83;
+        background-color: $success-100;
+        border: 2px solid $success-700;
+         }
+    }
+    .agent{
+        color: $neutrals-500;
+        margin-bottom: 10px;
+        div{
+        background-color: $warning-100;
+        border: 2px solid $warning-700;
+         }
+    }
+    .consultant{
+        color: $neutrals-500;
+        margin-bottom: 10px;
+        div{
+        background-color: $secondary-100;
+        border: 2px solid $secondary-700;
          }
     }
     .vendor{
-        color: #30CB83;
+        color: $neutrals-500;
         margin-bottom: 10px;
         div{
-        background-color: #30CB83;
+            background-color: $success-100;
+            border: 2px solid $success-700;
          }
     }
     p{
@@ -348,4 +381,30 @@
 
         }
     }
+}
+
+
+.contact-delete
+{
+    color: $neutrals-100;   
+    padding: 21px 0px 0px 0px,
+}
+
+.contact-delete-modal
+{
+    background-color:$secondary-800 !important;
+    width: 90px;
+    height: 38px;
+    color: $neutrals-600  !important;
+    border: none;
+}
+
+.contact-submit-modal
+{
+    background-color:$danger-100 !important;
+    width: 92px;
+    height: 38px;
+    color:#ffffff !important;
+    border: none;
+    box-shadow:  0px 1px 2px red !important;
 }

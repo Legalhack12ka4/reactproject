@@ -19,6 +19,7 @@ import { event } from "jquery";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import { getContainer } from "rsuite/esm/DOMHelper";
 import DateRangePicker from "../DateRangePicker/DateRangePicker";
+import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
 
 const FilterAndSearchBar = (props, { filterdata, width }) => {
   const [exportOpen, setExportOpen] = useState(false);
@@ -313,7 +314,8 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search for Contacts"
+                 // placeholder="Search for Contacts"
+                  placeholder="Search here"
                   onChange={handleChange}
                 />
               </div>
@@ -344,7 +346,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 
         
 
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "20px" }}>
           {!visibleRoutes.includes(location.pathname)?props.datepickerfilter:  <div className="search_customer focus-outline">
                 <div className="search_icon">
                   <CgSearch size={20} color="#697A8D" />
@@ -358,9 +360,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
 
             {props.customer == "" ? (
               <div
-                className={`${props.filterLength > 0 && "filter"} tableBtn `}
+                className={`${props.filterLength > 0 && "filter  sc-body-sb"} tableBtn `}
                 style={{
-                  width: "101.5px",
+                  width: "97.4px",
                   position: "relative",
                   cursor: "default",
                 }}
@@ -394,7 +396,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <div
                 className={`${props.filterLength > 0 && "filter"} tableBtn `}
                 onClick={showFilterModal}
-                style={{ width: "101.5px", position: "relative" }}
+                style={{ width: "97.4px", position: "relative" }}
                 ref={fliterRef}
               >
                 <div className="btn_icon">
@@ -454,26 +456,27 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                   >
                    
                     <img src="/images/icons/columns_icon.svg" alt="" />
-                    <p>Columns</p>
+                    <p className="sc-body-md">Manage Columns</p>
                   </div>
 
                   <div
                     className="setting_btn"
                     style={{ paddingBottom: "20px" }}
                   >
+                  
                     <img src="/images/icons/import_data_icon.svg" alt="" />
-                    <p>Import Data</p>
+                    <p className="sc-body-md">Import Data</p>
                   </div>
                   <div
                     className="setting_btn"
                     style={{ paddingBottom: "20px" }}
                   >
                     <img src="/images/icons/export_data_icon.svg" alt="" />
-                    <p>Export Data</p>
+                    <p className="sc-body-md">Export Data</p>
                   </div>
                   <div className="setting_btn">
                     <img src="/images/icons/Preferences_icon.svg" alt="" />
-                    <p>Preferences</p>
+                    <p className="sc-body-md">Preferences</p>
                   </div>
                 </div>
               }
@@ -484,9 +487,18 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
             >
               <div className="settings">
               <div className={`setting_icon ${isClicked ? "clicked" : ""}`}  onClick={handleIconClick}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18.7 19.101">
+  <g id="Group_43639" data-name="Group 43639" transform="translate(-2 -2)">
+    <path id="Union_4" data-name="Union 4" d="M8.359,19.1a1.953,1.953,0,0,1-1.986-1.908v-.571A8.132,8.132,0,0,1,4.5,15.559l-.53.293a2.092,2.092,0,0,1-2.709-.7L.266,13.5a1.876,1.876,0,0,1,.727-2.61l.5-.279a7.075,7.075,0,0,1,0-2.123l-.5-.279A1.874,1.874,0,0,1,.266,5.6l.991-1.651a2.084,2.084,0,0,1,2.709-.7l.53.293A8.083,8.083,0,0,1,6.373,2.483V1.912A1.953,1.953,0,0,1,8.359,0h1.986a1.949,1.949,0,0,1,1.982,1.912v.571A8.132,8.132,0,0,1,14.21,3.545l.525-.293a2.082,2.082,0,0,1,2.708.7L18.435,5.6a1.875,1.875,0,0,1-.727,2.61l-.5.279a7.075,7.075,0,0,1,0,2.123l.5.279a1.874,1.874,0,0,1,.727,2.61l-.992,1.651a2.086,2.086,0,0,1-2.708.7l-.525-.293a8.258,8.258,0,0,1-1.883,1.062v.571A1.949,1.949,0,0,1,10.345,19.1ZM5.29,13.7a6.091,6.091,0,0,0,2.364,1.337.963.963,0,0,1,.7.914v1.242h1.986V15.951a.959.959,0,0,1,.7-.914A6.088,6.088,0,0,0,13.409,13.7a1.018,1.018,0,0,1,1.178-.134l1.139.631.991-1.651L15.6,11.926a.943.943,0,0,1-.466-1.058,5.236,5.236,0,0,0,0-2.631A.943.943,0,0,1,15.6,7.178l1.116-.621-.991-1.651-1.139.631A1.018,1.018,0,0,1,13.409,5.4a6.08,6.08,0,0,0-2.363-1.333.959.959,0,0,1-.7-.914V1.912H8.359V3.154a.963.963,0,0,1-.7.914A6.084,6.084,0,0,0,5.29,5.4a1.016,1.016,0,0,1-1.177.138L2.975,4.907,1.983,6.557,3.1,7.178a.938.938,0,0,1,.466,1.058,5.209,5.209,0,0,0,0,2.631A.934.934,0,0,1,3.1,11.926l-1.117.621L2.975,14.2l1.139-.631A1.01,1.01,0,0,1,5.29,13.7Zm.1-4.148A3.888,3.888,0,0,1,9.35,5.746a3.89,3.89,0,0,1,3.961,3.806,3.887,3.887,0,0,1-3.961,3.8A3.885,3.885,0,0,1,5.394,9.552Zm1.977,0a1.982,1.982,0,0,0,3.961,0,1.982,1.982,0,0,0-3.961,0Z"
+     transform="translate(2 2)" fill={`${isClicked? "#5C5AD0":"#697a8d"} `}/>
+  </g>
+</svg>
+
+{/* 
                 <svg id="Settings" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-              <path id="Path_26" data-name="Path 26" d="M7.009,16.861l1.634,2.768a.827.827,0,0,0,1.116.292l1.141-.645a6.631,6.631,0,0,0,1.548.89v1.278a.809.809,0,0,0,.817.8h3.269a.809.809,0,0,0,.817-.8V20.165a6.647,6.647,0,0,0,1.548-.89l1.141.645a.83.83,0,0,0,1.116-.292l1.634-2.768a.794.794,0,0,0-.3-1.093l-1.121-.634a6.019,6.019,0,0,0,0-1.779l1.121-.634a.793.793,0,0,0,.3-1.093L21.155,8.859a.827.827,0,0,0-1.116-.292L18.9,9.212a6.6,6.6,0,0,0-1.548-.89V7.044a.809.809,0,0,0-.817-.8H13.265a.809.809,0,0,0-.817.8V8.322a6.647,6.647,0,0,0-1.548.89L9.76,8.567a.832.832,0,0,0-.62-.081.814.814,0,0,0-.5.373L7.009,11.627a.794.794,0,0,0,.3,1.093l1.121.634a6.019,6.019,0,0,0,0,1.779l-1.121.634A.793.793,0,0,0,7.009,16.861Zm7.89-5.817a3.2,3.2,0,1,1-3.269,3.2A3.238,3.238,0,0,1,14.9,11.044Z" transform="translate(-6.9 -6.244)" fill={`${isClicked? "#5C5AD0":"#697a8d"} `}/>
-            </svg>
+              <path id="Path_26" data-name="Path 26" d="M7.009,16.861l1.634,2.768a.827.827,0,0,0,1.116.292l1.141-.645a6.631,6.631,0,0,0,1.548.89v1.278a.809.809,0,0,0,.817.8h3.269a.809.809,0,0,0,.817-.8V20.165a6.647,6.647,0,0,0,1.548-.89l1.141.645a.83.83,0,0,0,1.116-.292l1.634-2.768a.794.794,0,0,0-.3-1.093l-1.121-.634a6.019,6.019,0,0,0,0-1.779l1.121-.634a.793.793,0,0,0,.3-1.093L21.155,8.859a.827.827,0,0,0-1.116-.292L18.9,9.212a6.6,6.6,0,0,0-1.548-.89V7.044a.809.809,0,0,0-.817-.8H13.265a.809.809,0,0,0-.817.8V8.322a6.647,6.647,0,0,0-1.548.89L9.76,8.567a.832.832,0,0,0-.62-.081.814.814,0,0,0-.5.373L7.009,11.627a.794.794,0,0,0,.3,1.093l1.121.634a6.019,6.019,0,0,0,0,1.779l-1.121.634A.793.793,0,0,0,7.009,16.861Zm7.89-5.817a3.2,3.2,0,1,1-3.269,3.2A3.238,3.238,0,0,1,14.9,11.044Z" 
+              transform="translate(-6.9 -6.244)" fill={`${isClicked? "#5C5AD0":"#697a8d"} `}/>
+            </svg> */}
             </div>
               </div>
             </Popover>
@@ -511,14 +523,14 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                     settingOpen ? "active" : "inactive"
                   }`}
                 >
-                  <h5>Manage Columns</h5>
+                  <h5 className="heading-sb">Manage Columns</h5>
                   <span  className='closecolumn' onClick={() => setSettingOpen(false)}>&times;</span>
-                  <p className="manage_column_title">
+                  <p className="manage_column_title sc-body-rg">
                     Select the columns you'd like to see in table.
                   </p>
                   <hr />
                   <div className="selected_count">
-                    <h2 className="selected_columns">Slected Columns</h2>{" "}
+                    <h2 className="selected_columns subtitle-md">Slected Columns</h2>{" "}
                     <div className="count">
                       {props.selectedColumnsLength - 1}
                     </div>
@@ -528,7 +540,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                     <CgSearch size={20} color="#697A8D" />
                     <input
                       type="text"
-                      placeholder="Search"
+                      placeholder="Search here"
                       value={searchQuery}
                       id="columnSearch"
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -552,7 +564,7 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                                           src="/images/icons/lock_icon.svg"
                                           alt=""
                                         />
-                                        <p>{columns[0].title}</p>
+                                        <p className="text-disabled sc-body-rg">{columns[0].title}</p>
                                       </div>
                                       <div className="drag_icon">
                                         <img
@@ -638,9 +650,15 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
                             }
                           })}
                         {provider.placeholder}
+                       
                       </div>
                     )}
                   </Droppable>
+                  <div style={{display:"flex", alignItems:"center", gap:"16px"}}>
+                   <ContainedButton width={92} value={"Submit"}/> 
+                   <ContainedSecondaryButton width={90} value={"Cancel"}/>
+                  </div>
+
                 </div>
               </DragDropContext>
             </div>

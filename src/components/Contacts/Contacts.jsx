@@ -834,7 +834,8 @@ const ownershipwithemail = [
           <h1 className="box_heading1"> {formData.id ? "Update Contact" : "New Contact"}</h1>
           <div className="contact_details">
             <div className="form-left">
-            <div className="form_field">
+              <CustomInput width ={330} icon placeholder="Enter name" label="Name"/>
+            {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="contactlabel" style={{ marginTop: "5px" }}>
@@ -858,15 +859,6 @@ const ownershipwithemail = [
                   }))}}
                   onBlur={handleBlur}
               />
-                {/* <input
-                  type="text"
-                  className="inputcontact"
-                  placeholder="Placeholder"
-                  name="name"
-                  value={formData.name}
-                  onChange={(e) => {handleChange(e); onChange(e); handleInputChange(e,"name");}}
-                  onBlur={handleBlur}
-                /> */}
                 {errors.name && touched.name && (
                     <div className="error_icon">
                     <img
@@ -879,7 +871,7 @@ const ownershipwithemail = [
               {errors.name &&  touched.name &&(
                     <p className="error_text">{errors.name}</p>
                   )}
-              </div>
+              </div> */}
               <div className="form_field">
   <Tooltip title="prompt text" color="#5C5AD0">
     {" "}
@@ -888,8 +880,8 @@ const ownershipwithemail = [
     </label>{" "}
   </Tooltip>
   <br />
-  
-  <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
+  {/* <InputGroup width={98}  options={countryCodes} label="Mobile No" /> */}
+  {/* <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
   <div className="countryCodeDropdown focus-outline">
       <select value={selectedCode} onChange={(e) => setSelectedCode(e.target.value)}>
         {countryCodes.map((country) => (
@@ -899,23 +891,12 @@ const ownershipwithemail = [
         ))}
       </select>
     </div>
-    {/* <SearchDropdown options={countryCodes}/> */}
   <div className={`${errors.mobile && touched.mobile && "inputError"} contactinput`} style={{ marginTop: "5px", maxWidth:"277px", minWidth:"277px" }}>
-    {/* <div className="countryCodeDropdown">
-      <select value={selectedCode} onChange={(e) => setSelectedCode(e.target.value)}>
-        {countryCodes.map((country) => (
-          <option key={country.code} value={country.code}>
-            {country.code}   ({country.value})
-          </option>
-        ))}
-      </select>
-    </div> */}
     <img src={Phone} className="customerimg" />
     <input
    
       type="number"
       ref={inputRef}
-     // onKeyPress={handleKeyPress}
       className="inputcontact"
       placeholder="Placeholder"
       name="mobile"
@@ -929,14 +910,15 @@ const ownershipwithemail = [
       </div>
     )}
   </div>
-  </div>
+  </div> */}
   {errors.mobile &&  touched.mobile &&(
     <p className="error_text">{errors.mobile}</p>
   )}
 </div>
-<InputGroup width={98}  options={countryCodes} addNew />
 
-              <div className="form_field">
+<InputGroup width={98}  options={countryCodes} label="Mobile No" />
+
+              {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}
                 <label className="contactlabel" style={{ marginTop: "5px" }}>
@@ -961,15 +943,7 @@ const ownershipwithemail = [
                   }))}}
                   onBlur={handleBlur}
               />
-                {/* <input
-                  type="text"
-                  className="inputcontact"
-                  placeholder="Placeholder"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e) => {handleChange(e); onChange(e);handleInputChange(e,"email");}}
-                    onBlur={handleBlur}
-                /> */}
+                
                 {errors.email && touched.email && (
                     <div className="error_icon">
                     <img
@@ -982,7 +956,8 @@ const ownershipwithemail = [
               {errors.email &&  touched.email &&(
                     <p className="error_text">{errors.email}</p> 
                   )}
-              </div>
+              </div> */}
+                 <CustomInput width ={330} icon placeholder="Enter email" label="Email"/>
               {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
                 {" "}

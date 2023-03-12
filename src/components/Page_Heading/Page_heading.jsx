@@ -8,7 +8,7 @@ import home from "../../assets/Images/FilterIcon/Icon.svg"
 import { GoPlus } from "react-icons/go";
 
 
-const Page_heading = ({ parent, child, subchild, main , props }) => {
+const Page_heading = ({ parent, child, subchild, main , props, dataLength }) => {
 
 
 
@@ -28,24 +28,25 @@ const Page_heading = ({ parent, child, subchild, main , props }) => {
   return (
 <>
     <div className="page-heading-menu">
-    <div className="page_heading">
+    <div className="page_heading " >
+   <div className="heading_withlength"> <h1 className="heading-sb">{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1> <p className="heading_length">{dataLength && `(${dataLength})`}</p></div>
     <Breadcrumb>
    <Breadcrumb.Item>
-   <Link exact to="/dashboard" className="heading_parent">  Home</Link>
+   <Link exact to="/dashboard" className="heading_parent"> <img src="\images\icons\home.svg"/></Link>
     </Breadcrumb.Item>
     <Breadcrumb.Item>
-      <span className="heading_parent">{parent}</span>
+      <span className="heading_parent caption-md">{parent}</span>
     </Breadcrumb.Item>
     {subchild && <Breadcrumb.Item > 
-        <span className="subchild">{subchild}</span>
+        <span className="subchild caption-md">{subchild}</span>
         </Breadcrumb.Item>
 }
     <Breadcrumb.Item>{" "}
         {child.charAt(0).toUpperCase() + child.slice(1)}</Breadcrumb.Item>
   </Breadcrumb>
-
+{/* 
   <h1>{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1>
-  <p className="heading-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, natus.</p>
+  <p className="heading-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, natus.</p> */}
   </div>
   
   
