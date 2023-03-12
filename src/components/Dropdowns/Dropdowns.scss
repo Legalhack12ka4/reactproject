@@ -445,6 +445,10 @@
   align-items: center;
   width: 330px;
 
+  .ant-select .ant-select-selector{
+    border: .5px solid $neutrals-700 !important;
+  }
+
 
   
   .ant-select-focused.ant-select:not(
@@ -480,7 +484,7 @@
   }
   .ant-select .ant-select-selector {
   
-    border-radius: 5px 0px 0px 5px !important;
+    border-radius: 6px 0px 0px 6px !important;
   }
   .mobile_input
   {

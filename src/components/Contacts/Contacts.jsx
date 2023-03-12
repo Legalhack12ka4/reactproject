@@ -41,244 +41,97 @@ const resetValue = {
     ownership: "",
   };
 
-
+  
   const countryCodes = [
     {
-      label: "+1  United States",
-      value: "United States"
-    },
-    {
-      label: "+7 Russia",
-      value: "Russia"
-    },
-    {
-      label: "+20 Egypt",
-      value: "Egypt"
-    },
-    {
-      label: "+27 South Africa",
-      value: "South Africa"
-    },
-    {
-      label: "+30 Greece",
-      value: "Greece"
-    },
-    {
-      label: "+31 Netherlands",
-      value: "Netherlands"
-    },
-    {
-      label: "+32 Belgium",
-      value: "Belgium"
-    },
-    {
-      label: "+33 France",
-      value: "France"
-    },
-    {
-      label: "+34 Spain",
-      value: "Spain"
-    },
-    {
-      label: "+36 Hungary",
-      value: "Hungary"
-    },
-    {
-      label: "+39 Italy",
-      value: "Italy"
-    },
-    {
-      label: "+40 Romania",
-      value: "Romania"
-    },
-    {
-      label: "+41 Switzerland",
-      value: "Switzerland"
-    },
-    {
-      label: "+43 Austria",
-      value: "Austria"
-    },
-    {
-      label: "+44 United Kingdom",
-      value: "United Kingdom"
-    },
-    {
-      label: "+45 Denmark",
-      value: "Denmark"
-    },
-    {
-      label: "+46 Sweden",
-      value: "Sweden"
-    },
-    {
-      label: "+47 Norway",
-      value: "Norway"
-    },
-    {
-      label: "+48 Poland",
-      value: "Poland"
-    },
-    {
-      label: "+49 Germany",
-      value: "Germany"
-    },
-    {
-      label: "+51 Peru",
-      value: "Peru"
-    },
-    {
-      label: "+52 Mexico",
-      value: "Mexico"
-    },
-    {
-      label: "+53 Cuba",
-      value: "Cuba"
-    },
-    {
-      label: "+54 Argentina",
-      value: "Argentina"
-    },
-    {
-      label: "+55 Brazil",
-      value: "Brazil"
-    },
-    {
-      label: "+56 Chile",
-      value: "Chile"
-    },
-    {
-      label: "+57 Colombia",
-      value: "Colombia"
-    },
-    {
-      label: "+58 Venezuela",
-      value: "Venezuela"
-    },
-    {
-      label: "+60 Malaysia",
-      value: "Malaysia"
-    },
-    {
-      label: "+61 Australia",
-      value: "Australia"
-    },
-    {
-      label: "+62 Indonesia",
-      value: "Indonesia"
-    },
-    {
-      label: "+63 Philippines",
-      value: "Philippines"
-    },
-    {
-      label: "+64 New Zealand",
-      value: "New Zealand"
-    },
-    {
-      label: "+65 Singapore",
-      value: "Singapore"
-    },
-    {
-      label: "+66 Thailand",
-      value: "Thailand"
-    },
-    {
-      label: "+81 Japan",
-      value: "Japan"
-    },
-    {
-      label: "+82 South Korea",
-      value: "South Korea"
-    },
-    {
-      label: "+84 Vietnam",
-      value: "Vietnam"
-    },
-    {
-      label: "+86 China",
-      value: "China"
-    },
-    {
-      label: "+90 Turkey",
-      value: "Turkey"
-    },
-    {
-      label: "+91 India",
+      label: <div style={{display:"flex", gap:"20px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="19.08" height="12.5" viewBox="0 0 19.08 12.5">
+  <g id="india-svgrepo-com" transform="translate(0 -88.276)">
+    <path id="Path_34773" data-name="Path 34773" d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z" fill="#fab446"/>
+    <path id="Path_34774" data-name="Path 34774" d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z" transform="translate(0 -215.298)" fill="#73af00"/>
+    <rect id="Rectangle_17784" data-name="Rectangle 17784" width="19.08" height="4.167" transform="translate(0 92.443)" fill="#f5f5f5"/>
+    <g id="Group_43818" data-name="Group 43818" transform="translate(7.772 92.758)">
+      <path id="Path_34775" data-name="Path 34775" d="M210.32,212.088a1.768,1.768,0,1,1,1.768-1.768A1.77,1.77,0,0,1,210.32,212.088Zm0-3.207a1.439,1.439,0,1,0,1.439,1.439A1.441,1.441,0,0,0,210.32,208.881Z" transform="translate(-208.552 -208.552)" fill="#41479b"/>
+      <circle id="Ellipse_1316" data-name="Ellipse 1316" cx="0.2" cy="0.2" r="0.2" transform="translate(1.568 1.568)" fill="#41479b"/>
+      <path id="Path_34776" data-name="Path 34776" d="M214.57,253.925l-.509.051-1.094-.051v-.06l1.094-.051.509.051Z" transform="translate(-212.802 -252.126)" fill="#41479b"/>
+      <path id="Path_34777" data-name="Path 34777" d="M256,253.925l.509.051,1.094-.051v-.06l-1.094-.051-.509.051Z" transform="translate(-254.232 -252.126)" fill="#41479b"/>
+      <path id="Path_34778" data-name="Path 34778" d="M253.864,214.57l-.051-.509.051-1.094h.06l.051,1.094-.051.509Z" transform="translate(-252.126 -212.802)" fill="#41479b"/>
+      <path id="Path_34779" data-name="Path 34779" d="M253.864,256l-.051.509.051,1.094h.06l.051-1.094-.051-.509Z" transform="translate(-252.126 -254.232)" fill="#41479b"/>
+      <path id="Path_34780" data-name="Path 34780" d="M226.134,226.176l-.4-.324-.737-.81.043-.043.81.737.324.4Z" transform="translate(-224.387 -224.387)" fill="#41479b"/>
+      <path id="Path_34781" data-name="Path 34781" d="M255.43,255.472l.324.4.81.737.043-.043-.737-.81-.4-.324Z" transform="translate(-253.683 -253.683)" fill="#41479b"/>
+      <path id="Path_34782" data-name="Path 34782" d="M255.43,226.134l.324-.4.81-.737.043.043-.737.81-.4.324Z" transform="translate(-253.683 -224.387)" fill="#41479b"/>
+      <path id="Path_34783" data-name="Path 34783" d="M226.134,255.43l-.4.324-.737.81.043.043.81-.737.324-.4Z" transform="translate(-224.387 -253.683)" fill="#41479b"/>
+      <path id="Path_34784" data-name="Path 34784" d="M217.438,255.31l-.451.242-1.031.371-.023-.056.991-.466.49-.147Z" transform="translate(-215.658 -253.514)" fill="#41479b"/>
+      <path id="Path_34785" data-name="Path 34785" d="M255.714,239.455l.49-.147.991-.466-.023-.056-1.031.371-.451.242Z" transform="translate(-253.934 -237.659)" fill="#41479b"/>
+      <path id="Path_34786" data-name="Path 34786" d="M239.4,217.438l-.242-.451-.371-1.031.056-.023.466.991.147.49Z" transform="translate(-237.659 -215.658)" fill="#41479b"/>
+      <path id="Path_34787" data-name="Path 34787" d="M255.254,255.714l.147.49.466.991.056-.023-.371-1.031-.242-.451Z" transform="translate(-253.514 -253.934)" fill="#41479b"/>
+      <path id="Path_34788" data-name="Path 34788" d="M217.415,239.455l-.49-.147-.991-.466.023-.056,1.031.371.451.242Z" transform="translate(-215.658 -237.659)" fill="#41479b"/>
+      <path id="Path_34789" data-name="Path 34789" d="M255.691,255.31l.451.242,1.031.371.023-.056-.991-.466-.49-.147Z" transform="translate(-253.934 -253.514)" fill="#41479b"/>
+      <path id="Path_34790" data-name="Path 34790" d="M255.254,217.415l.147-.49.466-.991.056.023-.371,1.031-.242.451Z" transform="translate(-253.514 -215.658)" fill="#41479b"/>
+      <path id="Path_34791" data-name="Path 34791" d="M239.4,255.691l-.242.451-.371,1.031.056.023.466-.991.147-.49Z" transform="translate(-237.659 -253.934)" fill="#41479b"/>
+    </g>
+    <circle id="Ellipse_1317" data-name="Ellipse 1317" cx="0.27" cy="0.27" r="0.27" transform="translate(9.269 94.256)" fill="#f5f5f5"/>
+    <circle id="Ellipse_1318" data-name="Ellipse 1318" cx="0.162" cy="0.162" r="0.162" transform="translate(9.378 94.364)" fill="#41479b"/>
+  </g>
+</svg>
+
+<p style={{width:"30px"}}>+91 </p>
+</div>
+
+         <p> (India)</p>
+         </div>,
       value: "India"
     },
     {
-      label: "+92 Pakistan",
-      value: "Pakistan"
+      label: <div style={{display:"flex", gap:"20px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+        <svg id="india-svgrepo-com" xmlns="http://www.w3.org/2000/svg" width="19.08" height="12.5" viewBox="0 0 19.08 12.5">
+  <path id="Path_34773" data-name="Path 34773" d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z" transform="translate(0 -88.276)"/>
+  <path id="Path_34774" data-name="Path 34774" d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z" transform="translate(0 -303.574)" fill="#ffce00"/>
+  <rect id="Rectangle_17784" data-name="Rectangle 17784" width="19.08" height="4.167" transform="translate(0 4.167)" fill="#d00"/>
+</svg>
+
+<p style={{width:"30px"}}>+49 </p>
+</div>
+
+         <p> (Germany)</p>
+         </div>,
+      value: "Russia"
     },
     {
-      label: "+93 Afghanistan",
-      value: "Afghanistan"
-    },
-    {
-      label: "+94 Sri Lanka",
+      label: <div style={{display:"flex", gap:"20px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+        <svg id="india-svgrepo-com" xmlns="http://www.w3.org/2000/svg" width="19.08" height="12.5" viewBox="0 0 19.08 12.5">
+  <path id="Path_34773" data-name="Path 34773" d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z" transform="translate(0 -88.276)"/>
+  <path id="Path_34774" data-name="Path 34774" d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z" transform="translate(0 -303.574)" fill="#ffce00"/>
+  <rect id="Rectangle_17784" data-name="Rectangle 17784" width="19.08" height="4.167" transform="translate(0 4.167)" fill="#d00"/>
+</svg>
+
+<p style={{width:"30px"}}>+89 </p>
+</div>
+
+         <p> (Sri Lanka)</p>
+         </div>,
       value: "Sri Lanka"
     },
     {
-      label: "+95 Myanmar",
-      value: "Myanmar"
+      label: <div style={{display:"flex", gap:"20px"}}>
+      <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+      <svg id="india-svgrepo-com" xmlns="http://www.w3.org/2000/svg" width="19.08" height="12.5" viewBox="0 0 19.08 12.5">
+  <path id="Path_34773" data-name="Path 34773" d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z" transform="translate(0 -88.276)" fill="#ae1c28"/>
+  <path id="Path_34774" data-name="Path 34774" d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z" transform="translate(0 -303.574)" fill="#21468b"/>
+  <rect id="Rectangle_17784" data-name="Rectangle 17784" width="19.08" height="4.167" transform="translate(0 4.167)" fill="#fff"/>
+</svg>
+
+<p style={{width:"30px"}}>+31 </p>
+</div>
+
+       <p> (Germany)</p>
+       </div>,
+      value: "Egypt"
     },
-    {
-      label: "+98 Iran",
-      value: "Iran"
-    },
-    {
-      label: "+212 Morocco",
-      value: "Morocco"
-    },
-    {
-      label: "+213 Algeria",
-      value: "Algeria"
-    },
-    {
-      label: "+216 Tunisia",
-      value: "Tunisia"
-    },
-    {
-      label: "+218 Libya",
-      value: "Libya"
-    },
-    {
-      label: "+220 Gambia",
-      value: "Gambia"
-    },
-    {
-      label: "+221 Senegal",
-      value: "Senegal"
-    },
-    {
-      label: "+222 Mauritania",
-      value: "Mauritania"
-    },
-    {
-      label: "+223 Mali",
-      value: "Mali"
-    },
-    {
-      label: "+224 Guinea",
-      value: "Guinea"
-    },
-    {
-      label: "+225 Ivory Coast",
-      value: "Ivory Coast"
-    },
-    {
-      label: "+226 Burkina Faso",
-      value: "Burkina Faso"
-    },
-    {
-      label: "+227 Niger",
-      value: "Niger"
-    },
-    {
-      label: "+228 Togo",
-      value: "Togo"
-    },
+    
   ];
   // const countryCodes = [
   //   // {
