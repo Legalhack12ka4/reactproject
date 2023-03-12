@@ -1,8 +1,21 @@
+@import '../../assets/Colors/Colors.scss';
+
 .page_heading{
     // border: 1px solid;
     font-size: 18px ;
     color: #566A76;
     font-weight: 700;
+    
+    .heading_withlength
+    {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .heading_length
+        {
+            color: $neutrals-600 !important;
+        }
+    }
 
     // .heading_parent{
     //     color: #A1ACB8;
@@ -12,11 +25,13 @@
     // }
 
         h1{
-            font-size: 22px;
-            color: #2B3347;
-            font-weight: 600;
+            // font-size: 22px;
+            // color: #2B3347;
+            color: $neutrals-100 !important;
+          //  margin-bottom: -3px;
+            // font-weight: 600;
             //margin-bottom: 10px;
-            margin-top: 20px;
+           // margin-top: 20px;
         }
 
         .heading-title{

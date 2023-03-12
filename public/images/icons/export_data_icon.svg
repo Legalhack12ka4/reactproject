@@ -1,4 +1,6 @@
-<svg id="bx-import" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  <path id="Path_34488" data-name="Path 34488" d="M8.862,1.333,12.39,5.722H9.744v7.953H7.98V5.722H5.333Z" transform="translate(-0.862 2.325)" fill="#8e9caa"/>
-  <path id="Path_34489" data-name="Path 34489" d="M16.222,17.467H12.667V15.7h3.556V7.764H3.778V15.7H7.333v1.764H3.778A1.773,1.773,0,0,1,2,15.7V7.764A1.773,1.773,0,0,1,3.778,6H16.222A1.773,1.773,0,0,1,18,7.764V15.7A1.773,1.773,0,0,1,16.222,17.467Z" transform="translate(-2 -6)" fill="#8e9caa"/>
+<svg id="Export_Icon" data-name="Export Icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Rectangle_17808" data-name="Rectangle 17808" width="20" height="20" fill="none"/>
+  <g id="Group_44195" data-name="Group 44195" transform="translate(0.5)">
+    <path id="Union_10" data-name="Union 10" d="M4.192,4.131H6.674v7.486H8.327V4.131h2.481L7.5,0ZM10,5.207v1.66h3.335V14.34H1.666V6.867H5V5.207H1.666A1.665,1.665,0,0,0,0,6.867V14.34A1.665,1.665,0,0,0,1.666,16H13.335A1.664,1.664,0,0,0,15,14.34V6.867a1.664,1.664,0,0,0-1.665-1.66Z" transform="translate(2 2)" fill="#94a2b8"/>
+  </g>
 </svg>

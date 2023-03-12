@@ -60,7 +60,7 @@ const ContactsData = (props) => {
   const [dateRange , setDateRange] = useState([]) //for date filter
   const [startdate, setStartdate] = useState([]);
   const [enddate, setEnddate] = useState([]);
-  const [activeMode, setActiveMode] = useState("grid");
+  const [activeMode, setActiveMode] = useState("table");
 
  
 //daterangefunction
@@ -288,7 +288,10 @@ const deleteUser = (record)=>
             <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
             </div>
-            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p style={{fontSize:""}}>{record.name}</p><div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}><img src="images/icons/user_avatar.svg" alt="user" /> {record.position}</div></div></span>
+            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name sc-body-md" style={{fontSize:"", color:"#465468 !important"}}>{record.name}</p>
+            <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
+              {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
+              <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.position}</p></div></div></span>
           </div>
         );
       },
@@ -298,51 +301,115 @@ const deleteUser = (record)=>
       },
     },
     {
-      title: "Contact details",
-      label: "Contact details",
-      dataIndex: "mobile",
-      key: "mobile",
+      title: "Email",
+      label: "Email",
+      dataIndex: "email",
+      key: "email",
       resizable: true,
       // width: "max-content",
       width: 250,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
-        return record1.contactdetails > record2.contactdetails;
+        return record1.position > record2.position;
       },
-      render: (text, record) => (
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <img src="images/icons/mail_gray_icon.svg" alt="mail" />
-            <div style={{ maxWidth: '210px' }}>{record.email}</div>
+      render: (text, record) => {
+        return (
+          <div>
+              <p className="contact-email sc-body-rg" > {record.email}</p>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <img src="images/icons/phone_icon_gray.svg" alt="phone" />
-            {record.mobile}
-          </div>
-        </div>
-      ),
+        );
+      },
     },
     {
-      title: "Lead Source",
-      label: "Lead Source",
-      dataIndex: "leadsource",
-      key: "leadsource",
+      title: "Phone",
+      label: "Phone",
+      dataIndex: "mobile",
+      key: "mobile",
       resizable: true,
       // width: "max-content",
-      width: 190,
+      width: 140,
       align: "left",
       showSorterTooltip: { title: "" },
       sorter: (record1, record2) => {
-        return record1.leadsource > record2.leadsource;
+        return record1.position > record2.position;
       },
-      render: (text, record) => (
-        <div>
-          <div style={{display: "flex", alignItems: "center", gap: "5px", width: "max-content", padding: "4px 16px", borderRadius: "19px", backgroundColor:"#ECEEF1"}}>
-            Parth Goswami
+      render: (text, record) => {
+        return (
+          <div>
+              <p className="contact-email sc-body-rg" > {record.mobile}</p>
           </div>
-        </div>
-      ),
+        );
+      },
+    },
+    // {
+    //   title: "Contact details",
+    //   label: "Contact details",
+    //   dataIndex: "mobile",
+    //   key: "mobile",
+    //   resizable: true,
+    //   // width: "max-content",
+    //   width: 250,
+    //   align: "left",
+    //   showSorterTooltip: { title: "" },
+    //   sorter: (record1, record2) => {
+    //     return record1.contactdetails > record2.contactdetails;
+    //   },
+    //   render: (text, record) => (
+    //     <div>
+    //       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+    //         <img src="images/icons/mail_gray_icon.svg" alt="mail" />
+    //         <div style={{ maxWidth: '210px' }}>{record.email}</div>
+    //       </div>
+    //       <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+    //         <img src="images/icons/phone_icon_gray.svg" alt="phone" />
+    //         {record.mobile}
+    //       </div>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   title: "Lead Source",
+    //   label: "Lead Source",
+    //   dataIndex: "leadsource",
+    //   key: "leadsource",
+    //   resizable: true,
+    //   // width: "max-content",
+    //   width: 190,
+    //   align: "left",
+    //   showSorterTooltip: { title: "" },
+    //   sorter: (record1, record2) => {
+    //     return record1.leadsource > record2.leadsource;
+    //   },
+    //   render: (text, record) => (
+    //     <div>
+    //       <div style={{display: "flex", alignItems: "center", gap: "5px", width: "max-content", padding: "4px 16px", borderRadius: "19px", backgroundColor:"#ECEEF1"}}>
+    //         Parth Goswami
+    //       </div>
+    //     </div>
+    //   ),
+    // },
+  
+    {
+      title: "Company Name",
+      label: "Company Name",
+      dataIndex: "companyname",
+      key: "companyname",
+      resizable: true,
+      // width: "max-content",
+      width: 140,
+      align: "left",
+      showSorterTooltip: { title: "" },
+      sorter: (record1, record2) => {
+        return record1.position > record2.position;
+      },
+      render: (text, record) => {
+        return (
+          <div>
+              <p className="contact-company_name sc-body-md" > {record.companyname}</p>
+          </div>
+        );
+      },
     },
     {
       title: "Status",
@@ -357,12 +424,13 @@ const deleteUser = (record)=>
         return record1.status > record2.status;
       },
       render: (text, record) => (
-        <div style={{display:"flex", alignItems:"center", gap:"5px",}}>
+        <div style={{display:"flex", alignItems:"center", gap:"4px",}}>
         <div className="table_bullet_item"></div>
             <Typography.Text
+       
               style={
                 record.status === "Customer"
-                  ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                  ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
                   : ""
               }
             >
@@ -372,43 +440,29 @@ const deleteUser = (record)=>
       ),
 
     },
-    {
-      title: "Company Name",
-      label: "Company Name",
-      dataIndex: "companyname",
-      key: "companyname",
-      resizable: true,
-      // width: "max-content",
-      width: 140,
-      align: "left",
-      showSorterTooltip: { title: "" },
-      sorter: (record1, record2) => {
-        return record1.position > record2.position;
-      },
-    },
-    {
-      title: "Ownership ",
-      label: "Ownership ",
-      dataIndex: "ownership",
-      key: "ownership",
-      resizable: true,
-      // width: "150px",
-      // width: "max-content",
-      width: 140,
-      align: "left",
-      showSorterTooltip: { title: "" },
-      sorter: (record1, record2) => {
-        return record1.ownership > record2.ownership;
-      },
-      render: (text, record) => (
-        <div>
-          <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
-            <img src="images/icons/profile.png" alt="" style={{width:"30px"}} />
-            <p>{record.ownership}</p>
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Ownership ",
+    //   label: "Ownership ",
+    //   dataIndex: "ownership",
+    //   key: "ownership",
+    //   resizable: true,
+    //   // width: "150px",
+    //   // width: "max-content",
+    //   width: 140,
+    //   align: "left",
+    //   showSorterTooltip: { title: "" },
+    //   sorter: (record1, record2) => {
+    //     return record1.ownership > record2.ownership;
+    //   },
+    //   render: (text, record) => (
+    //     <div>
+    //       <div style={{display:"flex", alignItems:"center", gap:"10px"}}>
+    //         <img src="images/icons/profile.png" alt="" style={{width:"30px"}} />
+    //         <p>{record.ownership}</p>
+    //       </div>
+    //     </div>
+    //   ),
+    // },
     // {
     //   title: "Updated Date Time ",
     //   label: "Updated Date Time  ",
@@ -434,16 +488,17 @@ const deleteUser = (record)=>
       // width: "max-content",
       render: (text, record) => (
         <>
-        <Popover  id="popoverhide"  defaultOpen={open} onOpenChange={setOpen}
+        <Popover 
+        id="popoverhide"  defaultOpen={open} onOpenChange={setOpen}
       getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
        content={
                  <>
            
                  <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                 <img src={deletelogo} />
+                 <img src="\images\icons\delete_record.svg" />
                  <div>
                  <button 
-                 className="actionlabel"
+                 className="actionlabel sc-body-md"
                  onClick={() => { handleConfirmCancel(record); hide(); }}
                 //onClick={hide}
                  >
@@ -451,19 +506,19 @@ const deleteUser = (record)=>
                  </button>
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                  <img src={editlogo} />
+                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                  <img src="\images\icons\edit_record.svg" />
                   <div>
                  <button
       
-                    className="actionlabel"
+                    className="actionlabel sc-body-md"
                     onClick={() => handleUpdate(record)}
                  >
                 Update
                  </button>
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                 {/* <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
                   <img src={statuslogo} />
                   <div>
                  <button
@@ -474,7 +529,7 @@ const deleteUser = (record)=>
                   Set as Activate
                  </button>
                  </div>
-                 </div>
+                 </div> */}
                  </>
         } title="" height={100} trigger="click">
         <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
@@ -705,7 +760,7 @@ setoldData(oldData)
 
   return (
     <div className="contacts-data">
-      <Page_heading parent={"Business Account"} child={"contacts"} />
+      <Page_heading dataLength={cusomizeData.length} parent={"Business Account"} child={"contacts"} />
 
       {activeMode === "table" && <div className="contacts-table-container">
         <div className="filter-searchbar-container">
@@ -923,51 +978,66 @@ setoldData(oldData)
           {
             selectedRows.length > 1 && (
               <div className="bulk_changes_container">
-                    <div className="selected_container" >
+                    <div className="selected_container sc-body-md" >
                       {selectedRows.length} Contacts Selected
-                      <span onClick={()=>{setSelectedRows([]); setSelectedRowKeys([])}}>Unselect all</span>
+                      <span className="caption-sb" onClick={()=>{setSelectedRows([]); setSelectedRowKeys([])}}>Unselect all</span>
                     </div>
-                    <div className="modify_container">
-                      <div className="send_email">
-                      <img src="images/icons/mail_gray_icon.svg" alt="mail" />
-                        <p>Send Email</p>
+                    <div className="modify_container">      
+                    <div className="send_email sc-body-md ">
+                      <img src="images/icons/whatsapp.svg" alt="mail" />
+                        <p>Send Message</p>
                       </div>
-                     <Popover trigger="click" showArrow={false} content={
+                      <div className="send_email sc-body-md ">
+                      <img src="images/icons/mail_gray_icon.svg" alt="mail" />
+                        <p>Send Mail</p>
+                      </div>
+                     <Popover trigger="click"  content={
                       <div className="change_status_dropdown">
 
-                      <div className="new_lead">
+                      <div className="new_lead ">
                         <div></div>
-                        <p>New Lead</p>
+                        <p>Lead</p>
                       </div>
 
-                      <div className="not_interested">
-                        <div></div>
-                        <p>Not Intrested</p>
-                      </div>
-
-                      <div className="junk">
-                        <div></div>
-                        <p>Junk</p>
-                      </div>
-
-                      <div className="prospective">
-                        <div></div>
-                        <p>Prospective</p>
-                      </div>
-
-                      <div className="customer">
+                  <div className="customer sc-body-rg">
                         <div></div>
                         <p>Customer</p>
                       </div>
 
-                      <div className="vendor">
+                      <div className="not_interested sc-body-rg">
                         <div></div>
-                        <p>Vendor</p>
+                        <p>Not Intrested</p>
+                      </div>
+         
+              <div className="agent sc-body-rg">
+                        <div></div>
+                        <p>Agent</p>
+                      </div>
+                     
+                  <div className="junk sc-body-rg">
+                        <div></div>
+                        <p>Junk</p>
+                      </div>
+
+              <div className="consultant sc-body-rg">
+                        <div></div>
+                        <p>Consultant</p>
+                      </div>
+                     
+
+                <div className="prospective sc-body-rg">
+                        <div></div>
+                        <p>Prospective</p>
+                      </div>
+
+                <div className="vendor sc-body-rg">
+                        <div></div>
+                        <p>Other Vendor</p>
                       </div>
 
                     </div>
                      }>
-                     <div className="change_status" onClick={()=> setChangeStatus(!changeStatus)}>
+                     <div className="change_status sc-body-md" onClick={()=> setChangeStatus(!changeStatus)}>
                         <img src="images/icons/reload_icon.svg" alt="" />
                         <p>Change Status</p>
                       </div>
@@ -978,9 +1048,9 @@ setoldData(oldData)
                               <SearchDropdown  width={330}/>
                               <button className="btn_hover_animation">Submit</button>
                             </div>}>
-                     <div className="change_position" onClick={()=> setChangePosition(!changePosition)}>
+                     <div className="change_position sc-body-md" onClick={()=> setChangePosition(!changePosition)}>
                         <img src="images/icons/user_avatar.svg" alt="user" />
-                        <p>Change Position</p>
+                        <p>Tags</p>
                       </div>
                      </Popover>
                       
@@ -1005,18 +1075,11 @@ setoldData(oldData)
         style={{ top: 20 }}
         className={"deleteconfirm"}
         footer={[
-          <div style={{ marginLeft: "331px" }}>
+          <div style={{ marginLeft: "314px" }}>
             <Button
               key="cancel"
               onClick={handleConfirm}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#8E9CAA",
-                borderColor: "#C2CAD2",
-              }}
+              className="contact-delete-modal sc-body-sb"
             >
               Cancel
             </Button>
@@ -1024,14 +1087,8 @@ setoldData(oldData)
               key="submit"
               type="primary"
               onClick={handleSubmit}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#DA2F58",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#FFFFFF",
-              }}
+              className="contact-submit-modal sc-body-sb"
+            
             >
               Delete
             </Button>
@@ -1060,28 +1117,23 @@ setoldData(oldData)
           <div className="confirmresources">
             <div className="imgsetting">
               <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
+                <img src="\images\icons\confirmation-alert-delete.svg" style={{ width: "38px", height: "38px" }} />
               </div>
             </div>
 
             <div>
-              <p
-                style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
-                }}
+              <p className="contact-delete heading-sb"
+             
               >
                 Delete Contact
               </p>
             </div>
           </div>
           <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
+            <p className="confirmationtext sc-body-rg">
+              Are you sure you want to delete selected contacts? <br /> 
+              All the contacts which you selected will be deleted.
+              <br /> This action cannot recover the Contact.
             </p>
           </div>
         </div>
@@ -1237,7 +1289,7 @@ setoldData(oldData)
                 <p className="caption-md">Key Person</p>
                 <div className="lead-option-container">
                 <div className="lead caption-sb">Lead</div>
-                <img src="/static/media/editdelete.8e23e097a7fbc2580a94edf69fc92a76.svg" alt="icon" />
+                <img src={editdelete} alt="icon" />
                 </div>
                 
 

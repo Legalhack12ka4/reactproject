@@ -1,3 +1,5 @@
+@import '../../assets/Colors/Colors.scss';
+
 .add-inventory{
     //  border: 1px solid;
      margin: auto;
@@ -1191,17 +1193,17 @@ height: 38px;
 .deleteconfirm
 {
     padding: 0px !important;
-    top: 0px !important;
+   // top: 0px !important;
 
 .ant-modal-footer{
-background-color: #F5F6F8 !important;
+//background-color: #F5F6F8 !important;
 border-radius: 8px;
 padding: 20px 0px;
 }
  .ant-modal-content
 {
     padding: 0px !important;
-     border-radius: 0px 0px 8px 8px !important;
+     //border-radius: 0px 0px 8px 8px !important;
 }
 }
 
@@ -1213,10 +1215,7 @@ padding: 20px 0px;
 .confirmationtext
 {
     margin-left: 89px;
-    color: #697A8D;
-   // margin-top: -6px;
-    font-weight: 400;
-    font-size: 14px;
+    color: $neutrals-500;
 }
 .icon
 {
