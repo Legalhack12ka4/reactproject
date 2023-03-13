@@ -49,6 +49,8 @@
     cursor: pointer;
     max-height: 38px;
     border: 1px solid transparent;
+    display: flex;
+    align-items: center;
 }
 
 .sc-text-btn:not([disabled]):hover{

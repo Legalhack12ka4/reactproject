@@ -19,9 +19,11 @@ import { event } from "jquery";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import { getContainer } from "rsuite/esm/DOMHelper";
 import DateRangePicker from "../DateRangePicker/DateRangePicker";
-import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
+import { ContainedButton, ContainedIconButton, ContainedSecondaryButton } from "../Buttons/Button";
+import { SearchSelect } from "../Dropdowns/Dropdowns";
+import CustomInput from "../CustomInput/CustomInput";
 
-const FilterAndSearchBar = (props, { filterdata, width }) => {
+const FilterAndSearchBar = (props, { filterdata, width, }) => {
   const [exportOpen, setExportOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const [settingOpen, setSettingOpen] = useState(false);
@@ -209,8 +211,9 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
         footer={""}
         closable={false}
         style={{
-          top: 230,
-          left: 287,
+          top: 0,
+          left: "50%",
+          transform: "translate(-50%, 0)",
           position: "absolute",
           maxWidth: "2200px",
         }}
@@ -261,20 +264,22 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
               <img src="/images/icons/report_icon.svg" alt="" />
               <p>View Reports</p>
             </div> */}
-            <div className="new_btn_container btn_hover_animation">
+            <div className="separator-line"></div>
+            <div className="new_btn_container">
               <Link exact to={props.path} onClick={props.onClick}>
-                <div className="tableBtn addNewBtn" onClick={showCanvas}>
+                {/* <div className="tableBtn addNewBtn" onClick={showCanvas}>
                   <GoPlus />
                   <div style={{ color: "white" }}>
                     {" "}
                     <div className="addNewBtn_text">New {props.addBtnName}</div>
                   </div>
-                </div>
+                </div> */}
+                <ContainedIconButton onClick={showCanvas} icon={<GoPlus />} value={`New ${props.addBtnName}`}/>
               </Link>
             </div>
           </div>
 
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", gap:"33px" }}>
             {/* <div className="total_table_result">{props.results_length}</div> */}
             {props.customer == ""  ? (
               <div className="search_customer focus-outline">
@@ -308,20 +313,26 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
           props.swichdata
           
            :
-              <div className="search_customer focus-outline">
-                <div className="search_icon">
-                  <CgSearch size={20} color="#697A8D" />
-                </div>
-                <input
-                  type="text"
-                 // placeholder="Search for Contacts"
-                  placeholder="Search here"
-                  onChange={handleChange}
-                />
-              </div>
+              // <div className="search_customer focus-outline">
+              //   <div className="search_icon">
+              //     <CgSearch size={20} color="#697A8D" />
+              //   </div>
+              //   <input
+              //     type="text"
+              //    // placeholder="Search for Contacts"
+              //     placeholder="Search here"
+              //     onChange={handleChange}
+              //   />
+              // </div>
+              <CustomInput width={260} placeholder="Search Here" icon="/images/icons/Search-icon.svg" />
+
+              
             
             }
+             {props.statusSelect}
           </div>
+         
+         
      
 
 
@@ -502,7 +513,10 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
             </div>
               </div>
             </Popover>
-            <div>
+          </div>
+          
+        </div>
+        <div>
               <div
                 className="gradient-overlay"
                 style={{
@@ -664,9 +678,6 @@ const FilterAndSearchBar = (props, { filterdata, width }) => {
             </div>
 
             </div>
-            
-          </div>
-        </div>
       </div>
     </>
   );

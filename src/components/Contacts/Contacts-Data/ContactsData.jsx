@@ -25,6 +25,7 @@ import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
 import { ToggleButton } from "../../Buttons/Button";
 // import Cookies from 'js-cookie';
+import { SearchSelect } from "../../Dropdowns/Dropdowns";
 
 
 const filterfield = {
@@ -148,29 +149,72 @@ const getSource = () => {
 
 console.log(addSouce)
 //
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    return parts.pop().split(';').shift();
-  }
-}
+// function getCookie(name) {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; ${name}=`);
+//   if (parts.length === 2) {
+//     return parts.pop().split(';').shift();
+//   }
+// }
 
+
+const StatusOptions = [
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-all"></div><p className="sc-body-md">All</p></div>),
+    value: "All",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-lead"></div><p className="sc-body-md">Lead</p></div>),
+    value: "Lead",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-not-interested"></div><p className="sc-body-md">Not Interested</p></div>),
+    value: "Not Interested",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-junk"></div><p className="sc-body-md">Junk</p></div>),
+    value: "Junk",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-prospective"></div><p className="sc-body-md">Prospective</p></div>),
+    value: "Prospective",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-customer"></div><p className="sc-body-md">Customer</p></div>),
+    value: "Customer",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-agent"></div><p className="sc-body-md">Agent</p></div>),
+    value: "Agent",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-consultant"></div><p className="sc-body-md">Consultant</p></div>),
+    value: "Consultant",
+  },
+  {
+    label: (<div className="status-contianer"><div className="status-bullet-other-vendor"></div><p className="sc-body-md">Other Vendor</p></div>),
+    value: "Other Vendor",
+  },
+
+  
+];
 
   const getData = async () => {
-    const token = getCookie('jwt'); 
+    // const token = getCookie('jwt'); 
     // const config = {
     //   headers: {
     //     'Authorization': `Bearer ${token}` // set the Authorization header with the token
     //   }
     // };
-    console.log(token)
-    await axios.get(`${config.baseUrl}/contact/`,
-    {
-      headers: {
-        'Authorization': `Bearer ${token}` // set the Authorization header with the token
-      }
-    }).then((res) => {
+    // console.log(token)
+    await axios.get(`${config.baseUrl}/contact/`
+    // {
+    //   // headers: {
+    //   //   'Authorization': `Bearer ${token}` // set the Authorization header with the token
+    //   // }
+    
+    // }
+    ).then((res) => {
       
       setFetchcontact(
         res.data.map((row) => ({
@@ -309,7 +353,7 @@ const deleteUser = (record)=>
             <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
             </div>
-            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name sc-body-md" style={{fontSize:"", color:"#465468 !important"}}>{record.name}</p>
+            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name-h1 sc-body-md" style={{fontSize:"", color:"#465468 !important"}}>{record.name}</p>
             <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
               {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
               <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.position}</p></div></div></span>
@@ -553,7 +597,7 @@ const deleteUser = (record)=>
                  </div> */}
                  </>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
         </Popover>
           
         </>
@@ -887,19 +931,20 @@ setoldData(oldData)
           addBtnName={"Contacts"}
           onData={handleData}
           filter={<Contacts />}
+          statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
           onFilter={(e) => {
             clearfilter(e);
             setVisible(!visible);
           }}
-          activeMode={ <div className="options-container">
+          activeMode={ <div className="grid-table-container">
           <div onClick={() => setActiveMode('grid')}>
             <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
-              Grid
+              <img src="/images/icons/grid-non-active-icon.svg" alt="icon" />
             </div>
           </div>
           <div onClick={() => setActiveMode('table')}>
             <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
-              Table
+              <img src="/images/icons/list-active-icon.svg" alt="icon" />
             </div>
           </div>
         </div> }
@@ -1234,18 +1279,19 @@ setoldData(oldData)
             clearfilter(e);
             setVisible(!visible);
           }}
-          activeMode={ <div className="options-container">
+          activeMode={ <div className="grid-table-container">
           <div onClick={() => setActiveMode('grid')}>
             <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
-              Grid
+              <img src="/images/icons/active-grid-icon.svg" alt="" />
             </div>
           </div>
           <div onClick={() => setActiveMode('table')}>
             <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
-              Table
+              <img src="/images/icons/list-non-active-icon.svg" alt="" />
             </div>
           </div>
         </div> }
+        statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
         />
         <OffCanvasExample form={<Contacts handledata={getDataChild} onClick={getData} />} />
         <div className="tableData">

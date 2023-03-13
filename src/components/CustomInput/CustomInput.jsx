@@ -86,11 +86,11 @@ const CustomInput = ({
         {label}
       </label>}
       <div className="input-box">
-        {icon && <img className="input-icon" src="/images/icons/barcode.svg" alt="icon" />}
+        {icon && <img className="input-icon" src={icon} alt="icon" />}
       <input
         resizable={resizable}
         id={id}
-        style={{width:icon ? width-49:width-30, padding: icon ? "0px 14px 0px 34px":"0px 14px",maxWidth: icon ? width-49:width-30, padding: icon ? "0px 14px 0px 34px":"0px 14px"}}
+        style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px"}}
         maxLength={maxLength}
         name={name}
         onBlur={onBlur}
