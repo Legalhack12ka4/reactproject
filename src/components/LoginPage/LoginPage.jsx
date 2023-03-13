@@ -1,16 +1,27 @@
 import { Switch } from "antd";
+import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ContainedButton } from "../Buttons/Button";
 import CustomInput from "../CustomInput/CustomInput";
+import config from "../Database/config";
 import "./LoginPage.scss";
 
+const resetValue = {
+    username:"",
+    email:"",
+    password:""
+ };
+
+
 const LoginPage = () => {
+  const [formData, setFormData] = useState(resetValue);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [smallScreen, setSmallScreen] = useState(window.screen.width);
   const [name, setName] = useState("");
   const [activePage, setActivePage] = useState("loginPage");
+  const navigate= useNavigate();
   // const handleNameChange = evt => {
   //   const newName = evt.target.value.replace(
   //     /[^a-zA-Z@\d\s.]/g,
@@ -32,6 +43,63 @@ const LoginPage = () => {
   }, []);
 
   console.log(smallScreen);
+
+    //Onchange
+
+      const onChange = (e) => {
+        const { value, name } = e.target;
+
+        setFormData({ ...formData, [name]: value });
+        console.log(value);
+        console.log(name);
+      };
+
+  //login
+
+  const handleLogin = async () => {
+    try {
+     await axios.post(`${config.baseUrl}/login`, {
+        
+        username: "",
+        email:formData.email,
+        password:formData.password,
+      
+          // username:"Vimlesh",
+          // email: "vimlesh.kumhar@reformiqo.com",
+          // password:"123",
+        
+      }).then((res) => 
+
+      {
+        console.log(res.data.jwt)
+        // console.log(res.data[0].jwt)
+        if (res.data.jwt) {
+        
+          // set cookie or token in local storage
+          document.cookie = `jwt=${res.data.jwt}`;
+         // localStorage.setItem('authToken', res.data.jwt)
+          
+          // redirect to dashboard page
+          navigate('/dashboard')
+        } else {
+          // handle error response
+          console.log(res.error)
+        }
+      })
+    
+    //  console.log(re)
+    //  const data = await response.json()
+     
+    } catch (error) {
+      if (error.response && error.response.status === 503) {
+        alert("Something went wrong. Please try again later. 503");
+      } else {
+        alert("Details Not Found, Password and username does not match")
+      }
+
+    }
+  }
+
 
   return (
     <div className="login-page-main">
@@ -66,15 +134,16 @@ const LoginPage = () => {
                   type="text"
                   width={330}
                   placeholder="Example@reformiqo.com"
-                  value={name}
+                  value={formData.email}
+                  name="email"
                   label="Email / Contact No."
                   inputType={"AlphaNumeric"}
                   onChange={(e, newValue) =>
-                    setName((prevState) => ({
-                      ...prevState,
-                      name: newValue,
-                    }))
-                  }
+                    { onChange(e); 
+                      setFormData(prevState => ({
+                        ...prevState,
+                        "email": newValue
+                      }))}}
                 />
               </div>
 
@@ -88,12 +157,15 @@ const LoginPage = () => {
                   // value={name}
                   width={330}
                   label="Password"
-                  // inputType={"AlphaNumeric"}
-                  // onChange={(e, newValue) =>
-                  //   setName(prevState => ({
-                  //     ...prevState,
-                  //     "name": newValue
-                  //   }))}
+                  value={formData.password}
+                  name="password"
+                  inputType={"AlphaNumeric"}
+                  onChange={(e, newValue) =>
+                    { onChange(e); 
+                      setFormData(prevState => ({
+                        ...prevState,
+                        "password": newValue
+                      }))}}
                 />
                 {/* <input id="password-box" placeholder='Password' className='focus-outline' type={showPassword ? "text" : "password"}/> */}
                 <div
@@ -125,9 +197,9 @@ const LoginPage = () => {
               </label>
             </div>
 
-            <Link exact to="/dashboard">
-              <ContainedButton value="Sign In" width={330} />
-            </Link>
+            {/* <Link exact to="/dashboard"> */}
+              <ContainedButton value="Sign In" width={330} onClick={() => {handleLogin()}} />
+            {/* </Link> */}
 
             <div className="create-account-container">
               <p>
@@ -146,6 +218,8 @@ const LoginPage = () => {
             </div> */}
           </div>
         )}
+
+{/* //for password */}
 
         {activePage === "forgetPasswordPage" && (
           <div className="forget-password-container">
@@ -173,8 +247,8 @@ const LoginPage = () => {
                   type="text"
                   width={330}
                   placeholder="Example@reformiqo.com"
-                  value={name}
-                  label="Email"
+                  value={formData.email}
+                  label="email"
                   inputType={"AlphaNumeric"}
                   onChange={(e, newValue) =>
                     setName((prevState) => ({

@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
 import { ToggleButton } from "../../Buttons/Button";
+// import Cookies from 'js-cookie';
 
 
 const filterfield = {
@@ -126,10 +127,10 @@ console.log(enddate)
 
   //get data positon
 
-const othersource =addSouce.map((place)=>({
-  label: place.position_name,
-  value: place.position_name,
-}))
+// const othersource =addSouce.map((place)=>({
+//   label: place.position_name,
+//   value: place.position_name,
+// }))
 
 useEffect (()=>
 {
@@ -147,9 +148,29 @@ const getSource = () => {
 
 console.log(addSouce)
 //
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts.pop().split(';').shift();
+  }
+}
+
 
   const getData = async () => {
-    await axios.get(`${config.baseUrl}/contact/`).then((res) => {
+    const token = getCookie('jwt'); 
+    // const config = {
+    //   headers: {
+    //     'Authorization': `Bearer ${token}` // set the Authorization header with the token
+    //   }
+    // };
+    console.log(token)
+    await axios.get(`${config.baseUrl}/contact/`,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}` // set the Authorization header with the token
+      }
+    }).then((res) => {
       
       setFetchcontact(
         res.data.map((row) => ({
