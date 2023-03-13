@@ -119,22 +119,22 @@ document.addEventListener("keydown", e =>{
                   <img src="/images/searchbar_icons/User-Avtar.svg"/>
                   <div style={{display:"grid"}}>
                     <p1 className="profile_name">Parth Goswami</p1>
-                    <p1 className="profile_key" >Key Person</p1>
+                    <p1 className="profile_key" >parth.goswami@reformiqo.com</p1>
                   </div>
                  </div>
-                 <hr style={{border:"1px solid #4359711A", margin:"10px -20px"}}/>
+                 <hr style={{border:"1px solid #4359711A", margin:"10px 0px"}}/>
                  <div  className="popover-menu-item container_profile">
                  <img src={profile}/>
-                 <p1 className="p_profile_setting" >My profile</p1>
+                 <p1 className="p_profile_setting" >Profile</p1>
                  </div>
                  <div   className="popover-menu-item container_setting" >
                 <img src={setting}/>
-                <p1 className="p_setting">Setting</p1>
+                <p1 className="p_setting">Account Setting</p1>
                  </div>
-                 <hr style={{border:"1px solid #4359711A",  margin:"10px -20px"}}/>
+                 <hr style={{border:"1px solid #4359711A",  margin:"10px 0px"}}/>
                  <Link exact to="/">   <div  onClick={hide}  className="popover-menu-item container_logout">
                  <img src={logout}/>
-                 <p1 className="p_logout">Log Out</p1>
+                 <p1 className="p_logout">Sign Out</p1>
                  </div></Link>
                  </>
                  
