@@ -7,7 +7,7 @@ import CustomInput from "../CustomInput/CustomInput";
 
 const { OptGroup, Option } = Select;
 
-export const SearchSelect = forwardRef(({ onChange, options, name, value, error,errorMsg, editBtn, editBtnClick,multi, ...props },ref) =>  {
+export const SearchSelect = forwardRef(({ onChange, options, name, value, error, errorMsg, editBtn, editBtnClick, multi, showSearch, ...props },ref) =>  {
 
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
@@ -49,15 +49,16 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
   }
  }))
 
- console.log("openDD",open)
+
+ 
   return (
     <>
     <div className={`srchdrp srchSelct ${error && "drpError"} ${props.addNew && "bottom-padding-none"}`}>
-    {props.lable && <p className="sc-body-md dropdown-lable">{props.lable}</p>}
+    {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
     <Select
        
       disabled={props.isDisabled}
-      showSearch
+      showSearch={showSearch ? showSearch : true}
       placeholder={open ? "Type to search" : "Select Value"}
       mode={multi && "multiple"}
     //   allowClear={multi && true}
@@ -108,6 +109,7 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
     //       <div>{option.description}</div>
     //     </>
     //   )}
+      // options={options}
       options={options}
     />
     {selectedOption && editBtn && <div className="editBtnContainer"><div className="editBtn" onClick={editBtnClick}><img src="/images/icons/edit_blue_icon.svg" alt="" /></div></div>}
@@ -178,7 +180,7 @@ export const CategorySelect = forwardRef(({ onChange, options, name, value, erro
   return (
     <>
     <div className={`srchdrp catSelect ${error && "drpError"}`}>
-    {props.lable && <p className="sc-body-md dropdown-lable">{props.lable}</p>}
+    {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
     <Select
       
       disabled={props.isDisabled}
@@ -228,7 +230,7 @@ export const CategorySelect = forwardRef(({ onChange, options, name, value, erro
 })
 
 
-export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, editBtn, editBtnClick,multi, ...props} ) => {
+export const  InputGroup = ( {onChange, options, name,countryName,countryValue, value, error,errorMsg, editBtn, editBtnClick,multi, ...props} ) => {
 
 
 
@@ -258,8 +260,8 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
   }
 
   useEffect(() => {
-    setSelectedOption(value);
-  }, [value]);
+    setSelectedOption(countryValue);
+  }, [countryValue]);
 
   const handleReset = () => {
     setSelectedOption(null);
@@ -275,6 +277,7 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
   };
 
     return (
+      <div>{props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
         <div className="input-group srchdrp focus-outline">
          <div>  <Select
        
@@ -318,7 +321,8 @@ export const  InputGroup = ( {onChange, options, name, value, error,errorMsg, ed
         {label}
         </Option>
       ))}</Select>
-    </div><CustomInput className="mobile_input" placeholder="Enter Number" width={232}/>
+    </div><CustomInput className="mobile_input" onChange={onChange} value={value} name={name} placeholder="Enter Number" width={232}/>
+        </div>
         </div>
     )
 }

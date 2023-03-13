@@ -124,7 +124,7 @@
     border-radius: 50%;
     width: 8px;
     height: 8px;
-    background-color: #28A745;
+    background-color: $success-100;
   //  margin-right: 5px;
     border: 2px solid $success-700;
 }
@@ -269,6 +269,10 @@
 
 .contacts-grid-container{
 
+    .table_nav{
+        padding: 0px 0px 30px 0px
+    }
+
     .grid-data-container{
         display: flex;
         gap: 20px;
@@ -407,4 +411,46 @@
     color:#ffffff !important;
     border: none;
     box-shadow:  0px 1px 2px red !important;
+}
+
+
+.grid-table-container{
+    width: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 32px;
+    padding: 3px 4px;
+    background-color: #E1E8F0;
+    border-radius: 6px;
+    // transition: all 0.3s ease-in-out;
+
+    .option{
+        height: 32px;
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        // border: 1px solid;
+        // transition: all 0.3s ease-in-out;
+        
+    }
+    .active{
+        background-color: #ffff;
+        border-radius: 6px;
+        box-shadow: 0px 1px 2px #43597114;
+        // transition: all 0.3s ease-in-out;
+
+    }
+}
+.contact-name-h1{
+    color: $neutrals-400 !important;
+}
+
+.contact-key-personname{
+    color: $neutrals-600 !important;
+}
+.contact-company_name{
+    color: $neutrals-400 !important;
 }

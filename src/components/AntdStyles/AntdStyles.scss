@@ -100,7 +100,7 @@
   font-weight: 500 !important;
   color: $neutrals-600 !important;
   .subchild a {
-    color: #a1acb8 !important;
+    color: $neutrals-500 !important;
     font-weight: 400 !important;
   }
   .heading_parent {
@@ -474,7 +474,7 @@ th {
 }
 
 .ant-table-wrapper .ant-table-pagination.ant-pagination {
-  margin: 16px 20px !important;
+  // margin: 16px 20px !important;
 }
 
 .ant-pagination .ant-pagination-total-text {

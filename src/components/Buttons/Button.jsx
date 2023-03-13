@@ -2,23 +2,24 @@ import { Switch } from 'antd'
 import React from 'react'
 import './Buttons.scss'
 
-export const ContainedButton = ({value, width}) => {
+export const ContainedButton = ({value, width, onClick, type}) => {
   return (
-    <button className='sc-body-sb Contained-btn' style={{width:width}}>{value}</button>
+    <button type={type ? type:"button"} className='sc-body-sb Contained-btn' style={{width:width}} onClick={onClick}>{value}</button>
   )
 }
 
-export const ContainedSecondaryButton = ({value, width}) => {
+export const ContainedSecondaryButton = ({value, width, onClick}) => {
     return (
-        <button className='sc-body-sb sc-text-btn' style={{width:width}}>{value}</button>
+        <button type='button' className='sc-body-sb sc-text-btn' style={{width:width}} onClick={onClick}>{value}</button>
     )
     }
 
 
-export const ContainedIconButton = ({value, width}) => {
+export const ContainedIconButton = ({value, width, icon, onClick}) => {
     return (
-        <button className='contained-icon-btn sc-body-sb' style={{width:width}}>
-            <img src="/images/icons/send_icon.svg" alt="icon" />
+        <button type='button' className='contained-icon-btn sc-body-sb' style={{width:width}} onClick={onClick}>
+            {/* <img src="/images/icons/send_icon.svg" alt="icon" /> */}
+            {icon}
             <p>{value}</p>
         </button>
     )
@@ -27,13 +28,13 @@ export const ContainedIconButton = ({value, width}) => {
 
 export const GhostButton = ({value, width}) => {
     return (
-        <button className='ghost-btn sc-body-sb' style={{width:width}} >{value}</button>
+        <button type='button' className='ghost-btn sc-body-sb' style={{width:width}} >{value}</button>
     )
     }
 
 export const GhostIconButton = ({value, width}) => {
     return (
-        <button className='ghost-icon-btn sc-body-sb' style={{width:width}}>
+        <button type='button' className='ghost-icon-btn sc-body-sb' style={{width:width}}>
             <img src="/images/icons/send-primary-icon.svg" alt="icon" />
             <p>{value}</p>
         </button>
@@ -43,13 +44,13 @@ export const GhostIconButton = ({value, width}) => {
 
 export const TextButton = ({value, width}) => {
     return (
-        <button className='text-btn sc-body-sb' style={{width:width}}>{value}</button>
+        <button type='button' className='text-btn sc-body-sb' style={{width:width}}>{value}</button>
     )
     }
 
 export const IconButton = () => {
     return (
-        <button className='icon-btn'>
+        <button type='button' className='icon-btn'>
             <img src="/images/icons/send-primary-icon.svg" alt="icon" />
         </button>
 
@@ -58,7 +59,7 @@ export const IconButton = () => {
 
 export const FloatingActionButton = () => {
     return (
-        <button className='floating-action-btn' >
+        <button type='button' className='floating-action-btn' >
             <img src="/images/icons/send_icon.svg" alt="icon" />
         </button>
     )

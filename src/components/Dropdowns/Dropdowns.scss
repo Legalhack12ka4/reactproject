@@ -496,4 +496,96 @@
 // {
 //   color:red !important
 // }
+
+.dropdown-lable{
+  color: $neutrals-400 !important;
+    margin-bottom: 8px;
+}
  
+
+.status-contianer{
+  display: flex;
+  align-items: center;
+
+
+  .status-bullet-all{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $secondary-100;
+    margin-right: 8px;
+    border: 2px solid $secondary-900;
+  }
+
+  .status-bullet-lead{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $info-100;
+    margin-right: 10px;
+    border: 2px solid $info-900;
+  }
+
+  .status-bullet-not-interested{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $danger-100;
+    margin-right: 8px;
+    border: 2px solid $danger-900;
+  }
+
+  .status-bullet-junk{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $orange-100;
+    margin-right: 8px;
+    border: 2px solid $orange-900;
+  }
+
+  .status-bullet-prospective{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $primary-100;
+    margin-right: 8px;
+    border: 2px solid $primary-900;
+  }
+
+  .status-bullet-customer{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $success-100;
+    margin-right: 8px;
+    border: 2px solid $success-900;
+  }
+
+  .status-bullet-agent{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $warning-100;
+    margin-right: 8px;
+    border: 2px solid $warning-900;
+  }
+
+  .status-bullet-consultant{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $secondary-100;
+    margin-right: 8px;
+    border: 2px solid $secondary-900;
+  }
+
+  .status-bullet-other-vendor{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $success-100;
+    margin-right: 8px;
+    border: 2px solid $success-900;
+  }
+}
