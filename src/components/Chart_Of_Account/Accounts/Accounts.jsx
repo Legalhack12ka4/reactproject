@@ -29,6 +29,7 @@ import axios from "axios";
 import { chartOfAccountSchema } from "../../../Schemas";
 import CustomInput from "../../CustomInput/CustomInput";
 import { CategorySelect, SearchSelect } from "../../Dropdowns/Dropdowns";
+import { Navigate } from "react-router-dom";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
@@ -606,6 +607,21 @@ console.log(chartOfAccountSchema)
   const filteredData = dataSource.filter((record) =>
     record.account_name.toLowerCase().includes(search.toLowerCase())
   );
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
+
   return (
     <div className="account-data">
       <Page_heading parent={"Chart of Accounts"} child={"Accounts"} />

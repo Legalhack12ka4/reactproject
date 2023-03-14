@@ -32,15 +32,15 @@ const LoginPage = () => {
   const handlePasswordClick = () => {
     setShowPassword(!showPassword);
   };
-  useEffect(() => {
-    const handleResize = () => {
-      setSmallScreen(window.screen.width);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setSmallScreen(window.screen.width);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   console.log(smallScreen);
 
@@ -48,7 +48,6 @@ const LoginPage = () => {
 
       const onChange = (e) => {
         const { value, name } = e.target;
-
         setFormData({ ...formData, [name]: value });
         console.log(value);
         console.log(name);
@@ -60,7 +59,7 @@ const LoginPage = () => {
     try {
      await axios.post(`${config.baseUrl}/login`, {
         
-        username: "",
+      //  username: "",
         email:formData.email,
         password:formData.password,
       
@@ -76,8 +75,8 @@ const LoginPage = () => {
         if (res.data.jwt) {
         
           // set cookie or token in local storage
-          document.cookie = `jwt=${res.data.jwt}`;
-         // localStorage.setItem('authToken', res.data.jwt)
+          //document.cookie = `jwt=${res.data.jwt}`;
+          localStorage.setItem('jwt', res.data.jwt)
           
           // redirect to dashboard page
           navigate('/dashboard')

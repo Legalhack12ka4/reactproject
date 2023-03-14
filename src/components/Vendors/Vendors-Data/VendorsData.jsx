@@ -16,6 +16,7 @@ import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 //import { ChildStateModificationFunc } from "../Vendors";
 import { ChildStateModificationFunc } from "../Vendors";
+import { Navigate } from "react-router-dom";
 
 const filterfield = {
   gsttreat: "",
@@ -714,6 +715,23 @@ const deleteUser = (record)=>
     if(checked) setSelectedColumns([...selectedColumns, value]);
     else setSelectedColumns(selectedColumns.filter(col => col !== value));
   }
+
+
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+
+}
 
   return (
     <div className="Vendors-data">

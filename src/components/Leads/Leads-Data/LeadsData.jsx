@@ -18,6 +18,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
+import { Navigate } from "react-router-dom";
 
 
 const filterfield = {
@@ -531,6 +532,20 @@ useEffect (()=>{
     [loading, columns]
   );
 
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
   return (
     // <div className="leads-data">
     //   <Page_heading parent={"Business Account"} child={"Leads"} />

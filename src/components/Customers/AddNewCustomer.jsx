@@ -20,7 +20,7 @@ import pin from "../../assets/Images/FormIcon/Pincode.svg";
 import street from "../../assets/Images/FormIcon/Street 1 & Street 2.svg";
 import business from "../../assets/Images/FormIcon/Business.svg";
 import { BiErrorCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import config from "../Database/config";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import CustomInput from "../CustomInput/CustomInput";
@@ -766,6 +766,21 @@ ChildStateModificationFunc = (modVal)=>{
         e.preventDefault();
       }
   }
+
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
 
   return (
     <div className="addNewCustomerContainer">

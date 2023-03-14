@@ -1,6 +1,6 @@
 import { Switch } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./ItemandService.scss";
@@ -18,6 +18,20 @@ const ItemandService = () => {
     setMethodSelected(methodSelected === index ? null : index);
     };
 
+    const token = localStorage.getItem("jwt")
+    let loggedIn= true
+    if(token == null)
+    {
+      localStorage.removeItem("jwt");
+      loggedIn = false
+    }
+   // Details={loggedIn}
+  
+  if(loggedIn == false)
+  {
+    localStorage.removeItem("jwt");
+    return <Navigate to="/"/>
+  }
 
   return (
     <div className="item_and_service_main">

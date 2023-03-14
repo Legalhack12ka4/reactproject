@@ -9,9 +9,12 @@ import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import config from "../../Database/config";
 
 function ManufacturedItemTable() {
-
+  const [fetchitemgroup, setFetchItemGroup] = useState([]);
+  const [fetchitem, setFetchItem] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [page, setPage] = useState(1);
@@ -21,321 +24,53 @@ function ManufacturedItemTable() {
     const componentRef = useRef();
 
     const location = useLocation();
-    const dataSourceItem = [
-      {
-        key: "1",
-        item_name: "Gray Grick Shirt",
-        group_name: "Grick Shirt",
-        foreign_name:"CK Gray Shirt",
-        barcode: "GS-GG-0001",
-        hsn_code:"61051010",
-        status:"Active",
-        price:"₹499.00",
-        uom: "Pcs",
-      
+    useEffect (()=>
+    {
+      getItemGroup();
+      getItem();
+    }, [])
+    
+    
+      const getItemGroup = async () => {
      
-      },
-      {
-          key: "2",
-          item_name: "Polo White Perl",
-          group_name: "Polo Shirt",
-          foreign_name:"Polo Black",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹899.00",
-          uom: "Pcs",
-        },
-       
-        {
-          key: "3",
-          item_name: "CK Coral",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-        hsn_code:"61051010",
-        status:"Inactive",
-        price:"₹999.00",
-        uom: "Pcs",
-        },
-        {
-          key: "4",
-          item_name: "Polo Coral",
-          group_name: "Polo Shirt",
-          foreign_name:"Polo Red",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹1.20 K",
-          uom: "Pcs",
-        },
-        {
-          key: "5",
-          item_name: "Gray Grick Shirt",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Inactive",
-          price:"₹2.10 K",
-          uom: "Pcs",
-        },
-        {
-          key: "6",
-          item_name: "Gray Grick Shirt",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹0.9 K",
-          uom: "Pcs",
-        },
-        
-     
-    ];
-    const columnsDataItem = [
-      {
-        title: "Item Name",
-        label: "Item Name",
-        dataIndex: "item_name",
-        key: "item_name",
-        resizable: true,
-        fixed: "left",
-        align: "left",
-        width: 220,
-        render: (text, record) => {
-          return (
-            <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
-              <div style={{width:"36px", height:"36px", borderRadius:"50%"}}>
-              <img src={shirt} alt="" style={{width:"36px", height:"36px", borderRadius:"50%"}}/>
-              </div>
-            <div
-              style={{
-                  color:'#5C5AD0',
-                  fontWeight:"600"
-              }}
-            >
-              {record.item_name}
-            </div>
-            </div>
+        await axios.get(`${config.baseUrl}/itemgroup/`
+    
+        ).then((res) => {
+          
+          setFetchItemGroup(
+            res.data.map((row) => ({
+              Key: row.id,
+              Group_Name: row.group_name,
+              UOM: row.uom,
+              Manage_By: row.manage_by,
+              Variants: row.variants,
+              Status:row.status,
+              Tax_Rates:row.tax_rates,
+              Cost_Account:row.cost_account,
+              Sales_Account:row.sales_account
+    
+              // id: row.id
+            }))
           );
-        },
-      },
-      {
-        title: "Group Name",
-        label: "Group Name",
-        dataIndex: "group_name",
-        key: "group_name",
-        width: 140,
-       
-      },
-      {
-        title: "Foreign Name",
-        label: "Foreign Name",
-        dataIndex: "foreign_name",
-        key: "foreign_name",
-        width: 140,
-      },
-      {
-        title: "Barcode",
-        label: "Barcode",
-        dataIndex: "barcode",
-        key: "barcode",
-        width: 140,
-      },
-      {
-        title: "HSN Code",
-        label: "HSN Code",
-        dataIndex: "hsn_code",
-        key: "hsn_code",
-        width: 130,
-      },
-      {
-        title: "Status",
-        label: "Status",
-        dataIndex: "status",
-        key: "status",
-        width: 120,
-        render: (status, record, text) => (
-            <>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {record.status === "Active" ? <div className="bullet_item"></div> :
-                <div className="bullet_itemred"></div>}
-                <Typography.Text
-                  style={
-                    record.status === "Active"
-                      ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
-                      :  { color: "#DA2F58", fontSize: "14px", fontWeight: "600" }
-                  }
-                >
-                  {record.status}
-                </Typography.Text>
-              </div>
-            </>
-          ),
-        
-      },
-      {
-        title: "Price",
-        label: "Price",
-        dataIndex: "price",
-        key: "price",
-        width: 110,
-        render: (status, record, text) => (
-          <>
-            <div style={{color:"#566A7F", fontWeight:"700"}}>
-              {record.price}
-            </div>
-          </>
-        ),
-      },
-
-      {
-        title: "UOM",
-        label: "UOM",
-        dataIndex: "uom",
-        key: "uom",
-        width: 100,
-      },
-     
+          // console.log(res);
+          setloading(false);
+        });
+      };
+    console.log(fetchitemgroup)
     
-        {
-          title: "",
-          label: "Action",
-          dataIndex: "action",
-          key: "action",
-          resizable: true,
-          fixed: "right",
-          align: "center",
-          width: 40,
-          render: (text, record) => (
-            <>
-            <Popover  id="popoverhide" 
-          getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
-           content={
-                     <>
-               
-                     <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                     <img src={deletelogo} />
-                     <div>
-                     <button 
-                     className="actionlabel"
-                  //   onClick={() => { handleConfirmCancel(record); hide(); }}
-                    //onClick={hide}
-                     >
-                    Delete
-                     </button>
-                     </div>
-                     </div>
-                     <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                      <img src={editlogo} />
-                      <div>
-                     <button
-          
-                        className="actionlabel"
-                       // onClick={() => handleUpdate(record)}
-                     >
-                    Update
-                     </button>
-                     </div>
-                     </div>
-                     <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-                      <img src={statuslogo} />
-                      <div>
-                     <button
-                      className="actionlabel"
-                      style={{minWidth: "max-content"}}
-                        // onClick={() => handleUpdate(record)}
-                     >
-                      Set as Activate
-                     </button>
-                     </div>
-                     </div>
-                     </>
-            } title="" height={100} trigger="click">
-            <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"20px"}} />
-            </Popover>
-              
-            </>
-         
-          
+      const dataSource = fetchitemgroup.map((customer) => ({
+        key: customer.Key,
+        id: customer.Key,
+        group_name: customer.Group_Name,
+        uom: customer.UOM,
+        manage_by: customer.Manage_By,
+        variants: customer.Variants,
+        status: "Active",
+        tax_rates:customer.Tax_Rates,
+        sales_account:customer.Sales_Account,
+        cost_account:customer.Cost_Account
     
-              ),
-          resizable: true,
-          align: "left",
-        },
-    ];
-    const dataSource = [
-        {
-          key: "1",
-          group_name: "Chexed Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "2",
-          group_name: "Polo Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "3",
-          group_name: "Denim Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Inactive",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "4",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "5",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Inactive",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "6",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-      ];
-
-    
+      }))
       const columnsData = [
         {
           title: "Group Name",
@@ -373,7 +108,7 @@ function ManufacturedItemTable() {
           key: "manage_by",
           align: "left",
           width: 90,
-
+    
         },
         {
           title: "Variants",
@@ -449,7 +184,7 @@ function ManufacturedItemTable() {
             fixed: "right",
             align: "center",
             width: 40,
-
+    
             // width: "max-content",
             render: (text, record) => (
               <>
@@ -508,6 +243,220 @@ function ManufacturedItemTable() {
             align: "left",
           },
       ];
+    
+      const getItem = async () => {
+     
+        await axios.get(`${config.baseUrl}/item/`
+    
+        )  .then((res) => {
+          setloading(false);
+          setFetchItem(
+            res.data.map((row) => ({
+              Key: row.id,
+              Item_Name: row.item_name,
+              Group_Name: row.group_name,
+              Foreign_Name: row.foreign_name,
+              Barcode:row.barcode,
+              HSN_Code:row.hsn_code,
+              Status:row.status,
+              Price:row.price,
+              UOM:row.uom
+            
+            }))
+          );
+          // console.log(res);
+         
+        });
+      };
+    
+    
+        const dataSourceItem =
+        fetchitem.map((customer) => ({
+          key: customer.Key,
+          id: customer.Key,
+          item_name:customer.Item_Name,
+          group_name: customer.Group_Name,
+          foreign_name:customer.Foreign_Name,
+          barcode:customer.Barcode,
+          hsn_code:customer.hsn_code,
+          status: "Active",
+          price:customer.Price,
+          uom: customer.UOM,
+        }))
+        
+        const columnsDataItem = 
+        [
+          {
+            title: "Item Name",
+            label: "Item Name",
+            dataIndex: "item_name",
+            key: "item_name",
+            resizable: true,
+            fixed: "left",
+            align: "left",
+            width: 220,
+            render: (text, record) => {
+              return (
+                <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
+                  {/* <div style={{width:"36px", height:"36px", borderRadius:"50%"}}>
+                  <img src={shirt} alt="" style={{width:"36px", height:"36px", borderRadius:"50%"}}/>
+                  </div> */}
+                <div
+                  style={{
+                      color:'#5C5AD0',
+                      fontWeight:"600"
+                  }}
+                >
+                  {record.item_name}
+                </div>
+                </div>
+              );
+            },
+          },
+          {
+            title: "Group Name",
+            label: "Group Name",
+            dataIndex: "group_name",
+            key: "group_name",
+            width: 140,
+           
+          },
+          {
+            title: "Foreign Name",
+            label: "Foreign Name",
+            dataIndex: "foreign_name",
+            key: "foreign_name",
+            width: 140,
+          },
+          {
+            title: "Barcode",
+            label: "Barcode",
+            dataIndex: "barcode",
+            key: "barcode",
+            width: 140,
+          },
+          {
+            title: "HSN Code",
+            label: "HSN Code",
+            dataIndex: "hsn_code",
+            key: "hsn_code",
+            width: 130,
+          },
+          {
+            title: "Status",
+            label: "Status",
+            dataIndex: "status",
+            key: "status",
+            width: 120,
+            render: (status, record, text) => (
+                <>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    {record.status === "Active" ? <div className="bullet_item"></div> :
+                    <div className="bullet_itemred"></div>}
+                    <Typography.Text
+                      style={
+                        record.status === "Active"
+                          ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                          :  { color: "#DA2F58", fontSize: "14px", fontWeight: "600" }
+                      }
+                    >
+                      {record.status}
+                    </Typography.Text>
+                  </div>
+                </>
+              ),
+            
+          },
+          {
+            title: "Price",
+            label: "Price",
+            dataIndex: "price",
+            key: "price",
+            width: 110,
+            render: (status, record, text) => (
+              <>
+                <div style={{color:"#566A7F", fontWeight:"700"}}>
+                  {record.price}
+                </div>
+              </>
+            ),
+          },
+    
+          {
+            title: "UOM",
+            label: "UOM",
+            dataIndex: "uom",
+            key: "uom",
+            width: 100,
+          },
+         
+        
+            {
+              title: "",
+              label: "Action",
+              dataIndex: "action",
+              key: "action",
+              resizable: true,
+              fixed: "right",
+              align: "center",
+              width: 40,
+              render: (text, record) => (
+                <>
+                <Popover  id="popoverhide" 
+              getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
+               content={
+                         <>
+                   
+                         <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+                         <img src={deletelogo} />
+                         <div>
+                         <button 
+                         className="actionlabel"
+                      //   onClick={() => { handleConfirmCancel(record); hide(); }}
+                        //onClick={hide}
+                         >
+                        Delete
+                         </button>
+                         </div>
+                         </div>
+                         <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                          <img src={editlogo} />
+                          <div>
+                         <button
+              
+                            className="actionlabel"
+                           // onClick={() => handleUpdate(record)}
+                         >
+                        Update
+                         </button>
+                         </div>
+                         </div>
+                         <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                          <img src={statuslogo} />
+                          <div>
+                         <button
+                          className="actionlabel"
+                          style={{minWidth: "max-content"}}
+                            // onClick={() => handleUpdate(record)}
+                         >
+                          Set as Activate
+                         </button>
+                         </div>
+                         </div>
+                         </>
+                } title="" height={100} trigger="click">
+                <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"20px"}} />
+                </Popover>
+                  
+                </>
+             
+              
+        
+                  ),
+              resizable: true,
+              align: "left",
+            },
+        ];
 
       const [columns, setColumns] = useState(columnsData);
  // search table functionality
@@ -593,9 +542,9 @@ function ManufacturedItemTable() {
               setPage(page);
               setPageSize(pageSize);
             },
-            total: 10,
+            total: activeTable === "ItemGroup" ? fetchitemgroup.length : fetchitem.length,
             showTotal: (total, range) =>
-              `Showing ${range[1]}-${range[1]} of ${total} Item Group`,
+              `Showing ${range[1]}-${range[1]} of ${total} ${activeTable === "ItemGroup" ? "Item Group" :"Item"}`,
           }
         }
         rowClassName={(record) =>

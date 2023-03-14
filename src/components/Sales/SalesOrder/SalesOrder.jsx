@@ -4,6 +4,7 @@ import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import "./SalesOrder.scss";
 import { Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { Navigate } from "react-router-dom";
 
 const SalesOrder = () => {
   const [salesOrderItemList, setSalesOrderItemList] = useState([
@@ -25,7 +26,20 @@ const SalesOrder = () => {
     setSalesOrderItemList(salesOrderItemList.filter((item) => item.id !== id));
   };
   
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
 
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
 
   return (
     <div className="sales-order-main-container">

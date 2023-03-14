@@ -1,5 +1,5 @@
 import { React, useState, useRef, useEffect, useMemo } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import Page_heading from "../Page_Heading/Page_heading";
 import "./Customers.scss";
 import { Button, Empty, Modal, Popover, Skeleton, Slider, Space, Table, Tag, Tooltip } from "antd";
@@ -66,6 +66,8 @@ const Customer = (props) => {
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [updateRecord, setUpdateRecord]= useState(null)
   
+
+
 //for update
 
 const handleConfirmCancelUpdate = () => {
@@ -112,6 +114,9 @@ const handleConfirmCancelUpdate = () => {
     getData();
    // window.scroll(0, 20);
   }, []);
+
+ 
+
 
 //getstate
 
@@ -821,7 +826,21 @@ const deleteUser = (record)=>
      else setSelectedColumns(selectedColumns.filter(col => col !== value));
    }
 
-  
+   const token = localStorage.getItem("jwt")
+   let loggedIn= true
+   if(token == null)
+   {
+     localStorage.removeItem("jwt");
+     loggedIn = false
+   }
+  // Details={loggedIn}
+ 
+ if(loggedIn == false)
+ {
+   localStorage.removeItem("jwt");
+   return <Navigate to="/"/>
+ 
+ }
   return (
     <>
       <div className="customers">
