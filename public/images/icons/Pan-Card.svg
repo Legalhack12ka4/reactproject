@@ -1,0 +1,8 @@
+<svg id="Group_41844" data-name="Group 41844" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <rect id="Rectangle_17641" data-name="Rectangle 17641" width="15" height="15" fill="none"/>
+  <g id="bx-id-card" transform="translate(0 1.5)">
+    <path id="Path_34366" data-name="Path 34366" d="M7.286,9a1.458,1.458,0,0,0,1.5-1.5A1.458,1.458,0,0,0,7.286,6a1.458,1.458,0,0,0-1.5,1.5A1.457,1.457,0,0,0,7.286,9Z" transform="translate(-1.5 -3)" fill="#697a8d"/>
+    <path id="Path_34367" data-name="Path 34367" d="M15,3H3A1.457,1.457,0,0,0,1.5,4.406v9.188A1.457,1.457,0,0,0,3,15H15a1.457,1.457,0,0,0,1.5-1.406V4.406A1.457,1.457,0,0,0,15,3Zm0,10.5L3,13.492V4.5l12,.008Z" transform="translate(-1.5 -3)" fill="#697a8d"/>
+    <path id="Path_34368" data-name="Path 34368" d="M10.5,6.75h3v1.5h-3Zm.75,3H13.5v1.5H11.25Zm-1.177,1.9c0-1.031-1.257-2.09-2.786-2.09S4.5,10.622,4.5,11.652V12h5.573Z" transform="translate(-1.5 -3)" fill="#697a8d"/>
+  </g>
+</svg>

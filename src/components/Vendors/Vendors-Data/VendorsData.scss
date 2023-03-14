@@ -1,3 +1,5 @@
+@import "../../../assets/Colors/Colors.scss";
+
 .Vendors-data{
     // border: 1px solid;
     margin: auto;
@@ -11,9 +13,14 @@
     .Vendors-table-container{
         // border: 1px solid;
        // padding: 20px;
+       max-height: 200px;
         background-color: #ffff;
         border-radius: 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
+
+        .filter-searchbar-container{
+          padding: 0px 20px;
+        }
     }
 
     .tableData {
@@ -37,4 +44,124 @@
         // box-shadow:  0px 2px 6px 0px #4359711f;
        
       }
+}
+
+.vendors-grid-container{
+
+  .table_nav{
+      padding: 0px 0px 30px 0px
+  }
+
+  .grid-data-container{
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      .card-container{
+          background-color: #ffff;
+          padding: 20px;
+          width: 221px;
+          border-radius: 6px;
+          box-shadow:  0px 6px 30px #43597114;
+
+          .profile-container{
+              display: flex;
+              gap: 10px;
+              padding-bottom: 10px;
+              margin-bottom: 10px;
+              border-bottom: .5px solid $neutrals-700;
+
+              .user-avtar{
+                  width: 66px;
+                  height: 66px;
+              }
+              .name-option-container{
+                  .name{
+                      margin-bottom: 2px;
+                  }
+                  .lead-option-container{
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+
+                      margin-top: 8px;
+                      width: 138px;
+                  .lead{
+                      width: 40px;
+                      height: 20px;
+                      border-radius: 6px;
+                      color: $info-100;
+                      
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      background-color: $info-900;
+                  }
+                  img{
+                      // width: 24px;
+                      // height: 24px;
+                      transform: rotate(90deg);
+                      cursor: pointer;
+                  }
+              }
+              }
+          }
+
+
+          .business-details-container{
+
+              .account{
+                  margin-bottom: 16px;
+                  .business-name{
+                      color: $neutrals-400;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      margin-top: 6px;
+                  }
+              }
+
+              .email{
+                  margin-bottom: 16px;
+                  .email-id{
+                      color: $neutrals-400;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      margin-top: 6px;
+                  }
+              }
+              .phone{
+                  margin-bottom: 16px;
+                  .mobile{
+                      color: $neutrals-400;
+                      margin-top: 6px;
+                  }
+              }
+              .lead{
+                  margin-bottom: 16px;
+                  .lead-source{
+                      color: $neutrals-400;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      margin-top: 6px;
+                  }
+              }
+              .ownership{
+                  .ownership-name{
+                      color: $neutrals-400;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      margin-top: 6px;
+                  }
+              }
+          }
+
+
+          
+
+      }
+  }
 }

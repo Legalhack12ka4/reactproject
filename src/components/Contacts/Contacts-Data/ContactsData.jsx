@@ -20,7 +20,7 @@ import deletelogo from "../../../assets/Images/ActionStatus/Delete.svg";
 import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
 import { ToggleButton } from "../../Buttons/Button";
@@ -823,11 +823,27 @@ const getDataChild = () =>
 setoldData(oldData)
 }
 
+const token = localStorage.getItem("jwt")
+let loggedIn= true
+if(token == null)
+{
+  localStorage.removeItem("jwt");
+  loggedIn = false
+}
+// Details={loggedIn}
+
+if(loggedIn == false)
+{
+localStorage.removeItem("jwt");
+return <Navigate to="/"/>
+}
+
   return (
     <div className="contacts-data">
       <Page_heading dataLength={cusomizeData.length} parent={"Business Account"} child={"contacts"} />
 
-      {activeMode === "table" && <div className="contacts-table-container">
+      {activeMode === "table" && 
+      <div className="contacts-table-container">
         <div className="filter-searchbar-container">
         <FilterAndSearchBar
         selectedColumnsLength={selectedColumns.length}

@@ -52,7 +52,7 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
 
  
   return (
-    <>
+    <div>
     <div className={`srchdrp srchSelct ${error && "drpError"} ${props.addNew && "bottom-padding-none"}`}>
     {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
     <Select
@@ -118,7 +118,7 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
   {error && (
     <p className="error_text">{errorMsg}</p>
   )}
-  </>
+  </div>
   )
 })
 

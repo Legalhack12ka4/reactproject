@@ -20,6 +20,8 @@ import config from "../Database/config";
 import { useRef } from "react";
 import alert from "../../assets/Images/Confirmation/confirm.svg";
 import CustomInput from "../CustomInput/CustomInput";
+import { SearchSelect } from "../Dropdowns/Dropdowns";
+import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
@@ -92,8 +94,15 @@ const handleInputChange = (evt, property) => {
 
 //cofirmation modal 
 const handleConfirmData = () => {
-  setCofirmData(true);
+  // setCofirmData(true);
  // setPopOverVisible(false)
+ if (Object.values(formData).every((val) => val === "")) {
+  setCofirmData(false);
+  handleClose();
+  // handleCancel();
+} else {
+  setCofirmData(true);
+}
 };
 
 
@@ -917,30 +926,83 @@ const {
       </div>
       <div className="customerform">
       <form onSubmit={handleSubmit} autoComplete="off">
+
+        <div className="form-container">
+          
+
+            
+
+            
+
+            
+
+            
+
+            <div>
+              
+            </div>
+
+            
+
+            
+            
+            
+            
+            
+
+            
+
+            
+
+            
+            
+            
+            
+               
+        </div>
       <div className="form_first_container">
+
+        
               
               <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">GST Treatment</label>{" "}
-                </Tooltip>
-                <br />
-                <div>
-                <SearchDropdown
-                  width={331}
-                  options={gsttreatment}
-                  onChange={handleDrpChange}
-                  name="gsttreat"
-                  value={formData.gsttreat}
-                  error={errors.gsttreat && touched.gsttreat ? true : false}
-                  errorMsg="GST Treatment is required"
-                  />
-                 
-                  </div>
+              <SearchSelect
+            label="GST Treatment" 
+            width={330}
+            options={gsttreatment} 
+            onChange={handleDrpChange}
+            name="gsttreat"
+            value={formData.gsttreat}
+                    error={errors.gsttreat && touched.gsttreat ? true : false}
+                    errorMsg="GST Treatment is required"
+            />
+                
               </div>
 
               <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+                width={330}
+                label="GST No."
+                icon="/images/icons/Gst-no.svg"
+                type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"AlphaNumericUpperCase"}
+                  name="gstin"
+                    placeholder="Placeholder"
+                    maxLength={15}
+                   value={formData.gstin}
+                onChange={(e, newValue) => {handleChange(e); onChange(e);
+                  // handleGstno(e);
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "gstin": newValue
+                  }))}}
+                  onBlur={handleBlur}
+                  error={errors.gstin && touched.gstin ? true : false}
+                  errorMsg={errors.gstin}
+
+            />
+
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     GST No.
@@ -969,7 +1031,7 @@ const {
                   }))}}
                   onBlur={handleBlur}
               />
-                  {/* <input
+                  <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -979,7 +1041,7 @@ const {
                     onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);handleInputChange(e,"gstin")}}
                     onBlur={handleBlur}
                     autoComplete="off"
-                  /> */}
+                  />
                   {errors.gstin && touched.gstin && (
                     <div className="error_icon">
                     <img
@@ -991,11 +1053,31 @@ const {
                 </div>
                 {errors.gstin && touched.gstin && (
                     <p className="error_text">{errors.gstin}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+              type="text"
+              label="Business Name"
+              icon="/images/icons/Business.svg"
+              style={{ border: "none", outline: "none", width: "82%" }}
+             inputType={"CamelAlphabetical"}
+               name="businessname"
+               width={330}
+               placeholder="Placeholder"
+              value={formData.businessname}
+           onChange={(e, newValue) => {handleChange(e); onChange(e); 
+             setFormData(prevState => ({
+               ...prevState,
+               "businessname": newValue
+             }))}}
+             onBlur={handleBlur}
+              error={errors.businessname && touched.businessname ? true : false}
+              errorMsg={errors.businessname}
+            />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Business Name{" "}
@@ -1025,7 +1107,7 @@ const {
                   onBlur={handleBlur}
               />
 
-                  {/* <input
+                  <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -1033,7 +1115,7 @@ const {
                     value={formData.businessname}
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
                     onBlur={handleBlur}
-                  /> */}
+                  />
                   {errors.businessname && touched.businessname && (
                     <div className="error_icon">
                     <img
@@ -1045,11 +1127,22 @@ const {
                 </div>
                 {errors.businessname && touched.businessname && (
                     <p className="error_text">{errors.businessname}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+             
+              <SearchSelect
+                options={typeCategory}
+                width={330}
+                value={formData.category}
+                onChange={handleDrpChange}
+                name="category"
+                error={errors.category && touched.category ? true : false}
+                errorMsg="Type Category is required"
+                label="Type Category"
+                 />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Type Category</label>
                 </Tooltip>
                 <br />
@@ -1061,11 +1154,32 @@ const {
                   name="category"
                   error={errors.category && touched.category ? true : false}
                   errorMsg="Type Category is required"
-                />
+                /> */}
               </div>
 
               <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput
+                type="text"
+                label="Pancard"
+                width={330}
+                icon="/images/icons/Pan-Card.svg"
+                maxLength={10}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphaNumericUpperCase"}
+                 name="pancard"
+                 placeholder="Placeholder"
+                value={formData.pancard}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "pancard": newValue
+               }))}}
+               onBlur={handleBlur}
+                error={errors.pancard && touched.pancard ? true : false}
+                errorMsg={errors.pancard}
+            />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label" style={{ marginTop: "5px" }}>
                     Pancard
                   </label>
@@ -1092,7 +1206,7 @@ const {
                   }))}}
                   onBlur={handleBlur}
               />
-                  {/* <input
+                  <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -1101,7 +1215,7 @@ const {
                     maxLength={10}
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "pancard")}}
                     onBlur={handleBlur}
-                  /> */}
+                  />
                   {errors.pancard && touched.pancard && (
                       <div className="error_icon">
                       <img
@@ -1113,12 +1227,33 @@ const {
                 </div>
                 {errors.pancard && touched.pancard && (
                     <p className="error_text">{errors.pancard}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-                  <div >
+              <SearchSelect
+                 width={155}
+                 label="Currency"
+                 options={currency}
+                 value={formData.currency}
+                 onChange={handleDrpChange}
+                 name="currency"
+                 error={errors.currency && touched.currency ? true : false}
+                 errorMsg="Currency is required"
+              />
+              <SearchSelect 
+                width={155}
+                label="Payment Terms"
+                options={paymentterms}
+                value={formData.payment}
+                onChange={handleDrpChange}
+                name="payment"
+                error={errors.payment && touched.payment ? true : false}
+                errorMsg="Payment Terms is required"
+              />
+                  
+                  {/* <div >
                     <Tooltip title="prompt text" color="#5C5AD0">
                       {" "}
                       <label className="label" style={{ marginTop: "5px" }}>
@@ -1152,12 +1287,36 @@ const {
                       errorMsg="Payment Terms is required"
 
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
               <div className="form_field field7" style={{ gridRowStart: 1, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <div  className="credit-input-container">
+              <CustomInput 
+                className={`${creditBox && "creditAmtBoxBlur"}`}
+                type="number"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                // placeholder="Placeholder"
+                name="credit"
+                icon="/images/icons/Credit-Limit.svg"
+                width={330}
+                label="Credit Limit"
+                value={formData.credit}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
+                onFocus={ handleCreditFocus}
+                error={errors.credit && touched.credit ? true : false}
+                errorMsg={errors.credit}
+                /> 
+                {creditBox && creditAmount>0 && (
+                    <div className="creditAmt">
+                      <p> {formattedCreditAmount}</p>
+                    </div>
+                  )}
+              </div>
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Credit Limit
@@ -1197,11 +1356,31 @@ const {
                 </div>
                 {errors.credit && touched.credit && (
                     <p className="error_text">{errors.credit}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field8" style={{ gridRowStart: 2, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+                type="email"
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"email"}
+                 name="email"
+                 icon="/images/icons/Email.svg"
+                 width={330}
+                  label="Email"
+                 placeholder="Placeholder"
+                value={formData.email}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "email": newValue
+               }))}}
+               onBlur={handleBlur}
+              error={errors.email && touched.email ? true : false}
+              errorMsg={errors.email}
+                />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Email
@@ -1229,7 +1408,7 @@ const {
                   onBlur={handleBlur}
                   />
                  
-                  {/* <input
+                  <input
                     type="email"
                     style={{ border: "none", outline: "none", width: "82%" }}
                     placeholder="Placeholder"
@@ -1238,7 +1417,7 @@ const {
                     onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "email")}}
                     onBlur={handleBlur}
                     autoComplete="off"
-                  /> */}
+                  />
                   {errors.email && touched.email && (
                     <div className="error_icon">
                     <img
@@ -1250,13 +1429,28 @@ const {
                 </div>
                 {errors.email && touched.email && (
                     <p className="error_text">{errors.email}</p>
-                  )}
+                  )} */}
               </div>
 
           
 
               <div className="form_field field9" style={{ gridRowStart: 3, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                placeholder="Placeholder"
+                name="street1"
+                icon="/images/icons/location-icon.svg"
+                value={values.street1}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={handleBlur}
+                width={330}
+                label="Street 1"
+                error={errors.street1 && touched.street1 ? true : false}
+                errorMsg={errors.street1}
+              />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Street 1
@@ -1289,11 +1483,26 @@ const {
                 </div>
                 {errors.street1 && touched.street1 && (
                     <p className="error_text">{errors.street1}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                placeholder="Placeholder"
+                name="street2"
+                value={values.street2}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={handleBlur}
+                width={330}
+                label="Street 2"
+                error={errors.street2 && touched.street2 ? true : false}
+                errorMsg={errors.street2}
+                icon="/images/icons/location-icon.svg"
+              />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Street 2
@@ -1326,11 +1535,26 @@ const {
                 </div>
                 {errors.street2 && touched.street2 && (
                     <p className="error_text">{errors.street2}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              
+              <CustomInput 
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                placeholder="Placeholder"
+                name="street2"
+                value={values.street2}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={handleBlur}
+                width={330}
+                icon="/images/icons/location-icon.svg"
+                label="Area"
+                error={errors.street2 && touched.street2 ? true : false}
+                errorMsg={errors.street2}
+              />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Area
@@ -1363,11 +1587,29 @@ const {
                 </div>
                 {errors.street2 && touched.street2 && (
                     <p className="error_text">{errors.street2}</p>
-                  )}
+                  )} */}
               </div>
 
               <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+              type="number"
+              //ref={inputRef}
+            //onKeyPress={handleKeyPress}
+               style={{ border: "none", outline: "none", width: "82%" }}
+               placeholder="Placeholder"
+               name="pincode"
+               value={formData.pincode}
+               onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+               onBlur={(e)=>{handleBlur(e);}}
+               autoComplete="off"
+                width={330}
+                icon="/images/icons/Pincode.svg"
+                label="Pincode"
+                error={errors.pincode && touched.pincode ? true : false}
+                errorMsg={errors.pincode}
+            />
+             
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     Pincode
@@ -1403,12 +1645,23 @@ const {
                 </div>
                 {errors.pincode &&  touched.pincode &&(
                     <p className="error_text">{errors.pincode}</p>
-                  )}
+                  )} */}
               </div>
 
 
               <div className="form_field field14" style={{ gridRowStart: 1, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+              type="text"
+              style={{ border: "none", outline: "none", width: "82%" }}
+              name="city"
+              value={city}
+              disabled={true}
+              width={330}
+              label="City"
+              // error={errors.city && touched.city ? true : false}
+              // errorMsg={errors.city}
+            />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     City
@@ -1418,7 +1671,7 @@ const {
                 <div
                   className={`customerdropdown disabledInput`}
                 >
-                  {/* <img src={street} className="customerimg" /> */}
+                  <img src={street} className="customerimg" />
                   <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
@@ -1427,11 +1680,23 @@ const {
                     disabled={true}
                   />
                  
-                </div>
+                </div> */}
               </div>
 
               <div className="form_field field15" style={{ gridRowStart: 2, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <CustomInput 
+               type="text"
+               style={{ border: "none", outline: "none", width: "82%" }}
+               name="state"
+               value={statedrp}
+               disabled={true}
+                width={330}
+                label="State"
+                // error={errors.state && touched.state ? true : false}
+                // errorMsg={errors.state}
+            />
+             
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>
                     State
@@ -1441,7 +1706,7 @@ const {
                 <div
                   className={`customerdropdown disabledInput`}
                 >
-                  {/* <img src={street} className="customerimg" /> */}
+                  <img src={street} className="customerimg" />
                   <input
                     type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
@@ -1449,11 +1714,22 @@ const {
                     value={statedrp}
                     disabled={true}
                   />
-                </div>
+                </div> */}
               </div>
 
               <div className="form_field field16" style={{ gridRowStart: 3, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+
+              <SearchSelect
+                 width={330}
+                  label="Country"
+                 // options={gsttraetmentOptional}
+                  value={values.pos}
+                  onChange={handleDrpChange}
+                  name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+                   />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Country</label>
                 </Tooltip>
                 <br />
@@ -1465,11 +1741,23 @@ const {
                   name="pos"
                   error={errors.pos && touched.pos ? true : false}
                   errorMsg="Place of Supply is required"
-                />
+                /> */}
               </div>
 
               <div className="form_field field17" style={{ gridRowStart: 4, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <SearchSelect
+                width={330}
+                label="Default Place of Supply"
+                options={gsttraetmentOptional}
+                value={values.pos}
+                onChange={handleDrpChange}
+                name="pos"
+                error={errors.pos && touched.pos ? true : false}
+                errorMsg="Place of Supply is required"
+                
+                />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
                 </Tooltip>
                 <br />
@@ -1481,11 +1769,22 @@ const {
                   name="pos"
                   error={errors.pos && touched.pos ? true : false}
                   errorMsg="Place of Supply is required"
-                />
+                /> */}
               </div>
 
               <div className="form_field field18" style={{ gridRowStart: 5, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <SearchSelect 
+                width={330}
+                label="Contacts"
+                options={contacts}
+                value={values.contact}
+                onChange={handleDrpChange}
+                name="contact"
+                error={errors.contact && touched.contact ? true : false}
+                errorMsg="Contact is required"
+                 />
+              
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Contacts</label>
                 </Tooltip>
@@ -1499,11 +1798,21 @@ const {
                   name="contact"
                   error={errors.contact && touched.contact ? true : false}
                   errorMsg="Contact is required"
-                />
+                /> */}
               </div>
 
               <div className="form_field field19" style={{ gridRowStart: 6, gridColumnStart: 3}}>
-              <Tooltip title="prompt text" color="#5C5AD0">
+              <SearchSelect
+                 width={330}
+                label="Ownership"
+                 options={ownershipwithemail}
+                 value={values.ownership}
+                 onChange={handleDrpChange}
+                 name="ownership"
+                 error={errors.ownership && touched.ownership ? true : false}
+                 errorMsg="Ownership is required"
+                  />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Ownership</label>
                 </Tooltip>
@@ -1518,7 +1827,7 @@ const {
                   name="ownership"
                   error={errors.ownership && touched.ownership ? true : false}
                   errorMsg="Ownership is required"
-                />
+                /> */}
               </div>
             </div>
 
@@ -1527,10 +1836,13 @@ const {
          {/* <button type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}>
                   {formData.id ? "Update" :"Submit"}
                 </button>  */}
-                <input type="submit" className="customersavebutton btn_hover_animation"  onClick={() => handleFormSubmit()}/>
+                {/* <input type="submit" className="customersavebutton btn_hover_animation"  onClick={() => handleFormSubmit()}/>
                   <button type="button" className="customercancelbutton btn_hover_animation"  onClick={handleConfirmData}>
+
                     Cancel
-                  </button>
+                  </button> */}
+                  <ContainedButton type="submit" value={formData.id ? "Update" : "Submit"} onClick={() => {handleFormSubmit()}} />
+                  <ContainedSecondaryButton value="Cancel" onClick={(e)=>{handleConfirmData()}} />
                 </div>
           </form>
       </div>

@@ -20,13 +20,17 @@
             color: $neutrals-400;
         }
     input{
-        border: .5px solid $neutrals-700 !important;
+        border: .5px solid $neutrals-700;
         border-radius: 6px;
         background-color: #ffff;
         height: 36.75px;
         color: $neutrals-100;
         font-size: 14px;
         font-weight: 400;
+    }
+    .input-disabled{
+        cursor: not-allowed;
+        background-color: $neutrals-900;
     }
 }
 }
