@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import Page_heading from '../../Page_Heading/Page_heading'
 import "./Module.scss"
 import link from "../../../assets/Images/ModulePaymentTerms/Link.svg";
@@ -25,6 +25,20 @@ function Module() {
     { value: '6', label: 'Option 6' },
   ];
 
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
   return (
     <div className="module_container">
 
@@ -35,13 +49,6 @@ function Module() {
     </div>
     <div className='Module'>
 
-    <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option}  value={value} onChange={handleChange}/>
-    {/* <CategorySelect  /> */}
-    <InputGroup width={20} options={option} addNew />
-    {/* <CustomInput label="Contact" width={330} icon/> */}
-
-
-      <div style={{padding:"20px 20px"}}>
       <div style={{marginBottom:"20px"}}>
       <img src={link}/>
       <Link exact to="/module/module_paymenttable" className='payment_btn'>Payment Terms</Link>
@@ -62,27 +69,10 @@ function Module() {
    <img src={link}/>
    <Link exact to="/unitofmeasurement" className='currency_btn'>Unit of Measurement</Link>
    </div>
-   <div style={{marginBottom:"20px"}}>
-   <img src={link}/>
-   <Link exact to="/login" className='currency_btn'>Login</Link>
-   </div>
-   <div style={{marginBottom:"20px"}}>
-   <img src={link}/>
-   <Link exact to="/manufactured_group" className='currency_btn'>Manufactured Group</Link>
-   </div>
-   <div style={{marginBottom:"20px"}}>
-   <img src={link}/>
-   <Link exact to="/manufactured_item" className='currency_btn'>Manufactured Item</Link>
-   </div>
-
-   <SearchSelect width={330} name="ownership" addNew="User" lable="Contact" options={option}  value={value} onChange={handleChange}/>
-   
-  
-  
 
    </div>
     </div>
-    </div>
+ 
   )
 }
 

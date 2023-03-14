@@ -13,7 +13,7 @@ import { Button, Modal, Tooltip } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { addCustomerSchemas } from "../../Schemas";
 import config from "../Database/config";
@@ -895,6 +895,21 @@ const {
         }
     }
 
+    const token = localStorage.getItem("jwt")
+    let loggedIn= true
+    if(token == null)
+    {
+      localStorage.removeItem("jwt");
+      loggedIn = false
+    }
+   // Details={loggedIn}
+  
+  if(loggedIn == false)
+  {
+    localStorage.removeItem("jwt");
+    return <Navigate to="/"/>
+  }
+    
   return (
     <div className="vendors_container">
       <div className="addvendor_heading">

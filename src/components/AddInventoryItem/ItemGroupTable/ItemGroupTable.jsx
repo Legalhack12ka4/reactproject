@@ -9,92 +9,285 @@ import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import config from "../../Database/config";
 
 function ItemTable() {
-
+ const [fetchitemgroup, setFetchItemGroup] = useState([]);
+  const [fetchitem, setFetchItem] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const [loading, setloading] = useState(true);
+    // const [loading, setloading] = useState(true);
     const [activeTable, setActiveTable] = useState("ItemGroup")
     const componentRef = useRef();
+     const [loading, setloading] = useState(true);
 
     const location = useLocation();
-    const dataSourceItem = [
-      {
-        key: "1",
-        item_name: "Gray Grick Shirt",
-        group_name: "Grick Shirt",
-        foreign_name:"CK Gray Shirt",
-        barcode: "GS-GG-0001",
-        hsn_code:"61051010",
-        status:"Active",
-        price:"₹499.00",
-        uom: "Pcs",
+
+useEffect (()=>
+{
+  getItemGroup();
+  getItem();
+}, [])
+
+
+  const getItemGroup = async () => {
+ 
+    await axios.get(`${config.baseUrl}/itemgroup/`
+
+    ).then((res) => {
       
-     
+      setFetchItemGroup(
+        res.data.map((row) => ({
+          Key: row.id,
+          Group_Name: row.group_name,
+          UOM: row.uom,
+          Manage_By: row.manage_by,
+          Variants: row.variants,
+          Status:row.status,
+          Tax_Rates:row.tax_rates,
+          Cost_Account:row.cost_account,
+          Sales_Account:row.sales_account
+
+          // id: row.id
+        }))
+      );
+      // console.log(res);
+      setloading(false);
+    });
+  };
+console.log(fetchitemgroup)
+
+  const dataSource = fetchitemgroup.map((customer) => ({
+    key: customer.Key,
+    id: customer.Key,
+    group_name: customer.Group_Name,
+    uom: customer.UOM,
+    manage_by: customer.Manage_By,
+    variants: customer.Variants,
+    status: "Active",
+    tax_rates:customer.Tax_Rates,
+    sales_account:customer.Sales_Account,
+    cost_account:customer.Cost_Account
+
+  }))
+  const columnsData = [
+    {
+      title: "Group Name",
+      label: "Group Name",
+      dataIndex: "group_name",
+      key: "group_name",
+      fixed: "left",
+      align: "left",
+      width: 180,
+      // render: (text, record) => {
+      //   return (
+      //     <div
+      //       style={{
+      //           color:'#697A8D',
+      //           fontWeight:"700"
+      //       }}
+      //     >
+      //       {text}
+      //     </div>
+      //   );
+      // },
+    },
+    {
+      title: "UOM",
+      label: "UOM",
+      dataIndex: "uom",
+      key: "uom",
+      align: "left",
+      width: 70,
+    },
+    {
+      title: "Manage by",
+      label: "Manage by",
+      dataIndex: "manage_by",
+      key: "manage_by",
+      align: "left",
+      width: 90,
+
+    },
+    {
+      title: "Variants",
+      label: "Variants",
+      dataIndex: "variants",
+      key: "variants",
+      align: "left",
+      width: 90,
+        render: (text, record) => (
+    <div>
+      <div style={{display: "flex", alignItems: "center", gap: "5px", width: "max-content", padding: "4px 16px", borderRadius: "19px", backgroundColor:"#ECEEF1"}}>
+     {record.variants}
+      </div>
+    </div>
+  ),
+    },
+    {
+      title: "Status",
+      label: "Status",
+      dataIndex: "status",
+      key: "status",
+        align: "left",
+      width: 90,
+      render: (status, record, text) => (
+          <>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {record.status === "Active" ? <div className="bullet_item"></div> :
+              <div className="bullet_itemred"></div>}
+              <Typography.Text
+                style={
+                  record.status === "Active"
+                    ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
+                    :  { color: "#DA2F58", fontSize: "14px", fontWeight: "600" }
+                }
+              >
+                {record.status}
+              </Typography.Text>
+            </div>
+          </>
+        ),
+      
+    },
+    {
+      title: "Tax Rates",
+      label: "Tax Rates",
+      dataIndex: "tax_rates",
+      key: "tax_rates",
+      align: "left",
+      width: 100,
+    },
+    {
+      title: "Cost Account",
+      label: "Cost Account",
+      dataIndex: "cost_account",
+      key: "cost_account",
+      align: "left",
+      width: 140,
+    },
+    {
+        title: "Sales Account",
+        label: "Sales Account",
+        dataIndex: "sales_account",
+        key: "sales_account",
+        align: "left",
+        width: 120,
       },
-      {
-          key: "2",
-          item_name: "Polo White Perl",
-          group_name: "Polo Shirt",
-          foreign_name:"Polo Black",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹899.00",
-          uom: "Pcs",
-        },
-       
-        {
-          key: "3",
-          item_name: "CK Coral",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-        hsn_code:"61051010",
-        status:"Inactive",
-        price:"₹999.00",
-        uom: "Pcs",
-        },
-        {
-          key: "4",
-          item_name: "Polo Coral",
-          group_name: "Polo Shirt",
-          foreign_name:"Polo Red",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹1.20 K",
-          uom: "Pcs",
-        },
-        {
-          key: "5",
-          item_name: "Gray Grick Shirt",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Inactive",
-          price:"₹2.10 K",
-          uom: "Pcs",
-        },
-        {
-          key: "6",
-          item_name: "Gray Grick Shirt",
-          group_name: "Grick Shirt",
-          foreign_name:"CK Gray Shirt",
-          barcode: "GS-GG-0001",
-          hsn_code:"61051010",
-          status:"Active",
-          price:"₹0.9 K",
-          uom: "Pcs",
-        },
-        
      
-    ];
-    const columnsDataItem = [
+      {
+        title: "",
+        label: "Action",
+        dataIndex: "action",
+        key: "action",
+        fixed: "right",
+        align: "center",
+        width: 40,
+
+        // width: "max-content",
+        render: (text, record) => (
+          <>
+          <Popover  id="popoverhide" 
+        getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
+         content={
+                   <>
+             
+                   <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
+                   <img src={deletelogo} />
+                   <div>
+                   <button 
+                   className="actionlabel"
+                //   onClick={() => { handleConfirmCancel(record); hide(); }}
+                  //onClick={hide}
+                   >
+                  Delete
+                   </button>
+                   </div>
+                   </div>
+                   <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                    <img src={editlogo} />
+                    <div>
+                   <button
+        
+                      className="actionlabel"
+                     // onClick={() => handleUpdate(record)}
+                   >
+                  Update
+                   </button>
+                   </div>
+                   </div>
+                   <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                    <img src={statuslogo} />
+                    <div>
+                   <button
+                    className="actionlabel"
+                    style={{minWidth: "max-content"}}
+                      // onClick={() => handleUpdate(record)}
+                   >
+                    Set as Activate
+                   </button>
+                   </div>
+                   </div>
+                   </>
+          } title="" height={100} trigger="click">
+          <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"13px"}} />
+          </Popover>
+            
+          </>
+       
+        
+  
+            ),
+        resizable: true,
+        align: "left",
+      },
+  ];
+
+  const getItem = async () => {
+ 
+    await axios.get(`${config.baseUrl}/item/`
+
+    )  .then((res) => {
+      setloading(false);
+      setFetchItem(
+        res.data.map((row) => ({
+          Key: row.id,
+          Item_Name: row.item_name,
+          Group_Name: row.group_name,
+          Foreign_Name: row.foreign_name,
+          Barcode:row.barcode,
+          HSN_Code:row.hsn_code,
+          Status:row.status,
+          Price:row.price,
+          UOM:row.uom
+        
+        }))
+      );
+      // console.log(res);
+     
+    });
+  };
+
+
+    const dataSourceItem =
+    fetchitem.map((customer) => ({
+      key: customer.Key,
+      id: customer.Key,
+      item_name:customer.Item_Name,
+      group_name: customer.Group_Name,
+      foreign_name:customer.Foreign_Name,
+      barcode:customer.Barcode,
+      hsn_code:customer.hsn_code,
+      status: "Active",
+      price:customer.Price,
+      uom: customer.UOM,
+    }))
+    
+    const columnsDataItem = 
+    [
       {
         title: "Item Name",
         label: "Item Name",
@@ -107,9 +300,9 @@ function ItemTable() {
         render: (text, record) => {
           return (
             <div style={{display:"flex", gap:"5px", alignItems:"center"}}>
-              <div style={{width:"36px", height:"36px", borderRadius:"50%"}}>
+              {/* <div style={{width:"36px", height:"36px", borderRadius:"50%"}}>
               <img src={shirt} alt="" style={{width:"36px", height:"36px", borderRadius:"50%"}}/>
-              </div>
+              </div> */}
             <div
               style={{
                   color:'#5C5AD0',
@@ -266,248 +459,78 @@ function ItemTable() {
           align: "left",
         },
     ];
-    const dataSource = [
-        {
-          key: "1",
-          group_name: "Chexed Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "2",
-          group_name: "Polo Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "3",
-          group_name: "Denim Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Inactive",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "4",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "5",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Inactive",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-        {
-          key: "6",
-          group_name: "Grick Shirts",
-          uom: "Pcs",
-          manage_by:"Serial No.",
-          variants: "View",
-          status:"Active",
-          tax_rates: "GST 5 (5%)",
-          cost_account: "Cost of Goods Sold",
-          sales_account: "Sales",
-        },
-      ];
+    
+    // [
+    //     {
+    //       key: "1",
+    //       group_name: "Chexed Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Active",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //     {
+    //       key: "2",
+    //       group_name: "Polo Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Active",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //     {
+    //       key: "3",
+    //       group_name: "Denim Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Inactive",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //     {
+    //       key: "4",
+    //       group_name: "Grick Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Active",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //     {
+    //       key: "5",
+    //       group_name: "Grick Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Inactive",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //     {
+    //       key: "6",
+    //       group_name: "Grick Shirts",
+    //       uom: "Pcs",
+    //       manage_by:"Serial No.",
+    //       variants: "View",
+    //       status:"Active",
+    //       tax_rates: "GST 5 (5%)",
+    //       cost_account: "Cost of Goods Sold",
+    //       sales_account: "Sales",
+    //     },
+    //   ];
 
     
-      const columnsData = [
-        {
-          title: "Group Name",
-          label: "Group Name",
-          dataIndex: "group_name",
-          key: "group_name",
-          fixed: "left",
-          align: "left",
-          width: 180,
-          // render: (text, record) => {
-          //   return (
-          //     <div
-          //       style={{
-          //           color:'#697A8D',
-          //           fontWeight:"700"
-          //       }}
-          //     >
-          //       {text}
-          //     </div>
-          //   );
-          // },
-        },
-        {
-          title: "UOM",
-          label: "UOM",
-          dataIndex: "uom",
-          key: "uom",
-          align: "left",
-          width: 70,
-        },
-        {
-          title: "Manage by",
-          label: "Manage by",
-          dataIndex: "manage_by",
-          key: "manage_by",
-          align: "left",
-          width: 90,
-
-        },
-        {
-          title: "Variants",
-          label: "Variants",
-          dataIndex: "variants",
-          key: "variants",
-          align: "left",
-          width: 90,
-            render: (text, record) => (
-        <div>
-          <div style={{display: "flex", alignItems: "center", gap: "5px", width: "max-content", padding: "4px 16px", borderRadius: "19px", backgroundColor:"#ECEEF1"}}>
-         {record.variants}
-          </div>
-        </div>
-      ),
-        },
-        {
-          title: "Status",
-          label: "Status",
-          dataIndex: "status",
-          key: "status",
-            align: "left",
-          width: 90,
-          render: (status, record, text) => (
-              <>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  {record.status === "Active" ? <div className="bullet_item"></div> :
-                  <div className="bullet_itemred"></div>}
-                  <Typography.Text
-                    style={
-                      record.status === "Active"
-                        ? { color: "#28A745", fontSize: "14px", fontWeight: "600" }
-                        :  { color: "#DA2F58", fontSize: "14px", fontWeight: "600" }
-                    }
-                  >
-                    {record.status}
-                  </Typography.Text>
-                </div>
-              </>
-            ),
-          
-        },
-        {
-          title: "Tax Rates",
-          label: "Tax Rates",
-          dataIndex: "tax_rates",
-          key: "tax_rates",
-          align: "left",
-          width: 100,
-        },
-        {
-          title: "Cost Account",
-          label: "Cost Account",
-          dataIndex: "cost_account",
-          key: "cost_account",
-          align: "left",
-          width: 140,
-        },
-        {
-            title: "Sales Account",
-            label: "Sales Account",
-            dataIndex: "sales_account",
-            key: "sales_account",
-            align: "left",
-            width: 120,
-          },
-         
-          {
-            title: "",
-            label: "Action",
-            dataIndex: "action",
-            key: "action",
-            fixed: "right",
-            align: "center",
-            width: 40,
-
-            // width: "max-content",
-            render: (text, record) => (
-              <>
-              <Popover  id="popoverhide" 
-            getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
-             content={
-                       <>
-                 
-                       <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                       <img src={deletelogo} />
-                       <div>
-                       <button 
-                       className="actionlabel"
-                    //   onClick={() => { handleConfirmCancel(record); hide(); }}
-                      //onClick={hide}
-                       >
-                      Delete
-                       </button>
-                       </div>
-                       </div>
-                       <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                        <img src={editlogo} />
-                        <div>
-                       <button
-            
-                          className="actionlabel"
-                         // onClick={() => handleUpdate(record)}
-                       >
-                      Update
-                       </button>
-                       </div>
-                       </div>
-                       <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-                        <img src={statuslogo} />
-                        <div>
-                       <button
-                        className="actionlabel"
-                        style={{minWidth: "max-content"}}
-                          // onClick={() => handleUpdate(record)}
-                       >
-                        Set as Activate
-                       </button>
-                       </div>
-                       </div>
-                       </>
-              } title="" height={100} trigger="click">
-              <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"13px"}} />
-              </Popover>
-                
-              </>
-           
-            
-      
-                ),
-            resizable: true,
-            align: "left",
-          },
-      ];
+   
 
       const [columns, setColumns] = useState(columnsData);
  // search table functionality
@@ -593,9 +616,9 @@ function ItemTable() {
               setPage(page);
               setPageSize(pageSize);
             },
-            total: 10,
+            total: activeTable === "ItemGroup" ? fetchitemgroup.length : fetchitem.length,
             showTotal: (total, range) =>
-              `Showing ${range[1]}-${range[1]} of ${total} Item Group`,
+              `Showing ${range[1]}-${range[1]} of ${total} ${activeTable === "ItemGroup" ? "Item Group" :"Item"}`,
           }
         }
         rowClassName={(record) =>

@@ -8,13 +8,16 @@ import {MdOutlineClose} from "react-icons/md"
 import {CgSearch} from "react-icons/cg"
 import {RxHamburgerMenu} from "react-icons/rx"
 import { Popover } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import config from "../Database/config";
 
 
 const SearchBar = () => {
 const [searchTriggered, setSearchTriggered] = useState(false);
 const [open, setOpen] = useState(false);
 
+const navigate= useNavigate();
 const hide = () => {
   setOpen(false);
 };
@@ -84,6 +87,36 @@ document.addEventListener("keydown", e =>{
       setSearchTriggered(false)
     }
   });
+
+  //logout
+  
+  const handleLogout = () => {
+    const token = localStorage.getItem("jwt");
+  
+    axios.post(`${config.baseUrl}/logout`, null, {
+        headers: { "Authorization" : `Bearer ${token}` },
+      })
+      .then(() => {
+        // Remove the token from local storage
+        localStorage.removeItem("jwt");
+  
+        // Redirect the user to the login page
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle the error
+      });
+  };
+  
+
+  // const handleLogout = () => {
+  //   // Remove the token from local storage
+  //   localStorage.removeItem("jwt");
+
+  //   // Redirect the user to the login page
+  //   navigate("/");
+  // };
   return (
     
 <div className="search_bar_container">
@@ -132,10 +165,12 @@ document.addEventListener("keydown", e =>{
                 <p1 className="p_setting">Account Setting</p1>
                  </div>
                  <hr style={{border:"1px solid #4359711A",  margin:"10px 0px"}}/>
-                 <Link exact to="/">   <div  onClick={hide}  className="popover-menu-item container_logout">
+                 {/* <Link exact to="/">    */}
+                 <div  onClick={() => {hide(); handleLogout();}}  className="popover-menu-item container_logout">
                  <img src={logout}/>
                  <p1 className="p_logout">Sign Out</p1>
-                 </div></Link>
+                 </div>
+                 {/* </Link> */}
                  </>
                  
         } title="" height={100} trigger="click">

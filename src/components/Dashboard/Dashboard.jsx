@@ -1,11 +1,29 @@
 import React from "react";
-
+import { Navigate} from 'react-router-dom';
+import PrivateRoutes from "../../Authentication/PrivateRoutes";
 
 //import Offcanvas from "../OffCanvas/OffCanvasExample";
 import "./Dashboard.scss";
 
 
 const Dashboard = () => {
+// {<PrivateRoutes/>}
+
+
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  return <Navigate to="/"/>
+}
+
+
   return (
     <>
         {/* <div className="dashboard_details">

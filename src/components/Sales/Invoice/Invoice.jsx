@@ -18,6 +18,7 @@ import type { UploadProps } from 'antd';
 import { useState } from 'react';
 import config from '../../Database/config';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 const { Panel } = Collapse;
 
 const text = `
@@ -77,6 +78,21 @@ const [customer, setCustomer] = useState([]);
    // getData();
   }, []);
   
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
+
   return (
     <div className="newestimate">
     {/* <Page_heading parent={"List of Modules"} subchild={(<Link exact to= "/module">{"Module"}</Link>)} child={"Payment Terms"} /> */}

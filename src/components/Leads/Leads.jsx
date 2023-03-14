@@ -13,6 +13,7 @@ import { contactSchemas } from "../../Schemas";
 import config from "../Database/config";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 var ChildStateModificationFunc;
 const initialFieldValues = {
@@ -444,6 +445,21 @@ const getContact = () => {
         e.preventDefault();
       }
   }
+
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
 
   return (
     <>

@@ -10,8 +10,12 @@ import statuslogo from "../../assets/Images/ActionStatus/status.svg";
 
 import "./UnitOfMeasurement.scss";
 import { useRef } from "react";
+import config from "../Database/config";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const UnitOfMasurement = () => {
+  const [uom, setUom] = useState([]);
   const [activeTab, setActiveTab] = useState("unit_of_masurement");
   const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,16 +76,50 @@ const UnitOfMasurement = () => {
     conversionRef.current.scrollTop = conversionRef.current.scrollHeight;
   };
 
-  const UnitOfMasurementData = [
-    { unitName: "1 Psc", qty: 1, uqc: "PCS (pieces)" },
-    { unitName: "1 Meter", qty: 1, uqc: "MTR (meter)" },
-    { unitName: "1 Liter", qty: 1, uqc: "LTR (liter)" },
-    { unitName: "1 Kg", qty: 1, uqc: "KGS (kilograms)" },
-    { unitName: "1 Gm", qty: 1, uqc: "GMS (grams)" },
-    { unitName: "1 Box", qty: 1, uqc: "BOX (box)" },
-    { unitName: "1 Bottle", qty: 1, uqc: "BTL (bottles)" },
-    { unitName: "1 Drum", qty: 1, uqc: "DRM (drums)" },
-  ];
+  useEffect (()=>
+  {
+    getUom();
+  }, [])
+
+  const getUom = async () => {
+ 
+    await axios.get(`${config.baseUrl}/uom/`
+
+    ).then((res) => {
+      
+      setUom(
+        res.data.map((row) => ({
+          Key: row.id,
+          Unit_Name: row.unit_name,
+          Qty: row.qty,
+          Uqc: row.uqc,
+          // id: row.id
+        }))
+      );
+      // console.log(res);
+     // setloading(false);
+    });
+  };
+
+
+  const UnitOfMasurementData =  uom.map((customer) => ({
+    key: customer.Key,
+    id: customer.Key,
+    unit_name:customer.Unit_Name,
+    qty: customer.Qty,
+    uqc:customer.Uqc,
+  }))
+
+  // [
+  //   { unitName: "1 Psc", qty: 1, uqc: "PCS (pieces)" },
+  //   { unitName: "1 Meter", qty: 1, uqc: "MTR (meter)" },
+  //   { unitName: "1 Liter", qty: 1, uqc: "LTR (liter)" },
+  //   { unitName: "1 Kg", qty: 1, uqc: "KGS (kilograms)" },
+  //   { unitName: "1 Gm", qty: 1, uqc: "GMS (grams)" },
+  //   { unitName: "1 Box", qty: 1, uqc: "BOX (box)" },
+  //   { unitName: "1 Bottle", qty: 1, uqc: "BTL (bottles)" },
+  //   { unitName: "1 Drum", qty: 1, uqc: "DRM (drums)" },
+  // ];
 
   const handleDeleteRow = (id) => {
     setUnitOfMasurementRows((prevRows) => prevRows.filter((row) => row.id !== id));
@@ -90,6 +128,21 @@ const UnitOfMasurement = () => {
   const handleDeleteConversionRow = (id) => {
     setConversionOptionsRows((prevRows) => prevRows.filter((row) => row.id !== id));
   }
+  const token = localStorage.getItem("jwt")
+  let loggedIn= true
+  if(token == null)
+  {
+    localStorage.removeItem("jwt");
+    loggedIn = false
+  }
+ // Details={loggedIn}
+
+if(loggedIn == false)
+{
+  localStorage.removeItem("jwt");
+  return <Navigate to="/"/>
+}
+
   return (
     <div className="unit_of_masurement">
       <Page_heading parent={"Other Page"} child={"Unit of Measurement"} />
