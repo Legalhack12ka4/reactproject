@@ -74,7 +74,7 @@
         border-right: 3px solid #F3F3F8;
         //height: 100%;
         padding: 18px 20px;
-        // width: 230px;
+        width: 450px;
 
         // .change_status{
         //     position: relative;
@@ -454,3 +454,16 @@
 .contact-company_name{
     color: $neutrals-400 !important;
 }
+
+@media (max-width:1024px) {
+    .bulk_changes_container{
+        position: fixed;
+        // bottom: 30px;
+        z-index: 10;
+        // left: 30%;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -40%) !important;
+
+        }
+    }
