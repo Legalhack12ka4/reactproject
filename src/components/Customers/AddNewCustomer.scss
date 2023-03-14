@@ -1,3 +1,5 @@
+@import "../../assets/Colors/Colors.scss";
+
 .addNewCustomerContainer
 {
      // border: 1px solid;
@@ -18,11 +20,11 @@
 
 .creditAmt{
     position: absolute;
-    top: 5;
-    left: 40px;
+    top: 35px;
+    left: 14px;
     font-size: 14px;
     font-weight: 500;
-    color: #566A7F;
+    color: $neutrals-100;
 }
 .creditAmtFocus{
     display: none;
@@ -195,8 +197,11 @@
     }
 }
 .inputError{
-    border:1px solid #DA2F58 !important;
+    // border:1px solid #DA2F58 !important;
+
     // position: relative;
+    border: 1px solid $danger-100 !important;
+    box-shadow: 0 0 0 2.5px $danger-900 !important;
 
     
 
@@ -207,7 +212,7 @@
     font-size: 12px;
     // margin-top: -16px;
     margin-top: 8px;
-    color: #DA2F58;
+    color: $danger-100;
 }
 
 

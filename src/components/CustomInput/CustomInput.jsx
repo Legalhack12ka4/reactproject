@@ -18,8 +18,12 @@ const CustomInput = ({
   resizable,
   label,
   icon,
+  error,
+  errorMsg,
+  disabled
 }) => {
   const [inputValue, setInputValue] = useState(value);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     let newValue = value;
@@ -79,6 +83,9 @@ const CustomInput = ({
     //setInputValue(newName);
     onChange(e, newName);
   };
+  
+
+
 
   return (
     <div className="custom-input-container ">
@@ -89,19 +96,23 @@ const CustomInput = ({
         {icon && <img className="input-icon" src={icon} alt="icon" />}
       <input
         resizable={resizable}
-        id={id}
+        id={`${id} focus-input`}
         style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px"}}
         maxLength={maxLength}
         name={name}
-        onBlur={onBlur}
-        onFocus={onFocus}
+        onBlur={(e) => {onBlur(e); setIsFocused(false)}}
+        onFocus={(e) => {onFocus(e); setIsFocused(true)}}
         placeholder={placeholder}
-        className={`focus-outline ${className}`}
+        className={`focus-outline ${className} ${error && !isFocused &&  "inputError"} ${disabled && "input-disabled"} `}
         type={type}
         value={inputValue}
         onChange={handleNameChange}
+        disabled={disabled}
       />
       </div>
+      {error && (
+    <p className="error_text">{errorMsg}</p>
+  )}
     </div>
   );
 };

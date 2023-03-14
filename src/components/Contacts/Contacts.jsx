@@ -1362,7 +1362,7 @@ function Contacts(props) {
               <br /> */}
                   <SearchSelect
                     label="Ownership"
-                    width={331}
+                    width={330}
                     options={ownershipwithemail}
                     name="ownership"
                     onChange={handleDrpChange}

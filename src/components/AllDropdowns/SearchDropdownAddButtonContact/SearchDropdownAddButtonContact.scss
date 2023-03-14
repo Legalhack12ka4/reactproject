@@ -1,4 +1,4 @@
-
+@import '../../../assets/Colors/Colors.scss';
 
     .ant-input:hover{
         border-color: #5c5ad0 !important;
@@ -12,7 +12,8 @@
 .drpError {
     .ant-select .ant-select-selector {
       border-radius: 5px !important;
-      border: 1px solid #da2f58 !important;
+      border: 1px solid $danger-100 !important;
+      box-shadow: 0 0 0 2.5px $danger-900 !important;
       color: #697a8d !important;
     }
     position: relative;

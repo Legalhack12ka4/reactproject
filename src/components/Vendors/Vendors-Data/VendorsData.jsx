@@ -17,6 +17,7 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 //import { ChildStateModificationFunc } from "../Vendors";
 import { ChildStateModificationFunc } from "../Vendors";
 import { Navigate } from "react-router-dom";
+import { SearchSelect } from "../../Dropdowns/Dropdowns";
 
 const filterfield = {
   gsttreat: "",
@@ -51,6 +52,7 @@ const VendorsData = () => {
   const [currentValue, setCurrentValue] = useState(0)
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
+  const [activeMode, setActiveMode] = useState("table")
 
   //for modal delete
 
@@ -707,6 +709,46 @@ const deleteUser = (record)=>
       [loading, columns]
     );
 
+    const StatusOptions = [
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-all"></div><p className="sc-body-md">All</p></div>),
+        value: "All",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-lead"></div><p className="sc-body-md">Lead</p></div>),
+        value: "Lead",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-not-interested"></div><p className="sc-body-md">Not Interested</p></div>),
+        value: "Not Interested",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-junk"></div><p className="sc-body-md">Junk</p></div>),
+        value: "Junk",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-prospective"></div><p className="sc-body-md">Prospective</p></div>),
+        value: "Prospective",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-customer"></div><p className="sc-body-md">Customer</p></div>),
+        value: "Customer",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-agent"></div><p className="sc-body-md">Agent</p></div>),
+        value: "Agent",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-consultant"></div><p className="sc-body-md">Consultant</p></div>),
+        value: "Consultant",
+      },
+      {
+        label: (<div className="status-contianer"><div className="status-bullet-other-vendor"></div><p className="sc-body-md">Other Vendor</p></div>),
+        value: "Other Vendor",
+      },
+    
+      
+    ];
     // selectedColumns 
 
   const [selectedColumns, setSelectedColumns] = useState(tableColumns.map(col => col.dataIndex));
@@ -736,10 +778,441 @@ if(loggedIn == false)
   return (
     <div className="Vendors-data">
       <Page_heading parent={"Business Account"} child={"Vendors"} />
-
+{activeMode === "table" &&
       <div className="Vendors-table-container">
+        <div className="filter-searchbar-container">
         <FilterAndSearchBar
          selectedColumnsLength={selectedColumns.length}
+         statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
+         activeMode={ <div className="grid-table-container">
+          <div onClick={() => setActiveMode('grid')}>
+            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+              <img src="/images/icons/grid-non-active-icon.svg" alt="icon" />
+            </div>
+          </div>
+          <div onClick={() => setActiveMode('table')}>
+            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+              <img src="/images/icons/list-active-icon.svg" alt="icon" />
+            </div>
+          </div>
+        </div> }
+          filterdata={[
+            <div className="customer_filter_container">
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 1, gridColumnStart: 1 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">GST Treatment</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  width={330}
+                  name="gsttreat"
+                  options={gsttraetment}
+                  value={custfilter.gsttreat}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 2, gridColumnStart: 1 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Type Category</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  options={typeCategory}
+                  width={330}
+                  name="category"
+                  value={custfilter.category}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 3, gridColumnStart: 1 }}
+              >
+                <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      options={currency}
+                      width={155}
+                      onChange={handleChange}
+                      name="currency"
+                      value={custfilter.currency}
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      options={payment}
+                      width={155}
+                      onChange={handleChange}
+                      name="payment"
+                      value={custfilter.payment}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 4, gridColumnStart: 1 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Default Place of Supply</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  options={pos}
+                  width={330}
+                  name="pos"
+                  onChange={handleChange}
+                  value={custfilter.pos}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 1, gridColumnStart: 2 }}
+              >
+                <div style={{ display: "flex", gap: "20px" }}>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        City
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={city}
+                      name="street1"
+                      onChange={handleChange}
+                      value={custfilter.street1}
+                    />
+                  </div>
+                  <div style={{ width: "50%" }}>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">State</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      options={state}
+                      width={155}
+                      onChange={handleChange}
+                      name="street2"
+                      value={custfilter.street2}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 2, gridColumnStart: 2 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Contact</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  options={contact}
+                  width={330}
+                  name="contact"
+                  value={custfilter.contact}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 3, gridColumnStart: 2 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>{" "}
+                </Tooltip>
+                <SearchDropdown
+                  options={ownership}
+                  width={330}
+                  name="ownership"
+                  onChange={handleChange}
+                  value={custfilter.ownership}
+                />
+              </div>
+
+              <div
+                className="customer_filter_filed"
+                style={{ gridRowStart: 4, gridColumnStart: 2 }}
+              >
+                <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Credit Limit
+                  </label>
+                </Tooltip>
+                <br />₹{custfilter.credit}
+                <br />
+                <Slider  defaultValue={0} disabled={false} max={3000} onChange={(value)=> {
+        setCurrentValue(value)
+      }}/>
+                {/* <input
+                  className="credtrange"
+                  type="range"
+                  min={0}
+                  max={3000}
+                  defaultValue={0}
+                  style={{ border: "none", outline: "none", width: "100%" }}
+                  placeholder="Placeholder"
+                  name="credit"
+                  value={custfilter.credit}
+                  onChange={onChangeCredit}
+                  //   onBlur={handleBlur}
+                /> */}
+              </div>
+            </div>,
+          ]}
+          change={filterarray}
+          customer={fetchvendor.length}
+          filterLength={filterarray.length}
+          columns={columnsData}
+          onSelectColumn={handleSelectColumn}
+          setColumns={setColumns}
+          addBtnName={"Vendors"}
+          path={"add_Vendors"}
+          onData={handleData}
+          onFilter={(e) => {
+            clearfilter(e);
+            setVisible(!visible);
+          }}
+        />
+        </div>
+
+        
+<div className="tableData">
+       {filterarray.length > 0 && (
+              <div className="tags" id="tags">
+                <div className="appliedtag ">Applied Filters :</div>
+                {filterarray.map((customerfilter, index) => {
+                  return (
+                    customerfilter.value && (
+                      <Tooltip
+                      className="tlpclr"
+                      id="tlpclr"
+                        title={`${customerfilter.key === "gsttreat"  && "Gst Treatment" ||
+                        customerfilter.key === "category"  && "Type Category" ||
+                        customerfilter.key === "currency"  && "Currency" ||
+                        customerfilter.key === "payment"  && "Payment Terms" ||
+                        customerfilter.key === "pos"  && "Default place of supply" ||
+                        customerfilter.key == "street1"  && "City" ||
+                        customerfilter.key == "street2"  && "State" ||
+                        customerfilter.key === "contact"  && "Contact" ||
+                        customerfilter.key === "ownership"  && "Ownership" ||
+                        customerfilter.key === "credit"  && "Credit Limit"  } : ${customerfilter.value}`} 
+                        color="#EBECF0"
+                        
+                      >
+                        <Tag
+                          key={customerfilter.key}
+                          className="tag1"
+                          closable
+                          onClose={(e) => {
+                            log(index, customerfilter.key);
+                          }}
+                        >
+                          {customerfilter.value}                        </Tag>
+                      </Tooltip>
+                    )
+                  );
+                })}
+
+                <button
+                  type="submit"
+                  className="btnfilter"
+                  onClick={(e) => {
+                    setVisible(!visible);
+                    clearfilter(e);
+                  }}
+                >
+                  Clear All
+                </button>
+              </div>
+            )}
+
+
+        <Table
+          ref={componentRef}
+          rowSelection={!loading && {
+            type: "checkbox",
+            columnTitle: "",
+            columnWidth: "40px",
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+              setSelectedRowKeys(selectedRowKeys);
+              setSelectedRows(selectedRows);
+            },
+          }}
+          // loading={{
+          //   indicator: (
+          //     <div>
+          //       <Spin />
+          //     </div>
+          //   ),
+          //   spinning: loading,
+          // }}
+          dataSource={tableData}
+            columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
+          // scroll={{ y: 800, x: 720 }}
+          //    style={{ width: "100%" }}
+          scroll={!loading && { x: "800px" }}
+          style={{ maxWidth: 2200, width: "100%" }}
+          pagination={!loading && {
+            current: page,
+            pageSize: pageSize,
+            onChange: (page, pageSize) => {
+              setPage(page);
+              setPageSize(pageSize);
+            },
+            total: cusomizeData.length,
+            showTotal: (total, range) => `Showing ${range[1]}-${range[1]} of ${total} Vendors`
+          }}
+
+          rowClassName={(record) =>
+            record.key % 2 === 0 ? "highlight_row" : ""
+          }
+          search={{
+            keyword: search,
+          }}
+        />
+
+<Modal
+        open={confirm}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={[
+          <div style={{ marginLeft: "331px" }}>
+            <Button
+              key="cancel"
+              onClick={handleConfirm}
+              style={{
+                width: "86px",
+                height: "38px",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#8E9CAA",
+                borderColor: "#C2CAD2",
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              key="submit"
+              type="primary"
+              onClick={handleSubmit}
+              style={{
+                width: "88px",
+                height: "38px",
+                backgroundColor: "#DA2F58",
+                fontSize: "14px",
+                fontWeight: "700",
+                color: "#FFFFFF",
+              }}
+            >
+              Delete
+            </Button>
+          </div>,
+        ]}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="confirmCoontainer">
+          <div className="confirmresources">
+            <div className="imgsetting">
+              <div className="imgbackground">
+                <img src={alert} style={{ width: "38px", height: "38px" }} />
+              </div>
+            </div>
+
+            <div>
+              <p
+                style={{
+                  fontSize: "22px",
+                  color: "#2B3347",
+                  fontWeight: "500",
+                  padding: "21px 0px 0px 0px",
+                }}
+              >
+                Delete Vendor
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="confirmationtext">
+              Are you sure you want to close this window? <br /> All the value
+              which you filled in the fields will be deleted.
+              <br /> This action cannot recover the value.
+            </p>
+          </div>
+        </div>
+      </Modal>
+      </div>
+      </div>
+}
+
+{activeMode === "grid" &&<div className="vendors-grid-container">
+
+        <FilterAndSearchBar
+         selectedColumnsLength={selectedColumns.length}
+         statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
+         activeMode={ <div className="grid-table-container">
+          <div onClick={() => setActiveMode('grid')}>
+            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+              <img src="/images/icons/active-grid-icon.svg" alt="" />
+            </div>
+          </div>
+          <div onClick={() => setActiveMode('table')}>
+            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+              <img src="/images/icons/list-non-active-icon.svg" alt="" />
+            </div>
+          </div>
+        </div> }
           filterdata={[
             <div className="customer_filter_container">
               <div
@@ -999,50 +1472,59 @@ if(loggedIn == false)
                 </button>
               </div>
             )}
-        <Table
-          ref={componentRef}
-          rowSelection={!loading && {
-            type: "checkbox",
-            columnTitle: "",
-            columnWidth: "40px",
-            selectedRowKeys,
-            onChange: (selectedRowKeys, selectedRows) => {
-              setSelectedRowKeys(selectedRowKeys);
-              setSelectedRows(selectedRows);
-            },
-          }}
-          // loading={{
-          //   indicator: (
-          //     <div>
-          //       <Spin />
-          //     </div>
-          //   ),
-          //   spinning: loading,
-          // }}
-          dataSource={tableData}
-            columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
-          // scroll={{ y: 800, x: 720 }}
-          //    style={{ width: "100%" }}
-          scroll={!loading && { x: "800px" }}
-          style={{ maxWidth: 2200, width: "100%" }}
-          pagination={!loading && {
-            current: page,
-            pageSize: pageSize,
-            onChange: (page, pageSize) => {
-              setPage(page);
-              setPageSize(pageSize);
-            },
-            total: cusomizeData.length,
-            showTotal: (total, range) => `Showing ${range[1]}-${range[1]} of ${total} Vendors`
-          }}
 
-          rowClassName={(record) =>
-            record.key % 2 === 0 ? "highlight_row" : ""
-          }
-          search={{
-            keyword: search,
-          }}
-        />
+            
+<div className="grid-data-container">
+
+{cusomizeData.map((data, index) => {
+  return (
+<div className="card-container">
+  <div className="profile-container">
+    <img src="/images/searchbar_icons/User-Avtar.svg" className="user-avtar" alt="" />
+    <div className="name-option-container">
+      <h2 className="title-sb name">{data.name}</h2>
+      <p className="caption-md">Key Person</p>
+      <div className="lead-option-container">
+      <div className="lead caption-sb">Lead</div>
+      <img src={editdelete} alt="icon" />
+      </div>
+      
+
+    </div>
+  </div>
+
+  <div className="business-details-container">
+    <div className="account">
+      <p className="caption-md">Account</p>
+      <h5 className="sc-body-md business-name">Reformiqo Business Service Pvt. Ltd</h5>
+    </div>
+
+    <div className="email">
+      <p className="caption-md">Email</p>
+      <h5 className="sc-body-md email-id">parth.goswami@reformiqo.com</h5>
+    </div>
+
+    <div className="phone">
+      <p className="caption-md">Phone</p>
+      <h5 className="sc-body-md mobile">{data.mobile}</h5>
+    </div>
+
+    <div className="lead">
+      <p className="caption-md">Lead Source</p>
+      <h5 className="sc-body-md lead-source">Itme 2022 <span className="caption-md">(18 Feb 2022 - 1:30 PM)</span></h5>
+    </div>
+
+    <div className="ownership">
+      <p className="caption-md">Ownership</p>
+      <h5 className="sc-body-md ownership-name">Ashish Jaria</h5>
+    </div>
+  </div>
+
+</div>)
+})}
+
+
+</div>
 
 <Modal
         open={confirm}
@@ -1134,7 +1616,8 @@ if(loggedIn == false)
         </div>
       </Modal>
       </div>
-      </div>
+
+  </div>}
     </div>
   );
 };
