@@ -54,6 +54,7 @@ import FixedAssetsGroup from './components/ItemandService/FixedAssetsGroup/Fixed
 import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAssetsItem';
 import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
 import SalesData from './components/Sales/SalesOrder/Sales-Data/SalesData';
+import PrivateRoutes from './Authentication/PrivateRoutes';
 
 function App() {
   return (
@@ -69,9 +70,10 @@ function App() {
           
 
           <Routes>
+      <Route path= '/' element={<PrivateRoutes />}>
           {/* <Route path='/' element={<Dashboard/>} /> */}
-            <Route path='customers' element={<Customers />} />
-            <Route path='customers1' element={<AddInventoryItem />} />
+            {/* <Route path='customers' element={<Customers />} /> */}
+            {/* <Route path='customers1' element={<AddInventoryItem />} /> */}
           <Route path='customers/customerPage' element={<CustomerPage/>} />
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
@@ -121,10 +123,10 @@ function App() {
           <Route path="item_&_service/fixed_assets" element={<FixedAssetsGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
           {/* <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/> */}
-          
+          <Route path="sales/sales_order" element={<SalesData/>}/>
           <Route path='sales/sales_order/add_sales' element={<SalesOrder/>} />
-         
-          <Route path="/" element={<LoginPage/>}/>
+      </Route>
+      <Route path="/login" element={<LoginPage/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

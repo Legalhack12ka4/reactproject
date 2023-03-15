@@ -264,7 +264,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
               <img src="/images/icons/report_icon.svg" alt="" />
               <p>View Reports</p>
             </div> */}
-            <div className="separator-line"></div>
+            {props.activeMode && <div className="separator-line"></div>}
             <div className="new_btn_container">
               <Link exact to={props.path} onClick={props.onClick}>
                 {/* <div className="tableBtn addNewBtn" onClick={showCanvas}>

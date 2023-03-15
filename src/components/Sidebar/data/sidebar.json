@@ -79,7 +79,7 @@
         "childrens": [
             {
                 "title": "Sales Order",
-                "path": "Sales/sales_order"
+                "path": "/sales/sales_order"
             },
             {
                 "title": "Packages",

@@ -481,6 +481,8 @@ const {
   };
 
 
+  const handleFocus = () => {
+  }
  
  
 
@@ -904,20 +906,20 @@ const {
         }
     }
 
-    const token = localStorage.getItem("jwt")
-    let loggedIn= true
-    if(token == null)
-    {
-      localStorage.removeItem("jwt");
-      loggedIn = false
-    }
-   // Details={loggedIn}
+  //   const token = localStorage.getItem("jwt")
+  //   let loggedIn= true
+  //   if(token == null)
+  //   {
+  //     localStorage.removeItem("jwt");
+  //     loggedIn = false
+  //   }
+  //  // Details={loggedIn}
   
-  if(loggedIn == false)
-  {
-    localStorage.removeItem("jwt");
-    return <Navigate to="/"/>
-  }
+  // if(loggedIn == false)
+  // {
+  //   localStorage.removeItem("jwt");
+  //   return <Navigate to="/"/>
+  // }
     
   return (
     <div className="vendors_container">
@@ -987,6 +989,7 @@ const {
                     style={{ border: "none", outline: "none", width: "82%" }}
                   inputType={"AlphaNumericUpperCase"}
                   name="gstin"
+                  onFocus={handleFocus}
                     placeholder="Placeholder"
                     maxLength={15}
                    value={formData.gstin}
@@ -1065,6 +1068,7 @@ const {
              inputType={"CamelAlphabetical"}
                name="businessname"
                width={330}
+               onFocus={handleFocus}
                placeholder="Placeholder"
               value={formData.businessname}
            onChange={(e, newValue) => {handleChange(e); onChange(e); 
@@ -1164,6 +1168,7 @@ const {
                 width={330}
                 icon="/images/icons/Pan-Card.svg"
                 maxLength={10}
+                onFocus={handleFocus}
                 style={{ border: "none", outline: "none", width: "82%" }}
                inputType={"AlphaNumericUpperCase"}
                  name="pancard"
@@ -1367,6 +1372,7 @@ const {
                  name="email"
                  icon="/images/icons/Email.svg"
                  width={330}
+                 onFocus={handleFocus}
                   label="Email"
                  placeholder="Placeholder"
                 value={formData.email}
@@ -1445,6 +1451,7 @@ const {
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
+                onFocus={handleFocus}
                 label="Street 1"
                 error={errors.street1 && touched.street1 ? true : false}
                 errorMsg={errors.street1}
@@ -1496,6 +1503,7 @@ const {
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
+                onFocus={handleFocus}
                 label="Street 2"
                 error={errors.street2 && touched.street2 ? true : false}
                 errorMsg={errors.street2}
@@ -1549,6 +1557,7 @@ const {
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
+                onFocus={handleFocus}
                 icon="/images/icons/location-icon.svg"
                 label="Area"
                 error={errors.street2 && touched.street2 ? true : false}
@@ -1603,6 +1612,7 @@ const {
                onBlur={(e)=>{handleBlur(e);}}
                autoComplete="off"
                 width={330}
+                onFocus={handleFocus}
                 icon="/images/icons/Pincode.svg"
                 label="Pincode"
                 error={errors.pincode && touched.pincode ? true : false}

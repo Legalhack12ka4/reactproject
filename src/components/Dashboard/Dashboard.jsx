@@ -10,18 +10,18 @@ const Dashboard = () => {
 // {<PrivateRoutes/>}
 
 
-  const token = localStorage.getItem("jwt")
-  let loggedIn= true
-  if(token == null)
-  {
-    loggedIn = false
-  }
- // Details={loggedIn}
+//   const token = localStorage.getItem("jwt")
+//   let loggedIn= true
+//   if(token == null)
+//   {
+//     loggedIn = false
+//   }
+//  // Details={loggedIn}
 
-if(loggedIn == false)
-{
-  return <Navigate to="/"/>
-}
+// if(loggedIn == false)
+// {
+//   return <Navigate to="/"/>
+// }
 
 
   return (

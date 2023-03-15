@@ -826,21 +826,21 @@ const deleteUser = (record)=>
      else setSelectedColumns(selectedColumns.filter(col => col !== value));
    }
 
-   const token = localStorage.getItem("jwt")
-   let loggedIn= true
-   if(token == null)
-   {
-     localStorage.removeItem("jwt");
-     loggedIn = false
-   }
-  // Details={loggedIn}
+//    const token = localStorage.getItem("jwt")
+//    let loggedIn= true
+//    if(token == null)
+//    {
+//      localStorage.removeItem("jwt");
+//      loggedIn = false
+//    }
+//   // Details={loggedIn}
  
- if(loggedIn == false)
- {
-   localStorage.removeItem("jwt");
-   return <Navigate to="/"/>
+//  if(loggedIn == false)
+//  {
+//    localStorage.removeItem("jwt");
+//    return <Navigate to="/"/>
  
- }
+//  }
   return (
     <>
       <div className="customers">
@@ -852,6 +852,7 @@ const deleteUser = (record)=>
         {/* <DateRangePickerComp /> */}
 
         <div className="customer-table-container">
+        <div className="filter-searchbar-container">
           <FilterAndSearchBar
            selectedColumnsLength={selectedColumns.length}
            getPopupContainer={(trigger) => trigger.parentElement} 
@@ -1071,6 +1072,7 @@ const deleteUser = (record)=>
             }}
             
           />
+          </div>
 
           <div className="tableData">
             {/* <Resizable> */}

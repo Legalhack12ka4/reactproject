@@ -75,8 +75,8 @@ const LoginPage = () => {
         if (res.data.jwt) {
         
           // set cookie or token in local storage
-         // document.cookie = `jwt=${res.data.jwt}`;
-          localStorage.setItem('jwt', res.data.jwt)
+          document.cookie = `jwt=${res.data.jwt}`;
+          // localStorage.setItem('jwt', res.data.jwt)
           
           // redirect to dashboard page
           navigate('/dashboard')

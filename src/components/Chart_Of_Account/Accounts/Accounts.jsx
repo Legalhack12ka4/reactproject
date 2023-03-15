@@ -30,6 +30,7 @@ import { chartOfAccountSchema } from "../../../Schemas";
 import CustomInput from "../../CustomInput/CustomInput";
 import { CategorySelect, SearchSelect } from "../../Dropdowns/Dropdowns";
 import { Navigate } from "react-router-dom";
+import { ContainedButton, ContainedSecondaryButton } from "../../Buttons/Button";
 //import { OptionGroup } from 'react-form-elements';
 const { OptGroup } = Select;
 
@@ -607,25 +608,26 @@ console.log(chartOfAccountSchema)
   const filteredData = dataSource.filter((record) =>
     record.account_name.toLowerCase().includes(search.toLowerCase())
   );
-  const token = localStorage.getItem("jwt")
-  let loggedIn= true
-  if(token == null)
-  {
-    localStorage.removeItem("jwt");
-    loggedIn = false
-  }
- // Details={loggedIn}
+//   const token = localStorage.getItem("jwt")
+//   let loggedIn= true
+//   if(token == null)
+//   {
+//     localStorage.removeItem("jwt");
+//     loggedIn = false
+//   }
+//  // Details={loggedIn}
 
-if(loggedIn == false)
-{
-  localStorage.removeItem("jwt");
-  return <Navigate to="/"/>
-}
+// if(loggedIn == false)
+// {
+//   localStorage.removeItem("jwt");
+//   return <Navigate to="/"/>
+// }
 
   return (
     <div className="account-data">
       <Page_heading parent={"Chart of Accounts"} child={"Accounts"} />
       <div className="account-table-container">
+        <div className="filter-searchbar-container">
         <FilterAndSearchBar
           columns={columnsData}
           setColumns={setColumns}
@@ -633,6 +635,7 @@ if(loggedIn == false)
           onClick={showModal}
           onData={handleData}
         />
+        </div>
         <Modal
           title="Create Account"
           open={isModalOpen}
@@ -697,9 +700,19 @@ if(loggedIn == false)
             </p>
             <hr style={{ marginTop: "20px",     border: "1px solid #eceef1"}} />
             <form onSubmit={handleSubmit} autoComplete="off">
-              <div style={{ marginTop: "20px",  gridTemplateColumns:"repeat(2,1fr)" ,gap: "20px" }}>
+              <div style={{ marginTop: "20px", display:"flex", flexDirection:"column", gap: "20px" }}>
 
-              <div style={{marginBottom: "20px"}}>
+              <CustomInput 
+                  width={330} 
+                  label="Account Code"
+                  disabled
+                  className="accountcode"
+                  type="text"
+                  placeholder="0009"
+                  name="account_code"
+                  value={accountValue}
+                   />
+              {/* <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
                     fontSize: "14px",
@@ -717,84 +730,46 @@ if(loggedIn == false)
                   name="account_code"
                   value={accountValue}
                 />
-                {/* <input
+                <input
                   disabled
                   className="accountcode"
                   type="text"
                   placeholder="0009"
                   name="terms"
-                /> */}
+                />
 
-              </div>
+              </div> */}
 
-               <div style={{marginBottom: "20px"}}>
-                {/* <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#566A7F",
-                    fontWeight: "400",
-                  }}
-                >
-                   Type
-                </p> */}
-                {/* <SearchDropdown width={330} options={options/> */}
-                <div className={`srchdrp ${errors.account_type  && touched.account_type && "drpError"}`}>
-                  {/* <div className={`${
-                    errors.account_type && touched.account_type && "inputError"
-                  } srchdrp`} > */}
-                <CategorySelect
+              <CategorySelect 
+               width={330}
+               name="account_type"
+               label="Type"
+               value={formData.account_type || undefined}
+               onChange={handleDrpChange}
+               onFocus={() =>
+                 setFormData((value) => ({
+                   ...value,
+                   account_type: "",
+                   reporting: "",
+                 }))
+               }
+               options={groupedData}
+               />
+
+               
+
+                <SearchSelect 
                 width={330}
-                name="account_type"
-                lable="Type"
-                value={formData.account_type || undefined}
-                onChange={handleDrpChange}
-                onFocus={() =>
-                  setFormData((value) => ({
-                    ...value,
-                    account_type: "",
-                    reporting: "",
-                  }))
-                }
-                options={groupedData}
-                 />
-                  {/* <Select
-                    name="account_type"
-                    value={formData.account_type || undefined}
-                    onChange={handleDrpChange}
-                    // error={errors.account_type && touched.account_type ? true : false}
-                    // errorMsg="Reporting is required"
-                    showSearch
-                    style={{
-                      width: "330px",
-                     // marginTop: "7px",
-                      borderRadius: "6px !important",
-                    }}
-                    onFocus={() =>
-                      setFormData((value) => ({
-                        ...value,
-                        account_type: "",
-                        reporting: "",
-                      }))
-                    }
-                    placeholder="Select Value"
-                    size={"large"}
-                    suffixIcon={suffixIcon}
-                    onDropdownVisibleChange={(o) => setOpen(o)}
-                  >
-                    {loading ? (
-                      <div>
-                        <p>Loading...</p>
-                      </div>
-                    ) : (
-                      options
-                    )}
-                  </Select> */}
-                </div>
-                {errors.account_type && touched.account_type && (
-                  <p className="error_text">{errors.account_type}</p>
-                )}
-                </div>
-                 
+                name="reporting"
+                label="Sub Type"
+                values={formData.reporting || undefined}
+                onChange={handleDrpChangel3}
+                options={formData.account_type && reporting3}
+                error={errors.reporting && touched.reporting ? true : false}
+                errorMsg="Sub Type is required" />
+
+
+{/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
@@ -822,9 +797,48 @@ if(loggedIn == false)
                   //   )
                   // }
                 />
-                </div>
+                </div> */}
+
+                <CustomInput
+                  type="text"
+                  inputType={"CamelAlphabetical"}
+                  name="account_name"
+                    placeholder="Placeholder"
+                    value={formData.account_name}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "account_name": newValue
+                  }))}}
+                  width={330}
+                  onBlur={handleBlur}
+                  label="Account Name"
+                />
+
+                <CustomInput 
+                textArea
+                resizable={false}
+                    // className="description"
+                    // style={{
+                    //   width: "668.4px",
+                    //   height: "68.4px",
+                    //   outline: "none",
+                    //   border: "none",
+                    //   resize: "none",
+                    // }}
+                    width={330}
+                    label="Description"
+                    type="text"
+                    placeholder="Something about account"
+                    name="description"
+                    value={formData.description}
+                    onChange={(e) => {
+                      handleChange(e);
+                      onChange(e);
+                      handleInputChange(e,"description");
+                    }} />
                
-              <div style={{marginBottom: "20px"}}>
+              {/* <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
                   //  marginTop: "18px",
@@ -854,7 +868,7 @@ if(loggedIn == false)
                   }))}}
                   onBlur={handleBlur}
               />
-                  {/* <input
+                  <input
                     // className="parmentaccount"
                    
                     type="text"
@@ -867,7 +881,7 @@ if(loggedIn == false)
                       handleInputChange(e, "account_name")
                     }}
                     onBlur={handleBlur}
-                  /> */}
+                  />
                   {errors.account_name && touched.account_name && (
                     <div className="error_icon">
                       <img
@@ -880,11 +894,11 @@ if(loggedIn == false)
                 {errors.account_name && touched.account_name && (
                   <p className="error_text">{errors.account_name}</p>
                 )}
-              </div>
+              </div> */}
 
               </div>
 
-              <div>
+              {/* <div>
                 <p
                   style={{
                     marginTop: "18px",
@@ -909,7 +923,7 @@ if(loggedIn == false)
                     overflow:"hidden"
                   }}
                 >
-                       {/* <CustomInput
+                       <CustomInput
                         resizable={false}
                         // className="description"
                         style={{
@@ -930,7 +944,7 @@ if(loggedIn == false)
                     "description": newValue
                   }))}}
                   onBlur={handleBlur}
-              /> */}
+              />
                   <textarea
                     resizable={false}
                     // className="description"
@@ -963,12 +977,14 @@ if(loggedIn == false)
                 {errors.description && touched.description && (
                   <p className="error_text">{errors.description}</p>
                 )}
-              </div>
+              </div> */}
               <div
                 className="contactbutton_bottom"
                 style={{ marginTop: "30px" }}
               >
-                <button
+                <ContainedButton type="submit" value={formData.id ? "Update" : "Submit"} onClick={() => {handleFormSubmit()}} />
+                  <ContainedSecondaryButton value="Cancel" onClick={(e)=>{onCancel()}} />
+                {/* <button
                   type="submit"
                   className="contactsavebutton btn_hover_animation"
                   onClick={() => {
@@ -976,9 +992,9 @@ if(loggedIn == false)
                   }}
                 >
                   {formData.id ? "Update" : "Submit"}
-                </button>
+                </button> */}
                 {/* <input type="submit" className="contactsavebutton"  onClick={() => {handleFormSubmit()}}/> */}
-                <button
+                {/* <button
              
                   type="button"
                   className="contactcancelbutton btn_hover_animation"
@@ -986,7 +1002,7 @@ if(loggedIn == false)
                   onClick={onCancel}
                 >
                   Cancel
-                </button>
+                </button> */}
               </div>
             </form>
           </div>

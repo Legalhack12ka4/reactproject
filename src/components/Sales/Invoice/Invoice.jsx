@@ -78,20 +78,20 @@ const [customer, setCustomer] = useState([]);
    // getData();
   }, []);
   
-  const token = localStorage.getItem("jwt")
-  let loggedIn= true
-  if(token == null)
-  {
-    localStorage.removeItem("jwt");
-    loggedIn = false
-  }
- // Details={loggedIn}
+//   const token = localStorage.getItem("jwt")
+//   let loggedIn= true
+//   if(token == null)
+//   {
+//     localStorage.removeItem("jwt");
+//     loggedIn = false
+//   }
+//  // Details={loggedIn}
 
-if(loggedIn == false)
-{
-  localStorage.removeItem("jwt");
-  return <Navigate to="/"/>
-}
+// if(loggedIn == false)
+// {
+//   localStorage.removeItem("jwt");
+//   return <Navigate to="/"/>
+// }
 
   return (
     <div className="newestimate">
