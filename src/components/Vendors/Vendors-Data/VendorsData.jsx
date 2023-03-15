@@ -759,21 +759,21 @@ const deleteUser = (record)=>
   }
 
 
-  const token = localStorage.getItem("jwt")
-  let loggedIn= true
-  if(token == null)
-  {
-    localStorage.removeItem("jwt");
-    loggedIn = false
-  }
- // Details={loggedIn}
+//   const token = localStorage.getItem("jwt")
+//   let loggedIn= true
+//   if(token == null)
+//   {
+//     localStorage.removeItem("jwt");
+//     loggedIn = false
+//   }
+//  // Details={loggedIn}
 
-if(loggedIn == false)
-{
-  localStorage.removeItem("jwt");
-  return <Navigate to="/"/>
+// if(loggedIn == false)
+// {
+//   localStorage.removeItem("jwt");
+//   return <Navigate to="/"/>
 
-}
+// }
 
   return (
     <div className="Vendors-data">
@@ -784,18 +784,18 @@ if(loggedIn == false)
         <FilterAndSearchBar
          selectedColumnsLength={selectedColumns.length}
          statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
-         activeMode={ <div className="grid-table-container">
-          <div onClick={() => setActiveMode('grid')}>
-            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
-              <img src="/images/icons/grid-non-active-icon.svg" alt="icon" />
-            </div>
-          </div>
-          <div onClick={() => setActiveMode('table')}>
-            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
-              <img src="/images/icons/list-active-icon.svg" alt="icon" />
-            </div>
-          </div>
-        </div> }
+        //  activeMode={ <div className="grid-table-container">
+        //   <div onClick={() => setActiveMode('grid')}>
+        //     <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+        //       <img src="/images/icons/grid-non-active-icon.svg" alt="icon" />
+        //     </div>
+        //   </div>
+        //   <div onClick={() => setActiveMode('table')}>
+        //     <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+        //       <img src="/images/icons/list-active-icon.svg" alt="icon" />
+        //     </div>
+        //   </div>
+        // </div> }
           filterdata={[
             <div className="customer_filter_container">
               <div
@@ -1201,18 +1201,18 @@ if(loggedIn == false)
         <FilterAndSearchBar
          selectedColumnsLength={selectedColumns.length}
          statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
-         activeMode={ <div className="grid-table-container">
-          <div onClick={() => setActiveMode('grid')}>
-            <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
-              <img src="/images/icons/active-grid-icon.svg" alt="" />
-            </div>
-          </div>
-          <div onClick={() => setActiveMode('table')}>
-            <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
-              <img src="/images/icons/list-non-active-icon.svg" alt="" />
-            </div>
-          </div>
-        </div> }
+        //  activeMode={ <div className="grid-table-container">
+        //   <div onClick={() => setActiveMode('grid')}>
+        //     <div className={`option ${activeMode === 'grid' ? 'active' : ''}`}>
+        //       <img src="/images/icons/active-grid-icon.svg" alt="" />
+        //     </div>
+        //   </div>
+        //   <div onClick={() => setActiveMode('table')}>
+        //     <div className={`option ${activeMode === 'table' ? 'active' : ''}`}>
+        //       <img src="/images/icons/list-non-active-icon.svg" alt="" />
+        //     </div>
+        //   </div>
+        // </div> }
           filterdata={[
             <div className="customer_filter_container">
               <div

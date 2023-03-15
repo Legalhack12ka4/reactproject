@@ -91,17 +91,42 @@ document.addEventListener("keydown", e =>{
   //logout
   
   const handleLogout = () => {
-    const token = localStorage.getItem("jwt");
+    // const token = localStorage.getItem("jwt");
+    const token = getCookie("jwt");
+
+    function getCookie(name) {
+      const cookieString = document.cookie;
+      const cookies = cookieString.split("; ");
+      for (let i = 0; i < cookies.length; i++) {
+        const [cookieName, cookieValue] = cookies[i].split("=");
+        if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+        }
+      }
+      return null;
+    }
+
+    function removeCookie(name) {
+      setCookie(name, "", -1);
+    }
+
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+    }
   
     axios.post(`${config.baseUrl}/logout`, null, {
         headers: { "Authorization" : `Bearer ${token}` },
       })
       .then(() => {
         // Remove the token from local storage
-        localStorage.removeItem("jwt");
+        // localStorage.removeItem("jwt");
+        removeCookie("jwt");
   
         // Redirect the user to the login page
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);

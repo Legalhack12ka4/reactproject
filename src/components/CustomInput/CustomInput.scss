@@ -34,3 +34,15 @@
     }
 }
 }
+.text-area{
+display: flex;
+align-items: center;
+border-radius: 6px;
+width: 318.4px;
+height: 68.4px;
+outline: none;
+resize: none;
+overflow: hidden;
+padding-top: 10px !important;
+border: .5px solid $neutrals-700;
+}

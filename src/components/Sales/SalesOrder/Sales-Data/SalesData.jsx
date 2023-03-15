@@ -648,20 +648,20 @@ const dataSource=[
     [loading, columns]
   );
 
-  const token = localStorage.getItem("jwt")
-  let loggedIn= true
-  if(token == null)
-  {
-    localStorage.removeItem("jwt");
-    loggedIn = false
-  }
- // Details={loggedIn}
+//   const token = localStorage.getItem("jwt")
+//   let loggedIn= true
+//   if(token == null)
+//   {
+//     localStorage.removeItem("jwt");
+//     loggedIn = false
+//   }
+//  // Details={loggedIn}
 
-if(loggedIn == false)
-{
-  localStorage.removeItem("jwt");
-  return <Navigate to="/"/>
-}
+// if(loggedIn == false)
+// {
+//   localStorage.removeItem("jwt");
+//   return <Navigate to="/"/>
+// }
   return (
     // <div className="leads-data">
     //   <Page_heading parent={"Business Account"} child={"Leads"} />

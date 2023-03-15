@@ -20,7 +20,8 @@ const CustomInput = ({
   icon,
   error,
   errorMsg,
-  disabled
+  disabled,
+  textArea
 }) => {
   const [inputValue, setInputValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -95,7 +96,21 @@ const CustomInput = ({
       </label>}
       <div className="input-box">
         {icon && <img className="input-icon" src={icon} alt="icon" />}
-      <input
+      {textArea ? <textarea 
+        resizable={false}
+        id={`${id} focus-input`}
+        style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px"}}
+        maxLength={maxLength}
+        name={name}
+        onBlur={(e) => {onBlur(e); setIsFocused(false)}}
+        onFocus={(e) => {onFocus(e); setIsFocused(true)}}
+        placeholder={placeholder}
+        className={`focus-outline ${className} ${error && !isFocused &&  "inputError"} text-area ${disabled && "input-disabled"} `}
+        type={type}
+        value={inputValue}
+        onChange={handleNameChange}
+        disabled={disabled}
+      />:<input
         resizable={resizable}
         id={`${id} focus-input`}
         style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px"}}
@@ -109,7 +124,7 @@ const CustomInput = ({
         value={inputValue}
         onChange={handleNameChange}
         disabled={disabled}
-      />
+      />}
       </div>
       {error && (
     <p className="error_text">{errorMsg}</p>
