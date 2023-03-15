@@ -75,7 +75,7 @@ const LoginPage = () => {
         if (res.data.jwt) {
         
           // set cookie or token in local storage
-          //document.cookie = `jwt=${res.data.jwt}`;
+         // document.cookie = `jwt=${res.data.jwt}`;
           localStorage.setItem('jwt', res.data.jwt)
           
           // redirect to dashboard page
@@ -136,7 +136,7 @@ const LoginPage = () => {
                   value={formData.email}
                   name="email"
                   label="Email / Contact No."
-                  inputType={"AlphaNumeric"}
+                  inputType={"email"}
                   onChange={(e, newValue) =>
                     { onChange(e); 
                       setFormData(prevState => ({
@@ -152,7 +152,7 @@ const LoginPage = () => {
                   className=""
                   id="password-box"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Example@reformiqo.com"
+                 // placeholder="***************"
                   // value={name}
                   width={330}
                   label="Password"

@@ -53,6 +53,7 @@ import JobWorkGroupTable from './components/AddInventoryItem/JobWorkGroupTable/J
 import FixedAssetsGroup from './components/ItemandService/FixedAssetsGroup/FixedAssetsGroup';
 import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAssetsItem';
 import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
+import SalesData from './components/Sales/SalesOrder/Sales-Data/SalesData';
 
 function App() {
   return (
@@ -102,7 +103,7 @@ function App() {
           <Route path='dashboard' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
           <Route path="Sales/new_estimate" element={<NewEstimate/>}/>
-          <Route path="Sales/sales_order" element={<SalesOrder/>}/>
+          <Route path="Sales/sales_order" element={<SalesData/>}/>
           <Route path="Sales/invoice" element={<Invoice/>}/>
           <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
           <Route path="itempreview" element={<ItemPreview/>}/>
@@ -119,8 +120,9 @@ function App() {
           <Route path="item_&_service/services" element={<ServiceItemGroupTable/>}/>
           <Route path="item_&_service/fixed_assets" element={<FixedAssetsGroupTable/>}/>
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
+          {/* <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/> */}
           
-   
+          <Route path='sales/sales_order/add_sales' element={<SalesOrder/>} />
          
           <Route path="/" element={<LoginPage/>}/>
           </Routes>
