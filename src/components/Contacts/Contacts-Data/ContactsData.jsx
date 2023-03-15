@@ -1363,10 +1363,22 @@ return <Navigate to="/"/>
         <div className="grid-data-container">
 
           {cusomizeData.map((data, index) => {
+             let initials = "";
+             if (data.name) {
+               const nameArr = data.name.split(" ");
+               if (nameArr.length > 1) {
+                 initials = nameArr[0].charAt(0) + nameArr[nameArr.length - 1].charAt(0);
+               } else {
+                 initials = nameArr[0].charAt(0);
+               }
+             }
             return (
           <div className="card-container">
             <div className="profile-container">
-              <img src="/images/searchbar_icons/User-Avtar.svg" className="user-avtar" alt="" />
+            <div className="profile_name_letter">
+              <span >{initials}</span>
+            </div>
+            {/* <img src="/images/searchbar_icons/User-Avtar.svg" className="user-avtar" alt="" /> */}
               <div className="name-option-container">
                 <h2 className="title-sb name">{data.name}</h2>
                 <p className="caption-md">Key Person</p>

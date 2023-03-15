@@ -664,7 +664,7 @@ function Contacts(props) {
   });
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (formData.id) {
       // props.onSubmit(setFormData);
       axios

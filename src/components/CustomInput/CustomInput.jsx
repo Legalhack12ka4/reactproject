@@ -76,11 +76,12 @@ const CustomInput = ({
     }
     //For Email
     //e.g vimlesh@gmail.com
+    
     if (inputType === "email") {
       newName = newName.replace(/[^a-zA-Z@\d\s.]/g, "");
     }
 
-    //setInputValue(newName);
+    setInputValue(newName);
     onChange(e, newName);
   };
   
