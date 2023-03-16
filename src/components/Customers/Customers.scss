@@ -196,8 +196,8 @@ margin-left: 5px !important;
 
 .ant-table-body
 {
-  height: 12px;
-  background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
+  max-height: 45vh !important;
+  //background: linear-gradient(to right, #eee 20%, #ddd 50%, #eee 80%);
   background-size: 500px 100px;
   animation-name: moving-gradient;
   animation-duration: 1s;

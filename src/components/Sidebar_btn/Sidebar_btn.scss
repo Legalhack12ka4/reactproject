@@ -1,5 +1,5 @@
 // Button CSS
-
+@import '../../assets/Colors/Colors.scss';
 .btn{
     display: flex;
     justify-content: space-between;
@@ -108,6 +108,13 @@
     max-height: 0;
     transition: max-height .3s ease-out ;
     overflow: hidden;
+    .active{
+        p
+        {
+            color:#5C5AD0;
+            font-weight: 600;
+        }
+    }
 }
 .sub_dropdown{
     // border: 1px solid;

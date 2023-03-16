@@ -250,49 +250,49 @@ const ManufacturedGroup = () => {
       });
   };
 
-  const gettypeitem = itemtype
-    .filter((place) => place.field === "Type" && place.module === "ItemGroup")
-    .map((place) => ({
-      key: place.id,
-      label: place.master_key,
-      value: place.master_key,
-    }));
+  // const gettypeitem = itemtype
+  //   .filter((place) => place.field === "Type" && place.module === "ItemGroup")
+  //   .map((place) => ({
+  //     key: place.id,
+  //     label: place.master_key,
+  //     value: place.master_key,
+  //   }));
 
-  const getmanageby = itemtype
-    .filter(
-      (place) => place.field === "ManagedBy" && place.module === "ItemGroup"
-    )
-    .map((place) => ({
-      key: place.id,
-      label: place.master_key,
-      value: place.master_key,
-    }));
-  const getpreference = itemtype
-    .filter(
-      (place) => place.field === "TaxPreference" && place.module === "ItemGroup"
-    )
-    .map((place) => ({
-      key: place.id,
-      label: place.master_key,
-      value: place.master_key,
-    }));
+  // const getmanageby = itemtype
+  //   .filter(
+  //     (place) => place.field === "ManagedBy" && place.module === "ItemGroup"
+  //   )
+  //   .map((place) => ({
+  //     key: place.id,
+  //     label: place.master_key,
+  //     value: place.master_key,
+  //   }));
+  // const getpreference = itemtype
+  //   .filter(
+  //     (place) => place.field === "TaxPreference" && place.module === "ItemGroup"
+  //   )
+  //   .map((place) => ({
+  //     key: place.id,
+  //     label: place.master_key,
+  //     value: place.master_key,
+  //   }));
 
-  const getbomtype = itemtype
-    .filter((place) => place.field === "Type" && place.module === "BOM")
-    .map((place) => ({
-      key: place.id,
-      label: place.master_key,
-      value: place.master_key,
-    }));
+  // const getbomtype = itemtype
+  //   .filter((place) => place.field === "Type" && place.module === "BOM")
+  //   .map((place) => ({
+  //     key: place.id,
+  //     label: place.master_key,
+  //     value: place.master_key,
+  //   }));
 
   //onchange
   const handleDrpChange = (field, value) => {
-    const selectedType = gettypeitem.find((option) => option.value === value);
-    const selectedMange = getmanageby.find((option) => option.value === value);
+    // const selectedType = gettypeitem.find((option) => option.value === value);
+    // const selectedMange = getmanageby.find((option) => option.value === value);
     const selectedUom = unitofdata.find((option) => option.value === value);
-    const selectedpreference = getpreference.find(
-      (option) => option.value === value
-    );
+    // const selectedpreference = getpreference.find(
+    //   (option) => option.value === value
+    // );
     const selectedaccount = reportingl4name.find(
       (option) => option.value === value
     );
@@ -302,20 +302,20 @@ const ManufacturedGroup = () => {
 
       newState[field] = value;
 
-      if (selectedType) {
-        newState.type = selectedType.key;
-      }
+      // if (selectedType) {
+      //   newState.type = selectedType.key;
+      // }
 
       if (selectedUom) {
         newState.uom = selectedUom.key;
       }
 
-      if (selectedMange) {
-        newState.managed_by = selectedMange.key;
-      }
-      if (selectedpreference) {
-        newState.tax_preferences = selectedpreference.key;
-      }
+      // if (selectedMange) {
+      //   newState.managed_by = selectedMange.key;
+      // }
+      // if (selectedpreference) {
+      //   newState.tax_preferences = selectedpreference.key;
+      // }
       if (selectedaccount) {
         newState.cost_account = selectedaccount.key;
       }
@@ -343,8 +343,8 @@ const ManufacturedGroup = () => {
 
     const selectedOption =
       field === "resources"
-        ? resourcesd.find((option) => option.value === value)
-        : getbomtype.find((option) => option.value === value);
+        ? resourcesd.find((option) => option.value === value):"";
+     //   : getbomtype.find((option) => option.value === value);
 
     console.log("Selected option:", selectedOption);
 
@@ -630,15 +630,15 @@ const ManufacturedGroup = () => {
               <p>Manage by</p>
               <SearchDropdown
                 width={155}
-                options={getmanageby}
+              //  options={getmanageby}
                 name="managed_by"
                 labelKey="label"
-                value={
-                  getmanageby.find(
-                    (option) =>
-                      option.key === formData.managed_by && option.label
-                  )?.label
-                }
+                // value={
+                //   getmanageby.find(
+                //     (option) =>
+                //       option.key === formData.managed_by && option.label
+                //   )?.label
+                // }
                 onChange={handleDrpChange}
               />
             </div>
@@ -649,15 +649,15 @@ const ManufacturedGroup = () => {
               <p>Tax Preference</p>
               <SearchDropdown
                 width={155}
-                options={getpreference}
+              //  options={getpreference}
                 name="tax_preferences"
                 labelKey="label"
-                value={
-                  getpreference.find(
-                    (option) =>
-                      option.key === formData.tax_preferences && option.label
-                  )?.label
-                }
+                // value={
+                //   getpreference.find(
+                //     (option) =>
+                //       option.key === formData.tax_preferences && option.label
+                //   )?.label
+                // }
                 onChange={handleDrpChange}
               />
             </div>
@@ -1120,16 +1120,16 @@ const ManufacturedGroup = () => {
                     <li className="type">
                       <SearchDropdown
                         width={138}
-                        options={getbomtype}
+                       // options={getbomtype}
                         name="type_of_bom"
-                        value={
-                          getbomtype.find(
-                            (option) =>
-                              option.key ===
-                                formData.Initiallitemrow[0].type_of_bom &&
-                              option.label
-                          )?.label
-                        }
+                        // value={
+                        //   getbomtype.find(
+                        //     (option) =>
+                        //       option.key ===
+                        //         formData.Initiallitemrow[0].type_of_bom &&
+                        //       option.label
+                        //   )?.label
+                        // }
                         onChange={handleDrpBOMChange}
                       />
                     </li>

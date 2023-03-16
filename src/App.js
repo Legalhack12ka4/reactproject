@@ -66,7 +66,7 @@ function App() {
           
           <Sidebar/>
           
-          <div className='rightScreen'>
+          <div className='rightScreen' style={{position:"relative"}}>
           <SearchBar />
           
 

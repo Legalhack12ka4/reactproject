@@ -776,7 +776,7 @@ const deleteUser = (record)=>
 // }
 
   return (
-    <div className="Vendors-data">
+    <div className="Vendors-data fixed_heading_container">
       <Page_heading parent={"Business Account"} child={"Vendors"} />
 {activeMode === "table" &&
       <div className="Vendors-table-container">

@@ -65,6 +65,12 @@
     align-items: center;
     margin-bottom: 30px;
     position: relative;
+    //new
+    
+    position: sticky !important;
+    top: 104px;
+    z-index: 999;
+
 
     .new_btn_or_reports_main{
         display: flex;
