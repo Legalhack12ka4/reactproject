@@ -1,5 +1,32 @@
 @import '../../assets/Colors/Colors.scss';
 
+
+.inputError{
+    // border:1px solid #DA2F58 !important;
+
+    // position: relative;
+    outline: 1px solid $danger-100 !important;
+    box-shadow: 0 0 0 2.5px $danger-900 !important;
+
+    
+
+}
+.error_text{
+    // position: absolute;
+    // top: 43px;
+    font-size: 12px;
+    // margin-top: -16px;
+    margin-top: 8px;
+    color: $danger-100;
+}
+
+.focus-outline:focus-within
+{
+    outline: 1px solid #5c5ad0 !important;
+    box-shadow: 0 0 0 2.5px #5c5ad011 !important;
+    border-radius: 6px !important;
+    transition: all 0.1s ease-out;
+}
 .custom-input-container{
     display: flex;
     flex-direction: column;
@@ -23,7 +50,7 @@
         border: .5px solid $neutrals-700;
         border-radius: 6px;
         background-color: #ffff;
-        height: 36.75px;
+        height: 37px;
         color: $neutrals-100;
         font-size: 14px;
         font-weight: 400;
@@ -34,6 +61,9 @@
     }
 }
 }
+
+
+
 .text-area{
 display: flex;
 align-items: center;
