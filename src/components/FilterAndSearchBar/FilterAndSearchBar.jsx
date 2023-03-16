@@ -669,8 +669,6 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                     )}
                   </Droppable>
                   <div style={{display:"flex", alignItems:"center", gap:"16px"}}>
-                   <ContainedButton width={92} value={"Submit"}/> 
-                   <ContainedSecondaryButton width={90} value={"Cancel"}/>
                   </div>
 
                 </div>

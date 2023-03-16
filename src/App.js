@@ -63,6 +63,7 @@ function App() {
 
           
           <div className='main'>
+          
           <Sidebar/>
           
           <div className='rightScreen'>
