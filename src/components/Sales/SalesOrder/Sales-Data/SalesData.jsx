@@ -670,8 +670,9 @@ const dataSource=[
 
       {/* <div className="leads-table-container"> */}
       <div className="sales-table-container">
+      <div className="filter-searchbar-container">
         <FilterAndSearchBar
-   getPopupContainer={(trigger) => trigger.parentElement} 
+          getPopupContainer={(trigger) => trigger.parentElement} 
         
           filterdata={[
             <div className="contact_filter_container">
@@ -775,6 +776,7 @@ const dataSource=[
             setVisible(!visible);
           }}
 />
+          </div>
 {/* <OffCanvasExample form={<Leads  onClick={getData} />} /> */}
         <div className="tableData">
 {filterarray.length > 0 && (

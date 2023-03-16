@@ -65,14 +65,14 @@
     .new_btn_or_reports_main {
       position: absolute;
       top: 16px;
-      right: 3px;
+      right: 20px;
       display: flex;
       align-items: center;
       gap: 20px;
 //new
       position: fixed !important;
-    top: 100px !important;
-    z-index: 09999;
+    top: 126px !important;
+    // z-index: 09999;
 
       .separator-line{
         border-right: 1px solid $neutrals-800;
