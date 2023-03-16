@@ -553,9 +553,16 @@ const deleteUser = (record)=>
       // width: "max-content",
       render: (text, record) => (
         <>
+         {/* <div style={{position:"relative"}}>
+           <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+         <div style={{width:"100px", height:"100px", backgroundColor:"white", position:"absolute", top:"20px"}}>
+     
+                    </div>
+                    </div> */}
         <Popover 
         id="popoverhide"  defaultOpen={open} onOpenChange={setOpen}
-      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}
+      getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
+      placement="left"
        content={
                  <>
            
@@ -595,11 +602,10 @@ const deleteUser = (record)=>
                  </button>
                  </div>
                  </div> */}
-                 </>
+         </>
         } title="" height={100} trigger="click">
         <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
         </Popover>
-          
         </>
      
       
@@ -839,8 +845,8 @@ setoldData(oldData)
 // }
 
   return (
-    <div className="contacts-data">
-      <Page_heading dataLength={cusomizeData.length} parent={"Business Account"} child={"contacts"} />
+    <div className="contacts-data fixed_heading_container" >
+      <Page_heading dataLength={cusomizeData.length} parent={"Business Account"} child={"contacts"}/>
 
       {activeMode === "table" && 
       <div className="contacts-table-container">
@@ -1023,6 +1029,7 @@ setoldData(oldData)
               onMouseEnter: () =>     setHoveredRow(index),
               onMouseLeave: () => setHoveredRow(null),
             })}
+           // style={{maxHeight:"100vh"}}
             rowSelection={!loading &&{
               type: "checkbox",
               columnTitle: "",
@@ -1036,7 +1043,9 @@ setoldData(oldData)
             }}
             dataSource={tableData}
             columns={tableColumns.filter(col => selectedColumns.includes(col.dataIndex))}
-            scroll={{ x: 720 }}
+            scroll={{ y: 200 }}
+            // scroll={{ y: 700 }}
+            // scroll={!loading && { y: ("30px")}}
             // scroll={!loading && { x: ("30px", "800px" )}}
             pagination={!loading &&{
               current: page,

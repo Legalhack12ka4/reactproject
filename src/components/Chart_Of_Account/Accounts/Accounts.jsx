@@ -215,7 +215,7 @@ console.log(chartOfAccountSchema)
   };
 
   const handleDrpChange = (field, value) => {
-    setFormData({ ...formData, account_type: value.value });
+    setFormData({ ...formData, account_type: value });
     setFieldValue("account_type", value.value);
     setFieldTouched("account_type", false);
     console.log(field);
@@ -304,14 +304,14 @@ console.log(chartOfAccountSchema)
           description: formData.description,
           is_active: true,
           is_deleted: false,
-          status: 12,
-          type: 12,
-          modual_type: 12,
-          item_type: 12,
-          transaction_side: 12,
-          company_id: 1,
-          created_by: 1,
-          updated_by: 1,
+          "status": 1,
+          "type": 1,
+          "modual_type": 1,
+          "item_type": 1,
+          "transaction_side": 1,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
         },
         formData
       )
@@ -624,7 +624,7 @@ console.log(chartOfAccountSchema)
 // }
 
   return (
-    <div className="account-data">
+    <div className="account-data fixed_heading_container">
       <Page_heading parent={"Chart of Accounts"} child={"Accounts"} />
       <div className="account-table-container">
         <div className="filter-searchbar-container">

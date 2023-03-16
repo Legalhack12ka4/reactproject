@@ -843,7 +843,7 @@ const deleteUser = (record)=>
 //  }
   return (
     <>
-      <div className="customers">
+      <div className="customers fixed_heading_container">
         <Page_heading
           parent={"Business Account"}
           child={window.location.pathname.slice(1)}

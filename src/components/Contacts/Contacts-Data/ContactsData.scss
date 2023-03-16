@@ -277,7 +277,10 @@
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
-
+        //new
+        overflow-y: scroll;
+        max-height: 60vh;
+    
         .card-container{
             background-color: #ffff;
             padding: 20px;

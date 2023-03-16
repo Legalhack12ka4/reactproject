@@ -144,7 +144,7 @@ document.addEventListener("keydown", e =>{
   // };
   return (
     
-<div className="search_bar_container">
+<div className="search_bar_container" style={{position:"sticky", top:"13px", zIndex:"100"}}>
     {
       !searchTriggered &&(
         <div className="search_bar">

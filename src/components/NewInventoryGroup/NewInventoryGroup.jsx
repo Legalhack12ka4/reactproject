@@ -237,45 +237,44 @@ const itembomdata  = itemmaterial.map((rep) => ({
     });
 };
 
-const gettypeitem = itemtype
-.filter((place) => place.field === "Type" && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+// const gettypeitem = itemtype.filter((place) => place.field === "Type" && place.module === "ItemGroup")
+// .map((place) => ({
+//   key: place.id,
+//   label: place.master_key,
+//   value: place.master_key,
+// }));
 
-const getmanageby = itemtype
-.filter((place) => place.field === "ManagedBy"  && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-const getpreference = itemtype
-.filter((place) => place.field === "TaxPreference"  && place.module === "ItemGroup")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+// const getmanageby = itemtype
+// .filter((place) => place.field === "ManagedBy"  && place.module === "ItemGroup")
+// .map((place) => ({
+//   key: place.id,
+//   label: place.master_key,
+//   value: place.master_key,
+// }));
+// const getpreference = itemtype
+// .filter((place) => place.field === "TaxPreference"  && place.module === "ItemGroup")
+// .map((place) => ({
+//   key: place.id,
+//   label: place.master_key,
+//   value: place.master_key,
+// }));
 
-const getbomtype = itemtype
-.filter((place) => place.field === "Type"  && place.module === "BOM")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+// const getbomtype = itemtype
+// .filter((place) => place.field === "Type"  && place.module === "BOM")
+// .map((place) => ({
+//   key: place.id,
+//   label: place.master_key,
+//   value: place.master_key,
+// }));
 
 
 
 //onchange
 const handleDrpChange= (field, value) => {
-  const selectedType = gettypeitem.find((option) => option.value === value);
-  const selectedMange = getmanageby.find((option) => option.value === value);
+  // const selectedType = gettypeitem.find((option) => option.value === value);
+  // const selectedMange = getmanageby.find((option) => option.value === value);
   const selectedUom = unitofdata.find((option) => option.value === value);
-  const selectedpreference = getpreference.find((option) => option.value === value);
+  // const selectedpreference = getpreference.find((option) => option.value === value);
   const selectedaccount = reportingl4name.find((option) => option.value === value);
   const selectedrate = taxratedata.find((option) => option.value === value);
   setFormData((prevState) => {
@@ -283,20 +282,20 @@ const handleDrpChange= (field, value) => {
     
     newState[field] = value;
     
-    if (selectedType) {
-      newState.type = selectedType.key;
-    }
+    // if (selectedType) {
+    //   newState.type = selectedType.key;
+    // }
     
     if (selectedUom) {
       newState.uom = selectedUom.key;
     }
     
-    if (selectedMange) {
-      newState.managed_by = selectedMange.key;
-    }
-    if (selectedpreference) {
-      newState.tax_preferences = selectedpreference.key;
-    }
+    // if (selectedMange) {
+    //   newState.managed_by = selectedMange.key;
+    // }
+    // if (selectedpreference) {
+    //   newState.tax_preferences = selectedpreference.key;
+    // }
     if (selectedaccount) {
       newState.cost_account = selectedaccount.key;
     }
@@ -324,10 +323,10 @@ const handleDrpBOMChange = (field, value) => {
   console.log("Selected value:", value);
 
   const selectedOption = field === "resources"
-    ? resourcesd.find((option) => option.value === value)
-    : getbomtype.find((option) => option.value === value);
+    ? resourcesd.find((option) => option.value === value):"";
+  //   : getbomtype.find((option) => option.value === value);
   
-  console.log("Selected option:", selectedOption);
+ // console.log("Selected option:", selectedOption);
 
   setFormData((prevState) => {
     let newState = { ...prevState };
@@ -594,12 +593,13 @@ const resetOther = () => {
 
                 <div className="input_group">
                   <p>Manage by</p>
-                  <SearchDropdown width={155} options={getmanageby}
+                  <SearchDropdown width={155}
+                  // options={getmanageby}
                    name="managed_by"
                    labelKey="label"
-                   value={getmanageby.find(
-                    (option) => option.key === formData.managed_by && option.label
-                  )?.label}
+                  //  value={getmanageby.find(
+                  //   (option) => option.key === formData.managed_by && option.label
+                  // )?.label}
                    onChange={handleDrpChange} />
                 </div>
                 </div>
@@ -607,18 +607,20 @@ const resetOther = () => {
                 <div style={{display:"flex", gap:"20px"}}>
                 <div className="input_group">
                   <p>Tax Preference</p>
-                  <SearchDropdown width={155} options={getpreference} 
+                  <SearchDropdown width={155} 
+                 // options={getpreference} 
                     name="tax_preferences"
                     labelKey="label"
-                    value={getpreference.find(
-                     (option) => option.key === formData.tax_preferences && option.label
-                   )?.label}
+                  //   value={getpreference.find(
+                  //    (option) => option.key === formData.tax_preferences && option.label
+                  //  )?.label}
                     onChange={handleDrpChange}
                   />
                 </div>
                 <div className="input_group">
                   <p>Tax Rates</p>
-                  <SearchDropdown width={155} options={taxratedata}
+                  <SearchDropdown width={155} 
+                  options={taxratedata}
                     name="tax_rates"
                     labelKey="label"
                    // value={formData.tax_rates}
@@ -1004,11 +1006,12 @@ const resetOther = () => {
                       </li>
                     )}
                     <li className="type">
-                      <SearchDropdown width={138} options={getbomtype} 
+                      <SearchDropdown width={138} 
+                      //options={getbomtype} 
                        name="type_of_bom"
-                       value={getbomtype.find(
-                         (option) => option.key === formData.Initiallitemrow[0].type_of_bom && option.label
-                       )?.label}
+                      //  value={getbomtype.find(
+                      //    (option) => option.key === formData.Initiallitemrow[0].type_of_bom && option.label
+                      //  )?.label}
                       onChange={handleDrpBOMChange}
                       />
                     </li>
