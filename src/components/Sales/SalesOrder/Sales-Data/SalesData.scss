@@ -10,10 +10,14 @@
     position: relative;
     .sales-table-container{
         // border: 1px solid;
-        padding: 20px;
+        // padding: 20px 0px;
         background-color: #ffff;
         border-radius: 8px;
         box-shadow:  0px 2px 6px 0px #4359711f;
+
+        .filter-searchbar-container{
+          padding: 0px 20px;
+        }
     }
 
     .tableData {

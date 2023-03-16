@@ -46,6 +46,20 @@
             left: 12px;
             color: $neutrals-400;
         }
+        .input-symbol{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: flex;
+            background: $neutrals-900;
+            width: 37px;
+            color: $neutrals-500;
+            height: 37px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px 0px 0px 6px;
+            border: .5px solid $neutrals-700;
+        }
     input{
         border: .5px solid $neutrals-700;
         border-radius: 6px;
@@ -58,6 +72,7 @@
     .input-disabled{
         cursor: not-allowed;
         background-color: $neutrals-900;
+        color: $neutrals-500;
     }
 }
 }

@@ -67,7 +67,12 @@
 
 
 // Secondary Body 14px 
-
+.sc-body-bd{
+    font-size: 14px;
+    font-weight: 700;
+    color: $neutrals-400;
+    line-height: 18px;
+}
 .sc-body-sb{
     font-size: 14px;
     font-weight: 600;
