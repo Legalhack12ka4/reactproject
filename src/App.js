@@ -55,8 +55,24 @@ import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAs
 import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
 import SalesData from './components/Sales/SalesOrder/Sales-Data/SalesData';
 import PrivateRoutes from './Authentication/PrivateRoutes';
+import { useEffect } from 'react';
 
 function App() {
+
+  const token = getCookie("jwt");
+
+    function getCookie(name) {
+      const cookieString = document.cookie;
+      const cookies = cookieString.split("; ");
+      for (let i = 0; i < cookies.length; i++) {
+        const [cookieName, cookieValue] = cookies[i].split("=");
+        if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+        }
+      }
+      return null;
+    }
+
   return (
     
       <div className="App">
@@ -64,10 +80,10 @@ function App() {
           
           <div className='main'>
           
-          <Sidebar/>
+          {token && <Sidebar/>}
           
           <div className='rightScreen' style={{position:"relative"}}>
-          <SearchBar />
+          {token && <SearchBar />}
           
 
           <Routes>

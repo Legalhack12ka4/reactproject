@@ -204,13 +204,102 @@
               position: absolute;
               right: 10px;
               top: 22px;
+              cursor: pointer;
             }
           }
-          .item-bottom-hr{
-            border: .5px solid $neutrals-700;
+          .item-bottom-hr {
+            border: 0.5px solid $neutrals-700;
+          }
+          .add-item-btn {
+            color: $primary-100;
+            padding: 20px 0px 0px 20px;
+            cursor: pointer;
+          }
         }
+
+        .item-total-container {
+          display: flex;
+          justify-content: space-between;
+          .notes-attachment-container {
+            padding: 30px 0px 0px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .attachments-input {
+              .attachment-label {
+                margin-bottom: 8px;
+                color: $neutrals-400;
+              }
+
+              .upload-btn {
+                border: 1px dashed $neutrals-600;
+                color: $neutrals-500 !important;
+              }
+              .ghost-icon-btn:not([disabled]):hover {
+                box-shadow: none;
+              }
+              .ghost-icon-btn:not([disabled]):focus {
+                box-shadow: none;
+                border: 1px dashed $neutrals-600;
+              }
+              .ghost-icon-btn:not([disabled]):active {
+                box-shadow: none;
+              }
+              .image-upload-limits {
+                margin-top: 10px;
+              }
+            }
+          }
+
+          .total-amount-container {
+            padding: 0px 36px 0px 0px;
+            width: 277px;
+
+            .sub-total-container {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 20px;
+              .title {
+                color: $neutrals-400;
+              }
+              .amount {
+                color: $neutrals-600;
+              }
+            }
+            .discount-container {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              margin-bottom: 20px;
+            }
+            .shipping-container {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              margin-bottom: 20px;
+            }
+            .round-off-container {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 20px;
+              .amount {
+                color: $neutrals-600;
+              }
+            }
+            .total-container{
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 20px;
+            }
+          }
         }
       }
+    }
+    .button-container{
+      display:flex;
+      padding: 30px 0px 30px 20px;
+      gap: 16px;
     }
   }
 }
