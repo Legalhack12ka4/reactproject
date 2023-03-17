@@ -595,3 +595,19 @@
     border-radius: 0px 6px 6px 0px !important;
   }
 }
+
+.icon-select{
+  .ant-select-selector{
+    padding-left: 40px !important;
+  }
+  .ant-select-selector .ant-select-selection-search-input{
+    padding-left: 28px !important;
+  }
+}
+
+.select-icon-type{
+ position: absolute;
+    left: 14px;
+    top: 41px;
+    z-index: 2;
+}

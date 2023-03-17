@@ -3,14 +3,19 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./SalesOrder.scss";
 import CustomInput from "../../CustomInput/CustomInput";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
-import { Button, Upload } from "antd";
-import { ContainedButton, ContainedSecondaryButton, GhostIconButton } from "../../Buttons/Button";
+import { Button, Modal, Upload } from "antd";
+import {
+  ContainedButton,
+  ContainedSecondaryButton,
+  GhostIconButton,
+} from "../../Buttons/Button";
 
 const SalesOrder = () => {
   const [salesOrderItemList, setSalesOrderItemList] = useState([
     { id: 1, name: "row1", value: "" },
   ]);
   const [fileList, setFileList] = useState([]);
+  const [salesOrderModal, setSalesOrderModal] = useState(true);
 
   const handleAddItemRow = () => {
     setSalesOrderItemList([
@@ -26,6 +31,10 @@ const SalesOrder = () => {
     setSalesOrderItemList(salesOrderItemList.filter((item) => item.id !== id));
   };
 
+  const handleCancel = () => {
+    setSalesOrderModal(false);
+    window.history.back(-1);
+  };
   return (
     <div className="sales-order-main-container">
       <Page_heading parent={"Transactions"} child={"Sales Order"} />
@@ -234,6 +243,127 @@ const SalesOrder = () => {
           <ContainedSecondaryButton value="Cancel" />
         </div>
       </div>
+
+      <Modal
+        open={salesOrderModal}
+        //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleCancel}
+        style={{ top: 0 }}
+        className={"sales-order-modal"}
+        footer={false}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        <div className="sales-order-modal-container">
+          <div className="select-customer-container">
+            <h1 className="heading-sb">Customer Account</h1>
+            <p className="sc-body-rg title">
+              Choose customer account by considering the details
+            </p>
+            <hr className="h-line" />
+
+            <SearchSelect
+              width={381}
+              height={400}
+              label="Customer Account"
+              placeholder="Customer Account"
+              icon="/images/icons/customer-contact-icon.svg"
+            />
+          </div>
+
+          <div className="customer-account-details-container">
+            <div className="customer-details">
+              <img
+                className="company-icon"
+                src="/images/icons/logo-customer.svg"
+                alt=""
+              />
+              <div className="company-name-container">
+                <div className="company-name">
+                  <h3 className="subtitle-sb">
+                    Reformiqo Business Services Pvt Ltd
+                  </h3>
+                  <img src="/images/icons/redirect-icon.svg" alt="icon" />
+                </div>
+                <p className="customer-address sc-body-rg">
+                  G-2, Ground Floor, InternationalBusiness Center, Near Rahul
+                  Raj Mall Piplod, Surat Gujarat - 395007, Gujarat, India
+                </p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+
+          <div className="outstanding-unused-container">
+            <div className="outstansing-container">
+              <p className="sc-body-rg title">Outstanding Amount</p>
+              <p className="subtitle-sb amount">₹ 60,200.00</p>
+            </div>
+            <div className="unused-container">
+              <p className="sc-body-rg title">Unused Credits</p>
+              <p className="subtitle-sb amount">₹ 0.00</p>
+            </div>
+          </div>
+
+          <div className="customer-details-container">
+            <hr className="h-line" />
+            <div className="gst-treatment d-flex">
+              <p className="sc-body-rg title">GST Treatment</p>
+              <p className="sc-body-sb">Registered Business - Regular </p>
+            </div>
+            <div className="gstin d-flex">
+              <p className="sc-body-rg title">GSTIN</p>
+              <p className="sc-body-sb">24AABCR1234Q1Z5</p>
+            </div>
+            <div className="email d-flex">
+              <p className="sc-body-rg title">Email</p>
+              <p className="sc-body-sb">sales@reformiqo.com</p>
+            </div>
+            <div className="pancard d-flex">
+              <p className="sc-body-rg title">PAN Card</p>
+              <p className="sc-body-sb">AABCR1234Q</p>
+            </div>
+            <div className="type d-flex">
+              <p className="sc-body-rg title">Type</p>
+              <p className="sc-body-sb">Retailer</p>
+            </div>
+            <div className="currency d-flex">
+              <p className="sc-body-rg title">Currency</p>
+              <p className="sc-body-sb">₹ - Indian Rupee</p>
+            </div>
+            <div className="payment-terms d-flex">
+              <p className="sc-body-rg title">Payment Terms</p>
+              <p className="sc-body-sb">Net 7</p>
+            </div>
+            <div className="credit-limit d-flex">
+              <p className="sc-body-rg title">Credit Limit</p>
+              <p className="sc-body-sb">₹ 90,000.00</p>
+            </div>
+          </div>
+
+          <div className="buttons-container">
+            <ContainedButton type="submit" value="Submit" />
+            <ContainedSecondaryButton value="Cancel" />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
