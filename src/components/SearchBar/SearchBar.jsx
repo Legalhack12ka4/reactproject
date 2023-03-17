@@ -175,7 +175,7 @@ document.addEventListener("keydown", e =>{
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <img src="/images/searchbar_icons/msg.svg" alt="" />
        {!isFullScreen ? <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />: 
-        <img src="\images\icons\Exit Fullscreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />}
+        <img src="\images\icons\Exit_Fullscreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />}
        
         <Popover placement="topRight"
         className="profile_setting_container"
