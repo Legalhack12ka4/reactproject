@@ -305,3 +305,88 @@
     }
   }
 }
+
+
+.sales-order-modal{
+  .ant-modal-title{
+  font-size: 22px !important;
+    font-weight: 600 !important;
+    color: $neutrals-100 !important;
+  }
+ .ant-modal-content{
+    padding: 0px !important;
+  }
+  .sales-order-modal-container{
+    .select-customer-container{
+      padding: 30px;
+      .h-line{
+        border: 0.5px solid $neutrals-700;
+        margin: 20px 0px;
+      }
+      .title{
+        margin-top: 10px;
+      }
+      
+    }
+    
+
+    .customer-account-details-container{
+      .customer-details{
+        display: flex;
+        align-items: start;
+        gap: 17px;
+        background-color: #F1F4F9;
+        padding: 20px 30px;
+        .company-icon{
+          width: 60px;
+        }
+        .company-name-container{
+          max-width: 304px;
+          .company-name{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+            img{
+              cursor: pointer;
+            }
+          }
+          .customer-address{
+            line-height: 21px;
+          }
+        }
+      }
+    }
+
+    .outstanding-unused-container{
+      padding: 20px 30px;
+      display: flex;
+      gap: 44px;
+    }
+
+    .customer-details-container{
+      padding: 0px 30px;
+      .h-line{
+        border: 0.5px solid $neutrals-700;
+        // margin-bottom: 20px;
+      }
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .d-flex{
+        display: flex;
+        gap: 82px;
+
+        .title{
+          width: 103px;
+        }
+      }
+    }
+
+    .buttons-container{
+      padding: 30px;
+      display: flex;
+      gap: 16px;
+    }
+  }
+}

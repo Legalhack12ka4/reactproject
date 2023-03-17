@@ -8,7 +8,7 @@ import { on } from "rsuite/esm/DOMHelper";
 
 const { OptGroup, Option } = Select;
 
-export const SearchSelect = forwardRef(({ onChange, options, name, value, error, errorMsg, editBtn, editBtnClick, multi, showSearch, ...props },ref) =>  {
+export const SearchSelect = forwardRef(({ onChange, options, name, value, error, errorMsg, editBtn, editBtnClick, multi, showSearch,icon,placeholder, ...props },ref) =>  {
 
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
@@ -56,12 +56,13 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
     <div>
     <div className={`srchdrp srchSelct ${error && "drpError"} ${props.addNew && "bottom-padding-none"}`}>
     {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
+    {icon && <img src={icon} alt="icon" className="select-icon-type" />}
     <Select
-       
       disabled={props.isDisabled}
       showSearch={showSearch ? showSearch : true}
-      placeholder={open ? "Type to search" : "Select Value"}
+      placeholder={open ? `Type to Search ${placeholder}`:`Select ${placeholder}`}
       mode={multi && "multiple"}
+      className={icon && "icon-select"}
     //   allowClear={multi && true}
       optionFilterProp="children"
       value={selectedOption || undefined}
