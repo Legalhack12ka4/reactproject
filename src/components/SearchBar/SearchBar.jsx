@@ -16,6 +16,7 @@ import config from "../Database/config";
 const SearchBar = (props) => {
 const [searchTriggered, setSearchTriggered] = useState(false);
 const [open, setOpen] = useState(false);
+const [isFullScreen, setIsFullScreen] = useState(false)
 
 const navigate= useNavigate();
 const hide = () => {
@@ -54,12 +55,13 @@ document.addEventListener("keydown", e =>{
     const element = document.documentElement;
   
     if (element.requestFullscreen) {
+    
       if (document.fullscreenElement) {
+        setIsFullScreen(false)
         document.exitFullscreen();
-        alert("hii")
       } else {
+        setIsFullScreen(true)
         element.requestFullscreen();
-        alert("hii")
       }
     } else if (element.mozRequestFullScreen) {
       if (document.mozFullScreenElement) {
@@ -71,7 +73,9 @@ document.addEventListener("keydown", e =>{
       alert("hii")
       if (document.webkitFullscreenElement) {
         document.webkitExitFullscreen();
+       
       } else {
+       
         element.webkitRequestFullscreen();
       }
     } else if (element.msRequestFullscreen) {
@@ -170,7 +174,8 @@ document.addEventListener("keydown", e =>{
         </div>
         <img src="/images/searchbar_icons/App.svg" alt="app" />
         <img src="/images/searchbar_icons/msg.svg" alt="" />
-        <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />
+       {!isFullScreen ? <img src="/images/searchbar_icons/fullScreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />: 
+        <img src="\images\icons\Exit Fullscreen.svg" alt="" onClick={goFullScreen} className="fullScreenBtn" />}
        
         <Popover placement="topRight"
         className="profile_setting_container"

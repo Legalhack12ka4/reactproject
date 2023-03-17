@@ -331,6 +331,8 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
             
             }
              {props.statusSelect}
+             {props.positionSelect}
+             {props.leadSelect}
           </div>
          
          
@@ -456,11 +458,12 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
               open={visible}
               //onOpenChange={() => {handleVisibleChange(); handleVisibleChange1();}}
                onOpenChange={handleVisibleChange}
+              // className="manage_columns"
               content={
-                <div className="setting_container">
+                <div className="setting_container" style={{width:"140px"}}>
                   <div
                     className="setting_btn"
-                    style={{ paddingBottom: "20px" }}
+                   
                     onClick={() => {
                       openSetting();
                       handleContentClick();
@@ -473,7 +476,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
 
                   <div
                     className="setting_btn"
-                    style={{ paddingBottom: "20px" }}
+                   
                   >
                   
                     <img src="/images/icons/import_data_icon.svg" alt="" />
@@ -481,7 +484,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                   </div>
                   <div
                     className="setting_btn"
-                    style={{ paddingBottom: "20px" }}
+                   
                   >
                     <img src="/images/icons/export_data_icon.svg" alt="" />
                     <p className="sc-body-md">Export Data</p>

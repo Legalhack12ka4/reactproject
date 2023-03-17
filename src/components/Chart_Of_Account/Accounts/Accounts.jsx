@@ -434,7 +434,7 @@ console.log(chartOfAccountSchema)
         return (
           <div
             style={{
-              marginRight: "117px",
+              maxWidth: "99px",
               display: "flex",
               justifyContent: "end",
               textOverflow: "ellipsis",
@@ -511,6 +511,7 @@ console.log(chartOfAccountSchema)
               <Popover
                 getPopupContainer={(trigger) => trigger.parentElement}
                 showArrow={false}
+                placement="left"
                 content={
                   <>
                     <div
@@ -549,7 +550,7 @@ console.log(chartOfAccountSchema)
                         </button>
                       </div>
                     </div>
-                    <div
+                    {/* <div
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -566,7 +567,7 @@ console.log(chartOfAccountSchema)
                           Set as Activate
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </>
                 }
                 title=""
@@ -762,13 +763,12 @@ console.log(chartOfAccountSchema)
                 width={330}
                 name="reporting"
                 label="Sub Type"
+               isDisabled={!formData.account_type}
                 values={formData.reporting || undefined}
                 onChange={handleDrpChangel3}
                 options={formData.account_type && reporting3}
                 error={errors.reporting && touched.reporting ? true : false}
                 errorMsg="Sub Type is required" />
-
-
 {/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
