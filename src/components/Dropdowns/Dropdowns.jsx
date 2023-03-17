@@ -4,6 +4,7 @@ import { useImperativeHandle } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import './Dropdowns.scss'
 import CustomInput from "../CustomInput/CustomInput";
+import { on } from "rsuite/esm/DOMHelper";
 
 const { OptGroup, Option } = Select;
 
@@ -192,7 +193,8 @@ export const CategorySelect = forwardRef(({ onChange, options, name, value, erro
       //defaultValue={selectedOption}
       key={selectedOption}
       onBlur={() => setFocus(false)}
-      onFocus={() => setFocus(true)}
+      // onFocus={() => setFocus(true)}
+      onFocus={props.onFocus}
       // filterOption={(input, option) =>
       //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
       // }

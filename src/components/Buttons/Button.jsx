@@ -2,15 +2,15 @@ import { Switch } from 'antd'
 import React from 'react'
 import './Buttons.scss'
 
-export const ContainedButton = ({value, width, onClick, type}) => {
+export const ContainedButton = ({value, width, onClick, type, id}) => {
   return (
-    <button type={type ? type:"button"} className='sc-body-sb Contained-btn' style={{width:width}} onClick={onClick}>{value}</button>
+    <button type={type ? type:"button"} id={id} className='sc-body-sb Contained-btn' style={{width:width}} onClick={onClick}>{value}</button>
   )
 }
 
 export const ContainedSecondaryButton = ({value, width, onClick}) => {
     return (
-        <button type='button' className='sc-body-sb sc-text-btn' style={{width:width}} onClick={onClick}>{value}</button>
+        <button type='button'  className='sc-body-sb sc-text-btn' style={{width:width}} onClick={onClick}>{value}</button>
     )
     }
 

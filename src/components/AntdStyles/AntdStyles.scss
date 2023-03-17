@@ -131,6 +131,10 @@
 
 // antd table designe
 
+.ant-table-wrapper .ant-table .ant-table-header {
+  border-radius: 0px 0px 0 0 !important;
+}
+
 .ant-table-wrapper .ant-table-container {
   border-start-start-radius: 0px !important;
   border-start-end-radius: 0px !important;

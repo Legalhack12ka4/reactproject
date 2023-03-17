@@ -13,7 +13,7 @@ import axios from "axios";
 import config from "../Database/config";
 
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 const [searchTriggered, setSearchTriggered] = useState(false);
 const [open, setOpen] = useState(false);
 
@@ -56,8 +56,10 @@ document.addEventListener("keydown", e =>{
     if (element.requestFullscreen) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
+        alert("hii")
       } else {
         element.requestFullscreen();
+        alert("hii")
       }
     } else if (element.mozRequestFullScreen) {
       if (document.mozFullScreenElement) {
@@ -66,6 +68,7 @@ document.addEventListener("keydown", e =>{
         element.mozRequestFullScreen();
       }
     } else if (element.webkitRequestFullscreen) {
+      alert("hii")
       if (document.webkitFullscreenElement) {
         document.webkitExitFullscreen();
       } else {
@@ -124,7 +127,7 @@ document.addEventListener("keydown", e =>{
         // Remove the token from local storage
         // localStorage.removeItem("jwt");
         removeCookie("jwt");
-  
+        handleLoginCallback(props.onLogout);
         // Redirect the user to the login page
         navigate("/login");
       })
@@ -133,7 +136,10 @@ document.addEventListener("keydown", e =>{
         // Handle the error
       });
   };
-  
+  function handleLoginCallback(callback) {
+
+    callback();
+  }
 
   // const handleLogout = () => {
   //   // Remove the token from local storage
@@ -144,7 +150,7 @@ document.addEventListener("keydown", e =>{
   // };
   return (
     
-<div className="search_bar_container" style={{position:"sticky", top:"13px", zIndex:"1000"}}>
+<div className="search_bar_container" style={{position:"sticky", top:"0px"}}>
     {
       !searchTriggered &&(
         <div className="search_bar">
@@ -170,7 +176,7 @@ document.addEventListener("keydown", e =>{
         className="profile_setting_container"
           open={open}
           onOpenChange={handleOpenChange}
-        getPopupContainer={(trigger) => trigger.parentElement} showArrow={false}  style={{ position: "absolute", top: "0", right: "0" }}
+        getPopupContainer={() => document.body} showArrow={false}  style={{ position: "absolute", top: "0", right: "0" }}
          content={
                  <>
                  <div className="search_main_cointainer_profile">
