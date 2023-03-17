@@ -954,6 +954,8 @@ setoldData(oldData)
           onData={handleData}
           filter={<Contacts />}
           statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
+          positionSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
+          leadSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
           onFilter={(e) => {
             clearfilter(e);
             setVisible(!visible);

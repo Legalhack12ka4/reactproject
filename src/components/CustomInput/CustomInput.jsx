@@ -19,6 +19,7 @@ const CustomInput = ({
   label,
   icon,
   error,
+  onKeyPress,
   errorMsg,
   disabled,
   textArea,
@@ -127,6 +128,7 @@ const CustomInput = ({
         value={inputValue}
         onChange={handleNameChange}
         disabled={disabled}
+        onKeyPress={onKeyPress}
       />}
       </div>
       {error && (

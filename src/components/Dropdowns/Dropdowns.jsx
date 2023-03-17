@@ -125,7 +125,7 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
 
 // export const CategorySelect
 
-export const CategorySelect = forwardRef(({ onChange, options, name, value, error,errorMsg, editBtn, editBtnClick,multi, ...props },ref) =>  {
+export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, value, error,errorMsg, editBtn, editBtnClick,multi, ...props },ref) =>  {
 
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
@@ -194,7 +194,7 @@ export const CategorySelect = forwardRef(({ onChange, options, name, value, erro
       key={selectedOption}
       onBlur={() => setFocus(false)}
       // onFocus={() => setFocus(true)}
-      onFocus={props.onFocus}
+      onFocus={onFocus}
       // filterOption={(input, option) =>
       //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
       // }

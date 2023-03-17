@@ -1,6 +1,6 @@
 import { Switch } from "antd";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ContainedButton } from "../Buttons/Button";
 import CustomInput from "../CustomInput/CustomInput";
@@ -22,6 +22,7 @@ const LoginPage = (props) => {
   const [name, setName] = useState("");
   const [activePage, setActivePage] = useState("loginPage");
   const navigate= useNavigate();
+
   // const handleNameChange = evt => {
   //   const newName = evt.target.value.replace(
   //     /[^a-zA-Z@\d\s.]/g,
@@ -106,6 +107,16 @@ const LoginPage = (props) => {
     callback();
   }
 
+  const signInButtonRef = useRef(null);
+
+  const handlePasswordKeyPress = (event) => {
+    console.log("hello")
+    if (event.key === "Enter") {
+     handleLogin();
+      console.log("hello")
+    }
+    console.log("hello")
+  }; 
 
   return (
     <div className="login-page-main">
@@ -161,6 +172,7 @@ const LoginPage = (props) => {
                   type={showPassword ? "text" : "password"}
                  // placeholder="***************"
                   // value={name}
+                  onKeyPress={handlePasswordKeyPress}
                   width={330}
                   label="Password"
                   value={formData.password}
@@ -204,7 +216,7 @@ const LoginPage = (props) => {
             </div>
 
             {/* <Link exact to="/dashboard"> */}
-              <ContainedButton value="Sign In" id="sign-in-btn" width={330} onClick={() => {handleLogin();}} />
+              <ContainedButton value="Sign In" id="sign-in-btn" width={330}  ref={signInButtonRef}   onClick={() => {handleLogin();}} />
             {/* </Link> */}
 
             <div className="create-account-container">
