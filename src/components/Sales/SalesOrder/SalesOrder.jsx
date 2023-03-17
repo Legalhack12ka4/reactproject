@@ -3,6 +3,8 @@ import Page_heading from "../../Page_Heading/Page_heading";
 import "./SalesOrder.scss";
 import CustomInput from "../../CustomInput/CustomInput";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
+import { Button, Upload } from "antd";
+import { ContainedButton, ContainedSecondaryButton, GhostIconButton } from "../../Buttons/Button";
 
 const SalesOrder = () => {
   const [salesOrderItemList, setSalesOrderItemList] = useState([
@@ -83,8 +85,13 @@ const SalesOrder = () => {
                 <h4 className="body-md">Bill To</h4>
                 <img src="/images/icons/edit.svg" alt="edit icon" />
               </div>
-              <h4 className="company-name sc-body-bd">Reformiqo Business Service Pvt Ltd</h4>
-              <p className="sc-body-rg">G-2, Ground Floor, InternationalBusiness Center, Near Rahul Raj Mall Piplod, Surat Gujarat - 395007</p>
+              <h4 className="company-name sc-body-bd">
+                Reformiqo Business Service Pvt Ltd
+              </h4>
+              <p className="sc-body-rg">
+                G-2, Ground Floor, InternationalBusiness Center, Near Rahul Raj
+                Mall Piplod, Surat Gujarat - 395007
+              </p>
               <h4 className="sc-body-bd">GSTIN : 22AAAAA0000A1Z5</h4>
             </div>
             <div className="ship-to-container">
@@ -92,7 +99,10 @@ const SalesOrder = () => {
                 <h4 className="body-md">Ship To</h4>
                 <img src="/images/icons/edit.svg" alt="edit icon" />
               </div>
-              <p className="sc-body-rg">G-2, Ground Floor, InternationalBusiness Center, Near Rahul Raj Mall Piplod, Surat Gujarat - 395007</p>
+              <p className="sc-body-rg">
+                G-2, Ground Floor, InternationalBusiness Center, Near Rahul Raj
+                Mall Piplod, Surat Gujarat - 395007
+              </p>
               <p className="sc-body-sb">Place of Supply : Gujarat</p>
             </div>
             <div className="transporter-container">
@@ -100,57 +110,128 @@ const SalesOrder = () => {
                 <h4 className="body-md">Transporter</h4>
                 <img src="/images/icons/edit.svg" alt="edit icon" />
               </div>
-              <h4 className="transporter-name sc-body-bd">Balaji Transport Services</h4>
-              <p className="transporter-id sc-body-md">Transporter Id : TS12AA56LP15935</p>
-              <p className="sc-body-rg">G-202, Balaji House, Sosyo Circle, Udhna-Magdalla road, Bhatar, Surat </p>
+              <h4 className="transporter-name sc-body-bd">
+                Balaji Transport Services
+              </h4>
+              <p className="transporter-id sc-body-md">
+                Transporter Id : TS12AA56LP15935
+              </p>
+              <p className="sc-body-rg">
+                G-202, Balaji House, Sosyo Circle, Udhna-Magdalla road, Bhatar,
+                Surat{" "}
+              </p>
             </div>
           </div>
         </div>
 
         <div className="bottom-container">
-            <div className="item-container">
-              <div className="item-heading">
-                <p className="caption-sb item-details">Item Details</p>
-                <p className="caption-sb item-qty">Qty</p>
-                <p className="caption-sb item-rate">Rate</p>
-                <p className="caption-sb item-tax">Tax</p>
-                <p className="caption-sb item-discount">Discount</p>
-                <p className="caption-sb item-amount">Amount</p>
-              </div>
+          <div className="item-container">
+            <div className="item-heading">
+              <p className="caption-sb item-details">Item Details</p>
+              <p className="caption-sb item-qty">Qty</p>
+              <p className="caption-sb item-rate">Rate</p>
+              <p className="caption-sb item-tax">Tax</p>
+              <p className="caption-sb item-discount">Discount</p>
+              <p className="caption-sb item-amount">Amount</p>
+            </div>
 
-              <div className="item-row-container">
-                {salesOrderItemList.map((item) => (
-                  <>
+            <div className="item-row-container">
+              {salesOrderItemList.map((item) => (
+                <>
                   <div className="sales-order-items-row" key={item.id}>
                     <div className="item-details">
                       <CustomInput placeholder="Select Item" width={208} />
                     </div>
                     <div className="item-qty">
-                    <CustomInput placeholder="1.00" width={100} />
+                      <CustomInput placeholder="1.00" width={100} />
                     </div>
                     <div className="item-rate">
-                    <CustomInput placeholder="0.00" width={100} />
+                      <CustomInput placeholder="0.00" width={100} />
                     </div>
                     <div className="item-tax">
-                    <CustomInput disabled width={80} />
+                      <CustomInput disabled width={80} />
                     </div>
                     <div className="item-discount">
-                    <CustomInput placeholder="0.00" symbol="₹" textAlign="right" width={100} />
-                    <CustomInput placeholder="0.00" symbol="%" textAlign="right" width={100} />
-
+                      <CustomInput
+                        placeholder="0.00"
+                        symbol="₹"
+                        textAlign="right"
+                        width={100}
+                      />
+                      <CustomInput
+                        placeholder="0.00"
+                        symbol="%"
+                        textAlign="right"
+                        width={100}
+                      />
                     </div>
                     <div className="item-amount">
                       <p className="sc-body-sb">₹ 0.00</p>
                     </div>
-                    <div className="delete-item-row" onClick={()=>handleDeleteOrderItemRow(item.id)}>
+                    <div
+                      className="delete-item-row"
+                      onClick={() => handleDeleteOrderItemRow(item.id)}
+                    >
                       <img src="/images/icons/cross-icon.svg" alt="" />
                     </div>
                   </div>
                   <hr className="item-bottom-hr" />
                 </>
-                ))}
+              ))}
+              <p className="add-item-btn sc-body-bd" onClick={handleAddItemRow}>
+                + Add Item{" "}
+              </p>
+            </div>
+
+            <div className="item-total-container">
+              <div className="notes-attachment-container">
+                <CustomInput label="Notes" width={330} />
+                <div className="attachments-input">
+                  <p className="sc-body-md attachment-label">Attachments</p>
+                  <Upload
+                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    fileList={fileList}
+                    onChange={onChange}
+                  >
+                    <GhostIconButton
+                      value="Upload"
+                      className="upload-btn"
+                      icon="/images/icons/upload-cloud-icon.svg"
+                    />
+                    <p className="image-upload-limits caption-rg">
+                      Maximum of 5 Files (2MB each)
+                    </p>
+                  </Upload>
+                </div>
+              </div>
+              <div className="total-amount-container">
+                <div className="sub-total-container">
+                  <p className="sc-body-md title">Sub Total</p>
+                  <p className="sc-body-md amount">₹ 0.00</p>
+                </div>
+                <div className="discount-container">
+                  <p className="sc-body-md">Discount</p>
+                  <img src="/images/icons/edit.svg" alt="edit icon" />
+                </div>
+                <div className="shipping-container">
+                  <p className="sc-body-md">Shipping Charges</p>
+                  <img src="/images/icons/edit.svg" alt="edit icon" />
+                </div>
+                <div className="round-off-container">
+                  <p className="sc-body-md title">Round off</p>
+                  <p className="sc-body-md amount">₹ 0.00</p>
+                </div>
+                <div className="total-container">
+                  <p className="subtitle-sb title">Total</p>
+                  <p className="subtitle-sb amount">₹ 0.00</p>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="button-container">
+          <ContainedButton type="submit" value="Save" />
+          <ContainedSecondaryButton value="Cancel" />
         </div>
       </div>
     </div>

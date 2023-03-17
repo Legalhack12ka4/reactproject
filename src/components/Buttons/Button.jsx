@@ -32,10 +32,10 @@ export const GhostButton = ({value, width}) => {
     )
     }
 
-export const GhostIconButton = ({value, width}) => {
+export const GhostIconButton = ({value, width, className, icon}) => {
     return (
-        <button type='button' className='ghost-icon-btn sc-body-sb' style={{width:width}}>
-            <img src="/images/icons/send-primary-icon.svg" alt="icon" />
+        <button type='button' className={`${className} ghost-icon-btn sc-body-sb`} style={{width:width}}>
+            <img src={icon} alt="icon" />
             <p>{value}</p>
         </button>
     )
