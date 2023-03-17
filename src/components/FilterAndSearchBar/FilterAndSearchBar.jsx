@@ -282,18 +282,19 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
           <div style={{ display: "flex", gap:"33px" }}>
             {/* <div className="total_table_result">{props.results_length}</div> */}
             {props.customer == ""  ? (
-              <div className="search_customer focus-outline">
-                <div className="search_icon">
-                  <CgSearch size={20} color="#697A8D" />
-                </div>
-                <input
-                  disabled
+              // <div className="search_customer focus-outline">
+              //   <div className="search_icon">
+              //     <CgSearch size={20} color="#697A8D" />
+              //   </div>
+              //   <input
+              //     disabled
 
-                  //type="text"
-                  // placeholder="Search Customer"
-                  //  onChange={handleChange}
-                />
-              </div>
+              //     //type="text"
+              //     // placeholder="Search Customer"
+              //     //  onChange={handleChange}
+              //   />
+              // </div>
+              <CustomInput onChange={handleChange} width={260} disabled placeholder="Search Customer" icon="/images/icons/Search-icon.svg"/>
              ) :
             visibleRoutes.includes(location.pathname) ?
 
@@ -324,7 +325,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
               //     onChange={handleChange}
               //   />
               // </div>
-              <CustomInput width={260} placeholder="Search Here" icon="/images/icons/Search-icon.svg" />
+              <CustomInput width={260} placeholder="Search Here" onChange={handleChange} icon="/images/icons/Search-icon.svg" />
 
               
             

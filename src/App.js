@@ -55,11 +55,17 @@ import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAs
 import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
 import SalesData from './components/Sales/SalesOrder/Sales-Data/SalesData';
 import PrivateRoutes from './Authentication/PrivateRoutes';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
+const [isLogin,setIsLogin] = useState(false)
+const [logout,setLogout] = useState(true)
+  
+// const token = getCookie("jwt");
 
   const token = getCookie("jwt");
+
+
 
     function getCookie(name) {
       const cookieString = document.cookie;
@@ -72,6 +78,27 @@ function App() {
       }
       return null;
     }
+   
+
+    function OnLogin(data) {
+
+        setIsLogin(token);
+    }
+
+    function OnLogout(data) {
+      console.log("logout",data);
+      console.log(logout)
+      setLogout(false);
+      window.location.reload();
+        
+  }
+  useEffect(() => {
+    
+  },[logout])
+
+    useEffect (() => {
+
+    },[isLogin])
 
   return (
     
@@ -83,7 +110,7 @@ function App() {
           {token && <Sidebar/>}
           
           <div className='rightScreen' style={{position:"relative"}}>
-          {token && <SearchBar />}
+          {token && <SearchBar onLogout={OnLogout} />}
           
 
           <Routes>
@@ -143,7 +170,7 @@ function App() {
           <Route path="sales/sales_order" element={<SalesData/>}/>
           <Route path='sales/sales_order/add_sales' element={<SalesOrder/>} />
       </Route>
-      <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/login" element={<LoginPage onLogin={OnLogin}/>}/>
           </Routes>
           {/* <Footer /> */}
           </div>

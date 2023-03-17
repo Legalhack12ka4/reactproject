@@ -900,7 +900,7 @@ setoldData(oldData)
                 />
               </div>
 
-              <div className="customer_filter_filed">
+              {/* <div className="customer_filter_filed">
                 <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="contactlabel" style={{ marginTop: "5px" }}>
@@ -910,38 +910,38 @@ setoldData(oldData)
                 <br />
                 <div className="contactinput" style={{ marginTop: "5px" }}>
                   <img src={dob} className="customerimg" />
-                  {/* <Calendar
+                  <Calendar
         date={new Date()}
         onChange={handleSelect}
-          /> */}
+          />
 
           <CalendarComp    name="dob"
                     value={custfilter.dob}
                     onChange={onChangedob}/>
-                  {/* <input
+                  <input
                     type="date"
                     className="inputcontact"
                     placeholder="Placeholder"
                     name="dob"
                     value={custfilter.dob}
                     onChange={onChangedob}
-                  /> */}
+                  />
                 </div>
 
-                {/* <DateRangePicker
+                <DateRangePicker
             daterange={filterdaterange}
             name="updated_date_time"
             value={dateRange}
             onChange={onChangedate}
-          /> */}
-                {/* <DateRangePicker
+          />
+                <DateRangePicker
                 daterange={filterdaterange}
                     name="updated_date_time"
                     //   options={ownership}
                        value={custfilter.updated_date_time}
                        onChange={onChangedate}
-                /> */}
-              </div>
+                />
+              </div> */}
             </div>,
           ]}
           change={filterarray}

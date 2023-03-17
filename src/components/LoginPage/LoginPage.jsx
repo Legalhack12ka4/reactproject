@@ -14,7 +14,7 @@ const resetValue = {
  };
 
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const [formData, setFormData] = useState(resetValue);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -76,6 +76,7 @@ const LoginPage = () => {
         
           // set cookie or token in local storage
           document.cookie = `jwt=${res.data.jwt}`;
+          handleLoginCallback(props.onLogin);
           // localStorage.setItem('jwt', res.data.jwt)
           
           // redirect to dashboard page
@@ -97,6 +98,12 @@ const LoginPage = () => {
       }
 
     }
+  }
+
+  function handleLoginCallback(callback) {
+    // Do login logic here
+    // Once login is successful, call the callback function with any data you want to pass back to App.js
+    callback();
   }
 
 
@@ -197,7 +204,7 @@ const LoginPage = () => {
             </div>
 
             {/* <Link exact to="/dashboard"> */}
-              <ContainedButton value="Sign In" width={330} onClick={() => {handleLogin()}} />
+              <ContainedButton value="Sign In" id="sign-in-btn" width={330} onClick={() => {handleLogin();}} />
             {/* </Link> */}
 
             <div className="create-account-container">
