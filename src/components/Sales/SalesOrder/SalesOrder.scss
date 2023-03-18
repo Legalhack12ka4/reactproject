@@ -173,14 +173,55 @@
             .item-details {
               padding: 10px 10px 12px 0px;
               border-right: 1px dashed $neutrals-700;
+              position: relative;
+            }
+            .selected-item-container{
+              width: 208px;
+              display: flex;
+              gap: 10px;
+              .item-image{
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+              }
+              .selected-item-details{
+                .item-delete-icon{
+                  position: absolute;
+                  right: 10px;
+                  top: 14px;
+                  cursor: pointer;
+                }
+              }
             }
             .item-qty {
               padding: 10px 10px 12px 10px;
               border-right: 1px dashed $neutrals-700;
+              text-align: right;
+
+              .invoiced-count{
+                background-color: $info-900;
+                color: $info-100;
+                padding: 2px 3px 4px 8px;
+                width: max-content;
+                display: inline-block;
+                margin-top: 10px;
+                border-radius: 4px;
+              }
             }
             .item-rate {
               padding: 10px 10px 12px 10px;
               border-right: 1px dashed $neutrals-700;
+              text-align: right;
+
+              .tax-inc{
+                display: inline-block;
+                margin-top: 10px;
+              }
             }
             .item-tax {
               padding: 10px 10px 12px 10px;
@@ -214,7 +255,8 @@
           }
           .add-item-btn {
             color: $primary-100;
-            padding: 20px 0px 0px 20px;
+            // padding: 20px 0px 0px 20px;
+            margin: 20px 0px 0px 20px;
             cursor: pointer;
           }
         }
@@ -229,9 +271,31 @@
             gap: 20px;
 
             .attachments-input {
+              .attachment-count{
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background-color: $primary-100;
+                color: #ffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+              }
+              .attachment-icon{
+                cursor: pointer;
+              }
               .attachment-label {
                 margin-bottom: 8px;
                 color: $neutrals-400;
+              }
+              .upload-count-container{
+                position: relative;
+              }
+              .attachment-icon-count{
+                position: absolute;
+                top: 7px;
+                right: 164px;
               }
 
               .upload-btn {
@@ -266,20 +330,36 @@
                 color: $neutrals-400;
               }
               .amount {
-                color: $neutrals-600;
+                color: $neutrals-500;
               }
             }
             .discount-container {
               display: flex;
               align-items: center;
-              gap: 4px;
+              justify-content: space-between;
+              margin-bottom: 20px;
+
+              .discount-title{
+                display: flex;
+                gap: 4px;
+              }
+            }
+            .gst-container{
+              display:flex;
+              align-items: center;
+              justify-content: space-between;
               margin-bottom: 20px;
             }
             .shipping-container {
-              display: flex;
-              align-items: center;
-              gap: 4px;
+              // display: flex;
+              // align-items: flex-start;
+              // justify-content: space-between;
               margin-bottom: 20px;
+
+              .shipping-title{
+                display: flex;
+                gap: 4px;
+              }
             }
             .round-off-container {
               display: flex;
@@ -292,7 +372,7 @@
             .total-container{
               display: flex;
               justify-content: space-between;
-              margin-bottom: 20px;
+              // margin-bottom: 20px;
             }
           }
         }
@@ -300,7 +380,7 @@
     }
     .button-container{
       display:flex;
-      padding: 30px 0px 30px 20px;
+      padding: 15px 0px 30px 20px;
       gap: 16px;
     }
   }
@@ -389,4 +469,47 @@
       gap: 16px;
     }
   }
+}
+
+// select style 
+
+
+.sales-order-customer-data-container{
+  .business-name{
+    margin-bottom: 8px;
+  }
+  .gstin-title{
+    color: $neutrals-600;
+  }
+  .city-title{
+    color: $neutrals-600;
+  }
+  .contact-title{
+    color: $neutrals-600;
+  }
+  .gst-city-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+}
+.ant-select-multiple.ant-select-lg .ant-select-selection-item {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  height: 22px !important;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  line-height: 23px;
+  background: $primary-900 !important;
+  color: $primary-100 !important;
+  border: none !important;
+  border-radius: 4px;
+  cursor: default;
+  transition: font-size 0.3s,line-height 0.3s,height 0.3s;
+  user-select: none;
+  margin-inline-end: 4px;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px !important;
 }

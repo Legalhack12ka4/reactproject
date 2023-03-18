@@ -16,6 +16,57 @@ const SalesOrder = () => {
   ]);
   const [fileList, setFileList] = useState([]);
   const [salesOrderModal, setSalesOrderModal] = useState(true);
+  const [isCustomerSelected, setIsCustomerSelected] = useState(false);
+  const [customerSubmit, setCustomerSubmit] = useState(false);
+  const [selectItem, setSelectItem] = useState(false);
+  const [attachmentShow, setAttachmentShow] = useState(false);
+
+  const customerDataSelectOptions = [
+    {
+      value: "customer1",
+      label: (
+        <div className="sales-order-customer-data-container">
+          <p className="business-name">Reformiqo Business Service Pvt Ldt</p>
+          <div className="gst-city-container">
+            <p className="caption-md gstin-title">
+              GSTIN : <span className="caption-md">22AAAAA0000A1Z5</span>
+            </p>
+            <p className="caption-md city-title">
+              City : <span className="caption-md">Surat</span>
+            </p>
+          </div>
+          <p className="caption-md contact-title">
+            Contact : <span className="caption-md">Ashish Jaria</span>
+          </p>
+        </div>
+      ),
+    },
+    {
+      value: "customer2",
+      label: (
+        <div className="sales-order-customer-data-container">
+          <p className="business-name">Reformiqo Business Service Pvt Ldt</p>
+          <div className="gst-city-container">
+            <p className="caption-md gstin-title">
+              GSTIN : <span className="caption-md">22AAAAA0000A1Z5</span>
+            </p>
+            <p className="caption-md city-title">
+              City : <span className="caption-md">Surat</span>
+            </p>
+          </div>
+          <p className="caption-md contact-title">
+            Contact : <span className="caption-md">Kushal Nahata</span>
+          </p>
+        </div>
+      ),
+    },
+  ];
+
+  const itemOptions = [
+    { value: "item1", label: "Item 1" },
+    { value: "item2", label: "Item 2" },
+    { value: "item3", label: "Item 3" },
+  ];
 
   const handleAddItemRow = () => {
     setSalesOrderItemList([
@@ -32,9 +83,31 @@ const SalesOrder = () => {
   };
 
   const handleCancel = () => {
-    setSalesOrderModal(false);
-    window.history.back(-1);
+    if (isCustomerSelected && customerSubmit) {
+      setSalesOrderModal(false);
+    } else {
+      setSalesOrderModal(false);
+      window.history.back(-1);
+    }
   };
+
+  const handleCustomerSelect = (value) => {
+    setIsCustomerSelected(true);
+  };
+
+  const handleSubmit = () => {
+    setSalesOrderModal(false);
+    setCustomerSubmit(true);
+  };
+
+  const changeCustomer = () => {
+    setSalesOrderModal(true);
+  };
+
+  const handleItemSelect = (value) => {
+    setSelectItem(true);
+  };
+
   return (
     <div className="sales-order-main-container">
       <Page_heading parent={"Transactions"} child={"Sales Order"} />
@@ -92,7 +165,11 @@ const SalesOrder = () => {
             <div className="bill-to-container">
               <div className="bill-to-heading">
                 <h4 className="body-md">Bill To</h4>
-                <img src="/images/icons/edit.svg" alt="edit icon" />
+                <img
+                  src="/images/icons/edit.svg"
+                  alt="edit icon"
+                  onClick={changeCustomer}
+                />
               </div>
               <h4 className="company-name sc-body-bd">
                 Reformiqo Business Service Pvt Ltd
@@ -149,13 +226,49 @@ const SalesOrder = () => {
                 <>
                   <div className="sales-order-items-row" key={item.id}>
                     <div className="item-details">
-                      <CustomInput placeholder="Select Item" width={208} />
+                      {!selectItem ? (
+                        <SearchSelect
+                          placeholder="Item"
+                          options={itemOptions}
+                          showSearch={false}
+                          onChange={handleItemSelect}
+                          width={208}
+                        />
+                      ) : (
+                        <div className="selected-item-container">
+                          <div className="item-image">
+                            <img
+                              src="/images/icons/shirt-img.png"
+                              alt="shirt"
+                            />
+                          </div>
+                          <div className="selected-item-details">
+                            <p className="sc-body-sb mb-12 p-1">
+                              Grick Polo Box Shirt
+                            </p>
+                            <p className="caption-md mb-8">SKU : GR-PL-009</p>
+                            <p className="caption-md">HSN : 61051010</p>
+                            <img
+                              className="item-delete-icon"
+                              onClick={() => {
+                                setSelectItem(false);
+                              }}
+                              src="/images/icons/cross-icon-n100.svg"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className="item-qty">
                       <CustomInput placeholder="1.00" width={100} />
+                      <div className="caption-sb invoiced-count">
+                        8.00 Invoiced
+                      </div>
                     </div>
                     <div className="item-rate">
                       <CustomInput placeholder="0.00" width={100} />
+                      <p className="caption-md tax-inc">Inc. Tax</p>
                     </div>
                     <div className="item-tax">
                       <CustomInput disabled width={80} />
@@ -197,20 +310,27 @@ const SalesOrder = () => {
                 <CustomInput label="Notes" width={330} />
                 <div className="attachments-input">
                   <p className="sc-body-md attachment-label">Attachments</p>
+                  <div className="d-flex align-center upload-count-container">
                   <Upload
                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     fileList={fileList}
                     onChange={onChange}
+                    showUploadList={attachmentShow}
                   >
                     <GhostIconButton
                       value="Upload"
                       className="upload-btn"
                       icon="/images/icons/upload-cloud-icon.svg"
                     />
-                    <p className="image-upload-limits caption-rg">
+                  </Upload>
+                  <div className="d-flex align-center attachment-icon-count ">
+                    <img src="/images/icons/attachment-icon.svg" alt="attach" className="attachment-icon" onClick={()=>{setAttachmentShow(!attachmentShow)}} />
+                    <div className="attachment-count">{fileList.length}</div>
+                  </div>
+                  </div>
+                  <p className="image-upload-limits caption-rg">
                       Maximum of 5 Files (2MB each)
                     </p>
-                  </Upload>
                 </div>
               </div>
               <div className="total-amount-container">
@@ -219,12 +339,30 @@ const SalesOrder = () => {
                   <p className="sc-body-md amount">₹ 0.00</p>
                 </div>
                 <div className="discount-container">
-                  <p className="sc-body-md">Discount</p>
-                  <img src="/images/icons/edit.svg" alt="edit icon" />
+                  <div className="discount-title">
+                    <p className="sc-body-md">Discount</p>
+                    <img src="/images/icons/edit.svg" alt="edit icon" />
+                  </div>
+                  <p className="sc-body-md amount">₹ 0.00</p>
+                </div>
+                <div className="gst-container">
+                  <p className="sc-body-md">GST 5%</p>
+                  <p className="sc-body-md">₹ 0.00</p>
                 </div>
                 <div className="shipping-container">
-                  <p className="sc-body-md">Shipping Charges</p>
-                  <img src="/images/icons/edit.svg" alt="edit icon" />
+                <div className="d-flex align-center justify-between">
+                  <div className="shipping-title-container">
+                  <div className="shipping-title">
+                    <p className="sc-body-md">Shipping Charges</p>
+                    <img src="/images/icons/edit.svg" alt="edit icon" />
+                  </div>
+                  </div>
+                  <p className="sc-body-md amount">₹ 0.00</p>
+                  </div>
+                  <div className="d-flex align-center justify-between">
+                  <p className="caption-md mt-8 neu-6">GST 5%</p>
+                  <p className="caption-md mt-8 neu-6">₹ 0.00</p>
+                  </div>
                 </div>
                 <div className="round-off-container">
                   <p className="sc-body-md title">Round off</p>
@@ -240,7 +378,12 @@ const SalesOrder = () => {
         </div>
         <div className="button-container">
           <ContainedButton type="submit" value="Save" />
-          <ContainedSecondaryButton value="Cancel" />
+          <ContainedSecondaryButton
+            value="Cancel"
+            onClick={() => {
+              window.history.back(-1);
+            }}
+          />
         </div>
       </div>
 
@@ -249,7 +392,7 @@ const SalesOrder = () => {
         //   onOk={handleMaterialOk}
         width={"max-content"}
         onCancel={handleCancel}
-        style={{ top: 0 }}
+        style={{ top: 0, height: "auto" }}
         className={"sales-order-modal"}
         footer={false}
         closeIcon={
@@ -285,83 +428,96 @@ const SalesOrder = () => {
               label="Customer Account"
               placeholder="Customer Account"
               icon="/images/icons/customer-contact-icon.svg"
+              options={customerDataSelectOptions}
+              onChange={handleCustomerSelect}
             />
           </div>
-
-          <div className="customer-account-details-container">
-            <div className="customer-details">
-              <img
-                className="company-icon"
-                src="/images/icons/logo-customer.svg"
-                alt=""
-              />
-              <div className="company-name-container">
-                <div className="company-name">
-                  <h3 className="subtitle-sb">
-                    Reformiqo Business Services Pvt Ltd
-                  </h3>
-                  <img src="/images/icons/redirect-icon.svg" alt="icon" />
+          {isCustomerSelected && (
+            <div className="animated zoomIn">
+              <div className="customer-account-details-container">
+                <div className="customer-details">
+                  <img
+                    className="company-icon"
+                    src="/images/icons/logo-customer.svg"
+                    alt=""
+                  />
+                  <div className="company-name-container">
+                    <div className="company-name">
+                      <h3 className="subtitle-sb">
+                        Reformiqo Business Services Pvt Ltd
+                      </h3>
+                      <img src="/images/icons/redirect-icon.svg" alt="icon" />
+                    </div>
+                    <p className="customer-address sc-body-rg">
+                      G-2, Ground Floor, InternationalBusiness Center, Near
+                      Rahul Raj Mall Piplod, Surat Gujarat - 395007, Gujarat,
+                      India
+                    </p>
+                    <p></p>
+                  </div>
                 </div>
-                <p className="customer-address sc-body-rg">
-                  G-2, Ground Floor, InternationalBusiness Center, Near Rahul
-                  Raj Mall Piplod, Surat Gujarat - 395007, Gujarat, India
-                </p>
-                <p></p>
+              </div>
+
+              <div className="outstanding-unused-container">
+                <div className="outstansing-container">
+                  <p className="sc-body-rg title">Outstanding Amount</p>
+                  <p className="subtitle-sb amount">₹ 60,200.00</p>
+                </div>
+                <div className="unused-container">
+                  <p className="sc-body-rg title">Unused Credits</p>
+                  <p className="subtitle-sb amount">₹ 0.00</p>
+                </div>
+              </div>
+
+              <div className="customer-details-container">
+                <hr className="h-line" />
+                <div className="gst-treatment d-flex">
+                  <p className="sc-body-rg title">GST Treatment</p>
+                  <p className="sc-body-sb">Registered Business - Regular </p>
+                </div>
+                <div className="gstin d-flex">
+                  <p className="sc-body-rg title">GSTIN</p>
+                  <p className="sc-body-sb">24AABCR1234Q1Z5</p>
+                </div>
+                <div className="email d-flex">
+                  <p className="sc-body-rg title">Email</p>
+                  <p className="sc-body-sb">sales@reformiqo.com</p>
+                </div>
+                <div className="pancard d-flex">
+                  <p className="sc-body-rg title">PAN Card</p>
+                  <p className="sc-body-sb">AABCR1234Q</p>
+                </div>
+                <div className="type d-flex">
+                  <p className="sc-body-rg title">Type</p>
+                  <p className="sc-body-sb">Retailer</p>
+                </div>
+                <div className="currency d-flex">
+                  <p className="sc-body-rg title">Currency</p>
+                  <p className="sc-body-sb">₹ - Indian Rupee</p>
+                </div>
+                <div className="payment-terms d-flex">
+                  <p className="sc-body-rg title">Payment Terms</p>
+                  <p className="sc-body-sb">Net 7</p>
+                </div>
+                <div className="credit-limit d-flex">
+                  <p className="sc-body-rg title">Credit Limit</p>
+                  <p className="sc-body-sb">₹ 90,000.00</p>
+                </div>
+              </div>
+
+              <div className="buttons-container">
+                <ContainedButton
+                  type="submit"
+                  value="Submit"
+                  onClick={handleSubmit}
+                />
+                <ContainedSecondaryButton
+                  value="Cancel"
+                  onClick={handleCancel}
+                />
               </div>
             </div>
-          </div>
-
-          <div className="outstanding-unused-container">
-            <div className="outstansing-container">
-              <p className="sc-body-rg title">Outstanding Amount</p>
-              <p className="subtitle-sb amount">₹ 60,200.00</p>
-            </div>
-            <div className="unused-container">
-              <p className="sc-body-rg title">Unused Credits</p>
-              <p className="subtitle-sb amount">₹ 0.00</p>
-            </div>
-          </div>
-
-          <div className="customer-details-container">
-            <hr className="h-line" />
-            <div className="gst-treatment d-flex">
-              <p className="sc-body-rg title">GST Treatment</p>
-              <p className="sc-body-sb">Registered Business - Regular </p>
-            </div>
-            <div className="gstin d-flex">
-              <p className="sc-body-rg title">GSTIN</p>
-              <p className="sc-body-sb">24AABCR1234Q1Z5</p>
-            </div>
-            <div className="email d-flex">
-              <p className="sc-body-rg title">Email</p>
-              <p className="sc-body-sb">sales@reformiqo.com</p>
-            </div>
-            <div className="pancard d-flex">
-              <p className="sc-body-rg title">PAN Card</p>
-              <p className="sc-body-sb">AABCR1234Q</p>
-            </div>
-            <div className="type d-flex">
-              <p className="sc-body-rg title">Type</p>
-              <p className="sc-body-sb">Retailer</p>
-            </div>
-            <div className="currency d-flex">
-              <p className="sc-body-rg title">Currency</p>
-              <p className="sc-body-sb">₹ - Indian Rupee</p>
-            </div>
-            <div className="payment-terms d-flex">
-              <p className="sc-body-rg title">Payment Terms</p>
-              <p className="sc-body-sb">Net 7</p>
-            </div>
-            <div className="credit-limit d-flex">
-              <p className="sc-body-rg title">Credit Limit</p>
-              <p className="sc-body-sb">₹ 90,000.00</p>
-            </div>
-          </div>
-
-          <div className="buttons-container">
-            <ContainedButton type="submit" value="Submit" />
-            <ContainedSecondaryButton value="Cancel" />
-          </div>
+          )}
         </div>
       </Modal>
     </div>
