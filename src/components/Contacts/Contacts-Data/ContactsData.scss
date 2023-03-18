@@ -22,7 +22,7 @@
         .filter-searchbar-container{
             padding: 0px 20px;
             .new_btn_or_reports_main{
-                top: -101px;
+                top: -88px;
                 right: -20px;
             }
         }
@@ -272,12 +272,19 @@
 }
 
 .contacts-grid-container{
-
+ 
+        .new_btn_or_reports_main{
+            top: -67px !important;
+            right: 0px !important;
+     
+    }
+   
     .table_nav{
         padding: 0px 0px 30px 0px
     }
 
     .grid-data-container{
+       
         display: flex;
         gap: 20px;
         flex-wrap: wrap;

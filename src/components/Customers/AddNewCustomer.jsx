@@ -136,15 +136,22 @@ const handleCancel = () => {
   setCofirmData(false)
 };
 
+useEffect(() => {
+  getData();
+
+}, []);
   const getData = (gstin) => {
+   
     axios.get(
  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24AALCR9442F1Z6`,
+     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24ABNFS4438A1ZB`,
       {
         headers: {
-          'Authorization': "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-          'client_id': "JarZChUcsytSBbnkpt",
+          "Authorization": `Bearer c6c932943d1e645f802cf28d9a8f621f4fbea07d`,
+          "client_id": `NKPAiQRmOqdrbeyOIJ`,
         },
+        mode: 'cors', // add CORS mode
+        credentials: 'same-origin', // add credentials option if needed
       }
     )
       .then((response) => {
@@ -358,10 +365,7 @@ ChildStateModificationFunc = (modVal)=>{
    console.log(value)
  };
 
-  // useEffect(() => {
-  //   getData();
 
-  // }, []);
 
   const handleCreditBlur = (e) => {
 

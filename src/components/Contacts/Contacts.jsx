@@ -677,7 +677,7 @@ function Contacts(props) {
             dob: formData.dob,
             is_active: true,
             is_deleted: false,
-            position: 1,
+            position: formData.position,
             ownership: 1,
             company_id: 1,
             created_by: 1,
@@ -715,8 +715,8 @@ function Contacts(props) {
             notes: "good",
             is_active: true,
             is_deleted: false,
-            // position: formData.position,
-            position: 1,
+             position: formData.position,
+            //position: 1,
             company_name: 1,
             status: 1,
             lead_source: 1,
@@ -1400,7 +1400,7 @@ function Contacts(props) {
           </div>
         </div>
       </form>
-      <ToastContainer />
+
 
       {/* Confirmation */}
 
@@ -1495,6 +1495,7 @@ function Contacts(props) {
           </div>
         </div>
       </Modal>
+      <ToastContainer />
     </>
   );
 }

@@ -29,7 +29,6 @@ import PageNotFound from './components/PageNotFound/PageNotFound';
 import NewEstimate from './components/Sales/Estimate/New Estimate/NewEstimate';
 import SalesOrder from './components/Sales/SalesOrder/SalesOrder';
 import Invoice from './components/Sales/Invoice/Invoice';
-import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
 import ItemandService from './components/ItemandService/ItemandService';
 import NewInventoryItem from './components/NewInventoryItem/NewInventoryItem';
 import NewInventoryGroup from './components/NewInventoryGroup/NewInventoryGroup';
@@ -54,6 +53,13 @@ import FixedAssetsGroup from './components/ItemandService/FixedAssetsGroup/Fixed
 import FixedAssetsItem from './components/ItemandService/FixedAssetsItem/FixedAssetsItem';
 import FixedAssetsGroupTable from './components/AddInventoryItem/FixedAssets/FixedAssetsGroupTable';
 import SalesData from './components/Sales/SalesOrder/Sales-Data/SalesData';
+import InvoiceData from './components/Sales/Invoice/Invoice-Data/InvoiceData'; 
+import CreditData from './components/Sales/CreditsNotes/Credit-Data/CreditData'; 
+import Credit from './components/Sales/CreditsNotes/Credit';
+import PurchaseData from './components/Purchase/PurchaseOrder/Purchase-Data/PurchaseData'
+import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
+import BillsData from './components/Purchase/Bills/Bills-Data/BillsData'
+import Bills from './components/Purchase/Bills/Bills';
 import PrivateRoutes from './Authentication/PrivateRoutes';
 import { useEffect, useState } from 'react';
 
@@ -149,9 +155,8 @@ const [logout,setLogout] = useState(true)
           <Route path='dashboard' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
           <Route path="Sales/new_estimate" element={<NewEstimate/>}/>
-          <Route path="Sales/sales_order" element={<SalesData/>}/>
-          <Route path="Sales/invoice" element={<Invoice/>}/>
-          <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/>
+          {/* <Route path="Sales/sales_order" element={<SalesData/>}/> */}
+          {/* <Route path="Purchase/purchase_orders" element={<PurchaseOrder/>}/> */}
           <Route path="itempreview" element={<ItemPreview/>}/>
           <Route path="itemtable" element={<ItemTable/>}/>
           <Route path="itemtable1" element={<ItemTable/>}/>
@@ -169,6 +174,15 @@ const [logout,setLogout] = useState(true)
           {/* <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/> */}
           <Route path="sales/sales_order" element={<SalesData/>}/>
           <Route path='sales/sales_order/add_sales' element={<SalesOrder/>} />
+          <Route path="sales/invoice" element={<InvoiceData/>}/>
+          <Route path="sales/invoice/add_invoice" element={<Invoice/>}/>
+          <Route path="sales/credit_notes" element={<CreditData/>}/>
+          <Route path="sales/credit_notes/add_credit_notes" element={<Credit/>}/>
+          <Route path="purchase/purchase_order" element={<PurchaseData/>}/>
+          <Route path="purchase/purchase_order/add_purchase" element={<PurchaseOrder/>}/>
+          <Route path="bills/bills_order" element={<BillsData/>}/>
+          <Route path="bills/bills_order/add_bills" element={<Bills/>}/>
+
       </Route>
       <Route path="/login" element={<LoginPage onLogin={OnLogin}/>}/>
           </Routes>
