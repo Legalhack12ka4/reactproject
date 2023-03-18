@@ -460,7 +460,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                onOpenChange={handleVisibleChange}
               // className="manage_columns"
               content={
-                <div className="setting_container" style={{width:"140px"}}>
+                <div className="setting_container" style={{width:"140px", marginBottom: "-12px",marginTop:"-14px"}}>
                   <div
                     className="setting_btn"
                    

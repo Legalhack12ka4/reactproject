@@ -95,7 +95,7 @@
             },
             {
                 "title": "Invoice",
-                "path": "Sales/invoice"
+                "path": "/sales/invoice"
             },
             {
                 "title": "Payments",
@@ -103,7 +103,7 @@
             },
             {
                 "title": "Credit Notes",
-                "path": "/credit_notes"
+                "path": "/sales/credit_notes"
             }
         ]
     },
@@ -123,7 +123,7 @@
             },
             {
                 "title": "Purchase Orders",
-                "path": "Purchase/purchase_orders"
+                "path": "/purchase/purchase_order"
             },
             {
                 "title": "Goods Receipts",
@@ -131,7 +131,7 @@
             },
             {
                 "title": "Bills",
-                "path": "/bills"
+                "path": "/bills/bills_order"
             },
             {
                 "title": "Payments",

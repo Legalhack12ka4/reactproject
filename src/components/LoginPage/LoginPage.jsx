@@ -6,6 +6,9 @@ import { ContainedButton } from "../Buttons/Button";
 import CustomInput from "../CustomInput/CustomInput";
 import config from "../Database/config";
 import "./LoginPage.scss";
+import emailjs from 'emailjs-com';
+
+
 
 const resetValue = {
     username:"",
@@ -22,27 +25,9 @@ const LoginPage = (props) => {
   const [name, setName] = useState("");
   const [activePage, setActivePage] = useState("loginPage");
   const navigate= useNavigate();
-
-  // const handleNameChange = evt => {
-  //   const newName = evt.target.value.replace(
-  //     /[^a-zA-Z@\d\s.]/g,
-  //     ""
-  //   );
-  //   setName(newName);
-  // };
   const handlePasswordClick = () => {
     setShowPassword(!showPassword);
   };
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setSmallScreen(window.screen.width);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   console.log(smallScreen);
 
     //Onchange
@@ -56,54 +41,82 @@ const LoginPage = (props) => {
 
   //login
 
-  const handleLogin = async () => {
-    try {
-     await axios.post(`${config.baseUrl}/login`, {
-        
-      //  username: "",
-        email:formData.email,
-        password:formData.password,
+const handleLogin = async () => {
+  try {
+    const emailjsPublicKey = "bcN_1C6x-RQYc_T_T"
+    await axios.post(`${config.baseUrl}/login`, {
+      email: formData.email,
+      password: formData.password,
+    }).then((res) => {
+      console.log(res.data.jwt)
+      if (res.data.jwt) {
+        document.cookie = `jwt=${res.data.jwt};  email=${formData.email}`;
       
-          // username:"Vimlesh",
-          // email: "vimlesh.kumhar@reformiqo.com",
-          // password:"123",
-        
-      }).then((res) => 
 
-      {
-        console.log(res.data.jwt)
-        // console.log(res.data[0].jwt)
-        if (res.data.jwt) {
-        
-          // set cookie or token in local storage
-          document.cookie = `jwt=${res.data.jwt}`;
-          handleLoginCallback(props.onLogin);
-          // localStorage.setItem('jwt', res.data.jwt)
-          
-          // redirect to dashboard page
-          navigate('/dashboard')
-        } else {
-          // handle error response
-          console.log(res.error)
-        }
-      })
-    
-    //  console.log(re)
-    //  const data = await response.json()
-     
-    } catch (error) {
-      if (error.response && error.response.status === 503) {
-        alert("Something went wrong. Please try again later. 503");
+        // Send email using EmailJS
+        emailjs.init(emailjsPublicKey);
+        const templateParams = {
+          to_email: formData.email,
+          user_email: formData.email,
+        };
+        emailjs.send('service_dcsporp', 'template_q37ot2f', templateParams)
+          .then((result) => {
+            console.log(result.text);
+            handleLoginCallback(props.onLogin);
+            navigate(`/dashboard`);
+          }, (error) => {
+            console.log(error.text);
+          });
       } else {
-        alert("Details Not Found, Password and username does not match")
+        console.log(res.error)
       }
-
+    })
+  } catch (error) {
+    if (error.response && error.response.status === 503) {
+      alert("Something went wrong. Please try again later. 503");
+    } else {
+      alert("Details Not Found, Password and username does not match")
     }
   }
+}
 
+
+  // const handleLogin = async () => {
+  //   try {
+  //    await axios.post(`${config.baseUrl}/login`, {
+        
+  //     //  username: "",
+  //       email:formData.email,
+  //       password:formData.password,
+      
+  //         // username:"Vimlesh",
+  //         // email: "vimlesh.kumhar@reformiqo.com",
+  //         // password:"123",
+        
+  //     }).then((res) => 
+
+  //     {
+  //       console.log(res.data.jwt)
+  //       if (res.data.jwt) {
+  //         document.cookie = `jwt=${res.data.jwt};  email=${formData.email}`;
+  //         handleLoginCallback(props.onLogin);
+  //         // localStorage.setItem('jwt', res.data.jwt)
+  //        // navigate(`/dashboard?email=${formData.email}`)
+  //        navigate(`/dashboard`)
+  //       } else {
+  //         console.log(res.error)
+  //       }
+  //     })
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 503) {
+  //       alert("Something went wrong. Please try again later. 503");
+  //     } else {
+  //       alert("Details Not Found, Password and username does not match")
+  //     }
+
+  //   }
+  // }
   function handleLoginCallback(callback) {
-    // Do login logic here
-    // Once login is successful, call the callback function with any data you want to pass back to App.js
     callback();
   }
 

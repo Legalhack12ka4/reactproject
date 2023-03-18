@@ -131,6 +131,10 @@
 
 // antd table designe
 
+.ant-table-wrapper .ant-table-expanded-row-fixed {
+left:4px !important
+}
+
 .ant-table-wrapper .ant-table .ant-table-header {
   border-radius: 0px 0px 0 0 !important;
 }
@@ -512,3 +516,11 @@ th {
 .ant-btn{
   padding: 4px 10px;
 }
+
+
+// .ant-empty-normal {
+//   position: absolute;
+//   bottom: px;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }

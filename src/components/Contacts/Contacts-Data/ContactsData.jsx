@@ -199,6 +199,39 @@ const StatusOptions = [
   
 ];
 
+const positionOptions = [
+  {
+    label: "Owner",
+    value: "Owner",
+  },
+  {
+    label:"SalesPerson",
+    value: "SalesPerson",
+  },
+  {
+    label: "Manger",
+     value: "Manger",
+  },
+ 
+  
+];
+const leadOptions = [
+  {
+    label: "Vimlesh",
+    value: "Vimlesh",
+  },
+  {
+    label:"Ranveer",
+    value: "Ranveer",
+  },
+  {
+    label:"Parth",
+    value: "Parth",
+  },
+ 
+  
+];
+
   const getData = async () => {
     // const token = getCookie('jwt'); 
     // const config = {
@@ -253,9 +286,24 @@ const deleteUser = (record)=>
   // console.log(record.id);
   axios
   .delete(
-    `${config.baseUrl}/contact/${record.id}/`);
-    setDeleteRecord(null)
-       getData();
+    `${config.baseUrl}/contact/${record.id}/`)
+    .then((response) => {
+      setDeleteRecord(null)
+     
+      console.log("data delete ho raha hai")
+          toast.error("Deleted Successfuly", {
+            border:"1px solid red",
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+          getData();
+        });
+ 
       //  console.log(fetchcontact)
 }
 
@@ -953,9 +1001,9 @@ setoldData(oldData)
           addBtnName={"Contacts"}
           onData={handleData}
           filter={<Contacts />}
-          statusSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
-          positionSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
-          leadSelect={<SearchSelect value="All" showSearch={false} options={StatusOptions} width={170} />}
+          statusSelect={<SearchSelect value="All" text="Status" showSearch={false} style={{width:"maxContent"}}options={StatusOptions} width={137} />}
+          positionSelect={<SearchSelect value="All" text="Position" showSearch={false} options={positionOptions} width={132} />}
+          leadSelect={<SearchSelect value="All" text="Lead Source" showSearch={false} options={leadOptions} width={161} />}
           onFilter={(e) => {
             clearfilter(e);
             setVisible(!visible);
@@ -1436,7 +1484,7 @@ setoldData(oldData)
         </div>
 
         </div>}
-
+        <ToastContainer />
     </div>
   );
 };
