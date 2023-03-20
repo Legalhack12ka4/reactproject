@@ -11,16 +11,45 @@
   // overflow: scroll;
   position: relative;
 
+
+  .not-at-top{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    position: sticky;
+    border: 1px solid rgba(0, 0, 0, 0.0);
+    top: 0;
+  }
+  .not-at-bottom{
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 1);
+    z-index: 2;
+    position: sticky;
+    height: 0.1px;
+    bottom: 0;
+  }
+
+
+  .sales-order-container::-webkit-scrollbar {
+            width: 10px !important;
+            height: 0px;
+            position: absolute;
+            }
+            ::-webkit-scrollbar-thumb {
+                border: 4px solid rgba(0, 0, 0, 0);
+                background-clip: padding-box;
+                border-radius: 9999px;
+                background-color: #566A7F33;
+              }
   .sales-order-container {
     background-color: #ffff;
     width: 843px;
     max-width: 843px;
     // height: 677px;
-    border-radius: 6px 6px 0px 0px;
+    border-radius: 6px;
     margin-bottom: 4px;
     box-shadow: 0px 2px 6px 0px #4359711f;
     overflow: scroll;
     max-height: 70vh;
+    position: relative;
 
     .top-container {
       padding: 30px 30px 18px 30px;
@@ -175,7 +204,7 @@
               border-right: 1px dashed $neutrals-700;
               position: relative;
             }
-            .selected-item-container{
+            .item-container{
               width: 208px;
               display: flex;
               gap: 10px;
@@ -388,6 +417,7 @@
 
 
 .sales-order-modal{
+  .ant-modal-content { border-top-left-radius: 0; border-top-right-radius: 0; }
   .ant-modal-title{
   font-size: 22px !important;
     font-weight: 600 !important;
