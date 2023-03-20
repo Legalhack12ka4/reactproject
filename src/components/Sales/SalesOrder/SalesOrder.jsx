@@ -107,6 +107,7 @@ const SalesOrder = () => {
   const handleItemSelect = (value) => {
     setSelectItem(true);
   };
+  
 
   return (
     <div className="sales-order-main-container">
@@ -392,7 +393,7 @@ const SalesOrder = () => {
         //   onOk={handleMaterialOk}
         width={"max-content"}
         onCancel={handleCancel}
-        style={{ top: 0, height: "auto" }}
+        style={{ top: 0, height: "auto", }}
         className={"sales-order-modal"}
         footer={false}
         closeIcon={
