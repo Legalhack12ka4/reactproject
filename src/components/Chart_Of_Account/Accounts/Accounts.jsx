@@ -176,7 +176,7 @@ function Accounts() {
 
   });
   console.log(errors);
-  console.log(values)
+   console.log(values)
 console.log(chartOfAccountSchema)
   const handleSubmitModal = () => {
     //  alert("Data", record)

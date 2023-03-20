@@ -929,43 +929,11 @@ const {
       <div className="customerform">
       <form onSubmit={handleSubmit} autoComplete="off">
 
-        <div className="form-container">
-          
-
-            
-
-            
-
-            
-
-            
-
+        <div className="form-container">   
             <div>
-              
-            </div>
-
-            
-
-            
-            
-            
-            
-            
-
-            
-
-            
-
-            
-            
-            
-            
-               
+            </div>    
         </div>
       <div className="form_first_container">
-
-        
-              
               <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <SearchSelect
             label="GST Treatment" 

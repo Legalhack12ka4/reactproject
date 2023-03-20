@@ -1,6 +1,24 @@
 @import '../../assets/Colors/Colors.scss';
 
 
+
+//toaster
+
+.Toastify__progress-bar--success {
+  background:$primary-100 !important;
+}
+// .Toastify__close-button 
+.Toastify__close-button--light{
+
+  opacity: 1 !important;
+  font-size: 28px !important;
+  color: #697A8D !important;
+  cursor: pointer;
+
+
+ 
+}
+
 //fixed heading
 
 .fixed_heading_container

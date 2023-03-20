@@ -190,6 +190,8 @@
         }
 
         .credentials{
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
             
             .login-email{
                 margin-bottom: 20px;
@@ -199,6 +201,11 @@
             .login-password{
                 position: relative;
                 margin-bottom: 20px;
+                .login_password_input {
+                    width: 277.4px !important;
+                    max-width: 277.4px !important;
+                    padding-right: 37px !important;
+                }
                 // label{
                 //     font-size: 14px;
                 //     font-weight: 500;
@@ -357,6 +364,53 @@
         transform: rotate(-156deg);
     }
 }
+
+
+//button loader
+
+
+
+.loader_container
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #5C5AD0;
+    margin-left: 160px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.loader {
+        width: 34px;
+        height: 34px;
+        //margin-left:160px;
+        left: calc(50% - 17px);
+          background-color:#5C5AD0;
+    box-sizing: border-box;
+        border-top: 4px solid white;
+     border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-radius: 100%;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 1.5s  ease-out infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
 
 @media screen and (max-width: 1300px) {
         .login-card-container{
