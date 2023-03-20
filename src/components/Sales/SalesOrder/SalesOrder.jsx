@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./SalesOrder.scss";
 import CustomInput from "../../CustomInput/CustomInput";
@@ -9,13 +9,14 @@ import {
   ContainedSecondaryButton,
   GhostIconButton,
 } from "../../Buttons/Button";
+import axios from "axios";
 
 const SalesOrder = () => {
   const [salesOrderItemList, setSalesOrderItemList] = useState([
     { id: 1, name: "row1", value: "" },
   ]);
   const [fileList, setFileList] = useState([]);
-  const [salesOrderModal, setSalesOrderModal] = useState(true);
+  const [salesOrderModal, setSalesOrderModal] = useState(false);
   const [isCustomerSelected, setIsCustomerSelected] = useState(false);
   const [customerSubmit, setCustomerSubmit] = useState(false);
   const [selectItem, setSelectItem] = useState(false);
@@ -107,6 +108,61 @@ const SalesOrder = () => {
   const handleItemSelect = (value) => {
     setSelectItem(true);
   };
+
+
+
+  const accessToken = () => {
+    axios
+      .post(
+        "https://pro.mastersindia.co/oauth/access_token",
+        {
+          body: {
+            "username": "kushal.nahata@reformiqo.com",
+            "password": "Kushal@123",
+            "client_id": "NKPAiQRmOqdrbeyOIJ",
+            "client_secret": "9xDG6A0jmMOi76WiH11aW4U8",
+            "grant_type": "password"
+           }
+        },
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
+  useEffect(() => {
+    // getData();
+    accessToken();
+  
+  }, []);
+  //   const getData = (gstin) => {
+     
+  //     axios.get(
+  //  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
+  //      `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24ABNFS4438A1ZB`,
+  //       {
+  //         headers: {
+  //           "Authorization": `Bearer c6c932943d1e645f802cf28d9a8f621f4fbea07d`,
+  //           "client_id": `NKPAiQRmOqdrbeyOIJ`,
+  //         },
+  //         mode: 'cors', // add CORS mode
+  //         credentials: 'same-origin', // add credentials option if needed
+  //       }
+  //     )
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         setGno(data);
+  //         console.log("data", data);
+  //         console.log(data)
+  //       });
+  //   };
   
 
   return (
