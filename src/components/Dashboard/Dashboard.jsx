@@ -1,5 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
 import { Navigate} from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify";
 import PrivateRoutes from "../../Authentication/PrivateRoutes";
 
 //import Offcanvas from "../OffCanvas/OffCanvasExample";
@@ -7,6 +9,15 @@ import "./Dashboard.scss";
 
 
 const Dashboard = () => {
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('loggedIn');
+    const message = localStorage.getItem('message');
+    if (loggedIn && message) {
+      toast.success(message);
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('message');
+    }
+  }, []);
 // {<PrivateRoutes/>}
 
 
@@ -164,12 +175,9 @@ const Dashboard = () => {
       
     </div> */}
 
-
+<ToastContainer/>
     </>
   );
 };
 
 export default Dashboard;
-
-
-

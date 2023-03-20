@@ -46,3 +46,9 @@ export const chartOfAccountSchema = Yup.object().shape({
     // reportingl2: Yup.string().required('Reporting Level 2 is required'),
     // reportingl3: Yup.string().required('Reporting Level 3 is required'),
 });
+
+export const logindata = Yup.object().shape({
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Password is required'),
+  
+});

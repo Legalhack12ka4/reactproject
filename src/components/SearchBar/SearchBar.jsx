@@ -188,7 +188,8 @@ document.addEventListener("keydown", e =>{
                   <img src="/images/searchbar_icons/User-Avtar.svg"/>
                   <div style={{display:"grid"}}>
                     <p1 className="profile_name">Parth Goswami</p1>
-                    <p1 className="profile_key" >parth.goswami@reformiqo.com</p1>
+                    <p1 className="profile_key" >
+                    {localStorage.getItem('email')}</p1>
                   </div>
                  </div>
                  <hr style={{border:"1px solid #4359711A", margin:"10px 0px"}}/>
