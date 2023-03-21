@@ -181,7 +181,7 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
 
  console.log("openDD",open)
   return (
-    <>
+    <div>
     <div className={`srchdrp catSelect ${error && "drpError"}`}>
     {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
     <Select
@@ -229,7 +229,7 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
   {error && (
     <p className="error_text">{errorMsg}</p>
   )}
-  </>
+  </div>
   )
 })
 
