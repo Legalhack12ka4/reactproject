@@ -16,7 +16,7 @@ const SalesOrder = () => {
     { id: 1, name: "row1", value: "" },
   ]);
   const [fileList, setFileList] = useState([]);
-  const [salesOrderModal, setSalesOrderModal] = useState(false);
+  const [salesOrderModal, setSalesOrderModal] = useState(true);
   const [isCustomerSelected, setIsCustomerSelected] = useState(false);
   const [customerSubmit, setCustomerSubmit] = useState(false);
   const [selectItem, setSelectItem] = useState(false);
@@ -116,7 +116,7 @@ const SalesOrder = () => {
       .post(
         "https://pro.mastersindia.co/oauth/access_token",
         {
-          body: {
+          headers: {
             "username": "kushal.nahata@reformiqo.com",
             "password": "Kushal@123",
             "client_id": "NKPAiQRmOqdrbeyOIJ",

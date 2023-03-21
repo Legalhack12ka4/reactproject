@@ -1,10 +1,18 @@
 import { Switch } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import './Buttons.scss'
 
-export const ContainedButton = ({value, width, onClick, type, id,ref}) => {
+export const ContainedButton = ({value, width, onClick, type, id,ref, loading}) => {
+
   return (
-    <button type={type ? type:"button"} id={id} className='sc-body-sb Contained-btn' style={{width:width}} ref={ref} onClick={onClick}>{value}</button>
+    <button
+    type={type ? type : "button"}
+    id={id}
+    className={`sc-body-sb Contained-btn ${loading  ? 'loading-contained-btn animated zoomIn' : ''}`}
+    style={{width: width}}
+    onClick={onClick}>
+    {loading ? <span className="spinner"></span> : value}
+  </button>
   )
 }
 

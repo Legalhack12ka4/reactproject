@@ -80,7 +80,7 @@
 
                 .password_eye{
                     position: absolute;
-                    top: 34.5px;
+                    top: 33px;
                     right: 10px;
                     width: 20px;
                     height: 20px;
@@ -96,7 +96,7 @@
 
                 .password_eye{
                     position: absolute;
-                    top: 34.5px;
+                    top: 33px;
                     right: 10px;
                     width: 20px;
                     height: 20px;
@@ -232,7 +232,7 @@
 
                 .password_eye{
                     position: absolute;
-                    top: 34.5px;
+                    top: 33px;
                     right: 10px;
                     width: 20px;
                     height: 20px;
@@ -244,10 +244,9 @@
                 }
                 .forget_password{
                     color: $primary-100;
-                    position: absolute;
                     cursor: pointer;
-                    top: 82px;
-                    right: -1px;
+                    text-align: right;
+                    margin-top: 10px;
                 }
             }
         }
@@ -432,3 +431,5 @@
             width: 300px;
         }
   }
+
+
