@@ -5,7 +5,7 @@ import dob from "../../assets/Images/FormIcon/DOB.svg";
 import name from "../../assets/Images/FormIcon/Name Contact.svg";
 import Phone from "../../assets/Images/FormIcon/Phone Contact.svg";
 import email from "../../assets/Images/FormIcon/Email Contact.svg";
-import { Button, Modal, Tooltip } from "antd";
+import { Button, Modal, Popconfirm, Popover, Tooltip } from "antd";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,6 +38,15 @@ const initialFieldValues = {
   ownership: "",
 };
 
+const resetValuePosition = 
+{
+  position_name:""
+}
+
+const resetValueLead = 
+{
+  name:""
+}
 const countryCodes = [
   {
     label: (
@@ -362,188 +371,24 @@ const countryCodes = [
     value: "Egypt",
   },
 ];
-// const countryCodes = [
-//   // {
-//   //   label: "+1",
-//   //   value: "United States"
-//   // },
-//   // {
-//   //   label: "+7",
-//   //   value: "Russia"
-//   // },
-//   // {
-//   //   label: "+20",
-//   //   value: "Egypt"
-//   // },
-//   // {
-//   //   label: "+27",
-//   //   value: "South Africa"
-//   // },
-//   // {
-//   //   label: "+30",
-//   //   value: "Greece"
-//   // },
-//   // {
-//   //   label: "+31",
-//   //   value: "Netherlands"
-//   // },
-//   // {
-//   //   label: "+32",
-//   //   value: "Belgium"
-//   // },
-//   // {
-//   //   label: "+33",
-//   //   value: "France"
-//   // },
-//   // {
-//   //   label: "+34",
-//   //   value: "Spain"
-//   // },
-//   // {
-//   //   label: "+36",
-//   //   value: "Hungary"
-//   // },
-//   // {
-//   //   label: "+39",
-//   //   value: "Italy"
-//   // },
-//   // {
-//   //   label: "+40",
-//   //   value: "Romania"
-//   // },
-//   // {
-//   //   label: "+41",
-//   //   value: "Switzerland"
-//   // },
-//   // {
-//   //   label: "+43",
-//   //   value: "Austria"
-//   // },
-//   // {
-//   //   label: "+44",
-//   //   value: "United Kingdom"
-//   // },
-//   // {
-//   //   label: "+45",
-//   //   value: "Denmark"
-//   // },
-//   // {
-//   //   label: "+46",
-//   //   value: "Sweden"
-//   // },
-//   // {
-//   //   label: "+47",
-//   //   value: "Norway"
-//   // },
-//   // {
-//   //   label: "+48",
-//   //   value: "Poland"
-//   // },
-//   // {
-//   //   label: "+49",
-//   //   value: "Germany"
-//   // },
-//   // {
-//   //   label: "+51",
-//   //   value: "Peru"
-//   // },
-//   // {
-//   //   label: "+52",
-//   //   value: "Mexico"
-//   // },
-//   // {
-//   //   label: "+53",
-//   //   value: "Cuba"
-//   // },
-//   // {
-//   //   label: "+54",
-//   //   value: "Argentina"
-//   // },
-//   // {
-//   //   label: "+55",
-//   //   value: "Brazil"
-//   // },
-//   // {
-//   //   label: "+56",
-//   //   value: "Chile"
-//   // },
-//   // {
-//   //   label: "+57",
-//   //   value: "Colombia"
-//   // },
-//   // {
-//   //   label: "+58",
-//   //   value: "Venezuela"
-//   // },
-//   // {
-//   //   label: "+60",
-//   //   value: "Malaysia"
-//   // },
-//   // {
-//   //   label: "+61",
-//   //   value: "Australia"
-//   // },
-//   // {
-//   //   label: "+62",
-//   //   value: "Indonesia"
-//   // },
-//   // {
-//   //   label: "+63",
-//   //   value: "Philippines"
-//   // },
-//   // {
-//   //   label: "+64",
-//   //   value: "New Zealand"
-//   // },
-//   // {
-//   //   label: "+65",
-//   //   value: "Singapore"
-//   // },
-//   // {
-//   //   label: "+66",
-//   //   value: "Thailand"
-//   // },
-//   // {
-//   //   label: "+81",
-//   //   value: "Japan"
-//   // },
-//   // {
-//   //   label: "+82",
-//   //   value: "South Korea"
-//   // },
-//   // {
-//   //   label: "+84",
-//   //   value: "Vietnam"
-//   // },
-//   // {
-//   //   label: "+86",
-//   //   value: "China"
-//   // },
-//   // {
-//   //   label: "+90",
-//   //   value: "Turkey"
-//   // },
-//   // {
-//   //   label: "+91",
-//   //   value: "India"
-//   // },
-//   // {
-//   //   label: "+92",
-//   //   value: "Pakistan"
 
-//   // } ,
-//   // Add more country codes and values as needed
-// ];
 
 function Contacts(props) {
   const [formData, setFormData] = useState(resetValue);
-
+  const [addNewPopover, setAddNewPopover]= useState(false);
+  const [addLeadPopover, setAddLeadPopover]= useState(false);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   // const [fetchcontact, setFetchcontact] = useState([]);
   //const [fetchcontact, setFetchcontact] = useState([]);
   const [addSouce, setAddSource] = useState([]);
+  const [addlead, setAddLead] = useState([]);
+  const [status, setStatus] = useState([]);
   const [loading, setloading] = useState(true);
   const [selectedCode, setSelectedCode] = useState("+91");
+  const [showPopover, setShowPopover] = useState(false);
+  const [formDataPosition, setFormDataPosition] = useState(resetValuePosition);
+  const [formDataLead, setFormDataLead] = useState(resetValueLead);
+  //const [addSouce, setAddSource] = useState([]);
   // const [selectedCode, setSelectedCode] = useState(countryCodes[0].code);
 
   // useEffect(() => {
@@ -590,6 +435,7 @@ function Contacts(props) {
   ChildStateModificationFunc = (modVal) => {
     setFormData(modVal);
   };
+
 
   //cofirmation modal
   const handleConfirmData = () => {
@@ -744,8 +590,154 @@ function Contacts(props) {
         });
     }
   };
+//master data status
+
+//  const getstatusdata = status
+// .filter((place) => place.field === "Status" && place.module === "ContactStatus")
+// .map((place) => ({
+//   key: place.id,
+//   label: place.master_key,
+//   value: place.master_key,
+// }));
+
+
+// useEffect(() => {
+//   getstatus();
+// }, []);
+
+// const getstatus = () => {
+//   return fetch(`${config.baseUrl}/master/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setStatus(data);
+//       console.log(data);
+//     });
+// };
+
+// console.log(status);
+
+
+//add position
+
+const onChangeValue = (e) => {
+  const { value, name } = e.target;
+  
+  setFormDataPosition({ ...formDataPosition, [name]: value });
+
+  console.log(value);
+  console.log(name);
+  };
+  console.log(formDataPosition)
+
+const handleFormSubmitPosition = () => {
+
+  axios
+    .post(
+      `${config.baseUrl}/position/`,
+      {
+        position_name: formDataPosition.position_name,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
+
+    .then((response) => {
+      getSource();
+   setFormDataPosition(resetValuePosition)
+   setAddNewPopover(false);
+     // props.onClick();
+   //   handleclose();
+
+       toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    
+    //  document.getElementById("inputsource").value=""
+    });
+   // document.getElementById("inputsource").value=""
+}
+
+
+
+//get lead data
+
+// const otherlead = addlead.map((place) => ({
+//   key: place.id,
+//   label: place.name,
+//   value: place.name,
+// }));
+
+// useEffect(() => {
+//   getlead();
+// }, []);
+
+// const getlead = () => {
+//   return fetch(`${config.baseUrl}/othersource/`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setAddLead(data);
+//       console.log(data);
+//     });
+// };
+
+// console.log(addlead);
+
+// const onChangeValueLead = (e) => {
+//   const { value, name } = e.target;
+  
+//   setFormDataLead({ ...setFormDataLead, [name]: value });
+
+//   console.log(value);
+//   console.log(name);
+//   };
+//   console.log(formDataLead)
+
+// const handleFormSubmitLead = () => {
+//   axios
+//     .post(
+//       `${config.baseUrl}/leadsource/`,
+//       {
+//         name: formDataLead.name,
+//         "company_id": 1,
+//         "created_by": 1,
+//         "updated_by": 1
+//       },
+//       formData
+//     )
+
+//     .then((response) => {
+//       getlead();
+//    setFormDataLead(resetValueLead)
+//    setAddLeadPopover(false);
+//      // props.onClick();
+//    //   handleclose();
+
+//        toast.success("Added Successfuly", {
+//         position: "top-right",
+//         autoClose: 2000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: false,
+//         draggable: true,
+//         progress: undefined,
+//       });
+    
+//     //  document.getElementById("inputsource").value=""
+//     });
+//    // document.getElementById("inputsource").value=""
+// }
 
   //get data positon
+
+
 
   const othersource = addSouce.map((place) => ({
     key: place.id,
@@ -1042,6 +1034,18 @@ function Contacts(props) {
     }
   };
 
+const handlepopover= () =>
+{
+  setAddNewPopover(true)
+
+}
+
+
+const handleleadpopover= () =>
+{
+  setAddLeadPopover(true)
+
+}
   return (
     <>
       <form onSubmit={handleSubmit} autoComplete="off">
@@ -1274,18 +1278,19 @@ function Contacts(props) {
               <br /> */}
               <SearchSelect
                   width={331}
-                  name="position"
+                  name="status"
                   label="Status"
-                  value={
-                    othersource.find(
-                      (option) =>
-                        option.key === formData.position && option.label
-                    )?.label
-                  }
+               //   options={getstatusdata}
+                  // value={
+                  //   othersource.find(
+                  //     (option) =>
+                  //       option.key === formData.position && option.label
+                  //   )?.label
+                  // }
                   // value={formData.position}
-                  onChange={handleDrpChange}
-                  error={errors.position && touched.position ? true : false}
-                  errorMsg="Status is required"
+             //     onChange={handleDrpChange}
+                  //error={errors.position && touched.position ? true : false}
+             //     errorMsg="Status is required"
                 />
                 </div>
                 
@@ -1308,12 +1313,38 @@ function Contacts(props) {
                 </label>{" "}
               </Tooltip>
               <br /> */}
+                <Popover 
+               id="popoverhide"  open={addNewPopover}
+            getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
+            placement="topLeft"
+          //  content={props.addNewContent}
+          content={                            
+            <>
+            <div>
+           <p className="title_name subtitle-sb">Position</p>
+           <p className="content_name sc-body-rg">Formal designation that represents a particular level of authority. </p>
+           <CustomInput label="Add Position"  width={290}
+            onChange={onChangeValue}
+            name="position_name"
+            value={formDataPosition.position_name}
+            inputType={"CamelAlphabetical"}
+           />
+           <div className="positon_button">
+             <ContainedButton value="Submit" onClick={handleFormSubmitPosition}/>
+             <ContainedSecondaryButton value="Cancel"  onClick={() => setAddNewPopover(false)} />
+           </div>
+            </div>
+              </>
+       }       
+      title="" height={100} trigger="click">
                   <SearchSelect
                     width={331}
                     addNew="Position"
+                    onClick={handlepopover}
                     name="position"
                     label="Position"
                     options={othersource}
+                   
                     value={
                       othersource.find(
                         (option) =>
@@ -1325,6 +1356,8 @@ function Contacts(props) {
                     error={errors.position && touched.position ? true : false}
                     errorMsg="Position is required"
                   />
+                </Popover>
+
                   {/* <SearchDropdown width={331} options={position}
                 name="position"
              //   onChange={(e) => {handleChange(e); handleDrpChange(e);}}
@@ -1343,13 +1376,44 @@ function Contacts(props) {
                 </label>{" "}
               </Tooltip>
               <br /> */}
+
+          <Popover 
+               id="popoverhide"  open={addLeadPopover}
+            getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
+            placement="topLeft"
+          //  content={props.addNewContent}
+          content={                            
+            <>
+             <div>
+                     <p className="title_name subtitle-sb">Lead</p>
+                     <p className="content_name sc-body-rg">Formal designation that represents a particular level of authority. </p>
+                     <CustomInput label="Add Lead"  width={290}
+                       //onChange={onChangeValueLead}
+                       name="name"
+                       value={formDataLead.name}
+                       inputType={"CamelAlphabetical"}
+                       />
+                     <div className="positon_button">
+                     <ContainedButton value="Submit" />
+                      <ContainedSecondaryButton value="Cancel" onClick={() => setAddLeadPopover(false)}/>
+                     </div>
+                      </div>
+              </>
+       }
+           
+      title="" height={100} trigger="click">
                   <SearchSelect
                     label="Lead Source"
+                    addNew="Lead"
                     width={331}
+                    onClick={handleleadpopover}
                     name="leadsource"
+                  //  options={otherlead}
                     onChange={handleDrpChange}
                     value={formData.leadsource}
                   />
+
+                  </Popover>
                 </div>
 
                 <div className="dropdownBtn">
