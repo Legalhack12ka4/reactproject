@@ -212,9 +212,9 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
         closable={false}
         style={{
           top: 0,
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          position: "absolute",
+          // left: "50%",
+          // transform: "translate(-50%, 0)",
+          // position: "absolute",
           maxWidth: "2200px",
         }}
       >

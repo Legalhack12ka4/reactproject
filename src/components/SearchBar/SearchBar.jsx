@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./SearchBar.scss";
 import setting from "../../assets/Images/ProfileIcon/Setting.svg"
@@ -144,6 +144,15 @@ document.addEventListener("keydown", e =>{
 
     callback();
   }
+
+  const isFullScreenTrue = () => {
+    document.fullscreenElement !== null ? console.log("true") : console.log("false")
+  }
+
+  useEffect(() => {
+    isFullScreenTrue()
+  }
+  , [])
 
   // const handleLogout = () => {
   //   // Remove the token from local storage

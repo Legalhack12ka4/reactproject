@@ -416,36 +416,36 @@ console.log(chartOfAccountSchema)
       },
     },
 
-    {
-      title: "Account Code",
-      label: "Account Code",
-      dataIndex: "account_code",
-      key: "account_code",
-      resizable: true,
-      width: "auto",
-      align: "left",
-      showSorterTooltip: { title: "" },
-      // ellipsis:true,
-      textWrap: "ellipsis" | "word-break",
-      sorter: (record1, record2) => {
-        return record1.account_code > record2.account_code;
-      },
-      render: (text, record) => {
-        return (
-          <div
-            style={{
-              maxWidth: "99px",
-              display: "flex",
-              justifyContent: "end",
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-            }}
-          >
-            {text}
-          </div>
-        );
-      },
-    },
+    // {
+    //   title: "Account Code",
+    //   label: "Account Code",
+    //   dataIndex: "account_code",
+    //   key: "account_code",
+    //   resizable: true,
+    //   width: "auto",
+    //   align: "left",
+    //   showSorterTooltip: { title: "" },
+    //   // ellipsis:true,
+    //   textWrap: "ellipsis" | "word-break",
+    //   sorter: (record1, record2) => {
+    //     return record1.account_code > record2.account_code;
+    //   },
+    //   render: (text, record) => {
+    //     return (
+    //       <div
+    //         style={{
+    //           maxWidth: "99px",
+    //           display: "flex",
+    //           justifyContent: "end",
+    //           textOverflow: "ellipsis",
+    //           overflow: "hidden",
+    //         }}
+    //       >
+    //         {text}
+    //       </div>
+    //     );
+    //   },
+    // },
 
     {
       title: "Reporting Account",
@@ -703,7 +703,7 @@ console.log(chartOfAccountSchema)
             <form onSubmit={handleSubmit} autoComplete="off">
               <div style={{ marginTop: "20px", display:"flex", flexDirection:"column", gap: "20px" }}>
 
-              <CustomInput 
+              {/* <CustomInput 
                   width={330} 
                   label="Account Code"
                   disabled
@@ -712,7 +712,7 @@ console.log(chartOfAccountSchema)
                   placeholder="0009"
                   name="account_code"
                   value={accountValue}
-                   />
+                   /> */}
               {/* <div style={{marginBottom: "20px"}}>
                 <p
                   style={{
@@ -744,7 +744,7 @@ console.log(chartOfAccountSchema)
               <CategorySelect 
                width={330}
                name="account_type"
-               label="Type"
+               label="Parent Type"
                value={formData.account_type || undefined}
                onChange={handleDrpChange}
                onFocus={() =>
@@ -755,6 +755,8 @@ console.log(chartOfAccountSchema)
                  }))
                }
                options={groupedData}
+               error={errors.reporting && touched.reporting ? true : false}
+                errorMsg="Child Account is required"
                />
 
                
@@ -762,13 +764,13 @@ console.log(chartOfAccountSchema)
                 <SearchSelect 
                 width={330}
                 name="reporting"
-                label="Sub Type"
+                label="Child Account"
                isDisabled={!formData.account_type}
                 values={formData.reporting || undefined}
                 onChange={handleDrpChangel3}
                 options={formData.account_type && reporting3}
                 error={errors.reporting && touched.reporting ? true : false}
-                errorMsg="Sub Type is required" />
+                errorMsg="Child Account is required" />
 {/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
@@ -813,6 +815,8 @@ console.log(chartOfAccountSchema)
                   width={330}
                   onBlur={handleBlur}
                   label="Account Name"
+                  error={errors.account_name && touched.account_name ? true : false}
+                  errorMsg={errors.account_name}
                 />
 
                 <CustomInput 
