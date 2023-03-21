@@ -138,8 +138,29 @@ const handleCancel = () => {
 
 useEffect(() => {
   getData();
+  getGst();
 
 }, []);
+
+const getGst = (gstin) => {
+  axios.get(
+    `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`,
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setGno(data);
+      console.log("data", data);
+      console.log(data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+    
+
   const getData = (gstin) => {
    
     axios.get(
@@ -793,6 +814,7 @@ ChildStateModificationFunc = (modVal)=>{
 //   localStorage.removeItem("jwt");
 //   return <Navigate to="/"/>
 // }
+
 
 
   const handleFocus = (e) => {
