@@ -1,3 +1,5 @@
+// @import '../../assets/Colors/Colors.scss';
+
 .contacts
 {
     background-color: white;
@@ -164,6 +166,28 @@ margin-top:5px;
     border-radius: 6px;
     outline: none;
   }
+
+//popover detilas
+
+.title_name
+{
+    color:#101729 !important;
+    margin-bottom: 8px;
+}
+.content_name
+{
+    color:#64748B !important;
+    margin-bottom: 20px;
+    max-width: 250px;
+}
+.positon_button
+{
+display:flex;
+align-items: center;
+margin-top: 20px;
+gap:16px;
+}
+
 //   .countryCodeDropdown {
 //     position: relative; /* Ensure that child elements are positioned relative to this container */
 //     width: 54px; /* Set the desired width */

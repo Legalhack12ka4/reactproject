@@ -1,5 +1,5 @@
 import React, { useState, useEffect,forwardRef, useRef } from "react";
-import { Button, Divider, Input, Select, Space } from "antd";
+import { Button, Divider, Input, Popover, Select, Space } from "antd";
 import { useImperativeHandle } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import './Dropdowns.scss'
@@ -8,11 +8,12 @@ import { on } from "rsuite/esm/DOMHelper";
 
 const { OptGroup, Option } = Select;
 
-export const SearchSelect = forwardRef(({ onChange, options, name, value, error, errorMsg, editBtn, editBtnClick, multi, showSearch,icon,placeholder,text, ...props },ref) =>  {
+export const SearchSelect = forwardRef(({ onChange, options, name, value, error, errorMsg, editBtn, editBtnClick, multi, showSearch,icon,placeholder,text,onClick, ...props },ref) =>  {
 
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
   const [open, setOpen] = useState(false);
+  const [drpActive, setDrpActive]= useState(false);
   let suffixIcon;
   if (open) {
     suffixIcon = <svg xmlns="http://www.w3.org/2000/svg" 
@@ -50,7 +51,10 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
   }
  }))
 
-
+const handledropodwnchange = (visible) =>
+{
+  setDrpActive(visible)
+}
  
   return (
     <div>
@@ -67,6 +71,8 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
     //   allowClear={multi && true}
       optionFilterProp="children"
       value={selectedOption || undefined}
+      open={props.addNew && drpActive}
+      onDropdownVisibleChange={handledropodwnchange }
       //defaultValue={selectedOption}
       key={selectedOption}
     //   onBlur={() => setFocus(false)}
@@ -96,14 +102,26 @@ export const SearchSelect = forwardRef(({ onChange, options, name, value, error,
       size={"large"}
       removeIcon={<img src="/images/icons/cross-icon-primary.svg" alt="icon" />}
        suffixIcon={suffixIcon}
-       onDropdownVisibleChange={(o) => setOpen(o)}
+      // onDropdownVisibleChange={(o) => setOpen(o)}
        dropdownRender={(menu) => (
         <>
           {menu}
-            {props.addNew && <div className="add-new-btn" type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} >
+            {props.addNew && 
+      //       <Popover 
+      //          id="popoverhide"  defaultOpen={addNewPopover} onOpenChange={setAddNewPopover}
+      //       getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
+      //       placement="top"
+      //      content={props.addNewContent}
+           
+      // title="" height={100} trigger="click">
+         <div onClick={()=> setDrpActive(false)} className="add-new-btn" type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} >
               <img src="/images/icons/plus_fill_icon.svg" alt="icon" />
-              <p className="sc-body-rg">Add New {props.addNew}</p>
-            </div>}
+       <p className="sc-body-rg" onClick={onClick}>Add New {props.addNew}</p>
+       </div>
+        // </Popover>
+             
+          }
+          
         </>
       )}
     //   renderOption={(option) => (

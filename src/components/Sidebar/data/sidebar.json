@@ -31,24 +31,20 @@
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bxs-business.svg",
         "childrens": [
-         
             {
-                "title": "Contacts",
-                "path": "/contacts"
-            },
+                "title": "Customers",
+                "path": "/customers"
+            }, 
             {
                 "title": "Vendors",
                 "path": "/vendors"
             },
             {
-                "title": "Customers",
-                "path": "/customers"
+                "title": "Contacts",
+                "path": "/contacts"
             }
         ]
     },
-
-
-
 
     {
         "title": "ACCOUNTING",
