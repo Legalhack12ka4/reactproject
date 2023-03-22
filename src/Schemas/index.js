@@ -21,6 +21,7 @@ export const  addCustomerSchemas = Yup.object().shape({
     pos: Yup.string().required('Place of Supply is required'),
     contact: Yup.string().required('Contact is required'),
     ownership: Yup.string().required('Ownership is required'),
+    area:Yup.string().required('Area is required'),
 });
 
 

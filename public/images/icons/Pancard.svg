@@ -1,0 +1,6 @@
+<svg id="Pancard" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Rectangle_17820" data-name="Rectangle 17820" width="20" height="20" fill="none"/>
+  <g id="Group_44327" data-name="Group 44327" transform="translate(0 2)">
+    <path id="Union_21" data-name="Union 21" d="M1.6,12.016A1.514,1.514,0,0,1,0,10.608v-9.2A1.515,1.515,0,0,1,1.6,0H14.4A1.516,1.516,0,0,1,16,1.408v9.2a1.515,1.515,0,0,1-1.6,1.408Zm0-1.51,12.8.008v-9L1.6,1.5ZM3,8.866V8.539c0-.967,1.4-1.962,3.1-1.962s3.1.994,3.1,1.962v.327Zm7.5-.7V6.754H13V8.161ZM4.644,4.474a1.414,1.414,0,0,1,1.5-1.408,1.411,1.411,0,1,1,0,2.816A1.414,1.414,0,0,1,4.644,4.474Zm5.023.871V3.937H13V5.345Z" transform="translate(2 2)" fill="#64748b"/>
+  </g>
+</svg>

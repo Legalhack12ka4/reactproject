@@ -49,7 +49,7 @@ const resetValuePosition =
 
 const resetValueLead = 
 {
-  name:""
+  lead_source:""
 }
 const countryCodes = [
   {
@@ -675,8 +675,8 @@ const handleFormSubmitPosition = () => {
 
 const otherlead = addlead.map((place) => ({
   key: place.id,
-  label: place.advertisement,
-  value: place.advertisement,
+  label: place.lead_source,
+  value: place.lead_source,
 }));
 
 useEffect(() => {
@@ -694,52 +694,52 @@ const getlead = () => {
 
 console.log(addlead);
 
-// const onChangeValueLead = (e) => {
-//   const { value, name } = e.target;
+const onChangeValueLead = (e) => {
+  const { value, name } = e.target;
   
-//   setFormDataLead({ ...setFormDataLead, [name]: value });
+  setFormDataLead({ ...setFormDataLead, [name]: value });
 
-//   console.log(value);
-//   console.log(name);
-//   };
-//   console.log(formDataLead)
+  console.log(value);
+  console.log(name);
+  };
+  console.log(formDataLead)
 
-// const handleFormSubmitLead = () => {
-//   axios
-//     .post(
-//       `${config.baseUrl}/leadsource/`,
-//       {
-//         name: formDataLead.name,
-//         "company_id": 1,
-//         "created_by": 1,
-//         "updated_by": 1
-//       },
-//       formData
-//     )
+const handleFormSubmitLead = () => {
+  axios
+    .post(
+      `${config.baseUrl}/leadsource/`,
+      {
+        lead_source: formDataLead.lead_source,
+        "company_id": 1,
+        "created_by": 1,
+        "updated_by": 1
+      },
+      formData
+    )
 
-//     .then((response) => {
-//       getlead();
-//    setFormDataLead(resetValueLead)
-//    setAddLeadPopover(false);
-//      // props.onClick();
-//    //   handleclose();
+    .then((response) => {
+      getlead();
+   setFormDataLead(resetValueLead)
+   setAddLeadPopover(false);
+     // props.onClick();
+   //   handleclose();
 
-//        toast.success("Added Successfuly", {
-//         position: "top-right",
-//         autoClose: 2000,
-//         hideProgressBar: false,
-//         closeOnClick: true,
-//         pauseOnHover: false,
-//         draggable: true,
-//         progress: undefined,
-//       });
+       toast.success("Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     
-//     //  document.getElementById("inputsource").value=""
-//     });
-//    // document.getElementById("inputsource").value=""
-// }
+    //  document.getElementById("inputsource").value=""
+    });
+   // document.getElementById("inputsource").value=""
+}
 
-  //get data positon
+  // get data positon
 
 
 
@@ -776,9 +776,19 @@ console.log(addlead);
 
 
   const handleDrpChangeStatus = (field, value) => {
-    const selectedOption = othersource.find((option) => option.value === value);
+    const selectedOption = getstatusdata.find((option) => option.value === value);
     console.log(selectedOption);
     setFormData({ ...formData, [field]: value, status: selectedOption.key });
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
+    console.log(field);
+    console.log(value);
+  };
+
+  const handleDrpChangeLead = (field, value) => {
+    const selectedOption = otherlead.find((option) => option.value === value);
+    console.log(selectedOption);
+    setFormData({ ...formData, [field]: value, lead: selectedOption.key });
     setFieldValue(field, value);
     setFieldTouched(field, false);
     console.log(field);
@@ -1409,13 +1419,13 @@ const handleleadpopover= () =>
                      <p className="title_name subtitle-sb">Lead</p>
                      <p className="content_name sc-body-rg">Formal designation that represents a particular level of authority. </p>
                      <CustomInput label="Add Lead"  width={290}
-                       //onChange={onChangeValueLead}
-                       name="name"
-                       value={formDataLead.name}
+                       onChange={onChangeValueLead}
+                       name="lead_source"
+                       value={formDataLead.lead_source}
                        inputType={"CamelAlphabetical"}
                        />
                      <div className="positon_button">
-                     <ContainedButton value="Submit" />
+                     <ContainedButton value="Submit" onClick={handleFormSubmitLead}/>
                       <ContainedSecondaryButton value="Cancel" onClick={() => setAddLeadPopover(false)}/>
                      </div>
                       </div>
@@ -1428,9 +1438,9 @@ const handleleadpopover= () =>
                     addNew="Lead"
                     width={331}
                     onClick={handleleadpopover}
-                    name="leadsource"
+                    name="lead"
                    options={otherlead}
-                    onChange={handleDrpChange}
+                    onChange={handleDrpChangeLead}
                     // value={
                     //   othersource.find(
                     //     (option) =>
@@ -1439,7 +1449,7 @@ const handleleadpopover= () =>
                     // }
                     value={otherlead.find(
                       (option) =>
-                        option.key === formData.leadsource && option.label
+                        option.key === formData.lead && option.label
                     )?.label}
                     error={errors.lead && touched.lead ? true : false}
                     errorMsg="Lead Source is required"
