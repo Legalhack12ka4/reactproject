@@ -138,7 +138,6 @@ const handleCancel = () => {
 
 useEffect(() => {
   getData();
-  getGst();
 
 }, []);
 
