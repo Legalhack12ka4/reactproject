@@ -111,37 +111,6 @@ const SalesOrder = () => {
   };
 
 
-
-  const accessToken = () => {
-    axios
-      .post(
-        "https://pro.mastersindia.co/oauth/access_token",
-        {
-          headers: {
-            "username": "kushal.nahata@reformiqo.com",
-            "password": "Kushal@123",
-            "client_id": "NKPAiQRmOqdrbeyOIJ",
-            "client_secret": "9xDG6A0jmMOi76WiH11aW4U8",
-            "grant_type": "password"
-           }
-        },
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-
-
-  useEffect(() => {
-    // getData();
-    accessToken();
-  
-  }, []);
- 
   
 
   return (
