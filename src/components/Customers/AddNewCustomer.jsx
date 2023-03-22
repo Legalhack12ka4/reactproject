@@ -142,22 +142,22 @@ useEffect(() => {
 
 }, []);
 
-const getGst = (gstin) => {
-  axios.get(
-    `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`,
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      setGno(data);
-      console.log("data", data);
-      console.log(data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+// const getGst = (gstin) => {
+//   axios.get(
+//     `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`,
+//   )
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       setGno(data);
+//       console.log("data", data);
+//       console.log(data)
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
 
     
 
@@ -165,15 +165,7 @@ const getGst = (gstin) => {
    
     axios.get(
  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24ABNFS4438A1ZB`,
-      {
-        headers: {
-          "Authorization": `Bearer c6c932943d1e645f802cf28d9a8f621f4fbea07d`,
-          "client_id": `NKPAiQRmOqdrbeyOIJ`,
-        },
-        mode: 'cors', // add CORS mode
-        credentials: 'same-origin', // add credentials option if needed
-      }
+        `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`
     )
       .then((response) => {
         return response.json();

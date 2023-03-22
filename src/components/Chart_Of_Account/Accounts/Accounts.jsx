@@ -744,7 +744,7 @@ console.log(chartOfAccountSchema)
               <CategorySelect 
                width={330}
                name="account_type"
-               label="Parent Type"
+               label="Type"
                value={formData.account_type || undefined}
                onChange={handleDrpChange}
                onFocus={() =>
@@ -755,8 +755,8 @@ console.log(chartOfAccountSchema)
                  }))
                }
                options={groupedData}
-               error={errors.reporting && touched.reporting ? true : false}
-                errorMsg="Child Account is required"
+               error={errors.account_type && touched.account_type ? true : false}
+                errorMsg="Type is required"
                />
 
                
@@ -764,13 +764,13 @@ console.log(chartOfAccountSchema)
                 <SearchSelect 
                 width={330}
                 name="reporting"
-                label="Child Account"
-               isDisabled={!formData.account_type}
+                label="Sub Type"
+                isDisabled={!formData.account_type}
                 values={formData.reporting || undefined}
                 onChange={handleDrpChangel3}
                 options={formData.account_type && reporting3}
                 error={errors.reporting && touched.reporting ? true : false}
-                errorMsg="Child Account is required" />
+                errorMsg="Sub Type is required" />
 {/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
