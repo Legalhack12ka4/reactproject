@@ -1174,7 +1174,8 @@ const deleteUser = (record)=>
               //   };
               // })}
               // scroll={{ y: 800, x: 1000 }}
-              scroll={!loading && { x: ("30px", "800px" )}}
+              // scroll={!loading && { x: ("30px", "800px" )}}
+              scroll={{ y: 200 }}
              style={{ maxWidth: 2200, width: "100%" }}
               pagination={!loading && {
                 current: page,
