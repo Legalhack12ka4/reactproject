@@ -25,6 +25,7 @@ import AddInventoryItem from './components/AddInventoryItem/AddInventoryItem';
 import Module from './components/ListOfModule/Module/Module';
 import ModulePaymentTerms from './components/ListOfModule/ModulePaymentTerms/ModulePaymentTerms';
 import ModuleCurrencyTable from './components/ListOfModule/ModuleCurrencyTable/ModuleCurrencyTable';
+import CommissionTerms from './components/ListOfModule/CommissionTerms/CommissionTerms';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import NewEstimate from './components/Sales/Estimate/New Estimate/NewEstimate';
 import SalesOrder from './components/Sales/SalesOrder/SalesOrder';
@@ -152,6 +153,7 @@ const [logout,setLogout] = useState(true)
           <Route path='module' element={<Module/>} />
           <Route path='module/module_paymenttable' element={<ModulePaymentTerms/>} />
           <Route path='module/module_currencytable' element={<ModuleCurrencyTable/>} />
+          <Route path='module/module_commissiontable' element={<CommissionTerms/>} />
           <Route path='dashboard' element={<Dashboard/>} />
           <Route path="*" element={<PageNotFound/>} />
           <Route path="Sales/new_estimate" element={<NewEstimate/>}/>

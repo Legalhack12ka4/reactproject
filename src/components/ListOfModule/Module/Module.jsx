@@ -53,6 +53,10 @@ function Module() {
       <img src={link}/>
       <Link exact to="/module/module_paymenttable" className='payment_btn'>Payment Terms</Link>
       </div>
+      <div style={{marginBottom:"20px"}}>
+      <img src={link}/>
+      <Link exact to="/module/module_commissiontable" className='payment_btn'>Commission Terms</Link>
+      </div>
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
    <Link exact to="/module/module_currencytable" className='currency_btn'>Currency</Link>

@@ -66,6 +66,7 @@ const resetValue = {
   pos: "",
   contact: "",
   ownership: "",
+  area:"",
 };
 
 function AddNewCustomer(props) {
@@ -949,6 +950,63 @@ ChildStateModificationFunc = (modVal)=>{
             />
               
 
+            
+
+
+
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Business Name{" "}
+                  </label>{" "}
+                </Tooltip>
+
+                <br />
+                <div
+                  className={`${
+                    errors.businessname && touched.businessname && "inputError"
+                  } customerdropdown`}
+                  style={{ marginTop: "5px" }}
+                >
+                  <img src={business} className="customerimg" />
+                  <CustomInput
+                   type="text"
+                   style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"CamelAlphabetical"}
+                    name="businessname"
+                    placeholder="Placeholder"
+                   value={formData.businessname}
+                onChange={(e, newValue) => {handleChange(e); onChange(e); 
+                  setFormData(prevState => ({
+                    ...prevState,
+                    "businessname": newValue
+                  }))}}
+                  onBlur={handleBlur}
+              />
+
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="businessname"
+                    value={formData.businessname}
+                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.businessname && touched.businessname && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.businessname && touched.businessname && (
+                    <p className="error_text">{errors.businessname}</p>
+                  )} */}
+              </div>
+
               <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
               <SearchSelect
@@ -1011,63 +1069,69 @@ ChildStateModificationFunc = (modVal)=>{
               </div>
 
 
-
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Business Name{" "}
-                  </label>{" "}
-                </Tooltip>
-
-                <br />
-                <div
-                  className={`${
-                    errors.businessname && touched.businessname && "inputError"
-                  } customerdropdown`}
-                  style={{ marginTop: "5px" }}
-                >
-                  <img src={business} className="customerimg" />
-                  <CustomInput
-                   type="text"
-                   style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"CamelAlphabetical"}
-                    name="businessname"
-                    placeholder="Placeholder"
-                   value={formData.businessname}
-                onChange={(e, newValue) => {handleChange(e); onChange(e); 
-                  setFormData(prevState => ({
-                    ...prevState,
-                    "businessname": newValue
-                  }))}}
-                  onBlur={handleBlur}
+              <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <SearchSelect
+                 width={155}
+                 label="Commission Terms"
+                 options={currency}
+                 //value={formData.currency}
+                 onChange={handleDrpChange}
+               //  name="currency"
+                 error={errors.currency && touched.currency ? true : false}
+                 errorMsg="Commission is required"
               />
-
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="businessname"
-                    value={formData.businessname}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.businessname && touched.businessname && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
+             <SearchSelect 
+                width={155}
+                label="Payment Terms"
+                options={paymentterms}
+                value={formData.payment}
+                onChange={handleDrpChange}
+                name="payment"
+                error={errors.payment && touched.payment ? true : false}
+                errorMsg="Payment Terms is required"
+              />
+                  
+                  {/* <div >
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={formData.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
                     />
                   </div>
-                  )}
-                </div>
-                {errors.businessname && touched.businessname && (
-                    <p className="error_text">{errors.businessname}</p>
-                  )} */}
-              </div>
+                  <div>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={formData.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
 
-              <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+                    />
+                  </div> */}
+                </div>
+              </div>
+              {/* <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}> */}
              
-              <SearchSelect
+              {/* <SearchSelect
                 options={typeCategory}
                 width={330}
                 value={formData.category}
@@ -1076,7 +1140,7 @@ ChildStateModificationFunc = (modVal)=>{
                 error={errors.category && touched.category ? true : false}
                 errorMsg="Type Category is required"
                 label="Type Category"
-                 />
+                 /> */}
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Type Category</label>
                 </Tooltip>
@@ -1090,10 +1154,123 @@ ChildStateModificationFunc = (modVal)=>{
                   error={errors.category && touched.category ? true : false}
                   errorMsg="Type Category is required"
                 /> */}
+              {/* </div> */}
+
+              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <CustomInput
+                type="text"
+                label="TAN No."
+                width={155}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+                onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphaNumericUpperCase"}
+                 name="pancard"
+                 placeholder="Placeholder"
+                value={formData.pancard}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "pancard": newValue
+               }))}}
+               onBlur={handleBlur}
+                error={errors.pancard && touched.pancard ? true : false}
+                errorMsg={errors.pancard}
+            />
+               <div  className="credit-input-container">
+              <CustomInput 
+                className={`${creditBox && "creditAmtBoxBlur"}`}
+                type="number"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                // placeholder="Placeholder"
+                name="credit"
+                icon="/images/icons/Rupee.svg"
+                width={155}
+                label="Credit Limit"
+                value={formData.credit}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
+                onFocus={ handleCreditFocus}
+                error={errors.credit && touched.credit ? true : false}
+                errorMsg={errors.credit}
+                /> 
+                {creditBox && creditAmount>0 && (
+                    <div className="creditAmt">
+                      <p> {formattedCreditAmount}</p>
+                    </div>
+                  )}
+              </div>
+                  
+                  {/* <div >
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={formData.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+                    />
+                  </div>
+                  <div>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={formData.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
+
+                    />
+                  </div> */}
+                </div>
               </div>
 
-              <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
-              <CustomInput
+              <div className="form_field field7" style={{ gridRowStart: 7, gridColumnStart: 1}}>
+              <SearchSelect
+                 width={330}
+                label="Ownership"
+                 options={ownershipwithemail}
+                 value={values.ownership}
+                 onChange={handleDrpChange}
+                 name="ownership"
+                 error={errors.ownership && touched.ownership ? true : false}
+                 errorMsg="Ownership is required"
+                  />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label">Ownership</label>
+                </Tooltip>
+                <br />
+
+                <SearchDropdown
+                  width={331}
+                  options={ownershipwithemail}
+                  
+                  value={values.ownership}
+                  onChange={handleDrpChange}
+                  name="ownership"
+                  error={errors.ownership && touched.ownership ? true : false}
+                  errorMsg="Ownership is required"
+                /> */}
+              </div>
+              {/* <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}> */}
+              {/* <CustomInput
                 type="text"
                 label="Pancard"
                 width={330}
@@ -1113,7 +1290,7 @@ ChildStateModificationFunc = (modVal)=>{
                onBlur={handleBlur}
                 error={errors.pancard && touched.pancard ? true : false}
                 errorMsg={errors.pancard}
-            />
+            /> */}
               
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label" style={{ marginTop: "5px" }}>
@@ -1164,9 +1341,9 @@ ChildStateModificationFunc = (modVal)=>{
                 {errors.pancard && touched.pancard && (
                     <p className="error_text">{errors.pancard}</p>
                   )} */}
-              </div>
+              {/* </div> */}
 
-              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              {/* <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
               <SearchSelect
                  width={155}
@@ -1187,7 +1364,7 @@ ChildStateModificationFunc = (modVal)=>{
                 name="payment"
                 error={errors.payment && touched.payment ? true : false}
                 errorMsg="Payment Terms is required"
-              />
+              /> */}
                   
                   {/* <div >
                     <Tooltip title="prompt text" color="#5C5AD0">
@@ -1224,10 +1401,10 @@ ChildStateModificationFunc = (modVal)=>{
 
                     />
                   </div> */}
-                </div>
-              </div>
+                {/* </div>
+              </div> */}
 
-              <div className="form_field field7" style={{ gridRowStart: 1, gridColumnStart: 2}}>
+              {/* <div className="form_field field7" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <div  className="credit-input-container">
               <CustomInput 
                 className={`${creditBox && "creditAmtBoxBlur"}`}
@@ -1250,7 +1427,7 @@ ChildStateModificationFunc = (modVal)=>{
                       <p> {formattedCreditAmount}</p>
                     </div>
                   )}
-              </div>
+              </div> */}
               
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
@@ -1293,9 +1470,9 @@ ChildStateModificationFunc = (modVal)=>{
                 {errors.credit && touched.credit && (
                     <p className="error_text">{errors.credit}</p>
                   )} */}
-              </div>
+              {/* </div> */}
 
-              <div className="form_field field8" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+              <div className="form_field field8" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <CustomInput 
                 type="email"
                 style={{ border: "none", outline: "none", width: "82%" }}
@@ -1369,9 +1546,119 @@ ChildStateModificationFunc = (modVal)=>{
                   )} */}
               </div>
 
-          
+              <div className="form_field field9" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+              <CustomInput 
+              type="number"
+              //ref={inputRef}
+            //onKeyPress={handleKeyPress}
+               style={{ border: "none", outline: "none", width: "82%" }}
+               placeholder="Placeholder"
+               name="pincode"
+               value={formData.pincode}
+               onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+               onBlur={(e)=>{handleBlur(e);}}
+               autoComplete="off"
+                width={330}
+                onFocus={handleFocus}
+                icon="/images/icons/Pincode_Area.svg"
+                label="Pincode"
+                error={errors.pincode && touched.pincode ? true : false}
+                errorMsg={errors.pincode}
+            />
+             
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Pincode
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.pincode && touched.pincode &&  "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={pin} className="customerimg" />
+                  <input
+                   type="number"
+                   //ref={inputRef}
+                 //onKeyPress={handleKeyPress}
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="pincode"
+                    value={formData.pincode}
+                    onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+                    onBlur={(e)=>{handleBlur(e);}}
+                    autoComplete="off"
+                  />
+                  {errors.pincode &&  touched.pincode &&(
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.pincode &&  touched.pincode &&(
+                    <p className="error_text">{errors.pincode}</p>
+                  )} */}
+              </div>
 
-              <div className="form_field field9" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+
+              <div className="form_field field10" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+              
+              <CustomInput 
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                placeholder="Placeholder"
+                name="area"
+                value={values.area}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={handleBlur}
+                width={330}
+                onFocus={handleFocus}
+                icon="/images/icons/Pincode_Area.svg"
+                label="Area"
+                error={errors.area && touched.area ? true : false}
+                errorMsg={errors.area}
+              />
+              {/* <Tooltip title="prompt text" color="#5C5AD0">
+                  {" "}
+                  <label className="label" style={{ marginTop: "5px" }}>
+                    Area
+                  </label>
+                </Tooltip>
+                <br />
+                <div
+                  className={`${
+                    errors.street2 && touched.street2 && "inputError"
+                  } customerdropdown`}
+                >
+                  <img src={street} className="customerimg" />
+                  <input
+                    type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                    placeholder="Placeholder"
+                    name="street2"
+                    value={values.street2}
+                    onChange={(e)=>{handleChange(e); onChange(e);}}
+                    onBlur={handleBlur}
+                  />
+                  {errors.street2 && touched.street2 && (
+                    <div className="error_icon">
+                    <img
+                      src="/images/icons/exclamation_icon.svg"
+                      alt="error"
+                    />
+                  </div>
+                  )}
+                </div>
+                {errors.street2 && touched.street2 && (
+                    <p className="error_text">{errors.street2}</p>
+                  )} */}
+              </div>
+              <div className="form_field field11" style={{ gridRowStart:4 , gridColumnStart: 2}}>
               <CustomInput
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
@@ -1424,7 +1711,7 @@ ChildStateModificationFunc = (modVal)=>{
                   )} */}
               </div>
 
-              <div className="form_field field10" style={{ gridRowStart: 4, gridColumnStart: 2}}>
+              <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
               <CustomInput 
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
@@ -1477,120 +1764,10 @@ ChildStateModificationFunc = (modVal)=>{
                   )} */}
               </div>
 
-              <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
-              
-              <CustomInput 
-                type="text"
-                style={{ border: "none", outline: "none", width: "82%" }}
-                placeholder="Placeholder"
-                name="street2"
-                value={values.street2}
-                onChange={(e)=>{handleChange(e); onChange(e);}}
-                onBlur={handleBlur}
-                width={330}
-                onFocus={handleFocus}
-                icon="/images/icons/location-icon.svg"
-                label="Area"
-                error={errors.street2 && touched.street2 ? true : false}
-                errorMsg={errors.street2}
-              />
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Area
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street2"
-                    value={values.street2}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )} */}
-              </div>
+            
+
 
               <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
-              <CustomInput 
-              type="number"
-              //ref={inputRef}
-            //onKeyPress={handleKeyPress}
-               style={{ border: "none", outline: "none", width: "82%" }}
-               placeholder="Placeholder"
-               name="pincode"
-               value={formData.pincode}
-               onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
-               onBlur={(e)=>{handleBlur(e);}}
-               autoComplete="off"
-                width={330}
-                onFocus={handleFocus}
-                icon="/images/icons/Pincode.svg"
-                label="Pincode"
-                error={errors.pincode && touched.pincode ? true : false}
-                errorMsg={errors.pincode}
-            />
-             
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Pincode
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.pincode && touched.pincode &&  "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={pin} className="customerimg" />
-                  <input
-                   type="number"
-                   //ref={inputRef}
-                 //onKeyPress={handleKeyPress}
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
-                    onBlur={(e)=>{handleBlur(e);}}
-                    autoComplete="off"
-                  />
-                  {errors.pincode &&  touched.pincode &&(
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.pincode &&  touched.pincode &&(
-                    <p className="error_text">{errors.pincode}</p>
-                  )} */}
-              </div>
-
-
-              <div className="form_field field14" style={{ gridRowStart: 1, gridColumnStart: 3}}>
               <CustomInput 
               type="text"
               style={{ border: "none", outline: "none", width: "82%" }}
@@ -1624,7 +1801,90 @@ ChildStateModificationFunc = (modVal)=>{
                 </div> */}
               </div>
 
-              <div className="form_field field15" style={{ gridRowStart: 2, gridColumnStart: 3}}>
+              <div className="form_field field14" style={{ gridRowStart: 7, gridColumnStart: 2}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <CustomInput 
+               type="text"
+               style={{ border: "none", outline: "none", width: "82%" }}
+               name="state"
+               value={statedrp}
+               disabled={true}
+                width={155}
+                label="State"
+                // error={errors.state && touched.state ? true : false}
+                // errorMsg={errors.state}
+            />
+              <CustomInput 
+               type="text"
+               style={{ border: "none", outline: "none", width: "82%" }}
+               name="state"
+               value={statedrp}
+               disabled={true}
+                width={155}
+                label="Country"
+                // error={errors.state && touched.state ? true : false}
+                // errorMsg={errors.state}
+            />
+              {/* <SearchSelect
+                 width={155}
+                  label="Country"
+                 // options={gsttraetmentOptional}
+                  value={values.pos}
+                  onChange={handleDrpChange}
+                  name="pos"
+                  error={errors.pos && touched.pos ? true : false}
+                  errorMsg="Place of Supply is required"
+                   />
+             <SearchSelect 
+                width={155}
+                label="Payment Terms"
+                options={paymentterms}
+                value={formData.payment}
+                onChange={handleDrpChange}
+                name="payment"
+                error={errors.payment && touched.payment ? true : false}
+                errorMsg="Payment Terms is required"
+              /> */}
+                  
+                  {/* <div >
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={formData.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+                    />
+                  </div>
+                  <div>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={formData.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
+
+                    />
+                  </div> */}
+                </div>
+              </div>
+
+              {/* <div className="form_field field15" style={{ gridRowStart: 2, gridColumnStart: 3}}>
               <CustomInput 
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
@@ -1633,9 +1893,9 @@ ChildStateModificationFunc = (modVal)=>{
                disabled={true}
                 width={330}
                 label="State"
-                // error={errors.state && touched.state ? true : false}
-                // errorMsg={errors.state}
-            />
+                error={errors.state && touched.state ? true : false}
+                errorMsg={errors.state}
+            /> */}
              
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
@@ -1656,9 +1916,9 @@ ChildStateModificationFunc = (modVal)=>{
                     disabled={true}
                   />
                 </div> */}
-              </div>
+              {/* </div> */}
 
-              <div className="form_field field16" style={{ gridRowStart: 3, gridColumnStart: 3}}>
+              {/* <div className="form_field field16" style={{ gridRowStart: 3, gridColumnStart: 3}}>
 
               <SearchSelect
                  width={330}
@@ -1669,7 +1929,7 @@ ChildStateModificationFunc = (modVal)=>{
                   name="pos"
                   error={errors.pos && touched.pos ? true : false}
                   errorMsg="Place of Supply is required"
-                   />
+                   /> */}
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Country</label>
                 </Tooltip>
@@ -1683,7 +1943,7 @@ ChildStateModificationFunc = (modVal)=>{
                   error={errors.pos && touched.pos ? true : false}
                   errorMsg="Place of Supply is required"
                 /> */}
-              </div>
+              {/* </div>
 
               <div className="form_field field17" style={{ gridRowStart: 4, gridColumnStart: 3}}>
               <SearchSelect
@@ -1696,7 +1956,7 @@ ChildStateModificationFunc = (modVal)=>{
                 error={errors.pos && touched.pos ? true : false}
                 errorMsg="Place of Supply is required"
                 
-                />
+                /> */}
               
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   <label className="label">Default Place of Supply</label>
@@ -1711,7 +1971,7 @@ ChildStateModificationFunc = (modVal)=>{
                   error={errors.pos && touched.pos ? true : false}
                   errorMsg="Place of Supply is required"
                 /> */}
-              </div>
+              {/* </div>
 
               <div className="form_field field18" style={{ gridRowStart: 5, gridColumnStart: 3}}>
               <SearchSelect 
@@ -1723,7 +1983,7 @@ ChildStateModificationFunc = (modVal)=>{
                 name="contact"
                 error={errors.contact && touched.contact ? true : false}
                 errorMsg="Contact is required"
-                 />
+                 /> */}
               
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
@@ -1740,7 +2000,7 @@ ChildStateModificationFunc = (modVal)=>{
                   error={errors.contact && touched.contact ? true : false}
                   errorMsg="Contact is required"
                 /> */}
-              </div>
+              {/* </div>
 
               <div className="form_field field19" style={{ gridRowStart: 6, gridColumnStart: 3}}>
               <SearchSelect
@@ -1752,7 +2012,7 @@ ChildStateModificationFunc = (modVal)=>{
                  name="ownership"
                  error={errors.ownership && touched.ownership ? true : false}
                  errorMsg="Ownership is required"
-                  />
+                  /> */}
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label">Ownership</label>
@@ -1769,7 +2029,7 @@ ChildStateModificationFunc = (modVal)=>{
                   error={errors.ownership && touched.ownership ? true : false}
                   errorMsg="Ownership is required"
                 /> */}
-              </div>
+              {/* </div> */}
 
 
               
@@ -1787,7 +2047,7 @@ ChildStateModificationFunc = (modVal)=>{
                   <button type="button" className="customercancelbutton btn_hover_animation"  onClick={handleConfirmData}>
                     Cancel
                   </button> */}
-                  <ContainedButton type="submit" value={formData.id ? "Update" : "Submit"} onClick={() => {handleFormSubmit()}} />
+                  <ContainedButton type="submit" value={formData.id ? "Update" : "Save"} onClick={() => {handleFormSubmit()}} />
                   <ContainedSecondaryButton value="Cancel" onClick={(e)=>{handleConfirmData()}} />
                 </div>
           </form>

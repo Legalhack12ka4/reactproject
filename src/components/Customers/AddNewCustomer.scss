@@ -40,7 +40,7 @@
   //  max-width: 1035px;
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(2,1fr);
 }
 .form_second_container{
     width: 680px;
@@ -55,7 +55,7 @@
 {
     background-color: white;
     // height: 619px;
-     width: 1070px;
+     width: 680px;
     margin-top: 0px;
     // margin-left: 30px;
     scrollbar-width: none; 
@@ -69,14 +69,14 @@
     display: flex;
    float: none !important;
    // margin-right: 32px;
-    margin-top: 46px !important;
+    margin-top: 29px !important;
     gap: 24px;
    // border-color: #D9DEE3;
 }
 .customerform
 {
     //  height: 700px;
-    max-width: 1034px;
+    max-width: 680px;
      overflow: scroll;
      padding: 20px;
      box-shadow:  0px 2px 6px 0px #4359711f;
