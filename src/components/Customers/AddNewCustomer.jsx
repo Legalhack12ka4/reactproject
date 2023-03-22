@@ -165,7 +165,7 @@ useEffect(() => {
    
     axios.get(
  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-        `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`
+        `https://erp.automode.ai/backend/gstin?gstin=24AADCS3456Q1ZW`
     )
       .then((response) => {
         return response.json();
