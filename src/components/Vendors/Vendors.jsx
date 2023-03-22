@@ -924,9 +924,9 @@ const {
     
   return (
     <div className="vendors_container">
-      <div className="addvendor_heading">
+      {/* <div className="addvendor_heading"> */}
         <Page_heading parent={"Business Account"} subchild={(<Link exact to= "/vendors">{"Vendor"}</Link>)}  child={"Add New Vendor"} />
-      </div>
+      {/* </div> */}
       <div className="customerform">
       <form onSubmit={handleSubmit} autoComplete="off">
 

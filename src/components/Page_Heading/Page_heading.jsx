@@ -29,7 +29,7 @@ const Page_heading = ({ parent, child, subchild, main , props, dataLength }) => 
 <>
     <div className="page-heading-menu">
     <div className="page_heading " >
-   <div className="heading_withlength"> <h1 className="heading-sb">{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)}</h1> <p className="heading_length">{dataLength && `(${dataLength})`}</p></div>
+   <div className="heading_withlength"> <h1 className="heading-sb">{main ? main :  child.charAt(0).toUpperCase() + child.slice(1)} <span className="heading_length">{dataLength && `(${dataLength})`}</span></h1></div>
     <Breadcrumb>
    <Breadcrumb.Item>
    <Link exact to="/dashboard" className="heading_parent"> <img src="\images\icons\home.svg"/></Link>

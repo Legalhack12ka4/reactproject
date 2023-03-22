@@ -2,15 +2,27 @@
 
 .search_bar_container{
     // border: 1px solid;
-    width: 95%;
-    margin: auto;
-    height: 56px;
+    // width: 95%;
+    // margin: auto;
+    // height: 56px;
     
-    // margin-top: 13px;
-    padding-top: 13px;
-    background-color: #F3F6F9;
-    z-index: 10;
-    min-width: 300px;
+    // // margin-top: 13px;
+    // padding-top: 13px;
+    // background-color: #F3F6F9;
+    // z-index: 10;
+    // min-width: 300px;
+
+    width: 95%;
+margin: auto;
+height: 56px;
+padding-top: 13px;
+padding-left: 2%;
+padding-right: 2%;
+background-color: #F3F6F9;
+z-index: 11;
+min-width: 300px;
+position: sticky;
+top: 0px;
 
 
     .searchbar_input{

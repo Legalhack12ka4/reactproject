@@ -78,10 +78,6 @@
                 "path": "/sales/sales_order"
             },
             {
-                "title": "Packages",
-                "path": "/packages"
-            },
-            {
                 "title": "Pick-list",
                 "path": "/pick_list"
             },
@@ -109,14 +105,6 @@
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bag.svg",
         "childrens": [
-            {
-                "title": "Requisitions",
-                "path": "/requisitions"
-            },
-            {
-                "title": "Quotations",
-                "path": "/quotations"
-            },
             {
                 "title": "Purchase Orders",
                 "path": "/purchase/purchase_order"

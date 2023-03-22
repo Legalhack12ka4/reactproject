@@ -21,6 +21,7 @@ const SalesOrder = () => {
   const [customerSubmit, setCustomerSubmit] = useState(false);
   const [selectItem, setSelectItem] = useState(false);
   const [attachmentShow, setAttachmentShow] = useState(false);
+  const [salesType, setSalesType] = useState(false);
 
   const customerDataSelectOptions = [
     {
@@ -140,35 +141,14 @@ const SalesOrder = () => {
     accessToken();
   
   }, []);
-  //   const getData = (gstin) => {
-     
-  //     axios.get(
-  //  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-  //      `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=24ABNFS4438A1ZB`,
-  //       {
-  //         headers: {
-  //           "Authorization": `Bearer c6c932943d1e645f802cf28d9a8f621f4fbea07d`,
-  //           "client_id": `NKPAiQRmOqdrbeyOIJ`,
-  //         },
-  //         mode: 'cors', // add CORS mode
-  //         credentials: 'same-origin', // add credentials option if needed
-  //       }
-  //     )
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         setGno(data);
-  //         console.log("data", data);
-  //         console.log(data)
-  //       });
-  //   };
+ 
   
 
   return (
     <div className="sales-order-main-container">
       <Page_heading parent={"Transactions"} child={"Sales Order"} />
 
+    <div className="sales-order-sub-container">
       <div className="sales-order-container">
         <div className="top-container">
           <div className="top-left-container">
@@ -270,7 +250,7 @@ const SalesOrder = () => {
         <div className="bottom-container">
           <div className="item-container">
             <div className="item-heading">
-              <p className="caption-sb item-details">Item Details</p>
+              <p className="caption-sb item-details">{salesType === "Services" ? "Service":"Item"} Details</p>
               <p className="caption-sb item-qty">Qty</p>
               <p className="caption-sb item-rate">Rate</p>
               <p className="caption-sb item-tax">Tax</p>
@@ -303,7 +283,7 @@ const SalesOrder = () => {
                             <p className="sc-body-sb mb-12 p-1">
                               Grick Polo Box Shirt
                             </p>
-                            <p className="caption-md mb-8">SKU : GR-PL-009</p>
+                            <p className="caption-md mb-8">{salesType === "Services" ? "SAC": "SKU"} : GR-PL-009</p>
                             <p className="caption-md">HSN : 61051010</p>
                             <img
                               className="item-delete-icon"
@@ -358,7 +338,7 @@ const SalesOrder = () => {
                 </>
               ))}
               <p className="add-item-btn sc-body-bd" onClick={handleAddItemRow}>
-                + Add Item{" "}
+                + Add
               </p>
             </div>
 
@@ -443,6 +423,11 @@ const SalesOrder = () => {
           />
         </div>
       </div>
+      <div className="subtitle-md tag-title-container">
+        <p className="subtitle-md tag-title">Related Tags</p>
+        {salesType &&<div className="tag-conatiner caption-sb">{salesType}</div>}
+      </div>
+    </div>
 
       <Modal
         open={salesOrderModal}
@@ -471,7 +456,36 @@ const SalesOrder = () => {
           </div>
         }
       >
-        <div className="sales-order-modal-container">
+        {!salesType ? 
+          <div className="sales-order-modal-container">
+          <div className="sales-type-container">
+            <h1 className="heading-sb">Sales Order Type</h1>
+            <p className="sc-body-rg mt-10 title">
+            Which type of sales Order do you want to Create.
+            </p>
+            <hr className="h-line" />
+
+            <div className="sales-type-select-container">
+              <div className="sales-type-btn" onClick={()=> setSalesType("Items")}>
+                <div className="btn-icon-container"><img src="/images/icons/item-icon.svg" alt="item" /></div>
+                <p className="subtitle-sb">Items</p>
+              </div>
+              <div className="sales-type-btn" onClick={()=> setSalesType("Services")}>
+                <div className="btn-icon-container"><img src="/images/icons/service-icon.svg" alt="services" /></div>
+                <p className="subtitle-sb">Services</p>
+              </div>
+              <div className="sales-type-btn" onClick={()=> setSalesType("Job Work")}>
+                <div className="btn-icon-container"><img src="/images/icons/jobwork-icon.svg" alt="jobwork" /></div>
+                <p className="subtitle-sb">Job Work</p>
+              </div>
+              <div className="sales-type-btn" onClick={()=> setSalesType("Fixed Assets")}>
+                <div className="btn-icon-container"><img src="/images/icons/fixedassets-icon.svg" alt="fixedassets" /></div>
+                <p className="subtitle-sb">Fixed Assets</p>
+              </div>
+            </div>
+
+            </div>
+        </div>:<div className="sales-order-modal-container">
           <div className="select-customer-container">
             <h1 className="heading-sb">Customer Account</h1>
             <p className="sc-body-rg title">
@@ -490,7 +504,7 @@ const SalesOrder = () => {
             />
           </div>
           {isCustomerSelected && (
-            <div className="animated zoomIn">
+            <div>
               <div className="customer-account-details-container">
                 <div className="customer-details">
                   <img
@@ -575,7 +589,8 @@ const SalesOrder = () => {
               </div>
             </div>
           )}
-        </div>
+        </div>}
+        
       </Modal>
     </div>
   );
