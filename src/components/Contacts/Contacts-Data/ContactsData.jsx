@@ -63,6 +63,7 @@ const ContactsData = (props) => {
   const [startdate, setStartdate] = useState([]);
   const [enddate, setEnddate] = useState([]);
   const [activeMode, setActiveMode] = useState("table");
+  const [status, setStatus] = useState([]);
 
  
 //daterangefunction
@@ -128,10 +129,10 @@ console.log(enddate)
 
   //get data positon
 
-// const othersource =addSouce.map((place)=>({
-//   label: place.position_name,
-//   value: place.position_name,
-// }))
+const othersource =addSouce.map((place)=>({
+  label: place.position_name,
+  value: place.position_name,
+}))
 
 useEffect (()=>
 {
@@ -232,6 +233,31 @@ const leadOptions = [
   
 ];
 
+
+const getstatusdata = status
+.filter((place) => place.field === "Status" && place.module === "Contact_Status")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+
+useEffect(() => {
+  getstatus();
+}, []);
+
+const getstatus = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setStatus(data);
+      console.log(data);
+    });
+};
+
+console.log(status);
+
   const getData = async () => {
     // const token = getCookie('jwt'); 
     // const config = {
@@ -256,18 +282,21 @@ const leadOptions = [
           Mobile: row.mobile,
           Email: row.email,
           DOB: row.dob,
-          // Position:othersource.find(
-          //   (option) => option.key === row.reporting && option.label
-          // ).label,
-          Position:
-            row.position == 1
-              ? "Owner"
-              : row.position == 2
-              ? "Accountant"
-              :  row.position == 2
-               ?"Manger"
-               :"SalesPerson",
+          Position:othersource.find(
+            (option) => option.key === row.position && option.label
+          ).label,
+          // Position:
+          //   row.position == 1
+          //     ? "Owner"
+          //     : row.position == 2
+          //     ? "Accountant"
+          //     :  row.position == 2
+          //      ?"Manger"
+          //      :"SalesPerson",
           Ownership: row.ownership == 1 ? "ubuntu" : "window",
+          Status:getstatusdata.find(
+            (option) => option.key === row.status && option.label
+          ).label,
           Updated_Date_Time: row.updated_date_time
           // id: row.id
         }))
@@ -542,7 +571,10 @@ const deleteUser = (record)=>
             <Typography.Text
        
               style={
-                record.status === "Customer"
+                // record.status === "Customer"
+                //   ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
+                //   : ""
+                  record.status 
                   ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
                   : ""
               }

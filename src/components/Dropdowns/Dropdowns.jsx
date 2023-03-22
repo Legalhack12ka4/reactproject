@@ -252,33 +252,74 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
 })
 
 
-export const  InputGroup = ( {onChange, options, name,countryName,countryValue, value, error,errorMsg, editBtn, editBtnClick,multi, ...props} ) => {
-
-
-
-    const [selectedOption, setSelectedOption] = useState(null);
-  const [focus, setFocus]= useState(false)
+export const InputGroup = ({
+  onChange,
+  options,
+  name,
+  countryName,
+  countryValue,
+  value,
+  error,
+  errorMsg,
+  editBtn,
+  editBtnClick,
+  multi,
+  inputType,
+  maxLength,
+  onBlur,
+  className,
+  type,
+  onFocus,
+  onKeyPress,
+  disabled,
+  ...props
+}) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [focus, setFocus] = useState(false);
+  
   const [open, setOpen] = useState(false);
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const filteredOptions = options.filter(({ value }) =>
     value.toLowerCase().includes(searchValue.toLowerCase())
   );
   let suffixIcon;
   if (open) {
-    suffixIcon = 
-  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6.43" viewBox="0 0 10 6.43">
-  <g id="small-down" transform="translate(10 6.43) rotate(180)">
-    <path id="Path_26" data-name="Path 26" d="M7.6,11.03l-5-5.106L3.9,4.6,7.6,8.382,11.3,4.6l1.3,1.324Z" transform="translate(-2.6 -4.6)" fill="#94a2b8"/>
-  </g>
-</svg>
-
-  
-  ;
+    suffixIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="10"
+        height="6.43"
+        viewBox="0 0 10 6.43"
+      >
+        <g id="small-down" transform="translate(10 6.43) rotate(180)">
+          <path
+            id="Path_26"
+            data-name="Path 26"
+            d="M7.6,11.03l-5-5.106L3.9,4.6,7.6,8.382,11.3,4.6l1.3,1.324Z"
+            transform="translate(-2.6 -4.6)"
+            fill="#94a2b8"
+          />
+        </g>
+      </svg>
+    );
   } else {
-    suffixIcon =  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6.43" viewBox="0 0 10 6.43">
-    <path id="Path_26" data-name="Path 26" d="M7.6,11.03l-5-5.106L3.9,4.6,7.6,8.382,11.3,4.6l1.3,1.324Z" transform="translate(-2.6 -4.6)" fill="#94a2b8"/>
-  </svg>;
+    suffixIcon = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="10"
+        height="6.43"
+        viewBox="0 0 10 6.43"
+      >
+        <path
+          id="Path_26"
+          data-name="Path 26"
+          d="M7.6,11.03l-5-5.106L3.9,4.6,7.6,8.382,11.3,4.6l1.3,1.324Z"
+          transform="translate(-2.6 -4.6)"
+          fill="#94a2b8"
+        />
+      </svg>
+    );
   }
 
   useEffect(() => {
@@ -290,61 +331,96 @@ export const  InputGroup = ( {onChange, options, name,countryName,countryValue, 
   };
 
   const handleChange = (value) => {
-    const selectedOption = options.find(option => option.value === value);
+    const selectedOption = options.find((option) => option.value === value);
     setSelectedOption(value);
     onChange(name, value);
-    console.log(name)
-    console.log(value)
+    console.log(name);
+    console.log(value);
     console.log(selectedOption.code); // This will log the country code of the selected option
   };
 
-    return (
-      <div>{props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
-        <div className="input-group srchdrp focus-outline">
-         <div>  <Select
-       
-       disabled={props.isDisabled}
-       optionFilterProp="children"
-       value={selectedOption || "India"}
-       key={selectedOption}
-       filterOption={(input, option) => {
-         const labelMatches = (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-         const valueMatches = (option?.value ?? "").toLowerCase().includes(input.toLowerCase());
-         const alphanumericRegex = /^[a-zA-Z0-9]*$/; // Only allows letters and numbers
-         const inputIsValid = alphanumericRegex.test(input);
-         return labelMatches || (valueMatches && inputIsValid);
-       }}
-      onChange={handleChange}
-       getPopupContainer={(trigger) => trigger.parentElement}
-       style={{ width: props.width, padding: 0 }}
-       size={"large"}
-       removeIcon={<img src="/images/icons/cross-icon-primary.svg" alt="icon" />}
-        suffixIcon={suffixIcon}
-        onDropdownVisibleChange={(o) => setOpen(o)}
-        // optionLabelProp="value"
-        dropdownRender={(menu) => (
-         <>
-           {props.addNew && <div className="search-input-box" type="text" icon={<PlusOutlined style={{color:"#5C5AD0"}} />} >
-           <Input
-        placeholder="Search Country"
-        // allowClear
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-        style={{ marginBottom: 8 }}
-      />
-             </div>}
-           {menu}
-         </>
-       )}
-
-
-     >{filteredOptions.map(({ value, label }) => (
-        <Option  key={value} value={value}>
-        {label}
-        </Option>
-      ))}</Select>
-    </div><CustomInput className="mobile_input" onChange={onChange} value={value} name={name} placeholder="Enter Number" width={232}/>
+  return (
+    <div>
+      {props.label && (
+        <p className="sc-body-md dropdown-lable">{props.label}</p>
+      )}
+      <div className="input-group srchdrp focus-outline">
+        <div>
+          {" "}
+          <Select
+            disabled={props.isDisabled}
+            optionFilterProp="children"
+            value={selectedOption || "India"}
+            key={selectedOption}
+            filterOption={(input, option) => {
+              const labelMatches = (option?.label ?? "")
+                .toLowerCase()
+                .includes(input.toLowerCase());
+              const valueMatches = (option?.value ?? "")
+                .toLowerCase()
+                .includes(input.toLowerCase());
+              const alphanumericRegex = /^[a-zA-Z0-9]*$/; // Only allows letters and numbers
+              const inputIsValid = alphanumericRegex.test(input);
+              return labelMatches || (valueMatches && inputIsValid);
+            }}
+            onChange={handleChange}
+            getPopupContainer={(trigger) => trigger.parentElement}
+            style={{ width: props.width, padding: 0 }}
+            size={"large"}
+            removeIcon={
+              <img src="/images/icons/cross-icon-primary.svg" alt="icon" />
+            }
+            suffixIcon={suffixIcon}
+            onDropdownVisibleChange={(o) => setOpen(o)}
+            // optionLabelProp="value"
+            dropdownRender={(menu) => (
+              <>
+                {props.addNew && (
+                  <div
+                    className="search-input-box"
+                    type="text"
+                    icon={<PlusOutlined style={{ color: "#5C5AD0" }} />}
+                  >
+                    <Input
+                      placeholder="Search Country"
+                      // allowClear
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      style={{ marginBottom: 8 }}
+                    />
+                  </div>
+                )}
+                {menu}
+              </>
+            )}
+          >
+            {filteredOptions.map(({ value, label }) => (
+              <Option key={value} value={value}>
+                {label}
+              </Option>
+            ))}
+          </Select>
         </div>
-        </div>
-    )
-}
+        <CustomInput
+          //className="mobile_input"
+          onChange={onChange}
+          value={value}
+          name={name}
+          placeholder="Enter Number"
+          width={232}
+          onBlur={onBlur}
+          onFocus={(e) => {focus(e); setFocus(true)}}
+          className={`mobile_input focus-outline ${className} ${
+            error && !focus && "inputError"
+          } ${disabled && "input-disabled"} `}
+          type={type}
+          // value={inputValue}
+          //onChange={handleNameChange}
+          disabled={disabled}
+          onKeyPress={onKeyPress}
+        />
+      </div>
+      {error && <p className="error_text">{errorMsg}</p>}
+    </div>
+  );
+};

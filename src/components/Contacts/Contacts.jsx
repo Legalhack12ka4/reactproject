@@ -27,6 +27,8 @@ const resetValue = {
   dob: "",
   position: "",
   ownership: "",
+  status:"",
+  lead:"",
 };
 
 const initialFieldValues = {
@@ -36,6 +38,8 @@ const initialFieldValues = {
   dob: "",
   position: "",
   ownership: "",
+  status:"",
+  lead:"",
 };
 
 const resetValuePosition = 
@@ -382,7 +386,7 @@ function Contacts(props) {
   //const [fetchcontact, setFetchcontact] = useState([]);
   const [addSouce, setAddSource] = useState([]);
   const [addlead, setAddLead] = useState([]);
-  const [status, setStatus] = useState([]);
+  const [statusData, setStatusData] = useState([]);
   const [loading, setloading] = useState(true);
   const [selectedCode, setSelectedCode] = useState("+91");
   const [showPopover, setShowPopover] = useState(false);
@@ -564,8 +568,8 @@ function Contacts(props) {
              position: formData.position,
             //position: 1,
             company_name: 1,
-            status: 1,
-            lead_source: 1,
+            status: formData.status,
+            lead_source: formData.lead,
             ownership: 1,
             company_id: 1,
             created_by: 1,
@@ -592,29 +596,29 @@ function Contacts(props) {
   };
 //master data status
 
-//  const getstatusdata = status
-// .filter((place) => place.field === "Status" && place.module === "ContactStatus")
-// .map((place) => ({
-//   key: place.id,
-//   label: place.master_key,
-//   value: place.master_key,
-// }));
+ const getstatusdata = statusData
+.filter((place) => place.field === "Status" && place.module === "Contact_Status")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
 
 
-// useEffect(() => {
-//   getstatus();
-// }, []);
+useEffect(() => {
+  getstatus();
+}, []);
 
-// const getstatus = () => {
-//   return fetch(`${config.baseUrl}/master/`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setStatus(data);
-//       console.log(data);
-//     });
-// };
+const getstatus = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setStatusData(data);
+      console.log(data);
+    });
+};
 
-// console.log(status);
+console.log(statusData);
 
 
 //add position
@@ -669,26 +673,26 @@ const handleFormSubmitPosition = () => {
 
 //get lead data
 
-// const otherlead = addlead.map((place) => ({
-//   key: place.id,
-//   label: place.name,
-//   value: place.name,
-// }));
+const otherlead = addlead.map((place) => ({
+  key: place.id,
+  label: place.advertisement,
+  value: place.advertisement,
+}));
 
-// useEffect(() => {
-//   getlead();
-// }, []);
+useEffect(() => {
+  getlead();
+}, []);
 
-// const getlead = () => {
-//   return fetch(`${config.baseUrl}/othersource/`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setAddLead(data);
-//       console.log(data);
-//     });
-// };
+const getlead = () => {
+  return fetch(`${config.baseUrl}/leadsource/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAddLead(data);
+      console.log(data);
+    });
+};
 
-// console.log(addlead);
+console.log(addlead);
 
 // const onChangeValueLead = (e) => {
 //   const { value, name } = e.target;
@@ -769,6 +773,18 @@ const handleFormSubmitPosition = () => {
     console.log(field);
     console.log(value);
   };
+
+
+  const handleDrpChangeStatus = (field, value) => {
+    const selectedOption = othersource.find((option) => option.value === value);
+    console.log(selectedOption);
+    setFormData({ ...formData, [field]: value, status: selectedOption.key });
+    setFieldValue(field, value);
+    setFieldTouched(field, false);
+    console.log(field);
+    console.log(value);
+  };
+
 
   const onChange = (e) => {
     const { value, name } = e.target;
@@ -1073,6 +1089,8 @@ const handleleadpopover= () =>
                   }))}}
                   onBlur={handleBlur}
                   name="name"
+                  error={errors.name && touched.name ? true : false}
+                  errorMsg={errors.name}
                 />
                 {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -1176,6 +1194,8 @@ const handleleadpopover= () =>
                     value={formData.mobile}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}
+                  error={errors.mobile && touched.mobile ? true : false}
+                  errorMsg="Number is required"
                 />
 
                 {/* <div className="form_field">
@@ -1232,6 +1252,8 @@ const handleleadpopover= () =>
                     "email": newValue
                   }))}}
                   onBlur={handleBlur}
+                  error={errors.email && touched.email ? true : false}
+                  errorMsg={errors.email}
                 />
                 {/* <div className="form_field">
               <Tooltip title="prompt text" color="#5C5AD0">
@@ -1280,17 +1302,16 @@ const handleleadpopover= () =>
                   width={331}
                   name="status"
                   label="Status"
-               //   options={getstatusdata}
-                  // value={
-                  //   othersource.find(
-                  //     (option) =>
-                  //       option.key === formData.position && option.label
-                  //   )?.label
-                  // }
-                  // value={formData.position}
-             //     onChange={handleDrpChange}
-                  //error={errors.position && touched.position ? true : false}
-             //     errorMsg="Status is required"
+                  options={getstatusdata}
+                  value={
+                    getstatusdata.find(
+                      (option) =>
+                        option.key === formData.status && option.label
+                    )?.label
+                  }
+                 onChange={handleDrpChangeStatus}
+                  error={errors.status && touched.status ? true : false}
+                  errorMsg="Status is required"
                 />
                 </div>
                 
@@ -1408,9 +1429,20 @@ const handleleadpopover= () =>
                     width={331}
                     onClick={handleleadpopover}
                     name="leadsource"
-                  //  options={otherlead}
+                   options={otherlead}
                     onChange={handleDrpChange}
-                    value={formData.leadsource}
+                    // value={
+                    //   othersource.find(
+                    //     (option) =>
+                    //       option.key === formData.position && option.label
+                    //   )?.label
+                    // }
+                    value={otherlead.find(
+                      (option) =>
+                        option.key === formData.leadsource && option.label
+                    )?.label}
+                    error={errors.lead && touched.lead ? true : false}
+                    errorMsg="Lead Source is required"
                   />
 
                   </Popover>
