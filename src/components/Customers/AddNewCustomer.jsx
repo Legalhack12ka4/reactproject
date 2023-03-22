@@ -850,7 +850,7 @@ ChildStateModificationFunc = (modVal)=>{
               <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
               <CustomInput 
                 width={330}
-                label="GST No."
+                label="GSTIN"
                 icon="/images/icons/Gst-no.svg"
                 type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
@@ -948,6 +948,70 @@ ChildStateModificationFunc = (modVal)=>{
               errorMsg={errors.businessname}
             />
               
+
+              <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <SearchSelect
+                 width={155}
+                 label="Customer Type"
+                 options={currency}
+                 //value={formData.currency}
+                 onChange={handleDrpChange}
+               //  name="currency"
+                 error={errors.currency && touched.currency ? true : false}
+                 errorMsg="Customer Type is required"
+              />
+              <SearchSelect 
+                width={155}
+                label="Currency"
+                options={currency}
+              //  value={formData.currency}
+                onChange={handleDrpChange}
+              //  name="currency"
+                error={errors.currency && touched.currency ? true : false}
+                errorMsg="Currency is required"
+              />
+                  
+                  {/* <div >
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label" style={{ marginTop: "5px" }}>
+                        Currency
+                      </label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={currency}
+                      value={formData.currency}
+                      onChange={handleDrpChange}
+                      name="currency"
+                      error={errors.currency && touched.currency ? true : false}
+                      errorMsg="Currency is required"
+                    />
+                  </div>
+                  <div>
+                    <Tooltip title="prompt text" color="#5C5AD0">
+                      {" "}
+                      <label className="label">Payment Terms</label>
+                    </Tooltip>
+                    <br />
+                    <SearchDropdown
+                      width={155}
+                      options={paymentterms}
+                      value={formData.payment}
+                      onChange={handleDrpChange}
+                      name="payment"
+                      error={errors.payment && touched.payment ? true : false}
+                      errorMsg="Payment Terms is required"
+
+                    />
+                  </div> */}
+                </div>
+              </div>
+
+
+
               {/* <Tooltip title="prompt text" color="#5C5AD0">
                   {" "}
                   <label className="label" style={{ marginTop: "5px" }}>

@@ -33,6 +33,8 @@ export const  contactSchemas = Yup.object().shape({
     position: Yup.string().required('Position is required'),
     ownership: Yup.string().required('Ownership is required'),
     company_name: Yup.string().required('Company Name is required'),
+    lead:Yup.string().required('Lead Source is required'),
+    status:Yup.string().required('Status is required'),
 });
 
 

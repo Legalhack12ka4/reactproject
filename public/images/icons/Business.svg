@@ -1,6 +1,5 @@
-<svg id="Group_41844" data-name="Group 41844" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
-  <rect id="Rectangle_17641" data-name="Rectangle 17641" width="15" height="15" fill="none"/>
-  <g id="bxs-business" transform="translate(0 0.5)">
-    <path id="bxs-business-2" data-name="bxs-business" d="M16.25,6.111h-4.5a.764.764,0,0,0-.75.778V9.222H9.5V3.778A.764.764,0,0,0,8.75,3h-6A.764.764,0,0,0,2,3.778V16.222A.764.764,0,0,0,2.75,17h13.5a.764.764,0,0,0,.75-.778V6.889A.764.764,0,0,0,16.25,6.111ZM6.5,5.333H8V6.889H6.5ZM5,13.111H3.5V11.556H5ZM5,10H3.5V8.444H5ZM5,6.889H3.5V5.333H5Zm3,6.222H6.5V11.556H8ZM8,10H6.5V8.444H8Zm6.75,3.111h-1.5V11.556h1.5Zm0-3.111h-1.5V8.444h1.5Z" transform="translate(-2 -3)" fill="#697a8d"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="15.273" viewBox="0 0 14 15.273">
+  <g id="bx-buildings" transform="translate(-2 -2)">
+    <path id="Union_20" data-name="Union 20" d="M.777,15.273A.771.771,0,0,1,0,14.508V7.636A1.543,1.543,0,0,1,1.555,6.109H3.111V1.527A1.543,1.543,0,0,1,4.667,0h7.777A1.543,1.543,0,0,1,14,1.527V14.508a.772.772,0,0,1-.779.765ZM4.667,6.109H6.221A1.543,1.543,0,0,1,7.777,7.636v6.109h4.667V1.527H4.667ZM1.555,13.745H6.221V7.636H1.555Zm7.779-3.054V9.164h1.555v1.527Zm-6.223,0V9.165H4.667v1.526ZM9.333,7.636v-1.5h1.555v1.5Zm0-3.054V3.054h1.555V4.582Zm-3.112,0V3.054H7.777V4.582Z" transform="translate(2 2)" fill="#64748b"/>
   </g>
 </svg>
