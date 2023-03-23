@@ -88,6 +88,10 @@ function AddNewCustomer(props) {
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   //const [pincode, setPincode]= useState([])
 
+  //addresss states
+
+  
+
   const [gst, setGst] = useState(false);
    //let gstinparams = customer.gstin;
 
@@ -162,16 +166,26 @@ const handleCancel = () => {
   const getData = (gstin) => {
    
     axios.get(
- //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-     //   `https://erp.automode.ai/backend/gstin?gstin=24AADCS3456Q1ZW`
         `https://erp.automode.ai/backend/gstin?gstin=${gstin}`
     )
       .then((response) => {
         return response;
       })
       .then((data) => {
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          businessname: data.data.data.lgnm ? data.data.data.lgnm : "",
+       //   pincode:data.data.data.pradr.addr.pncd
+        }));
         setGno(data);
         console.log("data", data);
+       // console.log(data.data.data.lgnm)
+        // console.log("Pincode:-",data.data.data.pradr.addr.pncd)
+        // console.log("Area:-",data.data.data.pradr.addr.loc)
+        // console.log("Street1:-",data.data.data.pradr.addr.bnm)
+        // console.log("Street2:-",data.data.data.pradr.addr.flno)
+        // console.log("City:-",data.data.data.pradr.addr.dst)
+        // console.log("State:-",data.data.data.pradr.addr.stcd)
         console.log(data)
       });
   };
@@ -301,7 +315,15 @@ ChildStateModificationFunc = (modVal)=>{
 
     setCreditAmount(e.target.value);
 
-    setFormData({ ...values, [name]: value });
+    setFormData({ ...formData, [name]: value });
+
+    // if (name === "city") {
+    //   formData.city(city);
+    // } else if (name === "state") {
+    //   formData.state(statedrp);
+    // }
+
+    
     console.log(value);
     console.log(name);
     
@@ -325,9 +347,9 @@ ChildStateModificationFunc = (modVal)=>{
         if(data.status == "Success")
         {
        //   alert(data.status)
-        formData.state(data.data[0].state_name);
+        setStatedrp(data.data[0].state_name);
 
-        formData.city(data.data[0].district);
+        setCity(data.data[0].district);
       }
       if(data.status == "Pincode Not Available")
       {
@@ -347,6 +369,7 @@ ChildStateModificationFunc = (modVal)=>{
     //setPincode(e.target.value)
     console.log("Pincode value", e.target.value);
     getArea(e.target.value);
+    formData.city="xyz";
     //alert("Blur");
   };
 
@@ -1052,7 +1075,8 @@ useEffect(() => {
                placeholder="Placeholder"
                name="pincode"
                value={formData.pincode}
-               onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+              // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+               onChange={(e)=>{handleChange(e); onChange(e);}}
                onBlur={(e)=>{handleBlur(e);}}
                autoComplete="off"
                 width={330}
@@ -1133,7 +1157,8 @@ useEffect(() => {
               type="text"
               style={{ border: "none", outline: "none", width: "82%" }}
               name="city"
-              value={formData.city}
+              value={city}
+              onChange={onChange}
               disabled={true}
               width={330}
               label="City"
@@ -1149,7 +1174,8 @@ useEffect(() => {
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={formData.state}
+               value={statedrp}
+               onChange={onChange}
                disabled={true}
                 width={155}
                 label="State"
