@@ -62,6 +62,7 @@ import PurchaseOrder from './components/Purchase/PurchaseOrder/PurchaseOrder';
 import BillsData from './components/Purchase/Bills/Bills-Data/BillsData'
 import Bills from './components/Purchase/Bills/Bills';
 import PrivateRoutes from './Authentication/PrivateRoutes';
+import PreviewSalesOrder from './components/Sales/SalesOrder/PreviewSalesOrder/PreviewSalesOrder';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -175,7 +176,8 @@ const [logout,setLogout] = useState(true)
           <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/>
           {/* <Route path="unitofmeasurement" element={<UnitOfMeasurement/>}/> */}
           <Route path="sales/sales_order" element={<SalesData/>}/>
-          <Route path='sales/sales_order/add_sales' element={<SalesOrder/>} />
+          <Route path='sales/sales_order/add_sales' element={<SalesOrder />} />
+          <Route path='sales/sales_order/preview_order' element={<PreviewSalesOrder />} />
           <Route path="sales/invoice" element={<InvoiceData/>}/>
           <Route path="sales/invoice/add_invoice" element={<Invoice/>}/>
           <Route path="sales/credit_notes" element={<CreditData/>}/>
