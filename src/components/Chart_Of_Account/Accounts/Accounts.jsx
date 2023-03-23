@@ -986,7 +986,7 @@ console.log(chartOfAccountSchema)
                 className="contactbutton_bottom"
                 style={{ marginTop: "30px" }}
               >
-                <ContainedButton type="submit" value={formData.id ? "Update" : "Submit"} onClick={() => {handleFormSubmit()}} />
+                <ContainedButton type="submit" value={formData.id ? "Update" : "Save"} onClick={() => {handleFormSubmit()}} />
                   <ContainedSecondaryButton value="Cancel" onClick={(e)=>{onCancel()}} />
                 {/* <button
                   type="submit"
@@ -1164,7 +1164,7 @@ console.log(chartOfAccountSchema)
                   borderColor: "#C2CAD2",
                 }}
               >
-                Cancel
+                No
               </Button>
               <Button
                 key="submit"
@@ -1179,7 +1179,7 @@ console.log(chartOfAccountSchema)
                   color: "#FFFFFF",
                 }}
               >
-                Submit
+                Yes
               </Button>
             </div>,
           ]}

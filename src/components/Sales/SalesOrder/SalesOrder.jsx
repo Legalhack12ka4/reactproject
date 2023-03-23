@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import Page_heading from "../../Page_Heading/Page_heading";
 import "./SalesOrder.scss";
 import CustomInput from "../../CustomInput/CustomInput";
-import { SearchSelect } from "../../Dropdowns/Dropdowns";
-import { Button, Modal, Upload } from "antd";
+import { InputGroup, SearchSelect } from "../../Dropdowns/Dropdowns";
+import { Button, Modal, Popover, Upload } from "antd";
 import {
   ContainedButton,
   ContainedSecondaryButton,
   GhostIconButton,
 } from "../../Buttons/Button";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SalesOrder = () => {
   const [salesOrderItemList, setSalesOrderItemList] = useState([
@@ -22,6 +23,8 @@ const SalesOrder = () => {
   const [selectItem, setSelectItem] = useState(false);
   const [attachmentShow, setAttachmentShow] = useState(false);
   const [salesType, setSalesType] = useState(false);
+  const [discountPopOver, setDiscountPopOver] = useState(false);
+  const [shippingPopOver, setShippingPopOver] = useState(false);
 
   const customerDataSelectOptions = [
     {
@@ -70,6 +73,17 @@ const SalesOrder = () => {
     { value: "item3", label: "Item 3" },
   ];
 
+  const currencyCodes = [
+    {
+      value: "rupees",
+      label: "₹",
+    },
+    {
+      value: "percent",
+      label: "%",
+    },
+  ];
+
   const handleAddItemRow = () => {
     setSalesOrderItemList([
       ...salesOrderItemList,
@@ -110,6 +124,15 @@ const SalesOrder = () => {
     setSelectItem(true);
   };
 
+  const handleDiscountPopover = (value) => {
+    // setSalesType(value);
+    setDiscountPopOver(false);
+  };
+
+  const handleShippingPopover = (value) => {
+    // setSalesType(value);
+    setShippingPopOver(false);
+  };
 
   
 
@@ -345,10 +368,35 @@ const SalesOrder = () => {
                   <p className="sc-body-md amount">₹ 0.00</p>
                 </div>
                 <div className="discount-container">
-                  <div className="discount-title">
+                  <Popover 
+                    getPopupContainer={(trigger) => trigger.parentElement}
+                    placement="top"
+                    open={discountPopOver}
+                    content={
+                      <div>
+                        <InputGroup 
+                        options={currencyCodes}
+                        label="Add Discount"
+                        type="number"
+                        // value="Rs."
+                        // inputType={"email"}
+                        // placeholder="Placeholder"
+                        rightIcon="/images/icons/input-save-icon.svg"
+                        width={60}
+                        inputWidth={116}
+                        onClick={handleDiscountPopover}
+                        // onChange={(e) => {onChange(e);}}
+                        />
+                      </div>
+                    }
+                    title=""
+                    height={100}
+                    trigger="click">
+                  <div className="discount-title" onClick={()=>{setDiscountPopOver()}}>
                     <p className="sc-body-md">Discount</p>
                     <img src="/images/icons/edit.svg" alt="edit icon" />
                   </div>
+                  </Popover>
                   <p className="sc-body-md amount">₹ 0.00</p>
                 </div>
                 <div className="gst-container">
@@ -356,12 +404,39 @@ const SalesOrder = () => {
                   <p className="sc-body-md">₹ 0.00</p>
                 </div>
                 <div className="shipping-container">
+
                 <div className="d-flex align-center justify-between">
                   <div className="shipping-title-container">
-                  <div className="shipping-title">
+                  <Popover 
+                    getPopupContainer={(trigger) => trigger.parentElement}
+                    placement="top"
+                    open={shippingPopOver}
+                    content={
+                      <div>
+                        <InputGroup 
+                        options={currencyCodes}
+                        label="Shipping Charges"
+                        type="number"
+                        // value="Rs."
+                        // inputType={"email"}
+                        // placeholder="Placeholder"
+                        rightIcon="/images/icons/input-save-icon.svg"
+                        width={60}
+                        inputWidth={116}
+                        onClick={handleShippingPopover}
+                        // onChange={(e) => {onChange(e);}}
+                        />
+                      </div>
+                    }
+                    title=""
+                    height={100}
+                    trigger="click">
+                      <div className="shipping-title" onClick={()=> setShippingPopOver()}>
                     <p className="sc-body-md">Shipping Charges</p>
                     <img src="/images/icons/edit.svg" alt="edit icon" />
                   </div>
+                  </Popover>
+
                   </div>
                   <p className="sc-body-md amount">₹ 0.00</p>
                   </div>
@@ -383,7 +458,7 @@ const SalesOrder = () => {
           </div>
         </div>
         <div className="button-container">
-          <ContainedButton type="submit" value="Save" />
+          <Link to="/sales/sales_order/preview_order"><ContainedButton type="submit" value="Save" /></Link>
           <ContainedSecondaryButton
             value="Cancel"
             onClick={() => {
@@ -392,9 +467,11 @@ const SalesOrder = () => {
           />
         </div>
       </div>
+      <div className="timeline-tag-container">
       <div className="subtitle-md tag-title-container">
         <p className="subtitle-md tag-title">Related Tags</p>
         {salesType &&<div className="tag-conatiner caption-sb">{salesType}</div>}
+      </div>
       </div>
     </div>
 

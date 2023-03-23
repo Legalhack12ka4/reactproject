@@ -26,12 +26,22 @@ export const ContainedSecondaryButton = ({value, width, onClick}) => {
 export const ContainedIconButton = ({value, width, icon, onClick}) => {
     return (
         <button type='button' className='contained-icon-btn sc-body-sb' style={{width:width}} onClick={onClick}>
-            {/* <img src="/images/icons/send_icon.svg" alt="icon" /> */}
-            {icon}
+            <img src={icon} alt="icon" />
+            {/* {icon} */}
             <p>{value}</p>
         </button>
     )
     }
+
+    export const ContainedIconButtonGray = ({value, width, icon, onClick}) => {
+        return (
+            <button type='button' className='contained-icon-btn-gray sc-body-sb' style={{width:width}} onClick={onClick}>
+                <img src={icon} alt="icon" />
+
+                <p>{value}</p>
+            </button>
+        )
+        }
 
 
 export const GhostButton = ({value, width}) => {

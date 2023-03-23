@@ -274,7 +274,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                     <div className="addNewBtn_text">New {props.addBtnName}</div>
                   </div>
                 </div> */}
-                <ContainedIconButton onClick={showCanvas} icon={<GoPlus />} value={`New ${props.addBtnName}`}/>
+                <ContainedIconButton onClick={showCanvas} icon="/images/icons/plus-icon-white.svg" value={`New ${props.addBtnName}`}/>
               </Link>
             </div>
           </div>

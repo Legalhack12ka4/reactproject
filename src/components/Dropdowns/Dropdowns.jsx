@@ -349,8 +349,9 @@ export const InputGroup = ({
           {" "}
           <Select
             disabled={props.isDisabled}
+            // width={props.selectWidth}
             optionFilterProp="children"
-            value={selectedOption || "India"}
+            value={selectedOption || props.value}
             key={selectedOption}
             filterOption={(input, option) => {
               const labelMatches = (option?.label ?? "")
@@ -386,7 +387,7 @@ export const InputGroup = ({
                       // allowClear
                       value={searchValue}
                       onChange={(e) => setSearchValue(e.target.value)}
-                      style={{ marginBottom: 8 }}
+                      style={{ marginBottom: 8, width: props.inputWidth }}
                     />
                   </div>
                 )}
@@ -406,8 +407,9 @@ export const InputGroup = ({
           onChange={onChange}
           value={value}
           name={name}
-          placeholder="Enter Number"
-          width={232}
+          placeholder={props.placeholder}
+          rightIcon={props.rightIcon}
+          width={props.inputWidth}
           onBlur={onBlur}
           onFocus={(e) => {focus(e); setFocus(true)}}
           className={`mobile_input focus-outline ${className} ${
@@ -418,6 +420,7 @@ export const InputGroup = ({
           //onChange={handleNameChange}
           disabled={disabled}
           onKeyPress={onKeyPress}
+          onClick={props.onClick}
         />
       </div>
       {error && <p className="error_text">{errorMsg}</p>}

@@ -1,0 +1,8 @@
+<svg id="Exit" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Rectangle_17817" data-name="Rectangle 17817" width="20" height="20" fill="none"/>
+  <g id="Group_41515" data-name="Group 41515" transform="translate(0.001 0)">
+    <g id="Group_41514" data-name="Group 41514" transform="translate(2 2)">
+      <path id="Union_19" data-name="Union 19" d="M1.778,16A1.779,1.779,0,0,1,0,14.222V10.666H1.778v3.555H14.222V1.778H1.778V5.334H0V1.778A1.78,1.78,0,0,1,1.778,0H14.222A1.781,1.781,0,0,1,16,1.778V14.222A1.78,1.78,0,0,1,14.222,16ZM7.065,8.884H0V7.118H7.065V4.467L11.479,8,7.065,11.532Z" transform="translate(0 0)" fill="#5c5ad0"/>
+    </g>
+  </g>
+</svg>
