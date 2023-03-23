@@ -383,7 +383,7 @@ const deleteUser = (record)=>
                  </button>
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                 {/* <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
                   <img src={statuslogo} />
                   <div>
                  <button
@@ -394,7 +394,7 @@ const deleteUser = (record)=>
                   Set as Activate
                  </button>
                  </div>
-                 </div>
+                 </div> */}
                  </>
         } title="" height={100} trigger="click">
         <img src={editdelete} style={{cursor:"pointer"}} />
@@ -556,13 +556,13 @@ const deleteUser = (record)=>
                 /> */}
               </div>
               <div className="addPaymentTermModalInput">
-                <p>Commission Percentage</p>
+                <p>Percentage</p>
                 <CustomInput
                   className=" focus-outline"
                   type="text"
                   placeholder="5 %"
                   name="commission_percrntage"
-                  inputType={"AlphaNumericUpperCase"}
+                  inputType={"NumericPercentage"}
                   value={formData.commission_percrntage}
                      onChange={(e, newValue) => 
                      setFormData(prevState => ({

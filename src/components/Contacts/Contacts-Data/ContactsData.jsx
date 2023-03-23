@@ -282,9 +282,9 @@ console.log(status);
           Mobile: row.mobile,
           Email: row.email,
           DOB: row.dob,
-          Position:othersource.find(
-            (option) => option.key === row.position && option.label
-          ).label,
+          // Position:othersource.find(
+          //   (option) => option.key === row.position && option.label
+          // ).label,
           // Position:
           //   row.position == 1
           //     ? "Owner"
@@ -296,8 +296,8 @@ console.log(status);
           Ownership: row.ownership == 1 ? "ubuntu" : "window",
           Status:getstatusdata.find(
             (option) => option.key === row.status && option.label
-          ).label,
-          Updated_Date_Time: row.updated_date_time
+          )?.label,
+        //  Updated_Date_Time: row.updated_date_time
           // id: row.id
         }))
       );
@@ -397,7 +397,7 @@ const deleteUser = (record)=>
     dob: contact.DOB,
     position: contact.Position,
     companyname:"Reformiqo",
-    status:"Customer",
+    status:contact.Status,
     ownership: contact.Ownership,
     updated_date_time: contact.Updated_Date_Time
   }));
@@ -571,10 +571,8 @@ const deleteUser = (record)=>
             <Typography.Text
        
               style={
-                // record.status === "Customer"
-                //   ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
-                //   : ""
-                  record.status 
+               
+                  record.status
                   ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
                   : ""
               }
@@ -818,7 +816,7 @@ const deleteUser = (record)=>
     
     dataSource.filter(
     (record) =>
-      record.position.includes(custfilter.position) &&
+      //record.position.includes(custfilter.position) &&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString())
       && record.name.toLowerCase().includes(search.toLowerCase())
