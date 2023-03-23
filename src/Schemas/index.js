@@ -22,6 +22,7 @@ export const  addCustomerSchemas = Yup.object().shape({
     contact: Yup.string().required('Contact is required'),
     ownership: Yup.string().required('Ownership is required'),
     area:Yup.string().required('Area is required'),
+    commission:Yup.string().required('Commission is required')
 });
 
 
