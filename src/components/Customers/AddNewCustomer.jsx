@@ -46,6 +46,7 @@ const initialFieldValues = {
   pos: "",
   contact: "",
   ownership: "",
+  area:"",
 };
 
 const resetValue = {
@@ -137,10 +138,7 @@ const handleCancel = () => {
   setCofirmData(false)
 };
 
-useEffect(() => {
-  getData();
 
-}, []);
 
 // const getGst = (gstin) => {
 //   axios.get(
@@ -165,10 +163,11 @@ useEffect(() => {
    
     axios.get(
  //    `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstin}`,
-        `https://erp.automode.ai/backend/gstin?gstin=24AADCS3456Q1ZW`
+     //   `https://erp.automode.ai/backend/gstin?gstin=24AADCS3456Q1ZW`
+        `https://erp.automode.ai/backend/gstin?gstin=${gstin}`
     )
       .then((response) => {
-        return response.json();
+        return response;
       })
       .then((data) => {
         setGno(data);
@@ -326,9 +325,9 @@ ChildStateModificationFunc = (modVal)=>{
         if(data.status == "Success")
         {
        //   alert(data.status)
-        setStatedrp(data.data[0].state_name);
+        formData.state(data.data[0].state_name);
 
-        setCity(data.data[0].district);
+        formData.city(data.data[0].district);
       }
       if(data.status == "Pincode Not Available")
       {
@@ -377,6 +376,14 @@ ChildStateModificationFunc = (modVal)=>{
    console.log(field)
    console.log(value)
  };
+
+
+//gstin data get
+
+useEffect(() => {
+  getData(formData.gstin);
+
+}, [formData.gstin]);
 
 
 
@@ -1126,7 +1133,7 @@ ChildStateModificationFunc = (modVal)=>{
               type="text"
               style={{ border: "none", outline: "none", width: "82%" }}
               name="city"
-              value={city}
+              value={formData.city}
               disabled={true}
               width={330}
               label="City"
@@ -1142,7 +1149,7 @@ ChildStateModificationFunc = (modVal)=>{
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={statedrp}
+               value={formData.state}
                disabled={true}
                 width={155}
                 label="State"
@@ -1153,7 +1160,7 @@ ChildStateModificationFunc = (modVal)=>{
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={statedrp}
+              // value={statedrp}
                disabled={true}
                 width={155}
                 label="Country"
