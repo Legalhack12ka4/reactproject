@@ -47,6 +47,7 @@ const initialFieldValues = {
   contact: "",
   ownership: "",
   area:"",
+  commission:"",
 };
 
 const resetValue = {
@@ -68,6 +69,8 @@ const resetValue = {
   contact: "",
   ownership: "",
   area:"",
+  type:"",
+  commission:"",
 };
 
 function AddNewCustomer(props) {
@@ -87,7 +90,7 @@ function AddNewCustomer(props) {
   const [creditBox, setCreditBox] = useState(false);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   //const [pincode, setPincode]= useState([])
-
+  const [commission, setCommission]= useState([])
   //addresss states
 
   
@@ -172,11 +175,20 @@ const handleCancel = () => {
         return response;
       })
       .then((data) => {
+        if(data.data.error == false)
+        {
         setFormData(prevFormData => ({
           ...prevFormData,
-          businessname: data.data.data.lgnm ? data.data.data.lgnm : "",
-       //   pincode:data.data.data.pradr.addr.pncd
+          businessname:  data.data.data.lgnm ,
+         pincode:data.data.data.pradr.addr.pncd,
+         area:data.data.data.pradr.addr.loc,
+         street1:data.data.data.pradr.addr.bnm,
+         street2:data.data.data.pradr.addr.flno,
+         city:data.data.data.pradr.addr.dst,
+         state:data.data.data.pradr.addr.stcd,
+
         }));
+      }
         setGno(data);
         console.log("data", data);
        // console.log(data.data.data.lgnm)
@@ -231,6 +243,29 @@ const handleCancel = () => {
   };
   // console.log(currencydrp)
 
+//commission term
+
+
+const getDataCommission = () => {
+  fetch(`${config.baseUrl}/commissionterm/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setCommission(data);
+       console.log(data);
+    });
+};
+console.log(commission)
+
+const commissiondata = commission.map((curr) => ({
+ key:curr.id,
+  label: curr.terms,
+  value: curr.terms,
+}));
+
+const type=[
+  {value:1, label:"Customer"},
+  {value:2, label:"Vendor"},
+]
 
   //Dropdown Place of supply
 
@@ -251,6 +286,7 @@ const handleCancel = () => {
     getContact();
     getDataPos();
    getData();
+   getDataCommission();
   }, []);
 
   //send state to leaddata
@@ -264,34 +300,76 @@ ChildStateModificationFunc = (modVal)=>{
         `${config.baseUrl}/customervendor/`,
         {
        
-          gst_no: values.gstin,
-          business_name: values.businessname,
+        //   gst_no: formData.gstin,
+        //   business_name: formData.businessname,
        
-          pan_card: values.pancard,
+        //   pan_card: formData.pancard,
       
-          credit_limit: values.credit,
-          email: values.email,
-          pincode: values.pincode,
-          street1: values.street1,
-          street2: values.street2,
-          "place_of_supply": 1,
-          "contact": 1,
-          "ownership": 1,
-          "is_active": true,
-          "is_deleted": false,
-          "type": 2,
-        "type_category": 7,
-        "payment_terms": 2,
-        "currency": 20,
-        "ownership": 1,
-        "gst_treatment": 1,
-        "place_of_supply": 2,
-        "contact": 4,
-        "company_id": 1,
-        "created_by": 1,
-        "updated_by": 1
+        //   credit_limit: formData.credit,
+        //   email: formData.email,
+        //   pincode: formData.pincode,
+        //   street1: formData.street1,
+        //   street2: formData.street2,
+        //   "place_of_supply": 1,
+        //   "contact": 1,
+        //   "ownership": 1,
+        //   "is_active": true,
+        //   "is_deleted": false,
+        //   "type": 2,
+        // "type_category": 7,
+        // "payment_terms": 2,
+        //  currency:formData.currency,
+        // "ownership": 1,
+        // "gst_treatment": 1,
+        // "place_of_supply": 2,
+        // "contact": 4,
+        // "company_id": 1,
+        // "created_by": 1,
+        // "updated_by": 1
+
+        "Initiallitemrow": [
+          {
+             // "id": 1,
+              "country": "India",
+              // "is_active": true,
+              // "is_deleted": false,
+              // "updated_date_time": "2022-12-30T13:37:00Z",
+              "customer_ref": 2,
+              "category": 1,
+              // "type": 10,
+           //   "pincode": formData.pincode,
+              "pincode":1,
+              "company_id": 1,
+              "created_by": 1,
+              "updated_by": 1
+          }
+      ],
+      "gstin": formData.gstin,
+      "business_name": formData.businessname,
+      "email": formData.email,
+      "pancard": formData.pancard,
+      "tds": true,
+      "tcs": false,
+      "tan_no":formData.pancard,
+      "credit_limit":formData.credit,
+      
+      "type": 1,
+      "type_category": 1,
+      "registration_type": formData.gsttreat,
+      "payment_terms": formData.payment,
+      "currency": formData.currency,
+      "ownership": 1,
+      "commission_terms": formData.commission,
+      "tds_tcs_master": 2,
+      "contact": 1,
+      "status": 1,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+
+
         },
-        values
+        formData
       )
       .then((response) => {
         // getData();
@@ -400,6 +478,37 @@ ChildStateModificationFunc = (modVal)=>{
    console.log(value)
  };
 
+ const handleDrpChangeCurrency = (field, value) => {
+  const selectedOption = currencydata.find((option) => option.value === value);
+  console.log(selectedOption , selectedOption.key);
+  setFormData({ ...formData, [field]: value, currency: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangePayment = (field, value) => {
+  const selectedOption = paymentterms.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, payment: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangeCommission = (field, value) => {
+  const selectedOption = commissiondata.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, commission: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+
 
 //gstin data get
 
@@ -432,11 +541,13 @@ useEffect(() => {
   };
 
   const paymentterms = payment.map((pay) => ({
+    key:pay.id,
     label: pay.terms,
-    value: pay.id,
+    value: pay.terms,
   }));
 
-  const currency = currencydrp.map((curr) => ({
+  const currencydata = currencydrp.map((curr) => ({
+    key:curr.id,
     label: curr.currency_name + " - " + curr.symbol,
     value: curr.id,
   }));
@@ -922,8 +1033,8 @@ useEffect(() => {
                "businessname": newValue
              }))}}
              onBlur={handleBlur}
-              error={errors.businessname && touched.businessname ? true : false}
-              errorMsg={errors.businessname}
+              error={!formData.businessname && errors.businessname && touched.businessname ? true : false}
+              errorMsg={!formData.businessname && errors.businessname}
             />
               </div>
 
@@ -932,20 +1043,26 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Customer Type"
-                 options={currency}
-                 //value={formData.currency}
+                 options={type}
+                value={formData.type}
                  onChange={handleDrpChange}
-               //  name="currency"
+                 name="type"
                  error={errors.currency && touched.currency ? true : false}
                  errorMsg="Customer Type is required"
               />
               <SearchSelect 
                 width={155}
                 label="Currency"
-                options={currency}
+                options={currencydata}
+                value={
+                  currencydata.find(
+                    (option) =>
+                      option.key === formData.currency && option.label
+                  )?.label
+                }
               //  value={formData.currency}
-                onChange={handleDrpChange}
-              //  name="currency"
+               onChange={handleDrpChangeCurrency}
+               name="currency"
                 error={errors.currency && touched.currency ? true : false}
                 errorMsg="Currency is required"
               />
@@ -958,19 +1075,31 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Commission Terms"
-                 options={currency}
+                 options={commissiondata}
                  //value={formData.currency}
-                 onChange={handleDrpChange}
-               //  name="currency"
-                 error={errors.currency && touched.currency ? true : false}
+                 value={
+                  commissiondata.find(
+                    (option) =>
+                      option.key === formData.commission && option.label
+                  )?.label
+                }
+                 onChange={handleDrpChangeCommission}
+                 name="commission"
+                 error={errors.commission && touched.commission ? true : false}
                  errorMsg="Commission is required"
               />
              <SearchSelect 
                 width={155}
                 label="Payment Terms"
                 options={paymentterms}
-                value={formData.payment}
-                onChange={handleDrpChange}
+               // value={formData.payment}
+                value={
+                  paymentterms.find(
+                    (option) =>
+                      option.key === formData.payment && option.label
+                  )?.label
+                }
+                onChange={handleDrpChangePayment}
                 name="payment"
                 error={errors.payment && touched.payment ? true : false}
                 errorMsg="Payment Terms is required"
@@ -1036,8 +1165,8 @@ useEffect(() => {
                  value={values.ownership}
                  onChange={handleDrpChange}
                  name="ownership"
-                 error={errors.ownership && touched.ownership ? true : false}
-                 errorMsg="Ownership is required"
+                 //error={errors.ownership && touched.ownership ? true : false}
+                 //errorMsg="Ownership is required"
                   />
               </div>
               
@@ -1083,8 +1212,8 @@ useEffect(() => {
                 onFocus={handleFocus}
                 icon="/images/icons/Pincode_Area.svg"
                 label="Pincode"
-                error={errors.pincode && touched.pincode ? true : false}
-                errorMsg={errors.pincode}
+                error={!formData.pincode && errors.pincode && touched.pincode ? true : false}
+                errorMsg={!formData.pincode && errors.pincode}
             />
              
               </div>
@@ -1097,15 +1226,15 @@ useEffect(() => {
                 style={{ border: "none", outline: "none", width: "82%" }}
                 placeholder="Placeholder"
                 name="area"
-                value={values.area}
+                value={formData.area}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 icon="/images/icons/Pincode_Area.svg"
                 label="Area"
-                error={errors.area && touched.area ? true : false}
-                errorMsg={errors.area}
+                error={!formData.area && errors.area && touched.area ? true : false}
+                errorMsg={!formData.area && errors.area}
               />
               
               </div>
@@ -1116,14 +1245,14 @@ useEffect(() => {
                 placeholder="Placeholder"
                 name="street1"
                 icon="/images/icons/location-icon.svg"
-                value={values.street1}
+                value={formData.street1}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 label="Street 1"
-                error={errors.street1 && touched.street1 ? true : false}
-                errorMsg={errors.street1}
+                error={!formData.street1 && errors.street1 && touched.street1 ? true : false}
+                errorMsg={!formData.street1 && errors.street1}
               />
               
               
@@ -1135,14 +1264,14 @@ useEffect(() => {
                 style={{ border: "none", outline: "none", width: "82%" }}
                 placeholder="Placeholder"
                 name="street2"
-                value={values.street2}
+                value={formData.street2}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 label="Street 2"
-                error={errors.street2 && touched.street2 ? true : false}
-                errorMsg={errors.street2}
+                error={!formData.street2 && errors.street2 && touched.street2 ? true : false}
+                errorMsg={!formData.street2 && errors.street2}
                 icon="/images/icons/location-icon.svg"
               />
               
@@ -1157,7 +1286,7 @@ useEffect(() => {
               type="text"
               style={{ border: "none", outline: "none", width: "82%" }}
               name="city"
-              value={city}
+              value={formData.city}
               onChange={onChange}
               disabled={true}
               width={330}
@@ -1174,7 +1303,7 @@ useEffect(() => {
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={statedrp}
+               value={formData.state}
                onChange={onChange}
                disabled={true}
                 width={155}

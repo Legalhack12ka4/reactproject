@@ -139,13 +139,20 @@ const handleConfirmCancelUpdate = () => {
       setFetchcustomer(
         res.data.map((row) => ({
             Key:row.id,
-          Gst_Treatment:
-            row.gst_treatment == 1
+            Registration_Type:
+            row.registration_type == 1
               ? "Registerd Business"
-              : row.gst_treatment == 2
+              : row.registration_type == 2
               ? "Consumer"
-              : "",
-          Gst_No: row.gst_no,
+              : row.registration_type == 3
+              ? "Consumer"
+              : row.registration_type == 4
+              ? "Consumer"
+              : row.registration_type == 5
+              ? "Consumer"
+              : row.registration_type == 6
+              ? "Consumer" : "",
+              Gstin: row.gstin,
           Business_Name: row.business_name,
           Type_Category:
             row.type_category == 7
@@ -153,14 +160,14 @@ const handleConfirmCancelUpdate = () => {
               : row.type_category == 8
               ? "Wholesaler"
               : "Manufacturer",
-          Pan_Card: row.pan_card,
+              Tan_no: row.tan_no,
           Currency: row.currency == 1 ? "INR" : "USD",
           Payment_Terms: row.payment_terms == 1 ? "Net 5" : "Net 10",
           Credit_Limit: row.credit_limit,
           Email: row.email,
-          Pincode: row.pincode,
-          Street1: row.street1,
-          Street2: row.street2,
+          Pincode: "392012",
+          Street1: "Bharuch",
+          Street2: "Gujarat",
           Place_Of_Supply: row.place_of_supply == 1 ? "India" : "America",
           Contact:
             row.contact == 1
@@ -325,11 +332,11 @@ const deleteUser = (record)=>
   const dataSource = fetchcustomer.map((customer) => ({
      key:customer.Key,
       id:customer.Key,
-    gst_treatment: customer.Gst_Treatment,
-    gst_no: customer.Gst_No,
+      registration_type: customer.Registration_Type,
+    gstin: customer.Gstin,
     business_name: customer.Business_Name,
     type_category: customer.Type_Category,
-    pan_card: customer.Pan_Card,
+    tan_no: customer.Tan_no,
     currency: customer.Currency,
     payment_terms: customer.Payment_Terms,
     credit_limit: customer.Credit_Limit,
@@ -376,8 +383,8 @@ const deleteUser = (record)=>
     {
       title: "GST No",
       label: "GST No",
-      dataIndex: "gst_no",
-      key: "gst_no",
+      dataIndex: "gstin",
+      key: "gstin",
       resizable: true,
       width: 190,
       align: "left",
@@ -391,8 +398,8 @@ const deleteUser = (record)=>
     {
       title: "GST Treatment",
       label: "GST Treatment",
-      dataIndex: "gst_treatment",
-      key: "gst_treatment",
+      dataIndex: "registration_type",
+      key: "registration_type",
       resizable: true,
      // fixed: "left",
       align: "left",
@@ -449,8 +456,8 @@ const deleteUser = (record)=>
     {
       title: "PanCard",
       label: "PanCard",
-      dataIndex: "pan_card",
-      key: "pan_card",
+      dataIndex: "tan_no",
+      key: "tan_no",
       resizable: true,
       width: 130,
       align: "left",
@@ -722,9 +729,9 @@ const deleteUser = (record)=>
  
   const cusomizeData = dataSource.filter(
     (record) =>
-      record.gst_treatment
+      // record.gst_treatment
         
-        .includes(custfilter.gsttreat) &&
+      //   .includes(custfilter.gsttreat) &&
       record.type_category
         
         .includes(custfilter.category) &&
@@ -735,16 +742,16 @@ const deleteUser = (record)=>
       record.payment_terms
         
       
-        .includes(custfilter.payment) &&
-      record.place_of_supply
+      //   .includes(custfilter.payment) &&
+      // record.place_of_supply
         
-        .includes(custfilter.pos) &&
-      record.street1.includes(custfilter.street1) &&
-      record.street2.includes(custfilter.street2) &&
-      record.ownership
+      //   .includes(custfilter.pos) &&
+      // record.street1.includes(custfilter.street1) &&
+      // record.street2.includes(custfilter.street2) &&
+      // record.ownership
         
-        .includes(custfilter.ownership) &&
-      record.credit_limit.toString().includes(custfilter.credit.toString())
+      //   .includes(custfilter.ownership) &&
+      // record.credit_limit.toString().includes(custfilter.credit.toString())
       && record.business_name.toLowerCase().includes(search.toLowerCase())
       // && record.email.toLowerCase().includes(search.toLowerCase())
       // && record.pincode.toString().includes(search.toString())
