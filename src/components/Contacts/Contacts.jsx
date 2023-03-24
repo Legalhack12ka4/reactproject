@@ -388,7 +388,7 @@ function Contacts(props) {
   const [addlead, setAddLead] = useState([]);
   const [statusData, setStatusData] = useState([]);
   const [loading, setloading] = useState(true);
-  const [selectedCode, setSelectedCode] = useState("+91");
+  const [selectedCode, setSelectedCode] = useState("India");
   const [showPopover, setShowPopover] = useState(false);
   const [formDataPosition, setFormDataPosition] = useState(resetValuePosition);
   const [formDataLead, setFormDataLead] = useState(resetValueLead);
@@ -1195,11 +1195,13 @@ const handleleadpopover= () =>
                 onBlur={handleBlur}/> */}
                 <InputGroup
                   width={98}
+                  mainWidth={330}
                   inputWidth={232}
                   options={countryCodes}
                   label="Phone"
                   type="number"
                   // inputType={"email"}
+                  drpValue={selectedCode}
                   name="mobile"
                     placeholder="Placeholder"
                     value={formData.mobile}
