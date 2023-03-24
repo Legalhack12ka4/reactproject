@@ -274,9 +274,11 @@ console.log(status);
     
     // }
     ).then((res) => {
+      console.log(res)
+      console.log(res.data.data.items)
       
       setFetchcontact(
-        res.data.map((row) => ({
+        res.data.data.items.map((row) => ({
           Key: row.id,
           Name: row.name,
           Mobile: row.mobile,

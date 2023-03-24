@@ -72,7 +72,8 @@ const resetValue = {
   area:"",
   type:"",
   commission:"",
-  country:","
+  country:"",
+  customertype:"",
 };
 
 function AddNewCustomer(props) {
@@ -90,6 +91,8 @@ function AddNewCustomer(props) {
   const [commission, setCommission]= useState([]);
   const [customerType, setCustomerType] = useState([]);
   const [pincodeArea, setPincodeArea] = useState([]);
+  const [allCustomer, setAllCustomer] = useState([]);
+  const [gstinError, setGstinError] =useState(false)
   
 
  //cofirmation modal 
@@ -116,10 +119,12 @@ const handleCancel = () => {
 };
 
 
+
 //customer type data
 
 useEffect(() => {
   getCustomerType();
+  // getcustomertype();
 }, []);
 
 const getCustomerType = () => {
@@ -128,6 +133,17 @@ const getCustomerType = () => {
     .then((data) => {
       setCustomerType(data);
       console.log(data);
+    const typecustomer=  data.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
+      setFormData(prevFormData => ({
+        ...prevFormData,
+       customertype:typecustomer[0].id
+      }));
+      const typecategory=  data.filter((place) => place.field === "category" && place.module === "address" && place.master_value === "1")
+      setFormData(prevFormData => ({
+        ...prevFormData,
+       category:typecategory[0].id
+      }));
+      
     });
 };
 
@@ -140,6 +156,22 @@ const getcustomertypedata = customerType
   value: place.master_key,
 }));
 console.log(getcustomertypedata)
+
+
+
+// useEffect(() => {
+//   const getcustomertype = customerType
+//   .filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
+//   setFormData(prevFormData => ({
+//     ...prevFormData,
+//     customertype:customerType ===[] ? "" : getcustomertype[0].id
+//   }));
+// }, [customerType]);
+
+ console.log(formData)
+
+
+//console.log(getcustomertype[0].id)
 
     //match pincode with gstin
 
@@ -199,6 +231,21 @@ useEffect(() => {
          city:data.data.data.pradr.addr.dst,
          state:data.data.data.pradr.addr.stcd,
 
+        }));
+      }
+      console.log(data.data.error);
+      if(data.data.error)
+     
+      {
+        console.log(data.error);
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          businessname:  "" ,
+         pincode:"",
+         street1:"",
+         street2:"",
+         city:"",
+         state:"",
         }));
       }
         setGno(data);
@@ -290,6 +337,7 @@ const commissiondata = commission.map((curr) => ({
     getDataPos();
    getData();
    getDataCommission();
+   getCustomerVendor();
   }, []);
 
   //send state to leaddata
@@ -297,18 +345,43 @@ ChildStateModificationFunc = (modVal)=>{
   setFormData(modVal)
 }
 
+
+
+  const getCustomerVendor = () =>
+  {
+    fetch(`${config.baseUrl}/customervendor/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAllCustomer(data);
+       console.log(data);
+    });
+  }
+
+  console.log(allCustomer)
+
+
   const handleFormSubmit = () => {
+  
+    const data = allCustomer.find((customer) => customer.gstin === formData.gstin);
+console.log(data)
+if(data)
+{
+  setGstinError(true)
+}
+else
+{
     axios
       .post(
         `${config.baseUrl}/customervendor/`,
         {
+
 
         "Initiallitemrow": [
           {
              "street1": formData.street1,
              "street2": formData.street2,
               "country": formData.country,
-              "category": 1,
+              "category": formData.category,
               // "type": 10,
               "pincode":formData.area,
               "company_id": 1,
@@ -324,7 +397,7 @@ ChildStateModificationFunc = (modVal)=>{
       "tcs": false,
       "tan_no":formData.pancard,
       "credit_limit":formData.credit,
-      "type": 1,
+      "type": formData.customertype,
       "type_category": formData.type,
       "registration_type": formData.gsttreat,
       "payment_terms": formData.payment,
@@ -354,6 +427,7 @@ ChildStateModificationFunc = (modVal)=>{
         });
         handleClose();
       });
+    }
     console.log(initialFieldValues);
   };
 
@@ -361,6 +435,7 @@ ChildStateModificationFunc = (modVal)=>{
     const { value, name } = e.target;
     setCreditAmount(e.target.value);
     setFormData({ ...formData, [name]: value });
+    setGstinError(false);
     console.log(value);
     console.log(name);
     
@@ -494,14 +569,14 @@ useEffect(() => {
     value: curr.id,
   }));
 
-  const contacts = contact.map((con) => ({
-    label: con.name,
-    value: con.id || con.name,
-  }));
-  const gsttraetmentOptional =pos.map((place)=>({
-    label: place.state_name,
-    value: place.id,
-  }))
+  // const contacts = contact.map((con) => ({
+  //   label: con.name,
+  //   value: con.id || con.name,
+  // }));
+  // const gsttraetmentOptional =pos.map((place)=>({
+  //   label: place.state_name,
+  //   value: place.id,
+  // }))
   
   const gsttreatment = [
     {
@@ -887,10 +962,7 @@ useEffect(() => {
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form_first_container">
 
-
-
-
-            <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
+              <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <SearchSelect
             label="GST Treatment" 
             width={330}
@@ -911,7 +983,7 @@ useEffect(() => {
                 icon="/images/icons/Gst-no.svg"
                 type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"AlphaNumericUpperCase"}
+                  inputType={"AlphabeticalNumber"}
                   name="gstin"
                   onFocus={handleFocus}
                     placeholder="Placeholder"
@@ -924,8 +996,8 @@ useEffect(() => {
                     "gstin": newValue
                   }))}}
                   onBlur={handleBlur}
-                  error={errors.gstin && touched.gstin ? true : false}
-                  errorMsg={errors.gstin}
+                  error={errors.gstin && touched.gstin || gstinError ? true : false}
+                  errorMsg={errors.gstin || "Gstin already exits"}
 
             />
               </div>
@@ -989,7 +1061,6 @@ useEffect(() => {
                 </div>
               </div>
 
-
               <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
               <SearchSelect
@@ -1037,7 +1108,7 @@ useEffect(() => {
                 maxLength={10}
                 onFocus={handleFocus}
                 style={{ border: "none", outline: "none", width: "82%" }}
-               inputType={"AlphaNumericUpperCase"}
+               inputType={"AlphabeticalNumber"}
                  name="pancard"
                  placeholder="Placeholder"
                 value={formData.pancard}
@@ -1090,7 +1161,6 @@ useEffect(() => {
                   />
               </div>
               
-
               <div className="form_field field8" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <CustomInput 
                 type="email"
@@ -1138,7 +1208,6 @@ useEffect(() => {
              
               </div>
 
-
               <div className="form_field field10" style={{ gridRowStart: 3, gridColumnStart: 2}}>
               <SearchSelect 
               width={330}
@@ -1173,6 +1242,7 @@ useEffect(() => {
               /> */}
               
               </div>
+
               <div className="form_field field11" style={{ gridRowStart:4 , gridColumnStart: 2}}>
               <CustomInput
                 type="text"
@@ -1212,9 +1282,6 @@ useEffect(() => {
               
               
               </div>
-
-            
-
 
               <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <CustomInput 
@@ -1260,6 +1327,7 @@ useEffect(() => {
               
                 </div>
               </div> 
+
             </div>
             <div className="customerbutton_bottom">
                   <ContainedButton type="submit" value={formData.id ? "Update" : "Save"} onClick={() => {handleFormSubmit()}} />

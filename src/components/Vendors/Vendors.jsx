@@ -24,6 +24,7 @@ import { SearchSelect } from "../Dropdowns/Dropdowns";
 import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
 
 var ChildStateModificationFunc;
+
 const initialFieldValues = {
   gsttreat: "",
   gstin: "",
@@ -43,50 +44,55 @@ const initialFieldValues = {
   contact: "",
   ownership: "",
   area:"",
+  commission:"",
+  type:"",
+};
+
+const resetValue = {
+  gsttreat: "",
+  gstin: "",
+  businessname: "",
+  category: "",
+  pancard: "",
+  currency: "",
+  payment: "",
+  credit: "",
+  email: "",
+  pincode: "",
+  street1: "",
+  street2: "",
+  city: "",
+  state: "",
+  pos: "",
+  contact: "",
+  ownership: "",
+  area:"",
+  type:"",
+  commission:"",
+  country:"",
+  customertype:"",
 };
 
 function Vendors(props) {
-  const [formData, setFormData] = useState(initialFieldValues);
-  const [customer, setCustomer] = useState([]);
+  const [formData, setFormData] = useState(resetValue);
   const [payment, setPayment] = useState([]);
   const [currencydrp, setCurrencydrp] = useState([]);
   const [contact, setContact] = useState([]);
-  const [gstnoErr, setGstnoErr] = useState({});
-  const [area, setArea] = useState([]);
-  const [city, setCity] = useState([]);
-  const [statedrp, setStatedrp] = useState([]);
   const [creditAmount, setCreditAmount] = useState('');
   const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
   const [creditBox, setCreditBox] = useState(false);
   const [pos, setPos] = useState([]);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   //const [pincode, setPincode]= useState([])
-
+  const [commission, setCommission]= useState([]);
+  const [customerType, setCustomerType] = useState([]);
+  const [pincodeArea, setPincodeArea] = useState([]);
+  const [allCustomer, setAllCustomer] = useState([]);
+  const [gstinError, setGstinError] =useState(false)
   //const [gst, setGst] = useState(false);
 
 //special character validation
 
-const handleInputChange = (evt, property) => {
-  let newValue = evt.target.value;
-
-  if (property === 'gstin') {
-    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
-  } 
-  if (property === 'businessname') {
-    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-    newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
-  }
-  if (property === 'pancard') {
-    newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
-  } 
-  if (property === 'email') {
-    newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
-  }
-  setFormData(prevState => ({
-    ...prevState,
-    [property]: newValue
-  }));
-};
 
   ChildStateModificationFunc = (modVal)=> {
     setFormData(modVal)
@@ -116,45 +122,218 @@ const handleCancel = () => {
   setCofirmData(false)
 };
 
-  const handleFormSubmit = () => {
-    if (formData.id)
+
+//customer type data
+
+useEffect(() => {
+  getCustomerType();
+  // getcustomertype();
+}, []);
+
+const getCustomerType = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setCustomerType(data);
+      console.log(data);
+    const typecustomer=  data.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "2")
+      setFormData(prevFormData => ({
+        ...prevFormData,
+       customertype:typecustomer[0].id
+      }));
+      const typecategory=  data.filter((place) => place.field === "category" && place.module === "address" && place.master_value === "2")
+      setFormData(prevFormData => ({
+        ...prevFormData,
+       category:typecategory[0].id
+      }));
+      
+    });
+};
+
+
+const getcustomertypedata = customerType
+.filter((place) => place.field === "v_type" && place.module === "Vendor")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+console.log(getcustomertypedata)
+
+
+//get and match pincode
+const getPincodeArea = (pincode) =>
+{
+  axios.get(
+    `https://erp.automode.ai/backend/pincode?pincode=${pincode}`
+)  .then((response) => {
+  return response;
+})
+.then((data) => {
+  setFormData(prevFormData => ({
+    ...prevFormData,
+ country:data.data.data[0].country
+
+  }));
+  setPincodeArea(data.data.data)
+console.log(data)
+console.log(data.data.data.country)
+console.log(data.data.data[0].country)
+});
+};
+
+const getPincodeAreaData = pincodeArea.map((pin) => ({
+key:pin.id,
+label: pin.office_name,
+value: pin.office_name,
+}));
+
+console.log(getPincodeAreaData)
+
+
+useEffect(() => {
+getPincodeArea(formData.pincode);
+
+}, [formData.pincode]);
+
+
+
+const getData = (gstin) => {
+
+axios.get(
+    `https://erp.automode.ai/backend/gstin?gstin=${gstin}`
+)
+  .then((response) => {
+    return response;
+  })
+  .then((data) => {
+    if(data.data.error == false)
     {
-      axios
-      .put(
-        `${config.baseUrl}/customervendor/` + formData.id + "/",
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      businessname:  data.data.data.lgnm ,
+     pincode:data.data.data.pradr.addr.pncd,
+     street1: `${data.data.data.pradr.addr.flno}, ${data.data.data.pradr.addr.bno}, ${data.data.data.pradr.addr.bnm}`,
+     street2:data.data.data.pradr.addr.st,
+     city:data.data.data.pradr.addr.dst,
+     state:data.data.data.pradr.addr.stcd,
+
+    }));
+  }
+  console.log(data.data.error);
+  if(data.data.error)
+ 
+  {
+    console.log(data.error);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      businessname:  "" ,
+     pincode:"",
+     street1:"",
+     street2:"",
+     city:"",
+     state:"",
+    }));
+  }
+   // setGno(data);
+    console.log("data", data);
+    console.log(data)
+  });
+};
+//console.log(gno)
+
+
+//commission term
+
+
+const getDataCommission = () => {
+  fetch(`${config.baseUrl}/commissionterm/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setCommission(data);
+       console.log(data);
+    });
+};
+console.log(commission)
+
+const commissiondata = commission.map((curr) => ({
+ key:curr.id,
+  label: curr.terms,
+  value: curr.terms,
+}));
+
+//get customer vendor
+
+const getCustomerVendor = () =>
+  {
+    fetch(`${config.baseUrl}/customervendor/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAllCustomer(data);
+       console.log(data);
+    });
+  }
+
+  console.log(allCustomer)
+
+//form submit
+
+const handleFormSubmit = () => {
+  
+  const data = allCustomer.find((customer) => customer.gstin === formData.gstin);
+console.log(data)
+if(data)
+{
+setGstinError(true)
+}
+else
+{
+  axios
+    .post(
+      `${config.baseUrl}/customervendor/`,
       {
-          gst_no:values.gstin,
-        business_name: values.businessname,
-     
-        pan_card: values.pancard,
-    
-        credit_limit: 20,
-        email: values.email,
-        pincode: values.pincode,
-        street1: values.street1,
-        street2: values.street2,
-        "place_of_supply": 1,
-        "contact": 1,
-        "ownership": 1,
-        "is_active": true,
-        "is_deleted": false,
-        "type": 1,
-      "type_category": 7,
-      "payment_terms": 2,
-      "currency": 20,
-      "ownership": 1,
-      "gst_treatment": 1,
-      "place_of_supply": 2,
-      "contact": 4,
-      "company_id": 1,
-      "created_by": 1,
-      "updated_by": 1
+
+
+      "Initiallitemrow": [
+        {
+           "street1": formData.street1,
+           "street2": formData.street2,
+            "country": formData.country,
+            "category": formData.category,
+            // "type": 10,
+            "pincode":formData.area,
+            "company_id": 1,
+            "created_by": 1,
+            "updated_by": 1
+        }
+    ],
+    "gstin": formData.gstin,
+    "business_name": formData.businessname,
+    "email": formData.email,
+    "pancard": formData.pancard,
+    "tds": true,
+    "tcs": false,
+    "tan_no":formData.pancard,
+    "credit_limit":formData.credit,
+    "type": formData.customertype,
+    "type_category": formData.type,
+    "registration_type": formData.gsttreat,
+    "payment_terms": formData.payment,
+    "currency": formData.currency,
+    "ownership": 1,
+    "commission_terms": formData.commission,
+    "tds_tcs_master": 2,
+    "contact": 1,
+    "status": 1,
+    "company_id": 1,
+    "created_by": 1,
+    "updated_by": 1
       },
-      values
+      formData
     )
     .then((response) => {
-     // getData();
-    
+      // getData();
+
       toast.success("Added Successfuly", {
         position: "top-right",
         autoClose: 2000,
@@ -165,61 +344,115 @@ const handleCancel = () => {
         progress: undefined,
       });
       handleClose();
-     
     });
   }
-  else
-  {
-    axios
-      .post(
-        `${config.baseUrl}/customervendor/`,
-        {
-            gst_no:values.gstin,
-          business_name: values.businessname,
+  console.log(initialFieldValues);
+};
+
+  // const handleFormSubmit = () => {
+  //   if (formData.id)
+  //   {
+  //     axios
+  //     .put(
+  //       `${config.baseUrl}/customervendor/` + formData.id + "/",
+  //     {
+  //         gst_no:values.gstin,
+  //       business_name: values.businessname,
+     
+  //       pan_card: values.pancard,
+    
+  //       credit_limit: 20,
+  //       email: values.email,
+  //       pincode: values.pincode,
+  //       street1: values.street1,
+  //       street2: values.street2,
+  //       "place_of_supply": 1,
+  //       "contact": 1,
+  //       "ownership": 1,
+  //       "is_active": true,
+  //       "is_deleted": false,
+  //       "type": 1,
+  //     "type_category": 7,
+  //     "payment_terms": 2,
+  //     "currency": 20,
+  //     "ownership": 1,
+  //     "gst_treatment": 1,
+  //     "place_of_supply": 2,
+  //     "contact": 4,
+  //     "company_id": 1,
+  //     "created_by": 1,
+  //     "updated_by": 1
+  //     },
+  //     values
+  //   )
+  //   .then((response) => {
+  //    // getData();
+    
+  //     toast.success("Added Successfuly", {
+  //       position: "top-right",
+  //       autoClose: 2000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: false,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //     handleClose();
+     
+  //   });
+  // }
+  // else
+  // {
+  //   axios
+  //     .post(
+  //       `${config.baseUrl}/customervendor/`,
+  //       {
+  //           gst_no:values.gstin,
+  //         business_name: values.businessname,
        
-          pan_card: values.pancard,
+  //         pan_card: values.pancard,
       
-          credit_limit: 20,
-          email: values.email,
-          pincode: values.pincode,
-          street1: values.street1,
-          street2: values.street2,
-          "place_of_supply": 1,
-          "contact": 1,
-          "ownership": 1,
-          "is_active": true,
-          "is_deleted": false,
-          "type": 1,
-        "type_category": 7,
-        "payment_terms": 2,
-        "currency": 20,
-        "ownership": 1,
-        "gst_treatment": 1,
-        "place_of_supply": 2,
-        "contact": 4,
-        "company_id": 1,
-        "created_by": 1,
-        "updated_by": 1
-        },
-        values
-      )
-      .then((response) => {
-       // getData();
+  //         credit_limit: 20,
+  //         email: values.email,
+  //         pincode: values.pincode,
+  //         street1: values.street1,
+  //         street2: values.street2,
+  //         "place_of_supply": 1,
+  //         "contact": 1,
+  //         "ownership": 1,
+  //         "is_active": true,
+  //         "is_deleted": false,
+  //         "type": 1,
+  //       "type_category": 7,
+  //       "payment_terms": 2,
+  //       "currency": 20,
+  //       "ownership": 1,
+  //       "gst_treatment": 1,
+  //       "place_of_supply": 2,
+  //       "contact": 4,
+  //       "company_id": 1,
+  //       "created_by": 1,
+  //       "updated_by": 1
+  //       },
+  //       values
+  //     )
+  //     .then((response) => {
+  //      // getData();
       
-        toast.success("Added Successfuly", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-        handleClose();
+  //       toast.success("Added Successfuly", {
+  //         position: "top-right",
+  //         autoClose: 2000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: false,
+  //         draggable: true,
+  //         progress: undefined,
+  //       });
+  //       handleClose();
        
-      });
-    }
-  }
+  //     });
+  //   }
+  // }
 
 
 //Dropdown PaymentTerms
@@ -266,43 +499,18 @@ const getDataPos = () => {
 };
 console.log(pos)
 
-const getArea = (pincode) => {
-  return fetch(`${config.baseUrl}/pincode?pincode=${pincode}`)
-    //return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-    
-      .then((response) => response.json())
-      .then((data) => {
-        setArea(data);
-console.log(data)
-        // if(data[0].Status == "Success")
-        // {
-        setStatedrp(data[0].state_name);
-        setCity(data[0].district);
-      // }
-      // else
-      // {
-      //   setStatedrp("");
-      //   setCity("");
-      // }
-});
-  };
-  console.log(area);
-
-  const handlePincode = (e) => {
-    //setPincode(e.target.value)
-    console.log("Pincode value", e.target.value);
-    getArea(e.target.value);
-    //alert("Blur");
-  };
 
   useEffect(() => {
     getDataPaymentTerms();
     getDataCuurrency();
-    getArea();
+   
     getContact();
     getDataPos();
-   // getData();
+   getData();
+   getDataCommission();
+   getCustomerVendor();
   }, []);
+
   
 // //Dropdown PaymentTerms
 // const getDataPaymentTerms = () => {
@@ -387,7 +595,7 @@ console.log(data)
   useEffect(() => {
     getDataPaymentTerms();
     getDataCuurrency();
-    getArea();
+    //getArea();
     getContact();
     getDataPos();
    // getData();
@@ -396,45 +604,15 @@ console.log(data)
   const onChange = (e) => {
     const { value, name } = e.target;
     setCreditAmount(e.target.value);
-    setFormData({ ...values, [name]: value });
+    setFormData({ ...formData, [name]: value });
+    setGstinError(false);
     console.log(value);
     console.log(name);
+    
   };
+
   console.log(formData);
-  const [gst, setGst] = useState(false);
-  
-  // let gstinparams = values.gstin;
-
-  // const getData = () => {
-  //   fetch(
-  //     `https://commonapi.mastersindia.co/commonapis/searchgstin?gstin=${gstinparams}`,
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer 0ab31ef7392227173c6e8d34195e86d5eb0da1e9",
-  //         client_id: "JarZChUcsytSBbnkpt",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setCustomer(data);
-  //       console.log("data", data.lgnm);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  //   console.log("Getting Data");
-  //   console.log(values.gstin);
-  // }, [gst]);
-
-  // const onBlur = (e) => {
-  //   //alert(e.target.value)
-  //   setGst(!gst);
-  //   console.log(gst);
-  // };
+ 
 //Dropdown value get
 
    const handleDrpChange = (field, value) => {
@@ -444,6 +622,64 @@ console.log(data)
    console.log(field)
    console.log(value)
  };
+
+ const handleDrpChangeCurrency = (field, value) => {
+  const selectedOption = currencydata.find((option) => option.value === value);
+  console.log(selectedOption , selectedOption.key);
+  setFormData({ ...formData, [field]: value, currency: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangePayment = (field, value) => {
+  const selectedOption = paymentterms.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, payment: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangeCommission = (field, value) => {
+  const selectedOption = commissiondata.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, commission: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangePincode = (field, value) => {
+  const selectedOption = getPincodeAreaData.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, area: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangeCustomer = (field, value) => {
+  const selectedOption = getcustomertypedata.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, type: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+//gstin data get
+
+useEffect(() => {
+  getData(formData.gstin);
+
+}, [formData.gstin]);
+
 
 //Validation
 
@@ -465,16 +701,6 @@ const {
   },
 });
 
-  // const onChange = (e) => {
-  //   e.preventDefault();
-  //   const { value, name } = e.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value,
-  //   });
-  //   console.log(value);
-  //   console.log(name);
-  // };
 
   const handleClose = () => {
     window.history.back(-1);
@@ -485,9 +711,6 @@ const {
   const handleFocus = () => {
   }
  
- 
-
-
 
   //caredit card
 
@@ -516,19 +739,21 @@ const {
  
 
   const paymentterms = payment.map((pay) => ({
+    key:pay.id,
     label: pay.terms,
     value: pay.id,
   }));
 
-  const currency = currencydrp.map((curr) => ({
+  const currencydata = currencydrp.map((curr) => ({
+    key:curr.id,
     label: curr.currency_name + " - " + curr.symbol,
     value: curr.id,
   }));
 
-  const contacts = contact.map((con) => ({
-    label: con.name,
-    value: con.id || con.name,
-  }));
+  // const contacts = contact.map((con) => ({
+  //   label: con.name,
+  //   value: con.id || con.name,
+  // }));
 
   const typeCategory = [
     {
@@ -665,10 +890,10 @@ const {
     },
   ];
 
-  const gsttraetmentOptional =pos.map((place)=>({
-    label: place.state_name,
-    value: place.id,
-  }))
+  // const gsttraetmentOptional =pos.map((place)=>({
+  //   label: place.state_name,
+  //   value: place.id,
+  // }))
 
   const ownershipwithemail = [
     {
@@ -907,20 +1132,7 @@ const {
         }
     }
 
-  //   const token = localStorage.getItem("jwt")
-  //   let loggedIn= true
-  //   if(token == null)
-  //   {
-  //     localStorage.removeItem("jwt");
-  //     loggedIn = false
-  //   }
-  //  // Details={loggedIn}
-  
-  // if(loggedIn == false)
-  // {
-  //   localStorage.removeItem("jwt");
-  //   return <Navigate to="/"/>
-  // }
+ 
     
   return (
     <div className="vendors_container">
@@ -936,7 +1148,7 @@ const {
         </div>
       <div className="form_first_container">
               
-<div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
+      <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
               <SearchSelect
             label="GST Treatment" 
             width={330}
@@ -957,7 +1169,7 @@ const {
                 icon="/images/icons/Gst-no.svg"
                 type="text"
                     style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"AlphaNumericUpperCase"}
+                  inputType={"AlphabeticalNumber"}
                   name="gstin"
                   onFocus={handleFocus}
                     placeholder="Placeholder"
@@ -970,63 +1182,10 @@ const {
                     "gstin": newValue
                   }))}}
                   onBlur={handleBlur}
-                  error={errors.gstin && touched.gstin ? true : false}
-                  errorMsg={errors.gstin}
+                  error={errors.gstin && touched.gstin || gstinError ? true : false}
+                  errorMsg={errors.gstin || "Gstin already exits"}
 
             />
-
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    GST No.
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.gstin && touched.gstin && "inputError"
-                  } ${touched.gstin && "acive_input"} customerdropdown uppercaseLetter`}
-                >
-                  <img src={gstno} className="customerimg" />
-                  <CustomInput
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"AlphaNumericUpperCase"}
-                  name="gstin"
-                    placeholder="Placeholder"
-                    maxLength={15}
-                   value={formData.gstin}
-                onChange={(e, newValue) => {handleChange(e); onChange(e);
-                  // handleGstno(e);
-                  setFormData(prevState => ({
-                    ...prevState,
-                    "gstin": newValue
-                  }))}}
-                  onBlur={handleBlur}
-              />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="gstin"
-                    maxLength={15}
-                    value={formData.gstin}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleGstno(e);handleInputChange(e,"gstin")}}
-                    onBlur={handleBlur}
-                    autoComplete="off"
-                  />
-                  {errors.gstin && touched.gstin && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.gstin && touched.gstin && (
-                    <p className="error_text">{errors.gstin}</p>
-                  )} */}
               </div>
 
               <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
@@ -1047,66 +1206,9 @@ const {
                "businessname": newValue
              }))}}
              onBlur={handleBlur}
-              error={errors.businessname && touched.businessname ? true : false}
-              errorMsg={errors.businessname}
+              error={!formData.businessname && errors.businessname && touched.businessname ? true : false}
+              errorMsg={!formData.businessname && errors.businessname}
             />
-              
-
-            
-
-
-
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Business Name{" "}
-                  </label>{" "}
-                </Tooltip>
-
-                <br />
-                <div
-                  className={`${
-                    errors.businessname && touched.businessname && "inputError"
-                  } customerdropdown`}
-                  style={{ marginTop: "5px" }}
-                >
-                  <img src={business} className="customerimg" />
-                  <CustomInput
-                   type="text"
-                   style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"CamelAlphabetical"}
-                    name="businessname"
-                    placeholder="Placeholder"
-                   value={formData.businessname}
-                onChange={(e, newValue) => {handleChange(e); onChange(e); 
-                  setFormData(prevState => ({
-                    ...prevState,
-                    "businessname": newValue
-                  }))}}
-                  onBlur={handleBlur}
-              />
-
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="businessname"
-                    value={formData.businessname}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "businessname")}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.businessname && touched.businessname && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.businessname && touched.businessname && (
-                    <p className="error_text">{errors.businessname}</p>
-                  )} */}
               </div>
 
               <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
@@ -1114,125 +1216,75 @@ const {
               <SearchSelect
                  width={155}
                  label="Vendor Type"
-                 options={currency}
-                 //value={formData.currency}
-                 onChange={handleDrpChange}
-               //  name="currency"
-                 error={errors.currency && touched.currency ? true : false}
+                 options={getcustomertypedata}
+                 value={
+                  getcustomertypedata.find(
+                    (option) =>
+                      option.key === formData.type && option.label
+                  )?.label
+                }
+                 onChange={handleDrpChangeCustomer}
+                 name="type"
+                 error={errors.type && touched.type ? true : false}
                  errorMsg="Vendor Type is required"
               />
               <SearchSelect 
                 width={155}
                 label="Currency"
-                options={currency}
+                options={currencydata}
+                value={
+                  currencydata.find(
+                    (option) =>
+                      option.key === formData.currency && option.label
+                  )?.label
+                }
               //  value={formData.currency}
-                onChange={handleDrpChange}
-              //  name="currency"
+               onChange={handleDrpChangeCurrency}
+               name="currency"
                 error={errors.currency && touched.currency ? true : false}
                 errorMsg="Currency is required"
               />
-                  
-                  {/* <div >
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label" style={{ marginTop: "5px" }}>
-                        Currency
-                      </label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={currency}
-                      value={formData.currency}
-                      onChange={handleDrpChange}
-                      name="currency"
-                      error={errors.currency && touched.currency ? true : false}
-                      errorMsg="Currency is required"
-                    />
-                  </div>
-                  <div>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label">Payment Terms</label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={paymentterms}
-                      value={formData.payment}
-                      onChange={handleDrpChange}
-                      name="payment"
-                      error={errors.payment && touched.payment ? true : false}
-                      errorMsg="Payment Terms is required"
-
-                    />
-                  </div> */}
                 </div>
               </div>
-
 
               <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
               <SearchSelect
                  width={155}
                  label="Commission Terms"
-                 options={currency}
+                 options={commissiondata}
                  //value={formData.currency}
-                 onChange={handleDrpChange}
-               //  name="currency"
-                 error={errors.currency && touched.currency ? true : false}
+                 value={
+                  commissiondata.find(
+                    (option) =>
+                      option.key === formData.commission && option.label
+                  )?.label
+                }
+                 onChange={handleDrpChangeCommission}
+                 name="commission"
+                 error={errors.commission && touched.commission ? true : false}
                  errorMsg="Commission is required"
               />
              <SearchSelect 
                 width={155}
                 label="Payment Terms"
                 options={paymentterms}
-                value={formData.payment}
-                onChange={handleDrpChange}
+               // value={formData.payment}
+                value={
+                  paymentterms.find(
+                    (option) =>
+                      option.key === formData.payment && option.label
+                  )?.label
+                }
+                onChange={handleDrpChangePayment}
                 name="payment"
                 error={errors.payment && touched.payment ? true : false}
                 errorMsg="Payment Terms is required"
               />
-                  
-                  {/* <div >
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label" style={{ marginTop: "5px" }}>
-                        Currency
-                      </label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={currency}
-                      value={formData.currency}
-                      onChange={handleDrpChange}
-                      name="currency"
-                      error={errors.currency && touched.currency ? true : false}
-                      errorMsg="Currency is required"
-                    />
-                  </div>
-                  <div>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label">Payment Terms</label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={paymentterms}
-                      value={formData.payment}
-                      onChange={handleDrpChange}
-                      name="payment"
-                      error={errors.payment && touched.payment ? true : false}
-                      errorMsg="Payment Terms is required"
-
-                    />
-                  </div> */}
                 </div>
               </div>
 
-<div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
               <CustomInput
                 type="text"
@@ -1242,7 +1294,7 @@ const {
                 maxLength={10}
                 onFocus={handleFocus}
                 style={{ border: "none", outline: "none", width: "82%" }}
-               inputType={"AlphaNumericUpperCase"}
+               inputType={"AlphabeticalNumber"}
                  name="pancard"
                  placeholder="Placeholder"
                 value={formData.pancard}
@@ -1278,42 +1330,7 @@ const {
                     </div>
                   )}
               </div>
-                  
-                  {/* <div >
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label" style={{ marginTop: "5px" }}>
-                        Currency
-                      </label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={currency}
-                      value={formData.currency}
-                      onChange={handleDrpChange}
-                      name="currency"
-                      error={errors.currency && touched.currency ? true : false}
-                      errorMsg="Currency is required"
-                    />
-                  </div>
-                  <div>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label">Payment Terms</label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={paymentterms}
-                      value={formData.payment}
-                      onChange={handleDrpChange}
-                      name="payment"
-                      error={errors.payment && touched.payment ? true : false}
-                      errorMsg="Payment Terms is required"
 
-                    />
-                  </div> */}
                 </div>
               </div>
 
@@ -1325,27 +1342,11 @@ const {
                  value={values.ownership}
                  onChange={handleDrpChange}
                  name="ownership"
-                 error={errors.ownership && touched.ownership ? true : false}
-                 errorMsg="Ownership is required"
+                 //error={errors.ownership && touched.ownership ? true : false}
+                 //errorMsg="Ownership is required"
                   />
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label">Ownership</label>
-                </Tooltip>
-                <br />
-
-                <SearchDropdown
-                  width={331}
-                  options={ownershipwithemail}
-                  
-                  value={values.ownership}
-                  onChange={handleDrpChange}
-                  name="ownership"
-                  error={errors.ownership && touched.ownership ? true : false}
-                  errorMsg="Ownership is required"
-                /> */}
               </div>
-
+              
               <div className="form_field field8" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <CustomInput 
                 type="email"
@@ -1368,56 +1369,6 @@ const {
               errorMsg={errors.email}
                 />
               
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Email
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.email && touched.email && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={email} className="customerimg" />
-                  <CustomInput
-                   type="email"
-                   style={{ border: "none", outline: "none", width: "82%" }}
-                  inputType={"email"}
-                    name="email"
-                    placeholder="Placeholder"
-                   value={formData.email}
-                onChange={(e, newValue) => {handleChange(e); onChange(e); 
-                  setFormData(prevState => ({
-                    ...prevState,
-                    "email": newValue
-                  }))}}
-                  onBlur={handleBlur}
-                  />
-                 
-                  <input
-                    type="email"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e)=>{handleChange(e); onChange(e); handleInputChange(e, "email")}}
-                    onBlur={handleBlur}
-                    autoComplete="off"
-                  />
-                  {errors.email && touched.email && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.email && touched.email && (
-                    <p className="error_text">{errors.email}</p>
-                  )} */}
               </div>
 
               <div className="form_field field9" style={{ gridRowStart: 2, gridColumnStart: 2}}>
@@ -1429,109 +1380,55 @@ const {
                placeholder="Placeholder"
                name="pincode"
                value={formData.pincode}
-               onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+              // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+               onChange={(e)=>{handleChange(e); onChange(e);}}
                onBlur={(e)=>{handleBlur(e);}}
                autoComplete="off"
                 width={330}
                 onFocus={handleFocus}
                 icon="/images/icons/Pincode_Area.svg"
                 label="Pincode"
-                error={errors.pincode && touched.pincode ? true : false}
-                errorMsg={errors.pincode}
+                error={!formData.pincode && errors.pincode && touched.pincode ? true : false}
+                errorMsg={!formData.pincode && errors.pincode}
             />
              
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Pincode
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.pincode && touched.pincode &&  "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={pin} className="customerimg" />
-                  <input
-                   type="number"
-                   //ref={inputRef}
-                 //onKeyPress={handleKeyPress}
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
-                    onBlur={(e)=>{handleBlur(e);}}
-                    autoComplete="off"
-                  />
-                  {errors.pincode &&  touched.pincode &&(
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.pincode &&  touched.pincode &&(
-                    <p className="error_text">{errors.pincode}</p>
-                  )} */}
               </div>
 
-
               <div className="form_field field10" style={{ gridRowStart: 3, gridColumnStart: 2}}>
-              
-              <CustomInput 
+              <SearchSelect 
+              width={330}
+              placeholder="Area"
+              name="area"
+              options={getPincodeAreaData}
+              value={
+                getPincodeAreaData.find(
+                  (option) =>
+                    option.key === formData.area && option.label
+                )?.label
+              }
+              onChange={handleDrpChangePincode}
+              label="Area"
+              error={!formData.area && errors.area && touched.area ? true : false}
+              errorMsg={!formData.area && errors.area}
+              />
+              {/* <CustomInput 
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
                 placeholder="Placeholder"
                 name="area"
-                value={values.area}
+                value={formData.area}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 icon="/images/icons/Pincode_Area.svg"
                 label="Area"
-                error={errors.area && touched.area ? true : false}
-                errorMsg={errors.area}
-              />
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Area
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street2"
-                    value={values.street2}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )} */}
+                error={!formData.area && errors.area && touched.area ? true : false}
+                errorMsg={!formData.area && errors.area}
+              /> */}
+              
               </div>
+
               <div className="form_field field11" style={{ gridRowStart:4 , gridColumnStart: 2}}>
               <CustomInput
                 type="text"
@@ -1539,50 +1436,17 @@ const {
                 placeholder="Placeholder"
                 name="street1"
                 icon="/images/icons/location-icon.svg"
-                value={values.street1}
+                value={formData.street1}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 label="Street 1"
-                error={errors.street1 && touched.street1 ? true : false}
-                errorMsg={errors.street1}
+                error={!formData.street1 && errors.street1 && touched.street1 ? true : false}
+                errorMsg={!formData.street1 && errors.street1}
               />
               
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Street 1
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street1 && touched.street1 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street1"
-                    value={values.street1}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street1 && touched.street1 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street1 && touched.street1 && (
-                    <p className="error_text">{errors.street1}</p>
-                  )} */}
+              
               </div>
 
               <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
@@ -1591,88 +1455,34 @@ const {
                 style={{ border: "none", outline: "none", width: "82%" }}
                 placeholder="Placeholder"
                 name="street2"
-                value={values.street2}
+                value={formData.street2}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={handleBlur}
                 width={330}
                 onFocus={handleFocus}
                 label="Street 2"
-                error={errors.street2 && touched.street2 ? true : false}
-                errorMsg={errors.street2}
+                error={!formData.street2 && errors.street2 && touched.street2 ? true : false}
+                errorMsg={!formData.street2 && errors.street2}
                 icon="/images/icons/location-icon.svg"
               />
               
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    Street 2
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`${
-                    errors.street2 && touched.street2 && "inputError"
-                  } customerdropdown`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    placeholder="Placeholder"
-                    name="street2"
-                    value={values.street2}
-                    onChange={(e)=>{handleChange(e); onChange(e);}}
-                    onBlur={handleBlur}
-                  />
-                  {errors.street2 && touched.street2 && (
-                    <div className="error_icon">
-                    <img
-                      src="/images/icons/exclamation_icon.svg"
-                      alt="error"
-                    />
-                  </div>
-                  )}
-                </div>
-                {errors.street2 && touched.street2 && (
-                    <p className="error_text">{errors.street2}</p>
-                  )} */}
+              
               </div>
-
-            
-
 
               <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
               <CustomInput 
               type="text"
               style={{ border: "none", outline: "none", width: "82%" }}
               name="city"
-              value={city}
+              value={formData.city}
+              onChange={onChange}
               disabled={true}
               width={330}
               label="City"
               // error={errors.city && touched.city ? true : false}
               // errorMsg={errors.city}
             />
-              {/* <Tooltip title="prompt text" color="#5C5AD0">
-                  {" "}
-                  <label className="label" style={{ marginTop: "5px" }}>
-                    City
-                  </label>
-                </Tooltip>
-                <br />
-                <div
-                  className={`customerdropdown disabledInput`}
-                >
-                  <img src={street} className="customerimg" />
-                  <input
-                    type="text"
-                    style={{ border: "none", outline: "none", width: "82%" }}
-                    name="city"
-                    value={city}
-                    disabled={true}
-                  />
-                 
-                </div> */}
+              
               </div>
 
               <div className="form_field field14" style={{ gridRowStart: 7, gridColumnStart: 2}}>
@@ -1681,7 +1491,8 @@ const {
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={statedrp}
+               value={formData.state}
+               onChange={onChange}
                disabled={true}
                 width={155}
                 label="State"
@@ -1692,71 +1503,16 @@ const {
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-               value={statedrp}
+             value={formData.country}
                disabled={true}
                 width={155}
                 label="Country"
                 // error={errors.state && touched.state ? true : false}
                 // errorMsg={errors.state}
             />
-              {/* <SearchSelect
-                 width={155}
-                  label="Country"
-                 // options={gsttraetmentOptional}
-                  value={values.pos}
-                  onChange={handleDrpChange}
-                  name="pos"
-                  error={errors.pos && touched.pos ? true : false}
-                  errorMsg="Place of Supply is required"
-                   />
-             <SearchSelect 
-                width={155}
-                label="Payment Terms"
-                options={paymentterms}
-                value={formData.payment}
-                onChange={handleDrpChange}
-                name="payment"
-                error={errors.payment && touched.payment ? true : false}
-                errorMsg="Payment Terms is required"
-              /> */}
-                  
-                  {/* <div >
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label" style={{ marginTop: "5px" }}>
-                        Currency
-                      </label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={currency}
-                      value={formData.currency}
-                      onChange={handleDrpChange}
-                      name="currency"
-                      error={errors.currency && touched.currency ? true : false}
-                      errorMsg="Currency is required"
-                    />
-                  </div>
-                  <div>
-                    <Tooltip title="prompt text" color="#5C5AD0">
-                      {" "}
-                      <label className="label">Payment Terms</label>
-                    </Tooltip>
-                    <br />
-                    <SearchDropdown
-                      width={155}
-                      options={paymentterms}
-                      value={formData.payment}
-                      onChange={handleDrpChange}
-                      name="payment"
-                      error={errors.payment && touched.payment ? true : false}
-                      errorMsg="Payment Terms is required"
-
-                    />
-                  </div> */}
+              
                 </div>
-              </div>
+              </div> 
 
             </div>
 
