@@ -591,7 +591,8 @@ const deleteUser = (record)=>
       render: (text, record) =>  (
 
       
-        <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
+        <Popover   getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
+        placement="left" content={
                  <div>
                  <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
                  <img src={deletelogo} />
@@ -604,7 +605,7 @@ const deleteUser = (record)=>
                  </button>
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
+                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
                <img src={editlogo} />
                   <div>
           
@@ -618,7 +619,7 @@ const deleteUser = (record)=>
 
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
+                 {/* <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
                   <img src={statuslogo} />
                   <div>
                  <button
@@ -629,7 +630,7 @@ const deleteUser = (record)=>
                   Set as Activate
                  </button>
                  </div>
-                 </div>
+                 </div> */}
                  </div>
                  
         } title="" height={100} trigger="click">

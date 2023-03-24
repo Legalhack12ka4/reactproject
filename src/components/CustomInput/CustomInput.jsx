@@ -75,6 +75,12 @@ const CustomInput = ({
     if (inputType === "Alphabetical") {
       newName = newName.toUpperCase().replace(/[^A-Z\s]/g, "");
     }
+
+     // ONLY ALPHABET UPPERCASE and number
+    //e.g VIMLESH123
+    if (inputType === "AlphabeticalNumber") {
+      newName = newName.toUpperCase().replace(/[^A-Z\d\s]/g, "");
+    }
     // ONLY FOR SYMBOL
     //e.g $
     if (inputType === "Symbol") {
