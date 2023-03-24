@@ -74,6 +74,11 @@ function Module() {
    <Link exact to="/unitofmeasurement" className='currency_btn'>Unit of Measurement</Link>
    </div>
 
+   <div style={{marginBottom:"20px"}}>
+   <img src={link}/>
+   <Link exact to="/contact_preview" className='currency_btn'>Contact Preview</Link>
+   </div>
+
    </div>
     </div>
  
