@@ -272,6 +272,7 @@ export const InputGroup = ({
   onFocus,
   onKeyPress,
   disabled,
+  mainWidth,
   ...props
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -344,14 +345,14 @@ export const InputGroup = ({
       {props.label && (
         <p className="sc-body-md dropdown-lable">{props.label}</p>
       )}
-      <div className="input-group srchdrp focus-outline">
+      <div className="input-group srchdrp focus-outline" style={{width: mainWidth}}>
         <div>
           {" "}
           <Select
             disabled={props.isDisabled}
             // width={props.selectWidth}
             optionFilterProp="children"
-            value={selectedOption || props.value}
+            value={selectedOption || props.drpValue}
             key={selectedOption}
             filterOption={(input, option) => {
               const labelMatches = (option?.label ?? "")
