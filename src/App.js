@@ -64,6 +64,7 @@ import Bills from './components/Purchase/Bills/Bills';
 import PrivateRoutes from './Authentication/PrivateRoutes';
 import PreviewSalesOrder from './components/Sales/SalesOrder/PreviewSalesOrder/PreviewSalesOrder';
 import { useEffect, useState } from 'react';
+import ContactPreview from './components/Contacts/ContactPreview/ContactPreview';
 
 function App() {
 const [isLogin,setIsLogin] = useState(false)
@@ -186,6 +187,7 @@ const [logout,setLogout] = useState(true)
           <Route path="purchase/purchase_order/add_purchase" element={<PurchaseOrder/>}/>
           <Route path="bills/bills_order" element={<BillsData/>}/>
           <Route path="bills/bills_order/add_bills" element={<Bills/>}/>
+          <Route path="contact_preview" element={<ContactPreview />}/>
 
       </Route>
       <Route path="/login" element={<LoginPage onLogin={OnLogin}/>}/>

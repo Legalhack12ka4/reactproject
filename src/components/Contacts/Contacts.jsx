@@ -1195,6 +1195,7 @@ const handleleadpopover= () =>
                 onBlur={handleBlur}/> */}
                 <InputGroup
                   width={98}
+                  inputWidth={232}
                   options={countryCodes}
                   label="Phone"
                   type="number"
