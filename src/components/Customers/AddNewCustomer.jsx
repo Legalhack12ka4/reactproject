@@ -48,6 +48,7 @@ const initialFieldValues = {
   ownership: "",
   area:"",
   commission:"",
+  type:"",
 };
 
 const resetValue = {
@@ -71,56 +72,25 @@ const resetValue = {
   area:"",
   type:"",
   commission:"",
+  country:","
 };
 
 function AddNewCustomer(props) {
   const [formData, setFormData] = useState(resetValue);
-  const [customer, setCustomer] = useState([]);
   const [payment, setPayment] = useState([]);
   const [currencydrp, setCurrencydrp] = useState([]);
   const [pos, setPos] = useState([]);
   const [contact, setContact] = useState([]);
-  const [gstnoErr, setGstnoErr] = useState({});
-  const [area, setArea] = useState([]);
   const [gno, setGno]= useState([]);
-  const [city, setCity] = useState([]);
-  const [statedrp, setStatedrp] = useState([]);
   const [creditAmount, setCreditAmount] = useState('');
   const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
   const [creditBox, setCreditBox] = useState(false);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   //const [pincode, setPincode]= useState([])
-  const [commission, setCommission]= useState([])
-  //addresss states
-
+  const [commission, setCommission]= useState([]);
+  const [customerType, setCustomerType] = useState([]);
+  const [pincodeArea, setPincodeArea] = useState([]);
   
-
-  const [gst, setGst] = useState(false);
-   //let gstinparams = customer.gstin;
-
-//special character validation
-
-// const handleInputChange = (evt, property) => {
-//   let newValue = evt.target.value;
-
-//   if (property === 'gstin') {
-//     newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
-//   } 
-//   if (property === 'businessname') {
-//     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-//     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
-//   }
-//   if (property === 'pancard') {
-//     newValue = newValue.replace(/[^a-zA-Z\d\s]/g, "");
-//   } 
-//   if (property === 'email') {
-//     newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
-//   }
-//   setFormData(prevState => ({
-//     ...prevState,
-//     [property]: newValue
-//   }));
-// };
 
  //cofirmation modal 
  const handleConfirmData = () => {
@@ -146,25 +116,68 @@ const handleCancel = () => {
 };
 
 
+//customer type data
 
-// const getGst = (gstin) => {
-//   axios.get(
-//     `https://erp.automode.ai/backend/gstin?gst_no=24AADCS3456Q1ZW`,
-//   )
-//     .then((response) => {
-//       return response.json();
-//     })
-//     .then((data) => {
-//       setGno(data);
-//       console.log("data", data);
-//       console.log(data)
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+useEffect(() => {
+  getCustomerType();
+}, []);
 
-    
+const getCustomerType = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setCustomerType(data);
+      console.log(data);
+    });
+};
+
+
+const getcustomertypedata = customerType
+.filter((place) => place.field === "c_type" && place.module === "Customer")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+console.log(getcustomertypedata)
+
+    //match pincode with gstin
+
+    const getPincodeArea = (pincode) =>
+    {
+      axios.get(
+        `https://erp.automode.ai/backend/pincode?pincode=${pincode}`
+    )  .then((response) => {
+      return response;
+    })
+    .then((data) => {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+     country:data.data.data[0].country
+
+      }));
+      setPincodeArea(data.data.data)
+    console.log(data)
+    console.log(data.data.data.country)
+    console.log(data.data.data[0].country)
+  });
+};
+
+const getPincodeAreaData = pincodeArea.map((pin) => ({
+  key:pin.id,
+   label: pin.office_name,
+   value: pin.office_name,
+ }));
+
+ console.log(getPincodeAreaData)
+ 
+
+useEffect(() => {
+  getPincodeArea(formData.pincode);
+
+}, [formData.pincode]);
+
+
 
   const getData = (gstin) => {
    
@@ -181,9 +194,8 @@ const handleCancel = () => {
           ...prevFormData,
           businessname:  data.data.data.lgnm ,
          pincode:data.data.data.pradr.addr.pncd,
-         area:data.data.data.pradr.addr.loc,
-         street1:data.data.data.pradr.addr.bnm,
-         street2:data.data.data.pradr.addr.flno,
+         street1: `${data.data.data.pradr.addr.flno}, ${data.data.data.pradr.addr.bno}, ${data.data.data.pradr.addr.bnm}`,
+         street2:data.data.data.pradr.addr.st,
          city:data.data.data.pradr.addr.dst,
          state:data.data.data.pradr.addr.stcd,
 
@@ -191,13 +203,6 @@ const handleCancel = () => {
       }
         setGno(data);
         console.log("data", data);
-       // console.log(data.data.data.lgnm)
-        // console.log("Pincode:-",data.data.data.pradr.addr.pncd)
-        // console.log("Area:-",data.data.data.pradr.addr.loc)
-        // console.log("Street1:-",data.data.data.pradr.addr.bnm)
-        // console.log("Street2:-",data.data.data.pradr.addr.flno)
-        // console.log("City:-",data.data.data.pradr.addr.dst)
-        // console.log("State:-",data.data.data.pradr.addr.stcd)
         console.log(data)
       });
   };
@@ -221,6 +226,8 @@ const handleCancel = () => {
         // console.log(data);
       });
   };
+
+ 
 
   //Dropdown Contact
   const getContact = () => {
@@ -262,10 +269,6 @@ const commissiondata = commission.map((curr) => ({
   value: curr.terms,
 }));
 
-const type=[
-  {value:1, label:"Customer"},
-  {value:2, label:"Vendor"},
-]
 
   //Dropdown Place of supply
 
@@ -282,7 +285,7 @@ const type=[
   useEffect(() => {
     getDataPaymentTerms();
     getDataCuurrency();
-    getArea();
+   
     getContact();
     getDataPos();
    getData();
@@ -299,46 +302,15 @@ ChildStateModificationFunc = (modVal)=>{
       .post(
         `${config.baseUrl}/customervendor/`,
         {
-       
-        //   gst_no: formData.gstin,
-        //   business_name: formData.businessname,
-       
-        //   pan_card: formData.pancard,
-      
-        //   credit_limit: formData.credit,
-        //   email: formData.email,
-        //   pincode: formData.pincode,
-        //   street1: formData.street1,
-        //   street2: formData.street2,
-        //   "place_of_supply": 1,
-        //   "contact": 1,
-        //   "ownership": 1,
-        //   "is_active": true,
-        //   "is_deleted": false,
-        //   "type": 2,
-        // "type_category": 7,
-        // "payment_terms": 2,
-        //  currency:formData.currency,
-        // "ownership": 1,
-        // "gst_treatment": 1,
-        // "place_of_supply": 2,
-        // "contact": 4,
-        // "company_id": 1,
-        // "created_by": 1,
-        // "updated_by": 1
 
         "Initiallitemrow": [
           {
-             // "id": 1,
-              "country": "India",
-              // "is_active": true,
-              // "is_deleted": false,
-              // "updated_date_time": "2022-12-30T13:37:00Z",
-              "customer_ref": 2,
+             "street1": formData.street1,
+             "street2": formData.street2,
+              "country": formData.country,
               "category": 1,
               // "type": 10,
-           //   "pincode": formData.pincode,
-              "pincode":1,
+              "pincode":formData.area,
               "company_id": 1,
               "created_by": 1,
               "updated_by": 1
@@ -352,9 +324,8 @@ ChildStateModificationFunc = (modVal)=>{
       "tcs": false,
       "tan_no":formData.pancard,
       "credit_limit":formData.credit,
-      
       "type": 1,
-      "type_category": 1,
+      "type_category": formData.type,
       "registration_type": formData.gsttreat,
       "payment_terms": formData.payment,
       "currency": formData.currency,
@@ -366,8 +337,6 @@ ChildStateModificationFunc = (modVal)=>{
       "company_id": 1,
       "created_by": 1,
       "updated_by": 1
-
-
         },
         formData
       )
@@ -390,23 +359,12 @@ ChildStateModificationFunc = (modVal)=>{
 
   const onChange = (e) => {
     const { value, name } = e.target;
-
     setCreditAmount(e.target.value);
-
     setFormData({ ...formData, [name]: value });
-
-    // if (name === "city") {
-    //   formData.city(city);
-    // } else if (name === "state") {
-    //   formData.state(statedrp);
-    // }
-
-    
     console.log(value);
     console.log(name);
     
   };
-  console.log(formData);
 
   const handleClose = () => {
     window.history.back(-1);
@@ -414,42 +372,6 @@ ChildStateModificationFunc = (modVal)=>{
   };
   // form Validation
 
-  const getArea = (pincode) => {
-  return fetch(`${config.baseUrl}/pincode?pincode=${pincode}`)
-    //return fetch(`https://api.postalpincode.in/pincode/${pincode}`)
-    
-      .then((response) => response.json())
-      .then((data) => {
-        setArea(data);
-
-        if(data.status == "Success")
-        {
-       //   alert(data.status)
-        setStatedrp(data.data[0].state_name);
-
-        setCity(data.data[0].district);
-      }
-      if(data.status == "Pincode Not Available")
-      {
-    //   alert(data.status)
-        setStatedrp("");
-        setCity("");
-    }
-       
-    console.log(setStatedrp(data.data[0].state_name))
-    console.log(setCity(data.data[0].district))
-      
-});
-  };
-  console.log(area);
-
-  const handlePincode = (e) => {
-    //setPincode(e.target.value)
-    console.log("Pincode value", e.target.value);
-    getArea(e.target.value);
-    formData.city="xyz";
-    //alert("Blur");
-  };
 
   const {
     errors,
@@ -508,6 +430,26 @@ const handleDrpChangeCommission = (field, value) => {
   console.log(value);
 };
 
+const handleDrpChangePincode = (field, value) => {
+  const selectedOption = getPincodeAreaData.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, area: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangeCustomer = (field, value) => {
+  const selectedOption = getcustomertypedata.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, type: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
 
 
 //gstin data get
@@ -560,20 +502,7 @@ useEffect(() => {
     label: place.state_name,
     value: place.id,
   }))
-  const typeCategory = [
-    {
-      value: "Wholesalar",
-      label: "Wholesalar",
-    },
-    {
-      value: "Retailer",
-      label: "Retailer",
-    },
-    {
-      value: "Manufacturing",
-      label: "Manufacturing",
-    },
-  ];
+  
   const gsttreatment = [
     {
       value: 1,
@@ -933,20 +862,6 @@ useEffect(() => {
       }
   }
 
-//   const token = localStorage.getItem("jwt")
-//   let loggedIn= true
-//   if(token == null)
-//   {
-//     localStorage.removeItem("jwt");
-//     loggedIn = false
-//   }
-//  // Details={loggedIn}
-
-// if(loggedIn == false)
-// {
-//   localStorage.removeItem("jwt");
-//   return <Navigate to="/"/>
-// }
 
 
 
@@ -1043,11 +958,16 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Customer Type"
-                 options={type}
-                value={formData.type}
-                 onChange={handleDrpChange}
+                 options={getcustomertypedata}
+                 value={
+                  getcustomertypedata.find(
+                    (option) =>
+                      option.key === formData.type && option.label
+                  )?.label
+                }
+                 onChange={handleDrpChangeCustomer}
                  name="type"
-                 error={errors.currency && touched.currency ? true : false}
+                 error={errors.type && touched.type ? true : false}
                  errorMsg="Customer Type is required"
               />
               <SearchSelect 
@@ -1220,8 +1140,23 @@ useEffect(() => {
 
 
               <div className="form_field field10" style={{ gridRowStart: 3, gridColumnStart: 2}}>
-              
-              <CustomInput 
+              <SearchSelect 
+              width={330}
+              placeholder="Area"
+              name="area"
+              options={getPincodeAreaData}
+              value={
+                getPincodeAreaData.find(
+                  (option) =>
+                    option.key === formData.area && option.label
+                )?.label
+              }
+              onChange={handleDrpChangePincode}
+              label="Area"
+              error={!formData.area && errors.area && touched.area ? true : false}
+              errorMsg={!formData.area && errors.area}
+              />
+              {/* <CustomInput 
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
                 placeholder="Placeholder"
@@ -1235,7 +1170,7 @@ useEffect(() => {
                 label="Area"
                 error={!formData.area && errors.area && touched.area ? true : false}
                 errorMsg={!formData.area && errors.area}
-              />
+              /> */}
               
               </div>
               <div className="form_field field11" style={{ gridRowStart:4 , gridColumnStart: 2}}>
@@ -1315,7 +1250,7 @@ useEffect(() => {
                type="text"
                style={{ border: "none", outline: "none", width: "82%" }}
                name="state"
-              // value={statedrp}
+             value={formData.country}
                disabled={true}
                 width={155}
                 label="Country"
@@ -1324,17 +1259,8 @@ useEffect(() => {
             />
               
                 </div>
-              </div>
-
-
-
-              
-              
+              </div> 
             </div>
-
-            
-
-            
             <div className="customerbutton_bottom">
                   <ContainedButton type="submit" value={formData.id ? "Update" : "Save"} onClick={() => {handleFormSubmit()}} />
                   <ContainedSecondaryButton value="Cancel" onClick={(e)=>{handleConfirmData()}} />
