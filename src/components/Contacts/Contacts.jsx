@@ -392,49 +392,7 @@ function Contacts(props) {
   const [showPopover, setShowPopover] = useState(false);
   const [formDataPosition, setFormDataPosition] = useState(resetValuePosition);
   const [formDataLead, setFormDataLead] = useState(resetValueLead);
-  //const [addSouce, setAddSource] = useState([]);
-  // const [selectedCode, setSelectedCode] = useState(countryCodes[0].code);
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  //special character validation
-  // const handleInputChange = (evt, property) => {
-  //   let newValue = evt.target.value;
-
-  //   if (property === 'name') {
-  //     newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
-  //     newValue = newValue.replace(/[^a-zA-Z\s]/g, "");
-  //   }
-  //   if (property === 'email') {
-  //     newValue = newValue.replace(/[^a-zA-Z@\d\s._-]/g, "");
-  //   }
-
-  //   setFormData(prevState => ({
-  //     ...prevState,
-  //     [property]: newValue
-  //   }));
-  // };
-
-  // const handleNameChange = evt => {
-  //   const newName = evt.target.value.replace(/[^a-zA-Z\s.]/g, "");
-  // //  const newEmail = evt.target.value.replace(/[^a-zA-Z@\d\s._-]/g, "");
-  //   setFormData(prevState => ({
-  //     ...prevState,
-  //     name: newName,
-  //    // email: newEmail
-  //   }));
-  // };
-  // const handleEmailChange = evt => {
-  // //  const newName = evt.target.value.replace(/[^a-zA-Z\s.]/g, "");
-  //   const newEmail = evt.target.value.replace(/[^a-zA-Z@\d\s._-]/g, "");
-  //   setFormData(prevState => ({
-  //     ...prevState,
-  //    // name: newName,
-  //     email: newEmail
-  //   }));
-  // };
+  
 
   ChildStateModificationFunc = (modVal) => {
     setFormData(modVal);
