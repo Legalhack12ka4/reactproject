@@ -26,6 +26,7 @@ import format from "date-fns/format";
 import { ToggleButton } from "../../Buttons/Button";
 // import Cookies from 'js-cookie';
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
+import ContactPreview from "../ContactPreview/ContactPreview"
 
 
 const filterfield = {
@@ -64,8 +65,10 @@ const ContactsData = (props) => {
   const [enddate, setEnddate] = useState([]);
   const [activeMode, setActiveMode] = useState("table");
   const [status, setStatus] = useState([]);
+  const [selectedContactId, setSelectedContactId] = useState(null);
 
- 
+
+ console.log(selectedContactId);
 //daterangefunction
 
 const filterdaterange = (date) =>
@@ -387,6 +390,9 @@ const deleteUser = (record)=>
 
 //get form data
 
+const handleNameClick = () => {
+  // Code to open the other component goes here
+};
 
 
 
@@ -432,7 +438,7 @@ const deleteUser = (record)=>
             <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
             </div>
-            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name-h1 sc-body-md" style={{fontSize:"", color:"#465468 !important"}}>{record.name}</p>
+            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name-h1 sc-body-md" style={{fontSize:"", color:"#465468 !important"}} ><Link to={`/contact_preview/${record.id}`}>{record.name}</Link></p>
             <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
               {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
               <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.position}</p></div></div></span>
@@ -927,7 +933,6 @@ setoldData(oldData)
   return (
     <div className="contacts-data fixed_heading_container" >
       <Page_heading dataLength={cusomizeData.length} parent={"Business Account"} child={"contacts"}/>
-
       {activeMode === "table" && 
       <div className="contacts-table-container">
         <div className="filter-searchbar-container">
