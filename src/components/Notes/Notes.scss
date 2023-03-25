@@ -51,19 +51,29 @@
             box-shadow: 0px 2px 6px 0px #4359711f;
             border-radius: 6px;
             overflow: hidden;
+            margin-bottom: 20px;
         .note{
             display: flex;
             justify-content: space-between;
             background-color: #fff;
-            padding: 14px 20px;
+            padding: 10px 20px;
+            cursor: pointer;
             // border-radius: 6px;
             // box-shadow: 0px 2px 6px 0px #4359711f;
+            transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
             .right-container{
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                .active{
+                    transform: rotate(90deg);
+                    transition: all 0.3s ease-in-out;
+                }
                 img{
-                    cursor: pointer;
+
+                    transform: rotate(0deg);
+                    transition: all 0.3s ease-in-out;
                 }
 
                 .note-icon{

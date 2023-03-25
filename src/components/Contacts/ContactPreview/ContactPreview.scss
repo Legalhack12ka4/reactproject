@@ -82,7 +82,7 @@
 
         .table-container{
             // height: 629px;
-            width: 56.5vw;
+            width: 100%;
             max-width: 1860px;
             // width: 843px;
             // max-width: 1186px;
@@ -97,6 +97,7 @@
 
                 .tab-btn{
                     padding: 11px 20px;
+                    cursor: pointer;
                 }
                 .active{
                     padding: 12px 24px 11px 22px;

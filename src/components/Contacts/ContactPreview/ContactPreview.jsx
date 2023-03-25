@@ -62,6 +62,7 @@ const ContactPreview = () => {
   const [cusvenPayment, setCusVenPayment] = useState([]);
   const [cusvenPincode , setCusVenPincode] = useState([])
   const [singleAddress, setSingleAddress] = useState([]);
+  const [createNoteActive, setCreateNoteActive] = useState(false);
 
 
 
@@ -713,10 +714,17 @@ const dataSource=[
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
+
+  const createNoteFalse = () => {
+    setCreateNoteActive(false);
+  };
   return (
 
     <div className='contact-preview-main'>
       <Page_heading  parent={"Business Account"} child={"Contact Details"} subchild={(<Link exact to= "/contacts">{"Contact"}</Link>)} addEditBtn={activeTab === "attachments" ?<div className="d-flex align-center gap-10">
+        <div className="d-flex gap-8 align-center" style={{borderRight:"1px solid #CBD5E0", height:"30px", paddingRight:"10px",cursor:"pointer"}}><img src="/images/icons/delete-prmry-icon.svg" alt="" /> <p className="sc-body-sb" style={{color:"#5C5AD0"}}>Delete</p></div>
+        <ContainedIconButton value={"Edit"} icon="/images/icons/edit-white-icon.svg" />
+      </div>:activeTab === "notes" ? <div className="d-flex align-center gap-10">
         <div className="d-flex gap-8 align-center" style={{borderRight:"1px solid #CBD5E0", height:"30px", paddingRight:"10px",cursor:"pointer"}}><img src="/images/icons/delete-prmry-icon.svg" alt="" /> <p className="sc-body-sb" style={{color:"#5C5AD0"}}>Delete</p></div>
         <ContainedIconButton value={"Edit"} icon="/images/icons/edit-white-icon.svg" />
       </div>:""}/>
@@ -797,7 +805,8 @@ const dataSource=[
 
           {<div className="table-header">
             <h1 className='title-sb'>{activeTab === "related_account" ? "Related Accounts":activeTab === "analytics" ? "Analytics":activeTab === "notes" ?"Notes":activeTab === "attachments" ? "Attachment":activeTab === "timeline" && "Timeline"} <span className='account-count'>(4)</span></h1>
-            <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p>
+            {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
+            {activeTab === "related_account" ? <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>+ Assign Account</p>:activeTab === "notes" ? <p className='sc-body-sb assign-account-btn' onClick={()=>setCreateNoteActive(true)} >+ Add Notes</p>: activeTab === "attachments" ? <p className='sc-body-sb assign-account-btn d-flex align-center' onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</p> :""}
           </div>}
 
           {activeTab === "related_account" && 
@@ -1198,7 +1207,7 @@ const dataSource=[
       </div>
 }
 {activeTab === "attachments" && <AttachmentFile /> }
-{activeTab === "notes" && <Notes /> }
+{activeTab === "notes" && <Notes createNoteActive={createNoteActive} createNoteFalse={createNoteFalse}  /> }
 <Modal
         open={attachmentsModal}
         //   onOk={handleMaterialOk}
@@ -1239,13 +1248,17 @@ const dataSource=[
                     fileList={fileList}
                     onChange={onChange}
                   >
-                   <div style={{padding:"45px 58px", border:"1.5px dashed #CBD5E0",borderRadius:"6px",width:"214px", textAlign:"center",display:"flex",flexDirection:"column", alignItems:"center"}}>
+                   <div style={{padding:"45px 58px", border:"1.5px dashed #CBD5E0",borderRadius:"6px",width:"214px", textAlign:"center",display:"flex",flexDirection:"column", alignItems:"center",marginBottom:"20px"}}>
                     <img src="/images/icons/add-image-icon.svg" alt="icon" className="mb-10"/>
                     <p className="mb-10 sc-body-sb">Drop files here or click to upload</p>
                     <p className="caption-md" style={{maxWidth:"160px"}}>You Can add up to <span className="caption-sb" style={{color:"#465468"}}>6 Images</span> each not exceeding <span className="caption-sb" style={{color:"#465468"}}>1 MB.</span></p>
                    </div>
                   </Upload>
             <CustomInput width={330} label="Attachment Name" placeholder="Name"/>
+            <div className="btn-container d-flex mt-30 gap-16">
+              <ContainedButton value="Upload" />
+              <ContainedSecondaryButton value="Cancel" onClick={handleCancel}/>
+            </div>
             </div>
         </div>
        }

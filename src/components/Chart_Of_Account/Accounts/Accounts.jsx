@@ -260,6 +260,8 @@ console.log(chartOfAccountSchema)
         console.log(data);
       });
   };
+
+ 
   const groupedData = groups.reduce((acc, curr) => {
     if (!acc[curr.reporting_l1]) {
       acc[curr.reporting_l1] = [];
@@ -269,6 +271,8 @@ console.log(chartOfAccountSchema)
     }
     return acc;
   }, {});
+
+
 
   // const options = Object.keys(groupedData).map((key) => (
   //   <OptGroup label={key} key={key.id}>
@@ -761,7 +765,7 @@ console.log(chartOfAccountSchema)
 
                
 
-                <SearchSelect 
+                {formData.account_type ? <SearchSelect 
                 width={330}
                 name="reporting"
                 label="Sub Type"
@@ -771,6 +775,7 @@ console.log(chartOfAccountSchema)
                 options={formData.account_type && reporting3}
                 error={errors.reporting && touched.reporting ? true : false}
                 errorMsg="Sub Type is required" />
+                :<SearchSelect width={330} isDisabled label="Sub Type" />}
 {/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
