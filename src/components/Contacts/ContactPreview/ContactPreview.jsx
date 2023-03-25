@@ -1,7 +1,7 @@
 import { React, useState, useRef } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
-import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal, Typography } from "antd";
+import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal, Typography, Upload } from "antd";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
@@ -16,6 +16,9 @@ import { Link, useParams } from "react-router-dom";
 import config from "../../Database/config";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
 import { ContainedButton, ContainedSecondaryButton } from "../../Buttons/Button";
+import { ContainedIconButton, GhostIconButton } from "../../Buttons/Button";
+import CustomInput from "../../CustomInput/CustomInput";
+import Notes from "../../Notes/Notes";
 
 
 const filterfield = {
@@ -42,7 +45,9 @@ const ContactPreview = () => {
   const [other, setOther] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
-  const [activeTab, setActiveTab] =useState("attachments")
+  const [activeTab, setActiveTab] =useState("related_account")
+  const [attachmentsModal, setAttachmentsModal] = useState(false)
+  const [fileList, setFileList] = useState([]);
   const [getContact, setGetContact] = useState([])
   const [status, setStatus] = useState([]);
   const [addlead, setAddLead] = useState([]);
@@ -70,6 +75,7 @@ const handleCancel = () => {
     setSalesOrderModal(false);
   //  window.history.back(-1);
   }
+  setAttachmentsModal(false);
 };
 
 const handleSubmit = () => {
@@ -702,10 +708,18 @@ const dataSource=[
     }
   }  
 
+ 
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
   return (
 
     <div className='contact-preview-main'>
-      <Page_heading  parent={"Business Account"} child={"Contact Details"} subchild={(<Link exact to= "/contacts">{"Contact"}</Link>)}/>
+      <Page_heading  parent={"Business Account"} child={"Contact Details"} subchild={(<Link exact to= "/contacts">{"Contact"}</Link>)} addEditBtn={activeTab === "attachments" ?<div className="d-flex align-center gap-10">
+        <div className="d-flex gap-8 align-center" style={{borderRight:"1px solid #CBD5E0", height:"30px", paddingRight:"10px",cursor:"pointer"}}><img src="/images/icons/delete-prmry-icon.svg" alt="" /> <p className="sc-body-sb" style={{color:"#5C5AD0"}}>Delete</p></div>
+        <ContainedIconButton value={"Edit"} icon="/images/icons/edit-white-icon.svg" />
+      </div>:""}/>
 
       <div className="card-table-container">
         <div className="card-container">
@@ -783,7 +797,7 @@ const dataSource=[
 
           {<div className="table-header">
             <h1 className='title-sb'>{activeTab === "related_account" ? "Related Accounts":activeTab === "analytics" ? "Analytics":activeTab === "notes" ?"Notes":activeTab === "attachments" ? "Attachment":activeTab === "timeline" && "Timeline"} <span className='account-count'>(4)</span></h1>
-            <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span></span> :""}</p>
+            <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p>
           </div>}
 
           {activeTab === "related_account" && 
@@ -1006,6 +1020,8 @@ const dataSource=[
         </div>
       </Modal>
 
+     
+
       <Modal
         open={salesOrderModal}
         //   onOk={handleMaterialOk}
@@ -1060,6 +1076,7 @@ const dataSource=[
                 <p className="subtitle-sb">Fixed Assets</p>
               </div>
             </div>
+          {activeTab === "notes" && <Notes />}
 
             </div>
         </div>: */}
@@ -1070,6 +1087,8 @@ const dataSource=[
               Choose customer account by considering the details
             </p>
             <hr className="h-line" />
+          
+
 
             <SearchSelect
               width={381}
@@ -1178,6 +1197,60 @@ const dataSource=[
         </div>
       </div>
 }
+{activeTab === "attachments" && <AttachmentFile /> }
+{activeTab === "notes" && <Notes /> }
+<Modal
+        open={attachmentsModal}
+        //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleCancel}
+        style={{ top: 0, height: "auto", }}
+        className={"sales-order-modal"}
+        footer={false}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+        {
+          <div className="sales-order-modal-container">
+          <div className="sales-type-container">
+            <h1 className="heading-sb">New Attachment</h1>
+            <p className="sc-body-rg mt-10 title">
+              Attach Document
+            </p>
+            <hr className="h-line" />
+            <Upload
+                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                    fileList={fileList}
+                    onChange={onChange}
+                  >
+                   <div style={{padding:"45px 58px", border:"1.5px dashed #CBD5E0",borderRadius:"6px",width:"214px", textAlign:"center",display:"flex",flexDirection:"column", alignItems:"center"}}>
+                    <img src="/images/icons/add-image-icon.svg" alt="icon" className="mb-10"/>
+                    <p className="mb-10 sc-body-sb">Drop files here or click to upload</p>
+                    <p className="caption-md" style={{maxWidth:"160px"}}>You Can add up to <span className="caption-sb" style={{color:"#465468"}}>6 Images</span> each not exceeding <span className="caption-sb" style={{color:"#465468"}}>1 MB.</span></p>
+                   </div>
+                  </Upload>
+            <CustomInput width={330} label="Attachment Name" placeholder="Name"/>
+            </div>
+        </div>
+       }
+        
+      </Modal>
   
 
           </div>

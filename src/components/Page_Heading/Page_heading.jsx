@@ -8,7 +8,7 @@ import home from "../../assets/Images/FilterIcon/Icon.svg"
 import { GoPlus } from "react-icons/go";
 
 
-const Page_heading = ({ parent, child, subchild, main , props, dataLength }) => {
+const Page_heading = ({ parent, child, subchild, main , props, dataLength, addEditBtn }) => {
 
 
 
@@ -56,7 +56,9 @@ const Page_heading = ({ parent, child, subchild, main , props, dataLength }) => 
       <input type="text" name="" id="" />
       <ImCross className="searchbar-cross" onClick={searchbarOn} color={"gray"} size={12} />
     </div>
-
+    {addEditBtn && <div className="add-edit-btn">
+    {addEditBtn}
+    </div>}
     </div>
   </>
   );
