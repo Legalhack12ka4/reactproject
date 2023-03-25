@@ -1,0 +1,41 @@
+@import '../../assets/Colors/Colors.scss';
+
+.attachment-files-container{
+    // border: 1px solid;
+    display: flex;
+    gap: 30px;
+
+    .attachment-file{
+        border: 1px solid $neutrals-800;
+        border-radius: 6px;
+        // padding: 2px;
+        overflow: hidden;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        
+        .attachment-preview{
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background-color: #ffff;
+            img{
+                width: 260px;
+            }
+        }
+
+        .file-details{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 20px 10px 10px 10px;
+            background-color: $neutrals-900;
+
+            .attachment-file-created{
+                color: $neutrals-600;
+            }
+        }
+    }
+}

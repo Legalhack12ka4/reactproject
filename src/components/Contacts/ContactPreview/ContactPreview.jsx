@@ -48,6 +48,7 @@ import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import "./ContactPreview.scss"
+import AttachmentFile from "../../AttachmentFile/AttachmentFile";
 
 
 const filterfield = {
@@ -74,7 +75,7 @@ const ContactPreview = () => {
   const [other, setOther] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
-  const [activeTab, setActiveTab] =useState("related_account")
+  const [activeTab, setActiveTab] =useState("attachments")
   
 //for modal delete
 
@@ -489,12 +490,12 @@ const dataSource=[
             <div className={`tab-btn sc-body-md ${activeTab=== "timeline" && "active"}`} onClick={()=>setActiveTab("timeline")}>Timeline</div>
           </div>
 
-          <div className="table-header">
-            <h1 className='title-sb'>Related Accounts <span className='account-count'>(4)</span></h1>
-            <p className='sc-body-sb assign-account-btn'>+ Assign Account</p>
-          </div>
+          {<div className="table-header">
+            <h1 className='title-sb'>{activeTab === "related_account" ? "Related Accounts":activeTab === "analytics" ? "Analytics":activeTab === "notes" ?"Notes":activeTab === "attachments" ? "Attachment":activeTab === "timeline" && "Timeline"} <span className='account-count'>(4)</span></h1>
+            <p className='sc-body-sb assign-account-btn'>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span></span> :""}</p>
+          </div>}
 
-          <div className="contact-preview-table-container">
+          {activeTab === "related_account" && <div className="contact-preview-table-container">
       <div className="filter-searchbar-container">
         <FilterAndSearchBar
           getPopupContainer={(trigger) => trigger.parentElement} 
@@ -713,7 +714,9 @@ const dataSource=[
         </div>
       </Modal>
         </div>
-      </div>
+          </div>}
+
+          {activeTab === "attachments" && <AttachmentFile />}
 
           
         </div>
