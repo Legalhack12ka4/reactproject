@@ -438,7 +438,7 @@ const handleNameClick = () => {
             <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
             </div>
-            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name-h1 sc-body-md" style={{fontSize:"", color:"#465468 !important"}} ><Link to={`/contact_preview/${record.id}`} style={{textDecoration:"none"}}>{record.name}</Link></p>
+            <span style={{ marginLeft: 8 }}><div style={{ maxWidth: '180px' }}><p className="contact-name-h1 sc-body-md" style={{fontSize:"", color:"#465468 !important"}} ><Link to={`/contact_preview/${record.id}`} style={{color:"#5C5AD0"}}>{record.name}</Link></p>
             <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
               {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
               <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.position}</p></div></div></span>
