@@ -1,0 +1,8 @@
+<svg id="Analystics" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="Rectangle_17852" data-name="Rectangle 17852" width="19.998" height="19.998" fill="none"/>
+  <g id="Group_44952" data-name="Group 44952" transform="translate(0.002 0.002)">
+    <g id="bx-chart" transform="translate(2 2)">
+      <path id="Union_41" data-name="Union 41" d="M1.775,16A1.779,1.779,0,0,1,0,14.218V1.775A1.778,1.778,0,0,1,1.775,0H14.217A1.779,1.779,0,0,1,16,1.775V14.218A1.78,1.78,0,0,1,14.217,16Zm0-1.779H14.222l0-12.444H1.775Zm1.872-3.953L5.821,5.92,9.378,7.694l1.378-2.759,1.589.8-2.175,4.346L6.618,8.3,5.235,11.063Z" transform="translate(0 0)" fill="#64748b"/>
+    </g>
+  </g>
+</svg>
