@@ -2,9 +2,9 @@ import {
   Button,
   Modal,
   Popover,
-  Select,
   Space,
   Spin,
+  Select,
   Table,
   Typography,
 } from "antd";
@@ -67,6 +67,69 @@ function Accounts() {
   const [loading, setloading] = useState(true);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   const [open, setOpen] = useState(false);
+
+
+
+
+
+const [data, setData] = useState([]);
+  const [l1Options, setL1Options] = useState([]);
+  const [l2Options, setL2Options] = useState([]);
+  const [l3Options, setL3Options] = useState([]);
+  const [selectedL2, setSelectedL2] = useState(null);
+  const [selectedL3, setSelectedL3] = useState(null);
+
+  useEffect(() => {
+    const uniqueL1 = [...new Set(data.map((item) => item.reporting_l1))];
+    const groupedL2Options = uniqueL1.map((l1) => {
+      const l2Items = data
+        .filter((item) => item.reporting_l1 === l1)
+        .map((item) => ({
+          value: item.reporting_l2,
+          label: item.reporting_l2,
+          l1: l1
+        }));
+
+      const uniqueL2Items = l2Items.reduce((accumulator, current) => {
+        if (!accumulator.find((item) => item.label === current.label)) {
+          accumulator.push(current);
+        }
+        return accumulator;
+      }, []);
+
+      return {
+        label: l1,
+        options: uniqueL2Items
+      };
+    });
+    setL1Options(groupedL2Options);
+  }, [data]);
+
+  useEffect(() => {
+    if (selectedL2) {
+      const l3Items = data
+        .filter((item) => item.reporting_l2 === formData.account_type)
+        .map((item) => ({
+          value: item.reporting_l3,
+          label: item.reporting_l3
+        }));
+      setL3Options(l3Items);
+    }
+  }, [selectedL2, data]);
+
+
+  console.log("l1Options", l1Options);
+  console.log("l3Options", l3Options);
+
+
+
+
+
+
+
+
+
+
 
  //special character validation
  const handleInputChange = (evt, property) => {
@@ -218,6 +281,8 @@ console.log(chartOfAccountSchema)
     setFormData({ ...formData, account_type: value });
     setFieldValue("account_type", value.value);
     setFieldTouched("account_type", false);
+    setSelectedL2(value);
+    setSelectedL3(null);
     console.log(field);
     console.log(value);
   };
@@ -229,6 +294,7 @@ console.log(chartOfAccountSchema)
 
   const handleDrpChangel3 = (field, value) => {
     const selectedOption = reporting3.find((option) => option.value === value);
+    setSelectedL3(null)
     setFormData({
       ...formData,
       [field]: value,
@@ -250,13 +316,12 @@ console.log(chartOfAccountSchema)
   console.log(formData);
   const getReporting = () => {
     return fetch(
-      `${config.baseUrl}/reporting/?company_id=1${
-        formData.account_type && `&reporting_l2=${formData.account_type}`
-      }`
+      `${config.baseUrl}/reporting/?company_id=1`
     )
       .then((response) => response.json())
       .then((data) => {
         setGroups(data);
+        setData(data);
         console.log(data);
       });
   };
@@ -627,6 +692,7 @@ console.log(chartOfAccountSchema)
 //   localStorage.removeItem("jwt");
 //   return <Navigate to="/"/>
 // }
+console.log(selectedL3)
 
   return (
     <div className="account-data fixed_heading_container">
@@ -641,7 +707,7 @@ console.log(chartOfAccountSchema)
           onData={handleData}
         />
         </div>
-        <Modal
+       {isModalOpen && <Modal
           title="Create Account"
           open={isModalOpen}
           onOk={handleConfirmDataClose}
@@ -745,37 +811,68 @@ console.log(chartOfAccountSchema)
 
               </div> */}
 
+
+
+
+                    {/* <Select
+                      options={l1Options}
+                      value={selectedL2}
+                      onChange={handleDrpChange}
+                      // onChange={(selectedOption) => {
+                      //   setSelectedL2(selectedOption);
+                      //   setSelectedL3(null);
+                      // }}
+                      isOptionDisabled={(option) => option.l1 === undefined}
+                    />
+
+                    <Select
+                      options={l3Options}
+                      value={selectedL3}
+                      onChange={(selectedOption) => setSelectedL3(selectedOption)}
+                      isDisabled={!selectedL2}
+                    /> */}
+
+
+
+
+
               <CategorySelect 
                width={330}
                name="account_type"
                label="Type"
-               value={formData.account_type || undefined}
+              //  value={formData.account_type || undefined}
                onChange={handleDrpChange}
-               onFocus={() =>
-                 setFormData((value) => ({
-                   ...value,
-                   account_type: "",
-                   reporting: "",
-                 }))
-               }
-               options={groupedData}
+              // value={selectedL2}
+                      // onChange={(selectedOption) => {
+                      //   setSelectedL2(selectedOption);
+                      //   setSelectedL3(null);
+                      // }}
+                      // isOptionDisabled={(option) => option.l1 === undefined}
+              //  onFocus={() =>
+              //    setFormData((value) => ({
+              //      ...value,
+              //      account_type: "",
+              //      reporting: "",
+              //    }))
+              //  }
+               options={l1Options}
                error={errors.account_type && touched.account_type ? true : false}
                 errorMsg="Type is required"
                />
 
-               
+               {/* <Select options={l3Options} value={selectedL3}  onChange={(selectedOption) => setSelectedL3(selectedOption)}/> */}
 
-                {formData.account_type ? <SearchSelect 
+               {formData.account_type ? <SearchSelect 
                 width={330}
                 name="reporting"
                 label="Sub Type"
                 isDisabled={!formData.account_type}
-                values={formData.reporting || undefined}
+                // values={formData.reporting || null}
+                value={selectedL3}
                 onChange={handleDrpChangel3}
-                options={formData.account_type && reporting3}
+                options={l3Options}
                 error={errors.reporting && touched.reporting ? true : false}
-                errorMsg="Sub Type is required" />
-                :<SearchSelect width={330} isDisabled label="Sub Type" />}
+                errorMsg="Sub Type is required" />:<SearchSelect label="Sub Type" isDisabled width={330} />}
 {/*                  
                 <div style={{marginBottom: "20px"}}>
                 <p
@@ -1015,7 +1112,7 @@ console.log(chartOfAccountSchema)
               </div>
             </form>
           </div>
-        </Modal>
+        </Modal>}
 
         {/* <OffCanvasExample  form={<AccountForm/>}/> */}
         <Table
@@ -1207,7 +1304,7 @@ console.log(chartOfAccountSchema)
             </div>
           }
         >
-          <div className="confirmCoontainer">
+          <div className="confirmCoontainer" style={{height:"100px"}}>
             <div className="confirmresources">
               <div className="imgsetting">
                 <div className="imgbackground">
@@ -1230,9 +1327,7 @@ console.log(chartOfAccountSchema)
             </div>
             <div>
               <p className="confirmationtext">
-                Are you sure you want to close this window? <br /> All the value
-                which you filled in the fields will be deleted.
-                <br /> This action cannot recover the value.
+              Do You want to Cancel?
               </p>
             </div>
           </div>
