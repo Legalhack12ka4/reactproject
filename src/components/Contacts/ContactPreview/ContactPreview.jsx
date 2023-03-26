@@ -86,6 +86,7 @@ const handleSubmit = () => {
 
 
 
+
 //for modal delete
 
 const {id}= useParams();

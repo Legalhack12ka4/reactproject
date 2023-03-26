@@ -150,11 +150,21 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
   const [open, setOpen] = useState(false);
-  const GroupOptions = Object.keys(options).map((key) => (
-    <OptGroup label={key} key={key.id}>
-      {options[key].map((child) => (
-        <Option value={child} key={child.id}>
-          {child}
+  // const GroupOptions = Object.keys(options).map((key) => (
+  //   <OptGroup label={key} key={key.id}>
+  //     {options[key].map((child) => (
+  //       <Option value={child} key={child.id}>
+  //         {child}
+  //       </Option>
+  //     ))}
+  //   </OptGroup>
+  // ));
+
+  const GroupOptions = options.map((group) => (
+    <OptGroup label={group.label} key={group.label}>
+      {group.options.map((option) => (
+        <Option key={option.value} value={option.value}>
+          {option.label}
         </Option>
       ))}
     </OptGroup>
