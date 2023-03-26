@@ -1,0 +1,175 @@
+@import '../../../assets/Colors/Colors.scss';
+
+.vendor-preview-main{
+    margin: auto;
+    width: 95%;
+    max-width: 2200px;
+    position: relative;
+
+
+    .card-table-container{
+        display: flex;
+        gap: 30px;
+        padding-top: 5px;
+
+        .card-container{
+            height: 72vh;
+            overflow: scroll;
+            position: sticky;
+            top: 190px;
+            width: 261px;
+            min-width: 261px;
+            max-height: 648px;
+            border-radius: 6px;
+            background-color: #ffff;
+            box-shadow:  0px 4px 6px #4359711f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+
+            .active-btn{
+                width: 219px !important;
+                border-right: 3px solid $primary-100;
+                // background-color: $primary-100;
+                .btn-title{
+                    // color: #0000;
+                    img{
+                        filter: invert(80%) sepia(80%) saturate(4603%) hue-rotate(227deg) brightness(83%) contrast(99%);
+                    }
+                    .subtitle-sb{
+                        color: $primary-100 !important;
+                    }
+                }
+            }
+            .card-btn{
+                width: 221px;
+                border-bottom: 1px solid $neutrals-800;
+                padding: 20px;
+                cursor: pointer;
+
+                .btn-title{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 10px;
+
+                    .subtitle-sb{
+                        color: $neutrals-300;
+                    }
+                }
+                .sc-body-rg{
+                    margin-left: 30px;
+                }
+            }
+
+
+        }
+
+        .table-container{
+            // height: 629px;
+            width: 100%;
+            max-width: 1860px;
+
+            .account-overview-container{
+                border-radius: 6px;
+                box-shadow: 0px 4px 6px #4359711f;
+                width: 100%;
+                padding: 20px 0px 90px 0px;
+                background-color: #ffff;
+
+                .business-name-container{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0px 30px;
+                    background-color: $neutrals-900;
+                    margin-bottom: 20px;
+
+                    .left{
+                        display: flex;
+                        gap: 20px;
+                        align-items: center;
+                    }
+                    .right{
+                        .date-container{
+                            display: flex;
+                            gap: 4px;
+                            margin-bottom: 6px;
+
+                            .date-time{
+                                color: $neutrals-400;
+                            }
+                           
+                        }
+                        .created-by{
+                            color: $neutrals-600;
+                        }
+                    }
+                }
+                .account-details{
+                    padding: 20px;
+
+                    .heading{
+                        color: $neutrals-100;
+                        margin-bottom: 30px;
+                    }
+                    .account-details-container{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 30px;
+                        .d-line{
+                            display: flex;
+                            gap: 80px;
+
+                            .title{
+                                width: 125px;
+                            }
+                            .value{
+                                color: $neutrals-300;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .table-header{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                .account-count{
+                    color: $secondary-100;
+                }
+                .assign-account-btn{
+                    color: $primary-100;
+                    cursor: pointer;
+                }
+
+            }
+
+            .contact-preview-table-container{
+                background-color: #ffff;
+                border-radius: 6px;
+
+                .filter-searchbar-container{
+                    padding: 0px 20px;
+                }
+                .new_btn_or_reports_main{
+                    top: -134px;
+                    right: -20px;
+                }
+
+                .filter-and-searchbar-delete-btn{
+                    display: flex;
+                    gap: 6px;
+                    align-items: center;
+
+                    .delete-text{
+                        color: $primary-100;
+                    }
+                }
+            }
+        }
+    }
+}

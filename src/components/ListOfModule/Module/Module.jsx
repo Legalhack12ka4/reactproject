@@ -76,7 +76,7 @@ function Module() {
 
    <div style={{marginBottom:"20px"}}>
    <img src={link}/>
-   <Link exact to="/contact_preview" className='currency_btn'>Contact Preview</Link>
+   <Link exact to="/vendor_preview" className='currency_btn'>Vendor Preview</Link>
    </div>
 
    </div>

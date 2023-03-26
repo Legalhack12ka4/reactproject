@@ -65,6 +65,7 @@ import PrivateRoutes from './Authentication/PrivateRoutes';
 import PreviewSalesOrder from './components/Sales/SalesOrder/PreviewSalesOrder/PreviewSalesOrder';
 import { useEffect, useState } from 'react';
 import ContactPreview from './components/Contacts/ContactPreview/ContactPreview';
+import VendorPreview from './components/Vendors/VendorPreview/VendorPreview';
 
 function App() {
 const [isLogin,setIsLogin] = useState(false)
@@ -188,6 +189,7 @@ const [logout,setLogout] = useState(true)
           <Route path="bills/bills_order" element={<BillsData/>}/>
           <Route path="bills/bills_order/add_bills" element={<Bills/>}/>
           <Route path="contact_preview/:id" element={<ContactPreview />}/>
+          <Route path="vendor_preview" element={<VendorPreview />}/>
 
       </Route>
       <Route path="/login" element={<LoginPage onLogin={OnLogin}/>}/>
