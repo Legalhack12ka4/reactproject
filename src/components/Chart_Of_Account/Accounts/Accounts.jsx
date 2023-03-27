@@ -67,6 +67,7 @@ function Accounts() {
   const [loading, setloading] = useState(true);
   const [confirmData, setCofirmData] = useState(false); // for popup conformation modal
   const [open, setOpen] = useState(false);
+  const [drpLoad, setDrpLoad] = useState(false);
 
 
 
@@ -278,11 +279,15 @@ console.log(chartOfAccountSchema)
   };
 
   const handleDrpChange = (field, value) => {
-    setFormData({ ...formData, account_type: value });
+    setFormData({ ...formData, account_type: value,reporting:""  });
+    setDrpLoad(false);
     setFieldValue("account_type", value.value);
     setFieldTouched("account_type", false);
     setSelectedL2(value);
     setSelectedL3(null);
+    setTimeout(() => {
+      setDrpLoad(true);
+    }, 100);
     console.log(field);
     console.log(value);
   };
@@ -862,7 +867,7 @@ console.log(selectedL3)
 
                {/* <Select options={l3Options} value={selectedL3}  onChange={(selectedOption) => setSelectedL3(selectedOption)}/> */}
 
-               {formData.account_type ? <SearchSelect 
+               {drpLoad ? <SearchSelect 
                 width={330}
                 name="reporting"
                 label="Sub Type"
