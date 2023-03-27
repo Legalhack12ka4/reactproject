@@ -265,7 +265,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
               <p>View Reports</p>
             </div> */}
             {props.activeMode && <div className="separator-line"></div>}
-            <div className="new_btn_container">
+            {props.addBtnName && <div className="new_btn_container">
               <Link exact to={props.path} onClick={props.onClick}>
                 {/* <div className="tableBtn addNewBtn" onClick={showCanvas}>
                   <GoPlus />
@@ -276,7 +276,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                 </div> */}
                 <ContainedIconButton onClick={showCanvas} icon="/images/icons/plus-icon-white.svg" value={`New ${props.addBtnName}`}/>
               </Link>
-            </div>
+            </div>}
           </div>
 
           <div style={{ display: "flex", gap:"33px" }}>

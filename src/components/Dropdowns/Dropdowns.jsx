@@ -60,7 +60,7 @@ const handledropodwnchange = (visible) =>
     <div>
     <div className={`srchdrp srchSelct ${error && "drpError"} ${props.addNew && "bottom-padding-none"}`}>
     {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
-    {icon && <img src={icon} alt="icon" className="select-icon-type" />}
+    {icon && <div className="select-icon-box"><img src={icon} alt="icon" className="select-icon-type" /></div>}
     {text &&  <p className="select-text-type">{text}</p>}
     <Select
       disabled={props.isDisabled}

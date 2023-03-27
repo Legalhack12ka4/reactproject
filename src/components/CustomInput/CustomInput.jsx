@@ -106,7 +106,7 @@ const CustomInput = ({
         {label}
       </label>}
       <div className="input-box">
-        {icon && <img className="input-icon" src={icon} alt="icon" />}
+        {icon && <div className="icon-container-box"><img className="input-icon" src={icon} alt="icon" /></div>}
         {rightIcon && <img className="input-rightIcon" src={rightIcon} alt="icon" onClick={onClick} />}
         {symbol && <p className="input-symbol sc-body-rg">{symbol}</p>}
       {textArea ? <textarea 
