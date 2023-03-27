@@ -616,11 +616,19 @@
   }
 }
 
+.select-icon-box{
+  position: absolute;
+  height: 38px;
+  width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      left: 0px;
+      top: 29px;
+      z-index: 2;
 .select-icon-type{
- position: absolute;
-    left: 14px;
-    top: 41px;
-    z-index: 2;
+
+}
 }
 .select-text-type
 {

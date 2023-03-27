@@ -71,6 +71,154 @@
             width: 100%;
             max-width: 1860px;
 
+            .bank-details-container{
+                background-color: #ffff;
+                border-radius: 6px;
+                box-shadow: 0px 4px 6px #4359711f;
+                height: 50vh;
+                padding: 20px;
+                
+
+                .bank-account-details{
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border: 1px solid $neutrals-800;
+                    border-radius: 6px;
+                    padding: 20px;
+
+                    .left{
+                        display: flex;
+                        align-items: center;
+
+                        .bank-logo{
+                            width: 100px;
+                            height: 40px;
+                            margin-right: 30px;
+                        }
+                        .bank-name{
+                            margin-bottom: 8px;
+                        }
+                        .account-title{
+                            color: $neutrals-600;
+                            margin-bottom: 4px;
+                        }
+                        .ifsc-title{
+                            color: $neutrals-600;
+                        }
+
+                        .primary-tag{
+                            padding: 4px 8px;
+                            color: $primary-100;
+                            background-color: $primary-900;
+                            border-radius: 4px;
+                            margin-left: 20px;
+                        }
+                    }
+                    
+                    .right{
+                        display: flex;
+                        gap: 16px;
+
+                        .edit-remove-btn{
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+                            cursor: pointer;
+
+                            p{
+                                color: $neutrals-300;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .address-container{
+                width: 100%;
+                height: 50vh;
+
+                .address-container-card-main{
+                    height: 50vh;
+                    display: flex;
+                    gap: 27px;
+
+                    .add-new-address-btn{
+                        width: 259px;
+                        height: 264px;
+                        cursor: pointer;
+                        background-color: #FFFF;
+                        border-radius: 6px;
+                        border: 2px dashed $neutrals-700;
+                        box-shadow: 0px 4px 6px #4359711f;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+                        align-items: center;
+                        justify-content: center;
+
+                        .add-icon{
+                            width: 76px;
+                            height: 76px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 50%;
+                            background-color: $primary-900;
+                        }
+                        .title{
+                            color: $primary-100;
+                        }
+                    }
+                    .address-container-card{
+                        width: 221px;
+                        height: 226px;
+                        padding: 20px;
+                        background-color: #ffff;
+                        border: 1px solid $neutrals-800;
+                        border-radius: 6px;
+                        box-shadow: 0px 4px 6px #4359711f;
+
+                        .address{
+                            line-height: 20px;
+                        }
+
+                        .address-heading{
+                            color: $neutrals-400;
+                        }
+                        .edit-delete-btn{
+                            display: flex;
+                            gap: 16px;
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+    
+                            .edit-remove-btn{
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                cursor: pointer;
+    
+                                p{
+                                    color: $neutrals-300;
+                                }
+                            }
+                        }
+                    }
+                    .tag-container{
+                        display: flex;
+                        gap: 10px;
+
+                        .tag{
+                            padding: 4px 8px;
+                            background-color: $neutrals-400;
+                            border-radius: 4px;
+                            color: #ffff;
+                        }
+                    }
+                }
+            }
+
             .account-overview-container{
                 border-radius: 6px;
                 box-shadow: 0px 4px 6px #4359711f;
@@ -136,7 +284,7 @@
             .table-header{
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 20px;
+                // margin-bottom: 20px;
 
                 .account-count{
                     color: $secondary-100;
@@ -153,7 +301,7 @@
                 border-radius: 6px;
 
                 .filter-searchbar-container{
-                    padding: 0px 20px;
+                    padding: 20px 20px 0px 20px;
                 }
                 .new_btn_or_reports_main{
                     top: -134px;
