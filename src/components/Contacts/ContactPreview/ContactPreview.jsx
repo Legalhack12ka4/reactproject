@@ -1057,9 +1057,11 @@ const handleFormSubmitAttachment = (value) => {
         value
       )
       .then((response) => {
+        getAttachAssigedData();
         handleCancel();
+        getAttachAssigedData();
      setAttachData({attatch_name:"", attachments:""})
-
+     getAttachAssigedData();
         toast.success("Attachment Added Successfuly", {
           position: "top-right",
           autoClose: 2000,
@@ -1075,7 +1077,29 @@ const handleFormSubmitAttachment = (value) => {
   console.log(attachData)
   
 
+  const [assignedDataAttach, setAssignedDataAttach] = useState([]);
 
+
+  let assignedIds=getContact.id
+console.log(assignedIds)
+useEffect(() => {
+getAttachAssigedData();
+}, [assignedId]);
+
+const getAttachAssigedData = () => {
+return fetch(`${config.baseUrl}/contactattatchment/?company_id=1&contact_id=${assignedIds}`)
+  .then((response) => response.json())
+  .then((data) => {
+  //  const customerVendorIds = data.data.items.map(item => item.contact_id);
+    setAssignedDataAttach(data.data.items);
+   // console.log(customerVendorIds)
+    console.log(data);
+  });
+};
+
+// console.log(props.getAttachAssigedData)
+
+console.log(assignedDataAttach)
 
 // const showPreview = (e) => {
 //   if (e.target && e.target.files) {
@@ -1747,7 +1771,7 @@ const handleFormSubmitAttachment = (value) => {
               </div>
             </div>
           )}
-          {activeTab === "attachments" && <AttachmentFile   attachData={getContact} />}
+          {activeTab === "attachments" && <AttachmentFile   attachData={getContact} getData={assignedDataAttach}/>}
           {activeTab === "notes" && (
             <Notes
               createNoteActive={createNoteActive}

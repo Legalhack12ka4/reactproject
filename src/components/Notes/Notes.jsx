@@ -77,7 +77,9 @@ const handleSubmit=(e) =>
 {
     e.preventDefault();
     props.onSubmit(notesData);
+    getNoteAssigedData();
     props.createNoteFalse();
+    // getNoteAssigedData();
     setNotesData({title:"", description:""})
     getNoteAssigedData();
     console.log(props.onSubmit)

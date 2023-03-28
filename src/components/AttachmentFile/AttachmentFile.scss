@@ -4,7 +4,7 @@
     // border: 1px solid;
     display: flex;
     gap: 30px;
-
+    flex-wrap: wrap;
     .attachment-file{
         border: 1px solid $neutrals-800;
         border-radius: 6px;
