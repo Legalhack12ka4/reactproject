@@ -21,7 +21,7 @@ const Notes = (props) => {
     //     setCreateNoteActive(true);
     // }
 
-   
+   console.log(props.notesData)
 
     const handleNoteClick = (index) => {
         if (index === selectedNoteIndex) {

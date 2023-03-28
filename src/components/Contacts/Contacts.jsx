@@ -514,9 +514,14 @@ function Contacts(props) {
         .post(
           `${config.baseUrl}/contact/`,
           {
+          
+        
+           
+          
             name: formData.name,
             mobile: formData.mobile,
             email: formData.email,
+         
             //   dob:formData.dob,
             dob: "2000-09-09",
             contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
@@ -525,6 +530,8 @@ function Contacts(props) {
             is_deleted: false,
              position: formData.position,
             //position: 1,
+            type: 1,
+            country_code: 1,
             company_name: 1,
             status: formData.status,
             lead_source: formData.lead,
@@ -571,7 +578,7 @@ const getstatus = () => {
   return fetch(`${config.baseUrl}/master/`)
     .then((response) => response.json())
     .then((data) => {
-      setStatusData(data);
+      setStatusData(data.data.items);
       console.log(data);
     });
 };
@@ -645,7 +652,7 @@ const getlead = () => {
   return fetch(`${config.baseUrl}/leadsource/`)
     .then((response) => response.json())
     .then((data) => {
-      setAddLead(data);
+      setAddLead(data.data.items);
       console.log(data);
     });
 };
@@ -715,7 +722,7 @@ const handleFormSubmitLead = () => {
     return fetch(`${config.baseUrl}/position/`)
       .then((response) => response.json())
       .then((data) => {
-        setAddSource(data);
+        setAddSource(data.data.items);
         console.log(data);
       });
   };

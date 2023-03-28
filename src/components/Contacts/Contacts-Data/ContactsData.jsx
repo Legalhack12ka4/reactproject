@@ -146,7 +146,7 @@ const getSource = () => {
   return fetch(`${config.baseUrl}/position/`)
     .then((response) => response.json())
     .then((data) => {
-      setAddSource(data);
+      setAddSource(data.data.items);
       console.log(data);
     });
 };
@@ -245,6 +245,8 @@ const getstatusdata = status
   value: place.master_key,
 }));
 
+console.log(getstatusdata);
+console.log(status);
 
 useEffect(() => {
   getstatus();
@@ -254,7 +256,7 @@ const getstatus = () => {
   return fetch(`${config.baseUrl}/master/`)
     .then((response) => response.json())
     .then((data) => {
-      setStatus(data);
+      setStatus(data.data.items);
       console.log(data);
     });
 };
@@ -299,6 +301,7 @@ console.log(status);
           //      ?"Manger"
           //      :"SalesPerson",
           Ownership: row.ownership == 1 ? "ubuntu" : "window",
+       //   Status:row.status
           Status:getstatusdata.find(
             (option) => option.key === row.status && option.label
           )?.label,

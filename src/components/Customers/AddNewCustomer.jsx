@@ -131,14 +131,14 @@ const getCustomerType = () => {
   return fetch(`${config.baseUrl}/master/`)
     .then((response) => response.json())
     .then((data) => {
-      setCustomerType(data);
+      setCustomerType(data.data.items);
       console.log(data);
-    const typecustomer=  data.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
+    const typecustomer=  data.data.items.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
       setFormData(prevFormData => ({
         ...prevFormData,
        customertype:typecustomer[0].id
       }));
-      const typecategory=  data.filter((place) => place.field === "category" && place.module === "address" && place.master_value === "1")
+      const typecategory=  data.data.items.filter((place) => place.field === "category" && place.module === "address" && place.master_value === "1")
       setFormData(prevFormData => ({
         ...prevFormData,
        category:typecategory[0].id
@@ -269,7 +269,7 @@ useEffect(() => {
     return fetch(`${config.baseUrl}/paymentterms/`)
       .then((response) => response.json())
       .then((data) => {
-        setPayment(data);
+        setPayment(data.data.items);
         // console.log(data);
       });
   };
@@ -281,7 +281,7 @@ useEffect(() => {
     return fetch(`${config.baseUrl}/contact/`)
       .then((response) => response.json())
       .then((data) => {
-        setContact(data);
+        setContact(data.data.items);
         console.log(data);
       });
   };
@@ -291,7 +291,7 @@ useEffect(() => {
     fetch(`${config.baseUrl}/currency/`)
       .then((response) => response.json())
       .then((data) => {
-        setCurrencydrp(data);
+        setCurrencydrp(data.data.items);
         // console.log(data);
       });
   };
@@ -304,7 +304,7 @@ const getDataCommission = () => {
   fetch(`${config.baseUrl}/commissionterm/`)
     .then((response) => response.json())
     .then((data) => {
-      setCommission(data);
+      setCommission(data.data.items);
        console.log(data);
     });
 };
@@ -323,7 +323,7 @@ const commissiondata = commission.map((curr) => ({
     fetch(`${config.baseUrl}/state/`)
       .then((response) => response.json())
       .then((data) => {
-        setPos(data);
+        setPos(data.data.items);
          console.log(data);
       });
   };
@@ -352,7 +352,7 @@ ChildStateModificationFunc = (modVal)=>{
     fetch(`${config.baseUrl}/customervendor/`)
     .then((response) => response.json())
     .then((data) => {
-      setAllCustomer(data);
+      setAllCustomer(data.data.items);
        console.log(data);
     });
   }
