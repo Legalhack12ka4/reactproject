@@ -40,7 +40,8 @@ const resetValue =
 
 const resetnoteValue=
 {
-  notes:"",
+  title:"",
+  description:"",
 }
 
 const ContactPreview = () => {
@@ -81,7 +82,7 @@ const ContactPreview = () => {
   const [assignedData, setAssignedData] = useState([]);
   const [addSouce, setAddSource] = useState([]);
 const [assignedCustomer, setAssignedCustomer]= useState([])
-
+const [attachData, setAttachData] = useState({attatch_name:"", attachments:""})
 //handlecancel
 
 const {id}= useParams();
@@ -129,28 +130,35 @@ console.log(getContact.business_name)
 
 //data display in table
 
-useEffect(() => {
-  getAssigedDataCustomer();
-}, []);
+
 
 // const getAssigedDataCustomer = () => {
-//   return fetch(`${config.baseUrl}/customervendor`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setAssignedCustomer(data.data.items);
-//       console.log(data);
-//     });
+//   assignedData.forEach((id) => {
+//     fetch(`${config.baseUrl}/customervendor/${id}`)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setAssignedCustomer(prevState => [...prevState, data]);
+//         console.log(data);
+//       });
+//   });
 // };
+useEffect(() => {
+  assignedData.forEach((ids) => 
+  {
+    getAssigedDataCustomer(ids);
+  })
+ 
+}, [assignedData]);
 
-const getAssigedDataCustomer = () => {
-  assignedData.forEach((id) => {
-    fetch(`${config.baseUrl}/customervendor/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAssignedCustomer(prevState => [...prevState, data]);
-        console.log(data);
-      });
-  });
+const getAssigedDataCustomer = (id) => {
+  // const ids = assignedData.join(',');
+  // console.log(ids)
+  fetch(`${config.baseUrl}/customervendor/${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAssignedCustomer(prevState => [...prevState, data]);
+      console.log(data);
+    });
 };
 
 console.log(assignedCustomer);
@@ -239,13 +247,6 @@ console.log(gettypedata)
 
 //onchange
 
-const onChangeNote = (e) => {
-  const { value, name } = e.target;
-
-  setNoteData({ ...noteData, [name]: value });
-  console.log(value);
-  console.log(name);
-};
 
 
 //
@@ -552,24 +553,24 @@ const handleFormSubmit = (e) => {
 let business = assignedData.business_name
 console.log(business);
     
-const dataSource=[
-    {
-      key: assignedData.Key,
-      id:assignedData.id,
-      business_name: assignedData.business_name,
-      gstin: assignedData.gstin,
-      type: getstatusdata.find(
-        (option) => option.key === assignedData.type && option.label
-      )?.label,
-      category:getcategorydata.find(
-        (option) => option.key === assignedData.type_category && option.label
-      )?.label ,
-      position: othersource.find(
-        (option) => option.key === getContact.position && option.label
-      )?.label,
-      status: "Active",
-    }
-]
+const dataSource=assignedCustomer.map((customers) => ({
+  key: customers.Key,
+  id:customers.id,
+  business_name: customers.business_name,
+  gstin: customers.gstin,
+  type: getstatusdata.find(
+    (option) => option.key === customers.type && option.label
+  )?.label,
+  category:getcategorydata.find(
+    (option) => option.key === customers.type_category && option.label
+  )?.label ,
+  position: othersource.find(
+    (option) => option.key === getContact.position && option.label
+  )?.label,
+  status: "Active",
+}
+))
+     
 
   const ownership = [
     {
@@ -903,25 +904,283 @@ const dataSource=[
   const createNoteFalse = () => {
     setCreateNoteActive(false);
   };
-  return (
 
-    <div className='contact-preview-main'>
-      <Page_heading  parent={"Business Account"} child={"Contact Details"} subchild={(<Link exact to= "/contacts">{"Contact"}</Link>)} addEditBtn={activeTab === "attachments" ?<div className="d-flex align-center gap-10">
-        <div className="d-flex gap-8 align-center" style={{borderRight:"1px solid #CBD5E0", height:"30px", paddingRight:"10px",cursor:"pointer"}}><img src="/images/icons/delete-prmry-icon.svg" alt="" /> <p className="sc-body-sb" style={{color:"#5C5AD0"}}>Delete</p></div>
-        <ContainedIconButton value={"Edit"} icon="/images/icons/edit-white-icon.svg" />
-      </div>:activeTab === "notes" ? <div className="d-flex align-center gap-10">
-        <div className="d-flex gap-8 align-center" style={{borderRight:"1px solid #CBD5E0", height:"30px", paddingRight:"10px",cursor:"pointer"}}><img src="/images/icons/delete-prmry-icon.svg" alt="" /> <p className="sc-body-sb" style={{color:"#5C5AD0"}}>Delete</p></div>
-        <ContainedIconButton value={"Edit"} icon="/images/icons/edit-white-icon.svg" />
-      </div>:""}/>
+
+
+//notes data input
+
+//onchange
+
+const onChangeNote = (e) => {
+  const { value, name } = e.target;
+
+  setNoteData({ ...noteData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+
+const handleFormSubmitNotes = (value) => {
+  console.log(value)
+  // e.preventDefault();
+    axios
+      .post(
+        `${config.baseUrl}/contactnotes/`,
+        {
+
+          title: value.title,
+          discription: value.description,
+          contact_id: id,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
+        },
+        value
+      )
+      .then((response) => {
+        
+        // getAssigedData();
+        // setSalesOrderModal(false);
+        // getAssigedData();
+        // setFormData(resetValue)
+        // getAssigedData();
+        // getData();
+       // handleclose();
+       // props.onClick();
+
+        toast.success("Notes Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  }
+
+
+  //attachment data fill
+
+  const onChangeAttachment = (e) => {
+    const { value, name } = e.target;
+  
+    setAttachData({ ...attachData, [name]: value });
+    console.log(value);
+    console.log(name);
+  };
+console.log(attachData)
+
+// const handleFileUpload = (file) => {
+//   if (file && file.size >=2048) {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => {
+//       setAttachData({
+//         ...attachData,
+//         attachments: reader.result,
+//       });
+//     };
+//   } else {
+//     console.log("Invalid file size or type");
+//   }
+// };
+
+
+
+const handleFileUpload = (file) => {
+  if (file && file.size >= 1) {
+    const fileUrl = URL.createObjectURL(file);
+    setAttachData({
+      ...attachData,
+      attachments: fileUrl,
+      filename: file.name,
+    });
+  } else {
+    console.log("Invalid file size or type");
+  }
+};
+
+// const handleFileUpload = (file) => {
+//   if (file && file.size <= 1048576) {
+    
+
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => {
+//       setAttachData({
+//         ...attachData,
+//         attachments: reader.result,
+//         filename: file.name,
+//       });
+//     };
+//   } else {
+//     console.log("Invalid file size or type");
+//   }
+// };   
+
+const handleImagePreview = (file) => {
+  if (file && file.type.indexOf("image") === 0) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const imgPreview = document.getElementById("imgPreview");
+      imgPreview.src = reader.result;
+    };
+  }
+};
+
+const handleRemove = () => {
+  setAttachData({
+    attachments: "",
+    filename: "",
+  });
+  const imgPreview = document.getElementById("imgPreview");
+  imgPreview.src = "/images/icons/add-image-icon.svg";
+};
+
+const handleFormSubmitAttachment = (value) => {
+  console.log(value)
+  // e.preventDefault();
+    axios
+      .post(
+        `${config.baseUrl}/contactattatchment/`,
+        {
+
+          attatch_name: attachData.attatch_name,
+          "attachments":attachData.attachments,
+          contact_id: id,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
+        },
+        value
+      )
+      .then((response) => {
+        handleCancel();
+     setAttachData({attatch_name:"", attachments:""})
+
+        toast.success("Attachment Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  }
+
+  console.log(attachData)
+  
+
+
+
+// const showPreview = (e) => {
+//   if (e.target && e.target.files) {
+//     const attachments = e.target.files[0];
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//       setAttachData({
+//         ...attachData,
+//         attachments: reader.result
+//       });
+//     };
+//     reader.readAsDataURL(attachments);
+//   } else {
+//     setAttachData({
+//       ...attachData,
+//       attachments: ""
+//     });
+//   }
+// };
+
+  return (
+    <div className="contact-preview-main">
+      <Page_heading
+        parent={"Business Account"}
+        child={"Contact Details"}
+        subchild={
+          <Link exact to="/contacts">
+            {"Contact"}
+          </Link>
+        }
+        addEditBtn={
+          activeTab === "attachments" ? (
+            <div className="d-flex align-center gap-10">
+              <div
+                className="d-flex gap-8 align-center"
+                style={{
+                  borderRight: "1px solid #CBD5E0",
+                  height: "30px",
+                  paddingRight: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
+                <p className="sc-body-sb" style={{ color: "#5C5AD0" }}>
+                  Delete
+                </p>
+              </div>
+              <ContainedIconButton
+                value={"Edit"}
+                icon="/images/icons/edit-white-icon.svg"
+              />
+            </div>
+          ) : activeTab === "notes" ? (
+            <div className="d-flex align-center gap-10">
+              <div
+                className="d-flex gap-8 align-center"
+                style={{
+                  borderRight: "1px solid #CBD5E0",
+                  height: "30px",
+                  paddingRight: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
+                <p className="sc-body-sb" style={{ color: "#5C5AD0" }}>
+                  Delete
+                </p>
+              </div>
+              <ContainedIconButton
+                value={"Edit"}
+                icon="/images/icons/edit-white-icon.svg"
+              />
+            </div>
+          ) : (
+            ""
+          )
+        }
+      />
 
       <div className="card-table-container">
         <div className="card-container">
-        <div className="mb-10" style={{ minWidth: 76.4, minHeight: 76.4, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ color: "#5C5AD0", fontWeight: 600, fontSize:"22px" }}>{initials}</span>
-            </div>
+          <div
+            className="mb-10"
+            style={{
+              minWidth: 76.4,
+              minHeight: 76.4,
+              backgroundColor: "#5C5AD133",
+              border: "1px solid #C2CAD2",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <span
+              style={{ color: "#5C5AD0", fontWeight: 600, fontSize: "22px" }}
+            >
+              {initials}
+            </span>
+          </div>
           {/* <img className="contact-avatar" src="/images/icons/avatar.png" alt="avatar" /> */}
           <p className="subtitle-sb mb-10">{getContact.name}</p>
-          <div className="contact-type caption-sb mb-20">{statusdatacusven}</div>
+          <div className="contact-type caption-sb mb-20">
+            {statusdatacusven}
+          </div>
           <div className="contact-btn-container">
             <div className="btn-box">
               <div className="btn-icon">
@@ -931,7 +1190,7 @@ const dataSource=[
             </div>
             <div className="btn-box">
               <div className="btn-icon">
-              <img src="/images/icons/phone-gray.svg" alt="phone" />
+                <img src="/images/icons/phone-gray.svg" alt="phone" />
               </div>
               <p className="caption-md">Phone</p>
             </div>
@@ -942,7 +1201,7 @@ const dataSource=[
               <p className="caption-md">More</p>
             </div>
           </div>
-          <hr className="h-line"/>
+          <hr className="h-line" />
 
           <div className="contact-details-container">
             <div className="phone">
@@ -978,272 +1237,353 @@ const dataSource=[
           </div>
         </div>
 
-
         <div className="table-container">
           <div className="tab-btn-container">
-            <div className={`tab-btn sc-body-md ${activeTab=== "related_account" && "active"}`} onClick={()=>setActiveTab("related_account")}>Related Accounts</div>
-            <div className={`tab-btn sc-body-md ${activeTab=== "analytics" && "active"}`} onClick={()=>setActiveTab("analytics")}>Analytics</div>
-            <div className={`tab-btn sc-body-md ${activeTab=== "notes" && "active"}`} onClick={()=>setActiveTab("notes")}>Notes</div>
-            <div className={`tab-btn sc-body-md ${activeTab=== "attachments" && "active"}`} onClick={()=>setActiveTab("attachments")}>Attachments</div>
-            <div className={`tab-btn sc-body-md ${activeTab=== "timeline" && "active"}`} onClick={()=>setActiveTab("timeline")}>Timeline</div>
-          </div>
-
-          {<div className="table-header">
-            <h1 className='title-sb'>{activeTab === "related_account" ? "Related Accounts":activeTab === "analytics" ? "Analytics":activeTab === "notes" ?"Notes":activeTab === "attachments" ? "Attachment":activeTab === "timeline" && "Timeline"} <span className='account-count'>(4)</span></h1>
-            {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
-            {activeTab === "related_account" ? <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>+ Assign Account</p>:activeTab === "notes" ? <p className='sc-body-sb assign-account-btn' onClick={()=>setCreateNoteActive(true)} >+ Add Notes</p>: activeTab === "attachments" ? <p className='sc-body-sb assign-account-btn d-flex align-center' onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</p> :""}
-          </div>}
-
-          {activeTab === "related_account" && 
-          <div className="contact-preview-table-container">
-      <div className="filter-searchbar-container">
-        <FilterAndSearchBar
-          getPopupContainer={(trigger) => trigger.parentElement} 
-        
-          filterdata={[
-            <div className="contact_filter_container">
-
-              <div
-                className="customer_filter_filed"
-                style={{ marginBottom: "20px", marginTop: "20px" }}
-              >
-                <Tooltip title="prompt text" color="#5C5AD0">
-                    {" "}
-                    <label className="label">Ownership</label>{" "}
-                  </Tooltip>
-                  <SearchDropdown
-                    width={330}
-                    name="ownership"
-                    value={custfilter.ownership}
-                    options={ownership}
-                    onChange={handleChange} 
-                    />
-                </div>
-  
-            
+            <div
+              className={`tab-btn sc-body-md ${
+                activeTab === "related_account" && "active"
+              }`}
+              onClick={() => setActiveTab("related_account")}
+            >
+              Related Accounts
             </div>
-          ]}
-          change={filterarray}
-          onSelectColumn={handleSelectColumn}
-          customer={fetchlead.length}
-          filterLength={filterarray.length}
-          columns={columns}
-          setColumns={setColumns}
-          addBtnName={"Sales Order"}
-          onData={handleData}
-          path={"add_sales"}
-        //   filter={<Leads />}
-          onFilter={(e) => {
-            clearfilter(e);
-            setVisible(!visible);
-          }}
-          activeMode={ <div className="filter-and-searchbar-delete-btn">
-            <img src="/images/icons/delete-prmry-icon.svg" alt="delete" />
-            <p className="sc-body-sb delete-text">Delete</p>
-          </div> }
-/>
+            <div
+              className={`tab-btn sc-body-md ${
+                activeTab === "analytics" && "active"
+              }`}
+              onClick={() => setActiveTab("analytics")}
+            >
+              Analytics
+            </div>
+            <div
+              className={`tab-btn sc-body-md ${
+                activeTab === "notes" && "active"
+              }`}
+              onClick={() => setActiveTab("notes")}
+            >
+              Notes
+            </div>
+            <div
+              className={`tab-btn sc-body-md ${
+                activeTab === "attachments" && "active"
+              }`}
+              onClick={() => setActiveTab("attachments")}
+            >
+              Attachments
+            </div>
+            <div
+              className={`tab-btn sc-body-md ${
+                activeTab === "timeline" && "active"
+              }`}
+              onClick={() => setActiveTab("timeline")}
+            >
+              Timeline
+            </div>
           </div>
-        <div className="tableData">
-              {filterarray.length > 0 && (
-            <div className="tags" id="tags">
-              <div className="appliedtag ">Filtered by </div>
-              {filterarray.map((customerfilter, index) => {
-                return (
-                  customerfilter.value && (
-                    <Tooltip
-                      className="tlpclr"
-                      id="tlpclr"
-                      title={`${
-                        (customerfilter.key === "lead" && "Lead") ||
-                        (customerfilter.key === "ownership" && "Ownership") 
-                        
-                      } : ${customerfilter.value}`}
-                      color="#EBECF0"
+
+          {
+            <div className="table-header">
+              <h1 className="title-sb">
+                {activeTab === "related_account"
+                  ? "Related Accounts"
+                  : activeTab === "analytics"
+                  ? "Analytics"
+                  : activeTab === "notes"
+                  ? "Notes"
+                  : activeTab === "attachments"
+                  ? "Attachment"
+                  : activeTab === "timeline" && "Timeline"}{" "}
+                <span className="account-count">(4)</span>
+              </h1>
+              {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
+              {activeTab === "related_account" ? (
+                <p
+                  className="sc-body-sb assign-account-btn"
+                  onClick={() => setSalesOrderModal(true)}
+                >
+                  + Assign Account
+                </p>
+              ) : activeTab === "notes" ? (
+                <p
+                  className="sc-body-sb assign-account-btn"
+                  onClick={() => setCreateNoteActive(true)}
+                >
+                  + Add Notes
+                </p>
+              ) : activeTab === "attachments" ? (
+                <p
+                  className="sc-body-sb assign-account-btn d-flex align-center"
+                  onClick={() => {
+                    setAttachmentsModal(true);
+                  }}
+                >
+                  <img src="/images/icons/attachment-icon-prmry.svg" alt="" />{" "}
+                  New Attachments
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+          }
+
+          {activeTab === "related_account" && (
+            <div className="contact-preview-table-container">
+              <div className="filter-searchbar-container">
+                <FilterAndSearchBar
+                  getPopupContainer={(trigger) => trigger.parentElement}
+                  filterdata={[
+                    <div className="contact_filter_container">
+                      <div
+                        className="customer_filter_filed"
+                        style={{ marginBottom: "20px", marginTop: "20px" }}
+                      >
+                        <Tooltip title="prompt text" color="#5C5AD0">
+                          {" "}
+                          <label className="label">Ownership</label>{" "}
+                        </Tooltip>
+                        <SearchDropdown
+                          width={330}
+                          name="ownership"
+                          value={custfilter.ownership}
+                          options={ownership}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>,
+                  ]}
+                  change={filterarray}
+                  onSelectColumn={handleSelectColumn}
+                  customer={fetchlead.length}
+                  filterLength={filterarray.length}
+                  columns={columns}
+                  setColumns={setColumns}
+                  addBtnName={"Sales Order"}
+                  onData={handleData}
+                  path={"add_sales"}
+                  //   filter={<Leads />}
+                  onFilter={(e) => {
+                    clearfilter(e);
+                    setVisible(!visible);
+                  }}
+                  activeMode={
+                    <div className="filter-and-searchbar-delete-btn">
+                      <img
+                        src="/images/icons/delete-prmry-icon.svg"
+                        alt="delete"
+                      />
+                      <p className="sc-body-sb delete-text">Delete</p>
+                    </div>
+                  }
+                />
+              </div>
+              <div className="tableData">
+                {filterarray.length > 0 && (
+                  <div className="tags" id="tags">
+                    <div className="appliedtag ">Filtered by </div>
+                    {filterarray.map((customerfilter, index) => {
+                      return (
+                        customerfilter.value && (
+                          <Tooltip
+                            className="tlpclr"
+                            id="tlpclr"
+                            title={`${
+                              (customerfilter.key === "lead" && "Lead") ||
+                              (customerfilter.key === "ownership" &&
+                                "Ownership")
+                            } : ${customerfilter.value}`}
+                            color="#EBECF0"
+                          >
+                            <Tag
+                              key={customerfilter.key}
+                              className="tag1"
+                              closable
+                              closeIcon={
+                                <img
+                                  src="images/icons/tag_close_icon.svg"
+                                  style={{ marginLeft: "4px" }}
+                                />
+                              }
+                              onClose={(e) => {
+                                log(index, customerfilter.key);
+                              }}
+                            >
+                              {customerfilter.value}
+                            </Tag>
+                          </Tooltip>
+                        )
+                      );
+                    })}
+
+                    <button
+                      type="submit"
+                      className="btnfilter"
+                      onClick={(e) => {
+                        setVisible(!visible);
+                        clearfilter(e);
+                      }}
                     >
-                      <Tag
-                        key={customerfilter.key}
-                        className="tag1"
-                        closable
-                        closeIcon={<img src="images/icons/tag_close_icon.svg" style={{marginLeft:"4px"}}/>}
-                        onClose={(e) => {
-                          log(index, customerfilter.key);
+                      Clear All
+                    </button>
+                  </div>
+                )}
+                <Table
+                  ref={componentRef}
+                  rowSelection={{
+                    type: "checkbox",
+                    columnTitle: "",
+                    selectedRowKeys,
+                    columnWidth: "40px",
+                    onChange: (selectedRowKeys, selectedRows) => {
+                      setSelectedRowKeys(selectedRowKeys);
+                      setSelectedRows(selectedRows);
+                    },
+                  }}
+                  scroll={{ x: "200px" }}
+                  dataSource={dataSource}
+                  columns={columns}
+                  pagination={
+                    !loading && {
+                      current: page,
+                      pageSize: pageSize,
+                      onChange: (page, pageSize) => {
+                        setPage(page);
+                        setPageSize(pageSize);
+                      },
+                      total: cusomizeData.length,
+                      showTotal: (total, range) =>
+                        `Showing ${range[1]}-${range[1]} of ${total} Leads`,
+                    }
+                  }
+                  rowClassName={(record) =>
+                    record.key % 2 === 0 ? "highlight_row" : ""
+                  }
+                  search={{
+                    keyword: search,
+                  }}
+                />
+
+                <Modal
+                  open={confirm}
+                  //   onOk={handleMaterialOk}
+                  width={"max-content"}
+                  onCancel={handleConfirm}
+                  style={{ top: 20 }}
+                  className={"deleteconfirm"}
+                  footer={[
+                    <div style={{ marginLeft: "331px" }}>
+                      <Button
+                        key="cancel"
+                        onClick={handleConfirm}
+                        style={{
+                          width: "86px",
+                          height: "38px",
+                          fontSize: "14px",
+                          fontWeight: "700",
+                          color: "#8E9CAA",
+                          borderColor: "#C2CAD2",
                         }}
                       >
-                        {customerfilter.value}
-                      </Tag>
-                    </Tooltip>
-                  )
-                );
-              })}
+                        Cancel
+                      </Button>
+                      <Button
+                        key="submit"
+                        type="primary"
+                        // onClick={handleSubmit}
+                        style={{
+                          width: "88px",
+                          height: "38px",
+                          backgroundColor: "#DA2F58",
+                          fontSize: "14px",
+                          fontWeight: "700",
+                          color: "#FFFFFF",
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>,
+                  ]}
+                  closeIcon={
+                    <div className="icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="13.51"
+                        height="13"
+                        viewBox="0 0 13.51 13"
+                      >
+                        <path
+                          id="Path_34362"
+                          data-name="Path 34362"
+                          d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                          transform="translate(-2.248 -2.248)"
+                          fill="#697a8d"
+                        />
+                      </svg>
+                    </div>
+                  }
+                >
+                  <div className="confirmCoontainer">
+                    <div className="confirmresources">
+                      <div className="imgsetting">
+                        <div className="imgbackground">
+                          <img
+                            src={alert}
+                            style={{ width: "38px", height: "38px" }}
+                          />
+                        </div>
+                      </div>
 
-              <button
-                type="submit"
-                className="btnfilter"
-                onClick={(e) => {
-                  setVisible(!visible);
-                  clearfilter(e);
-                }}
-              >
-                Clear All
-              </button>
-            </div>
-          )}
-          <Table
-            ref={componentRef}
-            rowSelection={{
-                type: "checkbox",
-                columnTitle: "",
-                selectedRowKeys,
-                columnWidth: "40px",
-                onChange: (selectedRowKeys, selectedRows) => {
-                  setSelectedRowKeys(selectedRowKeys);
-                  setSelectedRows(selectedRows);
-                },
-            }}
-             scroll={{x:"800px"}}
-            dataSource={dataSource}
-            columns={columns}
-            pagination={
-              !loading && {
-                current: page,
-                pageSize: pageSize,
-                onChange: (page, pageSize) => {
-                  setPage(page);
-                  setPageSize(pageSize);
-                },
-                total: cusomizeData.length,
-                showTotal: (total, range) =>
-                  `Showing ${range[1]}-${range[1]} of ${total} Leads`,
-              }
-            }
-            rowClassName={(record) =>
-              record.key % 2 === 0 ? "highlight_row" : ""
-            }
-            search={{
-              keyword: search,
-            }}
-          />
+                      <div>
+                        <p
+                          style={{
+                            fontSize: "22px",
+                            color: "#2B3347",
+                            fontWeight: "500",
+                            padding: "21px 0px 0px 0px",
+                          }}
+                        >
+                          Delete Lead
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="confirmationtext">
+                        Are you sure you want to close this window? <br /> All
+                        the value which you filled in the fields will be
+                        deleted.
+                        <br /> This action cannot recover the value.
+                      </p>
+                    </div>
+                  </div>
+                </Modal>
 
-             <Modal
-        open={confirm}
-     //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleConfirm}
-        style={{ top: 20 }}
-        className={"deleteconfirm"}
-        footer={[
-          <div style={{ marginLeft: "331px" }}>
-            <Button
-              key="cancel"
-              onClick={handleConfirm}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#8E9CAA",
-                borderColor: "#C2CAD2",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-             // onClick={handleSubmit}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#DA2F58",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#FFFFFF",
-              }}
-            >
-              Delete
-            </Button>
-          </div>,
-        ]}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
-              </div>
-            </div>
-
-            <div>
-              <p
-                style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
-                }}
-              >
-                Delete Lead
-              </p>
-            </div>
-          </div>
-          <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
-            </p>
-          </div>
-        </div>
-      </Modal>
-
-     
-
-      <Modal
-        open={salesOrderModal}
-        //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleCancel}
-        style={{ top: 0, height: "auto", }}
-        className={"sales-order-modal"}
-        footer={false}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        {/* {!salesType ? 
+                <Modal
+                  open={salesOrderModal}
+                  //   onOk={handleMaterialOk}
+                  width={"max-content"}
+                  onCancel={handleCancel}
+                  style={{ top: 0, height: "auto" }}
+                  className={"sales-order-modal"}
+                  footer={false}
+                  closeIcon={
+                    <div className="icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="13.51"
+                        height="13"
+                        viewBox="0 0 13.51 13"
+                      >
+                        <path
+                          id="Path_34362"
+                          data-name="Path 34362"
+                          d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                          transform="translate(-2.248 -2.248)"
+                          fill="#697a8d"
+                        />
+                      </svg>
+                    </div>
+                  }
+                >
+                  {/* {!salesType ? 
           <div className="sales-order-modal-container">
           <div className="sales-type-container">
             <h1 className="heading-sb">Sales Order Type</h1>
@@ -1274,197 +1614,259 @@ const dataSource=[
 
             </div>
         </div>: */}
-        <div className="sales-order-modal-container">
-          <div className="select-customer-container">
-            <h1 className="heading-sb">Customer Account</h1>
-            <p className="sc-body-rg title">
-              Choose customer account by considering the details
-            </p>
-            <hr className="h-line" />
-          
+                  <div className="sales-order-modal-container">
+                    <div className="select-customer-container">
+                      <h1 className="heading-sb">Customer Account</h1>
+                      <p className="sc-body-rg title">
+                        Choose customer account by considering the details
+                      </p>
+                      <hr className="h-line" />
 
-
-            <SearchSelect
-              width={381}
-              height={400}
-              label="Customer Account"
-              placeholder="Customer Account"
-              icon="/images/icons/customer-contact-icon.svg"
-              options={customerDataSelectOptions}
-              onChange={handleDrpChangeStatus}
-              name="business_name"
-          //  value={formData.business_name}
-            value={formData.customer_vendor_id}
-            //  value={
-            //   customerDataSelectOptions.find(
-            //     (option) =>
-            //       option.key === formData.business_name && option.label
-            //   )?.label
-            // }
-            />
-          </div>
-          {isCustomerSelected && (
-            <div>
-              <div className="customer-account-details-container">
-                <div className="customer-details">
-                  <img
-                    className="company-icon"
-                    src="/images/icons/logo-customer.svg"
-                    alt=""
-                  />
-                  <div className="company-name-container">
-                    <div className="company-name">
-                      <h3 className="subtitle-sb">
-                      {singleCusVen.business_name}
-                      </h3>
-                      <img src="/images/icons/redirect-icon.svg" alt="icon" />
+                      <SearchSelect
+                        width={381}
+                        height={400}
+                        label="Customer Account"
+                        placeholder="Customer Account"
+                        icon="/images/icons/customer-contact-icon.svg"
+                        options={customerDataSelectOptions}
+                        onChange={handleDrpChangeStatus}
+                        name="business_name"
+                        //  value={formData.business_name}
+                        value={formData.customer_vendor_id}
+                        //  value={
+                        //   customerDataSelectOptions.find(
+                        //     (option) =>
+                        //       option.key === formData.business_name && option.label
+                        //   )?.label
+                        // }
+                      />
                     </div>
-                    <p className="customer-address sc-body-rg">
-                      G-2, Ground Floor, InternationalBusiness Center, Near
-                      Rahul Raj Mall Piplod, Surat Gujarat - 395007, Gujarat,
-                      India
-                    </p>
-                    <p></p>
+                    {isCustomerSelected && (
+                      <div>
+                        <div className="customer-account-details-container">
+                          <div className="customer-details">
+                            <img
+                              className="company-icon"
+                              src="/images/icons/logo-customer.svg"
+                              alt=""
+                            />
+                            <div className="company-name-container">
+                              <div className="company-name">
+                                <h3 className="subtitle-sb">
+                                  {singleCusVen.business_name}
+                                </h3>
+                                <img
+                                  src="/images/icons/redirect-icon.svg"
+                                  alt="icon"
+                                />
+                              </div>
+                              <p className="customer-address sc-body-rg">
+                                G-2, Ground Floor, InternationalBusiness Center,
+                                Near Rahul Raj Mall Piplod, Surat Gujarat -
+                                395007, Gujarat, India
+                              </p>
+                              <p></p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="outstanding-unused-container">
+                          <div className="outstansing-container">
+                            <p className="sc-body-rg title">
+                              Outstanding Amount
+                            </p>
+                            <p className="subtitle-sb amount">₹ 60,200.00</p>
+                          </div>
+                          <div className="unused-container">
+                            <p className="sc-body-rg title">Unused Credits</p>
+                            <p className="subtitle-sb amount">₹ 0.00</p>
+                          </div>
+                        </div>
+
+                        <div className="customer-details-container">
+                          <hr className="h-line" />
+                          <div className="gst-treatment d-flex">
+                            <p className="sc-body-rg title">GST Treatment</p>
+                            <p className="sc-body-sb">
+                              {singleCusVen.registration_type}
+                            </p>
+                          </div>
+                          <div className="gstin d-flex">
+                            <p className="sc-body-rg title">GSTIN</p>
+                            <p className="sc-body-sb">{singleCusVen.gstin}</p>
+                          </div>
+                          <div className="email d-flex">
+                            <p className="sc-body-rg title">Email</p>
+                            <p className="sc-body-sb">{singleCusVen.email}</p>
+                          </div>
+                          <div className="pancard d-flex">
+                            <p className="sc-body-rg title">TAN No.</p>
+                            <p className="sc-body-sb">{singleCusVen.tan_no}</p>
+                          </div>
+                          <div className="type d-flex">
+                            <p className="sc-body-rg title">Type</p>
+                            <p className="sc-body-sb">{statusdata}</p>
+                          </div>
+                          <div className="category d-flex">
+                            <p className="sc-body-rg title">Category</p>
+                            <p className="sc-body-sb">{typecategorydata}</p>
+                          </div>
+                          <div className="currency d-flex">
+                            <p className="sc-body-rg title">Currency</p>
+                            <p className="sc-body-sb">{currencydata}</p>
+                          </div>
+                          <div className="payment-terms d-flex">
+                            <p className="sc-body-rg title">Payment Terms</p>
+                            <p className="sc-body-sb">{paymentdata}</p>
+                          </div>
+                          <div className="credit-limit d-flex">
+                            <p className="sc-body-rg title">Credit Limit</p>
+                            <p className="sc-body-sb">
+                              {singleCusVen.credit_limit}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="buttons-container">
+                          <ContainedButton
+                            type="submit"
+                            value="Assign"
+                            onClick={handleFormSubmit}
+                           
+                          />
+                          <ContainedSecondaryButton
+                            value="Cancel"
+                            onClick={handleCancel}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              </div>
-
-              <div className="outstanding-unused-container">
-                <div className="outstansing-container">
-                  <p className="sc-body-rg title">Outstanding Amount</p>
-                  <p className="subtitle-sb amount">₹ 60,200.00</p>
-                </div>
-                <div className="unused-container">
-                  <p className="sc-body-rg title">Unused Credits</p>
-                  <p className="subtitle-sb amount">₹ 0.00</p>
-                </div>
-              </div>
-
-              <div className="customer-details-container">
-                <hr className="h-line" />
-                <div className="gst-treatment d-flex">
-                  <p className="sc-body-rg title">GST Treatment</p>
-                  <p className="sc-body-sb">{singleCusVen.registration_type}</p>
-                </div>
-                <div className="gstin d-flex">
-                  <p className="sc-body-rg title">GSTIN</p>
-                  <p className="sc-body-sb">{singleCusVen.gstin}</p>
-                </div>
-                <div className="email d-flex">
-                  <p className="sc-body-rg title">Email</p>
-                  <p className="sc-body-sb">{singleCusVen.email}</p>
-                </div>
-                <div className="pancard d-flex">
-                  <p className="sc-body-rg title">TAN No.</p>
-                  <p className="sc-body-sb">{singleCusVen.tan_no}</p>
-                </div>
-                <div className="type d-flex">
-                  <p className="sc-body-rg title">Type</p>
-                  <p className="sc-body-sb">{statusdata}</p>
-                </div>
-                <div className="category d-flex">
-                  <p className="sc-body-rg title">Category</p>
-                  <p className="sc-body-sb">{typecategorydata}</p>
-                </div>
-                <div className="currency d-flex">
-                  <p className="sc-body-rg title">Currency</p>
-                  <p className="sc-body-sb">{currencydata}</p>
-                </div>
-                <div className="payment-terms d-flex">
-                  <p className="sc-body-rg title">Payment Terms</p>
-                  <p className="sc-body-sb">{paymentdata}</p>
-                </div>
-                <div className="credit-limit d-flex">
-                  <p className="sc-body-rg title">Credit Limit</p>
-                  <p className="sc-body-sb">{singleCusVen.credit_limit}</p>
-                </div>
-              </div>
-
-              <div className="buttons-container">
-                <ContainedButton
-                  type="submit"
-                  value="Assign"
-                  onClick={handleFormSubmit}
-                />
-                <ContainedSecondaryButton
-                  value="Cancel"
-                  onClick={handleCancel}
-                />
+                  {/* } */}
+                </Modal>
               </div>
             </div>
           )}
-        </div>
-        {/* } */}
-        
-      </Modal>
-        </div>
-      </div>
-}
-{activeTab === "attachments" && <AttachmentFile /> }
-{activeTab === "notes" && <Notes createNoteActive={createNoteActive}  notesData={getContact}  createNoteFalse={createNoteFalse}  /> }
-<Modal
-        open={attachmentsModal}
-        //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleCancel}
-        style={{ top: 0, height: "auto", }}
-        className={"sales-order-modal"}
-        footer={false}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        {
-          <div className="sales-order-modal-container">
-          <div className="sales-type-container">
-            <h1 className="heading-sb">New Attachment</h1>
-            <p className="sc-body-rg mt-10 title">
-              Attach Document
-            </p>
-            <hr className="h-line" />
-            <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    fileList={fileList}
-                    onChange={onChange}
+          {activeTab === "attachments" && <AttachmentFile   attachData={getContact} />}
+          {activeTab === "notes" && (
+            <Notes
+              createNoteActive={createNoteActive}
+              notesData={getContact}
+              createNoteFalse={createNoteFalse}
+              onSubmit={handleFormSubmitNotes}
+            />
+          )}
+          <Modal
+            open={attachmentsModal}
+            //   onOk={handleMaterialOk}
+            width={"max-content"}
+            onCancel={handleCancel}
+            style={{ top: 0, height: "auto" }}
+            className={"sales-order-modal"}
+            footer={false}
+            closeIcon={
+              <div className="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13.51"
+                  height="13"
+                  viewBox="0 0 13.51 13"
+                >
+                  <path
+                    id="Path_34362"
+                    data-name="Path 34362"
+                    d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                    transform="translate(-2.248 -2.248)"
+                    fill="#697a8d"
+                  />
+                </svg>
+              </div>
+            }
+          >
+            {
+              <div className="sales-order-modal-container">
+                <div className="sales-type-container">
+                  <h1 className="heading-sb">New Attachment</h1>
+                  <p className="sc-body-rg mt-10 title">Attach Document</p>
+                  <hr className="h-line" />
+                  <Upload
+                  accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                  onChange={(info) => {
+                    const file = info.file.originFileObj;
+                    handleFileUpload(file)
+                    handleImagePreview(file)
+                  }}
+                  onRemove={handleRemove}
                   >
-                   <div style={{padding:"45px 58px", border:"1.5px dashed #CBD5E0",borderRadius:"6px",width:"214px", textAlign:"center",display:"flex",flexDirection:"column", alignItems:"center",marginBottom:"20px"}}>
-                    <img src="/images/icons/add-image-icon.svg" alt="icon" className="mb-10"/>
-                    <p className="mb-10 sc-body-sb">Drop files here or click to upload</p>
-                    <p className="caption-md" style={{maxWidth:"160px"}}>You Can add up to <span className="caption-sb" style={{color:"#465468"}}>6 Images</span> each not exceeding <span className="caption-sb" style={{color:"#465468"}}>1 MB.</span></p>
-                   </div>
+                    <div
+                      style={{
+                        padding: "45px 58px",
+                        border: "1.5px dashed #CBD5E0",
+                        borderRadius: "6px",
+                        width: "214px",
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <img
+                        src={attachData.attachments || "/images/icons/add-image-icon.svg"}
+                        alt="icon"
+                        id="imgPreview"
+                        className="mb-10"
+                        height="100" 
+                        width="200"
+                      />
+                      {attachData.filename ? (
+                          <p className="mb-10 sc-body-sb">{attachData.filename}</p>
+                        ) : (
+                          <p className="mb-10 sc-body-sb">
+                            Drop files here or click to upload
+                          </p>
+                        )}
+                      <p className="caption-md" style={{ maxWidth: "160px" }}>
+                        You Can add up to{" "}
+                        <span
+                          className="caption-sb"
+                          style={{ color: "#465468" }}
+                        >
+                          6 Images
+                        </span>{" "}
+                        each not exceeding{" "}
+                        <span
+                          className="caption-sb"
+                          style={{ color: "#465468" }}
+                        >
+                          1 MB.
+                        </span>
+                      </p>
+                    </div>
                   </Upload>
-            <CustomInput width={330} label="Attachment Name" placeholder="Name"/>
-            <div className="btn-container d-flex mt-30 gap-16">
-              <ContainedButton value="Upload" />
-              <ContainedSecondaryButton value="Cancel" onClick={handleCancel}/>
-            </div>
-            </div>
+                  <CustomInput
+                    width={330}
+                    label="Attachment Name"
+                    placeholder="Name"
+                    onChange={onChangeAttachment}
+                    name="attatch_name"
+                    value={attachData.attatch_name}
+                  />
+                  <div className="btn-container d-flex mt-30 gap-16">
+                    <ContainedButton value="Upload" onClick={handleFormSubmitAttachment} />
+                    <ContainedSecondaryButton
+                      value="Cancel"
+                      onClick={handleCancel}
+                    />
+                  </div>
+                </div>
+              </div>
+            }
+          </Modal>
         </div>
-       }
-        
-      </Modal>
-  
-
-          </div>
-        </div>
-        <ToastContainer/>
       </div>
-
+      <ToastContainer />
+    </div>
   );
           };
 
