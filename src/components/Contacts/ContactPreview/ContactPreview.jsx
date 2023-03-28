@@ -1,7 +1,18 @@
 import { React, useState, useRef } from "react";
 import FilterAndSearchBar from "../../FilterAndSearchBar/FilterAndSearchBar";
 import Page_heading from "../../Page_Heading/Page_heading";
-import { Spin, Table, Tooltip, Tag, Skeleton, Popover, Button, Modal, Typography, Upload } from "antd";
+import {
+  Spin,
+  Table,
+  Tooltip,
+  Tag,
+  Skeleton,
+  Popover,
+  Button,
+  Modal,
+  Typography,
+  Upload,
+} from "antd";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import editdelete from "../../../assets/Images/Confirmation/editdelete.svg";
@@ -10,18 +21,20 @@ import editlogo from "../../../assets/Images/ActionStatus/edit.svg";
 import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
-import "./ContactPreview.scss"
+import "./ContactPreview.scss";
 import AttachmentFile from "../../AttachmentFile/AttachmentFile";
 import { Link, useParams } from "react-router-dom";
 import config from "../../Database/config";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
-import { ContainedButton, ContainedSecondaryButton } from "../../Buttons/Button";
+import {
+  ContainedButton,
+  ContainedSecondaryButton,
+} from "../../Buttons/Button";
 import { ContainedIconButton, GhostIconButton } from "../../Buttons/Button";
 import CustomInput from "../../CustomInput/CustomInput";
 import Notes from "../../Notes/Notes";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-
 
 const filterfield = {
   name: "",
@@ -32,21 +45,19 @@ const filterfield = {
   ownership: "",
 };
 
-const resetValue =
-{
-  contact_id:"",
-  customer_vendor_id:"",
-}
+const resetValue = {
+  contact_id: "",
+  customer_vendor_id: "",
+};
 
-const resetnoteValue=
-{
-  title:"",
-  description:"",
-}
+const resetnoteValue = {
+  title: "",
+  description: "",
+};
 
 const ContactPreview = () => {
-  const [noteData , setNoteData] = useState(resetnoteValue);
-  const [formData, setFormData] = useState(resetValue)
+  const [noteData, setNoteData] = useState(resetnoteValue);
+  const [formData, setFormData] = useState(resetValue);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [page, setPage] = useState(1);
@@ -60,11 +71,11 @@ const ContactPreview = () => {
   const [contact, setContact] = useState([]);
   const [other, setOther] = useState([]);
   const [confirm, setCofirm] = useState(false);
-  const [deleteRecord, setDeleteRecord] = useState(null)
-  const [activeTab, setActiveTab] =useState("related_account")
-  const [attachmentsModal, setAttachmentsModal] = useState(false)
+  const [deleteRecord, setDeleteRecord] = useState(null);
+  const [activeTab, setActiveTab] = useState("related_account");
+  const [attachmentsModal, setAttachmentsModal] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [getContact, setGetContact] = useState([])
+  const [getContact, setGetContact] = useState([]);
   const [status, setStatus] = useState([]);
   const [addlead, setAddLead] = useState([]);
   const [salesOrderModal, setSalesOrderModal] = useState(false);
@@ -72,439 +83,438 @@ const ContactPreview = () => {
   const [customerSubmit, setCustomerSubmit] = useState(false);
   const [salesType, setSalesType] = useState(false);
   const [custven, setCustVen] = useState([]);
-  const [customerId, setCustomerId] = useState ([]);
-  const [singleCusVen , setSingleCusVen] = useState([]);
+  const [customerId, setCustomerId] = useState([]);
+  const [singleCusVen, setSingleCusVen] = useState([]);
   const [cusvenCurrency, setCusVenCurrency] = useState([]);
   const [cusvenPayment, setCusVenPayment] = useState([]);
-  const [cusvenPincode , setCusVenPincode] = useState([])
+  const [cusvenPincode, setCusVenPincode] = useState([]);
   const [singleAddress, setSingleAddress] = useState([]);
   const [createNoteActive, setCreateNoteActive] = useState(false);
   const [assignedData, setAssignedData] = useState([]);
   const [addSouce, setAddSource] = useState([]);
-const [assignedCustomer, setAssignedCustomer]= useState([])
-const [attachData, setAttachData] = useState({attatch_name:"", attachments:""})
-//handlecancel
+  const [assignedCustomer, setAssignedCustomer] = useState([]);
+  const [attachData, setAttachData] = useState({
+    attatch_name: "",
+    attachments: "",
+  });
+  //handlecancel
 
-const {id}= useParams();
-console.log(id)
+  const { id } = useParams();
+  console.log(id);
 
-const handleCancel = () => {
-  if (isCustomerSelected && customerSubmit) {
+  const handleCancel = () => {
+    if (isCustomerSelected && customerSubmit) {
+      setSalesOrderModal(false);
+    } else {
+      setSalesOrderModal(false);
+      //  window.history.back(-1);
+    }
+    setAttachmentsModal(false);
+  };
+
+  const handleSubmit = () => {
     setSalesOrderModal(false);
-  } else {
-    setSalesOrderModal(false);
-  //  window.history.back(-1);
-  }
-  setAttachmentsModal(false);
-};
+    setCustomerSubmit(true);
+  };
 
-const handleSubmit = () => {
-  setSalesOrderModal(false);
-  setCustomerSubmit(true);
-};
+  //get customervendor assign data in table
+  let assignedId = getContact.id;
+  useEffect(() => {
+    getAssigedData();
+  }, [assignedId]);
 
+  const getAssigedData = () => {
+    return fetch(
+      `${config.baseUrl}/customervendorlinkedin/?company_id=1&contact_id=${assignedId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const customerVendorIds = data.data.items.map(
+          (item) => item.customer_vendor_id
+        );
+        setAssignedData(customerVendorIds);
+        console.log(customerVendorIds);
+        console.log(data);
+      });
+  };
 
-//get customervendor assign data in table
-let assignedId=getContact.id
-useEffect(() => {
-  getAssigedData();
-}, [assignedId]);
+  console.log(assignedId);
+  console.log(assignedData);
 
-const getAssigedData = () => {
-  return fetch(`${config.baseUrl}/customervendorlinkedin/?company_id=1&contact_id=${assignedId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const customerVendorIds = data.data.items.map(item => item.customer_vendor_id);
-      setAssignedData(customerVendorIds);
-      console.log(customerVendorIds)
-      console.log(data);
+  console.log(getContact);
+  console.log(getContact.business_name);
+
+  //data display in table
+
+  // const getAssigedDataCustomer = () => {
+  //   assignedData.forEach((id) => {
+  //     fetch(`${config.baseUrl}/customervendor/${id}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setAssignedCustomer(prevState => [...prevState, data]);
+  //         console.log(data);
+  //       });
+  //   });
+  // };
+  useEffect(() => {
+    assignedData.forEach((ids) => {
+      getAssigedDataCustomer(ids);
     });
-};
+  }, [assignedData]);
 
+  const getAssigedDataCustomer = (id) => {
+    // const ids = assignedData.join(',');
+    // console.log(ids)
+    fetch(`${config.baseUrl}/customervendor/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAssignedCustomer((prevState) => [...prevState, data]);
+        console.log(data);
+      });
+  };
 
-console.log(assignedId)
-console.log(assignedData);
+  console.log(assignedCustomer);
 
-console.log(getContact)
-console.log(getContact.business_name)
+  //for modal delete
 
-//data display in table
+  useEffect(() => {
+    getContactData();
+    getstatus();
+    getlead();
+    getCustomerVendor();
+    // getSingleCustomerVendor();
+    getCusVenCurrency();
+    getCusVenpayent();
+    getPincodeArea();
+    getSource();
+  }, []);
 
+  const getContactData = () => {
+    return fetch(`${config.baseUrl}/contact/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGetContact(data);
+        console.log(data);
+      });
+  };
 
+  console.log(getContact);
 
-// const getAssigedDataCustomer = () => {
-//   assignedData.forEach((id) => {
-//     fetch(`${config.baseUrl}/customervendor/${id}`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setAssignedCustomer(prevState => [...prevState, data]);
-//         console.log(data);
-//       });
-//   });
-// };
-useEffect(() => {
-  assignedData.forEach((ids) => 
-  {
-    getAssigedDataCustomer(ids);
-  })
- 
-}, [assignedData]);
+  //get customervendor
 
-const getAssigedDataCustomer = (id) => {
-  // const ids = assignedData.join(',');
-  // console.log(ids)
-  fetch(`${config.baseUrl}/customervendor/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setAssignedCustomer(prevState => [...prevState, data]);
-      console.log(data);
-    });
-};
+  const getCustomerVendor = () => {
+    return fetch(`${config.baseUrl}/customervendor/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCustVen(data.data.items);
 
-console.log(assignedCustomer);
+        console.log(data);
+        console.log(data.gstin);
+      });
+  };
 
+  console.log(custven);
 
+  const customerDataSelectOptions = custven.map((place) => ({
+    key: place.id,
+    label: (
+      <div className="sales-order-customer-data-container">
+        <p className="business-name">{place.business_name}</p>
 
-
-
-//for modal delete
-
-
-
-useEffect(() => {
-  getContactData();
-  getstatus();
-  getlead();
-  getCustomerVendor();
-  // getSingleCustomerVendor();
-  getCusVenCurrency();
-  getCusVenpayent();
-  getPincodeArea();
-  getSource();
-}, []);
-
-const getContactData = () => {
-  return fetch(`${config.baseUrl}/contact/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setGetContact(data);
-      console.log(data);
-    });
-};
-
-console.log(getContact);
-
-//get customervendor
-
-const getCustomerVendor = () => {
-  return fetch(`${config.baseUrl}/customervendor/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setCustVen(data.data.items);
-   
-      console.log(data);
-      console.log(data.gstin)
-    });
-};
-
-console.log(custven)
-
-
-const customerDataSelectOptions = custven.map((place) => ({
-  key: place.id,
-   label: (
-    <div className="sales-order-customer-data-container">
-      <p className="business-name">{place.business_name}</p>
-      
-      <p className="caption-md contact-title mb-8">
-     
-        GSTIN : <span className="caption-md">{place.gstin}</span>
-      </p>
-      <div className="d-flex justify-between mb-0">
-        <p className="caption-md gstin-title">
-        Type : <span className="caption-md">{place.type}</span>
+        <p className="caption-md contact-title mb-8">
+          GSTIN : <span className="caption-md">{place.gstin}</span>
         </p>
-        <p className="caption-md city-title">
-          Category : <span className="caption-md">{place.type_category}</span>
-        </p>
+        <div className="d-flex justify-between mb-0">
+          <p className="caption-md gstin-title">
+            Type : <span className="caption-md">{place.type}</span>
+          </p>
+          <p className="caption-md city-title">
+            Category : <span className="caption-md">{place.type_category}</span>
+          </p>
+        </div>
       </div>
-    </div>
-  ),
-  value:place.business_name,
-}));
+    ),
+    value: place.business_name,
+  }));
 
+  const gettypedata = status
+    .filter((place) => place.field === "type" && place.module === "cus_ven")
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
 
+  console.log(gettypedata);
 
-const gettypedata = status
-.filter((place) => place.field === "type" && place.module === "cus_ven"  )
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+  //onchange
 
-console.log(gettypedata)
+  //
 
-//onchange
-
-
-
-//
-
-
-const handleDrpChangeStatus = (field, value) => {
-  const selectedOption = customerDataSelectOptions.find((option) => option.value === value);
-  console.log(selectedOption);
-  setCustomerId({ ...customerId, [field]: value, customerId: selectedOption.key });
-  //  setFormData({...formData,[field]:value , business_name:customerId.customerId })
-  setIsCustomerSelected(true);
-  console.log(field);
-  console.log(value);
-};
-
-useEffect(() => {
-  setFormData({ ...formData, customer_vendor_id: customerId.customerId });
-}, [customerId]);
-console.log(formData)
-console.log(customerId)
-let SingleId = customerId.customerId
-console.log(SingleId)
-
-//get customer/vendor  currency
-
-const getCusVenCurrency = () => {
-  fetch(`${config.baseUrl}/currency/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setCusVenCurrency(data.data.items);
-      // console.log(data);
+  const handleDrpChangeStatus = (field, value) => {
+    const selectedOption = customerDataSelectOptions.find(
+      (option) => option.value === value
+    );
+    console.log(selectedOption);
+    setCustomerId({
+      ...customerId,
+      [field]: value,
+      customerId: selectedOption.key,
     });
-};
+    //  setFormData({...formData,[field]:value , business_name:customerId.customerId })
+    setIsCustomerSelected(true);
+    console.log(field);
+    console.log(value);
+  };
 
-const getCurrency = cusvenCurrency.map((place) => ({
-  key: place.id,
-  label: place.currency_name,
-  value: place.currency_name,
-}));
+  useEffect(() => {
+    setFormData({ ...formData, customer_vendor_id: customerId.customerId });
+  }, [customerId]);
+  console.log(formData);
+  console.log(customerId);
+  let SingleId = customerId.customerId;
+  console.log(SingleId);
 
-// console.log(status, getstatusdata)
+  //get customer/vendor  currency
 
-let currencydata =getCurrency.find(
-  (option) => option.key === singleCusVen.currency && option.label
-)?.label
+  const getCusVenCurrency = () => {
+    fetch(`${config.baseUrl}/currency/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCusVenCurrency(data.data.items);
+        // console.log(data);
+      });
+  };
 
+  const getCurrency = cusvenCurrency.map((place) => ({
+    key: place.id,
+    label: place.currency_name,
+    value: place.currency_name,
+  }));
 
-//get customer/vendor  payent
+  // console.log(status, getstatusdata)
 
-const getCusVenpayent = () => {
-  fetch(`${config.baseUrl}/paymentterms/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setCusVenPayment(data.data.items);
-      // console.log(data);
-    });
-};
+  let currencydata = getCurrency.find(
+    (option) => option.key === singleCusVen.currency && option.label
+  )?.label;
 
-const getPayment = cusvenPayment.map((place) => ({
-  key: place.id,
-  label: place.terms,
-  value: place.terms,
-}));
+  //get customer/vendor  payent
 
+  const getCusVenpayent = () => {
+    fetch(`${config.baseUrl}/paymentterms/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCusVenPayment(data.data.items);
+        // console.log(data);
+      });
+  };
 
+  const getPayment = cusvenPayment.map((place) => ({
+    key: place.id,
+    label: place.terms,
+    value: place.terms,
+  }));
 
-//get customer/vendor pincode area
+  //get customer/vendor pincode area
 
-const getPincodeArea = () => {
-  return fetch(`${config.baseUrl}/pincode/${singleAddress}`)
-    .then((response) => response.json())
+  const getPincodeArea = () => {
+    return fetch(`${config.baseUrl}/pincode/${singleAddress}`)
+      .then((response) => response.json())
 
-    .then((data) => {
-      setCusVenPincode(data);
-      console.log(data);
-     
-    });
-};
+      .then((data) => {
+        setCusVenPincode(data);
+        console.log(data);
+      });
+  };
 
-console.log(cusvenPincode)
+  console.log(cusvenPincode);
 
+  // console.log(status, getstatusdata)
 
-// console.log(status, getstatusdata)
+  let paymentdata = getPayment.find(
+    (option) => option.key === singleCusVen.payment_terms && option.label
+  )?.label;
 
-let paymentdata =getPayment.find(
-  (option) => option.key === singleCusVen.payment_terms && option.label
-)?.label
+  //get position
 
-//get position
+  const getSource = () => {
+    return fetch(`${config.baseUrl}/position/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAddSource(data.data.items);
+        console.log(data);
+      });
+  };
+  console.log(addSouce);
 
-const getSource = () => {
-  return fetch(`${config.baseUrl}/position/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setAddSource(data.data.items);
-      console.log(data);
-    });
-};
-console.log(addSouce)
+  const othersource = addSouce.map((place) => ({
+    key: place.id,
+    label: place.position_name,
+    value: place.position_name,
+  }));
 
-const othersource =addSouce.map((place)=>({
-  key:place.id,
-  label: place.position_name,
-  value: place.position_name,
-}))
+  console.log(othersource);
 
-console.log(othersource)
-
-let position =othersource.find(
+  let position = othersource.find(
     (option) => option.key === getContact.position && option.label
-  )?.label
+  )?.label;
 
-  console.log(position)
-  console.log(getContact.position)
+  console.log(position);
+  console.log(getContact.position);
 
-//gt single customer vendor
+  //gt single customer vendor
 
-const getSingleCustomerVendor = () => {
-  return fetch(`${config.baseUrl}/customervendor/${customerId.customerId}`)
-    .then((response) => response.json())
+  const getSingleCustomerVendor = () => {
+    return fetch(`${config.baseUrl}/customervendor/${customerId.customerId}`)
+      .then((response) => response.json())
 
-    .then((data) => {
-      setSingleCusVen(data);
-      console.log(data);
-      console.log(SingleId);
-      console.log(data.Initiallitemrow[0].pincode)
-    });
-};
+      .then((data) => {
+        setSingleCusVen(data);
+        console.log(data);
+        console.log(SingleId);
+        console.log(data.Initiallitemrow[0].pincode);
+      });
+  };
 
-useEffect(() => {
-  getSingleCustomerVendor();
-}, [customerId]);
+  useEffect(() => {
+    getSingleCustomerVendor();
+  }, [customerId]);
 
-console.log(singleCusVen);
+  console.log(singleCusVen);
 
-//  let data = custven.map((place) => (
-//   setType(
-//     gettypedata.find((option) => 
-//     option.key === place.type && option.label) ?.label
-//   )
-//  ))
-//   console.log(data)
-// console.log(type);
-// let typedata =gettypedata.find(
-//   (option) => option.key && option.label
-// )?.label
-// console.log(typedata)
-// console.log(custven)
-//get status
-const getstatus = () => {
-  return fetch(`${config.baseUrl}/master/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setStatus(data.data.items);
-      console.log(data);
-    });
-};
-//type category of cuatomer/vendor
+  //  let data = custven.map((place) => (
+  //   setType(
+  //     gettypedata.find((option) =>
+  //     option.key === place.type && option.label) ?.label
+  //   )
+  //  ))
+  //   console.log(data)
+  // console.log(type);
+  // let typedata =gettypedata.find(
+  //   (option) => option.key && option.label
+  // )?.label
+  // console.log(typedata)
+  // console.log(custven)
+  //get status
+  const getstatus = () => {
+    return fetch(`${config.baseUrl}/master/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setStatus(data.data.items);
+        console.log(data);
+      });
+  };
+  //type category of cuatomer/vendor
 
-const getcategorydata = status
-.filter((place) => place.field === "c_type" || "v_type" && place.module === "Customer" || "Vendor" )
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
-console.log(status)
-console.log(getcategorydata)
+  const getcategorydata = status
+    .filter(
+      (place) =>
+        place.field === "c_type" ||
+        ("v_type" && place.module === "Customer") ||
+        "Vendor"
+    )
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
+  console.log(status);
+  console.log(getcategorydata);
 
-let typecategorydata =getcategorydata.find(
-  (option) => option.key === singleCusVen.type_category && option.label
-)?.label
+  let typecategorydata = getcategorydata.find(
+    (option) => option.key === singleCusVen.type_category && option.label
+  )?.label;
 
-console.log(typecategorydata);
+  console.log(typecategorydata);
 
-//status
+  //status
 
-const getstatuscusven = status
-.filter((place) => place.field === "Status" && place.module === "Contact_Status")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+  const getstatuscusven = status
+    .filter(
+      (place) => place.field === "Status" && place.module === "Contact_Status"
+    )
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
 
+  let statusdatacusven = getstatuscusven.find(
+    (option) => option.key === getContact.status && option.label
+  )?.label;
+  console.log(statusdatacusven);
+  //type of customer/vendor
+  console.log(status);
+  const getstatusdata = status
+    .filter((place) =>
+      place.field === "Status" &&
+      place.module === "Contact_Status" &&
+      place.master_value === "1"
+        ? "Customer"
+        : "Vendor"
+    )
+    .map((place) => ({
+      key: place.id,
+      label: place.master_key,
+      value: place.master_key,
+    }));
 
-let statusdatacusven =getstatuscusven.find(
-  (option) => option.key === getContact.status && option.label
-)?.label
-console.log(statusdatacusven)
-//type of customer/vendor
-console.log(status);
-const getstatusdata = status
-.filter((place) => place.field === "Status" && place.module === "Contact_Status" && place.master_value === "1" ? "Customer" :"Vendor")
-.map((place) => ({
-  key: place.id,
-  label: place.master_key,
-  value: place.master_key,
-}));
+  console.log(status, getstatusdata);
 
-console.log(status, getstatusdata)
+  let statusdata = getstatusdata.find(
+    (option) => option.key === singleCusVen.type && option.label
+  )?.label;
 
-let statusdata =getstatusdata.find(
-  (option) => option.key === singleCusVen.type && option.label
-)?.label
+  console.log(statusdata);
 
-console.log(statusdata);
+  console.log(getContact);
 
-console.log(getContact)
+  //getlead
+  const getlead = () => {
+    return fetch(`${config.baseUrl}/leadsource/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAddLead(data.data.items);
+        console.log(data);
+      });
+  };
 
-//getlead
-const getlead = () => {
-  return fetch(`${config.baseUrl}/leadsource/`)
-    .then((response) => response.json())
-    .then((data) => {
-      setAddLead(data.data.items);
-      console.log(data);
-    });
-};
+  const otherlead = addlead.map((place) => ({
+    key: place.id,
+    label: place.lead_source,
+    value: place.lead_source,
+  }));
 
-const otherlead = addlead.map((place) => ({
-  key: place.id,
-  label: place.lead_source,
-  value: place.lead_source,
-}));
+  let leaddata = otherlead.find(
+    (option) => option.key === getContact.lead_source && option.label
+  )?.label;
 
-let leaddata =otherlead.find(
-  (option) => option.key === getContact.lead_source && option.label
-)?.label
+  console.log(leaddata);
 
-console.log(leaddata);
-
-console.log(id);
+  console.log(id);
   const handleConfirmCancel = (record) => {
-    setDeleteRecord(record)
-      setCofirm(true);
-    };
-  
-    const handleConfirm = () => {
-      setCofirm(false);
-      setDeleteRecord(null)
-    };
+    setDeleteRecord(record);
+    setCofirm(true);
+  };
 
-//assign contact to customer/ vendor
+  const handleConfirm = () => {
+    setCofirm(false);
+    setDeleteRecord(null);
+  };
 
-const handleFormSubmit = (e) => {
-  // e.preventDefault();
+  //assign contact to customer/ vendor
+
+  const handleFormSubmit = (e) => {
+    // e.preventDefault();
     axios
       .post(
         `${config.baseUrl}/customervendorlinkedin/?company_id=1`,
         {
-
           contact_id: id,
           customer_vendor_id: formData.customer_vendor_id,
-          "company_id": 1,
-          "created_by": 1,
-          "updated_by": 1
-
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
 
           // business_name:formData.business_name,
           // name: getContact.name,
@@ -532,11 +542,11 @@ const handleFormSubmit = (e) => {
         getAssigedData();
         setSalesOrderModal(false);
         getAssigedData();
-        setFormData(resetValue)
+        setFormData(resetValue);
         getAssigedData();
         // getData();
-       // handleclose();
-       // props.onClick();
+        // handleclose();
+        // props.onClick();
 
         toast.success("Assigned Successfuly", {
           position: "top-right",
@@ -548,29 +558,27 @@ const handleFormSubmit = (e) => {
           progress: undefined,
         });
       });
-  }
+  };
 
-let business = assignedData.business_name
-console.log(business);
-    
-const dataSource=assignedCustomer.map((customers) => ({
-  key: customers.Key,
-  id:customers.id,
-  business_name: customers.business_name,
-  gstin: customers.gstin,
-  type: getstatusdata.find(
-    (option) => option.key === customers.type && option.label
-  )?.label,
-  category:getcategorydata.find(
-    (option) => option.key === customers.type_category && option.label
-  )?.label ,
-  position: othersource.find(
-    (option) => option.key === getContact.position && option.label
-  )?.label,
-  status: "Active",
-}
-))
-     
+  let business = assignedData.business_name;
+  console.log(business);
+
+  const dataSource = assignedCustomer.map((customers) => ({
+    key: customers.Key,
+    id: customers.id,
+    business_name: customers.business_name,
+    gstin: customers.gstin,
+    type: getstatusdata.find(
+      (option) => option.key === customers.type && option.label
+    )?.label,
+    category: getcategorydata.find(
+      (option) => option.key === customers.type_category && option.label
+    )?.label,
+    position: othersource.find(
+      (option) => option.key === getContact.position && option.label
+    )?.label,
+    status: "Active",
+  }));
 
   const ownership = [
     {
@@ -601,20 +609,56 @@ const dataSource=assignedCustomer.map((customers) => ({
         if (record.business_name) {
           const nameArr = record.business_name.split(" ");
           if (nameArr.length > 1) {
-            initials = nameArr[0].charAt(0) + nameArr[nameArr.length - 1].charAt(0);
+            initials =
+              nameArr[0].charAt(0) + nameArr[nameArr.length - 1].charAt(0);
           } else {
             initials = nameArr[0].charAt(0);
           }
         }
         return (
           <div style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ minWidth: 36, height: 36, backgroundColor: "#5C5AD133",border: "1px solid #C2CAD2" , borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ color: "#5C5AD0", fontWeight: 600 }}>{initials}</span>
+            <div
+              style={{
+                minWidth: 36,
+                height: 36,
+                backgroundColor: "#5C5AD133",
+                border: "1px solid #C2CAD2",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{ color: "#5C5AD0", fontWeight: 600 }}>
+                {initials}
+              </span>
             </div>
-            <span style={{ marginLeft: 8 }}><div><p className=" sc-body-md" style={{ color:"#5C5AD1"}}>{record.business_name}</p>
-            <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
-              {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
-              <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.gstin}</p></div></div></span>
+            <span style={{ marginLeft: 8 }}>
+              <div>
+                <p className=" sc-body-md" style={{ color: "#5C5AD1" }}>
+                  {record.business_name}
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    color: "#A1ACB8",
+                  }}
+                >
+                  {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
+                  <p
+                    className="contact-key-personname caption-rg"
+                    style={{ fontSize: "", color: "#465468 !important" }}
+                  >
+                    {" "}
+                    {record.gstin}
+                  </p>
+                </div>
+              </div>
+            </span>
           </div>
         );
       },
@@ -632,29 +676,29 @@ const dataSource=assignedCustomer.map((customers) => ({
       },
     },
     {
-        title: "Category",
-        label: "Category",
-        dataIndex: "category",
-        key: "category",
-        resizable: true,
-        width: 100,
-        align: "left",
-        sorter: (record1, record2) => {
-          return record1.mobile_no > record2.mobile_no;
-        },
+      title: "Category",
+      label: "Category",
+      dataIndex: "category",
+      key: "category",
+      resizable: true,
+      width: 100,
+      align: "left",
+      sorter: (record1, record2) => {
+        return record1.mobile_no > record2.mobile_no;
       },
-      {
-        title: "Position",
-        label: "Position",
-        dataIndex: "position",
-        key: "position",
-        resizable: true,
-        width: 100,
-        align: "left",
-        sorter: (record1, record2) => {
-          return record1.email > record2.email;
-        },
+    },
+    {
+      title: "Position",
+      label: "Position",
+      dataIndex: "position",
+      key: "position",
+      resizable: true,
+      width: 100,
+      align: "left",
+      sorter: (record1, record2) => {
+        return record1.email > record2.email;
       },
+    },
     {
       title: "Status",
       label: "Status",
@@ -667,84 +711,100 @@ const dataSource=assignedCustomer.map((customers) => ({
         return record1.email > record2.email;
       },
       render: (text, record) => (
-        <div style={{display:"flex", alignItems:"center", gap:"4px",}}>
-        <div className="table_bullet_item"></div>
-            <Typography.Text
-       
-              style={
-               
-                  record.status
-                  ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
-                  : ""
-              }
-            >
-              {record.status}
-            </Typography.Text>
+        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <div className="table_bullet_item"></div>
+          <Typography.Text
+            style={
+              record.status
+                ? { color: "#179E40", fontSize: "14px", fontWeight: "600" }
+                : ""
+            }
+          >
+            {record.status}
+          </Typography.Text>
         </div>
       ),
     },
-    
-      {
-        title: "",
-        label: "Action",
-        dataIndex: "action",
-        key: "action",
-        fixed: "right",
-        align: "center",
-        width: 40,
-        // fixed:"right",
-        render: (text, record) => (
-          <>
-        <Popover      getPopupContainer={(trigger) => trigger.parentElement} showArrow={false} content={
-                   <>
-             
-                   <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                   <img src={deletelogo} />
-                   <div>
-                   <button 
-                   className="actionlabel"
-                   onClick={() => handleConfirmCancel(record)}
-                   >
-                  Delete
-                   </button>
-                   </div>
-                   </div>
-                   <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>
-                    <img src={editlogo} />
-                    <div>
-                   <button
-        
+
+    {
+      title: "",
+      label: "Action",
+      dataIndex: "action",
+      key: "action",
+      fixed: "right",
+      align: "center",
+      width: 40,
+      // fixed:"right",
+      render: (text, record) => (
+        <>
+          <Popover
+            getPopupContainer={(trigger) => trigger.parentElement}
+            showArrow={false}
+            content={
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "11px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <img src={deletelogo} />
+                  <div>
+                    <button
                       className="actionlabel"
-                     //  onClick={() => handleUpdate(record)}
-                   >
-                  Update
-                   </button>
-                   </div>
-                   </div>
-                   <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-                    <img src={statuslogo} />
-                    <div>
-                   <button
-                    className="actionlabel"
-                    style={{minWidth: "max-content"}}
+                      onClick={() => handleConfirmCancel(record)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "11px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <img src={editlogo} />
+                  <div>
+                    <button
+                      className="actionlabel"
+                      //  onClick={() => handleUpdate(record)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "11px" }}
+                >
+                  <img src={statuslogo} />
+                  <div>
+                    <button
+                      className="actionlabel"
+                      style={{ minWidth: "max-content" }}
                       // onClick={() => handleUpdate(record)}
-                   >
-                    Set as Activate
-                   </button>
-                   </div>
-                   </div>
-                   </>
-          } title="" height={100} trigger="click">
-          <img src={editdelete} style={{cursor:"pointer"}} />
+                    >
+                      Set as Activate
+                    </button>
+                  </div>
+                </div>
+              </>
+            }
+            title=""
+            height={100}
+            trigger="click"
+          >
+            <img src={editdelete} style={{ cursor: "pointer" }} />
           </Popover>
-          </>
-       
-        
-  
-            ),
-        resizable: true,
-        align: "left",
-      },
+        </>
+      ),
+      resizable: true,
+      align: "left",
+    },
   ];
 
   const [columns, setColumns] = useState(columnsData);
@@ -759,7 +819,6 @@ const dataSource=assignedCustomer.map((customers) => ({
 
   // Table Search
 
-
   const handleData = (newData) => {
     setSearch(newData);
   };
@@ -767,8 +826,7 @@ const dataSource=assignedCustomer.map((customers) => ({
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
-  }
-  
+  };
 
   // const filteredData = dataSource.filter((record) =>
   //   record.business_name.toLowerCase().includes(search.toLowerCase())
@@ -822,18 +880,15 @@ const dataSource=assignedCustomer.map((customers) => ({
     setCustFilter(filterfield);
   };
 
-
   const onChangeCredit = (e) => {
     const { value, name } = e.target;
     setCustFilter({ ...custfilter, [name]: value });
   };
 
   const cusomizeData = dataSource.filter(
-    (record) =>
-   console.log(record)
-    //  record.business_name.includes(custfilter.lead) 
+    (record) => console.log(record)
+    //  record.business_name.includes(custfilter.lead)
     //  && record.business_name.toLowerCase().includes(search.toLowerCase())
-    
   );
 
   console.log(cusomizeData);
@@ -852,12 +907,14 @@ const dataSource=assignedCustomer.map((customers) => ({
 
   //table
 
- const [selectedColumns, setSelectedColumns] = useState(columns.map(col => col.dataIndex));
- const handleSelectColumn = (e) => {
-   const { checked, value } = e.target;
-   if(checked) setSelectedColumns([...selectedColumns, value]);
-   else setSelectedColumns(selectedColumns.filter(col => col !== value));
- }
+  const [selectedColumns, setSelectedColumns] = useState(
+    columns.map((col) => col.dataIndex)
+  );
+  const handleSelectColumn = (e) => {
+    const { checked, value } = e.target;
+    if (checked) setSelectedColumns([...selectedColumns, value]);
+    else setSelectedColumns(selectedColumns.filter((col) => col !== value));
+  };
 
   const tableData = useMemo(
     () => (loading ? Array(10).fill({}) : cusomizeData),
@@ -893,9 +950,7 @@ const dataSource=assignedCustomer.map((customers) => ({
     } else {
       initials = nameArr[0].charAt(0);
     }
-  }  
-
- 
+  }
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -905,47 +960,43 @@ const dataSource=assignedCustomer.map((customers) => ({
     setCreateNoteActive(false);
   };
 
+  //notes data input
 
+  //onchange
 
-//notes data input
+  const onChangeNote = (e) => {
+    const { value, name } = e.target;
 
-//onchange
+    setNoteData({ ...noteData, [name]: value });
+    console.log(value);
+    console.log(name);
+  };
 
-const onChangeNote = (e) => {
-  const { value, name } = e.target;
-
-  setNoteData({ ...noteData, [name]: value });
-  console.log(value);
-  console.log(name);
-};
-
-const handleFormSubmitNotes = (value) => {
-  console.log(value)
-  // e.preventDefault();
+  const handleFormSubmitNotes = (value) => {
+    console.log(value);
+    // e.preventDefault();
     axios
       .post(
         `${config.baseUrl}/contactnotes/`,
         {
-
           title: value.title,
           discription: value.description,
           contact_id: id,
-          "company_id": 1,
-          "created_by": 1,
-          "updated_by": 1
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
         },
         value
       )
       .then((response) => {
-        
         // getAssigedData();
         // setSalesOrderModal(false);
         // getAssigedData();
         // setFormData(resetValue)
         // getAssigedData();
         // getData();
-       // handleclose();
-       // props.onClick();
+        // handleclose();
+        // props.onClick();
 
         toast.success("Notes Added Successfuly", {
           position: "top-right",
@@ -957,102 +1008,97 @@ const handleFormSubmitNotes = (value) => {
           progress: undefined,
         });
       });
-  }
-
+  };
 
   //attachment data fill
 
   const onChangeAttachment = (e) => {
     const { value, name } = e.target;
-  
+
     setAttachData({ ...attachData, [name]: value });
     console.log(value);
     console.log(name);
   };
-console.log(attachData)
+  console.log(attachData);
 
-// const handleFileUpload = (file) => {
-//   if (file && file.size >=2048) {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => {
-//       setAttachData({
-//         ...attachData,
-//         attachments: reader.result,
-//       });
-//     };
-//   } else {
-//     console.log("Invalid file size or type");
-//   }
-// };
+  // const handleFileUpload = (file) => {
+  //   if (file && file.size >=2048) {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => {
+  //       setAttachData({
+  //         ...attachData,
+  //         attachments: reader.result,
+  //       });
+  //     };
+  //   } else {
+  //     console.log("Invalid file size or type");
+  //   }
+  // };
 
+  const handleFileUpload = (file) => {
+    if (file && file.size >= 1) {
+      const fileUrl = URL.createObjectURL(file);
+      setAttachData({
+        ...attachData,
+        attachments: fileUrl,
+        filename: file.name,
+      });
+    } else {
+      console.log("Invalid file size or type");
+    }
+  };
 
+  // const handleFileUpload = (file) => {
+  //   if (file && file.size <= 1048576) {
 
-const handleFileUpload = (file) => {
-  if (file && file.size >= 1) {
-    const fileUrl = URL.createObjectURL(file);
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => {
+  //       setAttachData({
+  //         ...attachData,
+  //         attachments: reader.result,
+  //         filename: file.name,
+  //       });
+  //     };
+  //   } else {
+  //     console.log("Invalid file size or type");
+  //   }
+  // };
+
+  const handleImagePreview = (file) => {
+    if (file && file.type.indexOf("image") === 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const imgPreview = document.getElementById("imgPreview");
+        imgPreview.src = reader.result;
+      };
+    }
+  };
+
+  const handleRemove = () => {
     setAttachData({
-      ...attachData,
-      attachments: fileUrl,
-      filename: file.name,
+      attachments: "",
+      filename: "",
     });
-  } else {
-    console.log("Invalid file size or type");
-  }
-};
+    const imgPreview = document.getElementById("imgPreview");
+    imgPreview.src = "/images/icons/add-image-icon.svg";
+  };
 
-// const handleFileUpload = (file) => {
-//   if (file && file.size <= 1048576) {
-    
-
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => {
-//       setAttachData({
-//         ...attachData,
-//         attachments: reader.result,
-//         filename: file.name,
-//       });
-//     };
-//   } else {
-//     console.log("Invalid file size or type");
-//   }
-// };   
-
-const handleImagePreview = (file) => {
-  if (file && file.type.indexOf("image") === 0) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const imgPreview = document.getElementById("imgPreview");
-      imgPreview.src = reader.result;
-    };
-  }
-};
-
-const handleRemove = () => {
-  setAttachData({
-    attachments: "",
-    filename: "",
-  });
-  const imgPreview = document.getElementById("imgPreview");
-  imgPreview.src = "/images/icons/add-image-icon.svg";
-};
-
-const handleFormSubmitAttachment = (value) => {
-  console.log(value)
-  // e.preventDefault();
+  const handleFormSubmitAttachment = (value) => {
+    console.log(value);
+    // e.preventDefault();
     axios
       .post(
         `${config.baseUrl}/contactattatchment/`,
         {
-
           attatch_name: attachData.attatch_name,
-          "attachments":attachData.attachments,
+          attachments: attachData.attachments,
           contact_id: id,
-          "company_id": 1,
-          "created_by": 1,
-          "updated_by": 1
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
         },
         value
       )
@@ -1060,8 +1106,8 @@ const handleFormSubmitAttachment = (value) => {
         getAttachAssigedData();
         handleCancel();
         getAttachAssigedData();
-     setAttachData({attatch_name:"", attachments:""})
-     getAttachAssigedData();
+        setAttachData({ attatch_name: "", attachments: "" });
+        getAttachAssigedData();
         toast.success("Attachment Added Successfuly", {
           position: "top-right",
           autoClose: 2000,
@@ -1072,53 +1118,53 @@ const handleFormSubmitAttachment = (value) => {
           progress: undefined,
         });
       });
-  }
+  };
 
-  console.log(attachData)
-  
+  console.log(attachData);
 
   const [assignedDataAttach, setAssignedDataAttach] = useState([]);
 
+  let assignedIds = getContact.id;
+  console.log(assignedIds);
+  useEffect(() => {
+    getAttachAssigedData();
+  }, [assignedId]);
 
-  let assignedIds=getContact.id
-console.log(assignedIds)
-useEffect(() => {
-getAttachAssigedData();
-}, [assignedId]);
+  const getAttachAssigedData = () => {
+    return fetch(
+      `${config.baseUrl}/contactattatchment/?company_id=1&contact_id=${assignedIds}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        //  const customerVendorIds = data.data.items.map(item => item.contact_id);
+        setAssignedDataAttach(data.data.items);
+        // console.log(customerVendorIds)
+        console.log(data);
+      });
+  };
 
-const getAttachAssigedData = () => {
-return fetch(`${config.baseUrl}/contactattatchment/?company_id=1&contact_id=${assignedIds}`)
-  .then((response) => response.json())
-  .then((data) => {
-  //  const customerVendorIds = data.data.items.map(item => item.contact_id);
-    setAssignedDataAttach(data.data.items);
-   // console.log(customerVendorIds)
-    console.log(data);
-  });
-};
+  // console.log(props.getAttachAssigedData)
 
-// console.log(props.getAttachAssigedData)
+  console.log(assignedDataAttach);
 
-console.log(assignedDataAttach)
-
-// const showPreview = (e) => {
-//   if (e.target && e.target.files) {
-//     const attachments = e.target.files[0];
-//     const reader = new FileReader();
-//     reader.onload = () => {
-//       setAttachData({
-//         ...attachData,
-//         attachments: reader.result
-//       });
-//     };
-//     reader.readAsDataURL(attachments);
-//   } else {
-//     setAttachData({
-//       ...attachData,
-//       attachments: ""
-//     });
-//   }
-// };
+  // const showPreview = (e) => {
+  //   if (e.target && e.target.files) {
+  //     const attachments = e.target.files[0];
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       setAttachData({
+  //         ...attachData,
+  //         attachments: reader.result
+  //       });
+  //     };
+  //     reader.readAsDataURL(attachments);
+  //   } else {
+  //     setAttachData({
+  //       ...attachData,
+  //       attachments: ""
+  //     });
+  //   }
+  // };
 
   return (
     <div className="contact-preview-main">
@@ -1317,7 +1363,13 @@ console.log(assignedDataAttach)
                   : activeTab === "attachments"
                   ? "Attachment"
                   : activeTab === "timeline" && "Timeline"}{" "}
-                <span className="account-count">(4)</span>
+                <span className="account-count">
+                  {activeTab === "attachments"
+                    ? `(${assignedDataAttach.length})`
+                    : activeTab === "related_account"
+                    ? `(${assignedCustomer.length})`
+                    : ""}
+                </span>
               </h1>
               {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
               {activeTab === "related_account" ? (
@@ -1756,7 +1808,6 @@ console.log(assignedDataAttach)
                             type="submit"
                             value="Assign"
                             onClick={handleFormSubmit}
-                           
                           />
                           <ContainedSecondaryButton
                             value="Cancel"
@@ -1771,7 +1822,12 @@ console.log(assignedDataAttach)
               </div>
             </div>
           )}
-          {activeTab === "attachments" && <AttachmentFile   attachData={getContact} getData={assignedDataAttach}/>}
+          {activeTab === "attachments" && (
+            <AttachmentFile
+              attachData={getContact}
+              getData={assignedDataAttach}
+            />
+          )}
           {activeTab === "notes" && (
             <Notes
               createNoteActive={createNoteActive}
@@ -1814,13 +1870,13 @@ console.log(assignedDataAttach)
                   <p className="sc-body-rg mt-10 title">Attach Document</p>
                   <hr className="h-line" />
                   <Upload
-                  accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
-                  onChange={(info) => {
-                    const file = info.file.originFileObj;
-                    handleFileUpload(file)
-                    handleImagePreview(file)
-                  }}
-                  onRemove={handleRemove}
+                    accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                    onChange={(info) => {
+                      const file = info.file.originFileObj;
+                      handleFileUpload(file);
+                      handleImagePreview(file);
+                    }}
+                    onRemove={handleRemove}
                   >
                     <div
                       style={{
@@ -1836,20 +1892,25 @@ console.log(assignedDataAttach)
                       }}
                     >
                       <img
-                        src={attachData.attachments || "/images/icons/add-image-icon.svg"}
+                        src={
+                          attachData.attachments ||
+                          "/images/icons/add-image-icon.svg"
+                        }
                         alt="icon"
                         id="imgPreview"
                         className="mb-10"
-                        height="100" 
+                        height="100"
                         width="200"
                       />
                       {attachData.filename ? (
-                          <p className="mb-10 sc-body-sb">{attachData.filename}</p>
-                        ) : (
-                          <p className="mb-10 sc-body-sb">
-                            Drop files here or click to upload
-                          </p>
-                        )}
+                        <p className="mb-10 sc-body-sb">
+                          {attachData.filename}
+                        </p>
+                      ) : (
+                        <p className="mb-10 sc-body-sb">
+                          Drop files here or click to upload
+                        </p>
+                      )}
                       <p className="caption-md" style={{ maxWidth: "160px" }}>
                         You Can add up to{" "}
                         <span
@@ -1877,7 +1938,10 @@ console.log(assignedDataAttach)
                     value={attachData.attatch_name}
                   />
                   <div className="btn-container d-flex mt-30 gap-16">
-                    <ContainedButton value="Upload" onClick={handleFormSubmitAttachment} />
+                    <ContainedButton
+                      value="Upload"
+                      onClick={handleFormSubmitAttachment}
+                    />
                     <ContainedSecondaryButton
                       value="Cancel"
                       onClick={handleCancel}
@@ -1892,6 +1956,6 @@ console.log(assignedDataAttach)
       <ToastContainer />
     </div>
   );
-          };
+};
 
 export default ContactPreview;
