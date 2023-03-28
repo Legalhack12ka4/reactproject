@@ -137,7 +137,7 @@ const handleConfirmCancelUpdate = () => {
     await axios.get(`${config.baseUrl}/customervendor/`).then((res) => {
       setloading(false);
       setFetchcustomer(
-        res.data.map((row) => ({
+        res.data.data.items.map((row) => ({
             Key:row.id,
             Registration_Type:
             row.registration_type == 1

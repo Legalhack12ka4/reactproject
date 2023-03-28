@@ -19,6 +19,8 @@ import { ContainedButton, ContainedSecondaryButton } from "../../Buttons/Button"
 import { ContainedIconButton, GhostIconButton } from "../../Buttons/Button";
 import CustomInput from "../../CustomInput/CustomInput";
 import Notes from "../../Notes/Notes";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const filterfield = {
@@ -30,7 +32,20 @@ const filterfield = {
   ownership: "",
 };
 
+const resetValue =
+{
+  contact_id:"",
+  customer_vendor_id:"",
+}
+
+const resetnoteValue=
+{
+  notes:"",
+}
+
 const ContactPreview = () => {
+  const [noteData , setNoteData] = useState(resetnoteValue);
+  const [formData, setFormData] = useState(resetValue)
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [page, setPage] = useState(1);
@@ -63,11 +78,14 @@ const ContactPreview = () => {
   const [cusvenPincode , setCusVenPincode] = useState([])
   const [singleAddress, setSingleAddress] = useState([]);
   const [createNoteActive, setCreateNoteActive] = useState(false);
-
-
-
+  const [assignedData, setAssignedData] = useState([]);
+  const [addSouce, setAddSource] = useState([]);
+const [assignedCustomer, setAssignedCustomer]= useState([])
 
 //handlecancel
+
+const {id}= useParams();
+console.log(id)
 
 const handleCancel = () => {
   if (isCustomerSelected && customerSubmit) {
@@ -85,11 +103,65 @@ const handleSubmit = () => {
 };
 
 
+//get customervendor assign data in table
+let assignedId=getContact.id
+useEffect(() => {
+  getAssigedData();
+}, [assignedId]);
+
+const getAssigedData = () => {
+  return fetch(`${config.baseUrl}/customervendorlinkedin/?company_id=1&contact_id=${assignedId}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const customerVendorIds = data.data.items.map(item => item.customer_vendor_id);
+      setAssignedData(customerVendorIds);
+      console.log(customerVendorIds)
+      console.log(data);
+    });
+};
+
+
+console.log(assignedId)
+console.log(assignedData);
+
+console.log(getContact)
+console.log(getContact.business_name)
+
+//data display in table
+
+useEffect(() => {
+  getAssigedDataCustomer();
+}, []);
+
+// const getAssigedDataCustomer = () => {
+//   return fetch(`${config.baseUrl}/customervendor`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       setAssignedCustomer(data.data.items);
+//       console.log(data);
+//     });
+// };
+
+const getAssigedDataCustomer = () => {
+  assignedData.forEach((id) => {
+    fetch(`${config.baseUrl}/customervendor/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAssignedCustomer(prevState => [...prevState, data]);
+        console.log(data);
+      });
+  });
+};
+
+console.log(assignedCustomer);
+
+
+
 
 
 //for modal delete
 
-const {id}= useParams();
+
 
 useEffect(() => {
   getContactData();
@@ -100,6 +172,7 @@ useEffect(() => {
   getCusVenCurrency();
   getCusVenpayent();
   getPincodeArea();
+  getSource();
 }, []);
 
 const getContactData = () => {
@@ -111,13 +184,15 @@ const getContactData = () => {
     });
 };
 
+console.log(getContact);
+
 //get customervendor
 
 const getCustomerVendor = () => {
   return fetch(`${config.baseUrl}/customervendor/`)
     .then((response) => response.json())
     .then((data) => {
-      setCustVen(data);
+      setCustVen(data.data.items);
    
       console.log(data);
       console.log(data.gstin)
@@ -162,20 +237,34 @@ const gettypedata = status
 
 console.log(gettypedata)
 
+//onchange
+
+const onChangeNote = (e) => {
+  const { value, name } = e.target;
+
+  setNoteData({ ...noteData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+
+
+//
+
 
 const handleDrpChangeStatus = (field, value) => {
   const selectedOption = customerDataSelectOptions.find((option) => option.value === value);
   console.log(selectedOption);
   setCustomerId({ ...customerId, [field]: value, customerId: selectedOption.key });
-   
-  setIsCustomerSelected(true)
-
-  // setFieldValue(field, value);
-  // setFieldTouched(field, false);
+  //  setFormData({...formData,[field]:value , business_name:customerId.customerId })
+  setIsCustomerSelected(true);
   console.log(field);
   console.log(value);
 };
 
+useEffect(() => {
+  setFormData({ ...formData, customer_vendor_id: customerId.customerId });
+}, [customerId]);
+console.log(formData)
 console.log(customerId)
 let SingleId = customerId.customerId
 console.log(SingleId)
@@ -186,7 +275,7 @@ const getCusVenCurrency = () => {
   fetch(`${config.baseUrl}/currency/`)
     .then((response) => response.json())
     .then((data) => {
-      setCusVenCurrency(data);
+      setCusVenCurrency(data.data.items);
       // console.log(data);
     });
 };
@@ -210,7 +299,7 @@ const getCusVenpayent = () => {
   fetch(`${config.baseUrl}/paymentterms/`)
     .then((response) => response.json())
     .then((data) => {
-      setCusVenPayment(data);
+      setCusVenPayment(data.data.items);
       // console.log(data);
     });
 };
@@ -245,6 +334,32 @@ let paymentdata =getPayment.find(
   (option) => option.key === singleCusVen.payment_terms && option.label
 )?.label
 
+//get position
+
+const getSource = () => {
+  return fetch(`${config.baseUrl}/position/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setAddSource(data.data.items);
+      console.log(data);
+    });
+};
+console.log(addSouce)
+
+const othersource =addSouce.map((place)=>({
+  key:place.id,
+  label: place.position_name,
+  value: place.position_name,
+}))
+
+console.log(othersource)
+
+let position =othersource.find(
+    (option) => option.key === getContact.position && option.label
+  )?.label
+
+  console.log(position)
+  console.log(getContact.position)
 
 //gt single customer vendor
 
@@ -284,7 +399,7 @@ const getstatus = () => {
   return fetch(`${config.baseUrl}/master/`)
     .then((response) => response.json())
     .then((data) => {
-      setStatus(data);
+      setStatus(data.data.items);
       console.log(data);
     });
 };
@@ -346,7 +461,7 @@ const getlead = () => {
   return fetch(`${config.baseUrl}/leadsource/`)
     .then((response) => response.json())
     .then((data) => {
-      setAddLead(data);
+      setAddLead(data.data.items);
       console.log(data);
     });
 };
@@ -374,16 +489,84 @@ console.log(id);
       setDeleteRecord(null)
     };
 
+//assign contact to customer/ vendor
 
+const handleFormSubmit = (e) => {
+  // e.preventDefault();
+    axios
+      .post(
+        `${config.baseUrl}/customervendorlinkedin/?company_id=1`,
+        {
+
+          contact_id: id,
+          customer_vendor_id: formData.customer_vendor_id,
+          "company_id": 1,
+          "created_by": 1,
+          "updated_by": 1
+
+
+          // business_name:formData.business_name,
+          // name: getContact.name,
+          // mobile: getContact.mobile,
+          // email: getContact.email,
+          // //   dob:formData.dob,
+          // dob: "2000-09-09",
+          // contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+          // notes: "good",
+          // is_active: true,
+          // is_deleted: false,
+          //  position: getContact.position,
+          // //position: 1,
+          // company_name: 1,
+          // status: getContact.status,
+          // lead_source: getContact.lead,
+          // ownership: 1,
+          // company_id: 1,
+          // created_by: 1,
+          // updated_by: 1,
+        },
+        formData
+      )
+      .then((response) => {
+        getAssigedData();
+        setSalesOrderModal(false);
+        getAssigedData();
+        setFormData(resetValue)
+        getAssigedData();
+        // getData();
+       // handleclose();
+       // props.onClick();
+
+        toast.success("Assigned Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  }
+
+let business = assignedData.business_name
+console.log(business);
     
 const dataSource=[
     {
-      key: "1",
-      business_name: "Reformiqo Business Services Pvt Ltd ",
-      gstin_no: "22AAAAA0000A1Z5",
-      type: "Customer",
-      category: "Retailer",
-      position: "Owner",
+      key: assignedData.Key,
+      id:assignedData.id,
+      business_name: assignedData.business_name,
+      gstin: assignedData.gstin,
+      type: getstatusdata.find(
+        (option) => option.key === assignedData.type && option.label
+      )?.label,
+      category:getcategorydata.find(
+        (option) => option.key === assignedData.type_category && option.label
+      )?.label ,
+      position: othersource.find(
+        (option) => option.key === getContact.position && option.label
+      )?.label,
       status: "Active",
     }
 ]
@@ -430,7 +613,7 @@ const dataSource=[
             <span style={{ marginLeft: 8 }}><div><p className=" sc-body-md" style={{ color:"#5C5AD1"}}>{record.business_name}</p>
             <div style={{display:"flex", alignItems:"center", gap:"5px", fontSize:"12px", fontWeight:"500", color:"#A1ACB8"}}>
               {/* <img src="images/icons/user_avatar.svg" alt="user" />  */}
-              <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.gstin_no}</p></div></div></span>
+              <p className="contact-key-personname caption-rg" style={{fontSize:"", color:"#465468 !important"}}> {record.gstin}</p></div></div></span>
           </div>
         );
       },
@@ -586,9 +769,9 @@ const dataSource=[
   }
   
 
-  const filteredData = dataSource.filter((record) =>
-    record.business_name.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filteredData = dataSource.filter((record) =>
+  //   record.business_name.toLowerCase().includes(search.toLowerCase())
+  // );
   //Filter field
 
   useEffect(() => {
@@ -646,8 +829,9 @@ const dataSource=[
 
   const cusomizeData = dataSource.filter(
     (record) =>
-      record.business_name.includes(custfilter.lead) 
-      && record.business_name.toLowerCase().includes(search.toLowerCase())
+   console.log(record)
+    //  record.business_name.includes(custfilter.lead) 
+    //  && record.business_name.toLowerCase().includes(search.toLowerCase())
     
   );
 
@@ -917,7 +1101,7 @@ const dataSource=[
                 },
             }}
              scroll={{x:"800px"}}
-            dataSource={filteredData}
+            dataSource={dataSource}
             columns={columns}
             pagination={
               !loading && {
@@ -1108,6 +1292,15 @@ const dataSource=[
               icon="/images/icons/customer-contact-icon.svg"
               options={customerDataSelectOptions}
               onChange={handleDrpChangeStatus}
+              name="business_name"
+          //  value={formData.business_name}
+            value={formData.customer_vendor_id}
+            //  value={
+            //   customerDataSelectOptions.find(
+            //     (option) =>
+            //       option.key === formData.business_name && option.label
+            //   )?.label
+            // }
             />
           </div>
           {isCustomerSelected && (
@@ -1191,7 +1384,7 @@ const dataSource=[
                 <ContainedButton
                   type="submit"
                   value="Assign"
-                  onClick={handleSubmit}
+                  onClick={handleFormSubmit}
                 />
                 <ContainedSecondaryButton
                   value="Cancel"
@@ -1208,7 +1401,7 @@ const dataSource=[
       </div>
 }
 {activeTab === "attachments" && <AttachmentFile /> }
-{activeTab === "notes" && <Notes createNoteActive={createNoteActive} createNoteFalse={createNoteFalse}  /> }
+{activeTab === "notes" && <Notes createNoteActive={createNoteActive}  notesData={getContact}  createNoteFalse={createNoteFalse}  /> }
 <Modal
         open={attachmentsModal}
         //   onOk={handleMaterialOk}
@@ -1269,6 +1462,7 @@ const dataSource=[
 
           </div>
         </div>
+        <ToastContainer/>
       </div>
 
   );
