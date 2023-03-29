@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Calendar } from 'react-date-range'
 import format from 'date-fns/format'
+// import 
 
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
@@ -73,3 +74,16 @@ const CalendarComp= () => {
 }
 
 export default CalendarComp
+
+export const DatePicker = (props) => {
+  const { value, onChange } = props;
+  return (
+    <DatePicker
+    {...props}
+      className="custom-date-picker"
+      value={value}
+      onChange={onChange}
+      open={true}
+    />
+  );
+}

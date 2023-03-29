@@ -19,7 +19,7 @@ import { event } from "jquery";
 import SearchDropdown from "../AllDropdowns/SearchDropdown/SearchDropdown";
 import { getContainer } from "rsuite/esm/DOMHelper";
 import DateRangePicker from "../DateRangePicker/DateRangePicker";
-import { ContainedButton, ContainedIconButton, ContainedSecondaryButton } from "../Buttons/Button";
+import { ContainedButton, ContainedIconButton, ContainedSecondaryButton, GhostGrayIconButton } from "../Buttons/Button";
 import { SearchSelect } from "../Dropdowns/Dropdowns";
 import CustomInput from "../CustomInput/CustomInput";
 
@@ -371,7 +371,6 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                   onChange={handleChange}
                 />
               </div>}
-
             {props.customer == "" ? (
               <div
                 className={`${props.filterLength > 0 && "filter  sc-body-sb"} tableBtn `}
@@ -387,15 +386,15 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                     <img
                       src={filterblue}
                       id="filtericon"
-                      height="12px"
-                      width="12px"
+                      height="16px"
+                      width="16px"
                     />
                   ) : (
                     <img
-                      src={filter}
+                      src="/images/icons/filter.svg"
                       id="filtericon"
-                      height="12px"
-                      width="12px"
+                      height="16px"
+                      width="16px"
                     />
                   )}
                 </div>
@@ -418,15 +417,15 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                     <img
                       src={filterblue}
                       id="filtericon"
-                      height="12px"
-                      width="12px"
+                      height="16px"
+                      width="16px"
                     />
                   ) : (
                     <img
                       src={filter}
                       id="filtericon"
-                      height="12px"
-                      width="12px"
+                      height="16px"
+                      width="16px"
                     />
                   )}
                 </div>

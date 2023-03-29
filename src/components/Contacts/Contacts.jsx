@@ -1168,7 +1168,7 @@ const handleleadpopover= () =>
                   // inputType={"email"}
                   drpValue={selectedCode}
                   name="mobile"
-                    placeholder="Placeholder"
+                    placeholder="Mobile No."
                     value={formData.mobile}
                     onChange={(e) => {handleChange(e); onChange(e);}}
                   onBlur={handleBlur}

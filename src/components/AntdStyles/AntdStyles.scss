@@ -82,6 +82,11 @@
 
 //Pagination
 
+.ant-pagination   {
+    width: 100%;
+    position: absolute !important;
+}
+
 .ant-table-wrapper .ant-table-column-sorter-up.active {
   color: #5c5ad0 !important;
 }
@@ -94,6 +99,17 @@
 }
 .ant-pagination .ant-pagination-item-active {
   border-color: #5c5ad0 !important;
+}
+.ant-pagination .ant-pagination-total-text {
+
+  //gap: 300px;
+ //padding-right: 820px !important;
+  font-weight: 500 !important;
+ // margin-right: 792px !important;
+
+ position: absolute;
+ left: 0px;
+
 }
 // :where(.css-dev-only-do-not-override-k83k30)[class^="ant-select"]
 //   [class^="ant-select"],
