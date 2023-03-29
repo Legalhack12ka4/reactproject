@@ -1392,7 +1392,7 @@ const handleUpdateCancel = () =>{
         parent={"Business Account"}
         child={"contacts"}
       />
-      {activeMode === "table" && (
+      {activeMode === "table" && 
         <div className="contacts-table-container">
           <div className="filter-searchbar-container">
             <FilterAndSearchBar
@@ -1486,7 +1486,7 @@ const handleUpdateCancel = () =>{
                        onChange={onChangedate}
                 />
               </div> */}
-                </div>,
+                </div>
               ]}
               change={filterarray}
               onSelectColumn={handleSelectColumn}
@@ -1780,7 +1780,6 @@ const handleUpdateCancel = () =>{
             )}
 
 
-          {/* update contact modal  */}
           <Modal
         open={updateModal}
         width={"max-content"}
@@ -1893,9 +1892,9 @@ const handleUpdateCancel = () =>{
                   </div>
                 </div>
               </div>
-      </Modal>
+          </Modal>
 
- <Modal
+      <Modal
         open={confirm}
      //   onOk={handleMaterialOk}
         width={"max-content"}
@@ -1937,10 +1936,9 @@ const handleUpdateCancel = () =>{
           </div>
         </div>
       </Modal>
-          {/* <SearchDropdown/> */}
         </div>
       </div>
-      }}
+      }
 
       {activeMode === "grid" && (
         <div className="contacts-grid-container">
