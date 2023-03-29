@@ -93,7 +93,7 @@ function AddNewCustomer(props) {
   const [pincodeArea, setPincodeArea] = useState([]);
   const [allCustomer, setAllCustomer] = useState([]);
   const [gstinError, setGstinError] =useState(false)
-  
+  const [custtype, setCustType]= useState([])
 
  //cofirmation modal 
  const handleConfirmData = () => {
@@ -220,6 +220,13 @@ useEffect(() => {
         return response;
       })
       .then((data) => {
+      const options=  data.data.data.nba.map((item)=>  ({
+              key: item,
+               label: item,
+            value: item,
+             }))
+             setCustType(options)
+
         if(data.data.error == false)
         {
         setFormData(prevFormData => ({
@@ -227,12 +234,22 @@ useEffect(() => {
           businessname:  data.data.data.lgnm ,
          pincode:data.data.data.pradr.addr.pncd,
          street1: `${data.data.data.pradr.addr.flno}, ${data.data.data.pradr.addr.bno}, ${data.data.data.pradr.addr.bnm}`,
-         street2:data.data.data.pradr.addr.st,
+         street2: `${data.data.data.pradr.addr.loc}, ${data.data.data.pradr.addr.st}`,
          city:data.data.data.pradr.addr.dst,
          state:data.data.data.pradr.addr.stcd,
-
+        //  type:data.data.data.nba.map((item)=>  ({
+        //     key: item,
+        //      label: item,
+        //   value: item,
+        //    })),
         }));
       }
+      // if(data.data.error == false)
+      // {
+      //   setCustType(prevFormData => ({
+      //     ...prevFormData , cust
+      //   }))
+      // }
       console.log(data.data.error);
       if(data.data.error)
      
@@ -254,7 +271,16 @@ useEffect(() => {
       });
   };
   console.log(gno)
+console.log(custtype)
+console.log(formData.type)
 
+// const getgstCustomer = formData.type
+// .map((place) => ({
+//   key: place,
+//   label: place,
+//  // value: place.master_key,
+// }));
+// console.log(getgstCustomer)
 
 
   const handleGstno = (e) => {
@@ -391,19 +417,26 @@ else
       ],
       "gstin": formData.gstin,
       "business_name": formData.businessname,
-      "email": formData.email,
-      "pancard": formData.pancard,
+      //"email":formData.email,
+      ...(formData.email && { email: formData.email }),
+      // ...(formData.pancard && { pancard: formData.pancard }),
+      "pancard": "GTHUY6677T",
       "tds": true,
       "tcs": false,
-      "tan_no":formData.pancard,
-      "credit_limit":formData.credit,
+      //...(formData.pancard && { tan_no: formData.pancard }),
+      ...(formData.pancard && { tan_no: formData.pancard }),
+    //  "tan_no":formData.pancard,
+    ...(formData.credit && {credit_limit:formData.credit}),
+    //  "credit_limit":formData.credit,
       "type": formData.customertype,
       "type_category": formData.type,
       "registration_type": formData.gsttreat,
-      "payment_terms": formData.payment,
+      ...(formData.payment && {payment_terms:formData.payment}),
+     // "payment_terms": formData.payment,
       "currency": formData.currency,
       "ownership": 1,
-      "commission_terms": formData.commission,
+      ...(formData.commission && { commission_terms: formData.commission }),
+  //    "commission_terms":  formData.commission ? formData.commission : "",
       "tds_tcs_master": 2,
       "contact": 1,
       "status": 1,
@@ -518,7 +551,7 @@ const handleDrpChangePincode = (field, value) => {
 const handleDrpChangeCustomer = (field, value) => {
   const selectedOption = getcustomertypedata.find((option) => option.value === value);
   console.log(selectedOption);
-  setFormData({ ...formData, [field]: value, type: selectedOption.key });
+  setFormData({ ...formData, [field]: value, type:selectedOption.key});
   setFieldValue(field, value);
   setFieldTouched(field, false);
   console.log(field);
@@ -1030,13 +1063,15 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Customer Type"
-                 options={getcustomertypedata}
+               options={getcustomertypedata}
+               //options={custtype}
                  value={
                   getcustomertypedata.find(
                     (option) =>
                       option.key === formData.type && option.label
                   )?.label
                 }
+                //value={formData.type}
                  onChange={handleDrpChangeCustomer}
                  name="type"
                  error={errors.type && touched.type ? true : false}
@@ -1076,8 +1111,8 @@ useEffect(() => {
                 }
                  onChange={handleDrpChangeCommission}
                  name="commission"
-                 error={errors.commission && touched.commission ? true : false}
-                 errorMsg="Commission is required"
+                //  error={errors.commission && touched.commission ? true : false}
+                //  errorMsg="Commission is required"
               />
              <SearchSelect 
                 width={155}
@@ -1092,8 +1127,8 @@ useEffect(() => {
                 }
                 onChange={handleDrpChangePayment}
                 name="payment"
-                error={errors.payment && touched.payment ? true : false}
-                errorMsg="Payment Terms is required"
+                // error={errors.payment && touched.payment ? true : false}
+                // errorMsg="Payment Terms is required"
               />
                 </div>
               </div>
@@ -1118,8 +1153,8 @@ useEffect(() => {
                  "pancard": newValue
                }))}}
                onBlur={handleBlur}
-                error={errors.pancard && touched.pancard ? true : false}
-                errorMsg={errors.pancard}
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
             />
                <div  className="credit-input-container">
               <CustomInput 
@@ -1135,8 +1170,8 @@ useEffect(() => {
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
                 onFocus={ handleCreditFocus}
-                error={errors.credit && touched.credit ? true : false}
-                errorMsg={errors.credit}
+                // error={errors.credit && touched.credit ? true : false}
+                // errorMsg={errors.credit}
                 /> 
                 {creditBox && creditAmount>0 && (
                     <div className="creditAmt">
@@ -1163,7 +1198,7 @@ useEffect(() => {
               
               <div className="form_field field8" style={{ gridRowStart: 1, gridColumnStart: 2}}>
               <CustomInput 
-                type="email"
+              //  type="email"
                 style={{ border: "none", outline: "none", width: "82%" }}
                inputType={"email"}
                  name="email"
@@ -1173,14 +1208,14 @@ useEffect(() => {
                   label="Email"
                  placeholder="Placeholder"
                 value={formData.email}
-             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
                  ...prevState,
                  "email": newValue
                }))}}
                onBlur={handleBlur}
-              error={errors.email && touched.email ? true : false}
-              errorMsg={errors.email}
+              // error={errors.email && touched.email ? true : false}
+              // errorMsg={errors.email}
                 />
               
               </div>

@@ -483,9 +483,15 @@ function Contacts(props) {
             mobile: formData.mobile,
             email: formData.email,
             dob: formData.dob,
-            is_active: true,
-            is_deleted: false,
             position: formData.position,
+            status: formData.status,
+            lead_source: formData.lead,
+            dob: "2000-09-09",
+            contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+            notes: "good",
+            type: 1,
+            country_code: 1,
+            company_name: 1,
             ownership: 1,
             company_id: 1,
             created_by: 1,
@@ -706,12 +712,23 @@ const handleFormSubmitLead = () => {
 
   // get data positon
 
-
+  const handleEdit =(id) =>
+  {
+    alert(id)
+  }
 
   const othersource = addSouce.map((place) => ({
     key: place.id,
     label: place.position_name,
     value: place.position_name,
+    editButton: (
+      <Button
+        size="small"
+        onClick={() => handleEdit(place.id)} // handleEdit is a function that will handle the edit action for the selected option
+      >
+        Edit
+      </Button>
+    )
   }));
 
   useEffect(() => {
@@ -1281,11 +1298,11 @@ const handleleadpopover= () =>
                   name="status"
                   label="Status"
                   options={getstatusdata}
-                  value={
+                  value={!formData.id ?
                     getstatusdata.find(
                       (option) =>
                         option.key === formData.status && option.label
-                    )?.label
+                    )?.label : formData.status
                   }
                  onChange={handleDrpChangeStatus}
                   error={errors.status && touched.status ? true : false}
@@ -1327,6 +1344,7 @@ const handleleadpopover= () =>
             name="position_name"
             value={formDataPosition.position_name}
             inputType={"CamelAlphabetical"}
+            onBlur={handleBlur}
            />
            <div className="positon_button">
              <ContainedButton value="Submit" onClick={handleFormSubmitPosition}/>
@@ -1343,12 +1361,11 @@ const handleleadpopover= () =>
                     name="position"
                     label="Position"
                     options={othersource}
-                   
-                    value={
+                    value={!formData.id ? 
                       othersource.find(
                         (option) =>
                           option.key === formData.position && option.label
-                      )?.label
+                      )?.label :formData.position
                     }
                     // value={formData.position}
                     onChange={handleDrpChange}
@@ -1391,6 +1408,7 @@ const handleleadpopover= () =>
                        name="lead_source"
                        value={formDataLead.lead_source}
                        inputType={"CamelAlphabetical"}
+                       onBlur={handleBlur}
                        />
                      <div className="positon_button">
                      <ContainedButton value="Submit" onClick={handleFormSubmitLead}/>
@@ -1415,10 +1433,10 @@ const handleleadpopover= () =>
                     //       option.key === formData.position && option.label
                     //   )?.label
                     // }
-                    value={otherlead.find(
+                    value={!formData.id ? otherlead.find(
                       (option) =>
                         option.key === formData.lead && option.label
-                    )?.label}
+                    )?.label : formData.lead}
                     error={errors.lead && touched.lead ? true : false}
                     errorMsg="Lead Source is required"
                   />
