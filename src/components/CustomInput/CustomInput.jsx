@@ -36,15 +36,31 @@ const CustomInput = ({
     setInputValue(newValue);
   }, [value]);
 
+const handleBlur =(e) =>
+{
+  setIsFocused(false);
+  let newName = e.target.value;
+  if (inputType === "CamelAlphabetical") {
+    newName=newName.toLowerCase();
+    newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+    newName = newName.replace(/[^a-zA-Z\s]/g, "");
+ 
+  }
+  setInputValue(newName);
+
+  console.log(newName)
+
+}
+
   const handleNameChange = (e) => {
     let newName = e.target.value;
 
     //First Name Upper
     // e.g  Vimlesh
-    if (inputType === "CamelAlphabetical") {
-      newName = newName.charAt(0).toUpperCase() + newName.slice(1);
-      newName = newName.replace(/[^a-zA-Z\s]/g, "");
-    }
+    // if (inputType === "CamelAlphabetical") {
+    //   newName = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+    //   newName = newName.charAt(0).toUpperCase() + newName.slice(1);
+    // }
 
     //Numeric
     //e.g 123
@@ -56,7 +72,7 @@ const CustomInput = ({
     //e.g  Vimlesh 123
     if (inputType === "AlphaNumericUpperCase") {
       newName = newName.charAt(0).toUpperCase() + newName.slice(1);
-      newName = newName.replace(/[^a-zA-Z\d\s]/g, "");
+      newName = e.target.value.replace(/[^a-zA-Z\d\s]/g, "");
     }
 
     //Numeric percentage
@@ -129,7 +145,7 @@ const CustomInput = ({
         style={{width:icon || symbol ||rightIcon ? width-56:width-30, maxWidth: icon || symbol ? width-56:width-30, padding: icon || symbol ? "0px 14px 0px 40px" : rightIcon ? "0px 40px 0px 14px" : "0px 14px", textAlign: textAlign}}
         maxLength={maxLength}
         name={name}
-        onBlur={(e) => {onBlur(e); setIsFocused(false)}}
+        onBlur={(e) => {onBlur(e); handleBlur(e);}}
         onFocus={(e) => {onFocus(e); setIsFocused(true)}}
         placeholder={placeholder}
         className={`focus-outline ${className} ${error && !isFocused &&  "inputError"} ${disabled && "input-disabled"} `}

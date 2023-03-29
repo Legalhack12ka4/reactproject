@@ -160,9 +160,58 @@
   //  margin-right: 5px;
     border: 2px solid $success-700;
 }
+.Not_bullet_item
 
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color:  #FF1F54;
+  //  margin-right: 5px;
+    border: 2px solid #FFB4C6;
+}
+.junk_bullet_item
 
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color:  #FF561E;
+  //  margin-right: 5px;
+    border: 2px solid #FFECE6;
+}
 
+.Lead_bullet_item
+
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color:  #00BBE5;
+  //  margin-right: 5px;
+    border: 2px solid #AAE8F6;
+}
+.pros_bullet_item
+
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color:  #5C5AD0;
+  //  margin-right: 5px;
+    border: 2px solid #ECECF9;
+}
+
+.agent_bullet_item
+
+{
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color:  #EFD804;
+  //  margin-right: 5px;
+    border: 2px solid #F9F2AB;
+}
 
 .selected_row{
     border-left: 4px solid #5C5AD0;

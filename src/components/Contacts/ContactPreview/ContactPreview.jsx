@@ -12,6 +12,7 @@ import {
   Modal,
   Typography,
   Upload,
+  DatePicker,
 } from "antd";
 import { useEffect } from "react";
 import { useMemo } from "react";
@@ -97,6 +98,8 @@ const ContactPreview = () => {
     attatch_name: "",
     attachments: "",
   });
+
+  const [dob, setDob] = useState([])
   //handlecancel
 
   const { id } = useParams();
@@ -1173,11 +1176,11 @@ const ContactPreview = () => {
         child={"Contact Details"}
         subchild={
           <Link exact to="/contacts">
-            {"Contact"}
+            {"Contacts"}
           </Link>
         }
         addEditBtn={
-          activeTab === "attachments" ? (
+         
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -1198,30 +1201,7 @@ const ContactPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "notes" ? (
-            <div className="d-flex align-center gap-10">
-              <div
-                className="d-flex gap-8 align-center"
-                style={{
-                  borderRight: "1px solid #CBD5E0",
-                  height: "30px",
-                  paddingRight: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
-                <p className="sc-body-sb" style={{ color: "#5C5AD0" }}>
-                  Delete
-                </p>
-              </div>
-              <ContainedIconButton
-                value={"Edit"}
-                icon="/images/icons/edit-white-icon.svg"
-              />
-            </div>
-          ) : (
-            ""
-          )
+         
         }
       />
 
@@ -1287,6 +1267,8 @@ const ContactPreview = () => {
             <div className="dob">
               <p className="dob-label sc-body-rg mb-4">Date of Birth</p>
               <p className="sc-body-md clr-p-100">Add</p>
+              <DatePicker selected={dob} onChange={(date) => setDob(date)}
+              placeholder="Add Date"/>
             </div>
 
             <div className="ownership">
@@ -1433,23 +1415,23 @@ const ContactPreview = () => {
                   filterLength={filterarray.length}
                   columns={columns}
                   setColumns={setColumns}
-                  addBtnName={"Sales Order"}
+                 // addBtnName={"Sales Order"}
                   onData={handleData}
-                  path={"add_sales"}
+                 // path={"add_sales"}
                   //   filter={<Leads />}
                   onFilter={(e) => {
                     clearfilter(e);
                     setVisible(!visible);
                   }}
-                  activeMode={
-                    <div className="filter-and-searchbar-delete-btn">
-                      <img
-                        src="/images/icons/delete-prmry-icon.svg"
-                        alt="delete"
-                      />
-                      <p className="sc-body-sb delete-text">Delete</p>
-                    </div>
-                  }
+                  // activeMode={
+                  //   <div className="filter-and-searchbar-delete-btn">
+                  //     <img
+                  //       src="/images/icons/delete-prmry-icon.svg"
+                  //       alt="delete"
+                  //     />
+                  //     <p className="sc-body-sb delete-text">Delete</p>
+                  //   </div>
+                  // }
                 />
               </div>
               <div className="tableData">
