@@ -2,13 +2,13 @@ import { Switch } from 'antd'
 import React, { useState } from 'react'
 import './Buttons.scss'
 
-export const ContainedButton = ({value, width, onClick, type, id,ref, loading}) => {
+export const ContainedButton = ({value, width, onClick, type, id,ref, loading, color}) => {
 
   return (
     <button
     type={type ? type : "button"}
     id={id}
-    className={`sc-body-sb Contained-btn ${loading  ? 'loading-contained-btn animated zoomIn' : ''}`}
+    className={`sc-body-sb ${color==="danger" ? "Contained-btn-danger":"Contained-btn"} ${loading  ? 'loading-contained-btn animated zoomIn' : ''}`}
     style={{width: width}}
     onClick={onClick}>
     {loading ? <span className="spinner"></span> : value}

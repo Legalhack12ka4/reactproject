@@ -23,10 +23,11 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import { Link, Navigate } from "react-router-dom";
 import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
-import { ToggleButton } from "../../Buttons/Button";
+import { ContainedButton, ContainedSecondaryButton, ToggleButton } from "../../Buttons/Button";
 // import Cookies from 'js-cookie';
-import { SearchSelect } from "../../Dropdowns/Dropdowns";
+import { InputGroup, SearchSelect } from "../../Dropdowns/Dropdowns";
 import ContactPreview from "../ContactPreview/ContactPreview"
+import CustomInput from "../../CustomInput/CustomInput";
 
 
 const filterfield = {
@@ -38,6 +39,330 @@ const filterfield = {
   ownership: "",
   updated_date_time: "",
 };
+const countryCodes = [
+  {
+    label: (
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="19.08"
+            height="12.5"
+            viewBox="0 0 19.08 12.5"
+          >
+            <g id="india-svgrepo-com" transform="translate(0 -88.276)">
+              <path
+                id="Path_34773"
+                data-name="Path 34773"
+                d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z"
+                fill="#fab446"
+              />
+              <path
+                id="Path_34774"
+                data-name="Path 34774"
+                d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z"
+                transform="translate(0 -215.298)"
+                fill="#73af00"
+              />
+              <rect
+                id="Rectangle_17784"
+                data-name="Rectangle 17784"
+                width="19.08"
+                height="4.167"
+                transform="translate(0 92.443)"
+                fill="#f5f5f5"
+              />
+              <g
+                id="Group_43818"
+                data-name="Group 43818"
+                transform="translate(7.772 92.758)"
+              >
+                <path
+                  id="Path_34775"
+                  data-name="Path 34775"
+                  d="M210.32,212.088a1.768,1.768,0,1,1,1.768-1.768A1.77,1.77,0,0,1,210.32,212.088Zm0-3.207a1.439,1.439,0,1,0,1.439,1.439A1.441,1.441,0,0,0,210.32,208.881Z"
+                  transform="translate(-208.552 -208.552)"
+                  fill="#41479b"
+                />
+                <circle
+                  id="Ellipse_1316"
+                  data-name="Ellipse 1316"
+                  cx="0.2"
+                  cy="0.2"
+                  r="0.2"
+                  transform="translate(1.568 1.568)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34776"
+                  data-name="Path 34776"
+                  d="M214.57,253.925l-.509.051-1.094-.051v-.06l1.094-.051.509.051Z"
+                  transform="translate(-212.802 -252.126)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34777"
+                  data-name="Path 34777"
+                  d="M256,253.925l.509.051,1.094-.051v-.06l-1.094-.051-.509.051Z"
+                  transform="translate(-254.232 -252.126)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34778"
+                  data-name="Path 34778"
+                  d="M253.864,214.57l-.051-.509.051-1.094h.06l.051,1.094-.051.509Z"
+                  transform="translate(-252.126 -212.802)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34779"
+                  data-name="Path 34779"
+                  d="M253.864,256l-.051.509.051,1.094h.06l.051-1.094-.051-.509Z"
+                  transform="translate(-252.126 -254.232)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34780"
+                  data-name="Path 34780"
+                  d="M226.134,226.176l-.4-.324-.737-.81.043-.043.81.737.324.4Z"
+                  transform="translate(-224.387 -224.387)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34781"
+                  data-name="Path 34781"
+                  d="M255.43,255.472l.324.4.81.737.043-.043-.737-.81-.4-.324Z"
+                  transform="translate(-253.683 -253.683)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34782"
+                  data-name="Path 34782"
+                  d="M255.43,226.134l.324-.4.81-.737.043.043-.737.81-.4.324Z"
+                  transform="translate(-253.683 -224.387)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34783"
+                  data-name="Path 34783"
+                  d="M226.134,255.43l-.4.324-.737.81.043.043.81-.737.324-.4Z"
+                  transform="translate(-224.387 -253.683)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34784"
+                  data-name="Path 34784"
+                  d="M217.438,255.31l-.451.242-1.031.371-.023-.056.991-.466.49-.147Z"
+                  transform="translate(-215.658 -253.514)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34785"
+                  data-name="Path 34785"
+                  d="M255.714,239.455l.49-.147.991-.466-.023-.056-1.031.371-.451.242Z"
+                  transform="translate(-253.934 -237.659)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34786"
+                  data-name="Path 34786"
+                  d="M239.4,217.438l-.242-.451-.371-1.031.056-.023.466.991.147.49Z"
+                  transform="translate(-237.659 -215.658)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34787"
+                  data-name="Path 34787"
+                  d="M255.254,255.714l.147.49.466.991.056-.023-.371-1.031-.242-.451Z"
+                  transform="translate(-253.514 -253.934)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34788"
+                  data-name="Path 34788"
+                  d="M217.415,239.455l-.49-.147-.991-.466.023-.056,1.031.371.451.242Z"
+                  transform="translate(-215.658 -237.659)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34789"
+                  data-name="Path 34789"
+                  d="M255.691,255.31l.451.242,1.031.371.023-.056-.991-.466-.49-.147Z"
+                  transform="translate(-253.934 -253.514)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34790"
+                  data-name="Path 34790"
+                  d="M255.254,217.415l.147-.49.466-.991.056.023-.371,1.031-.242.451Z"
+                  transform="translate(-253.514 -215.658)"
+                  fill="#41479b"
+                />
+                <path
+                  id="Path_34791"
+                  data-name="Path 34791"
+                  d="M239.4,255.691l-.242.451-.371,1.031.056.023.466-.991.147-.49Z"
+                  transform="translate(-237.659 -253.934)"
+                  fill="#41479b"
+                />
+              </g>
+              <circle
+                id="Ellipse_1317"
+                data-name="Ellipse 1317"
+                cx="0.27"
+                cy="0.27"
+                r="0.27"
+                transform="translate(9.269 94.256)"
+                fill="#f5f5f5"
+              />
+              <circle
+                id="Ellipse_1318"
+                data-name="Ellipse 1318"
+                cx="0.162"
+                cy="0.162"
+                r="0.162"
+                transform="translate(9.378 94.364)"
+                fill="#41479b"
+              />
+            </g>
+          </svg>
+
+          <p style={{ width: "30px" }}>+91 </p>
+        </div>
+
+        <p> (India)</p>
+      </div>
+    ),
+    value: "India",
+  },
+  {
+    label: (
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <svg
+            id="india-svgrepo-com"
+            xmlns="http://www.w3.org/2000/svg"
+            width="19.08"
+            height="12.5"
+            viewBox="0 0 19.08 12.5"
+          >
+            <path
+              id="Path_34773"
+              data-name="Path 34773"
+              d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z"
+              transform="translate(0 -88.276)"
+            />
+            <path
+              id="Path_34774"
+              data-name="Path 34774"
+              d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z"
+              transform="translate(0 -303.574)"
+              fill="#ffce00"
+            />
+            <rect
+              id="Rectangle_17784"
+              data-name="Rectangle 17784"
+              width="19.08"
+              height="4.167"
+              transform="translate(0 4.167)"
+              fill="#d00"
+            />
+          </svg>
+
+          <p style={{ width: "30px" }}>+49 </p>
+        </div>
+
+        <p> (Germany)</p>
+      </div>
+    ),
+    value: "Russia",
+  },
+  {
+    label: (
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <svg
+            id="india-svgrepo-com"
+            xmlns="http://www.w3.org/2000/svg"
+            width="19.08"
+            height="12.5"
+            viewBox="0 0 19.08 12.5"
+          >
+            <path
+              id="Path_34773"
+              data-name="Path 34773"
+              d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z"
+              transform="translate(0 -88.276)"
+            />
+            <path
+              id="Path_34774"
+              data-name="Path 34774"
+              d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z"
+              transform="translate(0 -303.574)"
+              fill="#ffce00"
+            />
+            <rect
+              id="Rectangle_17784"
+              data-name="Rectangle 17784"
+              width="19.08"
+              height="4.167"
+              transform="translate(0 4.167)"
+              fill="#d00"
+            />
+          </svg>
+
+          <p style={{ width: "30px" }}>+89 </p>
+        </div>
+
+        <p> (Sri Lanka)</p>
+      </div>
+    ),
+    value: "Sri Lanka",
+  },
+  {
+    label: (
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <svg
+            id="india-svgrepo-com"
+            xmlns="http://www.w3.org/2000/svg"
+            width="19.08"
+            height="12.5"
+            viewBox="0 0 19.08 12.5"
+          >
+            <path
+              id="Path_34773"
+              data-name="Path 34773"
+              d="M17.651,88.276H1.429A1.429,1.429,0,0,0,0,89.7v2.738H19.08V89.7A1.429,1.429,0,0,0,17.651,88.276Z"
+              transform="translate(0 -88.276)"
+              fill="#ae1c28"
+            />
+            <path
+              id="Path_34774"
+              data-name="Path 34774"
+              d="M0,314.646a1.429,1.429,0,0,0,1.429,1.429H17.651a1.429,1.429,0,0,0,1.429-1.429v-2.738H0Z"
+              transform="translate(0 -303.574)"
+              fill="#21468b"
+            />
+            <rect
+              id="Rectangle_17784"
+              data-name="Rectangle 17784"
+              width="19.08"
+              height="4.167"
+              transform="translate(0 4.167)"
+              fill="#fff"
+            />
+          </svg>
+
+          <p style={{ width: "30px" }}>+31 </p>
+        </div>
+
+        <p> (Germany)</p>
+      </div>
+    ),
+    value: "Egypt",
+  },
+];
 
 
 
@@ -66,6 +391,8 @@ const ContactsData = (props) => {
   const [activeMode, setActiveMode] = useState("table");
   const [status, setStatus] = useState([]);
   const [selectedContactId, setSelectedContactId] = useState(null);
+  const [selectedCode, setSelectedCode] = useState("India");
+  const [updateModal, setUpdateModal] = useState(false)
 
 
  console.log(selectedContactId);
@@ -382,10 +709,11 @@ const deleteUser = (record)=>
 
   //Get data in textbox on edit button
   const handleUpdate = (oldData) => {
+    setUpdateModal(true)
     // console.log(oldData);
     // console.log(oldData.id);
-    showCanvas();
-      ChildStateModificationFunc(oldData)
+    // showCanvas();
+    //   ChildStateModificationFunc(oldData)
       // console.log(oldData)
   };
 // console.log(oldData);
@@ -693,7 +1021,9 @@ const handleNameClick = () => {
                  </div> */}
          </>
         } title="" height={100} trigger="click">
-        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"25px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+
+        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"21px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
+
         </Popover>
         </>
      
@@ -932,6 +1262,10 @@ setoldData(oldData)
 // localStorage.removeItem("jwt");
 // return <Navigate to="/"/>
 // }
+
+const handleUpdateCancel = () =>{
+  setUpdateModal(false)
+}
 
   return (
     <div className="contacts-data fixed_heading_container" >
@@ -1248,33 +1582,15 @@ setoldData(oldData)
             )
           }
 
- <Modal
-        open={confirm}
-     //   onOk={handleMaterialOk}
+
+          {/* update contact modal  */}
+          <Modal
+        open={updateModal}
         width={"max-content"}
-        onCancel={handleConfirm}
-        style={{ top: 20 }}
+        onCancel={handleUpdateCancel}
+        style={{top:0, }}
         className={"deleteconfirm"}
-        footer={[
-          <div style={{ marginLeft: "314px" }}>
-            <Button
-              key="cancel"
-              onClick={handleConfirm}
-              className="contact-delete-modal sc-body-sb"
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              onClick={handleSubmit}
-              className="contact-submit-modal sc-body-sb"
-            
-            >
-              Delete
-            </Button>
-          </div>,
-        ]}
+        footer={false}
         closeIcon={
           <div className="icon">
             <svg
@@ -1294,28 +1610,133 @@ setoldData(oldData)
           </div>
         }
       >
-        <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src="\images\icons\confirmation-alert-delete.svg" style={{ width: "38px", height: "38px" }} />
-              </div>
-            </div>
+         <div className="update-contact-container">
+                <div className="header">
+                  <h1 className="heading-sb">Edit Contact</h1>
+                  <p className="sc-body-rg mt-10 title">Edit the contact details</p>
+                  <hr className="h-line" />
+                 
+                 <p className="sc-body-md profile-title mb-10">Profile Image</p>
+                 <div className="proflie-img-container mb-20">
+                  <div className="img-container">
+                    <img className="user-img" src="/images/icons/user-avatar.jpeg" alt="" />
+                    <div className="edit-img"><img src="/images/icons/edit-white.svg" alt="" /></div>
+                  </div>
+                  <p className="sc-body-sb remove-img">Remove Profile Image</p>
+                 </div>
+                 <div className="input-container">
+                 <CustomInput
+                  width={330}
+                  icon="/images/icons/user-name-icon.svg"
+                  placeholder="Enter name"
+                  label="Name"
+                />
 
-            <div>
-              <p className="contact-delete heading-sb"
-             
-              >
-                Delete Contact
-              </p>
-            </div>
+                  <SearchSelect
+                  width={331}
+                  name="status"
+                  label="Status"
+                />
+
+                <InputGroup
+                  width={98}
+                  mainWidth={330}
+                  inputWidth={232}
+                  options={countryCodes}
+                  label="Phone"
+                  type="number"
+                  drpValue={selectedCode}
+                  name="mobile"
+                    placeholder="Mobile No."
+                />   
+                <SearchSelect
+                    width={331}
+                    addNew="Position"
+                    name="position"
+                    label="Position"
+                  /> 
+
+                <CustomInput
+                  width={330}
+                  icon="/images/icons/Email-icon.svg"
+                  placeholder="Enter email"
+                  label="Email"
+                  type="email"
+                  inputType={"email"}
+                  name="email"
+                />
+
+                <SearchSelect
+                    label="Lead Source"
+                    addNew="Lead"
+                    width={331}
+                    name="lead"
+                  />
+
+                  <CustomInput width={330} label="Date of Birth"/>
+
+                  <SearchSelect
+                    label="Ownership"
+                    width={330}
+                    name="ownership"
+                  />
+
+
+
+
+
+                 </div>
+                  <div className="btn-container d-flex mt-30 gap-16">
+                    <ContainedButton
+                      value="Update Details"
+                    />
+                    <ContainedSecondaryButton
+                      value="Cancel" onClick={handleUpdateCancel}
+                    />
+                  </div>
+                </div>
+              </div>
+      </Modal>
+
+ <Modal
+        open={confirm}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleUpdateCancel}
+        style={{ top: 20, }}
+        className={"deleteconfirm"}
+        footer={false}
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
           </div>
-          <div>
-            <p className="confirmationtext sc-body-rg">
-              Are you sure you want to delete selected contacts? <br /> 
-              All the contacts which you selected will be deleted.
-              <br /> This action cannot recover the Contact.
+        }
+      >
+        <div  style={{display:"flex",flexDirection:"column", alignItems:"center", padding:"20px"}}>
+        <img src="\images\icons\confirmation-alert-delete.svg" style={{ width: "46px", height: "46px", }} />
+        <p className="mt-20 heading-sb">Delete Contact</p>
+        <p className="sc-body-rg mt-10">
+              Are you sure you want to delete selected contacts?
             </p>
+            <div className="delete-cancel-btn d-flex gap-16 mt-30">
+              <ContainedButton value="Delete" onClick={handleSubmit} color="danger" />
+              <ContainedSecondaryButton value="Cancel"  onClick={handleConfirm} />
+            </div>
+          <div>
+           
           </div>
         </div>
       </Modal>
