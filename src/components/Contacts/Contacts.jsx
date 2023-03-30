@@ -1051,6 +1051,7 @@ const handleleadpopover= () =>
 }
   return (
     <>
+     <span className='close' onClick={(e)=>{onCancel()}} >&times;</span>
       <form onSubmit={handleSubmit} autoComplete="off">
         <div className="contact_heading"></div>
 

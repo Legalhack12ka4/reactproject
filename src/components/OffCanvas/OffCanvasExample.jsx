@@ -20,7 +20,7 @@ function OffCanvasExample({form}) {
 <>     
 				<div className='' id="gradient">
 			<div className='menu1'>
-				<span className='close' onClick={closeMenu}>&times;</span>
+				
 				{form}
 			</div>
 			</div>
