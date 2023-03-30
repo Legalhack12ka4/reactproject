@@ -412,6 +412,7 @@ function Contacts(props) {
     } else {
       setCofirmData(true);
     }
+    resetForm()
   };
 
   const handleConfirmDataClose = () => {
@@ -453,7 +454,7 @@ function Contacts(props) {
 
   // validation
 
-  const {
+  const  {
     errors,
     values,
     handleBlur,
@@ -462,6 +463,7 @@ function Contacts(props) {
     handleSubmit,
     setFieldValue,
     setFieldTouched,
+    resetForm
   } = useFormik({
     initialValues: initialFieldValues,
 
