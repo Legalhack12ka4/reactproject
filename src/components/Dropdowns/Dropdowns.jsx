@@ -145,7 +145,7 @@ const handledropodwnchange = (visible) =>
 
 // export const CategorySelect
 
-export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, value, error,errorMsg, editBtn, editBtnClick,multi, ...props },ref) =>  {
+export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, value, error,errorMsg, editBtn, editBtnClick,multi,showSearch,placeholder, ...props },ref) =>  {
 
     const [selectedOption, setSelectedOption] = useState(null);
   const [focus, setFocus]= useState(false)
@@ -160,7 +160,7 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
   //   </OptGroup>
   // ));
 
-  const GroupOptions = options.map((group) => (
+  const GroupOptions = options?.map((group) => (
     <OptGroup label={group.label} key={group.label}>
       {group.options.map((option) => (
         <Option key={option.value} value={option.value}>
@@ -171,7 +171,7 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
   ));
 
   let suffixIcon;
-  if (open) {
+  if (open && showSearch) {
     suffixIcon = <svg xmlns="http://www.w3.org/2000/svg" 
     width="12.5" 
     height="12.5"
@@ -215,8 +215,8 @@ export const CategorySelect = forwardRef(({ onChange,onFocus, options, name, val
     <Select
       
       disabled={props.isDisabled}
-      showSearch
-      placeholder={open ? "Type to search" : "Select Value"}
+      showSearch={showSearch === false? false:true}
+      placeholder={open && showSearch ? "Type to search" :placeholder ? placeholder : "Select Value"}
       multi={multi}
       optionFilterProp="children"
       value={selectedOption || undefined}

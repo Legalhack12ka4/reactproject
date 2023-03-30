@@ -53,7 +53,9 @@ const VendorsData = () => {
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [activeMode, setActiveMode] = useState("table")
-
+  const [currencydrp, setCurrencydrp] = useState([]);
+  const [payment, setPayment] = useState([]);
+  const [street, setStreet] = useState([]);
   //for modal delete
 
   
@@ -88,6 +90,7 @@ const VendorsData = () => {
       setFetchvendor(
         res.data.data.items.map((row) => ({
             Key:row.id,
+            id:row.Key,
             Registration_Type:
             row.registration_type == 1
               ? "Registerd Business"
@@ -110,14 +113,14 @@ const VendorsData = () => {
               ? "Wholesaler"
               : "Manufacturer",
               Tan_no: row.tan_no,
-          Currency: row.currency == 1 ? "INR" : "USD",
-          Payment_Terms: row.payment_terms == 1 ? "Net 5" : "Net 10",
+          Currency: row.currency,
+          Payment_Terms: row.payment_terms ,
           Credit_Limit: row.credit_limit,
           Email: row.email,
-          Pincode: "392012",
-          Street1: "Bharuch",
-          Street2: "Gujarat",
-          Place_Of_Supply: row.place_of_supply == 1 ? "India" : "America",
+          Pincode: row.Initiallitemrow[0].pincode,
+          // Street1: row.street1,
+          // Street2: row.street2,
+          Country: "India" ,
           Contact:
             row.contact == 1
               ? "Vimlesh"
@@ -127,6 +130,7 @@ const VendorsData = () => {
               ? "jhhghj"
               : "Ranveer",
           Ownsership: row.ownership == 1 ? "ubuntu" : "window",
+         
           // id: row.id
         }))
       );
@@ -135,24 +139,89 @@ const VendorsData = () => {
   };
   console.log(fetchvendor);
 
+  useEffect(() => 
+  {
+  getDataCuurrency();
+  getDataPaymentTerms();
+  getAddress();
+  },[])
+  
+    const getDataCuurrency = () => {
+      fetch(`${config.baseUrl}/currency/`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCurrencydrp(data.data.items);
+          // console.log(data);
+        });
+    };
+    const getDataPaymentTerms = () => {
+      return fetch(`${config.baseUrl}/paymentterms/`)
+        .then((response) => response.json())
+        .then((data) => {
+          setPayment(data.data.items);
+          // console.log(data);
+        });
+    };
+  
+    const getAddress = async () => {
+      await axios.get(`${config.baseUrl}/address/`).then((res) => {
+        setloading(false);
+        console.log(res)
+        setStreet(
+          res.data.data.items.map((row) => ({
+              Key:row.id,
+              id:row.Key,
+              Customer_Ref:row.customer_ref,
+              Street1:
+              row.street1,
+              Street2:row.street2,
+      })))
+    })
+    };
+  console.log(street)
+  
+    const addressdata = street.map((add) => ({
+      key:add.id,
+      label: add.street1,
+      value: add.street1,
+    }));
+  console.log(addressdata)
+    const currencydata = currencydrp.map((curr) => ({
+      key:curr.id,
+      label: curr.currency_name + " - " + curr.symbol,
+      value: curr.id,
+    }));
+  
+    const paymentterms = payment.map((pay) => ({
+      key:pay.id,
+      label: pay.terms,
+      value: pay.terms,
+    }));
+
   const dataSource = fetchvendor.map((customer) => ({
-    key: customer.Key,
-    id: customer.Key,
+    key:customer.Key,
+    id:customer.Key,
     registration_type: customer.Registration_Type,
-    gstin: customer.Gstin,
-    business_name: customer.Business_Name,
-    type_category: customer.Type_Category,
-    tan_no: customer.Tan_no,
-    currency: customer.Currency,
-    payment_terms: customer.Payment_Terms,
-    credit_limit: customer.Credit_Limit,
-    email: customer.Email,
-    pincode: customer.Pincode,
-    street1: customer.Street1,
-    street2: customer.Street2,
-    place_of_supply: customer.Place_Of_Supply,
-    contact: customer.Contact,
-    ownership: customer.Ownsership,
+  gstin: customer.Gstin,
+  business_name: customer.Business_Name,
+  type_category: customer.Type_Category,
+  tan_no: customer.Tan_no,
+  currency:currencydata.find(
+                  (option) =>
+                    option.key === customer.Currency && option.label
+                )?.label,
+  payment_terms:paymentterms.find(
+    (option) =>
+      option.key === customer.Payment_Terms && option.label
+  )?.label ,
+  credit_limit: customer.Credit_Limit,
+  email: customer.Email,
+  pincode: customer.Pincode,
+  street1: street.map((street1)=> customer.Key === street1.Customer_Ref && street1.Street1),
+  street2: street.map((street1)=>  customer.Key === street1.Customer_Ref && street1.Street2),
+  country: customer.Country,
+  contact: customer.Contact,
+  ownership: customer.Ownsership,
   }));
 
   //delete data
@@ -368,10 +437,10 @@ const deleteUser = (record)=>
       showSorterTooltip:{ title: '' }
     },
     {
-      title: "Place Of Supply",
-      label: "Place Of Supply",
-      dataIndex: "place_of_supply",
-      key: "place_of_supply",
+      title: "Country",
+      label: "Country",
+      dataIndex: "country",
+      key: "country",
       resizable: true,
       width: 160,
       align: "left",
@@ -542,16 +611,16 @@ const deleteUser = (record)=>
       label: "USD",
     },
   ];
-  const payment = [
-    {
-      value: "Net 5",
-      label: "Net 5",
-    },
-    {
-      value: "Net 10",
-      label: "Net 10",
-    },
-  ];
+  // const payment = [
+  //   {
+  //     value: "Net 5",
+  //     label: "Net 5",
+  //   },
+  //   {
+  //     value: "Net 10",
+  //     label: "Net 10",
+  //   },
+  // ];
   const pos = [
     {
       value: "India",
@@ -605,7 +674,8 @@ const deleteUser = (record)=>
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.business_name.toLowerCase().includes(search.toLowerCase())
+  console.log(record)
+    //record.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
   useEffect(() => {
@@ -651,9 +721,9 @@ const deleteUser = (record)=>
   const cusomizeData = dataSource.filter(
     (record) =>
       // record.gst_treatment.includes(custfilter.gsttreat) &&
-      record.type_category.includes(custfilter.category) &&
-      record.contact.includes(custfilter.contact) &&
-      record.currency.includes(custfilter.currency) &&
+      // record.type_category.includes(custfilter.category) &&
+      // record.contact.includes(custfilter.contact) &&
+      // record.currency.includes(custfilter.currency) &&
       // record.payment_terms.includes(custfilter.payment) &&
       // record.place_of_supply.includes(custfilter.pos) &&
       // record.street1.includes(custfilter.street1) &&

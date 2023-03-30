@@ -33,10 +33,18 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import { Link, Navigate } from "react-router-dom";
 import DateRangePicker from "../../DateRangePicker/DateRangePicker";
 import format from "date-fns/format";
-import { ContainedButton, ContainedSecondaryButton, ToggleButton } from "../../Buttons/Button";
+import {
+  ContainedButton,
+  ContainedSecondaryButton,
+  ToggleButton,
+} from "../../Buttons/Button";
 // import Cookies from 'js-cookie';
-import { InputGroup, SearchSelect } from "../../Dropdowns/Dropdowns";
-import ContactPreview from "../ContactPreview/ContactPreview"
+import {
+  CategorySelect,
+  InputGroup,
+  SearchSelect,
+} from "../../Dropdowns/Dropdowns";
+import ContactPreview from "../ContactPreview/ContactPreview";
 import CustomInput from "../../CustomInput/CustomInput";
 
 const filterfield = {
@@ -45,6 +53,8 @@ const filterfield = {
   email: "",
   dob: "",
   position: "",
+  status:"",
+  lead_source:"",
   ownership: "",
   updated_date_time: "",
 };
@@ -373,8 +383,6 @@ const countryCodes = [
   },
 ];
 
-
-
 const ContactsData = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -401,7 +409,8 @@ const ContactsData = (props) => {
   const [status, setStatus] = useState([]);
   const [selectedContactId, setSelectedContactId] = useState(null);
   const [selectedCode, setSelectedCode] = useState("India");
-  const [updateModal, setUpdateModal] = useState(false)
+  const [updateModal, setUpdateModal] = useState(false);
+  const [addlead, setAddLead] = useState([]);
 
   console.log(selectedContactId);
   //add position filter
@@ -409,14 +418,14 @@ const ContactsData = (props) => {
   const handleDrpChange = (field, value) => {
     // const selectedOption = othersource.find((option) => option.value === value);
     // console.log(selectedOption);
-    setCustFilter({ ...custfilter, [field]: value});
-      //  position: selectedOption.key 
+    setCustFilter({ ...custfilter, [field]: value });
+    //  position: selectedOption.key
     // setFieldValue(field, value);
     // setFieldTouched(field, false);
     console.log(field);
     console.log(value);
   };
-  console.log(custfilter)
+  console.log(custfilter);
 
   //daterangefunction
   const filterdaterange = (date) => {
@@ -471,18 +480,93 @@ const ContactsData = (props) => {
   };
   useEffect(() => {
     getData();
+    getlead();
   }, []);
   // console.log(selectedRows)
 
   //get data positon
 
-  const othersource = addSouce.map((place) => ({
+  const getlead = () => {
+    return fetch(`${config.baseUrl}/leadsource/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setAddLead(data.data.items);
+        console.log(data);
+      });
+  };
+
+  const otherlead1 = addlead.map((place) => ({
+    key: place.id,
+    label: place.lead_source,
+    value: place.lead_source,
+  }));
+
+  const otherlead = [
+    {
+      label: "Lead Source",
+      options: addlead.map((place) => ({
+        key: place.id,
+        label: place.lead_source,
+        value: place.lead_source,
+      })),
+    },
+  ];
+
+  const othersource1 = addSouce.map((place) => ({
     key:place.id,
     label: place.position_name,
     value: place.position_name,
   }));
 
+  const othersource = [
+    {
+      label: "Position",
+      options: addSouce.map((place) => ({
+        key: place.id,
+        label: place.position_name,
+        value: place.position_name,
+      })),
+    },
+  ];
+  console.log(othersource);
 
+   const getstatusdata =[ 
+    {
+      label:"Status",
+      options:status
+      .filter(
+        (place) => place.field === "Status" && place.module === "Contact_Status"
+      )
+      .map((place) => ({
+        key: place.id,
+        label: (<div className="status-contianer">
+        <div className={place.master_key === "Junk" ? "status-bullet-junk" : 
+      place.master_key === "Lead" ? "status-bullet-lead" : 
+      place.master_key === "Not Intersted" ? "status-bullet-not-interested" : 
+      place.master_key === "Prospective" ? "status-bullet-prospective" : 
+      place.master_key === "Customer" ? "status-bullet-customer" : 
+      place.master_key === "Agent" ? "status-bullet-agent" : ""}></div>
+      
+        <p className="sc-body-md bullet-text">{place.master_key}</p>
+      </div>),
+        value: place.master_key,
+      }))
+    }
+   ]
+
+
+  const getstatusdata1 = status
+  .filter(
+    (place) => place.field === "Status" && place.module === "Contact_Status"
+  )
+  .map((place) => ({
+    key: place.id,
+    label: place.master_key,
+    value: place.master_key,
+  }));
+
+console.log(getstatusdata);
+console.log(status);
 
   useEffect(() => {
     getSource();
@@ -591,7 +675,6 @@ const ContactsData = (props) => {
     },
   ];
 
-
   const leadOptions = [
     {
       label: "Vimlesh",
@@ -607,18 +690,7 @@ const ContactsData = (props) => {
     },
   ];
 
-  const getstatusdata = status
-    .filter(
-      (place) => place.field === "Status" && place.module === "Contact_Status"
-    )
-    .map((place) => ({
-      key: place.id,
-      label: place.master_key,
-      value: place.master_key,
-    }));
-
-  console.log(getstatusdata);
-  console.log(status);
+ 
 
   useEffect(() => {
     getstatus();
@@ -664,7 +736,7 @@ const ContactsData = (props) => {
             Mobile: row.mobile,
             Email: row.email,
             DOB: row.dob,
-            Position:row.position,
+            Position: row.position,
             // Position:othersource.find(
             //   (option) => option.key === row.position && option.label
             // )?.label,
@@ -678,6 +750,7 @@ const ContactsData = (props) => {
             //      :"SalesPerson",
             Ownership: row.ownership == 1 ? "ubuntu" : "window",
             Status: row.status,
+            Lead_Source:row.lead_source,
             // Status:getstatusdata.find(
             //   (option) => option.key === row.status && option.label
             // )?.label,
@@ -753,12 +826,12 @@ const ContactsData = (props) => {
 
   //Get data in textbox on edit button
   const handleUpdate = (oldData) => {
-    setUpdateModal(true)
+    setUpdateModal(true);
     // console.log(oldData);
     // console.log(oldData.id);
     // showCanvas();
     //   ChildStateModificationFunc(oldData)
-      // console.log(oldData)
+    // console.log(oldData)
   };
   // console.log(oldData);
   //alert(oldData)
@@ -768,7 +841,7 @@ const ContactsData = (props) => {
   const handleNameClick = () => {
     // Code to open the other component goes here
   };
-
+// getstatusdata
   const dataSource = fetchcontact.map((contact) => ({
     key: contact.Key,
     id: contact.Key,
@@ -776,12 +849,15 @@ const ContactsData = (props) => {
     mobile: contact.Mobile,
     email: contact.Email,
     dob: contact.DOB,
-    position: othersource.find(
-        (option) => option.key === contact.Position && option.label
-      )?.label,
+    position: othersource1.find(
+      (option) => option.key === contact.Position && option.label
+    )?.label,
     companyname: "Reformiqo",
-    status: getstatusdata.find(
+    status: getstatusdata1.find(
       (option) => option.key === contact.Status && option.label
+    )?.label,
+    lead_source:otherlead1.find(
+      (option) => option.key === contact.Lead_Source && option.label
     )?.label,
     ownership: contact.Ownership,
     updated_date_time: contact.Updated_Date_Time,
@@ -1150,12 +1226,28 @@ const ContactsData = (props) => {
                  </button>
                  </div>
                  </div> */}
-         </>
-        } title="" height={100} trigger="click">
-
-        <img src={editdelete} style={{cursor:"pointer", position:"absolute",top:"21px", transform:"rotate(90deg)"}} onClick={(e) => {setOpen(open); popvisible(e);}}/>
-
-        </Popover>
+              </>
+            }
+            title=""
+            height={100}
+            trigger="click"
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                cursor: "pointer",
+                height: "100%",
+              }}
+              onClick={(e) => {
+                setOpen(open);
+                popvisible(e);
+              }}
+            >
+              <img src={editdelete} style={{ transform: "rotate(90deg)" }} />
+            </div>
+          </Popover>
         </>
       ),
       resizable: true,
@@ -1277,7 +1369,10 @@ const ContactsData = (props) => {
 
   const cusomizeData = dataSource.filter(
     (record) =>
-      //record.position.includes(custfilter.position) &&
+      record.position?.includes(custfilter.position)
+       &&
+       record.status?.includes(custfilter.status)&&
+       record.lead_source?.includes(custfilter.lead_source)&&
       record.ownership.includes(custfilter.ownership) &&
       record.dob.toString().includes(custfilter.dob.toString()) &&
       record.name.toLowerCase().includes(search.toLowerCase())
@@ -1375,15 +1470,15 @@ const ContactsData = (props) => {
   // }
   // // Details={loggedIn}
 
-// if(loggedIn == false)
-// {
-// localStorage.removeItem("jwt");
-// return <Navigate to="/"/>
-// }
+  // if(loggedIn == false)
+  // {
+  // localStorage.removeItem("jwt");
+  // return <Navigate to="/"/>
+  // }
 
-const handleUpdateCancel = () =>{
-  setUpdateModal(false)
-}
+  const handleUpdateCancel = () => {
+    setUpdateModal(false);
+  };
 
   return (
     <div className="contacts-data fixed_heading_container">
@@ -1392,7 +1487,7 @@ const handleUpdateCancel = () =>{
         parent={"Business Account"}
         child={"contacts"}
       />
-      {activeMode === "table" && 
+      {activeMode === "table" && (
         <div className="contacts-table-container">
           <div className="filter-searchbar-container">
             <FilterAndSearchBar
@@ -1486,7 +1581,7 @@ const handleUpdateCancel = () =>{
                        onChange={onChangedate}
                 />
               </div> */}
-                </div>
+                </div>,
               ]}
               change={filterarray}
               onSelectColumn={handleSelectColumn}
@@ -1498,36 +1593,63 @@ const handleUpdateCancel = () =>{
               onData={handleData}
               filter={<Contacts />}
               statusSelect={
-                <SearchSelect
-                  value="All"
-                  text="Status"
+                <CategorySelect
+                  options={getstatusdata}
+                  width={132}
+                  placeholder="Status"
                   showSearch={false}
-                  style={{ width: "maxContent" }}
-                  options={StatusOptions}
-                  width={137}
+                  onChange={handleDrpChange}
+                  name="status"
+                  value={
+                    getstatusdata.find(
+                      (option) =>
+                        option.key === custfilter.status && option.label
+                    )?.label
+                  }
                 />
               }
               positionSelect={
-                <SearchSelect
-                 // value="All"
-                  text="Position"
-                  showSearch={false}
+                <CategorySelect
                   options={othersource}
                   width={132}
+                  showSearch={false}
                   onChange={handleDrpChange}
+                  placeholder="Position"
                   name="position"
-                  value={othersource.find(
-                      (option) => option.key === custfilter.position && option.label
-                    )?.label }
+                  value={
+                    othersource.find(
+                      (option) =>
+                        option.key === custfilter.position && option.label
+                    )?.label
+                  }
                 />
+                // <SearchSelect
+                //  // value="All"
+                //   text="Position"
+                //   showSearch={false}
+                //   options={othersource}
+                //   width={132}
+                //   onChange={handleDrpChange}
+                //   name="position"
+                //   value={othersource.find(
+                //       (option) => option.key === custfilter.position && option.label
+                //     )?.label }
+                // />
               }
               leadSelect={
-                <SearchSelect
-                  value="All"
-                  text="Lead Source"
+                <CategorySelect
+                  options={otherlead}
+                  width={132}
                   showSearch={false}
-                  options={leadOptions}
-                  width={161}
+                  onChange={handleDrpChange}
+                  placeholder="Lead Source"
+                  name="lead_source"
+                  value={
+                    othersource.find(
+                      (option) =>
+                        option.key === custfilter.lead_source && option.label
+                    )?.label
+                  }
                 />
               }
               onFilter={(e) => {
@@ -1779,166 +1901,182 @@ const handleUpdateCancel = () =>{
               </div>
             )}
 
-
-          <Modal
-        open={updateModal}
-        width={"max-content"}
-        onCancel={handleUpdateCancel}
-        style={{top:0, }}
-        className={"deleteconfirm"}
-        footer={false}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
+            <Modal
+              open={updateModal}
+              width={"max-content"}
+              onCancel={handleUpdateCancel}
+              style={{ top: 0 }}
+              className={"deleteconfirm"}
+              footer={false}
+              closeIcon={
+                <div className="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                </div>
+              }
             >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-         <div className="update-contact-container">
+              <div className="update-contact-container">
                 <div className="header">
                   <h1 className="heading-sb">Edit Contact</h1>
-                  <p className="sc-body-rg mt-10 title">Edit the contact details</p>
+                  <p className="sc-body-rg mt-10 title">
+                    Edit the contact details
+                  </p>
                   <hr className="h-line" />
-                 
-                 <p className="sc-body-md profile-title mb-10">Profile Image</p>
-                 <div className="proflie-img-container mb-20">
-                  <div className="img-container">
-                    <img className="user-img" src="/images/icons/user-avatar.jpeg" alt="" />
-                    <div className="edit-img"><img src="/images/icons/edit-white.svg" alt="" /></div>
+
+                  <p className="sc-body-md profile-title mb-10">
+                    Profile Image
+                  </p>
+                  <div className="proflie-img-container mb-20">
+                    <div className="img-container">
+                      <img
+                        className="user-img"
+                        src="/images/icons/user-avatar.jpeg"
+                        alt=""
+                      />
+                      <div className="edit-img">
+                        <img src="/images/icons/edit-white.svg" alt="" />
+                      </div>
+                    </div>
+                    <p className="sc-body-sb remove-img">
+                      Remove Profile Image
+                    </p>
                   </div>
-                  <p className="sc-body-sb remove-img">Remove Profile Image</p>
-                 </div>
-                 <div className="input-container">
-                 <CustomInput
-                  width={330}
-                  icon="/images/icons/user-name-icon.svg"
-                  placeholder="Enter name"
-                  label="Name"
-                />
-
-                  <SearchSelect
-                  width={331}
-                  name="status"
-                  label="Status"
-                />
-
-                <InputGroup
-                  width={98}
-                  mainWidth={330}
-                  inputWidth={232}
-                  options={countryCodes}
-                  label="Phone"
-                  type="number"
-                  drpValue={selectedCode}
-                  name="mobile"
-                    placeholder="Mobile No."
-                />   
-                <SearchSelect
-                    width={331}
-                    addNew="Position"
-                    name="position"
-                    label="Position"
-                  /> 
-
-                <CustomInput
-                  width={330}
-                  icon="/images/icons/Email-icon.svg"
-                  placeholder="Enter email"
-                  label="Email"
-                  type="email"
-                  inputType={"email"}
-                  name="email"
-                />
-
-                <SearchSelect
-                    label="Lead Source"
-                    addNew="Lead"
-                    width={331}
-                    name="lead"
-                  />
-
-                  <CustomInput width={330} label="Date of Birth"/>
-
-                  <SearchSelect
-                    label="Ownership"
-                    width={330}
-                    name="ownership"
-                  />
-
-
-
-
-
-                 </div>
-                  <div className="btn-container d-flex mt-30 gap-16">
-                    <ContainedButton
-                      value="Update Details"
+                  <div className="input-container">
+                    <CustomInput
+                      width={330}
+                      icon="/images/icons/user-name-icon.svg"
+                      placeholder="Enter name"
+                      label="Name"
                     />
+
+                    <SearchSelect width={331} name="status" label="Status" />
+
+                    <InputGroup
+                      width={98}
+                      mainWidth={330}
+                      inputWidth={232}
+                      options={countryCodes}
+                      label="Phone"
+                      type="number"
+                      drpValue={selectedCode}
+                      name="mobile"
+                      placeholder="Mobile No."
+                    />
+                    <SearchSelect
+                      width={331}
+                      addNew="Position"
+                      name="position"
+                      label="Position"
+                    />
+
+                    <CustomInput
+                      width={330}
+                      icon="/images/icons/Email-icon.svg"
+                      placeholder="Enter email"
+                      label="Email"
+                      type="email"
+                      inputType={"email"}
+                      name="email"
+                    />
+
+                    <SearchSelect
+                      label="Lead Source"
+                      addNew="Lead"
+                      width={331}
+                      name="lead"
+                    />
+
+                    <CustomInput width={330} label="Date of Birth" />
+
+                    <SearchSelect
+                      label="Ownership"
+                      width={330}
+                      name="ownership"
+                    />
+                  </div>
+                  <div className="btn-container d-flex mt-30 gap-16">
+                    <ContainedButton value="Update Details" />
                     <ContainedSecondaryButton
-                      value="Cancel" onClick={handleUpdateCancel}
+                      value="Cancel"
+                      onClick={handleUpdateCancel}
                     />
                   </div>
                 </div>
               </div>
-          </Modal>
+            </Modal>
 
-      <Modal
-        open={confirm}
-     //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleUpdateCancel}
-        style={{ top: 20, }}
-        className={"deleteconfirm"}
-        footer={false}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
+            <Modal
+              open={confirm}
+              //   onOk={handleMaterialOk}
+              width={"max-content"}
+              onCancel={handleUpdateCancel}
+              style={{ top: 20 }}
+              className={"deleteconfirm"}
+              footer={false}
+              closeIcon={
+                <div className="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                </div>
+              }
             >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-        <div  style={{display:"flex",flexDirection:"column", alignItems:"center", padding:"20px"}}>
-        <img src="\images\icons\confirmation-alert-delete.svg" style={{ width: "46px", height: "46px", }} />
-        <p className="mt-20 heading-sb">Delete Contact</p>
-        <p className="sc-body-rg mt-10">
-              Are you sure you want to delete selected contacts?
-            </p>
-            <div className="delete-cancel-btn d-flex gap-16 mt-30">
-              <ContainedButton value="Delete" onClick={handleSubmit} color="danger" />
-              <ContainedSecondaryButton value="Cancel"  onClick={handleConfirm} />
-            </div>
-          <div>
-           
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px",
+                }}
+              >
+                <img
+                  src="\images\icons\confirmation-alert-delete.svg"
+                  style={{ width: "46px", height: "46px" }}
+                />
+                <p className="mt-20 heading-sb">Delete Contact</p>
+                <p className="sc-body-rg mt-10">
+                  Are you sure you want to delete selected contacts?
+                </p>
+                <div className="delete-cancel-btn d-flex gap-16 mt-30">
+                  <ContainedButton
+                    value="Delete"
+                    onClick={handleSubmit}
+                    color="danger"
+                  />
+                  <ContainedSecondaryButton
+                    value="Cancel"
+                    onClick={handleConfirm}
+                  />
+                </div>
+                <div></div>
+              </div>
+            </Modal>
           </div>
         </div>
-      </Modal>
-        </div>
-      </div>
-      }
+      )}
 
       {activeMode === "grid" && (
         <div className="contacts-grid-container">

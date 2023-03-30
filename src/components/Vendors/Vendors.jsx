@@ -89,6 +89,7 @@ function Vendors(props) {
   const [pincodeArea, setPincodeArea] = useState([]);
   const [allCustomer, setAllCustomer] = useState([]);
   const [gstinError, setGstinError] =useState(false)
+  const [custtype, setCustType]= useState([])
   //const [gst, setGst] = useState(false);
 
 //special character validation
@@ -207,6 +208,12 @@ axios.get(
     return response;
   })
   .then((data) => {
+    const options=  data.data.data.nba.map((item, index)=>  ({
+      key: index+1,
+       label: item,
+    value: item,
+     }))
+     setCustType(options)
     if(data.data.error == false)
     {
     setFormData(prevFormData => ({
@@ -309,19 +316,19 @@ else
     ],
     "gstin": formData.gstin,
     "business_name": formData.businessname,
-    "email": formData.email,
-    "pancard": formData.pancard,
+    ...(formData.email && { email: formData.email }),
+    ...(formData.pancard && { pancard: formData.pancard }),
     "tds": true,
     "tcs": false,
-    "tan_no":formData.pancard,
-    "credit_limit":formData.credit,
+    ...(formData.pancard && { tan_no: formData.pancard }),
+    ...(formData.credit && {credit_limit:formData.credit}),
     "type": formData.customertype,
     "type_category": formData.type,
     "registration_type": formData.gsttreat,
-    "payment_terms": formData.payment,
+    ...(formData.payment && {payment_terms:formData.payment}),
     "currency": formData.currency,
     "ownership": 1,
-    "commission_terms": formData.commission,
+    ...(formData.commission && { commission_terms: formData.commission }),
     "tds_tcs_master": 2,
     "contact": 1,
     "status": 1,
@@ -667,6 +674,16 @@ const handleDrpChangeCustomer = (field, value) => {
   const selectedOption = getcustomertypedata.find((option) => option.value === value);
   console.log(selectedOption);
   setFormData({ ...formData, [field]: value, type: selectedOption.key });
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+
+const handleDrpChangeCustomertype = (field, value) => {
+  const selectedOption = custtype.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, type:selectedOption.key});
   setFieldValue(field, value);
   setFieldTouched(field, false);
   console.log(field);
@@ -1172,7 +1189,7 @@ const {
                   inputType={"AlphabeticalNumber"}
                   name="gstin"
                   onFocus={handleFocus}
-                    placeholder="Placeholder"
+                    placeholder="22AAAAA1234A1AA"
                     maxLength={15}
                    value={formData.gstin}
                 onChange={(e, newValue) => {handleChange(e); onChange(e);
@@ -1198,7 +1215,7 @@ const {
                name="businessname"
                width={330}
                onFocus={handleFocus}
-               placeholder="Placeholder"
+               placeholder="Name"
               value={formData.businessname}
            onChange={(e, newValue) => {handleChange(e); onChange(e); 
              setFormData(prevState => ({
@@ -1213,7 +1230,7 @@ const {
 
               <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-              <SearchSelect
+              {/* <SearchSelect
                  width={155}
                  label="Vendor Type"
                  options={getcustomertypedata}
@@ -1227,6 +1244,28 @@ const {
                  name="type"
                  error={errors.type && touched.type ? true : false}
                  errorMsg="Vendor Type is required"
+              /> */}
+               <SearchSelect
+                 width={155}
+                 label="Vendor Type"
+              // options={getcustomertypedata}
+                options={custtype}
+                //  value={
+                //   getcustomertypedata.find(
+                //     (option) =>
+                //       option.key === formData.type && option.label
+                //   )?.label
+                // }
+                value={ custtype.find(
+                      (option) =>
+                        option.key === formData.type && option.label
+                    )?.label
+                }
+                // onChange={handleDrpChangeCustomer}
+                 onChange={handleDrpChangeCustomertype}
+                 name="type"
+                 error={errors.type && touched.type ? true : false}
+                 errorMsg="Customer Type is required"
               />
               <SearchSelect 
                 width={155}
@@ -1262,8 +1301,8 @@ const {
                 }
                  onChange={handleDrpChangeCommission}
                  name="commission"
-                 error={errors.commission && touched.commission ? true : false}
-                 errorMsg="Commission is required"
+              //   error={errors.commission && touched.commission ? true : false}
+                // errorMsg="Commission is required"
               />
              <SearchSelect 
                 width={155}
@@ -1278,15 +1317,15 @@ const {
                 }
                 onChange={handleDrpChangePayment}
                 name="payment"
-                error={errors.payment && touched.payment ? true : false}
-                errorMsg="Payment Terms is required"
+               // error={errors.payment && touched.payment ? true : false}
+               // errorMsg="Payment Terms is required"
               />
                 </div>
               </div>
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-              <CustomInput
+              {formData.gsttreat == 1 ?  <CustomInput
                 type="text"
                 label="TAN No."
                 width={155}
@@ -1296,7 +1335,7 @@ const {
                 style={{ border: "none", outline: "none", width: "82%" }}
                inputType={"AlphabeticalNumber"}
                  name="pancard"
-                 placeholder="Placeholder"
+                 placeholder="ABCDE1234D"
                 value={formData.pancard}
              onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
@@ -1304,9 +1343,52 @@ const {
                  "pancard": newValue
                }))}}
                onBlur={handleBlur}
-                error={errors.pancard && touched.pancard ? true : false}
-                errorMsg={errors.pancard}
-            />
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
+            /> : formData.gsttreat == 2 ? 
+              <CustomInput
+                type="text"
+                label="PAN No."
+                width={155}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+                onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphabeticalNumber"}
+                 name="pancard"
+                 placeholder="ABCDE1234D"
+                value={formData.pancard}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "pancard": newValue
+               }))}}
+               onBlur={handleBlur}
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
+            />:
+            <CustomInput
+            type="text"
+            label="TAN No."
+            width={155}
+            icon="/images/icons/Pancard.svg"
+            maxLength={10}
+            onFocus={handleFocus}
+            style={{ border: "none", outline: "none", width: "82%" }}
+           inputType={"AlphabeticalNumber"}
+             name="pancard"
+             placeholder="ABCDE1234D"
+            value={formData.pancard}
+         onChange={(e, newValue) => {handleChange(e); onChange(e); 
+           setFormData(prevState => ({
+             ...prevState,
+             "pancard": newValue
+           }))}}
+           onBlur={handleBlur}
+            // error={errors.pancard && touched.pancard ? true : false}
+            // errorMsg={errors.pancard}
+        />
+              }
                <div  className="credit-input-container">
               <CustomInput 
                 className={`${creditBox && "creditAmtBoxBlur"}`}
@@ -1317,12 +1399,13 @@ const {
                 icon="/images/icons/Rupee.svg"
                 width={155}
                 label="Credit Limit"
+                placeholder="0.00"
                 value={formData.credit}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
                 onFocus={ handleCreditFocus}
-                error={errors.credit && touched.credit ? true : false}
-                errorMsg={errors.credit}
+              //  error={errors.credit && touched.credit ? true : false}
+               // errorMsg={errors.credit}
                 /> 
                 {creditBox && creditAmount>0 && (
                     <div className="creditAmt">
@@ -1357,7 +1440,7 @@ const {
                  width={330}
                  onFocus={handleFocus}
                   label="Email"
-                 placeholder="Placeholder"
+                  placeholder="example@reformiqo.com"
                 value={formData.email}
              onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
@@ -1365,8 +1448,8 @@ const {
                  "email": newValue
                }))}}
                onBlur={handleBlur}
-              error={errors.email && touched.email ? true : false}
-              errorMsg={errors.email}
+            //  error={errors.email && touched.email ? true : false}
+             // errorMsg={errors.email}
                 />
               
               </div>
@@ -1377,7 +1460,7 @@ const {
               //ref={inputRef}
             //onKeyPress={handleKeyPress}
                style={{ border: "none", outline: "none", width: "82%" }}
-               placeholder="Placeholder"
+               placeholder="395007"
                name="pincode"
                value={formData.pincode}
               // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
@@ -1433,7 +1516,7 @@ const {
               <CustomInput
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
-                placeholder="Placeholder"
+              //  placeholder="Placeholder"
                 name="street1"
                 icon="/images/icons/location-icon.svg"
                 value={formData.street1}
@@ -1453,7 +1536,7 @@ const {
               <CustomInput 
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
-                placeholder="Placeholder"
+              //  placeholder="Placeholder"
                 name="street2"
                 value={formData.street2}
                 onChange={(e)=>{handleChange(e); onChange(e);}}

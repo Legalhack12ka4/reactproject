@@ -133,7 +133,7 @@ const getCustomerType = () => {
     .then((data) => {
       setCustomerType(data.data.items);
       console.log(data);
-    const typecustomer=  data.data.items.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
+      const typecustomer=  data.data.items.filter((place) => place.field === "type" && place.module === "cus_ven" && place.master_value === "1")
       setFormData(prevFormData => ({
         ...prevFormData,
        customertype:typecustomer[0].id
@@ -220,8 +220,8 @@ useEffect(() => {
         return response;
       })
       .then((data) => {
-      const options=  data.data.data.nba.map((item)=>  ({
-              key: item,
+      const options=  data.data.data.nba.map((item, index)=>  ({
+              key: index+1,
                label: item,
             value: item,
              }))
@@ -420,7 +420,8 @@ else
       //"email":formData.email,
       ...(formData.email && { email: formData.email }),
       // ...(formData.pancard && { pancard: formData.pancard }),
-      "pancard": "GTHUY6677T",
+      // "pancard": "GTHUY6677T",
+      ...(formData.pancard && { pancard: formData.pancard }),
       "tds": true,
       "tcs": false,
       //...(formData.pancard && { tan_no: formData.pancard }),
@@ -550,6 +551,15 @@ const handleDrpChangePincode = (field, value) => {
 
 const handleDrpChangeCustomer = (field, value) => {
   const selectedOption = getcustomertypedata.find((option) => option.value === value);
+  console.log(selectedOption);
+  setFormData({ ...formData, [field]: value, type:selectedOption.key});
+  setFieldValue(field, value);
+  setFieldTouched(field, false);
+  console.log(field);
+  console.log(value);
+};
+const handleDrpChangeCustomertype = (field, value) => {
+  const selectedOption = custtype.find((option) => option.value === value);
   console.log(selectedOption);
   setFormData({ ...formData, [field]: value, type:selectedOption.key});
   setFieldValue(field, value);
@@ -1019,7 +1029,7 @@ useEffect(() => {
                   inputType={"AlphabeticalNumber"}
                   name="gstin"
                   onFocus={handleFocus}
-                    placeholder="Placeholder"
+                    placeholder="22AAAAA1234A1AA"
                     maxLength={15}
                    value={formData.gstin}
                 onChange={(e, newValue) => {handleChange(e); onChange(e);
@@ -1045,7 +1055,7 @@ useEffect(() => {
                name="businessname"
                width={330}
                onFocus={handleFocus}
-               placeholder="Placeholder"
+               placeholder="Name"
               value={formData.businessname}
            onChange={(e, newValue) => {handleChange(e); onChange(e); 
              setFormData(prevState => ({
@@ -1063,16 +1073,21 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Customer Type"
-               options={getcustomertypedata}
-               //options={custtype}
-                 value={
-                  getcustomertypedata.find(
-                    (option) =>
-                      option.key === formData.type && option.label
-                  )?.label
+              // options={getcustomertypedata}
+               options={custtype}
+                //  value={
+                //   getcustomertypedata.find(
+                //     (option) =>
+                //       option.key === formData.type && option.label
+                //   )?.label
+                // }
+                value={ custtype.find(
+                      (option) =>
+                        option.key === formData.type && option.label
+                    )?.label
                 }
-                //value={formData.type}
-                 onChange={handleDrpChangeCustomer}
+                // onChange={handleDrpChangeCustomer}
+                 onChange={handleDrpChangeCustomertype}
                  name="type"
                  error={errors.type && touched.type ? true : false}
                  errorMsg="Customer Type is required"
@@ -1135,7 +1150,7 @@ useEffect(() => {
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-              <CustomInput
+           {formData.gsttreat == 1 ?  <CustomInput
                 type="text"
                 label="TAN No."
                 width={155}
@@ -1145,7 +1160,7 @@ useEffect(() => {
                 style={{ border: "none", outline: "none", width: "82%" }}
                inputType={"AlphabeticalNumber"}
                  name="pancard"
-                 placeholder="Placeholder"
+                 placeholder="ABCDE1234D"
                 value={formData.pancard}
              onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
@@ -1155,7 +1170,50 @@ useEffect(() => {
                onBlur={handleBlur}
                 // error={errors.pancard && touched.pancard ? true : false}
                 // errorMsg={errors.pancard}
-            />
+            /> : formData.gsttreat == 2 ? 
+              <CustomInput
+                type="text"
+                label="PAN No."
+                width={155}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+                onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphabeticalNumber"}
+                 name="pancard"
+                 placeholder="ABCDE1234D"
+                value={formData.pancard}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "pancard": newValue
+               }))}}
+               onBlur={handleBlur}
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
+            />:
+            <CustomInput
+            type="text"
+            label="TAN No."
+            width={155}
+            icon="/images/icons/Pancard.svg"
+            maxLength={10}
+            onFocus={handleFocus}
+            style={{ border: "none", outline: "none", width: "82%" }}
+           inputType={"AlphabeticalNumber"}
+             name="pancard"
+             placeholder="ABCDE1234D"
+            value={formData.pancard}
+         onChange={(e, newValue) => {handleChange(e); onChange(e); 
+           setFormData(prevState => ({
+             ...prevState,
+             "pancard": newValue
+           }))}}
+           onBlur={handleBlur}
+            // error={errors.pancard && touched.pancard ? true : false}
+            // errorMsg={errors.pancard}
+        />
+              }
                <div  className="credit-input-container">
               <CustomInput 
                 className={`${creditBox && "creditAmtBoxBlur"}`}
@@ -1166,6 +1224,7 @@ useEffect(() => {
                 icon="/images/icons/Rupee.svg"
                 width={155}
                 label="Credit Limit"
+                placeholder="0.00"
                 value={formData.credit}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
                 onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
@@ -1206,7 +1265,7 @@ useEffect(() => {
                  width={330}
                  onFocus={handleFocus}
                   label="Email"
-                 placeholder="Placeholder"
+                 placeholder="example@reformiqo.com"
                 value={formData.email}
                onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
@@ -1226,7 +1285,7 @@ useEffect(() => {
               //ref={inputRef}
             //onKeyPress={handleKeyPress}
                style={{ border: "none", outline: "none", width: "82%" }}
-               placeholder="Placeholder"
+               placeholder="395007"
                name="pincode"
                value={formData.pincode}
               // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
@@ -1282,7 +1341,7 @@ useEffect(() => {
               <CustomInput
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
-                placeholder="Placeholder"
+              //  placeholder="Placeholder"
                 name="street1"
                 icon="/images/icons/location-icon.svg"
                 value={formData.street1}
@@ -1302,7 +1361,7 @@ useEffect(() => {
               <CustomInput 
                 type="text"
                 style={{ border: "none", outline: "none", width: "82%" }}
-                placeholder="Placeholder"
+              //  placeholder="Placeholder"
                 name="street2"
                 value={formData.street2}
                 onChange={(e)=>{handleChange(e); onChange(e);}}
