@@ -148,14 +148,25 @@
             }
         }
     }
-    .custom-date-picker .ant-picker-input {
-        display: none;
-      }
-      .ant-picker{
-        // display: none;
-      }
-      
-      .date-picker-container {
-        position: relative;
-      }
+}
+
+ .calendar-contaienr{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .save-btn{
+        width: 25px;
+        height: 25px;
+        background-color: $primary-100;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .cancel-btn{
+        width: 25px;
+        height: 25px;
+        background-color: $secondary-100;
+        border-radius: 50%;
+        cursor: pointer;
+
+    }
 }

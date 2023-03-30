@@ -165,6 +165,8 @@
 
 // antd table designe
 
+
+
 .ant-table-wrapper .ant-table-expanded-row-fixed {
 left:4px !important
 }
@@ -253,11 +255,14 @@ border-radius: 8px !important;
 // }
 
 .ant-table-container {
-  // box-shadow: 0px 2px 6px 0px #4359711f;
   border-radius: 8px;
-  // border: 1px solid;
-  overflow: hidden;
+  overflow: visible;
+
+  .ant-table-content{
+    overflow: visible !important;
+  }
 }
+
 
 .ant-table-thead .ant-table-cell {
   // background-color: rgba(25, 168, 115, .2) !important;
@@ -563,3 +568,27 @@ th {
 //   left: 50%;
 //   transform: translate(-50%, -50%);
 // }
+
+
+// ant date picker style 
+
+.ant-picker-focused {
+  border-color: $primary-100 !important;
+  box-shadow: 0 0 0 2px rgba(92, 90, 208, 0.1);
+  border-inline-end-width: 1px;
+  outline: 0;
+}
+.ant-picker:hover{
+  border-color:  $primary-100;
+}
+.ant-picker-cell-selected{
+.ant-picker-cell-inner{
+  background-color: $primary-100 !important;
+}
+}
+.ant-picker-cell-inner::before {
+  border-color: $primary-100 !important;
+}
+.ant-picker-today-btn{
+  color: $primary-100 !important;
+}
