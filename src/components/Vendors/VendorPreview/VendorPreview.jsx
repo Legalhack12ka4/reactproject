@@ -61,7 +61,7 @@ const VendorPreview = () => {
   const [activeTab, setActiveTab] = useState("address");
   const [attachmentsModal, setAttachmentsModal] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [getContact, setGetContact] = useState([]);
+  const [getCustomer, setGetCustomer] = useState([]);
   const [status, setStatus] = useState([]);
   const [addlead, setAddLead] = useState([]);
   const [salesOrderModal, setSalesOrderModal] = useState(false);
@@ -78,7 +78,10 @@ const VendorPreview = () => {
   const [createNoteActive, setCreateNoteActive] = useState(false);
   const [addBankModal, setAddBankModal] = useState(false);
   const [addAddressModal, setAddAddressModal] = useState(false);
+  const [custcommission, setcustcommission]=useState([]);
 
+  const { id } = useParams();
+  console.log(id)
   //handlecancel
 
   const handleCancel = () => {
@@ -100,10 +103,10 @@ const VendorPreview = () => {
 
   //for modal delete
 
-  const { id } = useParams();
+
 
   useEffect(() => {
-    getContactData();
+    getCustomerData();
     getstatus();
     getlead();
     getCustomerVendor();
@@ -111,13 +114,14 @@ const VendorPreview = () => {
     getCusVenCurrency();
     getCusVenpayent();
     getPincodeArea();
+    getCusVenCommission();
   }, []);
 
-  const getContactData = () => {
-    return fetch(`${config.baseUrl}/contact/${id}`)
+  const getCustomerData = () => {
+    return fetch(`${config.baseUrl}/customervendor/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setGetContact(data);
+        setGetCustomer(data);
         console.log(data);
       });
   };
@@ -193,22 +197,48 @@ const VendorPreview = () => {
     fetch(`${config.baseUrl}/currency/`)
       .then((response) => response.json())
       .then((data) => {
-        setCusVenCurrency(data);
+        setCusVenCurrency(data.data.items);
         // console.log(data);
       });
   };
 
-  // const getCurrency = cusvenCurrency.map((place) => ({
-  //   key: place.id,
-  //   label: place.currency_name,
-  //   value: place.currency_name,
-  // }));
+  const getCusVenCommission = () => {
+    fetch(`${config.baseUrl}/commissionterm/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setcustcommission(data.data.items);
+        // console.log(data);
+      });
+  };
+  const getCommission = custcommission.map((place) => ({
+    key: place.id,
+    label: place.terms,
+    value: place.terms,
+  }));
+
+  let commissiondata =getCommission.find(
+    (option) => option.key === getCustomer.commission_terms && option.label
+  )?.label
+
+  console.log(commissiondata)
+
+  console.log(cusvenCurrency);
+
+  const getCurrency = cusvenCurrency.map((place) => ({
+    key: place.id,
+    label: place.currency_name,
+    value: place.currency_name,
+  }));
+
+  console.log(getCurrency)
 
   // console.log(status, getstatusdata)
 
-  // let currencydata =getCurrency.find(
-  //   (option) => option.key === singleCusVen.currency && option.label
-  // )?.label
+  let currencydata =getCurrency.find(
+    (option) => option.key === getCustomer.currency && option.label
+  )?.label
+
+  console.log(currencydata)
 
   //get customer/vendor  payent
 
@@ -216,17 +246,22 @@ const VendorPreview = () => {
     fetch(`${config.baseUrl}/paymentterms/`)
       .then((response) => response.json())
       .then((data) => {
-        setCusVenPayment(data);
+        setCusVenPayment(data.data.items);
         // console.log(data);
       });
   };
 
-  // const getPayment = cusvenPayment.map((place) => ({
-  //   key: place.id,
-  //   label: place.terms,
-  //   value: place.terms,
-  // }));
+  const getPayment = cusvenPayment.map((place) => ({
+    key: place.id,
+    label: place.terms,
+    value: place.terms,
+  }));
 
+  let paymentdata =getPayment.find(
+    (option) => option.key === getCustomer.payment_terms && option.label
+  )?.label
+
+  console.log(paymentdata)
   //get customer/vendor pincode area
 
   const getPincodeArea = () => {
@@ -751,8 +786,8 @@ const VendorPreview = () => {
   );
 
   let initials = "";
-  if (getContact.name) {
-    const nameArr = getContact.name.split(" ");
+  if (getCustomer.name) {
+    const nameArr = getCustomer.name.split(" ");
     if (nameArr.length > 1) {
       initials = nameArr[0].charAt(0) + nameArr[nameArr.length - 1].charAt(0);
     } else {
@@ -773,8 +808,8 @@ const VendorPreview = () => {
         parent={"Business Account"}
         child={"Account Details"}
         subchild={
-          <Link exact to="/vendors">
-            {"Vendors"}
+          <Link exact to="/customers">
+            {"Customer"}
           </Link>
         }
         addEditBtn={
@@ -1159,7 +1194,7 @@ const VendorPreview = () => {
                 <div className="left">
                   <img src="/images/icons/logo-customer.svg" alt="" />
                   <p className="heading-md">
-                    Reformiqo Business Services Pvt Ltd
+                   {getCustomer.business_name}
                   </p>
                 </div>
                 <div className="right">
@@ -1187,7 +1222,7 @@ const VendorPreview = () => {
 
                   <div className="d-line">
                     <p className="sc-body-rg title">GSTIN</p>
-                    <p className="sc-body-sb value">29AABCR1234Q1Z1</p>
+                    <p className="sc-body-sb value">{getCustomer.gstin}</p>
                   </div>
 
                   <div className="d-line">
@@ -1197,32 +1232,32 @@ const VendorPreview = () => {
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Currency</p>
-                    <p className="sc-body-sb value">₹ INR (Indian Currency)</p>
+                    <p className="sc-body-sb value">{currencydata}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Commission Terms</p>
-                    <p className="sc-body-sb value">Net 2</p>
+                    <p className="sc-body-sb value">{commissiondata}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Payment Terms</p>
-                    <p className="sc-body-sb value">Net 7</p>
+                    <p className="sc-body-sb value">{paymentdata}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">TAN No.</p>
-                    <p className="sc-body-sb value">ABCTY1234D</p>
+                    <p className="sc-body-sb value">{getCustomer.tan_no}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Credit limit</p>
-                    <p className="sc-body-sb value">₹ 12,50,000.00</p>
+                    <p className="sc-body-sb value">₹ {getCustomer.credit_limit}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Email</p>
-                    <p className="sc-body-sb value">info@reformiqo.com</p>
+                    <p className="sc-body-sb value">{getCustomer.email}</p>
                   </div>
                 </div>
               </div>

@@ -65,8 +65,9 @@ const Customer = (props) => {
   const [confirmupdate, setCofirmUpdate] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null)
   const [updateRecord, setUpdateRecord]= useState(null)
-  
-
+  const [currencydrp, setCurrencydrp] = useState([]);
+  const [payment, setPayment] = useState([]);
+  const [street, setStreet] = useState([]);
 
 //for update
 
@@ -98,6 +99,7 @@ const handleConfirmCancelUpdate = () => {
     const handleConfirm = () => {
       setCofirm(false);
       setDeleteRecord(null)
+      setCofirmUpdate(false)
       // setPopOverVisible(false)
     };
   
@@ -136,9 +138,11 @@ const handleConfirmCancelUpdate = () => {
   const getData = async () => {
     await axios.get(`${config.baseUrl}/customervendor/`).then((res) => {
       setloading(false);
+      console.log(res)
       setFetchcustomer(
         res.data.data.items.map((row) => ({
             Key:row.id,
+            id:row.Key,
             Registration_Type:
             row.registration_type == 1
               ? "Registerd Business"
@@ -161,14 +165,14 @@ const handleConfirmCancelUpdate = () => {
               ? "Wholesaler"
               : "Manufacturer",
               Tan_no: row.tan_no,
-          Currency: row.currency == 1 ? "INR" : "USD",
-          Payment_Terms: row.payment_terms == 1 ? "Net 5" : "Net 10",
+          Currency: row.currency,
+          Payment_Terms: row.payment_terms ,
           Credit_Limit: row.credit_limit,
           Email: row.email,
-          Pincode: "392012",
-          Street1: "Bharuch",
-          Street2: "Gujarat",
-          Place_Of_Supply: row.place_of_supply == 1 ? "India" : "America",
+          Pincode: row.Initiallitemrow[0].pincode,
+          // Street1: row.street1,
+          // Street2: row.street2,
+          Country: "India" ,
           Contact:
             row.contact == 1
               ? "Vimlesh"
@@ -184,7 +188,7 @@ const handleConfirmCancelUpdate = () => {
       console.log(res);
     });
   };
-  // console.log(fetchcustomer)
+ console.log(fetchcustomer)
 
 
   //update data
@@ -267,16 +271,16 @@ const deleteUser = (record)=>
       label: "USD",
     },
   ];
-  const payment = [
-    {
-      value: "Net 5",
-      label: "Net 5",
-    },
-    {
-      value: "Net 10",
-      label: "Net 10",
-    },
-  ];
+  // const payment = [
+  //   {
+  //     value: "Net 5",
+  //     label: "Net 5",
+  //   },
+  //   {
+  //     value: "Net 10",
+  //     label: "Net 10",
+  //   },
+  // ];
   const pos = [
     {
       value: "India",
@@ -329,6 +333,67 @@ const deleteUser = (record)=>
 
   const menuRef = useRef(null);
 
+  //getcurrency
+  useEffect(() => 
+{
+getDataCuurrency();
+getDataPaymentTerms();
+getAddress();
+},[])
+
+  const getDataCuurrency = () => {
+    fetch(`${config.baseUrl}/currency/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrencydrp(data.data.items);
+        // console.log(data);
+      });
+  };
+  const getDataPaymentTerms = () => {
+    return fetch(`${config.baseUrl}/paymentterms/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPayment(data.data.items);
+        // console.log(data);
+      });
+  };
+
+  const getAddress = async () => {
+    await axios.get(`${config.baseUrl}/address/`).then((res) => {
+      setloading(false);
+      console.log(res)
+      setStreet(
+        res.data.data.items.map((row) => ({
+            Key:row.id,
+            id:row.Key,
+            Customer_Ref:row.customer_ref,
+            Street1:
+            row.street1,
+            Street2:row.street2,
+    })))
+  })
+  };
+console.log(street)
+
+  const addressdata = street.map((add) => ({
+    key:add.id,
+    label: add.street1,
+    value: add.street1,
+  }));
+console.log(addressdata)
+  const currencydata = currencydrp.map((curr) => ({
+    key:curr.id,
+    label: curr.currency_name + " - " + curr.symbol,
+    value: curr.id,
+  }));
+
+  const paymentterms = payment.map((pay) => ({
+    key:pay.id,
+    label: pay.terms,
+    value: pay.terms,
+  }));
+
+
   const dataSource = fetchcustomer.map((customer) => ({
      key:customer.Key,
       id:customer.Key,
@@ -337,14 +402,20 @@ const deleteUser = (record)=>
     business_name: customer.Business_Name,
     type_category: customer.Type_Category,
     tan_no: customer.Tan_no,
-    currency: customer.Currency,
-    payment_terms: customer.Payment_Terms,
+    currency:currencydata.find(
+                    (option) =>
+                      option.key === customer.Currency && option.label
+                  )?.label,
+    payment_terms:paymentterms.find(
+      (option) =>
+        option.key === customer.Payment_Terms && option.label
+    )?.label ,
     credit_limit: customer.Credit_Limit,
     email: customer.Email,
     pincode: customer.Pincode,
-    street1: customer.Street1,
-    street2: customer.Street2,
-    place_of_supply: customer.Place_Of_Supply,
+    street1: street.map((street1)=> customer.Key === street1.Customer_Ref && street1.Street1),
+    street2: street.map((street1)=>  customer.Key === street1.Customer_Ref && street1.Street2),
+    country: customer.Country,
     contact: customer.Contact,
     ownership: customer.Ownsership,
   }));
@@ -360,10 +431,23 @@ const deleteUser = (record)=>
       fixed: "left",
       align: "left",
       //ellipsis:true,
+      render: (text, record) => {
+        return (
+          <Link
+          to={`/customer_vendor_preview/${record.id}`}
+          style={{ color: "#5C5AD0", cursor: "pointer" }}
+          onClick={(e) => {
+            e.stopPropagation(); // Stop propagation to prevent sorter from triggering
+          }}
+        >
+          {record.business_name}
+        </Link>
+        )},
       sorter: (record1, record2) => {
         return record1.business_name > record2.business_name;
       },
-      showSorterTooltip:{ title: '' }
+      showSorterTooltip:{ title: '' },
+      
     },
   //  {
 
@@ -538,10 +622,10 @@ const deleteUser = (record)=>
       showSorterTooltip:{ title: '' }
     },
     {
-      title: "Place Of Supply",
-      label: "Place Of Supply",
-      dataIndex: "place_of_supply",
-      key: "place_of_supply",
+      title: "Country",
+      label: "Country",
+      dataIndex: "country",
+      key: "country",
       resizable: true,
       width: 160,
       align: "left",
@@ -721,7 +805,8 @@ const deleteUser = (record)=>
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.business_name.toLowerCase().includes(search.toLowerCase())
+  console.log(record)
+  //  record.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
 
@@ -733,14 +818,14 @@ const deleteUser = (record)=>
       // record.gst_treatment
         
       //   .includes(custfilter.gsttreat) &&
-      record.type_category
+      // record.type_category
         
-        .includes(custfilter.category) &&
-      record.contact.includes(custfilter.contact) &&
-      record.currency
+      //   .includes(custfilter.category) &&
+      // record.contact.includes(custfilter.contact) &&
+      // record.currency
         
-        .includes(custfilter.currency) &&
-      record.payment_terms
+      //   .includes(custfilter.currency) &&
+      // record.payment_terms
         
       
       //   .includes(custfilter.payment) &&
@@ -753,7 +838,8 @@ const deleteUser = (record)=>
         
       //   .includes(custfilter.ownership) &&
       // record.credit_limit.toString().includes(custfilter.credit.toString())
-      && record.business_name.toLowerCase().includes(search.toLowerCase())
+      //&&
+       record.business_name.toLowerCase().includes(search.toLowerCase())
       // && record.email.toLowerCase().includes(search.toLowerCase())
       // && record.pincode.toString().includes(search.toString())
       // && record.contact.toLowerCase().includes(search.toLowerCase())
@@ -1296,95 +1382,53 @@ const deleteUser = (record)=>
       </Modal>
 
       <Modal
-        open={confirmupdate}
-     //   onOk={handleMaterialOk}
-        width={"max-content"}
-        onCancel={handleConfirm}
-        style={{ top: 20 }}
-        className={"deleteconfirm"}
-        footer={[
-          <div style={{ marginLeft: "331px" }}>
-            <Button
-              key="cancel"
-              onClick={handleConfirmUpdate}
-              style={{
-                width: "86px",
-                height: "38px",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#8E9CAA",
-                borderColor: "#C2CAD2",
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              key="submit"
-              type="primary"
-              onClick={handleSubmit}
-              style={{
-                width: "88px",
-                height: "38px",
-                backgroundColor: "#DA2F58",
-                fontSize: "14px",
-                fontWeight: "700",
-                color: "#FFFFFF",
-              }}
-            >
-              Delete
-            </Button>
-          </div>,
-        ]}
-        closeIcon={
-          <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="13.51"
-              height="13"
-              viewBox="0 0 13.51 13"
-            >
-              <path
-                id="Path_34362"
-                data-name="Path 34362"
-                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
-                transform="translate(-2.248 -2.248)"
-                fill="#697a8d"
-              />
-            </svg>
-          </div>
-        }
-      >
-         <AddNewCustomer/>
-        {/* <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
+          open={confirmupdate}
+          //   onOk={handleMaterialOk}
+             width={"max-content"}
+             onCancel={handleConfirm}
+             footer={false}
+             style={{ top: 20 }}
+             className={"deleteconfirm"}
+             closeIcon={
+              <div className="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="13.51"
+                  height="13"
+                  viewBox="0 0 13.51 13"
+                >
+                  <path
+                    id="Path_34362"
+                    data-name="Path 34362"
+                    d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                    transform="translate(-2.248 -2.248)"
+                    fill="#697a8d"
+                  />
+                </svg>
               </div>
-            </div>
-
-            <div>
-              <p
-                style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
-                }}
-              >
-                Delete Customer
-              </p>
-            </div>
-          </div>
-          <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
-            </p>
-          </div>
-        </div> */}
-      </Modal>
+            }
+      >
+         <div className="update-customer-container">
+                <div className="header">
+                  <h1 className="heading-sb">Edit Account</h1>
+                  <p className="sc-body-rg mt-10 title">Edit the account details</p>
+                  <hr className="h-line" />
+              
+                  <div className="update-form-container">
+                    <div className="logo-container">
+                      <p className="sc-body-md label">Account Logo</p>
+                      <div className="logo">
+                        <img src="/images/icons/autoMode_logo.svg" alt="" />
+                      </div>
+                      <p className="sc-body-sb upload-link">Click to replace <span className="sc-body-rg">or drag and drop</span></p>
+                      <p className="caption-md">SVG, PNG, JPG or GIF (max. 800 x 400px )</p>
+                      <p className="sc-body-sb remove-logo">Remove Logo</p>
+                    </div>
+                  <AddNewCustomer/>
+                  </div>
+                </div>
+              </div>
+          </Modal>
           </div>
         </div>
       </div>
