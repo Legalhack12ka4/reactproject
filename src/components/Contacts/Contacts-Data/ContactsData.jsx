@@ -825,15 +825,16 @@ console.log(status);
   }
 
   //Get data in textbox on edit button
-  const handleUpdate = (oldData) => {
+  const handleUpdate = (record) => {
     setUpdateModal(true);
+    
     // console.log(oldData);
     // console.log(oldData.id);
     // showCanvas();
-    //   ChildStateModificationFunc(oldData)
-    // console.log(oldData)
+    // ChildStateModificationFunc(oldData)
+    console.log(record)
   };
-  // console.log(oldData);
+
   //alert(oldData)
 
   //get form data

@@ -648,7 +648,7 @@ const handleFormSubmitPosition = () => {
 
 const otherlead = addlead.map((place) => ({
   key: place.id,
-  label: place.lead_source,
+  label: <div style={{justifyContent:"space-between", display:"flex"}}> <p>{place.lead_source}</p> <img src="\images\icons\edit_blue_icon.svg" /> </div>,
   value: place.lead_source,
 }));
 
@@ -721,16 +721,9 @@ const handleFormSubmitLead = () => {
 
   const othersource = addSouce.map((place) => ({
     key: place.id,
-    label: place.position_name,
+    label: <div style={{justifyContent:"space-between", display:"flex"}}> <p>{place.position_name}</p> <img src="\images\icons\edit_blue_icon.svg" /> </div>,
     value: place.position_name,
-    editButton: (
-      <Button
-        size="small"
-        onClick={() => handleEdit(place.id)} // handleEdit is a function that will handle the edit action for the selected option
-      >
-        Edit
-      </Button>
-    )
+    
   }));
 
   useEffect(() => {
