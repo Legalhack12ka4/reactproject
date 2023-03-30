@@ -1959,10 +1959,10 @@ console.log(status);
                       icon="/images/icons/user-name-icon.svg"
                       placeholder="Enter name"
                       label="Name"
-                      value={updateId.name}
+                      value={updateId?.name}
                     />
 
-                    <SearchSelect width={331} name="status" label="Status" value={updateId.status} />
+                    <SearchSelect width={331} name="status" label="Status" value={updateId?.status} />
 
                     <InputGroup
                       width={98}
@@ -1974,14 +1974,14 @@ console.log(status);
                       drpValue={selectedCode}
                       name="mobile"
                       placeholder="Mobile No."
-                      value={updateId.mobile}
+                      value={updateId?.mobile}
                     />
                     <SearchSelect
                       width={331}
                       addNew="Position"
                       name="position"
                       label="Position"
-                      value={updateId.position}
+                      value={updateId?.position}
                     />
 
                     <CustomInput
@@ -1992,7 +1992,7 @@ console.log(status);
                       type="email"
                       inputType={"email"}
                       name="email"
-                      value={updateId.email}
+                      value={updateId?.email}
                     />
 
                     <SearchSelect
@@ -2000,7 +2000,7 @@ console.log(status);
                       addNew="Lead"
                       width={331}
                       name="lead"
-                      value={updateId.lead_source}
+                      value={updateId?.lead_source}
                     />
 
                     <CustomInput width={330} label="Date of Birth" />
@@ -2009,7 +2009,7 @@ console.log(status);
                       label="Ownership"
                       width={330}
                       name="ownership"
-                      value={updateId.ownership}
+                      value={updateId?.ownership}
                     />
                   </div>
                   <div className="btn-container d-flex mt-30 gap-16">
