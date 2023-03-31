@@ -24,6 +24,9 @@ import alert from "../../assets/Images/Confirmation/confirm.svg";
 //import AddNewCustomer, { UpdateParentCustomer}from "../Customers/AddNewCustomer"
 import {ChildStateModificationFunc} from "../Customers/AddNewCustomer";
 import AddNewCustomer from "../Customers/AddNewCustomer";
+import { SearchSelect } from "../Dropdowns/Dropdowns";
+import CustomInput from "../CustomInput/CustomInput";
+import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
 ;
 
 const filterfield = {
@@ -68,7 +71,35 @@ const Customer = (props) => {
   const [currencydrp, setCurrencydrp] = useState([]);
   const [payment, setPayment] = useState([]);
   const [street, setStreet] = useState([]);
-
+  const [creditBox, setCreditBox] = useState(false);
+  const [creditAmount, setCreditAmount] = useState('');
+  const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
+  const [allCustomer, setAllCustomer] = useState([]);
+  const [gstinError, setGstinError] =useState(false)
+  const[updateId, setUpdateId]=useState({
+    gsttreat: "",
+    gstin: "",
+    businessname: "",
+    category: "",
+    pancard: "",
+    currency: "",
+    payment: "",
+    credit: "",
+    email: "",
+    pincode: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    pos: "",
+    contact: "",
+    ownership: "",
+    area:"",
+    type:"",
+    commission:"",
+    country:"",
+    customertype:"",
+  })
 //for update
 
 const handleConfirmCancelUpdate = () => {
@@ -164,11 +195,11 @@ const handleConfirmCancelUpdate = () => {
               : row.type_category == 8
               ? "Wholesaler"
               : "Manufacturer",
-              Tan_no: row.tan_no,
-          Currency: row.currency,
-          Payment_Terms: row.payment_terms ,
-          Credit_Limit: row.credit_limit,
-          Email: row.email,
+              Tan_no: row.tan_no ? row.tan_no : "--",
+          Currency: row.currency ? row.currency : "--",
+          Payment_Terms: row.payment_terms ? row.payment_terms : "--" ,
+          Credit_Limit: row.credit_limit ? row.credit_limit : "--",
+          Email: row.email ? row.email : "--",
           Pincode: row.Initiallitemrow[0].pincode,
           // Street1: row.street1,
           // Street2: row.street2,
@@ -193,14 +224,19 @@ const handleConfirmCancelUpdate = () => {
 
   //update data
 
-const handleUpdate = (oldData) => {
+const handleUpdate = (record) => {
 
   handleConfirmCancelUpdate();
-  console.log(oldData)
-  console.log(oldData.id);
+  // console.log(oldData)
+  // console.log(oldData.id);
+  console.log(record)
+  setUpdateId(record);
+
   
-  ChildStateModificationFunc(oldData)
+  // ChildStateModificationFunc(oldData)
 };
+
+console.log(updateId)
 
 
 //delete data
@@ -920,21 +956,105 @@ console.log(addressdata)
      else setSelectedColumns(selectedColumns.filter(col => col !== value));
    }
 
-//    const token = localStorage.getItem("jwt")
-//    let loggedIn= true
-//    if(token == null)
-//    {
-//      localStorage.removeItem("jwt");
-//      loggedIn = false
-//    }
-//   // Details={loggedIn}
- 
-//  if(loggedIn == false)
-//  {
-//    localStorage.removeItem("jwt");
-//    return <Navigate to="/"/>
- 
-//  }
+   const onChange = (e) => {
+    const { value, name } = e.target;
+    setCreditAmount(e.target.value);
+    setUpdateId({ ...updateId, [name]: value });
+    setGstinError(false);
+    console.log(value);
+    console.log(name);
+    
+  };
+
+   const getCustomerVendor = () =>
+   {
+     fetch(`${config.baseUrl}/customervendor/`)
+     .then((response) => response.json())
+     .then((data) => {
+       setAllCustomer(data.data.items);
+        console.log(data);
+     });
+   }
+
+   const handleFormSubmit = () => {
+  
+    const data = allCustomer.find((customer) => customer.gstin ===  updateId.gstin);
+console.log(data)
+if(data)
+{
+  setGstinError(true)
+}
+else
+{
+    axios
+      .put(
+        `${config.baseUrl}/customervendor/${updateId.id}/`,
+        {
+
+
+        "Initiallitemrow": [
+          {
+             "street1": updateId.street1,
+             "street2": updateId.street2,
+              "country": updateId.country,
+              "category": updateId.category,
+              // "type": 10,
+              "pincode":updateId.area,
+              "company_id": 1,
+              "created_by": 1,
+              "updated_by": 1
+          }
+      ],
+      "gstin": updateId.gstin,
+      "business_name": updateId.business_name,
+      //"email":formData.email,
+      ...(updateId.email && { email: updateId.email }),
+      // ...(formData.pancard && { pancard: formData.pancard }),
+      // "pancard": "GTHUY6677T",
+      ...(updateId.pancard && { pancard: updateId.pancard }),
+      "tds": true,
+      "tcs": false,
+      //...(formData.pancard && { tan_no: formData.pancard }),
+      ...(updateId.pancard && { tan_no: updateId.pancard }),
+    //  "tan_no":formData.pancard,
+    ...(updateId.credit && {credit_limit:updateId.credit}),
+    //  "credit_limit":formData.credit,
+      "type": updateId.customertype,
+      "type_category": updateId.type,
+      "registration_type": updateId.registration_type,
+      ...(updateId.payment && {payment_terms:updateId.payment}),
+     // "payment_terms": formData.payment,
+      "currency": updateId.currency,
+      "ownership": 1,
+      ...(updateId.commission && { commission_terms: updateId.commission }),
+  //    "commission_terms":  formData.commission ? formData.commission : "",
+      "tds_tcs_master": 2,
+      "contact": 1,
+      "status": 1,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+        },
+        updateId
+      )
+      .then((response) => {
+        getData();
+
+        toast.success("Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        // handleClose();
+      });
+    }
+    //console.log(initialFieldValues);
+  };
+
   return (
     <>
       <div className="customers fixed_heading_container">
@@ -1424,7 +1544,433 @@ console.log(addressdata)
                       <p className="caption-md">SVG, PNG, JPG or GIF (max. 800 x 400px )</p>
                       <p className="sc-body-sb remove-logo">Remove Logo</p>
                     </div>
-                  <AddNewCustomer/>
+                  {/* <AddNewCustomer/> */}
+                  <form onSubmit={handleSubmit} autoComplete="off">
+            <div className="form_first_container">
+
+              <div className="form_field field1" style={{ gridRowStart: 1, gridColumnStart: 1}}>
+              <SearchSelect
+            label="GST Treatment" 
+            width={330}
+         //   options={gsttreatment} 
+          //  onChange={handleDrpChange}
+            name="gsttreat"
+            value={updateId?.registration_type}
+             //       error={errors.gsttreat && touched.gsttreat ? true : false}
+               //     errorMsg="GST Treatment is required"
+            />
+                
+              </div>
+
+              <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
+              <CustomInput 
+                width={330}
+                label="GSTIN"
+                icon="/images/icons/Gst-no.svg"
+                type="text"
+                    style={{ border: "none", outline: "none", width: "82%" }}
+                  inputType={"AlphabeticalNumber"}
+                  name="gstin"
+                //  onFocus={handleFocus}
+                    placeholder="22AAAAA1234A1AA"
+                    maxLength={15}
+                 value={updateId?.gstin}
+                //onChange={(e, newValue) => {handleChange(e); onChange(e);
+                  // handleGstno(e);
+                  // setFormData(prevState => ({
+                  //   ...prevState,
+                  //   "gstin": newValue
+                  // }))}}
+                  // onBlur={handleBlur}
+                  // error={errors.gstin && touched.gstin || gstinError ? true : false}
+                  // errorMsg={errors.gstin || "Gstin already exits"}
+
+            />
+              </div>
+
+              <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
+              <CustomInput 
+              type="text"
+              label="Business Name"
+              icon="/images/icons/Business.svg"
+              style={{ border: "none", outline: "none", width: "82%" }}
+             inputType={"CamelAlphabetical"}
+               name="businessname"
+               width={330}
+           // onFocus={handleFocus}
+               placeholder="Name"
+              value={updateId?.business_name}
+          //  onChange={(e, newValue) => {handleChange(e); onChange(e); 
+          //    setFormData(prevState => ({
+          //      ...prevState,
+          //      "businessname": newValue
+          //    }))}}
+          //    onBlur={handleBlur}
+          //     error={!formData.businessname && errors.businessname && touched.businessname ? true : false}
+          //     errorMsg={!formData.businessname && errors.businessname}
+            />
+              </div>
+
+              <div className="form_field field4" style={{ gridRowStart: 4, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <SearchSelect
+                 width={155}
+                 label="Customer Type"
+              // options={getcustomertypedata}
+            //   options={custtype}
+                 value={
+                updateId?.type
+                }
+                // value={ custtype.find(
+                //       (option) =>
+                //         option.key === formData.type && option.label
+                //     )?.label
+                // }
+                // onChange={handleDrpChangeCustomer}
+                //  onChange={handleDrpChangeCustomertype}
+                //  name="type"
+                //  error={errors.type && touched.type ? true : false}
+                //  errorMsg="Customer Type is required"
+              />
+              <SearchSelect 
+                width={155}
+                label="Currency"
+              //  options={currencydata}
+                // value={
+                //   currencydata.find(
+                //     (option) =>
+                //       option.key === formData.currency && option.label
+                //   )?.label
+                // }
+                value={updateId?.currency}
+              //  onChange={handleDrpChangeCurrency}
+              //  name="currency"
+              //   error={errors.currency && touched.currency ? true : false}
+              //   errorMsg="Currency is required"
+              />
+                </div>
+              </div>
+
+              <div className="form_field field5" style={{ gridRowStart: 5, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <SearchSelect
+                 width={155}
+                 label="Commission Terms"
+               //  options={commissiondata}
+                 value={updateId?.commission_terms}
+                //  value={
+                //   commissiondata.find(
+                //     (option) =>
+                //       option.key === formData.commission && option.label
+                //   )?.label
+                // }
+                //  onChange={handleDrpChangeCommission}
+                 name="commission"
+                //  error={errors.commission && touched.commission ? true : false}
+                //  errorMsg="Commission is required"
+              />
+             <SearchSelect 
+                width={155}
+                label="Payment Terms"
+            //    options={paymentterms}
+                value={updateId?.payment_terms}
+                // value={
+                //   paymentterms.find(
+                //     (option) =>
+                //       option.key === formData.payment && option.label
+                //   )?.label
+                // }
+                // onChange={handleDrpChangePayment}
+                name="payment"
+                // error={errors.payment && touched.payment ? true : false}
+                // errorMsg="Payment Terms is required"
+              />
+                </div>
+              </div>
+
+              <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+           {/* {updateId?.gsttreat == 1 ?  */}
+            <CustomInput
+                type="text"
+                label="TAN No."
+                width={155}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+               // onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphabeticalNumber"}
+                 name="pancard"
+                 placeholder="ABCDE1234D"
+                value={updateId?.pancard}
+            //  onChange={(e, newValue) => {handleChange(e); onChange(e); 
+            //    setFormData(prevState => ({
+            //      ...prevState,
+            //      "pancard": newValue
+            //    }))}}
+            //    onBlur={handleBlur}
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
+            /> 
+            {/* : updateId?.gsttreat == 2 ? 
+              <CustomInput
+                type="text"
+                label="PAN No."
+                width={155}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+               // onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphabeticalNumber"}
+                 name="pancard"
+                 placeholder="ABCDE1234D"
+                value={updateId?.pancard}
+            //  onChange={(e, newValue) => {handleChange(e); onChange(e); 
+            //    setFormData(prevState => ({
+            //      ...prevState,
+            //      "pancard": newValue
+            //    }))}}
+            //    onBlur={handleBlur}
+                // error={errors.pancard && touched.pancard ? true : false}
+                // errorMsg={errors.pancard}
+            />:
+            <CustomInput
+            type="text"
+            label="TAN No."
+            width={155}
+            icon="/images/icons/Pancard.svg"
+            maxLength={10}
+          //  onFocus={handleFocus}
+            style={{ border: "none", outline: "none", width: "82%" }}
+           inputType={"AlphabeticalNumber"}
+             name="pancard"
+             placeholder="ABCDE1234D"
+            value={updateId?.pancard}
+        //  onChange={(e, newValue) => {handleChange(e); onChange(e); 
+        //    setFormData(prevState => ({
+        //      ...prevState,
+        //      "pancard": newValue
+        //    }))}}
+        //    onBlur={handleBlur}
+            // error={errors.pancard && touched.pancard ? true : false}
+            // errorMsg={errors.pancard}
+        /> */}
+              
+               <div  className="credit-input-container">
+              <CustomInput 
+                className={`${creditBox && "creditAmtBoxBlur"}`}
+                type="number"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                // placeholder="Placeholder"
+                name="credit"
+                icon="/images/icons/Rupee.svg"
+                width={155}
+                label="Credit Limit"
+                placeholder="0.00"
+                value={updateId?.credit_limit}
+                // onChange={(e)=>{handleChange(e); onChange(e);}}
+                // onBlur={(e)=>{handleBlur(e); handleCreditBlur(e);}}
+                // onFocus={ handleCreditFocus}
+                // error={errors.credit && touched.credit ? true : false}
+                // errorMsg={errors.credit}
+                /> 
+                {creditBox && creditAmount>0 && (
+                    <div className="creditAmt">
+                      <p> {formattedCreditAmount}</p>
+                    </div>
+                  )}
+              </div>
+
+                </div>
+              </div>
+
+              <div className="form_field field7" style={{ gridRowStart: 7, gridColumnStart: 1}}>
+              <SearchSelect
+                 width={330}
+                label="Ownership"
+                //  options={ownershipwithemail}
+                //  value={values.ownership}
+                //  onChange={handleDrpChange}
+                 name="ownership"
+                 //error={errors.ownership && touched.ownership ? true : false}
+                 //errorMsg="Ownership is required"
+                  />
+              </div>
+              
+              <div className="form_field field8" style={{ gridRowStart: 1, gridColumnStart: 2}}>
+              <CustomInput 
+              //  type="email"
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"email"}
+                 name="email"
+                 icon="/images/icons/Email.svg"
+                 width={330}
+                // onFocus={handleFocus}
+                  label="Email"
+                 placeholder="example@reformiqo.com"
+                value={updateId?.email}
+              //  onChange={(e, newValue) => {handleChange(e); onChange(e); 
+              //  setFormData(prevState => ({
+              //    ...prevState,
+              //    "email": newValue
+              //  }))}}
+              //  onBlur={handleBlur}
+              // error={errors.email && touched.email ? true : false}
+              // errorMsg={errors.email}
+                />
+              
+              </div>
+
+              <div className="form_field field9" style={{ gridRowStart: 2, gridColumnStart: 2}}>
+              <CustomInput 
+              type="number"
+              //ref={inputRef}
+            //onKeyPress={handleKeyPress}
+               style={{ border: "none", outline: "none", width: "82%" }}
+               placeholder="395007"
+               name="pincode"
+             value={updateId?.pincode}
+              // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
+              //  onChange={(e)=>{handleChange(e); onChange(e);}}
+              //  onBlur={(e)=>{handleBlur(e);}}
+               autoComplete="off"
+                width={330}
+                // onFocus={handleFocus}
+                icon="/images/icons/Pincode_Area.svg"
+                label="Pincode"
+                // error={!formData.pincode && errors.pincode && touched.pincode ? true : false}
+                // errorMsg={!formData.pincode && errors.pincode}
+            />
+             
+              </div>
+
+              <div className="form_field field10" style={{ gridRowStart: 3, gridColumnStart: 2}}>
+              <SearchSelect 
+              width={330}
+              placeholder="Area"
+              name="area"
+              value={updateId?.area}
+              // options={getPincodeAreaData}
+              // value={
+              //   getPincodeAreaData.find(
+              //     (option) =>
+              //       option.key === formData.area && option.label
+              //   )?.label
+              // }
+              // onChange={handleDrpChangePincode}
+              label="Area"
+              // error={!formData.area && errors.area && touched.area ? true : false}
+              // errorMsg={!formData.area && errors.area}
+              />
+              {/* <CustomInput 
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+                placeholder="Placeholder"
+                name="area"
+                value={formData.area}
+                onChange={(e)=>{handleChange(e); onChange(e);}}
+                onBlur={handleBlur}
+                width={330}
+                onFocus={handleFocus}
+                icon="/images/icons/Pincode_Area.svg"
+                label="Area"
+                error={!formData.area && errors.area && touched.area ? true : false}
+                errorMsg={!formData.area && errors.area}
+              /> */}
+              
+              </div>
+
+              <div className="form_field field11" style={{ gridRowStart:4 , gridColumnStart: 2}}>
+              <CustomInput
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+              //  placeholder="Placeholder"
+                name="street1"
+                icon="/images/icons/location-icon.svg"
+                value={updateId?.street1}
+                // onChange={(e)=>{handleChange(e); onChange(e);}}
+                // onBlur={handleBlur}
+                width={330}
+              //  onFocus={handleFocus}
+                label="Street 1"
+                // error={!formData.street1 && errors.street1 && touched.street1 ? true : false}
+                // errorMsg={!formData.street1 && errors.street1}
+              />
+              
+              
+              </div>
+
+              <div className="form_field field12" style={{ gridRowStart: 5, gridColumnStart: 2}}>
+              <CustomInput 
+                type="text"
+                style={{ border: "none", outline: "none", width: "82%" }}
+              //  placeholder="Placeholder"
+                name="street2"
+             value={updateId?.street2}
+                // onChange={(e)=>{handleChange(e); onChange(e);}}
+                // onBlur={handleBlur}
+                width={330}
+            //    onFocus={handleFocus}
+                label="Street 2"
+                // error={!formData.street2 && errors.street2 && touched.street2 ? true : false}
+                // errorMsg={!formData.street2 && errors.street2}
+                icon="/images/icons/location-icon.svg"
+              />
+              
+              
+              </div>
+
+              <div className="form_field field13" style={{ gridRowStart: 6, gridColumnStart: 2}}>
+              <CustomInput 
+              type="text"
+              style={{ border: "none", outline: "none", width: "82%" }}
+              name="city"
+              value={updateId?.city}
+           //   onChange={onChange}
+              disabled={true}
+              width={330}
+              label="City"
+              // error={errors.city && touched.city ? true : false}
+              // errorMsg={errors.city}
+            />
+              
+              </div>
+
+              <div className="form_field field14" style={{ gridRowStart: 7, gridColumnStart: 2}}>
+              <div style={{ display: "flex", gap: "20px" }}>
+              <CustomInput 
+               type="text"
+               style={{ border: "none", outline: "none", width: "82%" }}
+               name="state"
+               value={updateId?.state}
+             //  onChange={onChange}
+               disabled={true}
+                width={155}
+                label="State"
+                // error={errors.state && touched.state ? true : false}
+                // errorMsg={errors.state}
+            />
+              <CustomInput 
+               type="text"
+               style={{ border: "none", outline: "none", width: "82%" }}
+               name="state"
+             value={updateId?.country}
+               disabled={true}
+                width={155}
+                label="Country"
+                // error={errors.state && touched.state ? true : false}
+                // errorMsg={errors.state}
+            />
+              
+                </div>
+              </div> 
+
+            </div>
+            <div className="customerbutton_bottom">
+                  <ContainedButton  value="Update" onClick={handleFormSubmit} />
+                  <ContainedSecondaryButton value="Cancel"  />
+                </div>
+          </form>
                   </div>
                 </div>
               </div>

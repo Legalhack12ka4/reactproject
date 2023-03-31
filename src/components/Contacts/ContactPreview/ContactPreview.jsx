@@ -428,9 +428,11 @@ const ContactPreview = () => {
     attatch_name: "",
     attachments: "",
   });
+  const [dobData, setDobData]=useState({dob:""})
+  console.log(dobData)
 
-  const [dob, setDob] = useState(false)
-  console.log(dob)
+  // const [dob, setDob] = useState(false)
+  // console.log(dob)
   //handlecancel
 
   const { id } = useParams();
@@ -504,6 +506,8 @@ const handleUpdateCancel = () =>{
     });
   }, [assignedData]);
 
+
+  
   const getAssigedDataCustomer = (id) => {
     // const ids = assignedData.join(',');
     // console.log(ids)
@@ -1302,6 +1306,102 @@ const handleUpdateCancel = () =>{
   const createNoteFalse = () => {
     setCreateNoteActive(false);
   };
+/// date of birth
+
+// const onChangeDate = (e) => {
+//   const { value, name } = e.target;
+
+//   setDobData({ ...dobData, [name]: value });
+//   console.log(value);
+//   console.log(name);
+// };
+// var strDate = dobData.dob;
+// var convertedDate = new Date(strDate)
+//   .toLocaleDateString("IN")
+//   .replaceAll("/", "-");
+//  console.log(convertedDate); // 2-23-2021
+
+const onChangeDate = (date) => {
+  setDobData({ ...dobData, dob: date });
+  console.log(date);
+};
+
+console.log(dobData.dob.$D)
+console.log(dobData.dob.$y)
+console.log(dobData.dob.$W)
+
+
+const handleFormSubmitDOB = (e) => {
+
+
+  axios
+    .put(
+      `${config.baseUrl}/contact/${getContact.id}/`,
+      {
+        name: getContact.name,
+        mobile: getContact.mobile,
+        email: getContact.email,
+      //  dob: getContact.dob,
+        position: getContact.position,
+        status:getContact.status,
+        lead_source: getContact.lead_source,
+        dob: dobData.dob.toISOString().slice(0, 10) ,
+      //  contact_image:updateId.contact_image,
+      contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+        notes: "good",
+        type: 1,
+        country_code: 1,
+        company_name: 1,
+        ownership: 1,
+        company_id: 1,
+        created_by: 1,
+        updated_by: 1,
+      },
+      getContact
+    )
+    .then((response) => {
+      // closeModal();
+      // handleCancel();
+    //  handleclose();
+   //   props.onClick();
+  // setUpdateModal(false);
+        // getData();
+        setCalendarVisible(false)
+      toast.success("Updated Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    });
+}
+// const onChangeDate = (date) => {
+//   const year = date.$y.toString();
+//   const month = (date.$M+ 1).toString().padStart(2, '0');
+//   const day = date.$D.toString().padStart(2, '0');
+//   console.log(year, month, day)
+//   // const formattedDate = `${year}-${month}-${day}`;
+
+//   var convertedDate = new Date()
+//     .toLocaleDateString("IN")
+//     .replaceAll("/", "-");
+
+//   setDobData({ ...dobData, dob: convertedDate });
+// };
+// console.log(dobData)
+
+// const onChangeDate = (e) => {
+// const { value, name } = e.target; // assuming that the input value is passed as an event parameter
+//   const date = new Date(value);
+//   const year = date.getFullYear().toString();
+//   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+//   const day = date.getDate().toString().padStart(2, '0');
+//   const formattedDate = `${year}-${month}-${day}`;
+//   setDobData({ ...dobData, dob: formattedDate });
+// };
 
   //notes data input
 
@@ -1509,6 +1609,31 @@ const handleUpdateCancel = () =>{
   //   }
   // };
 
+  var strDate = getContact.dob;
+  var convertedDate = new Date(strDate)
+    .toLocaleDateString("IN")
+    .replaceAll("/", "-");
+
+
+
+    const timestamp = getContact.updated_date_time;
+    const date = new Date(timestamp);
+    
+    // Format the date into "dd, mmm yyyy hh:mm AM/PM" format
+    const formattedDate = `${date.getDate()}, ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
+    
+    // Function to format time in "hh:mm AM/PM" format
+    function formatTime(date) {
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      const amPm = hours < 12 ? "AM" : "PM";
+      hours = hours % 12 || 12;
+      minutes = minutes < 10 ? `0${minutes}` : minutes;
+      return `${hours}:${minutes} ${amPm}`;
+    }
+    
+    console.log(formattedDate); // Output: "31, March 2023 09:23 AM"
+
   return (
     <div className="contact-preview-main">
       <Page_heading
@@ -1522,7 +1647,7 @@ const handleUpdateCancel = () =>{
         addEditBtn={
          
             <div className="d-flex align-center gap-10">
-              <div
+             {assignedCustomer.length   === 0  ?  <div
                 className="d-flex gap-8 align-center"
                 style={{
                   borderRight: "1px solid #CBD5E0",
@@ -1531,11 +1656,11 @@ const handleUpdateCancel = () =>{
                   cursor: "pointer",
                 }}
               >
-                <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
+               <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
                 <p className="sc-body-sb" style={{ color: "#5C5AD0" }}>
                   Delete
                 </p>
-              </div>
+              </div> : "" }
               <ContainedIconButton
                 value={"Edit"}
                 icon="/images/icons/edit-white-icon.svg"
@@ -1596,7 +1721,7 @@ const handleUpdateCancel = () =>{
 
           <div className="contact-details-container">
             <div className="phone">
-              <p className="phone-label sc-body-rg mb-4">Phone</p>
+              <p className="phone-label sc-body-rg mb-4" >Phone</p>
               <p className="sc-body-md clr-n-400">+91 {getContact.mobile}</p>
             </div>
 
@@ -1607,10 +1732,14 @@ const handleUpdateCancel = () =>{
 
             <div className="dob">
               <p className="dob-label sc-body-rg mb-4">Date of Birth</p>
-              {!CalendarVisible ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>{`${dob ? dob :"Add"}`} {dob && <img style={{cursor:"pointer"}} src="/images/icons/edit_blue_icon.svg" alt="" />}</p>:
+              {!CalendarVisible  ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>
+                {`${dobData.dob ? convertedDate :"Add"}`}
+                 {getContact.dob && <img style={{cursor:"pointer"}} src="/images/icons/edit_blue_icon.svg" alt="" />}</p>:
               <div className="calendar-contaienr">
-                <DatePicker selected={dob} onChange={(date) => setDob(date)} placeholder="Select Date"/>
-                <div className="save-btn" onClick={()=> {setCalendarVisible(false)}}></div>
+                <DatePicker selected={dobData} onChange={onChangeDate} placeholder="Select Date" name="dob" 
+                value={dobData.dob} 
+                />
+                <div className="save-btn" onClick={handleFormSubmitDOB}></div>
                 <div className="cancel-btn" onClick={()=> {setCalendarVisible(false)}}></div>
               </div> }
             </div>
@@ -1628,7 +1757,7 @@ const handleUpdateCancel = () =>{
             <div className="created-by">
               <p className="created-by-label sc-body-rg mb-4">Created By</p>
               <p className="sc-body-md mb-2 clr-n-400">Kushal Nahata</p>
-              <p className="caption-md">{getContact.updated_date_time}</p>
+              <p className="caption-md">{formattedDate}</p>
             </div>
           </div>
         </div>
@@ -2090,7 +2219,7 @@ const handleUpdateCancel = () =>{
                           <div className="gst-treatment d-flex">
                             <p className="sc-body-rg title">GST Treatment</p>
                             <p className="sc-body-sb">
-                              {singleCusVen.registration_type}
+                              {singleCusVen.registration_type === 1 ? "Registered Business" : "Registered Business" }
                             </p>
                           </div>
                           <div className="gstin d-flex">
@@ -2099,11 +2228,11 @@ const handleUpdateCancel = () =>{
                           </div>
                           <div className="email d-flex">
                             <p className="sc-body-rg title">Email</p>
-                            <p className="sc-body-sb">{singleCusVen.email}</p>
+                            <p className="sc-body-sb">{singleCusVen.email ? singleCusVen.email : "--"}</p>
                           </div>
                           <div className="pancard d-flex">
                             <p className="sc-body-rg title">TAN No.</p>
-                            <p className="sc-body-sb">{singleCusVen.tan_no}</p>
+                            <p className="sc-body-sb">{singleCusVen.tan_no ? singleCusVen.tan_no : "--"}</p>
                           </div>
                           <div className="type d-flex">
                             <p className="sc-body-rg title">Type</p>
@@ -2115,16 +2244,16 @@ const handleUpdateCancel = () =>{
                           </div>
                           <div className="currency d-flex">
                             <p className="sc-body-rg title">Currency</p>
-                            <p className="sc-body-sb">{currencydata}</p>
+                            <p className="sc-body-sb">{currencydata ? currencydata : "--"}</p>
                           </div>
                           <div className="payment-terms d-flex">
                             <p className="sc-body-rg title">Payment Terms</p>
-                            <p className="sc-body-sb">{paymentdata}</p>
+                            <p className="sc-body-sb">{paymentdata ?paymentdata :"--"}</p>
                           </div>
                           <div className="credit-limit d-flex">
                             <p className="sc-body-rg title">Credit Limit</p>
                             <p className="sc-body-sb">
-                              {singleCusVen.credit_limit}
+                              {singleCusVen.credit_limit ? singleCusVen.credit_limit:"--"}
                             </p>
                           </div>
                         </div>

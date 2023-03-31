@@ -1,7 +1,9 @@
 @import '../../assets/Colors/Colors.scss';
 
-
-
+//upload image error remove
+.ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error {
+display: none !important;
+}
 //toaster
 
 .Toastify__progress-bar--success {

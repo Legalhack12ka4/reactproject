@@ -12,6 +12,7 @@ import {
   Button,
   Modal,
   Typography,
+  Upload,
 } from "antd";
 import OffCanvasExample from "../../OffCanvas/OffCanvasExample";
 import Contacts, { ChildStateModificationFunc } from "../Contacts";
@@ -411,7 +412,19 @@ const ContactsData = (props) => {
   const [selectedCode, setSelectedCode] = useState("India");
   const [updateModal, setUpdateModal] = useState(false);
   const [addlead, setAddLead] = useState([]);
-  const [updateId , setUpdateId] = useState(null);
+  const [updateId , setUpdateId] = useState(
+    {
+      name: "",
+      mobile: "",
+      email: "",
+      dob: "",
+      position: "",
+      ownership: "",
+      status:"",
+      lead:"",
+      contact_image:"",
+    }
+  );
 
   console.log(selectedContactId);
   //add position filter
@@ -676,20 +689,7 @@ console.log(status);
     },
   ];
 
-  const leadOptions = [
-    {
-      label: "Vimlesh",
-      value: "Vimlesh",
-    },
-    {
-      label: "Ranveer",
-      value: "Ranveer",
-    },
-    {
-      label: "Parth",
-      value: "Parth",
-    },
-  ];
+ 
 
  
 
@@ -709,22 +709,9 @@ console.log(status);
   console.log(status);
 
   const getData = async () => {
-    // const token = getCookie('jwt');
-    // const config = {
-    //   headers: {
-    //     'Authorization': `Bearer ${token}` // set the Authorization header with the token
-    //   }
-    // };
-    // console.log(token)
     await axios
       .get(
         `${config.baseUrl}/contact/`
-        // {
-        //   // headers: {
-        //   //   'Authorization': `Bearer ${token}` // set the Authorization header with the token
-        //   // }
-
-        // }
       )
       .then((res) => {
         console.log(res);
@@ -738,6 +725,7 @@ console.log(status);
             Email: row.email,
             DOB: row.dob,
             Position: row.position,
+            Contact_Image:row.contact_image,
             // Position:othersource.find(
             //   (option) => option.key === row.position && option.label
             // )?.label,
@@ -831,7 +819,7 @@ console.log(status);
     setUpdateId(record);
     console.log(record)
   };
-  // console.log(updateId)
+   console.log(updateId)
 
 
   //alert(oldData)
@@ -860,6 +848,7 @@ console.log(status);
       (option) => option.key === contact.Lead_Source && option.label
     )?.label,
     ownership: contact.Ownership,
+    contact_image:contact.Contact_Image,
     updated_date_time: contact.Updated_Date_Time,
   }));
 
@@ -903,9 +892,13 @@ console.log(status);
                 justifyContent: "center",
               }}
             >
-              <span style={{ color: "#5C5AD0", fontWeight: 600 }}>
-                {initials}
-              </span>
+             {updateId?.contact_image ? (
+          <img src={updateId.contact_image} alt="" />
+        ) : (
+          <span style={{ color: "#5C5AD0", fontWeight: 600 }}>
+            {initials}
+          </span>
+        )}
             </div>
             <span style={{ marginLeft: 8 }}>
               <div style={{ maxWidth: "180px" }}>
@@ -1210,7 +1203,7 @@ console.log(status);
                       className="actionlabel sc-body-md"
                       onClick={() => handleUpdate(record)}
                     >
-                      Update
+                     Edit
                     </button>
                   </div>
                 </div>
@@ -1312,7 +1305,21 @@ console.log(status);
 
   const clearfilter = () => {
     // console.log("button click");
-    setCustFilter(filterfield);
+    // setCustFilter(filterfield);
+    setCustFilter({
+      name: "",
+      mobile: "",
+      email: "",
+      dob: "",
+      position: "",
+      status: "",
+      lead_source: "",
+      ownership: "",
+      updated_date_time: "",
+    });
+    setFilteraaray([]);
+   
+
   };
 
   // useEffect(() => {
@@ -1374,7 +1381,7 @@ console.log(status);
        record.status?.includes(custfilter.status)&&
        record.lead_source?.includes(custfilter.lead_source)&&
       record.ownership.includes(custfilter.ownership) &&
-      record.dob.toString().includes(custfilter.dob.toString()) &&
+      // record.dob.toString().includes(custfilter.dob.toString()) &&
       record.name.toLowerCase().includes(search.toLowerCase())
     //&&
     // && record.updated_date_time.includes(custfilter.updated_date_time)
@@ -1408,7 +1415,7 @@ console.log(status);
     setFilteraaray(filterarray.filter((item, i) => i.key !== index.key));
     setCustFilter({ ...custfilter, [key]: "" });
   };
-  // console.log(filterarray);
+   console.log(filterarray);
 
   //
 
@@ -1479,6 +1486,146 @@ console.log(status);
   const handleUpdateCancel = () => {
     setUpdateModal(false);
   };
+
+  const onChangeValue = (e) => {
+    const { value, name } = e.target;
+    
+    setUpdateId({ ...updateId, [name]: value });
+  
+    console.log(value);
+    console.log(name);
+    };
+    console.log(updateId)
+
+    const handleDrpChangePosition = (field, value) => {
+    //   const selectedOption = othersource1.find((option) => option.value === value);
+    //  console.log(selectedOption);
+      setUpdateId({ ...updateId, [field]: value});
+      console.log(field);
+      console.log(value);
+    };
+  console.log(updateId.position)
+  
+    const handleDrpChangeStatus = (field, value) => {
+      const selectedOption = getstatusdata1.find((option) => option.value === value);
+      console.log(selectedOption);
+      setUpdateId({ ...updateId, [field]: value, status: selectedOption.key });
+     // setFieldValue(field, value);
+      //setFieldTouched(field, false);
+      console.log(field);
+      console.log(value);
+    };
+  
+    // const handleDrpChangeLead = (field, value) => {
+    //   const selectedOption = otherlead.find((option) => option.value === value);
+    //   console.log(selectedOption);
+    //   setFormData({ ...formData, [field]: value, lead: selectedOption.key });
+    //   setFieldValue(field, value);
+    //   setFieldTouched(field, false);
+    //   console.log(field);
+    //   console.log(value);
+    // };
+    const positionId = othersource1.find((option) => option.label === updateId.position)?.key;
+  console.log(positionId)
+  console.log(othersource1)
+
+  const handleFileUpload = (file) => {
+    if (file && file.size >= 1) {
+      const fileUrl = URL.createObjectURL(file);
+      setUpdateId({
+        ...updateId,
+        contact_image: fileUrl,
+        filename: file.name,
+      });
+    } else {
+      console.log("Invalid file size or type");
+    }
+  };
+
+  const handleImagePreview = (file) => {
+    if (file && file.type.indexOf("image") === 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const imgPreview = document.getElementById("imgPreview");
+        imgPreview.src = reader.result;
+      };
+    }
+  };
+
+  // const handleRemove = () => {
+  //   setUpdateId({
+  //     attachments: "",
+  //     filename: "",
+  //   });
+  //   const imgPreview = document.getElementById("imgPreview");
+  //   imgPreview.src = "/images/icons/add-image-icon.svg";
+  // };
+
+  const handleRemove = () => {
+    setUpdateId({
+      ...updateId,
+      contact_image: "",
+    });
+    const imgPreview = document.getElementById("imgPreview");
+    imgPreview.src = "/images/icons/user-avatar.jpeg";
+  };
+
+
+  const handleFormSubmit = (e) => {
+
+      // Find the position ID from the positionOptions array
+const positionId = othersource1.find((option) => option.label === updateId.position)?.key;
+  console.log(positionId)
+  // Find the status ID from the statusOptions array
+  const statusId = getstatusdata1.find((option) => option.label === updateId.status)?.key;
+  const leadId = otherlead1.find((option) => option.label === updateId.lead)?.key;
+
+      axios
+        .put(
+          `${config.baseUrl}/contact/${updateId.id}/`,
+          {
+            name: updateId.name,
+            mobile: updateId.mobile,
+            email: updateId.email,
+            dob: updateId.dob,
+            position: positionId,
+            status:statusId,
+            lead_source: leadId,
+            dob: "2000-09-09",
+          //  contact_image:updateId.contact_image,
+          ...(updateId.contact_image && { contact_image: updateId.contact_image }),
+            notes: "good",
+            type: 1,
+            country_code: 1,
+            company_name: 1,
+            ownership: 1,
+            company_id: 1,
+            created_by: 1,
+            updated_by: 1,
+          },
+          updateId
+        )
+        .then((response) => {
+          // closeModal();
+          // handleCancel();
+        //  handleclose();
+       //   props.onClick();
+       setUpdateModal(false);
+             getData();
+          toast.success("Updated Successfuly", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    }
+
+console.log(updateId)
 
   return (
     <div className="contacts-data fixed_heading_container">
@@ -1595,23 +1742,29 @@ console.log(status);
               statusSelect={
                 <CategorySelect
                   options={getstatusdata}
-                  width={132}
+                  width={155}
                   placeholder="Status"
                   showSearch={false}
                   onChange={handleDrpChange}
                   name="status"
                   value={
-                    getstatusdata.find(
-                      (option) =>
-                        option.key === custfilter.status && option.label
-                    )?.label
+                     getstatusdata.find(
+                          (option) => option.key === custfilter.status
+                        )?.label
+                 
                   }
+                  // value={
+                  //   getstatusdata.find(
+                  //     (option) =>
+                  //       option.key === custfilter.status && option.label
+                  //   )?.label
+                  // }
                 />
               }
               positionSelect={
                 <CategorySelect
                   options={othersource}
-                  width={132}
+                  width={155}
                   showSearch={false}
                   onChange={handleDrpChange}
                   placeholder="Position"
@@ -1639,7 +1792,7 @@ console.log(status);
               leadSelect={
                 <CategorySelect
                   options={otherlead}
-                  width={132}
+                  width={170}
                   showSearch={false}
                   onChange={handleDrpChange}
                   placeholder="Lead Source"
@@ -1702,9 +1855,11 @@ console.log(status);
                         id="tlpclr"
                         title={`${
                           (customerfilter.key === "position" && "Position") ||
-                          (customerfilter.key === "ownership" && "Ownership") ||
-                          (customerfilter.key === "dob" && "Date of Birth") ||
-                          (customerfilter.key === "updated_date_time" && "Date")
+                          (customerfilter.key === "status" && "Status")||
+                          (customerfilter.key === "lead_source" && "Lead")
+                          // (customerfilter.key === "ownership" && "Ownership") ||
+                          // (customerfilter.key === "dob" && "Date of Birth") ||
+                          // (customerfilter.key === "updated_date_time" && "Date")
                         } : ${customerfilter.value}`}
                         color="#EBECF0"
                       >
@@ -1735,6 +1890,7 @@ console.log(status);
                   type="submit"
                   className="btnfilter"
                   onClick={(e) => {
+                    setFilteraaray("")
                     setVisible(!visible);
                     clearfilter(e);
                   }}
@@ -1939,17 +2095,50 @@ console.log(status);
                     Profile Image
                   </p>
                   <div className="proflie-img-container mb-20">
-                    <div className="img-container">
-                      <img
-                        className="user-img"
-                        src="/images/icons/user-avatar.jpeg"
-                        alt=""
-                      />
-                      <div className="edit-img">
-                        <img src="/images/icons/edit-white.svg" alt="" />
+                    <Upload
+                      accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                      onChange={(info) => {
+                        const file = info.file.originFileObj;
+                        handleFileUpload(file);
+                        handleImagePreview(file);
+                      }}
+                      name="contact_image"
+                      onRemove={handleRemove}
+                    >
+                      <div className="img-container">
+                      {/* {cusomizeData.map((data, index) => {
+              let initials = "";
+              if (data.name) {
+                const nameArr = data.name.split(" ");
+                if (nameArr.length > 1) {
+                  initials =
+                    nameArr[0].charAt(0) +
+                    nameArr[nameArr.length - 1].charAt(0);
+                } else {
+                  initials = nameArr[0].charAt(0);
+                }
+              }
+           return (<div></div>) })} */}
+                        {updateId?.contact_image ? (
+                          <img
+                            className="user-img"
+                            src={updateId?.contact_image}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="user-img"
+                            src="/images/icons/user-avatar.jpeg"
+                            alt=""
+                          />
+                        )}
+                        <div className="edit-img">
+                          <img src="/images/icons/edit-white.svg" alt="" />
+                        </div>
+                        
                       </div>
-                    </div>
-                    <p className="sc-body-sb remove-img">
+                    </Upload>
+                    <p className="sc-body-sb remove-img" onClick={handleRemove}>
                       Remove Profile Image
                     </p>
                   </div>
@@ -1960,9 +2149,18 @@ console.log(status);
                       placeholder="Enter name"
                       label="Name"
                       value={updateId?.name}
+                      name="name"
+                      onChange={onChangeValue}
                     />
 
-                    <SearchSelect width={331} name="status" label="Status" value={updateId?.status} />
+                    <SearchSelect
+                      width={331}
+                      name="status"
+                      label="Status"
+                      value={updateId?.status}
+                      options={getstatusdata1}
+                      onChange={handleDrpChangePosition}
+                    />
 
                     <InputGroup
                       width={98}
@@ -1975,6 +2173,7 @@ console.log(status);
                       name="mobile"
                       placeholder="Mobile No."
                       value={updateId?.mobile}
+                      onChange={onChangeValue}
                     />
                     <SearchSelect
                       width={331}
@@ -1982,6 +2181,8 @@ console.log(status);
                       name="position"
                       label="Position"
                       value={updateId?.position}
+                      options={othersource1}
+                      onChange={handleDrpChangePosition}
                     />
 
                     <CustomInput
@@ -1993,6 +2194,7 @@ console.log(status);
                       inputType={"email"}
                       name="email"
                       value={updateId?.email}
+                      onChange={onChangeValue}
                     />
 
                     <SearchSelect
@@ -2001,9 +2203,17 @@ console.log(status);
                       width={331}
                       name="lead"
                       value={updateId?.lead_source}
+                      options={otherlead1}
+                      onChange={handleDrpChangePosition}
                     />
 
-                    <CustomInput width={330} label="Date of Birth" />
+                    <CustomInput
+                      width={330}
+                      label="Date of Birth"
+                      value={updateId?.dob}
+                      name="dob"
+                      onChange={onChangeValue}
+                    />
 
                     <SearchSelect
                       label="Ownership"
@@ -2013,7 +2223,10 @@ console.log(status);
                     />
                   </div>
                   <div className="btn-container d-flex mt-30 gap-16">
-                    <ContainedButton value="Update Details" />
+                    <ContainedButton
+                      value="Update Details"
+                      onClick={handleFormSubmit}
+                    />
                     <ContainedSecondaryButton
                       value="Cancel"
                       onClick={handleUpdateCancel}
@@ -2196,13 +2409,16 @@ console.log(status);
             {filterarray.length > 0 && (
               <div className="tags" id="tags">
                 <div className="appliedtag ">Filtered by </div>
-                {filterarray.map((customerfilter, index) => {
+                {filterarray.map((customerfilter, index) => 
+                {
                   return (
                     customerfilter.value && (
                       <Tooltip
                         className="tlpclr"
                         id="tlpclr"
                         title={`${
+                          (customerfilter.key === "status" && "Status") ||
+                          (customerfilter.key === "lead_source" && "Lead Source") ||
                           (customerfilter.key === "position" && "Position") ||
                           (customerfilter.key === "ownership" && "Ownership") ||
                           (customerfilter.key === "dob" && "Date of Birth") ||
@@ -2237,12 +2453,18 @@ console.log(status);
                   type="submit"
                   className="btnfilter"
                   onClick={(e) => {
+                    setFilteraaray(filterarray.filter(filter => filter.key !== 'position'));
                     setVisible(!visible);
                     clearfilter(e);
+                    setCustFilter(prevFilter => ({
+                      ...prevFilter,
+                      position: ""
+                    }));
                   }}
                 >
                   Clear All
                 </button>
+
               </div>
             )}
           </div>
