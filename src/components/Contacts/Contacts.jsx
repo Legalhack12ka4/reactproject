@@ -29,6 +29,7 @@ const resetValue = {
   ownership: "",
   status:"",
   lead:"",
+  contact_image:"",
 };
 
 const initialFieldValues = {
@@ -489,7 +490,7 @@ function Contacts(props) {
             status: formData.status,
             lead_source: formData.lead,
             dob: "2000-09-09",
-            contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+           // contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
             notes: "good",
             type: 1,
             country_code: 1,
@@ -531,8 +532,11 @@ function Contacts(props) {
             email: formData.email,
          
             //   dob:formData.dob,
-            dob: "2000-09-09",
-            contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+            // dob: "2000-09-09",
+            ...(formData.dob && { dob: formData.dob }),
+           // contact_image:"",
+       //    contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
+          ...(formData.contact_image && { contact_image: formData.contact_image }),
             notes: "good",
             is_active: true,
             is_deleted: false,
@@ -648,7 +652,7 @@ const handleFormSubmitPosition = () => {
 
 const otherlead = addlead.map((place) => ({
   key: place.id,
-  label: <div style={{justifyContent:"space-between", display:"flex"}}> <p>{place.lead_source}</p> <img src="\images\icons\edit_blue_icon.svg" /> </div>,
+  label: place.lead_source,
   value: place.lead_source,
 }));
 
@@ -721,8 +725,9 @@ const handleFormSubmitLead = () => {
 
   const othersource = addSouce.map((place) => ({
     key: place.id,
-    label: <div style={{justifyContent:"space-between", display:"flex"}}> <p>{place.position_name}</p> <img src="\images\icons\edit_blue_icon.svg" /> </div>,
-    value: place.position_name,
+   // label: <div style={{justifyContent:"space-between", display:"flex"}}> <p>{place.position_name}</p> <img src="\images\icons\edit_blue_icon.svg" /> </div>,
+   label:place.position_name, 
+   value: place.position_name,
     
   }));
 

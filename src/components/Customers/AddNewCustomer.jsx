@@ -143,7 +143,7 @@ const getCustomerType = () => {
         ...prevFormData,
        category:typecategory[0].id
       }));
-      
+  
     });
 };
 
@@ -220,12 +220,12 @@ useEffect(() => {
         return response;
       })
       .then((data) => {
-      const options=  data.data.data.nba.map((item, index)=>  ({
-              key: index+1,
-               label: item,
-            value: item,
-             }))
-             setCustType(options)
+      // const options=  data.data.data.nba.map((item, index)=>  ({
+      //         key: index+1,
+      //          label: item,
+      //       value: item,
+      //        }))
+      //        setCustType(options)
 
         if(data.data.error == false)
         {
@@ -1073,21 +1073,21 @@ useEffect(() => {
               <SearchSelect
                  width={155}
                  label="Customer Type"
-              // options={getcustomertypedata}
-               options={custtype}
-                //  value={
-                //   getcustomertypedata.find(
-                //     (option) =>
-                //       option.key === formData.type && option.label
-                //   )?.label
-                // }
-                value={ custtype.find(
-                      (option) =>
-                        option.key === formData.type && option.label
-                    )?.label
+               options={getcustomertypedata}
+              // options={custtype}
+                 value={
+                  getcustomertypedata.find(
+                    (option) =>
+                      option.key === formData.type && option.label
+                  )?.label
                 }
-                // onChange={handleDrpChangeCustomer}
-                 onChange={handleDrpChangeCustomertype}
+                // value={ custtype.find(
+                //       (option) =>
+                //         option.key === formData.type && option.label
+                //     )?.label
+                // }
+                 onChange={handleDrpChangeCustomer}
+                // onChange={handleDrpChangeCustomertype}
                  name="type"
                  error={errors.type && touched.type ? true : false}
                  errorMsg="Customer Type is required"
