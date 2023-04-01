@@ -34,6 +34,7 @@ const initialFieldValues = {
   businessname: "",
   category: "",
   pancard: "",
+  tan:"",
   currency: "",
   payment: "",
   credit: "",
@@ -57,7 +58,8 @@ const resetValue = {
   businessname: "",
   category: "",
   pancard: "",
-  currency: "",
+  tan:"",
+  currency: 1,
   payment: "",
   credit: "",
   email: "",
@@ -94,7 +96,8 @@ function AddNewCustomer(props) {
   const [allCustomer, setAllCustomer] = useState([]);
   const [gstinError, setGstinError] =useState(false)
   const [custtype, setCustType]= useState([])
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCommissionModalOpen, setIsCommissionModalOpen] = useState(false);
  //cofirmation modal 
  const handleConfirmData = () => {
   // setCofirmData(true);
@@ -178,14 +181,16 @@ console.log(getcustomertypedata)
     const getPincodeArea = (pincode) =>
     {
       axios.get(
-        `https://erp.automode.ai/backend/pincode?pincode=${pincode}`
+        `https://erp.automode.ai/backend/pincode?pincode=${formData.pincode}`
     )  .then((response) => {
       return response;
     })
     .then((data) => {
       setFormData(prevFormData => ({
         ...prevFormData,
-     country:data.data.data[0].country
+     country:data.data.data[0].country,
+     city:data.data.data[0].district,
+      state:data.data.data[0].state_name,
 
       }));
       setPincodeArea(data.data.data)
@@ -202,6 +207,7 @@ const getPincodeAreaData = pincodeArea.map((pin) => ({
  }));
 
  console.log(getPincodeAreaData)
+ console.log(pincodeArea)
  
 
 useEffect(() => {
@@ -217,6 +223,19 @@ useEffect(() => {
         `https://erp.automode.ai/backend/gstin?gstin=${gstin}`
     )
       .then((response) => {
+        if(response.data.error)
+     
+      {
+        setFormData(prevFormData => ({
+          ...prevFormData,
+          businessname:  "" ,
+         pincode:"",
+         street1:"",
+         street2:"",
+         city:"",
+         state:"",
+        }));
+      }
         return response;
       })
       .then((data) => {
@@ -251,20 +270,7 @@ useEffect(() => {
       //   }))
       // }
       console.log(data.data.error);
-      if(data.data.error)
-     
-      {
-        console.log(data.error);
-        setFormData(prevFormData => ({
-          ...prevFormData,
-          businessname:  "" ,
-         pincode:"",
-         street1:"",
-         street2:"",
-         city:"",
-         state:"",
-        }));
-      }
+      
         setGno(data);
         console.log("data", data);
         console.log(data)
@@ -385,6 +391,17 @@ ChildStateModificationFunc = (modVal)=>{
 
   console.log(allCustomer)
 
+  const handlePicondeChange = (e) => {
+    setPincodeArea([])
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      pincode: e.target.value,
+      state:"",
+      city:"",
+    }));
+    console.log("pincode value", e.target.value);}
+    console.log(formData.pincode)
+
 
   const handleFormSubmit = () => {
   
@@ -467,7 +484,10 @@ else
 
   const onChange = (e) => {
     const { value, name } = e.target;
-    setCreditAmount(e.target.value);
+    if(name === "credit"){
+      setCreditAmount(e.target.value);
+    }
+    
     setFormData({ ...formData, [name]: value });
     setGstinError(false);
     console.log(value);
@@ -981,10 +1001,18 @@ useEffect(() => {
   }
 
 
-
+console.log(creditAmount , creditBox)
 
   const handleFocus = (e) => {
   }
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCommissionOk = () => {
+    setIsCommissionModalOpen(false);
+  };
   return (
     <div className="addNewCustomerContainer">
       {/* <div className="addcustomer_heading"> */}
@@ -1020,7 +1048,27 @@ useEffect(() => {
               </div>
 
               <div className="form_field field2" style={{ gridRowStart: 2, gridColumnStart: 1}}>
-              <CustomInput 
+              {formData.gsttreat === 3 || formData.gsttreat === 4 || formData.gsttreat === 5 ? <CustomInput
+                type="text"
+                label="PAN No."
+                width={330}
+                icon="/images/icons/Pancard.svg"
+                maxLength={10}
+                onFocus={handleFocus}
+                style={{ border: "none", outline: "none", width: "82%" }}
+               inputType={"AlphabeticalNumber"}
+                 name="pancard"
+                 placeholder="ABCDE1234D"
+                value={formData.pancard}
+             onChange={(e, newValue) => {handleChange(e); onChange(e); 
+               setFormData(prevState => ({
+                 ...prevState,
+                 "pancard": newValue
+               }))}}
+               onBlur={handleBlur}
+                error={errors.pancard && touched.pancard ? true : false}
+                errorMsg={errors.pancard}
+            /> : <CustomInput 
                 width={330}
                 label="GSTIN"
                 icon="/images/icons/Gst-no.svg"
@@ -1034,15 +1082,17 @@ useEffect(() => {
                    value={formData.gstin}
                 onChange={(e, newValue) => {handleChange(e); onChange(e);
                   // handleGstno(e);
+                  console.log(newValue)
                   setFormData(prevState => ({
                     ...prevState,
-                    "gstin": newValue
+                    "gstin": newValue,
+                    "pancard": newValue.slice(2,-3)
                   }))}}
                   onBlur={handleBlur}
                   error={errors.gstin && touched.gstin || gstinError ? true : false}
                   errorMsg={errors.gstin || "Gstin already exits"}
 
-            />
+            />}
               </div>
 
               <div className="form_field field3" style={{ gridRowStart: 3, gridColumnStart: 1}}>
@@ -1096,6 +1146,7 @@ useEffect(() => {
                 width={155}
                 label="Currency"
                 options={currencydata}
+                isDisabled
                 value={
                   currencydata.find(
                     (option) =>
@@ -1105,8 +1156,8 @@ useEffect(() => {
               //  value={formData.currency}
                onChange={handleDrpChangeCurrency}
                name="currency"
-                error={errors.currency && touched.currency ? true : false}
-                errorMsg="Currency is required"
+                // error={errors.currency && touched.currency ? true : false}
+                // errorMsg="Currency is required"
               />
                 </div>
               </div>
@@ -1117,6 +1168,8 @@ useEffect(() => {
                  width={155}
                  label="Commission Terms"
                  options={commissiondata}
+                 addNew="Commission Terms"
+                 onClick={()=> setIsCommissionModalOpen(true)}
                  //value={formData.currency}
                  value={
                   commissiondata.find(
@@ -1133,6 +1186,8 @@ useEffect(() => {
                 width={155}
                 label="Payment Terms"
                 options={paymentterms}
+                addNew="Payment Terms"
+                onClick={()=> setIsModalOpen(true)}
                // value={formData.payment}
                 value={
                   paymentterms.find(
@@ -1150,7 +1205,7 @@ useEffect(() => {
 
               <div className="form_field field6" style={{ gridRowStart: 6, gridColumnStart: 1}}>
               <div style={{ display: "flex", gap: "20px" }}>
-           {formData.gsttreat == 1 ?  <CustomInput
+            <CustomInput
                 type="text"
                 label="TAN No."
                 width={155}
@@ -1159,61 +1214,18 @@ useEffect(() => {
                 onFocus={handleFocus}
                 style={{ border: "none", outline: "none", width: "82%" }}
                inputType={"AlphabeticalNumber"}
-                 name="pancard"
-                 placeholder="ABCDE1234D"
-                value={formData.pancard}
+                 name="tan"
+                 placeholder="ABCD12345E"
+                value={formData.tan}
              onChange={(e, newValue) => {handleChange(e); onChange(e); 
                setFormData(prevState => ({
                  ...prevState,
-                 "pancard": newValue
+                 "tan": newValue
                }))}}
                onBlur={handleBlur}
-                // error={errors.pancard && touched.pancard ? true : false}
-                // errorMsg={errors.pancard}
-            /> : formData.gsttreat == 2 ? 
-              <CustomInput
-                type="text"
-                label="PAN No."
-                width={155}
-                icon="/images/icons/Pancard.svg"
-                maxLength={10}
-                onFocus={handleFocus}
-                style={{ border: "none", outline: "none", width: "82%" }}
-               inputType={"AlphabeticalNumber"}
-                 name="pancard"
-                 placeholder="ABCDE1234D"
-                value={formData.pancard}
-             onChange={(e, newValue) => {handleChange(e); onChange(e); 
-               setFormData(prevState => ({
-                 ...prevState,
-                 "pancard": newValue
-               }))}}
-               onBlur={handleBlur}
-                // error={errors.pancard && touched.pancard ? true : false}
-                // errorMsg={errors.pancard}
-            />:
-            <CustomInput
-            type="text"
-            label="TAN No."
-            width={155}
-            icon="/images/icons/Pancard.svg"
-            maxLength={10}
-            onFocus={handleFocus}
-            style={{ border: "none", outline: "none", width: "82%" }}
-           inputType={"AlphabeticalNumber"}
-             name="pancard"
-             placeholder="ABCDE1234D"
-            value={formData.pancard}
-         onChange={(e, newValue) => {handleChange(e); onChange(e); 
-           setFormData(prevState => ({
-             ...prevState,
-             "pancard": newValue
-           }))}}
-           onBlur={handleBlur}
-            // error={errors.pancard && touched.pancard ? true : false}
-            // errorMsg={errors.pancard}
-        />
-              }
+                error={errors.tan && touched.tan ? true : false}
+                errorMsg={errors.tan}
+            /> 
                <div  className="credit-input-container">
               <CustomInput 
                 className={`${creditBox && "creditAmtBoxBlur"}`}
@@ -1273,8 +1285,8 @@ useEffect(() => {
                  "email": newValue
                }))}}
                onBlur={handleBlur}
-              // error={errors.email && touched.email ? true : false}
-              // errorMsg={errors.email}
+              error={errors.email && touched.email ? true : false}
+              errorMsg={errors.email}
                 />
               
               </div>
@@ -1289,7 +1301,7 @@ useEffect(() => {
                name="pincode"
                value={formData.pincode}
               // onChange={(e)=>{handleChange(e); onChange(e);handlePincode(e);}}
-               onChange={(e)=>{handleChange(e); onChange(e);}}
+               onChange={(e)=>{handleChange(e); onChange(e); handlePicondeChange(e);}}
                onBlur={(e)=>{handleBlur(e);}}
                autoComplete="off"
                 width={330}
@@ -1431,6 +1443,245 @@ useEffect(() => {
         </div>
         <ToastContainer />
             {/* Confirmation */}
+
+
+
+          {/* Add Payment term modal */}
+            <Modal
+          title="Add Payment Terms"
+          open={isModalOpen}
+          onOk={handleOk}
+          width={764}
+          onCancel={handleConfirmData}
+          style={{ top: 0 }}
+          className={"footerconfirm1"}
+          footer={[
+            <Button
+              key="submit"
+              type="primary"
+              className="btn_hover_animation"
+              //  onClick={handleSubmit}
+              style={{
+                width: "80px",
+                height: "38px",
+                backgroundColor: "#5C5AD0",
+                fontSize: "14px",
+                fontWeight:"500"
+              }}
+              onClick={() => handleFormSubmit()}
+            >
+              Submit
+            </Button>,
+            <Button
+              key="cancel"
+              className="btn_hover_animation"
+              onClick={handleConfirmData}
+              style={{
+                width: "80px",
+                height: "38px",
+                fontSize: "14px",
+                color: "#697a8d",
+                borderColor: "#8E9CAA",
+                fontWeight:"500"
+              }}
+            >
+              Cancel
+            </Button>,
+          ]}
+          closeIcon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          }
+        >
+          <div className="addPaymentTermModal">
+          <p className="subtitle">
+              Create Payment Term according to use
+            </p>
+            <hr style={{border: "1px solid #eceef1", marginTop:"20px"}}/>
+            <div className="addPaymentTermModalInputContainer">
+              <div className="addPaymentTermModalInput">
+                <p>Terms</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="Net 5"
+                  name="terms"
+                  inputType={"AlphaNumericUpperCase"}
+                  value={formData.terms}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "terms": newValue
+                        }))}
+              />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Days</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="5 Days"
+                  name="days"
+                  inputType={"AlphaNumericUpperCase"}
+                  value={formData.days}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "days": newValue
+                        }))}
+              />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Discount %</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="10%"
+                  name="discount"
+                  inputType={"NumericPercentage"}
+                  value={formData.discount}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "discount": newValue
+                        }))}
+              />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Interest %</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="1%"
+                  name="interest"
+                  inputType={"NumericPercentage"}
+                  value={formData.interest}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "interest": newValue
+                        }))}
+              />
+              </div>
+            </div>
+          </div>
+        </Modal>
+
+        {/* Add commission modal */}
+
+        <Modal
+          title="Add Commission Terms"
+          open={isCommissionModalOpen}
+          onOk={handleCommissionOk}
+          width={764}
+          onCancel={handleConfirmData}
+          style={{ top: 0 }}
+          className={"commissionconfirm"}
+          footer={[
+            <Button
+              key="submit"
+              type="primary"
+              className="btn_hover_animation"
+              //  onClick={handleSubmit}
+              style={{
+                width: "80px",
+                height: "38px",
+                backgroundColor: "#5C5AD0",
+                fontSize: "14px",
+                fontWeight:"500"
+              }}
+              onClick={() => handleFormSubmit()}
+            >
+              Submit
+            </Button>,
+            <Button
+              key="cancel"
+              className="btn_hover_animation"
+              onClick={handleConfirmData}
+              style={{
+                width: "80px",
+                height: "38px",
+                fontSize: "14px",
+                color: "#697a8d",
+                borderColor: "#8E9CAA",
+                fontWeight:"500"
+              }}
+            >
+              Cancel
+            </Button>,
+          ]}
+          closeIcon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          }
+        >
+          <div className="addPaymentTermModal">
+          <p className="subtitle">
+              Create Commission Term according to use
+            </p>
+            <hr style={{border: "1px solid #eceef1", marginTop:"20px"}}/>
+            <div className="addPaymentTermModalInputContainer">
+              <div className="addPaymentTermModalInput">
+                <p>Commission Terms</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="Net 5"
+                  name="terms"
+                  inputType={"AlphaNumericUpperCase"}
+                  value={formData.terms}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "terms": newValue
+                        }))}
+              />
+              </div>
+              <div className="addPaymentTermModalInput">
+                <p>Percentage</p>
+                <CustomInput
+                  className=" focus-outline"
+                  type="text"
+                  placeholder="5 %"
+                  name="commission_percrntage"
+                  inputType={"NumericPercentage"}
+                  value={formData.commission_percrntage}
+                     onChange={(e, newValue) => 
+                     setFormData(prevState => ({
+                          ...prevState,
+                          "commission_percrntage": newValue
+                        }))}
+              />
+                
+              </div>
+            </div>
+          </div>
+        </Modal>
+
 
       <Modal
         open={confirmData}

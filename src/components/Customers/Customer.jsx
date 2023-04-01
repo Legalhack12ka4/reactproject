@@ -734,7 +734,7 @@ console.log(addressdata)
                      onClick={()=> handleUpdate(record)}
                  >
                   {/* <a href="customers/addcustomer">  Update</a> */}
-                 Update
+                 Edit
                  </button>
 
                  </div>

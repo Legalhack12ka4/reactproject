@@ -58,7 +58,7 @@ const VendorPreview = () => {
   const [other, setOther] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null);
-  const [activeTab, setActiveTab] = useState("address");
+  const [activeTab, setActiveTab] = useState("account");
   const [attachmentsModal, setAttachmentsModal] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [getCustomer, setGetCustomer] = useState([]);
@@ -79,7 +79,11 @@ const VendorPreview = () => {
   const [addBankModal, setAddBankModal] = useState(false);
   const [addAddressModal, setAddAddressModal] = useState(false);
   const [custcommission, setcustcommission]=useState([]);
+  const [bankDeleteModal, setBankDeleteModal] = useState(false);
+  const [addressDeleteModal, setAddressDeleteModal] = useState(false);
+  // const 
 
+  console.log(bankDeleteModal)
   const { id } = useParams();
   console.log(id)
   //handlecancel
@@ -802,11 +806,19 @@ const VendorPreview = () => {
   const createNoteFalse = () => {
     setCreateNoteActive(false);
   };
+
+  const handleDeleteCancel = () => {
+    setBankDeleteModal(false);
+  };
+
+  const handleDeleteAddCancel = () => {
+    setAddressDeleteModal(false);
+  };
   return (
     <div className="vendor-preview-main">
       <Page_heading
         parent={"Business Account"}
-        child={"Account Details"}
+        child={getCustomer.business_name ? getCustomer.business_name : ""}
         subchild={
           <Link exact to="/customers">
             {"Customer"}
@@ -1107,11 +1119,11 @@ const VendorPreview = () => {
                   <div className="primary-tag caption-sb">Primary</div>
                 </div>
                 <div className="right">
-                  <div className="edit-remove-btn">
+                  <div className="edit-remove-btn" onClick={()=> setAddBankModal(true)}>
                     <img src="/images/icons/edit-n-300.svg" alt="edit" />
                     <p className="caption-sb">Edit</p>
                   </div>
-                  <div className="edit-remove-btn">
+                  <div className="edit-remove-btn" onClick={()=> setBankDeleteModal(true)}>
                     <img src="/images/icons/delete-n-300.svg" alt="delete" />
                     <p className="caption-sb">Remove</p>
                   </div>
@@ -1192,10 +1204,7 @@ const VendorPreview = () => {
             <div className="account-overview-container">
               <div className="business-name-container">
                 <div className="left">
-                  <img src="/images/icons/logo-customer.svg" alt="" />
-                  <p className="heading-md">
-                   {getCustomer.business_name}
-                  </p>
+                  <img src="/images/icons/reformiqo-logo.svg" alt="" />
                 </div>
                 <div className="right">
                   <div className="date-container">
@@ -1929,6 +1938,10 @@ const VendorPreview = () => {
                   }}
                 />
 
+
+                
+
+
                 <Modal
                   open={confirm}
                   //   onOk={handleMaterialOk}
@@ -2053,11 +2066,11 @@ const VendorPreview = () => {
                   </p>
 
                   <div className="edit-delete-btn">
-                    <div className="edit-remove-btn">
+                    <div className="edit-remove-btn" onClick={()=>setAddAddressModal(true)}>
                       <img src="/images/icons/edit-n-300.svg" alt="edit" />
                       <p className="caption-sb">Edit</p>
                     </div>
-                    <div className="edit-remove-btn">
+                    <div className="edit-remove-btn" onClick={()=> setAddressDeleteModal(true)}>
                       <img src="/images/icons/delete-n-300.svg" alt="delete" />
                       <p className="caption-sb">Remove</p>
                     </div>
@@ -2226,6 +2239,122 @@ const VendorPreview = () => {
             />
             </div>
           )}
+
+            <Modal
+              open={addressDeleteModal}
+              //   onOk={handleMaterialOk}
+              width={"max-content"}
+              onCancel={handleDeleteAddCancel}
+              style={{ top: 20 }}
+              className={"deleteconfirm"}
+              footer={false}
+              closeIcon={
+                <div className="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                </div>
+              }
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px",
+                }}
+              >
+                <img
+                  src="\images\icons\confirmation-alert-delete.svg"
+                  style={{ width: "46px", height: "46px" }}
+                />
+                <p className="mt-20 heading-sb">Delete Address</p>
+                <p className="sc-body-rg mt-10">
+                  Are you sure you want to delete selected Address?
+                </p>
+                <div className="delete-cancel-btn d-flex gap-16 mt-30">
+                  <ContainedButton
+                    value="Delete"
+                    onClick={handleSubmit}
+                    color="danger"
+                  />
+                  <ContainedSecondaryButton
+                    value="Cancel"
+                    onClick={handleDeleteAddCancel}
+                  />
+                </div>
+                <div></div>
+              </div>
+            </Modal>
+
+            <Modal
+              open={bankDeleteModal}
+              //   onOk={handleMaterialOk}
+              width={"max-content"}
+              onCancel={handleDeleteCancel}
+              style={{ top: 20 }}
+              className={"deleteconfirm"}
+              footer={false}
+              closeIcon={
+                <div className="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                </div>
+              }
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px",
+                }}
+              >
+                <img
+                  src="\images\icons\confirmation-alert-delete.svg"
+                  style={{ width: "46px", height: "46px" }}
+                />
+                <p className="mt-20 heading-sb">Delete Bank</p>
+                <p className="sc-body-rg mt-10">
+                  Are you sure you want to delete selected Bank?
+                </p>
+                <div className="delete-cancel-btn d-flex gap-16 mt-30">
+                  <ContainedButton
+                    value="Delete"
+                    onClick={handleSubmit}
+                    color="danger"
+                  />
+                  <ContainedSecondaryButton
+                    value="Cancel"
+                    onClick={handleDeleteCancel}
+                  />
+                </div>
+                <div></div>
+              </div>
+            </Modal>
 
           <Modal
             open={attachmentsModal}

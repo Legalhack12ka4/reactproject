@@ -222,17 +222,16 @@
             .account-overview-container{
                 border-radius: 6px;
                 box-shadow: 0px 4px 6px #4359711f;
-                width: 100%;
-                padding: 20px 0px 90px 0px;
+                padding: 20px 20px 90px 20px;
                 background-color: #ffff;
 
                 .business-name-container{
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 0px 30px;
+                    padding: 40px 20px;
+                    border-radius: 10px;
                     background-color: $neutrals-900;
-                    margin-bottom: 20px;
 
                     .left{
                         display: flex;
@@ -265,7 +264,7 @@
                     .account-details-container{
                         display: flex;
                         flex-direction: column;
-                        gap: 30px;
+                        gap: 20px;
                         .d-line{
                             display: flex;
                             gap: 80px;
