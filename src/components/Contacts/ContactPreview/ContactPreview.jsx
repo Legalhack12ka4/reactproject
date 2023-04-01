@@ -429,19 +429,30 @@ const ContactPreview = () => {
     attachments: "",
   });
   const [dobData, setDobData]=useState({dob:""})
+  const [custvenassign, setCusvenassign]= useState([])
   console.log(dobData)
+
+  console.log(assignedCustomer)
 
   // const [dob, setDob] = useState(false)
   // console.log(dob)
   //handlecancel
+
+const handleNotesOpen = () => 
+{
+  setCreateNoteActive(true);
+
+}
 
   const { id } = useParams();
   console.log(id);
 
   const handleCancel = () => {
     if (isCustomerSelected && customerSubmit) {
+      setAttachData({attachments:"", attatch_name:""});
       setSalesOrderModal(false);
     } else {
+      setAttachData({attachments:"", attatch_name:""});
       setSalesOrderModal(false);
       //  window.history.back(-1);
     }
@@ -562,6 +573,7 @@ const handleUpdateCancel = () =>{
   console.log(custven);
 
   const customerDataSelectOptions = custven.map((place) => ({
+    
     key: place.id,
     label: (
       <div className="sales-order-customer-data-container">
@@ -572,7 +584,7 @@ const handleUpdateCancel = () =>{
         </p>
         <div className="d-flex justify-between mb-0">
           <p className="caption-md gstin-title">
-            Type : <span className="caption-md">{place.type}</span>
+            Type : <span className="caption-md">{place.type == 15 ? "Vendor" : "Customer"}</span>
           </p>
           <p className="caption-md city-title">
             Category : <span className="caption-md">{place.type_category}</span>
@@ -612,6 +624,14 @@ const handleUpdateCancel = () =>{
     console.log(field);
     console.log(value);
   };
+
+const constumerVendorId = custven.map((data)=> 
+({
+  key:data.id,
+  label:data.business_name,
+  value:data.business_name,
+}))
+console.log(constumerVendorId)
 
   useEffect(() => {
     setFormData({ ...formData, customer_vendor_id: customerId.customerId });
@@ -839,15 +859,68 @@ const handleUpdateCancel = () =>{
 
   console.log(id);
   const handleConfirmCancel = (record) => {
+    console.log(record);
     setDeleteRecord(record);
     setCofirm(true);
+ 
   };
-
+  console.log(custvenassign.id)
+  console.log(custvenassign)
   const handleConfirm = () => {
     setCofirm(false);
     setDeleteRecord(null);
   };
+//unassign data
+useEffect (() => {
+  getCustomervendoracconut();
+},[])
 
+const getCustomervendoracconut = () => {
+  return fetch(`${config.baseUrl}/customervendorlinkedin/`)
+    .then((response) => response.json())
+    .then((data) => {
+      const mappedData = data.data.items.map((item) => item.id);
+    setCusvenassign(mappedData);
+    });
+};
+console.log(custvenassign)
+console.log(formData)
+
+
+// const handleConfirmCancel1 = (record) => {
+//     setDeleteRecord(record)
+//       setCofirm(true);
+//     //  console.log(record)
+//     };
+   const handleSubmitModal = () => {
+        deleteUser(deleteRecord);
+        //getNoteAssigedData();
+        setCofirm(false);
+       // getNoteAssigedData();
+      }
+      // const handleConfirm1 = () => {
+      //  setCofirm(false);
+      //   setDeleteRecord(null);
+      // }; 
+
+        const deleteUser = (record) => {
+        axios.delete(`${config.baseUrl}/customervendorlinkedin/21/`).then((response) => {
+          setDeleteRecord(null);
+    
+        //  console.log("data delete ho raha hai");
+          toast.error("Account Unassigned Successfuly", {
+            border: "1px solid red",
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+         // getNoteAssigedData();
+        });
+      };;
   //assign contact to customer/ vendor
 
   const handleFormSubmit = (e) => {
@@ -862,25 +935,7 @@ const handleUpdateCancel = () =>{
           created_by: 1,
           updated_by: 1,
 
-          // business_name:formData.business_name,
-          // name: getContact.name,
-          // mobile: getContact.mobile,
-          // email: getContact.email,
-          // //   dob:formData.dob,
-          // dob: "2000-09-09",
-          // contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
-          // notes: "good",
-          // is_active: true,
-          // is_deleted: false,
-          //  position: getContact.position,
-          // //position: 1,
-          // company_name: 1,
-          // status: getContact.status,
-          // lead_source: getContact.lead,
-          // ownership: 1,
-          // company_id: 1,
-          // created_by: 1,
-          // updated_by: 1,
+         
         },
         formData
       )
@@ -1089,42 +1144,6 @@ const handleUpdateCancel = () =>{
             content={
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "11px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <img src={deletelogo} />
-                  <div>
-                    <button
-                      className="actionlabel"
-                      onClick={() => handleConfirmCancel(record)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "11px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <img src={editlogo} />
-                  <div>
-                    <button
-                      className="actionlabel"
-                      //  onClick={() => handleUpdate(record)}
-                    >
-                      Update
-                    </button>
-                  </div>
-                </div>
-                <div
                   style={{ display: "flex", alignItems: "center", gap: "11px" }}
                 >
                   <img src={statuslogo} />
@@ -1132,9 +1151,9 @@ const handleUpdateCancel = () =>{
                     <button
                       className="actionlabel"
                       style={{ minWidth: "max-content" }}
-                      // onClick={() => handleUpdate(record)}
+                     onClick={() => handleConfirmCancel(record)}
                     >
-                      Set as Activate
+                      Unassign
                     </button>
                   </div>
                 </div>
@@ -1175,9 +1194,9 @@ const handleUpdateCancel = () =>{
     setSearch(event.target.value);
   };
 
-  // const filteredData = dataSource.filter((record) =>
-  //   record.business_name.toLowerCase().includes(search.toLowerCase())
-  // );
+  const filteredData = dataSource.filter((record) =>
+    record.business_name.toLowerCase().includes(search.toLowerCase())
+  );
   //Filter field
 
   useEffect(() => {
@@ -1233,9 +1252,10 @@ const handleUpdateCancel = () =>{
   };
 
   const cusomizeData = dataSource.filter(
-    (record) => console.log(record)
+    (record) => 
     //  record.business_name.includes(custfilter.lead)
-    //  && record.business_name.toLowerCase().includes(search.toLowerCase())
+    //  &&
+     record.business_name.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);
@@ -1613,6 +1633,7 @@ const handleFormSubmitDOB = (e) => {
   var convertedDate = new Date(strDate)
     .toLocaleDateString("IN")
     .replaceAll("/", "-");
+    console.log(convertedDate)
 
 
 
@@ -1732,7 +1753,8 @@ const handleFormSubmitDOB = (e) => {
 
             <div className="dob">
               <p className="dob-label sc-body-rg mb-4">Date of Birth</p>
-              {!CalendarVisible  ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>
+              {!getContact.dob ?
+              !CalendarVisible  ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>
                 {`${dobData.dob ? convertedDate :"Add"}`}
                  {getContact.dob && <img style={{cursor:"pointer"}} src="/images/icons/edit_blue_icon.svg" alt="" />}</p>:
               <div className="calendar-contaienr">
@@ -1741,7 +1763,7 @@ const handleFormSubmitDOB = (e) => {
                 />
                 <div className="save-btn" onClick={handleFormSubmitDOB}></div>
                 <div className="cancel-btn" onClick={()=> {setCalendarVisible(false)}}></div>
-              </div> }
+              </div>  : convertedDate} 
             </div>
 
             <div className="ownership">
@@ -1884,10 +1906,11 @@ const handleFormSubmitDOB = (e) => {
                   ]}
                   change={filterarray}
                   onSelectColumn={handleSelectColumn}
-                  customer={fetchlead.length}
+                  customer={assignedCustomer.length}
                   filterLength={filterarray.length}
                   columns={columns}
                   setColumns={setColumns}
+                  selectedColumnsLength={selectedColumns.length}
                  // addBtnName={"Sales Order"}
                   onData={handleData}
                  // path={"add_sales"}
@@ -1969,11 +1992,11 @@ const handleFormSubmitDOB = (e) => {
                       setSelectedRows(selectedRows);
                     },
                   }}
-                  scroll={{ x: "200px" }}
+                  scroll={{ y: 200 }}
                   dataSource={dataSource}
                   columns={columns}
                   pagination={
-                    !loading && {
+                  {
                       current: page,
                       pageSize: pageSize,
                       onChange: (page, pageSize) => {
@@ -1982,9 +2005,9 @@ const handleFormSubmitDOB = (e) => {
                       },
                       total: cusomizeData.length,
                       showTotal: (total, range) =>
-                        `Showing ${range[1]}-${range[1]} of ${total} Leads`,
-                    }
-                  }
+                        `Showing ${range[1]}-${range[1]} of ${total} Contact`,
+                    }}
+                  
                   rowClassName={(record) =>
                     record.key % 2 === 0 ? "highlight_row" : ""
                   }
@@ -1993,7 +2016,7 @@ const handleFormSubmitDOB = (e) => {
                   }}
                 />
 
-                <Modal
+                {/* <Modal
                   open={confirm}
                   //   onOk={handleMaterialOk}
                   width={"max-content"}
@@ -2085,7 +2108,7 @@ const handleFormSubmitDOB = (e) => {
                       </p>
                     </div>
                   </div>
-                </Modal>
+                </Modal> */}
 
                 <Modal
                   open={salesOrderModal}
@@ -2163,13 +2186,13 @@ const handleFormSubmitDOB = (e) => {
                         onChange={handleDrpChangeStatus}
                         name="business_name"
                         //  value={formData.business_name}
-                        value={formData.customer_vendor_id}
-                        //  value={
-                        //   customerDataSelectOptions.find(
-                        //     (option) =>
-                        //       option.key === formData.business_name && option.label
-                        //   )?.label
-                        // }
+                      //  value={formData.customer_vendor_id}
+                         value={
+                          customerDataSelectOptions.find(
+                            (option) =>
+                              option.key === formData.business_name && option.label
+                          )?.label
+                        }
                       />
                     </div>
                     {isCustomerSelected && (
@@ -2289,6 +2312,7 @@ const handleFormSubmitDOB = (e) => {
               notesData={getContact}
               createNoteFalse={createNoteFalse}
               onSubmit={handleFormSubmitNotes}
+              openNotes={handleNotesOpen}
             />
           )}
           <Modal
@@ -2338,13 +2362,16 @@ const handleFormSubmitDOB = (e) => {
                         padding: "45px 58px",
                         border: "1.5px dashed #CBD5E0",
                         borderRadius: "6px",
-                        width: "214px",
+                        width: "330px",
                         textAlign: "center",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         marginBottom: "20px",
-                        cursor:"pointer"
+                        cursor:"pointer",
+                        height:"202px",
+                        justifyContent:"center",
+                        overflow:"hidden",
                       }}
                     >
                       {attachData.attachments && <div style={{width:"100%",}}>
@@ -2520,6 +2547,69 @@ const handleFormSubmitDOB = (e) => {
                 </div>
               </div>
           </Modal>
+
+          <Modal
+        open={confirm}
+     //   onOk={handleMaterialOk}
+        width={"max-content"}
+        onCancel={handleConfirm}
+        style={{ top: 20 }}
+        className={"deleteconfirm"}
+        footer={ false
+         
+    }
+        closeIcon={
+          <div className="icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13.51"
+              height="13"
+              viewBox="0 0 13.51 13"
+            >
+              <path
+                id="Path_34362"
+                data-name="Path 34362"
+                d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                transform="translate(-2.248 -2.248)"
+                fill="#697a8d"
+              />
+            </svg>
+          </div>
+        }
+      >
+
+<div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px",
+                }}
+              >
+                <img
+                  src="\images\icons\confirmation-alert-delete.svg"
+                  style={{ width: "46px", height: "46px" }}
+                />
+                <p className="mt-20 heading-sb">Unassign Account</p>
+                <p className="sc-body-rg mt-10">
+                  Are you sure you want to unassign selected Account?
+                </p>
+                <div className="delete-cancel-btn d-flex gap-16 mt-30">
+                  <ContainedButton
+                    value="Unassign"
+                    onClick={handleSubmitModal}
+                    color="danger"
+                  />
+                  <ContainedSecondaryButton
+                    value="Cancel"
+                    onClick={handleConfirm}
+                  />
+                </div>
+                <div></div>
+              </div>
+
+  
+      </Modal>
       <ToastContainer />
     </div>
   );
