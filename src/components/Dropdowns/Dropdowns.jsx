@@ -67,7 +67,7 @@ const handledropodwnchange = (visible) =>
       showSearch={showSearch === false? false:true}
       placeholder={open ? `Type to Search ${placeholder ? placeholder : ""}`:`Select ${placeholder ? placeholder : ""}`}
       mode={multi && "multiple"}
-      className={icon && "icon-select" ||  text && "text-select"}
+      className={icon && "icon-select" ||  text && "text-select" ||  "dropdown-select-width"}
     //   allowClear={multi && true}
       optionFilterProp="children"
       value={selectedOption || undefined}

@@ -513,7 +513,7 @@ const deleteUser = (record)=>
                     className="actionlabel"
                      onClick={() => handleUpdate(record)}
                  >
-                Update
+                Edit
                  </button>
                  </div>
                  </div>
