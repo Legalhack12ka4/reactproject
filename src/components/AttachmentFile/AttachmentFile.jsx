@@ -32,6 +32,21 @@ const AttachmentFile = (props) => {
     return (
     <div className='attachment-files-container'>
         {props.getData.map((file, index) => {
+                     const timestamp = file.updated_date_time;
+                     const date = new Date(timestamp);
+                     
+                     // Format the date into "dd, mmm yyyy hh:mm AM/PM" format
+                     const formattedDate = `${date.getDate()}, ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
+                     
+                     // Function to format time in "hh:mm AM/PM" format
+                     function formatTime(date) {
+                       let hours = date.getHours();
+                       let minutes = date.getMinutes();
+                       const amPm = hours < 12 ? "AM" : "PM";
+                       hours = hours % 12 || 12;
+                       minutes = minutes < 10 ? `0${minutes}` : minutes;
+                       return `${hours}:${minutes} ${amPm}`;
+                     }
             return (
                 <div className='attachment-file' key={index}>
                     <div className="attachment-preview">
@@ -39,7 +54,7 @@ const AttachmentFile = (props) => {
                     </div>
                     <div className="file-details">
                     <div className='attachment-file-name sc-body-md'>{file.attatch_name}</div>
-                    <div className='attachment-file-created caption-md'>{file.updated_date_time}</div>
+                    <div className='attachment-file-created caption-md'>{formattedDate}</div>
                     </div>
                 </div>
             )
