@@ -430,6 +430,7 @@ const ContactPreview = () => {
   });
   const [dobData, setDobData]=useState({dob:""})
   const [custvenassign, setCusvenassign]= useState([])
+  
   console.log(dobData)
 
   console.log(assignedCustomer)
@@ -904,7 +905,7 @@ console.log(formData)
       // }; 
 
         const deleteUser = (record) => {
-        axios.delete(`${config.baseUrl}/customervendorlinkedin/21/`).then((response) => {
+        axios.delete(`${config.baseUrl}/customervendorlinkedin/49/`).then((response) => {
           setDeleteRecord(null);
     
         //  console.log("data delete ho raha hai");
@@ -940,9 +941,9 @@ console.log(formData)
         formData
       )
       .then((response) => {
-        getAssigedData();
+        // getAssigedData();
         setSalesOrderModal(false);
-        getAssigedData();
+        // getAssigedData();
         setFormData(resetValue);
         getAssigedData();
         // getData();
@@ -1195,7 +1196,7 @@ console.log(formData)
   };
 
   const filteredData = dataSource.filter((record) =>
-    record.business_name.toLowerCase().includes(search.toLowerCase())
+    record.business_name?.toLowerCase().includes(search.toLowerCase())
   );
   //Filter field
 
@@ -1255,7 +1256,7 @@ console.log(formData)
     (record) => 
     //  record.business_name.includes(custfilter.lead)
     //  &&
-     record.business_name.toLowerCase().includes(search.toLowerCase())
+     record.business_name?.toLowerCase().includes(search.toLowerCase())
   );
 
   console.log(cusomizeData);
@@ -1272,16 +1273,7 @@ console.log(formData)
   };
   console.log(filterarray.length);
 
-  //table
-
-  const [selectedColumns, setSelectedColumns] = useState(
-    columns.map((col) => col.dataIndex)
-  );
-  const handleSelectColumn = (e) => {
-    const { checked, value } = e.target;
-    if (checked) setSelectedColumns([...selectedColumns, value]);
-    else setSelectedColumns(selectedColumns.filter((col) => col !== value));
-  };
+  
 
   const tableData = useMemo(
     () => (loading ? Array(10).fill({}) : cusomizeData),
@@ -1655,6 +1647,17 @@ const handleFormSubmitDOB = (e) => {
     
     console.log(formattedDate); // Output: "31, March 2023 09:23 AM"
 
+    //table
+
+  const [selectedColumns, setSelectedColumns] = useState(
+    tableColumns.map((col) => col.dataIndex)
+  );
+  const handleSelectColumn = (e) => {
+    const { checked, value } = e.target;
+    if (checked) setSelectedColumns([...selectedColumns, value]);
+    else setSelectedColumns(selectedColumns.filter((col) => col !== value));
+  };
+
   return (
     <div className="contact-preview-main">
       <Page_heading
@@ -1994,7 +1997,7 @@ const handleFormSubmitDOB = (e) => {
                   }}
                   scroll={{ y: 200 }}
                   dataSource={dataSource}
-                  columns={columns}
+                  columns={columns.filter(col => selectedColumns.includes(col.dataIndex))}
                   pagination={
                   {
                       current: page,
