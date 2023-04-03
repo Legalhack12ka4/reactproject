@@ -188,8 +188,8 @@ const [logout,setLogout] = useState(true)
           <Route path="purchase/purchase_order/add_purchase" element={<PurchaseOrder/>}/>
           <Route path="bills/bills_order" element={<BillsData/>}/>
           <Route path="bills/bills_order/add_bills" element={<Bills/>}/>
-          <Route path="contact_preview/:id" element={<ContactPreview />}/>
-          <Route path="customer_vendor_preview/:id" element={<VendorPreview />}/>
+          <Route path="contacts/contact_preview/:id" element={<ContactPreview />}/>
+          <Route path="customers/customer_vendor_preview/:id" element={<VendorPreview />}/>
 
       </Route>
       <Route path="/login" element={<LoginPage onLogin={OnLogin}/>}/>

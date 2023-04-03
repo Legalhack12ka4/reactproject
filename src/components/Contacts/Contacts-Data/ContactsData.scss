@@ -78,7 +78,7 @@
         align-items: center;
         background-color: #FFFFFF;
         border-radius: 6px 0px 0px 6px;
-        gap: 20px;
+        gap: 20px;;
         // font-size: 14px;
         // font-weight: 400;
         //color: #697A8D;
@@ -98,7 +98,8 @@
     .modify_container{
         display: flex;
         align-items: center;
-        gap: 20px;
+        // gap: 20px;
+        justify-content: space-between;
         font-size: 14px;
         background-color: #FFFFFF;
         font-weight: 400;
@@ -124,6 +125,13 @@
             padding: 17px 0px;
             font-weight: 500;
 
+        }
+        .change_status{
+            gap: 13px;
+            img{
+                transform: rotate(90deg);
+                
+            }
         }
     }
    
@@ -266,6 +274,7 @@
         background-color: $info-100;
         border: 2px solid $info-700;
          }
+       
         }
     .not_interested{
         color: $neutrals-500;

@@ -487,6 +487,32 @@
     border: 2px solid $secondary-900;
   }
 
+  .Lead{
+    color: $info-100;
+  }
+
+  .NotIntersted{
+    color: $danger-100;
+  }
+
+  .Junk{
+    color: $orange-100;
+  }
+
+  .Prospective{
+    color: $primary-100;
+  }
+
+  .Customer{
+    color: $success-100;
+  }
+
+  .Agent{
+    color: $warning-100;
+  }
+
+
+
   .status-bullet-lead{
     width: 6px;
     height: 6px;

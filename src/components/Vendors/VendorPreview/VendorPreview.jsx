@@ -58,7 +58,8 @@ const VendorPreview = () => {
   const [other, setOther] = useState([]);
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null);
-  const [activeTab, setActiveTab] = useState("account");
+  // const [activeTab, setActiveTab] = useState("account");
+  const [activeTab, setActiveTab] = useState(localStorage.getItem("activeTab") || "account");
   const [attachmentsModal, setAttachmentsModal] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [getCustomer, setGetCustomer] = useState([]);
@@ -81,7 +82,12 @@ const VendorPreview = () => {
   const [custcommission, setcustcommission]=useState([]);
   const [bankDeleteModal, setBankDeleteModal] = useState(false);
   const [addressDeleteModal, setAddressDeleteModal] = useState(false);
-  // const 
+
+
+
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
   console.log(bankDeleteModal)
   const { id } = useParams();
@@ -328,6 +334,7 @@ const VendorPreview = () => {
         console.log(data);
       });
   };
+  console.log(id)
   //type category of cuatomer/vendor
 
   // const getcategorydata = status

@@ -180,6 +180,7 @@ left:4px !important
 .ant-table-wrapper .ant-table-container {
   border-start-start-radius: 0px !important;
   border-start-end-radius: 0px !important;
+  overflow: hidden;
 }
 .ant-table-wrapper
   .ant-table-container
@@ -381,7 +382,12 @@ th {
   }
 }
 
+.ant-table-body{
+  border-radius: 8px;
+}
+
 .ant-table-row {
+  border-radius: 8px;
   td {
     border-bottom: 0.5px solid #eeeeef !important;
   }
