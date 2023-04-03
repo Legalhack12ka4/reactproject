@@ -561,7 +561,7 @@ const ContactsData = (props) => {
       place.master_key === "Customer" ? "status-bullet-customer" : 
       place.master_key === "Agent" ? "status-bullet-agent" : ""}></div>
       
-        <p className="sc-body-md bullet-text">{place.master_key}</p>
+        <p className={`${place.master_key.replace(" ", "")} sc-body-md bullet-text`}>{place.master_key}</p>
       </div>),
         value: place.master_key,
       }))
@@ -907,7 +907,7 @@ console.log(status);
                   style={{ fontSize: "", color: "#465468 !important" }}
                 >
                   <Link
-                    to={`/contact_preview/${record.id}`}
+                    to={`contact_preview/${record.id}`}
                     style={{ color: "#5C5AD0" }}
                   >
                     {record.name}
@@ -1747,12 +1747,7 @@ console.log(updateId)
                   showSearch={false}
                   onChange={handleDrpChange}
                   name="status"
-                  value={
-                     getstatusdata.find(
-                          (option) => option.key === custfilter.status
-                        )?.label
-                 
-                  }
+                  value={custfilter.status}
                   // value={
                   //   getstatusdata.find(
                   //     (option) =>
@@ -1769,12 +1764,7 @@ console.log(updateId)
                   onChange={handleDrpChange}
                   placeholder="Position"
                   name="position"
-                  value={
-                    othersource.find(
-                      (option) =>
-                        option.key === custfilter.position && option.label
-                    )?.label
-                  }
+                  value={custfilter.position}
                 />
                 // <SearchSelect
                 //  // value="All"
@@ -1797,46 +1787,41 @@ console.log(updateId)
                   onChange={handleDrpChange}
                   placeholder="Lead Source"
                   name="lead_source"
-                  value={
-                    othersource.find(
-                      (option) =>
-                        option.key === custfilter.lead_source && option.label
-                    )?.label
-                  }
+                  value={custfilter.lead_source}
                 />
               }
               onFilter={(e) => {
                 clearfilter(e);
                 setVisible(!visible);
               }}
-              activeMode={
-                <div className="grid-table-container">
-                  <div onClick={() => setActiveMode("grid")}>
-                    <div
-                      className={`option animated  ${
-                        activeMode === "grid" ? "active fadeInLeft" : ""
-                      }`}
-                    >
-                      <img
-                        src="/images/icons/grid-non-active-icon.svg"
-                        alt="icon"
-                      />
-                    </div>
-                  </div>
-                  <div onClick={() => setActiveMode("table")}>
-                    <div
-                      className={`option animated  ${
-                        activeMode === "table" ? "active fadeInLeft" : ""
-                      }`}
-                    >
-                      <img
-                        src="/images/icons/list-active-icon.svg"
-                        alt="icon"
-                      />
-                    </div>
-                  </div>
-                </div>
-              }
+              // activeMode={
+              //   <div className="grid-table-container">
+              //     <div onClick={() => setActiveMode("grid")}>
+              //       <div
+              //         className={`option animated  ${
+              //           activeMode === "grid" ? "active fadeInLeft" : ""
+              //         }`}
+              //       >
+              //         <img
+              //           src="/images/icons/grid-non-active-icon.svg"
+              //           alt="icon"
+              //         />
+              //       </div>
+              //     </div>
+              //     <div onClick={() => setActiveMode("table")}>
+              //       <div
+              //         className={`option animated  ${
+              //           activeMode === "table" ? "active fadeInLeft" : ""
+              //         }`}
+              //       >
+              //         <img
+              //           src="/images/icons/list-active-icon.svg"
+              //           alt="icon"
+              //         />
+              //       </div>
+              //     </div>
+              //   </div>
+              // }
             />
           </div>
           <OffCanvasExample
@@ -1906,7 +1891,7 @@ console.log(updateId)
                 onMouseEnter: () => setHoveredRow(index),
                 onMouseLeave: () => setHoveredRow(null),
               })}
-              // style={{maxHeight:"100vh"}}
+              // style={{maxHeight:"30vh"}}
               rowSelection={
                 !loading && {
                   type: "checkbox",
@@ -1924,8 +1909,8 @@ console.log(updateId)
               columns={tableColumns.filter((col) =>
                 selectedColumns.includes(col.dataIndex)
               )}
-              scroll={{ y: 200 }}
-              // scroll={{ y: 700 }}
+              // scroll={{ y: 3000, x: 1000 }}
+              scroll={{ y: 100}}
               // scroll={!loading && { y: ("30px")}}
               // scroll={!loading && { x: ("30px", "800px" )}}
               pagination={
@@ -1949,7 +1934,7 @@ console.log(updateId)
               }}
             />
 
-            {selectedRows.length > 1 && (
+            {selectedRows.length > 0 && (
               <div className="bulk_changes_container">
                 <div className="selected_container sc-body-md">
                   {selectedRows.length} Contacts Selected
@@ -1972,7 +1957,7 @@ console.log(updateId)
                     <img src="images/icons/mail_gray_icon.svg" alt="mail" />
                     <p>Send Mail</p>
                   </div>
-                  <Popover
+                  {/* <Popover
                     trigger="click"
                     content={
                       <div className="change_status_dropdown">
@@ -2017,17 +2002,17 @@ console.log(updateId)
                         </div>
                       </div>
                     }
-                  >
+                  > */}
                     <div
                       className="change_status sc-body-md"
                       onClick={() => setChangeStatus(!changeStatus)}
                     >
-                      <img src="images/icons/reload_icon.svg" alt="" />
-                      <p>Change Status</p>
+                      <img src="/images/icons/three-dot.svg" alt="" />
+                      <p>More Options</p>
                     </div>
-                  </Popover>
+                  {/* </Popover> */}
 
-                  <Popover
+                  {/* <Popover
                     style={{ marginBottom: "20px" }}
                     position="topLeft"
                     trigger="click"
@@ -2047,7 +2032,7 @@ console.log(updateId)
                       <img src="images/icons/user_avatar.svg" alt="user" />
                       <p>Tags</p>
                     </div>
-                  </Popover>
+                  </Popover> */}
                 </div>
 
                 <div className="delete_container">

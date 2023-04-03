@@ -470,7 +470,7 @@ console.log(addressdata)
       render: (text, record) => {
         return (
           <Link
-          to={`/customer_vendor_preview/${record.id}`}
+          to={`customer_vendor_preview/${record.id}`}
           style={{ color: "#5C5AD0", cursor: "pointer" }}
           onClick={(e) => {
             e.stopPropagation(); // Stop propagation to prevent sorter from triggering
