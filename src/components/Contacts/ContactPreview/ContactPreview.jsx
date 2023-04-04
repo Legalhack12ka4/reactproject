@@ -25,7 +25,7 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import "./ContactPreview.scss";
 import AttachmentFile from "../../AttachmentFile/AttachmentFile";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import config from "../../Database/config";
 import { SearchSelect, InputGroup, CategorySelect } from "../../Dropdowns/Dropdowns";
 import {
@@ -517,26 +517,26 @@ const handleUpdateCancel = () =>{
 
 const getAssigedDataCustomer = () => {
   const AssignedIdsCusVen = assignedData?.join(',')
-  console.log(AssignedIdsCusVen)
-  console.log(assignedData === "")
-  console.log(assignedData === 0)
-  console.log(assignedData === null)
-  console.log(assignedData === [1])
-  console.log(assignedData)
-  if(assignedData.length === 0)
-  {
-    setAssignedCustomer([]);
-    setAssignedData([]);
-    console.log("Null Data")
-  }
-  else
-  {
+  // console.log(AssignedIdsCusVen)
+  // console.log(assignedData === "")
+  // console.log(assignedData === 0)
+  // console.log(assignedData === null)
+  // console.log(assignedData === [1])
+  // console.log(assignedData)
+  // if(assignedData.length === 0)
+  // {
+  //   setAssignedCustomer([]);
+  //   setAssignedData([]);
+  //   console.log("Null Data")
+  // }
+  // else
+  // {
     fetch(`${config.baseUrl}/customervendor/?company_id=1&id=${AssignedIdsCusVen}`)
       .then((response) => response.json())
       .then((data) => {
         setAssignedCustomer(data.data.items);
       });
- }
+//  }
 };
 
 console.log(assignedData);
@@ -922,12 +922,12 @@ console.log(assignedItem)
         axios.delete(`${config.baseUrl}/customervendorlinkedin/${id}/`).then((response) => {
           console.log(response); // log the response from the API call
           // Update assignedData by removing the last ID
-          setAssignedData(prevData => {
-            const updatedData = [...prevData];
-            updatedData.pop();
-            console.log(updatedData); // log the updated assignedData
-            return updatedData;
-          });
+          // setAssignedData(prevData => {
+          //   const updatedData = [...prevData];
+          //   updatedData.pop();
+          //   console.log(updatedData); // log the updated assignedData
+          //   return updatedData;
+          // });
           getAssigedData();
           // Call getAssigedDataCustomer to update assignedCustomer with the new data
           getAssigedDataCustomer();
@@ -2055,6 +2055,9 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
     });
 }
 
+let url=window.location.pathname;
+const parts = url.split("/");
+const activePage = parts.pop();
 
 //#endregion
 
@@ -2190,84 +2193,99 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
 
         <div className="table-container">
           <div className="tab-btn-container">
+
+            <NavLink to={`/contacts/contact_preview/${id}/related_account`}>
             <div
               className={`tab-btn sc-body-md ${
-                activeTab === "related_account" && "active animated slideInDown"
+                activePage === "related_account" && "activeTab animated slideInDown"
               }`}
               onClick={() => setActiveTab("related_account")}
             >
               Related Accounts
             </div>
+            </NavLink>
+
+            <NavLink to={`/contacts/contact_preview/${id}/analytics`}>
             <div
               className={`tab-btn sc-body-md ${
-                activeTab === "analytics" && "active animated slideInDown"
+                activePage === "analytics" && "activeTab animated slideInDown"
               }`}
               onClick={() => setActiveTab("analytics")}
             >
               Analytics
             </div>
+            </NavLink>
+
+            <NavLink to={`/contacts/contact_preview/${id}/notes`}>
             <div
               className={`tab-btn sc-body-md ${
-                activeTab === "notes" && "active animated slideInDown"
+                activePage === "notes" && "activeTab animated slideInDown"
               }`}
               onClick={() => setActiveTab("notes")}
             >
               Notes
             </div>
+            </NavLink>
+
+            <NavLink to={`/contacts/contact_preview/${id}/attachments`}>
             <div
               className={`tab-btn sc-body-md ${
-                activeTab === "attachments" && "active animated slideInDown"
+                activePage === "attachments" && "activeTab animated slideInDown"
               }`}
               onClick={() => setActiveTab("attachments")}
             >
               Attachments
             </div>
+            </NavLink>
+
+            <NavLink to={`/contacts/contact_preview/${id}/timeline`}>
             <div
               className={`tab-btn sc-body-md ${
-                activeTab === "timeline" && "active animated slideInDown"
+                activePage === "timeline" && "activeTab animated slideInDown"
               }`}
               onClick={() => setActiveTab("timeline")}
             >
               Timeline
             </div>
+            </NavLink>
           </div>
 
           {
             <div className="table-header">
               <h1 className="title-sb">
-                {activeTab === "related_account"
+                {activePage === "related_account"
                   ? "Related Accounts"
-                  : activeTab === "analytics"
+                  : activePage === "analytics"
                   ? "Analytics"
-                  : activeTab === "notes"
+                  : activePage === "notes"
                   ? "Notes"
-                  : activeTab === "attachments"
+                  : activePage === "attachments"
                   ? "Attachment"
-                  : activeTab === "timeline" && "Timeline"}{" "}
+                  : activePage === "timeline" && "Timeline"}{" "}
                 <span className="account-count">
-                  {activeTab === "attachments"
+                  {activePage === "attachments"
                     ? `(${assignedDataAttach.length})`
-                    : activeTab === "related_account"
+                    : activePage === "related_account"
                     ? `(${assignedCustomer.length})`
                     : ""}
                 </span>
               </h1>
-              {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
-              {activeTab === "related_account" ? (
+              
+              {activePage === "related_account" ? (
                 <p
                   className="sc-body-sb assign-account-btn"
                   onClick={() => setSalesOrderModal(true)}
                 >
                   + Assign Account
                 </p>
-              ) : activeTab === "notes" ? (
+              ) : activePage === "notes" ? (
                 <p
                   className="sc-body-sb assign-account-btn"
                   onClick={() => setCreateNoteActive(true)}
                 >
                   + Add Notes
                 </p>
-              ) : activeTab === "attachments" ? (
+              ) : activePage === "attachments" ? (
                 <p
                   className="sc-body-sb assign-account-btn d-flex align-center"
                   onClick={() => {
@@ -2283,7 +2301,7 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
             </div>
           }
 
-          {activeTab === "related_account" && (
+          {activePage === "related_account" && (
             <div className="contact-preview-table-container">
               <div className="filter-searchbar-container">
                 <FilterAndSearchBar
@@ -2585,13 +2603,13 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
               </div>
             </div>
           )}
-          {activeTab === "attachments" && (
+          {activePage === "attachments" && (
             <AttachmentFile
               attachData={getContact}
               getData={assignedDataAttach}
             />
           )}
-          {activeTab === "notes" && (
+          {activePage === "notes" && (
             <Notes
               createNoteActive={createNoteActive}
               notesData={getContact}

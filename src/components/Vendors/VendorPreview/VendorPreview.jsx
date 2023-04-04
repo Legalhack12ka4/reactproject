@@ -23,7 +23,7 @@ import alert from "../../../assets/Images/Confirmation/confirm.svg";
 import SearchDropdown from "../../AllDropdowns/SearchDropdown/SearchDropdown";
 import "./VendorPreview.scss";
 import AttachmentFile from "../../AttachmentFile/AttachmentFile";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import config from "../../Database/config";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
 import {
@@ -59,7 +59,7 @@ const VendorPreview = () => {
   const [confirm, setCofirm] = useState(false);
   const [deleteRecord, setDeleteRecord] = useState(null);
   // const [activeTab, setActiveTab] = useState("account");
-  const [activeTab, setActiveTab] = useState(localStorage.getItem("activeTab") || "account");
+  const [activeTab, setActiveTab] = useState("account");
   const [attachmentsModal, setAttachmentsModal] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [getCustomer, setGetCustomer] = useState([]);
@@ -84,13 +84,14 @@ const VendorPreview = () => {
   const [addressDeleteModal, setAddressDeleteModal] = useState(false);
 
 
+  const { id } = useParams();
 
-  useEffect(() => {
-    localStorage.setItem("activeTab", activeTab);
-  }, [activeTab]);
+
+
+
 
   console.log(bankDeleteModal)
-  const { id } = useParams();
+  
   console.log(id)
   //handlecancel
 
@@ -151,51 +152,7 @@ const VendorPreview = () => {
 
   console.log(custven);
 
-  // const customerDataSelectOptions = custven.map((place) => ({
-  //   key: place.id,
-  //    label: (
-  //     <div className="sales-order-customer-data-container">
-  //       <p className="business-name">{place.business_name}</p>
-
-  //       <p className="caption-md contact-title mb-8">
-
-  //         GSTIN : <span className="caption-md">{place.gstin}</span>
-  //       </p>
-  //       <div className="d-flex justify-between mb-0">
-  //         <p className="caption-md gstin-title">
-  //         Type : <span className="caption-md">{place.type}</span>
-  //         </p>
-  //         <p className="caption-md city-title">
-  //           Category : <span className="caption-md">{place.type_category}</span>
-  //         </p>
-  //       </div>
-  //     </div>
-  //   ),
-  //   value:place.business_name,
-  // }));
-
-  // const gettypedata = status
-  // .filter((place) => place.field === "type" && place.module === "cus_ven"  )
-  // .map((place) => ({
-  //   key: place.id,
-  //   label: place.master_key,
-  //   value: place.master_key,
-  // }));
-
-  // console.log(gettypedata)
-
-  // const handleDrpChangeStatus = (field, value) => {
-  //   const selectedOption = customerDataSelectOptions.find((option) => option.value === value);
-  //   console.log(selectedOption);
-  //   setCustomerId({ ...customerId, [field]: value, customerId: selectedOption.key });
-
-  //   setIsCustomerSelected(true)
-
-  //   // setFieldValue(field, value);
-  //   // setFieldTouched(field, false);
-  //   console.log(field);
-  //   console.log(value);
-  // };
+  
 
   console.log(customerId);
   let SingleId = customerId.customerId;
@@ -410,6 +367,12 @@ const VendorPreview = () => {
   // )?.label;
 
   // console.log(leaddata);
+
+  console.log(window.location.pathname);
+  let url=window.location.pathname;
+  const parts = url.split("/");
+const activePage = parts.pop();
+
 
   console.log(id);
   const handleConfirmCancel = (record) => {
@@ -832,7 +795,7 @@ const VendorPreview = () => {
           </Link>
         }
         addEditBtn={
-          activeTab === "account" ? (
+          activePage === "account_overview" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -853,7 +816,7 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "notes" ? (
+          ) : activePage === "notes" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -874,7 +837,7 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "bank" ? (
+          ) : activePage === "bank" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -895,7 +858,7 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "attachments" ? (
+          ) : activePage === "attachments" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -916,7 +879,7 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "address" ? (
+          ) : activePage === "address" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -937,7 +900,7 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ) : activeTab === "agent" ? (
+          ) : activePage === "agent" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -958,7 +921,28 @@ const VendorPreview = () => {
                 icon="/images/icons/edit-white-icon.svg"
               />
             </div>
-          ):activeTab === "transporter" ? (
+          ):activePage === "transporter" ? (
+            <div className="d-flex align-center gap-10">
+              <div
+                className="d-flex gap-8 align-center"
+                style={{
+                  borderRight: "1px solid #CBD5E0",
+                  height: "30px",
+                  paddingRight: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <img src="/images/icons/delete-prmry-icon.svg" alt="" />{" "}
+                <p className="sc-body-sb" style={{ color: "#5C5AD0" }}>
+                  Delete
+                </p>
+              </div>
+              <ContainedIconButton
+                value={"Edit"}
+                icon="/images/icons/edit-white-icon.svg"
+              />
+            </div>
+          ):activePage === "contacts" ? (
             <div className="d-flex align-center gap-10">
               <div
                 className="d-flex gap-8 align-center"
@@ -985,6 +969,7 @@ const VendorPreview = () => {
 
       <div className="card-table-container">
         <div className="card-container">
+          <NavLink to={`/customers/customer_vendor_preview/${id}/account_overview`}>
           <div
             className={`card-btn ${activeTab === "account" && "active-btn"}`}
             onClick={() => setActiveTab("account")}
@@ -995,7 +980,8 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Overview of Account</p>
           </div>
-
+          </NavLink>
+          <NavLink to={`/customers/customer_vendor_preview/${id}/contacts`}>
           <div
             className={`card-btn ${activeTab === "contacts" && "active-btn"}`}
             onClick={() => setActiveTab("contacts")}
@@ -1006,7 +992,8 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Assigned with Account</p>
           </div>
-
+          </NavLink>
+          <NavLink to={`/customers/customer_vendor_preview/${id}/agent`}>
           <div
             className={`card-btn ${activeTab === "agent" && "active-btn"}`}
             onClick={() => setActiveTab("agent")}
@@ -1017,7 +1004,10 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Agent details</p>
           </div>
+          </NavLink>
 
+
+          <NavLink to={`/customers/customer_vendor_preview/${id}/transporter`}>
           <div
             className={`card-btn ${activeTab === "transporter" && "active-btn"}`}
             onClick={() => setActiveTab("transporter")}
@@ -1028,7 +1018,10 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Transporter Details</p>
           </div>
+          </NavLink>
 
+
+          <NavLink to={`/customers/customer_vendor_preview/${id}/bank`}>
           <div
             className={`card-btn ${activeTab === "bank" && "active-btn"}`}
             onClick={() => setActiveTab("bank")}
@@ -1039,7 +1032,9 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Bank Details</p>
           </div>
+          </NavLink>
 
+          <NavLink to={`/customers/customer_vendor_preview/${id}/analytics`}>
           <div
             className={`card-btn ${activeTab === "analytics" && "active-btn"}`}
             onClick={() => setActiveTab("analytics")}
@@ -1050,7 +1045,10 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Overview of Account</p>
           </div>
+          </NavLink>
 
+
+          <NavLink to={`/customers/customer_vendor_preview/${id}/address`}>
           <div
             className={`card-btn ${activeTab === "address" && "active-btn"}`}
             onClick={() => setActiveTab("address")}
@@ -1061,7 +1059,10 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Billing & Shipping Address</p>
           </div>
+          </NavLink>
 
+
+          <NavLink to={`/customers/customer_vendor_preview/${id}/notes`}>
           <div
             className={`card-btn ${activeTab === "notes" && "active-btn"}`}
             onClick={() => setActiveTab("notes")}
@@ -1072,7 +1073,10 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Manage Informations</p>
           </div>
+          </NavLink>
 
+
+          <NavLink to={`/customers/customer_vendor_preview/${id}/attachments`}>
           <div
             className={`card-btn ${
               activeTab === "attachments" && "active-btn"
@@ -1085,10 +1089,12 @@ const VendorPreview = () => {
             </div>
             <p className="sc-body-rg">Manage Documents</p>
           </div>
+          </NavLink>
         </div>
+        
 
         <div className="table-container">
-          {activeTab === "bank" && (
+          {activePage === "bank" && (
             <div className="bank-details-container">
               {
                 <div className="table-header">
@@ -1207,7 +1213,7 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "account" && (
+          {activePage === "account_overview" && (
             <div className="account-overview-container">
               <div className="business-name-container">
                 <div className="left">
@@ -1280,41 +1286,41 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "contacts" && (
+          {activePage === "contacts" && (
             <div className="contact-preview-table-container">
               <div className="filter-searchbar-container">
-                {activeTab !== `${"account" || "bank"}` && (
+                {activePage !== `${"account_overview" || "bank"}` && (
                   <div className="table-header">
                     <h1 className="title-sb">
-                      {activeTab === "contacts"
+                      {activePage === "contacts"
                         ? "Contacts"
-                        : activeTab === "analytics"
+                        : activePage === "analytics"
                         ? "Analytics"
-                        : activeTab === "notes"
+                        : activePage === "notes"
                         ? "Notes"
-                        : activeTab === "attachments"
+                        : activePage === "attachments"
                         ? "Attachment"
-                        : activeTab === "timeline" && "Timeline"}{" "}
-                      {activeTab === "contacts" && (
+                        : activePage === "timeline" && "Timeline"}{" "}
+                      {activePage === "contacts" && (
                         <span className="account-count">(4)</span>
                       )}{" "}
                     </h1>
-                    {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
-                    {activeTab === "contacts" ? (
+                    
+                    {activePage === "contacts" ? (
                       <p
                         className="sc-body-sb assign-account-btn"
                         onClick={() => setSalesOrderModal(true)}
                       >
                         + Assign Contact
                       </p>
-                    ) : activeTab === "notes" ? (
+                    ) : activePage === "notes" ? (
                       <p
                         className="sc-body-sb assign-account-btn"
                         onClick={() => setCreateNoteActive(true)}
                       >
                         + Add Notes
                       </p>
-                    ) : activeTab === "attachments" ? (
+                    ) : activePage === "attachments" ? (
                       <p
                         className="sc-body-sb assign-account-btn d-flex align-center"
                         onClick={() => {
@@ -1360,7 +1366,7 @@ const VendorPreview = () => {
                   filterLength={filterarray.length}
                   columns={columns}
                   setColumns={setColumns}
-                  addBtnName={"Sales Order"}
+                  // addBtnName={"Edit"}
                   onData={handleData}
                   path={"add_sales"}
                   //   filter={<Leads />}
@@ -1368,15 +1374,15 @@ const VendorPreview = () => {
                     clearfilter(e);
                     setVisible(!visible);
                   }}
-                  activeMode={
-                    <div className="filter-and-searchbar-delete-btn">
-                      <img
-                        src="/images/icons/delete-prmry-icon.svg"
-                        alt="delete"
-                      />
-                      <p className="sc-body-sb delete-text">Delete</p>
-                    </div>
-                  }
+                  // activeMode={
+                  //   <div className="filter-and-searchbar-delete-btn">
+                  //     <img
+                  //       src="/images/icons/delete-prmry-icon.svg"
+                  //       alt="delete"
+                  //     />
+                  //     <p className="sc-body-sb delete-text">Delete</p>
+                  //   </div>
+                  // }
                 />
               </div>
               <div className="tableData">
@@ -1562,17 +1568,17 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "agent" && (
+          {activePage === "agent" && (
             <div className="contact-preview-table-container">
               <div className="filter-searchbar-container">
-                {activeTab === "agent" && (
+                {activePage === "agent" && (
                   <div className="table-header">
                     <h1 className="title-sb">
                     Agent Contacts
                   
                         <span className="account-count"> (4)</span>
                     </h1>
-                    {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
+                   
 
                       <p
                         className="sc-body-sb assign-account-btn"
@@ -1802,17 +1808,17 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "transporter" && (
+          {activePage === "transporter" && (
             <div className="contact-preview-table-container">
               <div className="filter-searchbar-container">
-                {activeTab === "transporter" && (
+                {activePage === "transporter" && (
                   <div className="table-header">
                     <h1 className="title-sb">
                     Transporter Account
                   
                         <span className="account-count"> (4)</span>
                     </h1>
-                    {/* <p className='sc-body-sb assign-account-btn' onClick={()=> setSalesOrderModal(true)}>{activeTab === "related_account" ? "+ Assign Account":activeTab === "notes" ? "+ Add Notes": activeTab === "attachments" ? <span className="d-flex align-center gap-4" onClick={()=>{setAttachmentsModal(true)}}><img src="/images/icons/attachment-icon-prmry.svg" alt="" /> New Attachments</span> :""}</p> */}
+                   
 
                       <p
                         className="sc-body-sb assign-account-btn"
@@ -2046,7 +2052,7 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "address" && (
+          {activePage === "address" && (
             <div className="address-container">
               {
                 <div className="table-header mb-20">
@@ -2199,7 +2205,7 @@ const VendorPreview = () => {
             </div>
           )}
 
-          {activeTab === "attachments" && (
+          {activePage === "attachments" && (
             <div>
               {
                 <div className="table-header mb-20">
@@ -2222,7 +2228,7 @@ const VendorPreview = () => {
               <AttachmentFile />
             </div>
           )}
-          {activeTab === "notes" && (
+          {activePage === "notes" && (
             <div>
               {
                 <div className="table-header mb-20">
