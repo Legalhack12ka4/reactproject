@@ -907,7 +907,7 @@ console.log(status);
                   style={{ fontSize: "", color: "#465468 !important" }}
                 >
                   <Link
-                    to={`contact_preview/${record.id}`}
+                    to={`contact_preview/${record.id}/related_account`}
                     style={{ color: "#5C5AD0" }}
                   >
                     {record.name}

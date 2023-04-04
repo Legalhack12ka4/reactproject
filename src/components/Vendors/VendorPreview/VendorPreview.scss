@@ -27,8 +27,8 @@
             flex-direction: column;
             align-items: center;
             
-
-            .active-btn{
+            .active{
+            .card-btn{
                 width: 219px !important;
                 border-right: 3px solid $primary-100;
                 // background-color: $primary-100;
@@ -41,7 +41,7 @@
                         color: $primary-100 !important;
                     }
                 }
-            }
+            }}
             .card-btn{
                 width: 221px;
                 border-bottom: 1px solid $neutrals-800;
