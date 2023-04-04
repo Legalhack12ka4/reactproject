@@ -466,7 +466,7 @@ const handleNotesOpen = () =>
     setCustomerSubmit(true);
   };
 
-  //get customervendor assign data in table
+  //#region get customervendor assign data in table
   let assignedId = getContact.id;
   useEffect(() => {
     getAssigedData();
@@ -484,54 +484,65 @@ const handleNotesOpen = () =>
         setAssignedData(customerVendorIds);
         console.log(customerVendorIds);
         console.log(data);
+        console.log("Delete")
       });
+     
   };
 
   console.log(assignedId);
   console.log(assignedData);
 
-  console.log(getContact);
-  console.log(getContact.business_name);
+  // console.log(getContact);
+  // console.log(getContact.business_name);
 
+//#endregion
+ 
 
-  // update modal 
+// update modal 
 
 
 const handleUpdateCancel = () =>{
   setUpdateModal(false)
 }
 
-  //data display in table
+  //#region data display in table
 
-  // const getAssigedDataCustomer = () => {
-  //   assignedData.forEach((id) => {
-  //     fetch(`${config.baseUrl}/customervendor/${id}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         setAssignedCustomer(prevState => [...prevState, data]);
-  //         console.log(data);
-  //       });
-  //   });
-  // };
+
   useEffect(() => {
-    assignedData.forEach((id) => {
-      getAssigedDataCustomer(id);
-     
-    });
+    // assignedData.forEach((id) => {
+      getAssigedDataCustomer();
+//    });
   }, [assignedData]);
   
-const getAssigedDataCustomer = (id) => {
-  if (!assignedCustomer.some((customer) => customer.id === id)) {
-    fetch(`${config.baseUrl}/customervendor/${id}`)
+
+const getAssigedDataCustomer = () => {
+  const AssignedIdsCusVen = assignedData?.join(',')
+  console.log(AssignedIdsCusVen)
+  console.log(assignedData === "")
+  console.log(assignedData === 0)
+  console.log(assignedData === null)
+  console.log(assignedData === [1])
+  console.log(assignedData)
+  if(assignedData.length === 0)
+  {
+    setAssignedCustomer([]);
+    setAssignedData([]);
+    console.log("Null Data")
+  }
+  else
+  {
+    fetch(`${config.baseUrl}/customervendor/?company_id=1&id=${AssignedIdsCusVen}`)
       .then((response) => response.json())
       .then((data) => {
-        setAssignedCustomer((prevState) => [...prevState, data]);
+        setAssignedCustomer(data.data.items);
       });
-  }
+ }
 };
 
+console.log(assignedData);
+console.log(assignedCustomer);
 
-  console.log(assignedCustomer);
+//#endregion
 
   //for modal delete
 
@@ -874,25 +885,20 @@ console.log(constumerVendorId)
 //unassign data
 useEffect (() => {
   getCustomervendoracconut();
-},[])
+},[assignedData,id])
 
 const getCustomervendoracconut = () => {
   return fetch(`${config.baseUrl}/customervendorlinkedin/?company_id=1&contact_id=${id}`)
     .then((response) => response.json())
     .then((data) => {
-      const mappedData = data.data.items.map((item) => item.id);
-    setCusvenassign(mappedData);
+      // const mappedData = data.data.items.map((item) => item.id);
+      
+    setCusvenassign(data.data.items);
     });
 };
 console.log(custvenassign)
 console.log(formData)
 
-
-// const handleConfirmCancel1 = (record) => {
-//     setDeleteRecord(record)
-//       setCofirm(true);
-//     //  console.log(record)
-//     };
 
 const assignedItem = custvenassign.find(item => item.id === assignedData);
 console.log(assignedItem)
@@ -907,13 +913,26 @@ console.log(assignedItem)
       //   setDeleteRecord(null);
       // }; 
      
-        const deleteUser = (record) => {
-          const assignedItem = assignedData.find(item => item.id === record.id);
-          console.log(assignedItem)
-        axios.delete(`${config.baseUrl}/customervendorlinkedin/${assignedItem}/`).then((response) => {
+      const deleteUser = (record) => {
+        const assignedItem = custvenassign.find(item => item.customer_vendor_id === record.id);
+        console.log(record.id);
+        console.log(custvenassign);
+        let id = assignedItem?.id;
+        
+        axios.delete(`${config.baseUrl}/customervendorlinkedin/${id}/`).then((response) => {
+          console.log(response); // log the response from the API call
+          // Update assignedData by removing the last ID
+          setAssignedData(prevData => {
+            const updatedData = [...prevData];
+            updatedData.pop();
+            console.log(updatedData); // log the updated assignedData
+            return updatedData;
+          });
+          getAssigedData();
+          // Call getAssigedDataCustomer to update assignedCustomer with the new data
+          getAssigedDataCustomer();
+      
           setDeleteRecord(null);
-    
-        //  console.log("data delete ho raha hai");
           toast.error("Account Unassigned Successfuly", {
             border: "1px solid red",
             position: "top-right",
@@ -924,13 +943,30 @@ console.log(assignedItem)
             draggable: true,
             progress: undefined,
           });
-         // getNoteAssigedData();
         });
-      };;
-  //assign contact to customer/ vendor
+           getAssigedData();
+      };
+      
+      
+
+  //#region assign contact to customer/ vendor
 
   const handleFormSubmit = (e) => {
-    // e.preventDefault();
+    if(assignedData.includes(formData.customer_vendor_id))
+    {
+     
+      toast.error(" Account already assigned, please select another account!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    else
+    {
     axios
       .post(
         `${config.baseUrl}/customervendorlinkedin/?company_id=1`,
@@ -946,15 +982,10 @@ console.log(assignedItem)
         formData
       )
       .then((response) => {
-         getAssigedData();
         setSalesOrderModal(false);
-        getAssigedData();
+         getAssigedData();
+        getAssigedDataCustomer();
         setFormData(resetValue);
-        getAssigedData();
-        // getData();
-        // handleclose();
-        // props.onClick();
-
         toast.success("Assigned Successfuly", {
           position: "top-right",
           autoClose: 2000,
@@ -965,10 +996,14 @@ console.log(assignedItem)
           progress: undefined,
         });
       });
+      }
   };
 
   let business = assignedData.business_name;
   console.log(business);
+  //#endregion
+
+//#region datasource and columnsData
 
   const dataSource = assignedCustomer.map((customers) => ({
     key: customers.Key,
@@ -1178,6 +1213,9 @@ console.log(assignedItem)
       align: "left",
     },
   ];
+//#endregion
+
+  //#region table search filter and tags
 
   const [columns, setColumns] = useState(columnsData);
 
@@ -1277,8 +1315,9 @@ console.log(assignedItem)
     setCustFilter({ ...custfilter, [key]: "" });
   };
   console.log(filterarray.length);
-
+//#endregion
   
+  //#region tablecolumns and table Data with other stuff
 
   const tableData = useMemo(
     () => (loading ? Array(10).fill({}) : cusomizeData),
@@ -1323,20 +1362,9 @@ console.log(assignedItem)
   const createNoteFalse = () => {
     setCreateNoteActive(false);
   };
-/// date of birth
+//#endregion
 
-// const onChangeDate = (e) => {
-//   const { value, name } = e.target;
-
-//   setDobData({ ...dobData, [name]: value });
-//   console.log(value);
-//   console.log(name);
-// };
-// var strDate = dobData.dob;
-// var convertedDate = new Date(strDate)
-//   .toLocaleDateString("IN")
-//   .replaceAll("/", "-");
-//  console.log(convertedDate); // 2-23-2021
+ // #region DOB add
 
 const onChangeDate = (date) => {
   setDobData({ ...dobData, dob: date });
@@ -1395,33 +1423,9 @@ const handleFormSubmitDOB = (e) => {
       });
     });
 }
-// const onChangeDate = (date) => {
-//   const year = date.$y.toString();
-//   const month = (date.$M+ 1).toString().padStart(2, '0');
-//   const day = date.$D.toString().padStart(2, '0');
-//   console.log(year, month, day)
-//   // const formattedDate = `${year}-${month}-${day}`;
+//#endregion
 
-//   var convertedDate = new Date()
-//     .toLocaleDateString("IN")
-//     .replaceAll("/", "-");
-
-//   setDobData({ ...dobData, dob: convertedDate });
-// };
-// console.log(dobData)
-
-// const onChangeDate = (e) => {
-// const { value, name } = e.target; // assuming that the input value is passed as an event parameter
-//   const date = new Date(value);
-//   const year = date.getFullYear().toString();
-//   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-//   const day = date.getDate().toString().padStart(2, '0');
-//   const formattedDate = `${year}-${month}-${day}`;
-//   setDobData({ ...dobData, dob: formattedDate });
-// };
-
-  //notes data input
-
+  //#region notes CRUD
   //onchange
 
   const onChangeNote = (e) => {
@@ -1470,7 +1474,9 @@ const handleFormSubmitDOB = (e) => {
       });
   };
 
-  //attachment data fill
+//#endregion
+
+  //#region attachment CRUD
 
   const onChangeAttachment = (e) => {
     const { value, name } = e.target;
@@ -1481,20 +1487,7 @@ const handleFormSubmitDOB = (e) => {
   };
   console.log(attachData);
 
-  // const handleFileUpload = (file) => {
-  //   if (file && file.size >=2048) {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => {
-  //       setAttachData({
-  //         ...attachData,
-  //         attachments: reader.result,
-  //       });
-  //     };
-  //   } else {
-  //     console.log("Invalid file size or type");
-  //   }
-  // };
+
 
   const handleFileUpload = (file) => {
     if (file && file.size >= 1) {
@@ -1508,23 +1501,6 @@ const handleFormSubmitDOB = (e) => {
       console.log("Invalid file size or type");
     }
   };
-
-  // const handleFileUpload = (file) => {
-  //   if (file && file.size <= 1048576) {
-
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => {
-  //       setAttachData({
-  //         ...attachData,
-  //         attachments: reader.result,
-  //         filename: file.name,
-  //       });
-  //     };
-  //   } else {
-  //     console.log("Invalid file size or type");
-  //   }
-  // };
 
   const handleImagePreview = (file) => {
     if (file && file.type.indexOf("image") === 0) {
@@ -1598,33 +1574,12 @@ const handleFormSubmitDOB = (e) => {
       .then((data) => {
         //  const customerVendorIds = data.data.items.map(item => item.contact_id);
         setAssignedDataAttach(data.data.items);
-        // console.log(customerVendorIds)
-        console.log(data);
       });
   };
 
-  // console.log(props.getAttachAssigedData)
+//#endregion
 
-  console.log(assignedDataAttach);
-
-  // const showPreview = (e) => {
-  //   if (e.target && e.target.files) {
-  //     const attachments = e.target.files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setAttachData({
-  //         ...attachData,
-  //         attachments: reader.result
-  //       });
-  //     };
-  //     reader.readAsDataURL(attachments);
-  //   } else {
-  //     setAttachData({
-  //       ...attachData,
-  //       attachments: ""
-  //     });
-  //   }
-  // };
+  //#region Date Format
 
   var strDate = getContact.dob;
   var convertedDate = new Date(strDate)
@@ -1652,7 +1607,9 @@ const handleFormSubmitDOB = (e) => {
     
     console.log(formattedDate); // Output: "31, March 2023 09:23 AM"
 
-    //table
+//#endregion
+
+//#region tablecolumn
 
   const [selectedColumns, setSelectedColumns] = useState(
     tableColumns.map((col) => col.dataIndex)
@@ -1662,6 +1619,7 @@ const handleFormSubmitDOB = (e) => {
     if (checked) setSelectedColumns([...selectedColumns, value]);
     else setSelectedColumns(selectedColumns.filter((col) => col !== value));
   };
+//#endregion
 
 //#region delete contact preview
 
