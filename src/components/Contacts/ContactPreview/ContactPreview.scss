@@ -30,9 +30,39 @@
                 width: 78px;
                 height: 78px;
             }
-            .contact-type{
+            .contact-type-customer{
                 background-color: $success-900;
                 color: $success-100;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+             .contact-type-lead{
+                background-color:  $info-900;
+                color: $info-100;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+             .contact-type-not{
+                background-color: $danger-900;
+                color:$danger-100;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+             .contact-type-junk{
+                background-color: $orange-900;
+                color: $orange-100;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+             .contact-type-prospective{
+                background-color:  $primary-900;
+                color: $primary-100;
+                padding: 5px 10px;
+                border-radius: 6px;
+            }
+             .contact-type-agent{
+                background-color:  $warning-900;
+                color:  $warning-100;
                 padding: 5px 10px;
                 border-radius: 6px;
             }
@@ -68,12 +98,34 @@
                 gap: 20px;
                 width: 100%;
 
+                .dob{
+                    position: relative;
+                    .date-picker-container{
+                        position: absolute;
+                        top: -10px;
+                        left: -9px;
+
+                    .ant-picker{
+                        border: none;
+                        padding: 0px;
+                       
+                        .ant-picker-input{
+                           display: none;
+                        }
+                    }
+                    }
+                   
+                }
+
                
                 .clr-n-400{
                     color: $neutrals-400;
                 }
                 .clr-p-100{
                     color: $primary-100;
+                }
+                .clr-nt-400{
+                    color: $neutrals-400;
                 }
             }
 
@@ -156,6 +208,11 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    .save-cancel-btn{
+        display: flex;
+        gap: 10px;
+        margin-left: 10px;
+    }
     .save-btn{
         width: 25px;
         height: 25px;
@@ -172,6 +229,7 @@
 
     }
 }
+
 
 
 .phone-label
@@ -198,3 +256,39 @@
 {
     color:#94A2B8 !important;
 }
+
+.ant-picker-today-btn{
+    display: none;
+}
+.ant-picker-footer-extra{
+    padding: 20px 0px;
+}
+
+.calendar-container{
+    width: 330px;
+    .label{
+        color: $neutrals-400;
+        margin-bottom: 8px;
+    }
+    .ant-picker{
+        width: 330px;
+        height: 38px;
+    }
+}
+
+.ant-picker-input{
+    input{
+    color: $neutrals-500 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+}
+// .ant-picker-cell-inner{
+//     // color: red !important;
+// }
+// .ant-picker-dropdown .ant-picker-cell {
+//     // color: red !important;
+// }
+// .ant-picker-cell-disabled .ant-picker-cell-inner {
+//     color: red !important;
+//   }

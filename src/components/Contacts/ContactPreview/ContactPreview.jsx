@@ -37,6 +37,7 @@ import CustomInput from "../../CustomInput/CustomInput";
 import Notes from "../../Notes/Notes";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import dayjs from 'dayjs';
 
 
 const filterfield = {
@@ -429,10 +430,12 @@ const ContactPreview = () => {
     attatch_name: "",
     attachments: "",
   });
-  const [dobData, setDobData]=useState({dob:""})
+  // const [dobData, setDobData]=useState({dob:""})
   const [custvenassign, setCusvenassign]= useState([])
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [formatedDate, setFormatedDate] = useState("");
   
-  console.log(dobData)
+  // console.log(dobData)
 
   console.log(assignedCustomer)
 
@@ -453,12 +456,27 @@ const handleNotesOpen = () =>
     if (isCustomerSelected && customerSubmit) {
       setAttachData({attachments:"", attatch_name:""});
       setSalesOrderModal(false);
+      setIsCustomerSelected(false);
+      setFormData({
+        business_name:"",
+        contact_id: "",
+        customer_vendor_id: "",
+      });
     } else {
       setAttachData({attachments:"", attatch_name:""});
       setSalesOrderModal(false);
-      //  window.history.back(-1);
+      setIsCustomerSelected(false);
+      setFormData({
+        business_name:"",
+        contact_id: "",
+        customer_vendor_id: "",
+      });
+      // window.history.back(-1);
     }
     setAttachmentsModal(false);
+    // Clear the selected value from the SearchSelect component
+    const select = document.querySelector('[data-testid="select-input"]');
+    select.select.setValue(null);
   };
 
   const handleSubmit = () => {
@@ -512,32 +530,24 @@ const handleUpdateCancel = () =>{
     // assignedData.forEach((id) => {
       getAssigedDataCustomer();
 //    });
-  }, [assignedData]);
+  }, []);
   
 
-const getAssigedDataCustomer = () => {
-  const AssignedIdsCusVen = assignedData?.join(',')
-  // console.log(AssignedIdsCusVen)
-  // console.log(assignedData === "")
-  // console.log(assignedData === 0)
-  // console.log(assignedData === null)
-  // console.log(assignedData === [1])
-  // console.log(assignedData)
-  // if(assignedData.length === 0)
-  // {
-  //   setAssignedCustomer([]);
-  //   setAssignedData([]);
-  //   console.log("Null Data")
-  // }
-  // else
-  // {
-    fetch(`${config.baseUrl}/customervendor/?company_id=1&id=${AssignedIdsCusVen}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAssignedCustomer(data.data.items);
-      });
-//  }
-};
+  const getAssigedDataCustomer = () => {
+    const AssignedIdsCusVen = assignedData?.join(',')
+    if(assignedData.length === 1)
+    {
+      setAssignedCustomer([]);
+      setAssignedData([]);
+      console.log("Null Data")
+    }
+      fetch(`${config.baseUrl}/customervendor/?company_id=1&contact_id=${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAssignedCustomer(data.data.items);
+        });
+  //  }
+  };
 
 console.log(assignedData);
 console.log(assignedCustomer);
@@ -599,7 +609,10 @@ console.log(assignedCustomer);
             Type : <span className="caption-md">{place.type == 15 ? "Vendor" : "Customer"}</span>
           </p>
           <p className="caption-md city-title">
-            Category : <span className="caption-md">{place.type_category}</span>
+            Category : <span className="caption-md">{place.type_category == 1 ?  "Retailer" :
+            place.type_category == 2 ?  "Manufacturer" :
+            place.type_category == 3 ?  "Wholesaler" :"Retailer"
+            }</span>
           </p>
         </div>
       </div>
@@ -885,7 +898,7 @@ console.log(constumerVendorId)
 //unassign data
 useEffect (() => {
   getCustomervendoracconut();
-},[assignedData,id])
+},[id])
 
 const getCustomervendoracconut = () => {
   return fetch(`${config.baseUrl}/customervendorlinkedin/?company_id=1&contact_id=${id}`)
@@ -984,8 +997,18 @@ console.log(assignedItem)
       .then((response) => {
         setSalesOrderModal(false);
          getAssigedData();
+       
         getAssigedDataCustomer();
-        setFormData(resetValue);
+        setFormData({
+          business_name:"",
+        
+          customer_vendor_id: "",
+        });
+        setIsCustomerSelected(false)
+         setFormData({
+        business_name:"",
+        customer_vendor_id: "",
+      });
         toast.success("Assigned Successfuly", {
           position: "top-right",
           autoClose: 2000,
@@ -1366,19 +1389,56 @@ console.log(assignedItem)
 
  // #region DOB add
 
+
+
 const onChangeDate = (date) => {
-  setDobData({ ...dobData, dob: date });
-  console.log(date);
+  
+  // setDobData({ ...dobData, dob: date });
+  // console.log(date.$d);
+
+  const dateString = date.$d;
+const dateFormatted = new Date(dateString);
+const day = dateFormatted.getDate();
+const month = dateFormatted.getMonth() + 1; 
+const year = dateFormatted.getFullYear();
+
+const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+let dateStringSec = formattedDate;
+let dateSec = new Date(dateStringSec);
+
+let daySec = dateSec.getDate();
+let monthSec = dateSec.toLocaleString('default', { month: 'short' });
+let yearSec = dateSec.getFullYear();
+
+let formattedDateSec = daySec + ' ' + monthSec + ' ' + yearSec;
+console.log(formattedDateSec); 
+
+console.log(formattedDate);
+
+console.log(formattedDate); 
+setFormatedDate(formattedDate);
+
+};
+console.log(formatedDate);
+
+
+
+const formatDateWithMonth = (date) => {
+  const dateFormatted = new Date(date);
+  const day = dateFormatted.getDate();
+  const month = dateFormatted.toLocaleString('default', { month: 'short' });
+  const year = dateFormatted.getFullYear();
+  return `${day} ${month} ${year}`;
 };
 
-console.log(dobData.dob.$D)
-console.log(dobData.dob.$y)
-console.log(dobData.dob.$W)
+
+// console.log(dobData)
+
+
 
 
 const handleFormSubmitDOB = (e) => {
-
-
   axios
     .put(
       `${config.baseUrl}/contact/${getContact.id}/`,
@@ -1390,7 +1450,7 @@ const handleFormSubmitDOB = (e) => {
         position: getContact.position,
         status:getContact.status,
         lead_source: getContact.lead_source,
-        dob: dobData.dob.toISOString().slice(0, 10) ,
+        dob: formatedDate ,
       //  contact_image:updateId.contact_image,
       contact_image: "https://unsplash.com/photos/ioyEITUD2G8",
         notes: "good",
@@ -1411,7 +1471,7 @@ const handleFormSubmitDOB = (e) => {
    //   props.onClick();
   // setUpdateModal(false);
         // getData();
-        setCalendarVisible(false)
+        setDatePickerOpen(false)
       toast.success("Updated Successfuly", {
         position: "top-right",
         autoClose: 2000,
@@ -1586,6 +1646,7 @@ const handleFormSubmitDOB = (e) => {
     .toLocaleDateString("IN")
     .replaceAll("/", "-");
     console.log(convertedDate)
+    console.log(getContact.dob)
 
 
 
@@ -1593,7 +1654,7 @@ const handleFormSubmitDOB = (e) => {
     const date = new Date(timestamp);
     
     // Format the date into "dd, mmm yyyy hh:mm AM/PM" format
-    const formattedDate = `${date.getDate()}, ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
+    const formattedDate = `${date.getDate()} ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
     
     // Function to format time in "hh:mm AM/PM" format
     function formatTime(date) {
@@ -2016,11 +2077,12 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
         name: updateContactModal.name,
         mobile: updateContactModal.mobile,
         email: updateContactModal.email,
-        dob: updateContactModal.dob,
+        dob: formatedDate,
         position: positionId,
         status:statusId,
         lead_source: leadId,
-        dob: "2000-09-09",
+        // dob: "2000-09-09",
+        // ...(updateContactModal.dob && { dob: updateContactModal.dob }),
       //  contact_image:updateId.contact_image,
       ...(updateContactModal.contact_image && { contact_image: updateContactModal.contact_image }),
         notes: "good",
@@ -2060,6 +2122,18 @@ const parts = url.split("/");
 const activePage = parts.pop();
 
 //#endregion
+const dateSaveCancelBtn = (
+  <div
+   className="d-flex gap-20 justify-center"
+  >
+    <ContainedButton value="Save" onClick={handleFormSubmitDOB} />
+    <ContainedSecondaryButton value="Cancel" onClick={()=> {setFormatedDate(null); setDatePickerOpen(false)}} />
+  </div>
+);
+
+console.log(updateContactModal.dob);
+console.log(formatedDate);
+
 
   return (
     <div className="contact-preview-main">
@@ -2122,8 +2196,14 @@ const activePage = parts.pop();
           </div>
           {/* <img className="contact-avatar" src="/images/icons/avatar.png" alt="avatar" /> */}
           <p className="subtitle-sb mb-10">{getContact.name}</p>
-          <div className="contact-type caption-sb mb-20">
-            {statusdatacusven}
+          <div className=
+            {statusdatacusven === "Junk" ? "contact-type-junk caption-sb mb-20" :
+            statusdatacusven === "Not Intersted" ? "contact-type-not caption-sb mb-20" :
+            statusdatacusven === "Lead" ? "contact-type-lead caption-sb mb-20" :
+            statusdatacusven === "Prospective" ? "contact-type-prospective caption-sb mb-20" :
+            statusdatacusven === "Customer" ? "contact-type-customer caption-sb mb-20" :
+            statusdatacusven === "Agent" ? "contact-type-agent caption-sb mb-20" : ""}>
+              {statusdatacusven}
           </div>
           <div className="contact-btn-container">
             <div className="btn-box">
@@ -2160,7 +2240,22 @@ const activePage = parts.pop();
 
             <div className="dob">
               <p className="dob-label sc-body-rg mb-4">Date of Birth</p>
-              {!getContact.dob ?
+              <div className="calendar-contaienr">
+              <p className="sc-body-md   dob-add-btn" style={{cursor:"pointer"}} >
+                {getContact.dob && !formatedDate ? <p className="d-flex align-center sc-body-sb gap-6 clr-nt-400">{formatDateWithMonth(getContact.dob)} <img src="/images/icons/edit.svg" alt="" onClick={()=> {setDatePickerOpen(true)}} /></p> : formatedDate ? <p className="d-flex align-center sc-body-sb gap-6 clr-nt-400">{formatDateWithMonth(formatedDate)} <img src="/images/icons/edit.svg" alt="" onClick={()=> {setDatePickerOpen(true)}} /></p>:<p onClick={()=> {setDatePickerOpen(true)}} className="clr-p-100">Add</p>}
+              </p>
+            {/* {formatedDate && <div className="save-cancel-btn">
+            <div className="save-btn" ></div>
+                <div className="cancel-btn" ></div>
+            </div>} */}
+            </div>
+                 <div className="date-picker-container">
+                 <DatePicker open={datePickerOpen}  onChange={onChangeDate} name="formatedDate"  renderExtraFooter={() => dateSaveCancelBtn}  />
+                 </div>
+                 
+
+
+              {/* {!getContact.dob ?
               !CalendarVisible  ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>
                 {`${dobData.dob ? convertedDate :"Add"}`}
                  {getContact.dob && <img style={{cursor:"pointer"}} src="/images/icons/edit_blue_icon.svg" alt="" />}</p>:
@@ -2168,9 +2263,8 @@ const activePage = parts.pop();
                 <DatePicker selected={dobData} onChange={onChangeDate} placeholder="Select Date" name="dob" 
                 value={dobData.dob} 
                 />
-                <div className="save-btn" onClick={handleFormSubmitDOB}></div>
-                <div className="cancel-btn" onClick={()=> {setCalendarVisible(false)}}></div>
-              </div>  : convertedDate} 
+                
+              </div>  : convertedDate}  */}
             </div>
 
             <div className="ownership">
@@ -2326,9 +2420,9 @@ const activePage = parts.pop();
                       </div>
                     </div>,
                   ]}
-                  statusSelect={
-                    <CategorySelect width={155} placeholder="Status" showSearch={false} />
-                  }
+                  // statusSelect={
+                  //   <CategorySelect width={155} placeholder="Status" showSearch={false} />
+                  // }
                   change={filterarray}
                   onSelectColumn={handleSelectColumn}
                   customer={assignedCustomer.length}
@@ -2488,14 +2582,15 @@ const activePage = parts.pop();
                         options={customerDataSelectOptions}
                         onChange={handleDrpChangeStatus}
                         name="business_name"
-                        //  value={formData.business_name}
+                         value={formData.business_name}
                       //  value={formData.customer_vendor_id}
-                         value={
-                          customerDataSelectOptions.find(
-                            (option) =>
-                              option.key === formData.business_name && option.label
-                          )?.label
-                        }
+                        //  value={
+                        //   customerDataSelectOptions.find(
+                        //     (option) =>
+                        //       option.key === formData.business_name && option.label
+                        //   )?.label
+                        // }
+                        inputProps={{ "data-testid": "select-input" }}
                       />
                     </div>
                     {isCustomerSelected && (
@@ -2896,12 +2991,22 @@ const activePage = parts.pop();
                     options={otherlead1}
                     onChange={handleDrpChangePosition}
                   />
-
-                  <CustomInput width={330} label="Date of Birth"
+                <div className="calendar-container">
+                  <p className="label">Date of Birth</p>
+                  <DatePicker 
+                    onChange={onChangeDate}
+                           name="dob"  
+                           format={'DD-MM-YYYY'}
+                          //  renderExtraFooter={() => dateSaveCancelBtn}
+                           value={formatedDate ? dayjs(formatedDate, 'YYYY-MM-DD') : dayjs(updateContactModal.dob, 'YYYY-MM-DD')}
+                           />
+                    
+                    </div>
+                  {/* <CustomInput width={330} label="Date of Birth"
                    value={updateContactModal?.dob}
                    name="dob"
                    onChange={onChangeValue}
-                  />
+                  /> */}
 
                   <SearchSelect
                     label="Ownership"
