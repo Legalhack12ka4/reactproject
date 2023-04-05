@@ -88,7 +88,7 @@
                 }
             }
             .h-line{
-                width: 100%;
+                width: 99%;
                 border: .5px solid $neutrals-700;
                 margin-bottom: 20px;
             }
@@ -292,3 +292,72 @@
 // .ant-picker-cell-disabled .ant-picker-cell-inner {
 //     color: red !important;
 //   }
+
+ .ant-picker-cell-in-view{
+    .ant-picker-cell-inner{
+        color: $neutrals-500 !important;
+    }
+}
+.ant-picker-cell-inner{
+    color: $neutrals-600;
+}
+
+.ant-picker-content{
+    thead{
+        tr{
+            th{
+                color: $neutrals-400 !important;
+                font-weight: 600 !important;
+            }
+        }
+    }
+}
+  .ant-picker-year-btn:hover{
+    color: $primary-100 !important;
+  }
+  .ant-picker-month-btn:hover{
+    color: $primary-100 !important;
+  }
+  .ant-picker-header-super-next-btn,
+  .ant-picker-header-super-prev-btn,
+  .ant-picker-header-next-btn,
+  .ant-picker-header-prev-btn {
+    color: $primary-300 !important;
+  }
+
+.ant-picker-header-view{
+    color: $neutrals-100 !important;
+}
+
+.ant-picker-header-super-next-btn:hover,
+.ant-picker-header-super-prev-btn:hover,
+.ant-picker-header-next-btn:hover,
+.ant-picker-header-prev-btn:hover {
+  color: $primary-100 !important;
+}
+
+.card-container {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #fff;
+    scroll-padding: 0;
+  }
+
+  
+
+  .card-container::-webkit-scrollbar {
+    width: 6px !important;
+  }
+  
+  .card-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+  }
+  
+  .card-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border: 2px solid rgba(0, 0, 0, 0);
+                background-clip: padding-box;
+                border-radius: 9999px;
+                background-color: #566A7F33;
+  }

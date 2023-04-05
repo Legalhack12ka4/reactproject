@@ -9,6 +9,7 @@ import Page_heading from "../Page_Heading/Page_heading";
 import TagsInput from "../TagsInput/TagsInput";
 import CustomInput from "../CustomInput/CustomInput";
 import { SearchSelect } from "../Dropdowns/Dropdowns";
+import { ContainedButton, ContainedSecondaryButton } from "../Buttons/Button";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -150,7 +151,7 @@ const NewInventoryItem = () => {
 </div> */}
 
 <div className="item_form_container">
-<div style={{display:"flex", gap:"20px"}}>
+<div style={{display:"flex", gap:"20px"}} className="left-container">
  <div className="input_box_container">
    <div className="input_group" style={{ marginBottom: "20px" }}>
      <SearchSelect label="Item Group" width={330} />
@@ -637,9 +638,9 @@ const NewInventoryItem = () => {
    }}
  /> */}
 </div>
-<hr  style={{margin:"auto", width:"96.4%", border:".5px solid #ECEEF1"}}/>
+{/* <hr  style={{margin:"auto", width:"96.4%", border:".5px solid #ECEEF1"}}/> */}
 
-<div style={{ padding: "20px 20px 20px 20px" }}>
+<div style={{ padding: "20px 20px 20px 20px" }} className="uom-container">
 
  {/* <p
    style={{
@@ -652,7 +653,7 @@ const NewInventoryItem = () => {
    Multi Uom
  </p> */}
  <div style={{ display: "flex", gap: "30px" }}>
- <div style={{ display: "flex", gap: "16px" }}>
+ <div style={{ display: "flex", gap: "16px",marginBottom:"30px" }}>
      <Switch
        unCheckedChildren="__"
        onChange={handleMultiUomChange}
@@ -660,7 +661,7 @@ const NewInventoryItem = () => {
      />
 
      <div>
-       <p style={{ color: "#566A7F", fontSize: "16px" }}>
+       <p style={{ color: "#101729", fontSize: "16px",fontWeight:"600"  }}>
          Enable Multi Uom
        </p>
        <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
@@ -733,9 +734,9 @@ const NewInventoryItem = () => {
   
  </div>
 
- <hr style={{ margin: "20px 0px", border: "0.5px solid #ECEEF1" }} />
+ {/* <hr style={{ margin: "20px 0px", border: "0.5px solid #ECEEF1" }} /> */}
 
- <div style={{ display: "flex", gap: "16px" }}>
+ <div style={{ display: "flex", gap: "16px", }}>
      <Switch
        unCheckedChildren="__"
        onChange={handleConversionUomChange}
@@ -743,7 +744,7 @@ const NewInventoryItem = () => {
      />
 
      <div style={{overflow:"scroll"}}>
-       <p style={{ color: "#566A7F", fontSize: "16px" }}>
+       <p style={{ color: "#101729", fontSize: "16px", fontWeight:"600" }}>
          Enable Conversion Uom
        </p>
        <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
@@ -823,6 +824,10 @@ const NewInventoryItem = () => {
            </div>
          </div>
        )}
+       <div className="form-submit-btn d-flex gap-16 mt-30">
+       <ContainedButton value="Create Item" />
+       <ContainedSecondaryButton value="Cencel" onClick={handleClose} />
+       </div>
      </div>
    </div>
  <div style={{ display: "flex", gap: "30px" }}>
@@ -844,12 +849,12 @@ const NewInventoryItem = () => {
  
 </div>
 
-<hr style={{border:"2px solid #F3F6F9"}} />
+{/* <hr style={{border:"2px solid #F3F6F9"}} /> */}
 
-<div className="button">
+{/* <div className="button">
  <button className="submit_button btn_hover_animation">Create Item</button>
  <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
-</div>
+</div> */}
 
 </div>
 

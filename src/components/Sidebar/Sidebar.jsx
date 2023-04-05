@@ -10,8 +10,10 @@ const Sidebar = () => {
   const [active, setActive] = useState(
     localStorage.getItem("activeMenuItem") || ""
   );
-  const [openId, setOpenId] = useState("");
-  const [open, setOpen] = useState(false);
+  const [openId, setOpenId] = useState(localStorage.getItem("openId") || "");
+  const [open, setOpen] = useState(
+    localStorage.getItem("open") === "true" || false
+  );
   const [drpActive, setDrpActive] = useState("");
   const [subDropdown, setSubDropdown] = useState(false);
   const [subActive, setSubActive] = useState("");
@@ -87,13 +89,15 @@ myDiv.current.removeEventListener('scroll', handleScroll);
 
   function dropdown_open(id){
     setSubDropdown(false)
-    if(openId === id){
-      setOpen(!open)
-    }
-    if(!open){
-      setOpen(!open)
+    if (openId === id) {
+      setOpen(!open);
+      localStorage.setItem("open", !open);
+    } else {
+      setOpen(true);
+      localStorage.setItem("open", true);
     }
     setOpenId(id);
+    localStorage.setItem("openId", id);
   }
 
   function subDropdown_open(id){
@@ -193,7 +197,7 @@ myDiv.current.removeEventListener('scroll', handleScroll);
                   <>
                     <div
                       className={`btn ${
-                        item.id === drpActive && "dropdownActive"
+                        window.location.pathname.startsWith(item.path) && "dropdownActive"
                       }`}
                       id={item.id}
                     >

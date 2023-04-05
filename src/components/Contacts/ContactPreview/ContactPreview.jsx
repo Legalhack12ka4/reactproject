@@ -430,6 +430,18 @@ const ContactPreview = () => {
     attatch_name: "",
     attachments: "",
   });
+  const [updateContactModal, setUpdateContactModal] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    dob: "",
+    position: "",
+    ownership: "",
+    status:"",
+    lead:"",
+    contact_image:"",
+  })
+  const [preventClosing, setPreventClosing] = useState(false);
   // const [dobData, setDobData]=useState({dob:""})
   const [custvenassign, setCusvenassign]= useState([])
   const [datePickerOpen, setDatePickerOpen] = useState(false);
@@ -1392,10 +1404,7 @@ console.log(assignedItem)
 
 
 const onChangeDate = (date) => {
-  
-  // setDobData({ ...dobData, dob: date });
-  // console.log(date.$d);
-
+  setPreventClosing(true);
   const dateString = date.$d;
 const dateFormatted = new Date(dateString);
 const day = dateFormatted.getDate();
@@ -1422,6 +1431,21 @@ setFormatedDate(formattedDate);
 };
 console.log(formatedDate);
 
+const onChangeDateModal = (date) => {
+
+  const dateString = date.$d;
+const dateFormatted = new Date(dateString);
+const day = dateFormatted.getDate();
+const month = dateFormatted.getMonth() + 1; 
+const year = dateFormatted.getFullYear();
+
+const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+
+  setUpdateContactModal({ ...updateContactModal, dob: formattedDate });
+  console.log(date.$d);
+};
+
+
 
 
 const formatDateWithMonth = (date) => {
@@ -1434,6 +1458,8 @@ const formatDateWithMonth = (date) => {
 
 
 // console.log(dobData)
+
+
 
 
 
@@ -1733,17 +1759,7 @@ const deleteUser1 = () => {
 //#endregion
 
 //#region update contact preview
-const [updateContactModal, setUpdateContactModal] = useState({
-    name: "",
-    mobile: "",
-    email: "",
-    dob: "",
-    position: "",
-    ownership: "",
-    status:"",
-    lead:"",
-    contact_image:"",
-  })
+
 
   const onChangeValue = (e) => {
     const { value, name } = e.target;
@@ -2077,7 +2093,7 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
         name: updateContactModal.name,
         mobile: updateContactModal.mobile,
         email: updateContactModal.email,
-        dob: formatedDate,
+        dob: updateContactModal.dob,
         position: positionId,
         status:statusId,
         lead_source: leadId,
@@ -2131,9 +2147,20 @@ const dateSaveCancelBtn = (
   </div>
 );
 
-console.log(updateContactModal.dob);
-console.log(formatedDate);
 
+
+
+
+
+
+const handleOpenChange = (isOpen) => {
+  if (!isOpen && !preventClosing) {
+    setDatePickerOpen(false);
+  } else if (!isOpen && preventClosing) {
+    setPreventClosing(false);
+    setDatePickerOpen(true);
+  }
+};
 
   return (
     <div className="contact-preview-main">
@@ -2250,7 +2277,7 @@ console.log(formatedDate);
             </div>} */}
             </div>
                  <div className="date-picker-container">
-                 <DatePicker open={datePickerOpen}  onChange={onChangeDate} name="formatedDate"  renderExtraFooter={() => dateSaveCancelBtn}  />
+                 <DatePicker open={datePickerOpen}  onChange={onChangeDate} onOpenChange={handleOpenChange} name="formatedDate"  renderExtraFooter={() => dateSaveCancelBtn}  />
                  </div>
                  
 
@@ -2288,7 +2315,7 @@ console.log(formatedDate);
         <div className="table-container">
           <div className="tab-btn-container">
 
-            <NavLink to={`/contacts/contact_preview/${id}/related_account`}>
+            <NavLink to={`/business_account/contacts/contact_preview/${id}/related_account`}>
             <div
               className={`tab-btn sc-body-md ${
                 activePage === "related_account" && "activeTab animated slideInDown"
@@ -2299,7 +2326,7 @@ console.log(formatedDate);
             </div>
             </NavLink>
 
-            <NavLink to={`/contacts/contact_preview/${id}/analytics`}>
+            <NavLink to={`/business_account/contacts/contact_preview/${id}/analytics`}>
             <div
               className={`tab-btn sc-body-md ${
                 activePage === "analytics" && "activeTab animated slideInDown"
@@ -2310,7 +2337,7 @@ console.log(formatedDate);
             </div>
             </NavLink>
 
-            <NavLink to={`/contacts/contact_preview/${id}/notes`}>
+            <NavLink to={`/business_account/contacts/contact_preview/${id}/notes`}>
             <div
               className={`tab-btn sc-body-md ${
                 activePage === "notes" && "activeTab animated slideInDown"
@@ -2321,7 +2348,7 @@ console.log(formatedDate);
             </div>
             </NavLink>
 
-            <NavLink to={`/contacts/contact_preview/${id}/attachments`}>
+            <NavLink to={`/business_account/contacts/contact_preview/${id}/attachments`}>
             <div
               className={`tab-btn sc-body-md ${
                 activePage === "attachments" && "activeTab animated slideInDown"
@@ -2332,7 +2359,7 @@ console.log(formatedDate);
             </div>
             </NavLink>
 
-            <NavLink to={`/contacts/contact_preview/${id}/timeline`}>
+            <NavLink to={`/business_account/contacts/contact_preview/${id}/timeline`}>
             <div
               className={`tab-btn sc-body-md ${
                 activePage === "timeline" && "activeTab animated slideInDown"
@@ -2994,7 +3021,7 @@ console.log(formatedDate);
                 <div className="calendar-container">
                   <p className="label">Date of Birth</p>
                   <DatePicker 
-                    onChange={onChangeDate}
+                    onChange={onChangeDateModal}
                            name="dob"  
                            format={'DD-MM-YYYY'}
                           //  renderExtraFooter={() => dateSaveCancelBtn}

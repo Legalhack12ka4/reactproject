@@ -30,18 +30,19 @@
         "id": "ba",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bxs-business.svg",
+        "path": "/business_account",
         "childrens": [
             {
                 "title": "Customers",
-                "path": "/customers"
+                "path": "/business_account/customers"
             }, 
             {
                 "title": "Vendors",
-                "path": "/vendors"
+                "path": "/business_account/vendors"
             },
             {
                 "title": "Contacts",
-                "path": "/contacts"
+                "path": "/business_account/contacts"
             }
         ]
     },
@@ -72,6 +73,7 @@
         "id": "sl",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bxs-cart-alt.svg",
+        "path": "/sales",
         "childrens": [
             {
                 "title": "Sales Order",
@@ -79,11 +81,11 @@
             },
             {
                 "title": "Pick-list",
-                "path": "/pick_list"
+                "path": "/sales/pick_list"
             },
             {
                 "title": "Shipment",
-                "path": "/shipment"
+                "path": "/sales/shipment"
             },
             {
                 "title": "Invoice",
@@ -91,7 +93,7 @@
             },
             {
                 "title": "Payments",
-                "path": "/payments"
+                "path": "/sales/payments"
             },
             {
                 "title": "Credit Notes",
@@ -104,6 +106,7 @@
         "id": "pc",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bag.svg",
+        "path": "/purchase",
         "childrens": [
             {
                 "title": "Purchase Orders",
@@ -111,19 +114,19 @@
             },
             {
                 "title": "Goods Receipts",
-                "path": "/goods_receipts"
+                "path": "/purchase/goods_receipts"
             },
             {
                 "title": "Bills",
-                "path": "/bills/bills_order"
+                "path": "/purchase/bills/bills_order"
             },
             {
                 "title": "Payments",
-                "path": "/payments"
+                "path": "/purchase/payments"
             },
             {
                 "title": "Vendor Credit",
-                "path": "/vendor_credit"
+                "path": "/purchase/vendor_credit"
             }
         ]
     },
@@ -132,14 +135,15 @@
         "id": "iv",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/Group-9.svg",
+        "path": "/investment",
         "childrens": [
             {
                 "title": "Buy",
-                "path": "/buy"
+                "path": "/investment/buy"
             },
             {
                 "title": "Sell",
-                "path": "/sell"
+                "path": "/investment/sell"
             }
         ]
     },
@@ -148,22 +152,23 @@
         "id": "pd",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bxs-package.svg",
+        "path": "/production",
         "childrens": [
             {
                 "title": "Bill of Material",
-                "path": "/bill_of_material"
+                "path": "/production/bill_of_material"
             },
             {
                 "title": "Production Orders",
-                "path": "/production_orders"
+                "path": "/production/production_orders"
             },
             {
                 "title": "Issues",
-                "path": "/issues"
+                "path": "/production/issues"
             },
             {
                 "title": "Receipts",
-                "path": "/receipts"
+                "path": "/production/receipts"
             }
         ]
     },
@@ -172,18 +177,19 @@
         "id": "jw",
         "type": "dropdown_btn",
         "icon": "/images/sidebar_icons/bxs-palette.svg",
+        "path": "/job_work",
         "childrens": [
             {
                 "title": "Job Orders",
-                "path": "/job_orders"
+                "path": "/job_work/job_orders"
             },
             {
                 "title": "Received Goods",
-                "path": "/received_goods"
+                "path": "/job_work/received_goods"
             },
             {
                 "title": "Sent Goods",
-                "path": "/sent_goods"
+                "path": "/job_work/sent_goods"
             }
         ]
     },
@@ -192,25 +198,26 @@
         "id": "tx",
         "type": "dropdown_btn2",
         "icon": "/images/sidebar_icons/Layer_x0020_1.svg",
+        "path": "/taxation",
         "childrens": [
             {
                 "title": "Income Tax",
-                "path": "/income_tax"
+                "path": "/taxation/income_tax"
             },
             {
                 "title": "GST",
                 "childrens": [
                     {
                         "title": "GSTR 1",
-                        "path": "gstr1"
+                        "path": "/taxation/gst/gstr1"
                     },
                     {
                         "title": "GSTR 3B",
-                        "path": "gstr3b"
+                        "path": "/taxation/gst/gstr3b"
                     },
                     {
                         "title": "GSTR 9",
-                        "path": "gstr9"
+                        "path": "/taxation/gst/gstr9"
                     }
                             ]
                     
