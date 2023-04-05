@@ -385,6 +385,20 @@ const activePage = parts.pop();
     setDeleteRecord(null);
   };
 
+  
+  const ownership = [
+    {
+      value: "ubuntu",
+      label: "ubuntu",
+    },
+    {
+      value: "window",
+      label: "window",
+    },
+  ];
+
+  //#region datasource and columndata
+
   const dataSource = [
     {
       key: "1",
@@ -394,17 +408,6 @@ const activePage = parts.pop();
       category: "Retailer",
       position: "Owner",
       status: "Active",
-    },
-  ];
-
-  const ownership = [
-    {
-      value: "ubuntu",
-      label: "ubuntu",
-    },
-    {
-      value: "window",
-      label: "window",
     },
   ];
 
@@ -626,6 +629,10 @@ const activePage = parts.pop();
 
   const [columns, setColumns] = useState(columnsData);
 
+  //#endregion
+
+//#region search and filter data
+
   const componentRef = useRef();
 
   function displaySerachbar() {
@@ -722,7 +729,9 @@ const activePage = parts.pop();
   };
   console.log(filterarray.length);
 
-  //table
+  //#endregion
+
+  //#region tableData and Table Coumns skeleton
 
   const [selectedColumns, setSelectedColumns] = useState(
     columns.map((col) => col.dataIndex)
@@ -758,6 +767,7 @@ const activePage = parts.pop();
         : columns,
     [loading, columns]
   );
+//#endregion
 
   let initials = "";
   if (getCustomer.name) {
