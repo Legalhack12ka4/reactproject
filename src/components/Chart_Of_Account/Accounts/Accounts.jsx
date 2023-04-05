@@ -291,11 +291,7 @@ console.log(chartOfAccountSchema)
     console.log(field);
     console.log(value);
   };
-  const reporting3 = groups.map((place) => ({
-    key: place.id,
-    label: place.reporting_l3,
-    value: place.reporting_l3,
-  }));
+
 
   const handleDrpChangel3 = (field, value) => {
     const selectedOption = reporting3.find((option) => option.value === value);
@@ -325,23 +321,28 @@ console.log(chartOfAccountSchema)
     )
       .then((response) => response.json())
       .then((data) => {
-        setGroups(data);
-        setData(data);
+        setGroups(data.data.items);
+        setData(data.data.items);
         console.log(data);
       });
   };
 
  
-  const groupedData = groups.reduce((acc, curr) => {
-    if (!acc[curr.reporting_l1]) {
-      acc[curr.reporting_l1] = [];
-    }
-    if (!acc[curr.reporting_l1].includes(curr.reporting_l2)) {
-      acc[curr.reporting_l1].push(curr.reporting_l2);
-    }
-    return acc;
-  }, {});
+  // const groupedData = groups.reduce((acc, curr) => {
+  //   if (!acc[curr.reporting_l1]) {
+  //     acc[curr.reporting_l1] = [];
+  //   }
+  //   if (!acc[curr.reporting_l1].includes(curr.reporting_l2)) {
+  //     acc[curr.reporting_l1].push(curr.reporting_l2);
+  //   }
+  //   return acc;
+  // }, {});
 
+  const reporting3 = groups?.map((place) => ({
+    key: place.id,
+    label: place.reporting_l3,
+    value: place.reporting_l3,
+  }));
 
 
   // const options = Object.keys(groupedData).map((key) => (
@@ -373,7 +374,8 @@ console.log(chartOfAccountSchema)
         `${config.baseUrl}/chartofaccount/`,
         {
           reporting: formData.reporting,
-          account_code: accountValue,
+          // account_code: accountValue,
+          account_code:1,
           account_name: formData.account_name,
           description: formData.description,
           is_active: true,
@@ -439,10 +441,10 @@ console.log(chartOfAccountSchema)
   const getData = async () => {
     await axios.get(`${config.baseUrl}/chartofaccount/`).then((res) => {
       setloading(false);
-      const maxId = res.data.reduce((acc, row) => Math.max(acc, row.id), 0);
-      setLastAccountId(maxId);
+     // const maxId = res.data.reduce((acc, row) => Math.max(acc, row.id), 0);
+     // setLastAccountId(maxId);
       setFetchaccount(
-        res.data.map((row) => ({
+        res.data.data.items.map((row) => ({
           Key: row.id,
           Account_Name: row.account_name,
           Account_Code: row.account_code,
@@ -450,7 +452,7 @@ console.log(chartOfAccountSchema)
           // Reporting: groups.map((option) => option.id === row.reporting && option.reporting_l3)
           Reporting: reporting3.find(
             (option) => option.key === row.reporting && option.label
-          ).label,
+          )?.label,
 
           id: row.id,
         }))
