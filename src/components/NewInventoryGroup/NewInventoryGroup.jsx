@@ -8,6 +8,8 @@ import alert from "../../assets/Images/Confirmation/confirm.svg";
 import TagsInput from "../TagsInput/TagsInput";
 import config from '../Database/config'
 import CustomInput from "../CustomInput/CustomInput";
+import {SearchSelect} from '../../../src/components/Dropdowns/Dropdowns'
+import { ContainedButton, ContainedSecondaryButton, GhostButton } from '../Buttons/Button'
 
 const resetValue = {
   "Initiallitemrow": [
@@ -143,12 +145,12 @@ const NewInventoryGroup = () => {
 console.log("abc")
 
 useEffect(() => {
-  getaccountname();
-  getunitmeasure();
-  getTypesoftype();
-  gettax();
-  getresourcesdata();
-  getitembom();
+  // getaccountname();
+  // getunitmeasure();
+  // getTypesoftype();
+  // gettax();
+  // getresourcesdata();
+  // getitembom();
 }, []);
 
 const getaccountname = () => {
@@ -530,7 +532,7 @@ const resetOther = () => {
 
   return (
     <div className="new_inventory_group_main">
-        <Page_heading parent={"Item & Service"} child={"Raw Material & Traded Item"} main={"Raw Material & Traded Item Group"} />
+        <Page_heading parent={"Item & Service"} child={"New Item Group"} main={"New Raw Material & Traded Item Group"} subchild={"Raw Material & Traded Item"} />
 
         <div className="new_inventory_group_container">
 
@@ -544,11 +546,12 @@ const resetOther = () => {
             <div className="top_input_container">
 
             <div className="input_group ">
-                  <p>Group Name</p>
-                  <div className="input_container focus-outline">
-                    <img src="/images/icons/HSNSearch.svg" alt="" />
+                  <div className="input-container">
                     <CustomInput
                     type="text"
+                    width={330}
+                    icon="/images/icons/HSNSearch.svg"
+                    label="Group Name"
                   inputType={"AlphaNumericUpperCase"}
                     name="group_name"
                     placeholder="Placeholder"
@@ -581,10 +584,10 @@ const resetOther = () => {
 
                 <div style={{display:"flex", gap:"20px", marginBottom:"18px",marginTop:"18px"}}>
                 <div className="input_group">
-                  <p>Unit of Measurement</p>
-                  <SearchDropdown width={155} options={unitofdata}
+                  <SearchSelect width={155} options={unitofdata}
                     name="uom"
                     labelKey="label"
+                    label="Unit Of Meausurement"
                     value={unitofdata.find(
                       (option) => option.key === formData.uom && option.label
                     )?.label}
@@ -592,9 +595,9 @@ const resetOther = () => {
                 </div>
 
                 <div className="input_group">
-                  <p>Manage by</p>
-                  <SearchDropdown width={155}
+                  <SearchSelect width={155}
                   // options={getmanageby}
+                  label="Manage by"
                    name="managed_by"
                    labelKey="label"
                   //  value={getmanageby.find(
@@ -606,9 +609,9 @@ const resetOther = () => {
 
                 <div style={{display:"flex", gap:"20px"}}>
                 <div className="input_group">
-                  <p>Tax Preference</p>
-                  <SearchDropdown width={155} 
+                  <SearchSelect width={155} 
                  // options={getpreference} 
+                 label="Tax Preference"
                     name="tax_preferences"
                     labelKey="label"
                   //   value={getpreference.find(
@@ -618,11 +621,11 @@ const resetOther = () => {
                   />
                 </div>
                 <div className="input_group">
-                  <p>Tax Rates</p>
-                  <SearchDropdown width={155} 
+                  <SearchSelect width={155} 
                   options={taxratedata}
                     name="tax_rates"
                     labelKey="label"
+                    label="Tax Rates"
                    // value={formData.tax_rates}
                     value={taxratedata.find(
                      (option) => option.key === formData.tax_rates && option.label
@@ -638,12 +641,13 @@ const resetOther = () => {
 
             <div style={{display:"flex", gap:"20px", marginBottom:"18px"}}>
            <div className="input_group">
-                  <p>Item Group Type</p>
-                  <div className="input_container1" style={{backgroundColor:"#ECEEF1"}}>
+                  <div className="input-container" >
                   
-                    <input type="text" placeholder="placeholder"
+                    <CustomInput type="text" placeholder="placeholder"
                     style={{backgroundColor:"#ECEEF1", color:"#4359714D"}}
                     disabled
+                    width={155}
+                    label="Item Group Type"
                     name="group_name"
                     value="Inventory Item"
                     onChange={onChange}
@@ -651,10 +655,10 @@ const resetOther = () => {
                   </div>
                 </div>
            <div className="input_group">
-                  <p>Inventory Account</p>
-                  <SearchDropdown width={155}  options={reportingl4name}
+                  <SearchSelect width={155}  options={reportingl4name}
                     name="inventory_account"
                     labelKey="label"
+                    label="Inventory Account"
                     value={reportingl4name.find(
                      (option) => option.key === formData.inventory_account && option.label
                    )?.label}
@@ -665,20 +669,20 @@ const resetOther = () => {
            <div style={{display:"flex", gap:"20px", marginBottom:"18px"}}>
          
            <div className="input_group">
-                  <p>Sales Account</p>
-                  <SearchDropdown width={155}  options={reportingl4name}
+                  <SearchSelect width={155}  options={reportingl4name}
                     name="selling_account"
                     labelKey="label"
+                    label="Sales Account"
                     value={reportingl4name.find(
                      (option) => option.key === formData.selling_account && option.label
                    )?.label}
                     onChange={handleDrpChange}/>
                 </div>
            <div className="input_group">
-                  <p>Cost Account</p>
-                  <SearchDropdown width={155}  options={reportingl4name}
+                  <SearchSelect width={155}  options={reportingl4name}
                     name="cost_account"
                     labelKey="label"
+                    label="Cost Account"
                     value={reportingl4name.find(
                      (option) => option.key === formData.cost_account && option.label
                    )?.label}
@@ -690,20 +694,20 @@ const resetOther = () => {
            <div style={{display:"flex", gap:"20px"}}>
          
          <div className="input_group">
-                <p>Variance Account</p>
-                <SearchDropdown width={155}  options={reportingl4name}
+                <SearchSelect width={155}  options={reportingl4name}
                   name="selling_account"
                   labelKey="label"
+                  label="Variance Account"
                   value={reportingl4name.find(
                    (option) => option.key === formData.selling_account && option.label
                  )?.label}
                   onChange={handleDrpChange}/>
               </div>
          <div className="input_group">
-                <p>WIP Account</p>
-                <SearchDropdown width={155}  options={reportingl4name}
+                <SearchSelect width={155}  options={reportingl4name}
                   name="cost_account"
                   labelKey="label"
+                  label="WIP Account"
                   value={reportingl4name.find(
                    (option) => option.key === formData.cost_account && option.label
                  )?.label}
@@ -741,7 +745,7 @@ const resetOther = () => {
                 </div> */}
 
             </div>
-            <div className="bom_switch_container">
+
 
                 {/* <div className="bom_switch">
                 
@@ -786,14 +790,16 @@ const resetOther = () => {
 
                 </div> */}
 
-            </div>
+
 
             
             
         </div>
         <div className="button">
-            <button className="submit_button btn_hover_animation">Create Group</button>
-            <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button>
+            <ContainedButton value="Create Group" />
+            <ContainedSecondaryButton value="Cancel"/>
+            {/* <button className="submit_button btn_hover_animation">Create Group</button> */}
+            {/* <button className="cancel_button btn_hover_animation" onClick={handleClose}>Cancel</button> */}
         </div>
         </div>
 
