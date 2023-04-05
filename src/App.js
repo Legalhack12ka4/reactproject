@@ -131,7 +131,7 @@ const [logout,setLogout] = useState(true)
           <Route path='customers/customerPage' element={<CustomerPage/>} />
           <Route path='leads' element={<LeadsData/>} />
           <Route path='leads/add_leads' element={<Leads/>} />
-          <Route path='contacts' element={<ContactsData/>} />
+          <Route path='business_account/contacts' element={<ContactsData/>} />
           {/* <Route path='add_inventory' element={<AddInventoryItem/>} /> */}
           <Route path='item_&_service' element={<ItemandService/>} />
           <Route path='item_&_service/new_inventory_item' element={<NewInventoryItem/>} />
@@ -146,11 +146,11 @@ const [logout,setLogout] = useState(true)
           <Route path="item_&_service/jobwork_item" element={<JobWorkItem/>}/>
           <Route path="item_&_service/fixedassets_group" element={<FixedAssetsGroup/>}/>
           <Route path="item_&_service/fixedassets_item" element={<FixedAssetsItem/>}/>
-          <Route path='vendors' element={<VendorsData/>} />
-          <Route path='vendors/add_vendors' element={<Vendors/>} />
-          <Route path='contacts/add_contacts' element={<Contacts/>} />
-          <Route path='customers' element={<Customers/>} />
-          <Route path='customers/addcustomer' element={<AddNewCustomer/>} />
+          <Route path='business_account/vendors' element={<VendorsData/>} />
+          <Route path='business_account/vendors/add_vendors' element={<Vendors/>} />
+          <Route path='business_account/contacts/add_contacts' element={<Contacts/>} />
+          <Route path='business_account/customers' element={<Customers/>} />
+          <Route path='business_account/customers/addcustomer' element={<AddNewCustomer/>} />
           <Route path='accounts' element={<Accounts/>} />
           <Route path='/module/customer/customerPage' element={<CustomerPage />} />
           <Route path='module' element={<Module/>} />
@@ -188,7 +188,7 @@ const [logout,setLogout] = useState(true)
           <Route path="purchase/purchase_order/add_purchase" element={<PurchaseOrder/>}/>
           <Route path="bills/bills_order" element={<BillsData/>}/>
           <Route path="bills/bills_order/add_bills" element={<Bills/>}/>
-          <Route path="contacts/contact_preview/:id/:activePage" element={<ContactPreview />}/>
+          <Route path="business_account/contacts/contact_preview/:id/:activePage" element={<ContactPreview />}/>
           <Route path="customers/customer_vendor_preview/:id/:activeTab" element={<VendorPreview />}/>
 
       </Route>
