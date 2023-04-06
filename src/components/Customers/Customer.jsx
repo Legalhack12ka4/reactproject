@@ -75,7 +75,8 @@ const Customer = (props) => {
   const [creditAmount, setCreditAmount] = useState('');
   const [formattedCreditAmount, setFormattedCreditAmount] = useState('');
   const [allCustomer, setAllCustomer] = useState([]);
-  const [gstinError, setGstinError] =useState(false)
+  const [gstinError, setGstinError] =useState(false);
+  const [status, setStatus] = useState([])
   const[updateId, setUpdateId]=useState({
     gsttreat: "",
     gstin: "",
@@ -213,6 +214,7 @@ const handleConfirmCancelUpdate = () => {
               ? "jhhghj"
               : "Ranveer",
           Ownsership: row.ownership == 1 ? "ubuntu" : "window",
+          Type:row.type,
           // id: row.id
         }))
       );
@@ -430,6 +432,43 @@ console.log(addressdata)
   }));
 
 
+//#region to know customer vendor
+useEffect (() => 
+{
+  getstatus();
+},[])
+
+const getstatus = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setStatus(data.data.items);
+      console.log(data);
+    });
+};
+console.log(status)
+//type category of cuatomer/vendor
+
+const getcategorydata = status
+.filter((place) => place.field === "type" && place.module === "cus_ven" )
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+ console.log(getcategorydata)
+
+ let typedata = getcategorydata.find(
+  (option) => option.key === fetchcustomer.type && option.label
+)?.label;
+
+console.log(fetchcustomer)
+console.log(typedata);
+//#endregion
+
+ 
+
   const dataSource = fetchcustomer.map((customer) => ({
      key:customer.Key,
       id:customer.Key,
@@ -454,8 +493,12 @@ console.log(addressdata)
     country: customer.Country,
     contact: customer.Contact,
     ownership: customer.Ownsership,
+    type: getcategorydata.find(
+      (option) => option.key === customer.Type && option.label
+    )?.label
   }));
- 
+ console.log(dataSource);
+
   const columnsData = [
     {
       title: "Business Name",
@@ -714,8 +757,8 @@ console.log(addressdata)
         <Popover   getPopupContainer={(trigger) => trigger.parentElement} showArrow={true}
         placement="left" content={
                  <div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px", marginBottom:"10px"}}>  
-                 <img src={deletelogo} />
+                 <div className="delete-hover popover-menu-item" >  
+                 <img src="\images\icons\delete_record.svg" />
                  <div>
                  <button 
                  className="actionlabel"
@@ -725,8 +768,8 @@ console.log(addressdata)
                  </button>
                  </div>
                  </div>
-                 <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-               <img src={editlogo} />
+                 <div className="edit-hover popover-menu-item" >
+                 <img src="\images\icons\edit_record.svg" />
                   <div>
           
              <button
@@ -739,22 +782,23 @@ console.log(addressdata)
 
                  </div>
                  </div>
-                 {/* <div style={{display:"flex", alignItems:"center", gap:"11px"}}>
-                  <img src={statuslogo} />
-                  <div>
-                 <button
-                  className="actionlabel"
-                  style={{minWidth: "max-content"}}
-                    // onClick={() => handleUpdate(record)}
-                 >
-                  Set as Activate
-                 </button>
-                 </div>
-                 </div> */}
                  </div>
                  
         } title="" height={100} trigger="click">
-      <img src={editdelete} style={{cursor:"pointer"}} />
+           <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                cursor: "pointer",
+                height: "100%",
+                justifyContent:"center",
+                marginLeft:"-10px"
+              }}
+            
+            >
+      <img src={editdelete} style={{ transform: "rotate(90deg)", cursor:"pointer" }} />
+      </div>
         </Popover>
        
           ),
@@ -846,11 +890,9 @@ console.log(addressdata)
   );
 
 
-
-
- 
   const cusomizeData = dataSource.filter(
     (record) =>
+    record.type === 'Customers' &&
       // record.gst_treatment
         
       //   .includes(custfilter.gsttreat) &&
@@ -1060,7 +1102,8 @@ else
       <div className="customers fixed_heading_container">
         <Page_heading
           parent={"Business Account"}
-          child={window.location.pathname.slice(1)}
+          child={"Customers"}
+          
         />
 
         {/* <DateRangePickerComp /> */}

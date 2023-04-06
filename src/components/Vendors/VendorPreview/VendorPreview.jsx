@@ -33,6 +33,10 @@ import {
 import { ContainedIconButton, GhostIconButton } from "../../Buttons/Button";
 import CustomInput from "../../CustomInput/CustomInput";
 import Notes from "../../Notes/Notes";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { useFormik } from "formik";
+import { bank } from "../../../Schemas";
 
 const filterfield = {
   name: "",
@@ -82,7 +86,18 @@ const VendorPreview = () => {
   const [custcommission, setcustcommission]=useState([]);
   const [bankDeleteModal, setBankDeleteModal] = useState(false);
   const [addressDeleteModal, setAddressDeleteModal] = useState(false);
-
+  const [bankData, setBankData] = useState
+  (
+    {
+      iFSC: "",
+      bank_name: "",
+      account_number: "",
+      re_account:"",
+      branch: "",
+    }
+  )
+  const [bankDetails, setBankDetails] = useState ([])
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const { id } = useParams();
 
@@ -107,7 +122,7 @@ const VendorPreview = () => {
     setAddAddressModal(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit1 = () => {
     setSalesOrderModal(false);
     setCustomerSubmit(true);
   };
@@ -124,7 +139,7 @@ const VendorPreview = () => {
     // getSingleCustomerVendor();
     getCusVenCurrency();
     getCusVenpayent();
-    getPincodeArea();
+    //getPincodeArea();
     getCusVenCommission();
   }, []);
 
@@ -136,6 +151,8 @@ const VendorPreview = () => {
         console.log(data);
       });
   };
+
+  console.log(getCustomer)
 
   //get customervendor
 
@@ -231,17 +248,17 @@ const VendorPreview = () => {
   console.log(paymentdata)
   //get customer/vendor pincode area
 
-  const getPincodeArea = () => {
-    return fetch(`${config.baseUrl}/pincode/${singleAddress}`)
-      .then((response) => response.json())
+  // const getPincodeArea = () => {
+  //   return fetch(`${config.baseUrl}/pincode/${singleAddress}`)
+  //     .then((response) => response.json())
 
-      .then((data) => {
-        setCusVenPincode(data);
-        console.log(data);
-      });
-  };
+  //     .then((data) => {
+  //       setCusVenPincode(data);
+  //       console.log(data);
+  //     });
+  // };
 
-  console.log(cusvenPincode);
+  // console.log(cusvenPincode);
 
   // console.log(status, getstatusdata)
 
@@ -287,22 +304,31 @@ const VendorPreview = () => {
     return fetch(`${config.baseUrl}/master/`)
       .then((response) => response.json())
       .then((data) => {
-        setStatus(data);
+        setStatus(data.data.items);
         console.log(data);
       });
   };
-  console.log(id)
+  console.log(status)
   //type category of cuatomer/vendor
 
-  // const getcategorydata = status
-  // .filter((place) => place.field === "c_type" || "v_type" && place.module === "Customer" || "Vendor" )
-  // .map((place) => ({
-  //   key: place.id,
-  //   label: place.master_key,
-  //   value: place.master_key,
-  // }));
-  console.log(status);
-  // console.log(getcategorydata)
+  const getcategorydata = status
+  .filter((place) => place.field === "type" && place.module === "cus_ven" )
+  .map((place) => ({
+    key: place.id,
+    label: place.master_key,
+    value: place.master_key,
+  }));
+ 
+   console.log(getcategorydata)
+
+   let typedata = getcategorydata.find(
+    (option) => option.key === getCustomer.type && option.label
+  )?.label;
+
+  console.log(typedata);
+
+
+
 
   let typecategorydata = "k";
   // getcategorydata.find(
@@ -690,7 +716,7 @@ const activePage = parts.pop();
 
   console.log(custfilter);
 
-  const handleChange = (field, value) => {
+  const handleChange1 = (field, value) => {
     setCustFilter({ ...custfilter, [field]: value });
     console.log("value", value);
     console.log("field", value);
@@ -794,14 +820,198 @@ const activePage = parts.pop();
   const handleDeleteAddCancel = () => {
     setAddressDeleteModal(false);
   };
+//#region formate date for created by
+const timestamp = getCustomer.updated_date_time;
+const date = new Date(timestamp);
+
+// Format the date into "dd, mmm yyyy hh:mm AM/PM" format
+const formattedDate = `${date.getDate()} ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
+
+// Function to format time in "hh:mm AM/PM" format
+function formatTime(date) {
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const amPm = hours < 12 ? "AM" : "PM";
+  hours = hours % 12 || 12;
+  minutes = minutes < 10 ? `0${minutes}` : minutes;
+  return `${hours}:${minutes} ${amPm}`;
+}
+
+console.log(formattedDate); // Output: "31, March 2023 09:23 AM"
+
+//#endregion
+
+
+//#region CRUD BANK
+
+const onhandleChangeBank = (e) => {
+  const { value, name } = e.target;
+  
+  setBankData({ ...bankData, [name]: value });
+  setErrorMessage(false);
+  console.log(value);
+  console.log(name);
+  };
+  console.log(bankData)
+
+useEffect(() => {
+  getData(bankData.iFSC);
+
+}, [bankData.iFSC]);
+
+  const getData = (iFSC) => {
+   
+    axios.get(
+        `https://ifsc.razorpay.com/${iFSC}`
+    )
+      .then((response) => {
+        console.log(response)
+       
+        return response;
+      })
+      .then((data) => {
+      console.log(data)
+        setBankData(prevFormData => ({
+          ...prevFormData,
+          bank_name :data.data.BANK,
+          branch:data.data.BRANCH,
+        }));
+        console.log("data", data);
+        console.log(data)
+      }).catch((error) => {
+        if(error.response.status === 404)
+     
+        {
+          setBankData(prevFormData => ({
+            ...prevFormData,
+          bank_name:  "" ,
+           branch:"",
+          }));
+        }
+        console.log(error.response.status)
+      })
+  };
+
+  console.log(bankData)
+
+
+  useEffect(() => {
+    getBank();
+  }, []);
+  
+  const getBank = () => {
+    return fetch(`${config.baseUrl}/bank/`)
+      .then((response) => response.json())
+      .then((data) => {
+        setBankDetails(data.data.items);
+        console.log(data);
+      });
+  };
+
+  const getbankCustomerdata = bankDetails
+  .map((place) => ({
+    key: place.id,
+    label: place.customer_ref,
+    value: place.customer_ref,
+  }));
+ 
+   console.log(getbankCustomerdata)
+
+   let bankId = getbankCustomerdata.find(
+    (option) => option.key  && option.label
+  )?.label;
+
+  console.log(bankId);
+console.log(id)
+  
+  console.log(bankDetails);
+
+if(bankId == id)
+{
+  console.log("Done")
+}
+else
+{
+  console.log("Not Done")
+}
+
+
+  const handleFormSubmit = () => {
+    if (bankData.account_number !== bankData.re_account) {
+      setErrorMessage(true);
+    }
+    else
+    {
+  axios
+  .post(
+    `${config.baseUrl}/bank/`,
+    {
+
+      "beneficiary_name": "Vimlesh",
+      "bank_name": bankData.bank_name,
+      "account_number": bankData.account_number,
+      "iFSC": bankData.iFSC,
+      ...(bankData.bank_image && { bank_image: bankData.bank_image}),
+      ...(bankData.branch && { branch: bankData.branch}),
+      "customer_ref": id,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+    },
+    bankData
+  )
+  .then((response) => {
+    // getData();
+    setAddBankModal(false);
+    getBank();
+
+    toast.success("Bank added Successfuly", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+
+  });
+}
+}
+
+
+//#endregion
+
+
+//#region validation
+
+const {
+  errors,
+  values,
+  handleBlur,
+  touched,
+  handleChange,
+  handleSubmit,
+  setFieldValue,
+  setFieldTouched,
+} = useFormik({
+  initialValues: bankData,
+
+  validationSchema: bank,
+  onSubmit: (values) => {
+    console.log(values);
+  },
+});
+
+//#endregion
   return (
     <div className="vendor-preview-main">
       <Page_heading
         parent={"Business Account"}
-        child={getCustomer.business_name ? getCustomer.business_name : ""}
+        child={getCustomer.business_name ? getCustomer.business_name : typedata === "Customers" ? "Customers" : "Vendor"}
         subchild={
-          <Link exact to="/customers">
-            {"Customer"}
+          <Link exact to="/business_account/customers">
+            {"Customers"}
           </Link>
         }
         addEditBtn={
@@ -979,7 +1189,7 @@ const activePage = parts.pop();
 
       <div className="card-table-container">
         <div className="card-container">
-          <NavLink to={`/customers/customer_vendor_preview/${id}/account_overview`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/account_overview`}>
           <div
             className={`card-btn ${activeTab === "account" && "active-btn"}`}
             onClick={() => setActiveTab("account")}
@@ -991,7 +1201,7 @@ const activePage = parts.pop();
             <p className="sc-body-rg">Overview of Account</p>
           </div>
           </NavLink>
-          <NavLink to={`/customers/customer_vendor_preview/${id}/contacts`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/contacts`}>
           <div
             className={`card-btn ${activeTab === "contacts" && "active-btn"}`}
             onClick={() => setActiveTab("contacts")}
@@ -1003,7 +1213,10 @@ const activePage = parts.pop();
             <p className="sc-body-rg">Assigned with Account</p>
           </div>
           </NavLink>
-          <NavLink to={`/customers/customer_vendor_preview/${id}/agent`}>
+      {typedata === "Customers" &&
+      <>
+    
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/agent`}>
           <div
             className={`card-btn ${activeTab === "agent" && "active-btn"}`}
             onClick={() => setActiveTab("agent")}
@@ -1017,7 +1230,7 @@ const activePage = parts.pop();
           </NavLink>
 
 
-          <NavLink to={`/customers/customer_vendor_preview/${id}/transporter`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/transporter`}>
           <div
             className={`card-btn ${activeTab === "transporter" && "active-btn"}`}
             onClick={() => setActiveTab("transporter")}
@@ -1029,9 +1242,10 @@ const activePage = parts.pop();
             <p className="sc-body-rg">Transporter Details</p>
           </div>
           </NavLink>
+          </>
+      }
 
-
-          <NavLink to={`/customers/customer_vendor_preview/${id}/bank`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/bank`}>
           <div
             className={`card-btn ${activeTab === "bank" && "active-btn"}`}
             onClick={() => setActiveTab("bank")}
@@ -1044,7 +1258,7 @@ const activePage = parts.pop();
           </div>
           </NavLink>
 
-          <NavLink to={`/customers/customer_vendor_preview/${id}/analytics`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/analytics`}>
           <div
             className={`card-btn ${activeTab === "analytics" && "active-btn"}`}
             onClick={() => setActiveTab("analytics")}
@@ -1058,7 +1272,7 @@ const activePage = parts.pop();
           </NavLink>
 
 
-          <NavLink to={`/customers/customer_vendor_preview/${id}/address`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/address`}>
           <div
             className={`card-btn ${activeTab === "address" && "active-btn"}`}
             onClick={() => setActiveTab("address")}
@@ -1072,7 +1286,7 @@ const activePage = parts.pop();
           </NavLink>
 
 
-          <NavLink to={`/customers/customer_vendor_preview/${id}/notes`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/notes`}>
           <div
             className={`card-btn ${activeTab === "notes" && "active-btn"}`}
             onClick={() => setActiveTab("notes")}
@@ -1086,7 +1300,7 @@ const activePage = parts.pop();
           </NavLink>
 
 
-          <NavLink to={`/customers/customer_vendor_preview/${id}/attachments`}>
+          <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/attachments`}>
           <div
             className={`card-btn ${
               activeTab === "attachments" && "active-btn"
@@ -1105,11 +1319,12 @@ const activePage = parts.pop();
 
         <div className="table-container">
           {activePage === "bank" && (
+            <div style={{height:"72vh"}}>
             <div className="bank-details-container">
               {
                 <div className="table-header">
                   <h1 className="title-sb">
-                    Banks <span className="account-count">(4)</span>{" "}
+                    Banks <span className="account-count">({bankId == id  ? bankDetails.length : "0"})</span>{" "}
                   </h1>
 
                   <p
@@ -1122,7 +1337,12 @@ const activePage = parts.pop();
                   </p>
                 </div>
               }
-
+  
+            {bankDetails.map((bank) => 
+      
+            
+               bankId == id  &&
+           
               <div className="bank-account-details">
                 <div className="left">
                   <img
@@ -1131,12 +1351,12 @@ const activePage = parts.pop();
                     className="bank-logo"
                   />
                   <div className="account-number">
-                    <p className="subtitle-sb bank-name">Bank Of Baroda</p>
+                    <p className="subtitle-sb bank-name">{bank.bank_name}</p>
                     <p className="sc-body-rg account-title">
-                      A/C No. <span className="sc-body-md">: 00112345678</span>
+                      A/C No. <span className="sc-body-md">:{bank.account_number}</span>
                     </p>
                     <p className="sc-body-rg ifsc-title">
-                      IFSC: <span className="sc-body-md">BARB0CALICU</span>
+                      IFSC: <span className="sc-body-md">{bank.iFSC}</span>
                     </p>
                   </div>
                   <div className="primary-tag caption-sb">Primary</div>
@@ -1151,9 +1371,10 @@ const activePage = parts.pop();
                     <p className="caption-sb">Remove</p>
                   </div>
                 </div>
-              </div>
-
-              <Modal
+              </div>)
+            }
+               
+                      <Modal
                 open={addBankModal}
                 width={"max-content"}
                 onCancel={handleCancel}
@@ -1179,7 +1400,9 @@ const activePage = parts.pop();
                   </div>
                 }
               >
+            <form onSubmit={handleSubmit} autoComplete="off">
                 <div className="sales-order-modal-container">
+                
                   <div className="select-customer-container">
                     <h1 className="heading-sb">Add Bank</h1>
                     <p className="sc-body-rg title">
@@ -1188,29 +1411,60 @@ const activePage = parts.pop();
                     <hr className="h-line" />
 
                     <div className="d-flex f-diraction-col gap-20">
+                    <CustomInput
+                        width={330}
+                        label="IFSC"
+                        placeholder="IFSC"
+                        name="iFSC"
+                        value={bankData.iFSC}
+                        onChange={onhandleChangeBank}
+                      />
+
                       <SearchSelect
                         width={330}
                         placeholder="Bank"
                         label="Bank"
                         icon="/images/icons/bank-icon.svg"
+                        name="bank_name"
+                        value={bankData.bank_name}
+                        onChange={onhandleChangeBank}
                       />
                       <CustomInput
                         width={330}
                         label="Account No."
                         placeholder="Account No."
+                        name="account_number"
+                        value={bankData.account_number}
+                       // onFocus={handleFocus}
+                        onBlur={handleBlur}
+                        onChange={(e) => {onhandleChangeBank(e) ; handleChange(e)}}
+                        error={errors.account_number && touched.account_number ? true : false}
+                         errorMsg={errors.account_number}
                       />
                       <CustomInput
                         width={330}
                         label="Re-enter Account No."
                         placeholder="Re-enter Account No."
+                        name="re_account"
+                        value={bankData.re_account}
+                        onBlur={handleBlur}
+                        onChange={(e) => {onhandleChangeBank(e) ; handleChange(e)}}
+                        error={errors.re_account && touched.re_account || errorMessage ? true : false}
+                        errorMsg={errors.re_account || "Account is not same"}
+                        //{errorMessage && <p className="error-message">{errorMessage}</p>}
                       />
                       <CustomInput
                         width={330}
-                        label="IFSC"
-                        placeholder="IFSC"
+                        label="Branch"
+                        placeholder="Branch Name"
+                        name="branch"
+                        value={bankData.branch}
+                        onChange={onhandleChangeBank}
                       />
                       <div className="d-flex gap-16 mt-10">
-                        <ContainedButton value="Add Bank" />
+                        <ContainedButton value="Add Bank" type="submit"
+                        onClick={handleFormSubmit}
+                        />
                         <ContainedSecondaryButton
                           value="Cancel"
                           onClick={handleCancel}
@@ -1218,8 +1472,11 @@ const activePage = parts.pop();
                       </div>
                     </div>
                   </div>
+                
                 </div>
+                </form>
               </Modal>
+            </div>
             </div>
           )}
 
@@ -1236,7 +1493,7 @@ const activePage = parts.pop();
                       alt="calendar"
                       className="calendar-icon"
                     />
-                    <p className="date-time sc-body-md">12 March, 10:00 AM</p>
+                    <p className="date-time sc-body-md">{formattedDate}</p>
                   </div>
                   <p className="sc-body-md created-by">
                     Created by Ashish Jaria
@@ -1254,7 +1511,7 @@ const activePage = parts.pop();
 
                   <div className="d-line">
                     <p className="sc-body-rg title">GSTIN</p>
-                    <p className="sc-body-sb value">{getCustomer.gstin}</p>
+                    <p className="sc-body-sb value">{getCustomer.gstin ? getCustomer.gstin : "--"}</p>
                   </div>
 
                   <div className="d-line">
@@ -1264,32 +1521,32 @@ const activePage = parts.pop();
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Currency</p>
-                    <p className="sc-body-sb value">{currencydata}</p>
+                    <p className="sc-body-sb value">{currencydata ? currencydata : "--"}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Commission Terms</p>
-                    <p className="sc-body-sb value">{commissiondata}</p>
+                    <p className="sc-body-sb value">{commissiondata ? commissiondata :"--"}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Payment Terms</p>
-                    <p className="sc-body-sb value">{paymentdata}</p>
+                    <p className="sc-body-sb value">{paymentdata ? paymentdata :"--"}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">TAN No.</p>
-                    <p className="sc-body-sb value">{getCustomer.tan_no}</p>
+                    <p className="sc-body-sb value">{getCustomer.tan_no ? getCustomer.tan_no :"--"}</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Credit limit</p>
-                    <p className="sc-body-sb value">₹ {getCustomer.credit_limit}</p>
+                    <p className="sc-body-sb value">₹ {getCustomer.credit_limit ? getCustomer.credit_limit : "--" }</p>
                   </div>
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Email</p>
-                    <p className="sc-body-sb value">{getCustomer.email}</p>
+                    <p className="sc-body-sb value">{getCustomer.email ? getCustomer.email :"--"}</p>
                   </div>
                 </div>
               </div>
@@ -1365,7 +1622,7 @@ const activePage = parts.pop();
                           name="ownership"
                           value={custfilter.ownership}
                           options={ownership}
-                          onChange={handleChange}
+                          onChange={handleChange1}
                         />
                       </div>
                     </div>,
@@ -1577,7 +1834,8 @@ const activePage = parts.pop();
               </div>
             </div>
           )}
-
+    {typedata === "Customers" &&
+    <>
           {activePage === "agent" && (
             <div className="contact-preview-table-container">
               <div className="filter-searchbar-container">
@@ -1615,7 +1873,7 @@ const activePage = parts.pop();
                           name="ownership"
                           value={custfilter.ownership}
                           options={ownership}
-                          onChange={handleChange}
+                          onChange={handleChange1}
                         />
                       </div>
                     </div>,
@@ -1855,7 +2113,7 @@ const activePage = parts.pop();
                           name="ownership"
                           value={custfilter.ownership}
                           options={ownership}
-                          onChange={handleChange}
+                          onChange={handleChange1}
                         />
                       </div>
                     </div>,
@@ -2061,6 +2319,8 @@ const activePage = parts.pop();
               </div>
             </div>
           )}
+          </>
+          }
 
           {activePage === "address" && (
             <div className="address-container">
@@ -2309,7 +2569,7 @@ const activePage = parts.pop();
                 <div className="delete-cancel-btn d-flex gap-16 mt-30">
                   <ContainedButton
                     value="Delete"
-                    onClick={handleSubmit}
+                    onClick={handleSubmit1}
                     color="danger"
                   />
                   <ContainedSecondaryButton
@@ -2367,7 +2627,7 @@ const activePage = parts.pop();
                 <div className="delete-cancel-btn d-flex gap-16 mt-30">
                   <ContainedButton
                     value="Delete"
-                    onClick={handleSubmit}
+                    onClick={handleSubmit1}
                     color="danger"
                   />
                   <ContainedSecondaryButton
@@ -2474,6 +2734,7 @@ const activePage = parts.pop();
           </Modal>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

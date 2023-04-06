@@ -154,7 +154,7 @@ const handleUpdate = (record) => {
 //#endregion 
 
 
-let assignedId=props.notesData.id
+let assignedId=props.notesData?.id
 //console.log(assignedId)
 useEffect(() => {
   getNoteAssigedData();

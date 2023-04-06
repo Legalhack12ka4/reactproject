@@ -59,3 +59,9 @@ export const logindata = Yup.object().shape({
     password: Yup.string().required('Password is required'),
   
 });
+
+export const bank = Yup.object().shape({
+    re_account: Yup.string().required('Re-Enter Account'),
+    account_number: Yup.string().required('Account is required'),
+  
+});
