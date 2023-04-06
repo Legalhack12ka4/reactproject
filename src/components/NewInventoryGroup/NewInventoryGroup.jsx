@@ -550,11 +550,11 @@ const resetOther = () => {
                     <CustomInput
                     type="text"
                     width={330}
-                    icon="/images/icons/HSNSearch.svg"
+                    icon="/images/icons/group-icon.svg"
                     label="Group Name"
                   inputType={"AlphaNumericUpperCase"}
                     name="group_name"
-                    placeholder="Placeholder"
+                    placeholder="Name"
                    value={formData.group_name}
                 onChange={(e, newValue) => 
                   setFormData(prevState => ({

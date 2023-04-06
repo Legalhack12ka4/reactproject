@@ -49,6 +49,7 @@ const NewInventoryItem = () => {
   const [conversionOptionsRows, setConversionOptionsRows] = useState([
     { id: 1, name: "row1", value: "" },
   ]);
+  const [skuOpen, setSkuOpen] = useState(false);
 
   const uomRef = React.useRef(null);
   const conversionRef = React.useRef(null);
@@ -72,7 +73,10 @@ const NewInventoryItem = () => {
   const uploadButton = (
     <div className="uploader_img">
       {fileList.length === 0 ? (
+        <div>
+        <img src="/images/icons/add-image-icon.svg" alt="" />
         <p className="dropFileText">Drop files here or click to upload</p>
+        </div>
       ) : (
         <PlusOutlined style={{ color: "#566A76" }} />
       )}
@@ -85,10 +89,10 @@ const NewInventoryItem = () => {
           <p className="image_desc">
             <span>
               You Can add up to{" "}
-              <span className="image_text_bold">5 Images</span>
+              <span className="image_text_bold">6 Images</span>
             </span>
             <span>
-              each not exceeding <span className="image_text_bold">2 MB.</span>
+              each not exceeding <span className="image_text_bold">1 MB.</span>
             </span>
           </p>
         ) : (
@@ -137,6 +141,10 @@ const NewInventoryItem = () => {
       prevRows.filter((row) => row.id !== id)
     );
   };
+
+  const handleSkuClose = () => {
+    setSkuOpen(false);
+  };
   return (
     <div className="new_inventory_item_main">
     <Page_heading parent={"Item & Service"} child={"New Item"} main={"New Raw Material & Traded Item"} subchild={"Raw Material & Traded Item"} />
@@ -154,7 +162,7 @@ const NewInventoryItem = () => {
 <div style={{display:"flex", gap:"20px"}} className="left-container">
  <div className="input_box_container">
    <div className="input_group" style={{ marginBottom: "20px" }}>
-     <SearchSelect label="Item Group" width={330} />
+     <SearchSelect label="Item Group" placeholder="Item Group" width={330} icon="/images/icons/group-icon.svg" />
    </div>
 
   
@@ -168,7 +176,7 @@ const NewInventoryItem = () => {
            type="text"
          inputType={"AlphaNumericUpperCase"}
            name="name"
-           placeholder="Placeholder"
+           placeholder="Name"
           value={formData.name}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
@@ -190,7 +198,7 @@ const NewInventoryItem = () => {
          inputType={"Numeric"}
            name="hsn_code"
            label="HSN Code"
-           placeholder="Placeholder"
+           placeholder="61051010"
            icon="/images/icons/HSNSearch.svg"
            width={330}
           value={formData.hsn_code}
@@ -211,18 +219,21 @@ const NewInventoryItem = () => {
        <div className="barcode-scanner">
        <CustomInput
            type="text"
-           label="Barcode"
+           label="SKU"
            icon="/images/icons/barcode.svg"
          inputType={"AlphaNumericUpperCase"}
            name="barcode"
            width={330}
-           placeholder="Placeholder"
+           placeholder="GR-IT-0009"
           value={formData.barcode}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
            ...prevState,
            "barcode": newValue
          }))}
+         rightBtn={
+          <div className="d-flex align-center justify-center sku-right-btn" onClick={()=>setSkuOpen(true)} ><img src="/images/icons/setting-blue.svg" alt="icon" /></div>
+         }
          //onBlur={handleBlur}
      />
          {/* <input
@@ -251,9 +262,10 @@ const NewInventoryItem = () => {
            type="text"
            label="Purchase Price"
            width={155}
+           icon="/images/icons/Rupee.svg"
          inputType={"Numeric"}
            name="purchase"
-           placeholder="Placeholder"
+           placeholder="Indicative Price"
           value={formData.purchase}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
@@ -275,8 +287,9 @@ const NewInventoryItem = () => {
           width={155}
            type="text"
          inputType={"Numeric"}
+         icon="/images/icons/Rupee.svg"
            name="sale"
-           placeholder="Placeholder"
+           placeholder="Indicative Price"
           value={formData.sale}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
@@ -301,8 +314,9 @@ const NewInventoryItem = () => {
            label="Minimum Stock"
             width={155}
          inputType={"Numeric"}
+         icon="/images/icons/stock-icon.svg"
            name="min"
-           placeholder="Placeholder"
+           placeholder="1 Pcs"
           value={formData.min}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
@@ -323,8 +337,9 @@ const NewInventoryItem = () => {
            label="Maximum Stock"
             width={155}
          inputType={"Numeric"}
+         icon="/images/icons/stock-icon.svg"
            name="max"
-           placeholder="Placeholder"
+           placeholder="1 Pcs"
           value={formData.max}
        onChange={(e, newValue) => 
          setFormData(prevState => ({
@@ -382,7 +397,6 @@ const NewInventoryItem = () => {
      className="input_group"
      style={{ marginTop: "20px", marginBottom: "20px" }}
    >
-     <p>Description</p>
      {/* <div
          className={`${
            errors.description && touched.description && "inputError"
@@ -417,26 +431,15 @@ const NewInventoryItem = () => {
            //}}
          />
        </div>*/}
-     <div className="input_containerdes focus-outline">
-       <textarea   resizable={false}
-         style={{
-           width: "668.4px",
-           height: "102.4px",
-           outline: "none",
-           border: "none",
-           resize: "none",
-         }}
-         type="text"
-       className="input_containerdes " 
-        //placeholder="Placeholder"
-         />
+     <div className="input-containerdes focus-outline">
+      <CustomInput textArea width={330} height={110} label="Description" placeholder="About Item" />
      </div>
    </div> 
 
    <div className="input_group">
      <p>Tags</p>
      <div className="tags_input_container focus-outline">
-       <TagsInput />
+       <TagsInput placeholder="Name" />
      </div>
    </div>
  </div>
@@ -445,10 +448,10 @@ const NewInventoryItem = () => {
    <p
      style={{
        fontSize: "16px",
-       color: "#5C5AD0",
        fontWeight: "600",
-       marginBottom: "8px",
+       marginBottom: "20px",
      }}
+     className="item_group_details"
    >
      Item Group details
    </p>
@@ -664,7 +667,7 @@ const NewInventoryItem = () => {
        <p style={{ color: "#101729", fontSize: "16px",fontWeight:"600"  }}>
          Enable Multi Uom
        </p>
-       <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
+       <p className="sc-body-rg mt-10">
        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
        diam nonumy eirmod tempor invidunt ut labore et dolore magna
        aliquyam erat, sed diam voluptua. At vero eos et accusam et
@@ -674,10 +677,10 @@ const NewInventoryItem = () => {
          <div className="enableMultiUom">
            <div className="packing_option">
              <div className="packing_option_heading">
-               <div className="package_name">Multi Uom</div>
-               <div className="unit_of_measurement">Standard Uom</div>
-               <div className="qty">Base Qty</div>
-               <div className="pack_qty">Pack Qty</div>
+               <div className="package_name caption-md">Multi Uom</div>
+               <div className="unit_of_measurement caption-md">Standard Uom</div>
+               <div className="qty caption-md">Base Qty</div>
+               <div className="pack_qty caption-md">Pack Qty</div>
              </div>
              <div
                className={`packing_setting_rows_container ${unitOfMasurementRows.length > 4 ? "container_scroll" : ""}`}
@@ -686,29 +689,26 @@ const NewInventoryItem = () => {
                {unitOfMasurementRows.map((item, index) => {
                  return (
                    <div className={`packing_option_row ${unitOfMasurementRows.length-1 === index && "last-row"}`}>
-                     <div className="unit_of_measurement">
+                     <div className="unit_of_measurement" style={{padding:"10px 20px"}}>
                        <SearchDropdown width={155} />
                      </div>
                      <div className="package_name">
-                       <input
-                         type="text"
-                         disabled
-                         className="package_name_input"
+                       <CustomInput
+                          width={155}
+                          disabled
                        />
                      </div>
                      <div className="qty">
-                       <input
-                         type="text"
+                       <CustomInput
+                       width={50}
                          disabled
-                         className="qty_input"
                        />
                      </div>{" "}
                      X
                      <div className="pack_qty">
-                       <input
-                         type="text"
+                     <CustomInput
+                       width={50}
                          disabled
-                         className="pack_qty_input"
                        />
                      </div>
                      <div className="edit_delete" onClick={() => handleDeleteMultiUomRow(item.id)}>
@@ -747,7 +747,7 @@ const NewInventoryItem = () => {
        <p style={{ color: "#101729", fontSize: "16px", fontWeight:"600" }}>
          Enable Conversion Uom
        </p>
-       <p style={{ color: "#8E9CAA", fontSize: "14px", marginTop:"10px" }}>
+       <p className="sc-body-rg mt-10">
        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
        diam nonumy eirmod tempor invidunt ut labore et dolore magna
        aliquyam erat, sed diam voluptua. At vero eos et accusam et
@@ -757,9 +757,9 @@ const NewInventoryItem = () => {
          <div className="enableConversionUom">
            <div className="conversion_options">
              <div className="conversion_options_heading">
-               <div className="conversion_name">Conversion Name</div>
-               <div className="convert_from">Convert from</div>
-               <div className="convert_to">Convert to</div>
+               <div className="conversion_name caption-md">Conversion Name</div>
+               <div className="convert_from caption-md">Convert from</div>
+               <div className="convert_to caption-md">Convert to</div>
              </div>
              <div
                className={`conversion_options_row_container ${conversionOptionsRows.length > 4 ? "container_scroll" : ""}`}
@@ -769,44 +769,36 @@ const NewInventoryItem = () => {
                  return (
                   <div>
                     <div className={`conversion_options_row ${conversionOptionsRows.length-1 === index && "last-row"}`}>
-                     <div className="conversion_name">
+                     <div className="conversion_name" style={{padding:"10px 20px"}}>
                        {/* <input
                          type="text"
                          disabled
                          className="conversion_name_input"
                        /> */}
-                       <SearchDropdown width={180} />
+                       <SearchSelect width={180} />
                      </div>
                      <div className="convert_from">
                      {/* <SearchDropdown width={155} />
                       */}
-                       <input
-                         type="text"
-                         className="convert_from_input"
-                         // value={1}
+                       <CustomInput
+                       width={50}
                          disabled
                        />
-                        <input
-                         type="text"
-                         className="convert_from_input1"
-                         // value={1}
+                        <CustomInput
+                       width={155}
                          disabled
                        />
                        
                      </div>
                      =
                      <div className="convert_to">
-                       <input
-                         type="text"
-                         // placeholder="Qty"
+                     <CustomInput
+                       width={50}
                          disabled
-                         className="convert_to_input"
                        />
-                       <input
-                         type="text"
-                         // placeholder="Qty"
+                      <CustomInput
+                       width={155}
                          disabled
-                         className="convert_to_input1"
                        />
                      </div>
                      <div className="edit_delete" onClick={() => handleDeleteConversionUomRow(item.id)} >
@@ -861,7 +853,57 @@ const NewInventoryItem = () => {
 
 
 
+<Modal
+              open={skuOpen}
+              width={"max-content"}
+              onCancel={handleSkuClose}
+              style={{ top: 0 }}
+              className={"deleteconfirm"}
+              footer={false}
+              closeIcon={
+                <div className="icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13.51"
+                    height="13"
+                    viewBox="0 0 13.51 13"
+                  >
+                    <path
+                      id="Path_34362"
+                      data-name="Path 34362"
+                      d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                      transform="translate(-2.248 -2.248)"
+                      fill="#697a8d"
+                    />
+                  </svg>
+                </div>
+              }
+            >
+              <div className="update-contact-container">
+                <div className="header">
+                  <h1 className="heading-sb">SKU Method</h1>
+                  <p className="sc-body-rg mt-10 title">
+                  Choose the SKU method from the below options
+                  </p>
+                  <hr className="h-line" />
 
+                  <div className="barcode-sku-container">
+                    <div className="sku-btn">
+                      <div className="img-container"><img src="/images/icons/barcode.svg" alt="icon" /></div>
+                      <p className="subtitle-sb">Scan Barcode</p>
+                      <p className="caption-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                    <div className="sku-btn">
+                      <div className="img-container"><img src="/images/icons/barcode-icon.svg" alt="icon" /></div>
+                      <p className="subtitle-sb">Generate SKU</p>
+                      <p className="caption-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+                  </div>
+
+                  
+                </div>
+              </div>
+            </Modal>
 
 
 

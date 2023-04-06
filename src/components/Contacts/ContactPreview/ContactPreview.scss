@@ -335,6 +335,11 @@
 .ant-picker-header-prev-btn:hover {
   color: $primary-100 !important;
 }
+.ant-picker-cell-selected{
+    .ant-picker-cell-inner{
+        color: #ffff !important;
+    }
+}
 
 .card-container {
     overflow-y: scroll;

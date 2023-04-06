@@ -44,6 +44,7 @@ const TagsInput = (props) => {
   return (
     <div className="main_tag_container" ref={divRef}  onClick={handleDivClick}>
       <div className="tag_contianer" ref={divRef}  onClick={handleDivClick}>
+        <img src="/images/icons/tags-icon.svg" alt="" style={{marginLeft:"4px"}} />
         {tags.map((tag, index) => (
            <div
            key={index}
@@ -63,6 +64,7 @@ const TagsInput = (props) => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
+        placeholder={tags.length===0 && props.placeholder}
       />
       </div>
       

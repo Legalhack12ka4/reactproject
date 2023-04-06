@@ -1,0 +1,6 @@
+<svg id="Generate_SKU" data-name="Generate SKU" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <rect id="Rectangle_17885" data-name="Rectangle 17885" width="28" height="28" fill="none"/>
+  <g id="bx-barcode" transform="translate(0 3)">
+    <path id="Union_57" data-name="Union 57" d="M2.4,18A2.328,2.328,0,0,1,0,15.75V2.251A2.329,2.329,0,0,1,2.4,0H21.6A2.329,2.329,0,0,1,24,2.251v13.5A2.328,2.328,0,0,1,21.6,18Zm0-2.25H21.6V2.251H2.4ZM18,13.5v-9h1.2v9Zm-4.8,0v-9h3.6v9Zm-2.4,0v-9H12v9Zm-2.4,0v-9H9.6v9Zm-3.6,0v-9H7.2v9Z" transform="translate(2 2)" fill="#64748b"/>
+  </g>
+</svg>

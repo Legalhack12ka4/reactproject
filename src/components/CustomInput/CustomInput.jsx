@@ -27,6 +27,8 @@ const CustomInput = ({
   textAlign,
   rightIcon,
   onClick,
+  height,
+  rightBtn,
 }) => {
   const [inputValue, setInputValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -125,10 +127,11 @@ const handleBlur =(e) =>
         {icon && <div className="icon-container-box"><img className="input-icon" src={icon} alt="icon" /></div>}
         {rightIcon && <img className="input-rightIcon" src={rightIcon} alt="icon" onClick={onClick} />}
         {symbol && <p className="input-symbol sc-body-rg">{symbol}</p>}
+        {rightBtn && <div className="right-input-btn">{rightBtn}</div> }
       {textArea ? <textarea 
         resizable={false}
         id={`${id} focus-input`}
-        style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px"}}
+        style={{width:icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px",maxWidth: icon ? width-56:width-30, padding: icon ? "0px 14px 0px 40px":"0px 14px", height: height,}}
         maxLength={maxLength}
         name={name}
         onBlur={(e) => {onBlur(e); setIsFocused(false)}}

@@ -1324,7 +1324,7 @@ const {
               {
                 <div className="table-header">
                   <h1 className="title-sb">
-                    Banks <span className="account-count">({bankId == id  ? bankDetails.length : "0"})</span>{" "}
+                    Banks <span className="account-count">({bankDetails.length})</span>{" "}
                   </h1>
 
                   <p
@@ -1341,7 +1341,7 @@ const {
             {bankDetails.map((bank) => 
       
             
-               bankId == id  &&
+              // bankId == id  &&
            
               <div className="bank-account-details">
                 <div className="left">
