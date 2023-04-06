@@ -2168,7 +2168,7 @@ const handleOpenChange = (isOpen) => {
         parent={"Business Account"}
         child={"Contact Details"}
         subchild={
-          <Link exact to="/contacts">
+          <Link exact to="/business_account/contacts">
             {"Contacts"}
           </Link>
         }

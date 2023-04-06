@@ -31,7 +31,7 @@ const AttachmentFile = (props) => {
   
     return (
     <div className='attachment-files-container'>
-        {props.getData.map((file, index) => {
+        {props.getData?.map((file, index) => {
                      const timestamp = file.updated_date_time;
                      const date = new Date(timestamp);
                      

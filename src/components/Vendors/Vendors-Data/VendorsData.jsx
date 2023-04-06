@@ -16,7 +16,7 @@ import statuslogo from "../../../assets/Images/ActionStatus/status.svg";
 import alert from "../../../assets/Images/Confirmation/confirm.svg";
 //import { ChildStateModificationFunc } from "../Vendors";
 import { ChildStateModificationFunc } from "../Vendors";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { SearchSelect } from "../../Dropdowns/Dropdowns";
 
 const filterfield = {
@@ -56,6 +56,7 @@ const VendorsData = () => {
   const [currencydrp, setCurrencydrp] = useState([]);
   const [payment, setPayment] = useState([]);
   const [street, setStreet] = useState([]);
+  const [status, setStatus] = useState([])
   //for modal delete
 
   
@@ -130,7 +131,7 @@ const VendorsData = () => {
               ? "jhhghj"
               : "Ranveer",
           Ownsership: row.ownership == 1 ? "ubuntu" : "window",
-         
+          Type:row.type,
           // id: row.id
         }))
       );
@@ -198,6 +199,44 @@ const VendorsData = () => {
       value: pay.terms,
     }));
 
+
+    
+//#region to know customer vendor
+useEffect (() => 
+{
+  getstatus();
+},[])
+
+const getstatus = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setStatus(data.data.items);
+      console.log(data);
+    });
+};
+console.log(status)
+//type category of cuatomer/vendor
+
+const getcategorydata = status
+.filter((place) => place.field === "type" && place.module === "cus_ven" )
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+ console.log(getcategorydata)
+
+ let typedata = getcategorydata.find(
+  (option) => option.key === fetchvendor.type && option.label
+)?.label;
+
+//console.log(fetchcustomer)
+console.log(typedata);
+//#endregion
+
+
   const dataSource = fetchvendor.map((customer) => ({
     key:customer.Key,
     id:customer.Key,
@@ -222,6 +261,9 @@ const VendorsData = () => {
   country: customer.Country,
   contact: customer.Contact,
   ownership: customer.Ownsership,
+  type: getcategorydata.find(
+    (option) => option.key === customer.Type && option.label
+  )?.label
   }));
 
   //delete data
@@ -259,6 +301,18 @@ const deleteUser = (record)=>
       fixed: "left",
       align: "left",
       //ellipsis:true,
+      render: (text, record) => {
+        return (
+          <Link
+          to={`customer_vendor_preview/${record.id}/account_overview`}
+          style={{ color: "#5C5AD0", cursor: "pointer" }}
+          onClick={(e) => {
+            e.stopPropagation(); // Stop propagation to prevent sorter from triggering
+          }}
+        >
+          {record.business_name}
+        </Link>
+        )},
       sorter: (record1, record2) => {
         return record1.business_name > record2.business_name;
       },
@@ -720,6 +774,7 @@ const deleteUser = (record)=>
 
   const cusomizeData = dataSource.filter(
     (record) =>
+    record.type === 'Vendor' &&
       // record.gst_treatment.includes(custfilter.gsttreat) &&
       // record.type_category.includes(custfilter.category) &&
       // record.contact.includes(custfilter.contact) &&

@@ -59,6 +59,7 @@ const filterfield = {
   ownership: "",
   updated_date_time: "",
 };
+
 const countryCodes = [
   {
     label: (
@@ -1173,12 +1174,7 @@ console.log(status);
             content={
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "11px",
-                    marginBottom: "10px",
-                  }}
+                  className="delete-hover popover-menu-item"
                 >
                   <img src="\images\icons\delete_record.svg" />
                   <div>
@@ -1195,8 +1191,7 @@ console.log(status);
                   </div>
                 </div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "11px" }}
-                >
+                  className="edit-hover popover-menu-item"  >
                   <img src="\images\icons\edit_record.svg" />
                   <div>
                     <button
@@ -1232,6 +1227,8 @@ console.log(status);
                 width: "100%",
                 cursor: "pointer",
                 height: "100%",
+                justifyContent:"center",
+                marginLeft:"-10px"
               }}
               onClick={(e) => {
                 setOpen(open);
