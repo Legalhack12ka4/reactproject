@@ -108,3 +108,18 @@ overflow: hidden;
 padding-top: 10px !important;
 border: .5px solid $neutrals-700;
 }
+.right-input-btn{
+    position: absolute;
+    height: 37px;
+    overflow: hidden;
+    width: 38px;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1px;
+    border: .5px solid $neutrals-700;
+    border-radius: 0px 6px 6px 0px;
+    color: $neutrals-400;
+    cursor: pointer;
+}

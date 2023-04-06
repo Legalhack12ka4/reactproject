@@ -11,6 +11,7 @@ import shirt from "../../../assets/Images/ItemPreview/Shirt1.svg"
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import config from "../../Database/config";
+import "./ItemGroupTable.scss";
 
 function ItemTable() {
  const [fetchitemgroup, setFetchItemGroup] = useState([]);
@@ -567,7 +568,8 @@ console.log(fetchitemgroup)
           location.pathname === "/item_&_service/fixed_assets" ? "Fixed Assets" : ""
           } />
     <div className="account-table-container">
-      <FilterAndSearchBar
+     <div className="filter-searchbar-container">
+     <FilterAndSearchBar
       swichdata={   <div className="options-container">
       <div onClick={() => setActiveTable('ItemGroup')}>
         <div className={`option ${activeTable === 'ItemGroup' ? 'active' : ''}`}>
@@ -587,6 +589,7 @@ console.log(fetchitemgroup)
      //   onClick={showModal}
         onData={handleData}
       />
+     </div>
    
 
       {/* <OffCanvasExample  form={<AccountForm/>}/> */}

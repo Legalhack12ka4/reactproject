@@ -489,10 +489,12 @@ th {
 .ant-upload-wrapper.ant-upload-picture-card-wrapper.length_0
   .ant-upload.ant-upload-select {
   width: 330px;
-  height: 202px !important;
+  height: 203px !important;
   margin-inline-end: 0px !important;
   margin-bottom: 0px !important;
   transition: none !important;
+  background-color: #ffff !important;
+  border: 1.5px dashed $neutrals-700 !important;
 }
 .ant-upload-wrapper.ant-upload-picture-card-wrapper
   .ant-upload-list.ant-upload-list-picture-card

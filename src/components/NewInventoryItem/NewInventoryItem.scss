@@ -1,3 +1,5 @@
+@import "../../assets/Colors/Colors.scss";
+
 .new_inventory_item_main {
   // border: 1px solid;
   margin: auto;
@@ -214,10 +216,10 @@
   }
 
   .item_image_heading {
-    font-size: 15px;
-    color: #697a8d;
+    font-size: 14px;
+    color: $neutrals-400 !important;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 7px !important;
   }
 }
 
@@ -270,7 +272,7 @@
 
   .item_image_heading {
     font-size: 15px;
-    color: #697a8d;
+    color: $neutrals-400;
     font-weight: 500;
     margin-bottom: 15px;
   }
@@ -290,7 +292,7 @@
 .input_group {
   p {
     font-size: 14px;
-    color: #566a7f;
+    color: $neutrals-400 !important;
     font-weight: 500;
     margin-bottom: 8px;
   }
@@ -323,6 +325,11 @@
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         max-width:330px
   }
+  .item_group_details{
+    color: $neutrals-100;
+    font-size: 18px;
+    font-weight: 600;
+  }
   p {
     font-size: 14px;
     color: #566a7f;
@@ -346,7 +353,7 @@
   // margin-left: -50px;
   margin-top: 30px;
   border-radius: 6px;
-  border: .3px solid #697a8d36;
+  border: 0px solid #697a8d36;
   background-color: #ffff;
 
   .conversion_options{
@@ -361,11 +368,16 @@
     .conversion_options_heading{
         display: flex;
         padding: 10px 0px;
+        border-radius: 6px 6px 0px 0px;
         border-bottom: 1px solid #C2CAD230;
         font-size: 14px ;
         font-weight: 500;
         color: #2B3347;
         background-color: #F5F6F8;
+
+        .caption-md{
+          color: $neutrals-300 !important;
+        }
 
         .conversion_name{
             width: 180px;
@@ -376,8 +388,12 @@
             padding: 0px 90px 0px 20px;
         }
         .convert_to{
-            padding: 0px 70px 0px 100px;
+            padding: 0px 70px 0px 111px !important;
         }
+        .edit_delete{
+          padding-left: 5px;
+        }
+        
     }
 
    
@@ -408,7 +424,7 @@
             }
 
             .convert_from{
-                padding: 2px 20px 10px 20px;
+                padding: 10px 20px !important;
                 display: flex;
                 gap: 20px;
                 align-items: center;
@@ -433,8 +449,11 @@
                     text-align: center;
                 }
             }
+            .edit_delete{
+          padding-left: 5px;
+        }
             .convert_to{
-                padding: 2px 20px 10px 20px;
+                padding: 10px 20px !important;
                 display: flex;
                 gap: 20px;
                 align-items: center;
@@ -518,16 +537,21 @@
         font-weight: 500;
         background-color: #F5F6F8;
         color: #2B3347;
+        
+
+        .caption-md{
+          color: $neutrals-300;
+        }
 
         .unit_of_measurement{
-            padding: 0px 38px 0px 30px;
+            padding: 0px 38px 0px 40px !important;
         }
 
         .qty{
-            padding: 0px 20px 0px 64px;
+            padding: 0px 20px 0px 78px !important;
         }
         .pack_qty{
-            padding: 0px 20px 0px 13px;
+            padding: 0px 20px 0px 22px !important;
 
         }
         .package_name{
@@ -648,6 +672,47 @@
 }
 .container_scroll{
   overflow-y: scroll;
+}
+.sku-right-btn{
+  height: 100%;
+  background-color: $primary-900;
+}
+
+.barcode-sku-container{
+  display: flex;
+  gap: 20px;
+    .sku-btn{
+      cursor: pointer;
+      box-shadow: 0px 2px 6px 0px #4359711f;
+      border: 1px solid $neutrals-900;
+      border-radius: 6px;
+      width: 209px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 27px 28px;
+      .img-container{
+        width: 54px;
+        height: 54px;
+        background-color: $secondary-800;
+        margin-bottom: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+          width: 28px;
+          height: 28px;
+        }
+      }
+      .subtitle-sb{
+        color: $primary-100;
+      }
+      p{
+        text-align: center;
+      }
+    }
 }
 
 @media (max-width:1420px) {
