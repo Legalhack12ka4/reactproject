@@ -80,9 +80,10 @@
         border: .5px solid $neutrals-700;
         border-radius: 6px;
         background-color: #ffff;
-        height: 37px;
+        height: 38px;
         color: $neutrals-500;
         font-size: 14px;
+        box-sizing: border-box;
         font-weight: 400;
     }
     .input-disabled{

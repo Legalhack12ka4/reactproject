@@ -56,6 +56,9 @@
         padding-right: 12px;
       }
     }
+    .select-container-box{
+      position: relative;
+    }
 
     .search-input-box{
       padding: 0px 10px;
@@ -662,7 +665,7 @@
   align-items: center;
   justify-content: center;
       left: 0px;
-      top: 24px;
+      top: 0px;
       z-index: 2;
 .select-icon-type{
 

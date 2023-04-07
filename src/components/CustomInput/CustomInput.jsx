@@ -145,7 +145,7 @@ const handleBlur =(e) =>
       />:<input
         resizable={resizable}
         id={`${id} focus-input`}
-        style={{width:icon || symbol ||rightIcon ? width-56:width-30, maxWidth: icon || symbol ? width-56:width-30, padding: icon || symbol ? "0px 14px 0px 40px" : rightIcon ? "0px 40px 0px 14px" : "0px 14px", textAlign: textAlign}}
+        style={{width:width, maxWidth:width, padding: icon || symbol ? "0px 14px 0px 40px" : rightIcon ? "0px 40px 0px 14px" : "0px 14px", textAlign: textAlign}}
         maxLength={maxLength}
         name={name}
         onBlur={(e) => {onBlur(e); handleBlur(e);}}

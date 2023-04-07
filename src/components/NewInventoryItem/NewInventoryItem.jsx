@@ -431,7 +431,7 @@ const NewInventoryItem = () => {
            //}}
          />
        </div>*/}
-     <div className="input-containerdes focus-outline">
+     <div className="input-containerdes">
       <CustomInput textArea width={330} height={110} label="Description" placeholder="About Item" />
      </div>
    </div> 

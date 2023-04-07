@@ -18,7 +18,7 @@
             position: sticky;
             top: 190px;
             width: 261px;
-            min-width: 261px;
+            min-width: 270px;
             max-height: 648px;
             border-radius: 6px;
             background-color: #ffff;
@@ -29,8 +29,9 @@
             
             .active{
             .card-btn{
-                width: 219px !important;
+                // width: 219px !important;
                 border-right: 3px solid $primary-100;
+                box-sizing: border-box;
                 // background-color: $primary-100;
                 .btn-title{
                     // color: #0000;
@@ -43,10 +44,11 @@
                 }
             }}
             .card-btn{
-                width: 221px;
+                width: 261px;
                 border-bottom: 1px solid $neutrals-800;
                 padding: 20px;
                 cursor: pointer;
+                box-sizing: border-box;
 
                 .btn-title{
                     display: flex;
@@ -321,4 +323,18 @@
             }
         }
     }
+}
+
+.modal-name-char{
+    min-width: 46px;
+    height: 46px;
+    background-color: rgba(92, 90, 209, 0.2);
+    border: 1px solid rgb(194, 202, 210);
+    border-radius: 50%;
+    color: $primary-100;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

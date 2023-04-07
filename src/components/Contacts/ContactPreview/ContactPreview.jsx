@@ -547,16 +547,22 @@ const handleUpdateCancel = () =>{
 
   const getAssigedDataCustomer = () => {
     const AssignedIdsCusVen = assignedData?.join(',')
-    if(assignedData.length === 1)
-    {
-      setAssignedCustomer([]);
-      setAssignedData([]);
-      console.log("Null Data")
-    }
+    // if(assignedData.length === 1)
+    // {
+    //   setAssignedCustomer([]);
+    //   setAssignedData([]);
+    //   console.log("Null Data")
+    // }
       fetch(`${config.baseUrl}/customervendor/?company_id=1&contact_id=${id}`)
         .then((response) => response.json())
         .then((data) => {
+          if(data.status === "success"){
           setAssignedCustomer(data.data.items);
+          }
+          else{
+            setAssignedCustomer([]);
+            setAssignedData([]);
+          }
         });
   //  }
   };
@@ -1522,43 +1528,7 @@ const handleFormSubmitDOB = (e) => {
     console.log(name);
   };
 
-  const handleFormSubmitNotes = (value) => {
-    console.log(value);
-    // e.preventDefault();
-    axios
-      .post(
-        `${config.baseUrl}/contactnotes/`,
-        {
-          title: value.title,
-          discription: value.description,
-          contact_id: id,
-          company_id: 1,
-          created_by: 1,
-          updated_by: 1,
-        },
-        value
-      )
-      .then((response) => {
-        // getAssigedData();
-        // setSalesOrderModal(false);
-        // getAssigedData();
-        // setFormData(resetValue)
-        // getAssigedData();
-        // getData();
-        // handleclose();
-        // props.onClick();
-
-        toast.success("Notes Added Successfuly", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  };
+  
 
 //#endregion
 
@@ -1779,6 +1749,26 @@ const deleteUser1 = () => {
         console.log(value);
       };
     console.log(updateContactModal.position)
+
+    const handleDrpChange = (field, value) => {
+      const selectedOption = othersource.find((option) => option.value === value);
+      console.log(selectedOption);
+      setUpdateContactModal({ ...updateContactModal, [field]: value, position: selectedOption.key });
+   //   setFieldValue(field, value);
+     // setFieldTouched(field, false);
+      console.log(field);
+      console.log(value);
+    };
+
+    const handleDrpChangeStatus1 = (field, value) => {
+      const selectedOption = getstatusdata.find((option) => option.value === value);
+      console.log(selectedOption);
+      setUpdateContactModal({ ...updateContactModal, [field]: value, status: selectedOption.key });
+    //  setFieldValue(field, value);
+   //   setFieldTouched(field, false);
+      console.log(field);
+      console.log(value);
+    };
 
 //#regin lead, position, status
 // useEffect(() => {
@@ -2080,10 +2070,10 @@ const handleImagePreview1 = (file) => {
 const handleContactFormSubmit = (e) => {
 
   // Find the position ID from the positionOptions array
-const positionId = othersource1.find((option) => option.label === updateContactModal.position)?.key;
-console.log(positionId)
+// const positionId = othersource1.find((option) => option.label === updateContactModal.position)?.key;
+// console.log(positionId)
 // Find the status ID from the statusOptions array
-const statusId = getstatusdata1.find((option) => option.label === updateContactModal.status)?.key;
+// const statusId = getstatusdata1.find((option) => option.label === updateContactModal.status)?.key;
 const leadId = otherlead1.find((option) => option.label === updateContactModal.lead)?.key;
 
   axios
@@ -2094,8 +2084,8 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
         mobile: updateContactModal.mobile,
         email: updateContactModal.email,
         dob: updateContactModal.dob,
-        position: positionId,
-        status:statusId,
+        position: updateContactModal.position,
+        status: updateContactModal.status,
         lead_source: leadId,
         // dob: "2000-09-09",
         // ...(updateContactModal.dob && { dob: updateContactModal.dob }),
@@ -2117,7 +2107,8 @@ const leadId = otherlead1.find((option) => option.label === updateContactModal.l
       // handleCancel();
     //  handleclose();
    //   props.onClick();
-   window.location.reload();
+  //  window.location.reload();
+  getContactData();
    setUpdateModal(false);
  
         // getData();
@@ -2161,6 +2152,115 @@ const handleOpenChange = (isOpen) => {
     setDatePickerOpen(true);
   }
 };
+
+
+//#region  Notes Data
+
+const [notesData, setNotesData] = useState([]);
+
+
+useEffect(() => {
+  getNoteAssigedData();
+}, [id]);
+
+const getNoteAssigedData = () => {
+  return fetch(`${config.baseUrl}/contactnotes/?company_id=1&contact_id=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      if(data.status === "success"){
+        setNotesData(data.data.items);
+      }
+      else{
+        setNotesData([]);
+    }
+    });
+};
+
+const handleCreateNote = (value) => {
+  console.log(value)
+  axios
+      .post(
+        `${config.baseUrl}/contactnotes/`,
+        {
+          title: value.title,
+          discription: value.description,
+          contact_id: id,
+          company_id: 1,
+          created_by: 1,
+          updated_by: 1,
+        },
+        value
+      )
+      .then((response) => {
+        getNoteAssigedData();
+        setCreateNoteActive(false);
+        toast.success("Note Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+}
+
+const handleDeleteNote = (id) => {
+  axios.delete(`${config.baseUrl}/contactnotes/${id}/`).then((response) => {
+    setDeleteRecord(null);
+    toast.error("Note Deleted Successfuly", {
+      border: "1px solid red",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+    getNoteAssigedData();
+  });
+}
+
+const handleUpdateNote = (value) => {
+  console.log(value)
+  axios.put(
+    `${config.baseUrl}/contactnotes/` + value.id + "/",
+    {
+      "title": value.title,
+      "discription":value.description,
+      "contact_id": id,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+    },
+    value
+  ).then((response) => 
+  {
+      
+      getNoteAssigedData();
+      // setUpdateNoteActive(false);
+      // setIsEditing(false);/
+    
+      toast.success("Note Updated Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      
+  })
+}
+
+
+
+
+//#endregion
 
   return (
     <div className="contact-preview-main">
@@ -2734,15 +2834,17 @@ const handleOpenChange = (isOpen) => {
           {activePage === "notes" && (
             <Notes
               createNoteActive={createNoteActive}
-              notesData={getContact}
-              createNoteFalse={createNoteFalse}
-              onSubmit={handleFormSubmitNotes}
               openNotes={handleNotesOpen}
+              createNoteFalse={createNoteFalse}
+              notesData={notesData}
+              noteBy={getContact.name}
+              handleCreate={handleCreateNote}
+              handleDelete={handleDeleteNote}
+              handleUpdate={handleUpdateNote}
             />
           )}
           <Modal
             open={attachmentsModal}
-            //   onOk={handleMaterialOk}
             width={"max-content"}
             onCancel={handleCancel}
             style={{ top: 0, height: "auto" }}
@@ -2963,7 +3065,7 @@ const handleOpenChange = (isOpen) => {
                     )?.label
                   }
                   options={getstatusdata1}
-                  onChange={handleDrpChangePosition}
+                  onChange={handleDrpChangeStatus1}
                 />
 
                 <InputGroup
@@ -2985,12 +3087,12 @@ const handleOpenChange = (isOpen) => {
                     name="position"
                     label="Position"
                     value={
-                      othersource1.find(
+                      othersource.find(
                         (option) =>
                           option.key === updateContactModal.position && option.label
                       )?.label}
-                    options={othersource1}
-                    onChange={handleDrpChangePosition}
+                    options={othersource}
+                    onChange={handleDrpChange}
                   /> 
 
                 <CustomInput
