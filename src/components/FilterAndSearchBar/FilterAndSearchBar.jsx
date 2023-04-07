@@ -489,7 +489,7 @@ const FilterAndSearchBar = (props, { filterdata, width, }) => {
                     <p className="sc-body-md">Export Data</p>
                   </div>
                   <div className="setting_btn">
-                    <img src="/images/icons/Preferences_icon.svg" alt="" />
+                    <img src="/images/icons/Preferences-icon.svg" alt="" />
                     <p className="sc-body-md">Preferences</p>
                   </div>
                 </div>

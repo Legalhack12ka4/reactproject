@@ -60,8 +60,9 @@ const handledropodwnchange = (visible) =>
     <div>
     <div className={`srchdrp srchSelct ${error && "drpError"} ${props.addNew && "bottom-padding-none"}`}>
     {props.label && <p className="sc-body-md dropdown-lable">{props.label}</p>}
-    {icon && <div className="select-icon-box"><img src={icon} alt="icon" className="select-icon-type" /></div>}
     {text &&  <p className="select-text-type">{text}</p>}
+    <div className="select-container-box">
+    {icon && <div className="select-icon-box"><img src={icon} alt="icon" className="select-icon-type" /></div>}
     <Select
       disabled={props.isDisabled}
       showSearch={showSearch === false? false:true}
@@ -133,6 +134,7 @@ const handledropodwnchange = (visible) =>
       // options={options}
       options={options}
     />
+    </div>
     {selectedOption && editBtn && <div className="editBtnContainer"><div className="editBtn" onClick={editBtnClick}><img src="/images/icons/edit_blue_icon.svg" alt="" /></div></div>}
     
   </div>

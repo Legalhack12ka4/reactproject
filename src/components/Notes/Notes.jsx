@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { ContainedButton, ContainedIconButtonGray, ContainedSecondaryButton, GhostButton } from '../Buttons/Button'
 import CustomInput from '../CustomInput/CustomInput'
@@ -8,33 +8,15 @@ import { Button, Modal, Popover } from 'antd'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const Notes = (props) => {
+const Notes = ({notesData,noteBy,handleCreate,handleDelete,handleUpdate, ...props}) => {
     const [selectedNoteIndex, setSelectedNoteIndex] = useState(-1);
-    const [notesData, setNotesData] = useState({title:"", description:""})
-    const [assignedDataNotes, setAssignedDataNotes] = useState([]);
     const [open, setOpen] = useState(false);
-    const [deleteRecord, setDeleteRecord] = useState(null);
     const [confirm, setCofirm] = useState(false);
     const [updateNoteActive, setUpdateNoteActive] = useState(false);
-    const [getRecord, setGetRecord] = useState({title:"", discription:""});
-    const [isEditing, setIsEditing] = useState(false);
-    const [note, setNote] = useState([
-        {
-            title: 'Note1'
-        },
-        {
-            title: 'Note2'
-        },
-        {
-            title: 'Note3'
-        },
-    ])
-
-    // const createNoteClick = () => {
-    //     setCreateNoteActive(true);
-    // }
-
-   console.log(props.notesData)
+    const [notesContent, setNotesContent] = useState({title:"", description:""});
+    const [editId, setEditId] = useState(null);
+    const popoverRef = useRef(null);
+ 
 
     const handleNoteClick = (index) => {
         if (index === selectedNoteIndex) {
@@ -49,177 +31,97 @@ const Notes = (props) => {
     const handleClick = () => {
         props.createNoteFalse();
         setUpdateNoteActive(false);
+        setNotesContent({title:"", description:""});
+        setEditId(null);
     }
 
-    const onChangeNotes = (e) => {
-        const { value, name } = e.target;
-      
-        setNotesData({ ...notesData, [name]: value });
-        console.log(value);
-        console.log(name);
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setNotesContent({...notesContent, [name]:value});
+    }
+
+    const handleCreateNote = () => {
+      let data = {
+        title: notesContent.title,
+        description: notesContent.description,
       };
-    
-//console.log(notesData);
+      handleCreate(data);
+      setNotesContent({title:"", description:""});
+    }
 
-//delete data
+    const handleUpdateNoteSubmit = () => {
+        let data = {
+            title: notesContent.title,
+            description: notesContent.description,
+            id: editId
+        };
+        handleUpdate(data);
+        setNotesContent({title:"", description:""});
+        setUpdateNoteActive(false); 
+        setEditId(null);
+    }
 
-const handleConfirmCancel = (record) => {
-    setDeleteRecord(record)
-      setCofirm(true);
-    //  console.log(record)
-    };
-  
-    const handleSubmitModal = () => {
-        deleteUser(deleteRecord);
-        getNoteAssigedData();
-        setCofirm(false);
-        getNoteAssigedData();
-      }
-      const handleConfirm = () => {
-        setCofirm(false);
-        setDeleteRecord(null);
+    const handleDeleteNote = (note) => {
+        console.log(note);
+        setCofirm(note);
+        setOpen(false);
+    }
+
+    const handleUpdateNote = (note) => {
+        console.log(note);
+        setUpdateNoteActive(true);
+        setEditId(note.id);
+        setNotesContent({title:note.title, description:note.discription, id:note.id});
+        setOpen(false);
+    }
+
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (popoverRef.current && !popoverRef.current.contains(event.target)) {
+          setTimeout(() => {
+          setOpen(false);
+          }, 100);
+        }
       };
-      
-      const deleteUser = (record) => {
-        axios.delete(`${config.baseUrl}/contactnotes/${record.id}/`).then((response) => {
-          setDeleteRecord(null);
-    
-        //  console.log("data delete ho raha hai");
-          toast.error("Note Deleted Successfuly", {
-            border: "1px solid red",
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-          });
-          getNoteAssigedData();
-        });
-      };;
-//delete code end 
-
-//#region Update
-
-const handleUpdate = (record) => {
-    setGetRecord(record)
-    setUpdateNoteActive(true);
-    setIsEditing(true);
-    // showModal();
-  };
-
-  const onChangeNotesUpdate = (e) => {
-    const { value, name } = e.target;
   
-    setGetRecord({ ...getRecord, [name]: value });
-    console.log(value);
-    console.log(name);
-  };
-
-  const handleFormUpdate = (e) =>
-  {
-    e.preventDefault();
-    axios.put(
-      `${config.baseUrl}/contactnotes/` + getRecord.id + "/",
-      {
-        "title": getRecord.title,
-        "discription":getRecord.discription,
-        "contact_id": props.notesData.id,
-        "company_id": 1,
-        "created_by": 1,
-        "updated_by": 1
-      },
-      getRecord
-    ).then((response) => 
-    {
-        
-        getNoteAssigedData();
-        setUpdateNoteActive(false);
-        setIsEditing(false);
-      
-        toast.success("Notes Updated Successfuly", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-          });
-        
-    })
-  }
-  //console.log(getRecord.id);
-//#endregion 
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [popoverRef]);
 
 
-let assignedId=props.notesData?.id
-//console.log(assignedId)
-useEffect(() => {
-  getNoteAssigedData();
-}, [assignedId]);
-
-const getNoteAssigedData = () => {
-  return fetch(`${config.baseUrl}/contactnotes/?company_id=1&contact_id=${assignedId}`)
-    .then((response) => response.json())
-    .then((data) => {
-    //  const customerVendorIds = data.data.items.map(item => item.contact_id);
-      setAssignedDataNotes(data.data.items);
-     // console.log(customerVendorIds)
-   //   console.log(data);
-    });
-};
-
-//console.log(assignedDataNotes)
-
-const handleSubmit=(e) =>
-{
-    e.preventDefault();
-    props.onSubmit(notesData);
-    getNoteAssigedData();
-    props.createNoteFalse();
-     getNoteAssigedData();
-    setNotesData({title:"", description:""})
-    getNoteAssigedData();
-//    console.log(props.onSubmit)
-  //  console.log(notesData)
-}
-
-//console.log(getRecord)
 
   return (
-    <form onSubmit={ updateNoteActive ? handleFormUpdate : handleSubmit}  >
+<>
     <div className='notes-container-main'>
-
         {props.createNoteActive ? <div className="create-note-container">
-            <input type="text" className='title-input mb-10' placeholder='Note Title' onChange={onChangeNotes} name="title" value={notesData.title} />
-            <textarea type="text" className='note-description' placeholder='Note description' onChange={onChangeNotes} name="description" value={notesData.description} />
+            <input type="text" className='title-input mb-10' placeholder='Note Title'  name="title" value={notesContent.title} onChange={handleChange}  />
+            <textarea type="text" className='note-description' placeholder='Note description' name="description" value={notesContent.description} onChange={handleChange}  />
 
             <div className="button-container">
-                <GhostButton value="Create Note" type="submit" />
+                <GhostButton value="Create Note" onClick={handleCreateNote}  />
                 <ContainedSecondaryButton  value="Cancel" onClick={handleClick}/>
             </div>
 
         </div> : updateNoteActive ? <div className="create-note-container">
-            <input type="text" className='title-input mb-10' placeholder='Note Title' value={getRecord.title} onChange={onChangeNotesUpdate} name="title" />
+            <input type="text" className='title-input mb-10' placeholder='Note Title'   name="title" value={notesContent.title} onChange={handleChange} />
             {/* <textarea type="text" className='note-description' placeholder='Note description' onChange={onChangeNotesUpdate} name="description" value={getRecord.discription} /> */}
-            <textarea type="text" className='note-description' placeholder='Note description' onChange={onChangeNotesUpdate} name="discription" value={getRecord.discription} />
+            <textarea type="text" className='note-description' placeholder='Note description'  name="description"  onChange={handleChange} value={notesContent.description} />
 
             <div className="button-container">
-                <GhostButton value="Update Note" onClick={handleFormUpdate} />
+                <GhostButton value="Update Note" onClick={handleUpdateNoteSubmit}   />
                 <ContainedSecondaryButton  value="Cancel" onClick={handleClick}/>
             </div> </div>:""}
 
 
-        {assignedDataNotes.map((note, index) => {
+        {notesData.map((note, index) => {
 
-          //  console.log(note.updated_date_time)
             const timestamp = note.updated_date_time;
 const date = new Date(timestamp);
 
-// Format the date into "dd, mmm yyyy hh:mm AM/PM" format
-const formattedDate = `${date.getDate()}, ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
+const formattedDate = `${date.getDate()} ${date.toLocaleString("default", { month: "long" })} ${date.getFullYear()} ${formatTime(date)}`;
 
 // Function to format time in "hh:mm AM/PM" format
 function formatTime(date) {
@@ -231,58 +133,53 @@ function formatTime(date) {
   return `${hours}:${minutes} ${amPm}`;
 }
 
-//console.log(formattedDate);
             return (
-            <div key={index} className="note-container">
+            <div key={index} style={{ display: editId === note.id && "none"}} className={`note-container`}  >
             <div className="note-open-container">
-            <div className="note" onClick={() => handleNoteClick(index)}>
-                <div className="right-container">
+            <div className="note" >
+                <div className="right-container" onClick={() => handleNoteClick(index)}>
                     <img src="/images/icons/right-arrow-icon.svg" alt="arrow" className={`${selectedNoteIndex === index && "active"}`}  />
                     <div className='note-icon'><img src="/images/icons/note-icon.svg" alt="" /></div>
-                    <p className='sc-body-md note-title'>Note <span>by</span> <span className='name'>{props.notesData.name}</span></p>
+                    <p className='sc-body-md note-title'>Note <span>by</span> <span className='name'>{noteBy}</span></p>
                 </div>
                 <div className="left-container">
                     <img src="/images/icons/calendar.svg" alt="calendar" className='calendar-icon'/>
                     <p className='date-time sc-body-md'>{formattedDate}</p>
                     <Popover
             id="popoverhide"
-            defaultOpen={open}
-            onOpenChange={setOpen}
+            // defaultOpen={false}
+            // onOpenChange={setOpen}
             getPopupContainer={(trigger) => trigger.parentElement}
             showArrow={true}
             placement="bottom"
             content={
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "11px",
-                    marginBottom: "10px",
-                  }}
+                className='delete-hover popover-menu-item'
+                  onClick={()=>handleDeleteNote(note.id)}
+
                 >
                   <img src="\images\icons\delete_record.svg" />
                   <div>
                     <button
                       className="actionlabel sc-body-md"
-                      onClick={() => {
-                       handleConfirmCancel(note);
-                        //hide();
-                      }}
-                      //onClick={hide}
+                      
                     >
                       Delete
                     </button>
                   </div>
                 </div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "11px" }}
+                className='edit-hover popover-menu-item'
+                onClick={() => {
+                  handleUpdateNote(note);}}
+
                 >
                   <img src="\images\icons\edit_record.svg" />
                   <div>
                     <button
                       className="actionlabel sc-body-md"
-                      onClick={() => handleUpdate(note)}
+                      
                     >
                      Edit
                     </button>
@@ -303,9 +200,10 @@ function formatTime(date) {
                 height: "100%",
               }}
               onClick={(e) => {
-                setOpen(open);
+                setOpen(note.id);
                // popvisible(e);
               }}
+              
             >
                   <img src="/images/icons/three-dot.svg" alt="more" className='more-icon' />
               {/* <img src={editdelete} style={{ transform: "rotate(90deg)" }} /> */}
@@ -329,47 +227,11 @@ function formatTime(date) {
 
     <Modal
         open={confirm}
-     //   onOk={handleMaterialOk}
         width={"max-content"}
-        onCancel={handleConfirm}
         style={{ top: 20 }}
         className={"deleteconfirm"}
+        onCancel={()=>setCofirm(false)}
         footer={ false
-           //</form> [
-        //   <div style={{ marginLeft: "331px" }}>
-        //     <Button
-        //       key="cancel"
-        //       className="btn_hover_animation"
-        //       onClick={handleConfirm}
-        //       style={{
-        //         width: "86px",
-        //         height: "38px",
-        //         fontSize: "14px",
-        //         fontWeight: "700",
-        //         color: "#8E9CAA",
-        //         borderColor: "#C2CAD2",
-        //       }}
-        //     >
-        //       Cancel
-        //     </Button>
-        //     <Button
-        //       key="submit"
-        //       className="btn_hover_animation"
-        //       type="primary"
-        //       onClick={handleSubmitModal}
-        //       style={{
-        //         width: "88px",
-        //         height: "38px",
-        //         backgroundColor: "#DA2F58",
-        //         fontSize: "14px",
-        //         fontWeight: "700",
-        //         color: "#FFFFFF",
-        //       }}
-        //     >
-        //       Delete
-        //     </Button>
-        //   </div>,
-   //     ]
     }
         closeIcon={
           <div className="icon">
@@ -410,48 +272,18 @@ function formatTime(date) {
                 <div className="delete-cancel-btn d-flex gap-16 mt-30">
                   <ContainedButton
                     value="Delete"
-                    onClick={handleSubmitModal}
                     color="danger"
+                    onClick={() => {handleDelete(confirm); setCofirm(false);}}
                   />
                   <ContainedSecondaryButton
                     value="Cancel"
-                    onClick={handleConfirm}
-                  />
+                    onClick={()=>setCofirm(false)}/>
                 </div>
                 <div></div>
               </div>
-
-        {/* <div className="confirmCoontainer">
-          <div className="confirmresources">
-            <div className="imgsetting">
-              <div className="imgbackground">
-                <img src={alert} style={{ width: "38px", height: "38px" }} />
-              </div>
-            </div>
-
-            <div>
-              <p
-                style={{
-                  fontSize: "22px",
-                  color: "#2B3347",
-                  fontWeight: "500",
-                  padding: "21px 0px 0px 0px",
-                }}
-              >
-                Delete Currency
-              </p>
-            </div>
-          </div>
-          <div>
-            <p className="confirmationtext">
-              Are you sure you want to close this window? <br /> All the value
-              which you filled in the fields will be deleted.
-              <br /> This action cannot recover the value.
-            </p>
-          </div>
-        </div> */}
       </Modal>
-    </form>
+      </>
+
   )
 }
 

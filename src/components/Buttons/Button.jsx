@@ -44,9 +44,9 @@ export const ContainedIconButton = ({value, width, icon, onClick}) => {
         }
 
 
-export const GhostButton = ({value, width, type}) => {
+export const GhostButton = ({value, width, type, onClick}) => {
     return (
-        <button type={type} className='ghost-btn sc-body-sb' style={{width:width}} >{value}</button>
+        <button type={type} className='ghost-btn sc-body-sb' onClick={onClick} style={{width:width}} >{value}</button>
     )
     }
 

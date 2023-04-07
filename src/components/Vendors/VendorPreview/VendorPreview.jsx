@@ -99,6 +99,7 @@ const VendorPreview = () => {
   const [bankDetails, setBankDetails] = useState ([])
   const [errorMessage, setErrorMessage] = useState(false);
   const [accountPrimary, setAccountPrimary] = useState(false)
+  const [assignContactModal, setAssignContactModal] = useState(false);
   // const [bankDelete , setBankDelete]=useState([])
 
   const { id } = useParams();
@@ -113,6 +114,7 @@ const VendorPreview = () => {
   //handlecancel
 
   const handleCancel = () => {
+    setAssignContactModal(false);
     if (isCustomerSelected && customerSubmit) {
       setSalesOrderModal(false);
     } else {
@@ -1044,6 +1046,42 @@ const {
 });
 
 //#endregion
+
+
+
+
+//#region  assign contact Modal
+
+const customerDataSelectOptions = [{
+    
+  // key: place.id,
+  label: (
+    <div className="d-flex align-center gap-16">
+      <div className="modal-name-char">VK</div>
+    <div className="contact-data-container">
+      <p className="business-name mb-0">Vimlesh Kumhar</p>
+
+      <p className="caption-md contact-title mb-">
+        <span className="caption-md">Owner</span>
+      </p>
+      <div className="d-flex justify-between mb-0">
+        <p className="caption-md gstin-title">
+         <span className="caption-md">vimlesh@reformiqo.com</span>
+        </p>
+        {/* <p className="caption-md city-title">
+          Category : <span className="caption-md">{place.type_category == 1 ?  "Retailer" :
+          place.type_category == 2 ?  "Manufacturer" :
+          place.type_category == 3 ?  "Wholesaler" :"Retailer"
+          }</span>
+        </p> */}
+      </div>
+    </div>
+    </div>
+  ),
+  // value: place.business_name,
+}]
+
+//#endregion
   return (
     <div className="vendor-preview-main">
       <Page_heading
@@ -1620,7 +1658,7 @@ const {
                     {activePage === "contacts" ? (
                       <p
                         className="sc-body-sb assign-account-btn"
-                        onClick={() => setSalesOrderModal(true)}
+                        onClick={() => setAssignContactModal(true)}
                       >
                         + Assign Contact
                       </p>
@@ -1874,6 +1912,165 @@ const {
                       </p>
                     </div>
                   </div>
+                </Modal>
+
+                <Modal
+                  open={assignContactModal}
+                  //   onOk={handleMaterialOk}
+                  width={"max-content"}
+                  onCancel={handleCancel}
+                  style={{ top: 0, height: "auto" }}
+                  className={"sales-order-modal"}
+                  footer={false}
+                  closeIcon={
+                    <div className="icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="13.51"
+                        height="13"
+                        viewBox="0 0 13.51 13"
+                      >
+                        <path
+                          id="Path_34362"
+                          data-name="Path 34362"
+                          d="M15.386,13.167l-4.593-4.42,4.593-4.42a1.183,1.183,0,0,0,0-1.723,1.3,1.3,0,0,0-1.79,0L9,7.025,4.41,2.605a1.3,1.3,0,0,0-1.79,0,1.183,1.183,0,0,0,0,1.723l4.593,4.42L2.62,13.167a1.183,1.183,0,0,0,0,1.723,1.3,1.3,0,0,0,1.79,0L9,10.47,13.6,14.89a1.3,1.3,0,0,0,1.79,0A1.189,1.189,0,0,0,15.386,13.167Z"
+                          transform="translate(-2.248 -2.248)"
+                          fill="#697a8d"
+                        />
+                      </svg>
+                    </div>
+                  }
+                >
+                
+                  <div className="sales-order-modal-container">
+                    <div className="select-customer-container">
+                      <h1 className="heading-sb">Contact Account</h1>
+                      <p className="sc-body-rg title">
+                        Choose contact account by considering the details
+                      </p>
+                      <hr className="h-line" />
+
+                      <SearchSelect
+                        width={381}
+                        height={400}
+                        label="Contact Account"
+                        placeholder="Contact Account"
+                        icon="/images/icons/customer-contact-icon.svg"
+                        options={customerDataSelectOptions}
+                        // onChange={handleDrpChangeStatus}
+                        name="business_name"
+                        //  value={formData.business_name}
+                      //  value={formData.customer_vendor_id}
+                        //  value={
+                        //   customerDataSelectOptions.find(
+                        //     (option) =>
+                        //       option.key === formData.business_name && option.label
+                        //   )?.label
+                        // }
+                        inputProps={{ "data-testid": "select-input" }}
+                      />
+                    </div>
+                    {isCustomerSelected && (
+                      <div>
+                        <div className="customer-account-details-container">
+                          <div className="customer-details">
+                            <img
+                              className="company-icon"
+                              src="/images/icons/logo-customer.svg"
+                              alt=""
+                            />
+                            <div className="company-name-container">
+                              <div className="company-name">
+                                <h3 className="subtitle-sb">
+                                  {singleCusVen.business_name}
+                                </h3>
+                                <img
+                                  src="/images/icons/redirect-icon.svg"
+                                  alt="icon"
+                                />
+                              </div>
+                              <p className="customer-address sc-body-rg">
+                                G-2, Ground Floor, InternationalBusiness Center,
+                                Near Rahul Raj Mall Piplod, Surat Gujarat -
+                                395007, Gujarat, India
+                              </p>
+                              <p></p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="outstanding-unused-container">
+                          <div className="outstansing-container">
+                            <p className="sc-body-rg title">
+                              Outstanding Amount
+                            </p>
+                            <p className="subtitle-sb amount">₹ 60,200.00</p>
+                          </div>
+                          <div className="unused-container">
+                            <p className="sc-body-rg title">Unused Credits</p>
+                            <p className="subtitle-sb amount">₹ 0.00</p>
+                          </div>
+                        </div>
+
+                        <div className="customer-details-container">
+                          <hr className="h-line" />
+                          <div className="gst-treatment d-flex">
+                            <p className="sc-body-rg title">GST Treatment</p>
+                            <p className="sc-body-sb">
+                              {singleCusVen.registration_type === 1 ? "Registered Business" : "Registered Business" }
+                            </p>
+                          </div>
+                          <div className="gstin d-flex">
+                            <p className="sc-body-rg title">GSTIN</p>
+                            <p className="sc-body-sb">{singleCusVen.gstin}</p>
+                          </div>
+                          <div className="email d-flex">
+                            <p className="sc-body-rg title">Email</p>
+                            <p className="sc-body-sb">{singleCusVen.email ? singleCusVen.email : "--"}</p>
+                          </div>
+                          <div className="pancard d-flex">
+                            <p className="sc-body-rg title">TAN No.</p>
+                            <p className="sc-body-sb">{singleCusVen.tan_no ? singleCusVen.tan_no : "--"}</p>
+                          </div>
+                          <div className="type d-flex">
+                            <p className="sc-body-rg title">Type</p>
+                            <p className="sc-body-sb">{}</p>
+                          </div>
+                          <div className="category d-flex">
+                            <p className="sc-body-rg title">Category</p>
+                            <p className="sc-body-sb">{typecategorydata}</p>
+                          </div>
+                          <div className="currency d-flex">
+                            <p className="sc-body-rg title">Currency</p>
+                            <p className="sc-body-sb">{currencydata ? currencydata : "--"}</p>
+                          </div>
+                          <div className="payment-terms d-flex">
+                            <p className="sc-body-rg title">Payment Terms</p>
+                            <p className="sc-body-sb">{paymentdata ?paymentdata :"--"}</p>
+                          </div>
+                          <div className="credit-limit d-flex">
+                            <p className="sc-body-rg title">Credit Limit</p>
+                            <p className="sc-body-sb">
+                              {singleCusVen.credit_limit ? singleCusVen.credit_limit:"--"}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="buttons-container">
+                          <ContainedButton
+                            type="submit"
+                            value="Assign"
+                            onClick={handleFormSubmit}
+                          />
+                          <ContainedSecondaryButton
+                            value="Cancel"
+                            onClick={handleCancel}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {/* } */}
                 </Modal>
               </div>
             </div>
