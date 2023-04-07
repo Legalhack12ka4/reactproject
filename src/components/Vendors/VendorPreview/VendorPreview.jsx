@@ -98,6 +98,8 @@ const VendorPreview = () => {
   )
   const [bankDetails, setBankDetails] = useState ([])
   const [errorMessage, setErrorMessage] = useState(false);
+  const [accountPrimary, setAccountPrimary] = useState(false)
+  // const [bankDelete , setBankDelete]=useState([])
 
   const { id } = useParams();
 
@@ -963,7 +965,15 @@ else
   .then((response) => {
     // getData();
     setAddBankModal(false);
+   
     getBank();
+     setBankData ({
+      iFSC: "",
+      bank_name: "",
+      account_number: "",
+      re_account:"",
+      branch: "",
+    })
 
     toast.success("Bank added Successfuly", {
       position: "top-right",
@@ -979,6 +989,36 @@ else
 }
 }
 
+const handleBankDelete = (record) => 
+{
+  setDeleteRecord(record)
+  setBankDeleteModal(true)
+}
+console.log(deleteRecord)
+const handleSubmitBank = () =>
+{
+  deleteBank(deleteRecord);
+  setBankDeleteModal(false);
+}
+
+const deleteBank = (record) =>
+{
+  axios.delete(`${config.baseUrl}/bank/${record.id}/`).then((response) => {
+    setBankDeleteModal(false);
+     getBank();
+    toast.error("Bank Deleted Successfuly", {
+      border: "1px solid red",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  });
+
+}
 
 //#endregion
 
@@ -1359,14 +1399,18 @@ const {
                       IFSC: <span className="sc-body-md">{bank.iFSC}</span>
                     </p>
                   </div>
-                  <div className="primary-tag caption-sb">Primary</div>
+                  {accountPrimary && <div className="primary-tag caption-sb">Primary</div>}
                 </div>
                 <div className="right">
+                <div className="edit-remove-btn" onClick={()=> setAccountPrimary(true)}>
+                    {/* <img src="/images/icons/edit-n-300.svg" alt="edit" /> */}
+                    <p className="caption-sb">Set Primary</p>
+                  </div>
                   <div className="edit-remove-btn" onClick={()=> setAddBankModal(true)}>
                     <img src="/images/icons/edit-n-300.svg" alt="edit" />
                     <p className="caption-sb">Edit</p>
                   </div>
-                  <div className="edit-remove-btn" onClick={()=> setBankDeleteModal(true)}>
+                  <div className="edit-remove-btn" onClick={() => handleBankDelete(bank)}>
                     <img src="/images/icons/delete-n-300.svg" alt="delete" />
                     <p className="caption-sb">Remove</p>
                   </div>
@@ -1541,7 +1585,7 @@ const {
 
                   <div className="d-line">
                     <p className="sc-body-rg title">Credit limit</p>
-                    <p className="sc-body-sb value">₹ {getCustomer.credit_limit ? getCustomer.credit_limit : "--" }</p>
+                    <p className="sc-body-sb value"> {getCustomer.credit_limit ? `₹ ${getCustomer.credit_limit}` : "--" }</p>
                   </div>
 
                   <div className="d-line">
@@ -2627,7 +2671,7 @@ const {
                 <div className="delete-cancel-btn d-flex gap-16 mt-30">
                   <ContainedButton
                     value="Delete"
-                    onClick={handleSubmit1}
+                    onClick={handleSubmitBank}
                     color="danger"
                   />
                   <ContainedSecondaryButton
