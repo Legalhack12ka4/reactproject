@@ -100,7 +100,25 @@ const VendorPreview = () => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [accountPrimary, setAccountPrimary] = useState(false)
   const [assignContactModal, setAssignContactModal] = useState(false);
-  // const [bankDelete , setBankDelete]=useState([])
+  const [addressDetails, setAddresssDetails]= useState([]);
+  const [pincodeArea, setPincodeArea] = useState([]);
+  const [pincodeWiseArea , setPincodeWiseArea] = useState([])
+  const [addAddressDetails , setAddAddresssDetails] = useState({
+    street1:"",
+    street2:"",
+    pincode:"",
+    area:"",
+    city:"",
+    state:"",
+    country:""
+  })
+  const [assignedDataAttach, setAssignedDataAttach] = useState([]);
+  const [attachData, setAttachData] = useState({
+    attatch_name: "",
+    attachments: "",
+  });
+  const [contactData , setContactData] = useState([]);
+  const [contactStatusData , setContactStatusData] = useState([]) 
 
   const { id } = useParams();
 
@@ -904,10 +922,15 @@ useEffect(() => {
   }, []);
   
   const getBank = () => {
-    return fetch(`${config.baseUrl}/bank/`)
+    return fetch(`${config.baseUrl}/bank/?company_id=1&customer_ref=${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setBankDetails(data.data.items);
+        if(data.status === "success"){
+          setBankDetails(data.data.items);
+          }
+          else{
+            setBankDetails([]);
+          }
         console.log(data);
       });
   };
@@ -1019,11 +1042,275 @@ const deleteBank = (record) =>
       progress: undefined,
     });
   });
-
 }
 
 //#endregion
 
+//#region add and get  address CRUD
+
+useEffect(() => {
+  getAddress();
+  getPincodeData();
+}, []);
+
+const getAddress = () => {
+  return fetch(`${config.baseUrl}/address/?company_id=1&customer_ref=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if(data.status === "success"){
+      setAddresssDetails(data.data.items);
+    }
+    else{
+      setAddresssDetails([]);
+    }
+      console.log(data);
+    });
+};
+console.log(addressDetails);
+
+const getPincodeData = () => {
+  return fetch(`${config.baseUrl}/pincode/?company_id=1&customer_ref=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setPincodeWiseArea(data.data.items)
+      console.log(data);
+    });
+};
+console.log(pincodeWiseArea);
+
+const onAddressDataChange = (e) => {
+  const { value, name } = e.target;  
+  setAddAddresssDetails({ ...addAddressDetails, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+console.log(addAddressDetails)
+
+useEffect(() => {
+  getPincodeArea(addAddressDetails.pincode);
+
+}, [addAddressDetails.pincode]);
+
+const getPincodeArea = (pincode) =>
+{
+  axios.get(
+    `https://erp.automode.ai/backend/pincode?pincode=${pincode}`
+)  .then((response) => {
+  return response;
+})
+.then((data) => {
+  setAddAddresssDetails(prevFormData => ({
+    ...prevFormData,
+ country:data.data.data[0].country,
+ city:data.data.data[0].district,
+  state:data.data.data[0].state_name,
+  }));
+
+setPincodeArea(data.data.data)
+console.log(data)
+console.log(data.data.data.country)
+console.log(data.data.data[0].country)
+});
+};
+console.log(pincodeArea)
+
+const getPincodeAreaData = pincodeArea.map((pin) => ({
+  key:pin.id,
+   label: pin.office_name,
+   value: pin.office_name,
+ }));
+
+ console.log(getPincodeAreaData)
+
+
+ const handleDrpChangePincode = (field, value) => {
+  const selectedOption = getPincodeAreaData.find((option) => option.value === value);
+  console.log(selectedOption);
+  setAddAddresssDetails({ ...addAddressDetails, [field]: value, area: selectedOption.key });
+  console.log(field);
+  console.log(value);
+};
+
+
+const handleAddAddress = () =>
+{
+  axios.post(
+    `${config.baseUrl}/address/`,
+    {
+      "street1":addAddressDetails.street1,
+      "street2":addAddressDetails.street2,
+      "customer_ref": id,
+      "category": 18,
+      "type": 11,
+      "pincode": addAddressDetails.area,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+    },
+    addAddressDetails
+  )   .then((response) => {
+   getAddress();
+   setAddAddressModal(false);
+   setAddAddresssDetails(
+    {
+      street1:"",
+      street2:"",
+      pincode:"",
+      area:"",
+      city:"",
+      state:"",
+      country:""
+    }
+   )
+    toast.success("Address Added Successfuly", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  });
+}
+
+
+const handleAddressDelete = (record) => 
+{
+  setDeleteRecord(record)
+  setAddressDeleteModal(true)
+}
+console.log(deleteRecord)
+const handleSubmitAddress = () =>
+{
+  deleteAddress(deleteRecord);
+  setAddressDeleteModal(false);
+}
+
+const deleteAddress = (record) =>
+{
+  axios.delete(`${config.baseUrl}/address/${record.id}/`).then((response) => {
+    setAddressDeleteModal(false);
+     getAddress();
+    toast.error("Address Deleted Successfuly", {
+      border: "1px solid red",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  });
+}
+
+
+const handleUpdate = (oldData) => {
+  console.log(oldData);
+  console.log(oldData.id);
+  setAddAddresssDetails(oldData);
+    setAddAddressModal(true);
+};
+
+//#endregion
+
+//#region Attachment
+
+useEffect(() => {
+  getAttachAssigedData();
+}, []);
+
+const getAttachAssigedData = () => {
+  return fetch(
+    `${config.baseUrl}/customervendorattatchment/?company_id=1&customer_id=${id}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      //  const customerVendorIds = data.data.items.map(item => item.contact_id);
+      setAssignedDataAttach(data.data.items);
+    });
+};
+console.log(assignedDataAttach)
+
+const onChangeAttachment = (e) => {
+  const { value, name } = e.target;
+
+  setAttachData({ ...attachData, [name]: value });
+  console.log(value);
+  console.log(name);
+};
+console.log(attachData);
+
+
+
+const handleFileUpload = (file) => {
+  if (file && file.size >= 1) {
+    const fileUrl = URL.createObjectURL(file);
+    setAttachData({
+      ...attachData,
+      attachments: fileUrl,
+      filename: file.name,
+    });
+  } else {
+    console.log("Invalid file size or type");
+  }
+};
+
+const handleImagePreview = (file) => {
+  if (file && file.type.indexOf("image") === 0) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const imgPreview = document.getElementById("imgPreview");
+      imgPreview.src = reader.result;
+    };
+  }
+};
+
+const handleRemove = () => {
+  setAttachData({
+    attachments: "",
+    filename: "",
+  });
+  const imgPreview = document.getElementById("imgPreview");
+  imgPreview.src = "/images/icons/add-image-icon.svg";
+};
+
+const handleFormSubmitAttachment = (value) => {
+  console.log(value);
+  // e.preventDefault();
+  axios
+    .post(
+      `${config.baseUrl}/customervendorattatchment/`,
+      {
+        attatch_name: attachData.attatch_name,
+        attachments: attachData.attachments,
+        customer_id: id,
+        company_id: 1,
+        created_by: 1,
+        updated_by: 1,
+      },
+      value
+    )
+    .then((response) => {
+      getAttachAssigedData();
+      handleCancel();
+      getAttachAssigedData();
+      setAttachData({ attatch_name: "", attachments: "" });
+      getAttachAssigedData();
+      toast.success("Attachment Added Successfuly", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
+    });
+};
+//#endregion
 
 //#region validation
 
@@ -1047,42 +1334,212 @@ const {
 
 //#endregion
 
+//#region  Notes Data
+
+const handleNotesOpen = () => 
+{
+  setCreateNoteActive(true);
+
+}
+const [notesData, setNotesData] = useState([]);
+
+
+useEffect(() => {
+  getNoteAssigedData();
+}, [id]);
+
+const getNoteAssigedData = () => {
+  return fetch(`${config.baseUrl}/customervendornotes/?company_id=1&contact_id=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data)
+      if(data.status === "success"){
+        setNotesData(data.data.items);
+      }
+      else{
+        setNotesData([]);
+    }
+    });
+};
+
+const handleCreateNote = (value) => {
+  console.log(value)
+  axios
+      .post(
+        `${config.baseUrl}/customervendornotes/`,
+        {
+          title: value.title,
+          discription: value.description,
+          contact_id: id,
+          customer_id: 1,
+          company_id:1,
+          created_by: 1,
+          updated_by: 1,  
+        },
+        value
+      )
+      .then((response) => {
+        getNoteAssigedData();
+        setCreateNoteActive(false);
+        toast.success("Note Added Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+}
+
+const handleDeleteNote = (id) => {
+  axios.delete(`${config.baseUrl}/contactnotes/${id}/`).then((response) => {
+    setDeleteRecord(null);
+    toast.error("Note Deleted Successfuly", {
+      border: "1px solid red",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+    getNoteAssigedData();
+  });
+}
+
+const handleUpdateNote = (value) => {
+  console.log(value)
+  axios.put(
+    `${config.baseUrl}/contactnotes/` + value.id + "/",
+    {
+      "title": value.title,
+      "discription":value.description,
+      "contact_id": id,
+      "company_id": 1,
+      "created_by": 1,
+      "updated_by": 1
+    },
+    value
+  ).then((response) => 
+  {
+      
+      getNoteAssigedData();
+      // setUpdateNoteActive(false);
+      // setIsEditing(false);/
+    
+      toast.success("Note Updated Successfuly", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      
+  })
+}
+
+//#endregion
 
 
 
 //#region  assign contact Modal
+useEffect(() => {
+  getConatctStatus();
+}, []);
 
-const customerDataSelectOptions = [{
-    
-  // key: place.id,
+const getConatctStatus = () => {
+  return fetch(`${config.baseUrl}/master/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setContactStatusData(data.data.items);
+      console.log(data);
+    });
+};
+
+console.log(contactStatusData);
+
+const getstatusdata = contactStatusData
+.filter((place) => place.field === "Status" && place.module === "Contact_Status")
+.map((place) => ({
+  key: place.id,
+  label: place.master_key,
+  value: place.master_key,
+}));
+
+
+
+const contactDataSelectOptions = contactData.map((contact) => ({
+   key: contact.id,
   label: (
     <div className="d-flex align-center gap-16">
       <div className="modal-name-char">VK</div>
     <div className="contact-data-container">
-      <p className="business-name mb-0">Vimlesh Kumhar</p>
+      <p className="business-name mb-0">{contact.name}</p>
 
       <p className="caption-md contact-title mb-">
-        <span className="caption-md">Owner</span>
+        <span className="caption-md">{getstatusdata.find(
+      (option) =>
+        option.key === contact.status && option.label
+    )?.label}</span>
       </p>
       <div className="d-flex justify-between mb-0">
         <p className="caption-md gstin-title">
-         <span className="caption-md">vimlesh@reformiqo.com</span>
+         <span className="caption-md">{contact.email}</span>
         </p>
-        {/* <p className="caption-md city-title">
-          Category : <span className="caption-md">{place.type_category == 1 ?  "Retailer" :
-          place.type_category == 2 ?  "Manufacturer" :
-          place.type_category == 3 ?  "Wholesaler" :"Retailer"
-          }</span>
-        </p> */}
       </div>
     </div>
     </div>
   ),
-  // value: place.business_name,
-}]
+   value: contact.name,
+}));
+
+useEffect (() => 
+{
+  getContatList();
+},[])
+
+const getContatList = () => {
+  return fetch(`${config.baseUrl}/contact/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setContactData(data.data.items);
+    });
+};
+console.log(contactData);
 
 //#endregion
-  return (
+ 
+//#region
+
+const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const shadowTop = card.parentElement.querySelector('.shadow-top');
+    const shadowBottom = card.parentElement.querySelector('.shadow-bottom');
+
+    function handleScroll() {
+      shadowTop.style.opacity = card.scrollTop > 0 ? 1 : 0;
+      shadowBottom.style.opacity =
+        card.scrollHeight - card.scrollTop - card.clientHeight > 0 ? 1 : 0;
+    }
+
+    card.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check for shadows
+
+    return () => {
+      card.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+//#endregion
+
+return (
     <div className="vendor-preview-main">
       <Page_heading
         parent={"Business Account"}
@@ -1266,7 +1723,10 @@ const customerDataSelectOptions = [{
       />
 
       <div className="card-table-container">
-        <div className="card-container">
+      <div className="card-content" >
+        <div className="shadow-top"></div>
+        <div className="shadow-bottom"></div>
+        <div className="card-container" ref={cardRef}>
           <NavLink to={`/business_account/${typedata === "Customers"? "customers" : "vendors"}/customer_vendor_preview/${id}/account_overview`}>
           <div
             className={`card-btn ${activeTab === "account" && "active-btn"}`}
@@ -1392,6 +1852,7 @@ const customerDataSelectOptions = [{
             <p className="sc-body-rg">Manage Documents</p>
           </div>
           </NavLink>
+        </div>
         </div>
         
 
@@ -1956,7 +2417,7 @@ const customerDataSelectOptions = [{
                         label="Contact Account"
                         placeholder="Contact Account"
                         icon="/images/icons/customer-contact-icon.svg"
-                        options={customerDataSelectOptions}
+                        options={contactDataSelectOptions}
                         // onChange={handleDrpChangeStatus}
                         name="business_name"
                         //  value={formData.business_name}
@@ -2568,7 +3029,7 @@ const customerDataSelectOptions = [{
               {
                 <div className="table-header mb-20">
                   <h1 className="title-sb">
-                    Address <span className="account-count">(2)</span>
+                    Address <span className="account-count">({addressDetails.length})</span>
                   </h1>
                 </div>
               }
@@ -2580,21 +3041,26 @@ const customerDataSelectOptions = [{
                   </div>
                   <p className="subtitle-md title">Add new address</p>
                 </div>
+                {addressDetails.map((address, index) =>
 
+                <>
+                
                 <div className="address-container-card">
-                  <p className="subtitle-sb address-heading">Address 1</p>
+                  <p className="subtitle-sb address-heading">Address {index+1}</p>
                   <p className="address sc-body-rg mt-10">
-                    G-2, Ground Floor, International Business Center, <br />{" "}
-                    Near Rahul Raj Mall Piplod <br /> Surat <br /> Gujarat -
-                    395007 <br /> India
+                   {address.street1} {" "}
+                   {address.street2}, <br /> {pincodeWiseArea.map((city) => address.pincode === city.id && city.district)} <br /> 
+                   {pincodeWiseArea.map((city) => address.pincode === city.id && city.state_name)} -
+                   {pincodeWiseArea.map((city) => address.pincode === city.id && city.pincode)}<br /> 
+                   {pincodeWiseArea.map((city) => address.pincode === city.id && city.country)}
                   </p>
 
                   <div className="edit-delete-btn">
-                    <div className="edit-remove-btn" onClick={()=>setAddAddressModal(true)}>
+                    <div className="edit-remove-btn" onClick={() => handleUpdate(address)}>
                       <img src="/images/icons/edit-n-300.svg" alt="edit" />
                       <p className="caption-sb">Edit</p>
                     </div>
-                    <div className="edit-remove-btn" onClick={()=> setAddressDeleteModal(true)}>
+                    <div className="edit-remove-btn" onClick={()=> handleAddressDelete(address)}>
                       <img src="/images/icons/delete-n-300.svg" alt="delete" />
                       <p className="caption-sb">Remove</p>
                     </div>
@@ -2606,30 +3072,10 @@ const customerDataSelectOptions = [{
                     <div className="tag caption-sb">Primary</div>
                   </div>
                 </div>
+                </>
+                 )}
 
-                <div className="address-container-card">
-                  <p className="subtitle-sb address-heading">Address 2</p>
-                  <p className="address sc-body-rg mt-10">
-                    G-2, Ground Floor, International Business Center, <br />{" "}
-                    Near Rahul Raj Mall Piplod <br /> Surat <br /> Gujarat -
-                    395007 <br /> India
-                  </p>
-
-                  <div className="edit-delete-btn">
-                    <div className="edit-remove-btn">
-                      <img src="/images/icons/edit-n-300.svg" alt="edit" />
-                      <p className="caption-sb">Edit</p>
-                    </div>
-                    <div className="edit-remove-btn">
-                      <img src="/images/icons/delete-n-300.svg" alt="delete" />
-                      <p className="caption-sb">Remove</p>
-                    </div>
-                  </div>
-
-                  <div className="tag-container">
-                    <div className="tag caption-sb">Shipping</div>
-                  </div>
-                </div>
+             
               </div>
               <Modal
                 open={addAddressModal}
@@ -2659,9 +3105,9 @@ const customerDataSelectOptions = [{
               >
                 <div className="sales-order-modal-container">
                   <div className="select-customer-container">
-                    <h1 className="heading-sb">Add Shipping Address</h1>
+                    <h1 className="heading-sb">{addressDetails.id ? "Update Shipping Address" : "Add Shipping Address"}</h1>
                     <p className="sc-body-rg title">
-                    Add Shipping address
+                   {addressDetails.id?  "Update Shipping Address" : "Add Shipping address"}
                     </p>
                     <hr className="h-line" />
 
@@ -2670,41 +3116,68 @@ const customerDataSelectOptions = [{
                         width={330}
                         label="Street 1"
                         icon="/images/icons/location-icon.svg"
+                        name="street1"
+                        value={addAddressDetails.street1}
+                        onChange={onAddressDataChange}
                       />
                       <CustomInput
                         width={330}
                         label="City"
                         disabled
+                        name="city"
+                        value={addAddressDetails.city}
                       />
                       <CustomInput
                         width={330}
                         label="Street 2"
                         icon="/images/icons/location-icon.svg"
+                        name="street2"
+                        value={addAddressDetails.street2}
+                        onChange={onAddressDataChange}
                       />
                       <CustomInput
                         width={330}
                         label="State"
                         disabled
+                        name="state"
+                        value={addAddressDetails.state}
                       />
-                      <CustomInput
+                        <CustomInput
                         width={330}
-                        label="Area"
+                        label="Pincode"
                         icon="/images/icons/Pincode_Area.svg"
+                        placeholder="395007"
+                        name="pincode"
+                        value={addAddressDetails.pincode}
+                        onChange={onAddressDataChange}
                       />
                       <CustomInput
                         width={330}
                         label="Country"
                         disabled
+                        name="country"
+                        value={addAddressDetails.country}
                       />
-                      <CustomInput
-                        width={330}
-                        label="Pincode"
-                        icon="/images/icons/Pincode_Area.svg"
-                        placeholder="395007"
-                      />
+                    
+                        <SearchSelect 
+                          width={330}
+                          placeholder="Area"
+                          name="area"
+                          options={getPincodeAreaData}
+                          value={
+                            getPincodeAreaData.find(
+                              (option) =>
+                                option.key === addAddressDetails.area && option.label
+                            )?.label
+                          }
+                         onChange={handleDrpChangePincode}
+                          label="Area"
+                          // error={!formData.area && errors.area && touched.area ? true : false}
+                          // errorMsg={!formData.area && errors.area}
+                          />
                     </div>
                     <div className="d-flex gap-16 mt-30">
-                        <ContainedButton value="Save" />
+                        <ContainedButton value={addressDetails.id ? "Update" : "Save"} onClick={handleAddAddress} />
                         <ContainedSecondaryButton
                           value="Cancel"
                           onClick={handleCancel}
@@ -2722,7 +3195,7 @@ const customerDataSelectOptions = [{
                 <div className="table-header mb-20">
                   <h1 className="title-sb">
                   Attachment
-                    <span className="account-count"> (4)</span>
+                    <span className="account-count"> ({assignedDataAttach.length})</span>
                   </h1>
                   <p
                     className="sc-body-sb assign-account-btn d-flex align-center"
@@ -2736,7 +3209,7 @@ const customerDataSelectOptions = [{
                 </div>
               }
 
-              <AttachmentFile />
+              <AttachmentFile getData={assignedDataAttach}/>
             </div>
           )}
           {activePage === "notes" && (
@@ -2745,7 +3218,7 @@ const customerDataSelectOptions = [{
                 <div className="table-header mb-20">
                   <h1 className="title-sb">
                   Notes
-                    <span className="account-count"> (4)</span>
+                    <span className="account-count">({notesData.length})</span>
                   </h1>
                   <p
                     className="sc-body-sb assign-account-btn d-flex align-center"
@@ -2759,7 +3232,13 @@ const customerDataSelectOptions = [{
               }
             <Notes
               createNoteActive={createNoteActive}
+              openNotes={handleNotesOpen}
               createNoteFalse={createNoteFalse}
+              notesData={notesData}
+              noteBy={getCustomer.name}
+              handleCreate={handleCreateNote}
+              handleDelete={handleDeleteNote}
+              handleUpdate={handleUpdateNote}
             />
             </div>
           )}
@@ -2810,7 +3289,7 @@ const customerDataSelectOptions = [{
                 <div className="delete-cancel-btn d-flex gap-16 mt-30">
                   <ContainedButton
                     value="Delete"
-                    onClick={handleSubmit1}
+                    onClick={handleSubmitAddress}
                     color="danger"
                   />
                   <ContainedSecondaryButton
@@ -2913,57 +3392,95 @@ const customerDataSelectOptions = [{
                   <h1 className="heading-sb">New Attachment</h1>
                   <p className="sc-body-rg mt-10 title">Attach Document</p>
                   <hr className="h-line" />
-                  <Upload
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    fileList={fileList}
-                    onChange={onChange}
-                  >
-                    <div
+                  {attachData.attachments &&<div
                       style={{
-                        padding: "45px 58px",
                         border: "1.5px dashed #CBD5E0",
                         borderRadius: "6px",
-                        width: "214px",
+                        width: "328px",
                         textAlign: "center",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         marginBottom: "20px",
+                        height:"202px",
+                        justifyContent:"center",
+                        // overflow:"hidden",
+                        position:"relative"
                       }}
                     >
-                      <img
-                        src="/images/icons/add-image-icon.svg"
-                        alt="icon"
-                        className="mb-10"
-                      />
-                      <p className="mb-10 sc-body-sb">
-                        Drop files here or click to upload
-                      </p>
-                      <p className="caption-md" style={{ maxWidth: "160px" }}>
-                        You Can add up to{" "}
-                        <span
-                          className="caption-sb"
-                          style={{ color: "#465468" }}
-                        >
-                          6 Images
-                        </span>{" "}
-                        each not exceeding{" "}
-                        <span
-                          className="caption-sb"
-                          style={{ color: "#465468" }}
-                        >
-                          1 MB.
-                        </span>
-                      </p>
-                    </div>
+                      <div style={{position:"absolute", top:"-10px", background:"#00000080", color:"#fff",cursor:"pointer", width:"24px", height:"24px", borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",right:"-10px"}} onClick={handleRemove}>X</div>
+                      {attachData.attachments && <div style={{width:"100%",height:"100%"}}>
+                          <img src={attachData.attachments} alt="logo" style={{width:"100%",height:"100%", objectFit:"cover"}} />
+                        </div>}
+                        </div>}
+                  <Upload
+                    accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                    onChange={(info) => {
+                      const file = info.file.originFileObj;
+                      handleFileUpload(file);
+                      handleImagePreview(file);
+                    }}
+                    onRemove={handleRemove}
+                  >
+                    {!attachData.attachments &&<div
+                      style={{
+                        border: "1.5px dashed #CBD5E0",
+                        borderRadius: "6px",
+                        width: "328px",
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginBottom: "20px",
+                        cursor:"pointer",
+                        height:"202px",
+                        justifyContent:"center",
+                        overflow:"hidden",
+                      }}
+                    >
+                      { !attachData.attachments && <> <img
+                          src="/images/icons/add-image-icon.svg"
+                          alt="icon"
+                          id="imgPreview"
+                          className="mb-10"
+                          style={{width:"44px",height:"44px"}}
+                        />
+                      
+                          <p className="mb-10 sc-body-sb">
+                            Drop files here or click to upload
+                          </p>
+                        <p className="caption-md" style={{ maxWidth: "160px" }}>
+                          You Can add up to{" "}
+                          <span
+                            className="caption-sb"
+                            style={{ color: "#465468" }}
+                          >
+                            6 Images
+                          </span>{" "}
+                          each not exceeding{" "}
+                          <span
+                            className="caption-sb"
+                            style={{ color: "#465468" }}
+                          >
+                            1 MB.
+                          </span>
+                        </p>
+                        </>}
+                    </div>}
                   </Upload>
-                  <CustomInput
+                 <CustomInput
                     width={330}
                     label="Attachment Name"
                     placeholder="Name"
+                    onChange={onChangeAttachment}
+                    name="attatch_name"
+                    value={attachData.attatch_name}
                   />
                   <div className="btn-container d-flex mt-30 gap-16">
-                    <ContainedButton value="Upload" />
+                  <ContainedButton
+                      value="Upload"
+                      onClick={handleFormSubmitAttachment}
+                    />
                     <ContainedSecondaryButton
                       value="Cancel"
                       onClick={handleCancel}
