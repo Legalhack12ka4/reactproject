@@ -1907,7 +1907,7 @@ console.log(updateId)
                 selectedColumns.includes(col.dataIndex)
               )}
               // scroll={{ y: 3000, x: 1000 }}
-              scroll={{ y: 100}}
+              scroll={{ y: "51vh"}}
               // scroll={!loading && { y: ("30px")}}
               // scroll={!loading && { x: ("30px", "800px" )}}
               pagination={

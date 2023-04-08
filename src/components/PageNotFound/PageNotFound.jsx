@@ -13,9 +13,17 @@ function PageNotFound() {
   const goBack = () => {
 		navigate(-1);
 	}
+
+  const handleClick = () => {
+    window.location.href = '/dashboard';
+    setTimeout(() => {
+    window.location.reload();
+    localStorage.removeItem('openId')
+    localStorage.removeItem('open')
+    }, 10);
+  }
   return (
     <div className='not-found'>
-     
    <div style={{display:"flex", gap:"150px"}}>
     <div>
       <p className='error'>404 Error</p>
@@ -30,7 +38,7 @@ function PageNotFound() {
            <div>
           <button className='back' onClick={goBack}><img src={back} style={{marginRight:"8px"}}/>Go Back</button>
           </div>
-        <div> <Link exact to="/dashboard"><button className='home'>Go Home</button></Link> </div>
+        <div> <Link exact to="/dashboard"><button className='home' onClick={handleClick}>Go Home</button></Link> </div>
       </div>
       <p className='doc'>Documention <img src={forward} style={{marginLeft:"11px"}}/></p>
       <p className='docdesc'>Drive into to learn all about our software.</p>

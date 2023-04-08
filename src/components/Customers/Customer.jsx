@@ -1432,7 +1432,7 @@ else
               // })}
               // scroll={{ y: 800, x: 1000 }}
               // scroll={!loading && { x: ("30px", "800px" )}}
-              scroll={{ x: 800, y:800 }}
+              scroll={{ y: "51vh" }}
              style={{ maxWidth: 2200, width: "100%" }}
               pagination={!loading && {
                 current: page,

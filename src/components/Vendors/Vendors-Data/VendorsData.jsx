@@ -1218,7 +1218,7 @@ const deleteUser = (record)=>
           // scroll={{ y: 800, x: 720 }}
           //    style={{ width: "100%" }}
           // scroll={!loading && { x: "800px" }}
-          scroll={{ y: 200 }}
+          scroll={{ y: "51vh" }}
           style={{ maxWidth: 2200, width: "100%" }}
           pagination={!loading && {
             current: page,

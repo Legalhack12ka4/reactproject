@@ -3415,6 +3415,7 @@ return (
                         </div>}
                   <Upload
                     accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                    showUploadList={false}
                     onChange={(info) => {
                       const file = info.file.originFileObj;
                       handleFileUpload(file);
