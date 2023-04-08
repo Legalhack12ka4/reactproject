@@ -15,7 +15,7 @@ const Notes = ({notesData,noteBy,handleCreate,handleDelete,handleUpdate, ...prop
     const [updateNoteActive, setUpdateNoteActive] = useState(false);
     const [notesContent, setNotesContent] = useState({title:"", description:""});
     const [editId, setEditId] = useState(null);
-    const popoverRef = useRef(null);
+    
  
 
     const handleNoteClick = (index) => {
@@ -45,26 +45,33 @@ const Notes = ({notesData,noteBy,handleCreate,handleDelete,handleUpdate, ...prop
         title: notesContent.title,
         description: notesContent.description,
       };
-      handleCreate(data);
-      setNotesContent({title:"", description:""});
+      handleCreate(data).then((response) => {
+      if (response.status === 200 || response.status === 201) {
+        setNotesContent({title: "", description: ""});
+      }
+    })
     }
 
-    const handleUpdateNoteSubmit = () => {
-        let data = {
-            title: notesContent.title,
-            description: notesContent.description,
-            id: editId
-        };
-        handleUpdate(data);
-        setNotesContent({title:"", description:""});
-        setUpdateNoteActive(false); 
+    const handleUpdateNoteSubmit = async () => {
+      let data = {
+        title: notesContent.title,
+        description: notesContent.description,
+        id: editId
+      };
+    
+      try {
+        await handleUpdate(data);
+        setNotesContent({ title: "", description: "" });
+        setUpdateNoteActive(false);
         setEditId(null);
-    }
+      } catch (error) {
+      }
+    };
+    
 
     const handleDeleteNote = (note) => {
-        console.log(note);
         setCofirm(note);
-        setOpen(false);
+        setOpen(null);
     }
 
     const handleUpdateNote = (note) => {
@@ -72,26 +79,42 @@ const Notes = ({notesData,noteBy,handleCreate,handleDelete,handleUpdate, ...prop
         setUpdateNoteActive(true);
         setEditId(note.id);
         setNotesContent({title:note.title, description:note.discription, id:note.id});
-        setOpen(false);
+        setOpen(null);
     }
+  
+  const handleDeleteNoteSubmit = async () => {
+    try {
+      await handleDelete(confirm);
+      setCofirm(false);
+      setOpen(null);
+    } catch (error) {
+    }
+  };
 
+  // const handleDelete = async (noteId) => {
+  //   try {
+  //     await handleDelete(noteId);
+  //     setCofirm(false);
+  //     setOpen(null);
+  //   } catch (error) {
+  //   }
+  // };
+
+
+    const handleClickOutside = (e) => {
+      const isInsidePopover = e.target.closest('.ant-popover');
+
+      if (!isInsidePopover && open !== null) {
+        setOpen(null);
+      }
+    };
 
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (popoverRef.current && !popoverRef.current.contains(event.target)) {
-          setTimeout(() => {
-          setOpen(false);
-          }, 100);
-        }
-      };
-  
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [popoverRef]);
-
-
+    }, [open]);
 
   return (
 <>
@@ -116,7 +139,7 @@ const Notes = ({notesData,noteBy,handleCreate,handleDelete,handleUpdate, ...prop
             </div> </div>:""}
 
 
-        {notesData.map((note, index) => {
+        {notesData?.map((note, index) => {
 
             const timestamp = note.updated_date_time;
 const date = new Date(timestamp);
@@ -147,11 +170,10 @@ function formatTime(date) {
                     <p className='date-time sc-body-md'>{formattedDate}</p>
                     <Popover
             id="popoverhide"
-            // defaultOpen={false}
-            // onOpenChange={setOpen}
             getPopupContainer={(trigger) => trigger.parentElement}
             showArrow={true}
             placement="bottom"
+            open={open === note.id}
             content={
               <>
                 <div
@@ -200,8 +222,8 @@ function formatTime(date) {
                 height: "100%",
               }}
               onClick={(e) => {
-                setOpen(note.id);
-               // popvisible(e);
+                // setOpen(note.id);
+                setOpen(open === note.id ? null : note.id);
               }}
               
             >
@@ -273,7 +295,7 @@ function formatTime(date) {
                   <ContainedButton
                     value="Delete"
                     color="danger"
-                    onClick={() => {handleDelete(confirm); setCofirm(false);}}
+                    onClick={() => { handleDeleteNoteSubmit();}}
                   />
                   <ContainedSecondaryButton
                     value="Cancel"

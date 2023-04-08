@@ -7,9 +7,6 @@ import items from "./data/sidebar.json";
 
 const Sidebar = () => {
   const [isTriggered, setIsTriggred] = useState(false);
-  const [active, setActive] = useState(
-    localStorage.getItem("activeMenuItem") || ""
-  );
   const [openId, setOpenId] = useState(localStorage.getItem("openId") || "");
   const [open, setOpen] = useState(
     localStorage.getItem("open") === "true" || false
@@ -45,9 +42,7 @@ const Sidebar = () => {
     }
   }
 
-  useEffect(() => {
-    localStorage.setItem("activeMenuItem", active);
-  }, [active]);
+
 
 
   const myDiv = React.useRef(null);

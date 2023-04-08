@@ -33,7 +33,7 @@
     height: max-content;
     max-width: 2220px;
     user-select: none;
-    // overflow: scroll;
+
     
     
 
@@ -48,6 +48,7 @@
       border-radius: 10px;
       margin-right: 3px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
     background: #566a76;
     cursor: pointer;

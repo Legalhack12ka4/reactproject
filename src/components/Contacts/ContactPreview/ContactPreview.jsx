@@ -446,6 +446,7 @@ const ContactPreview = () => {
   const [custvenassign, setCusvenassign]= useState([])
   const [datePickerOpen, setDatePickerOpen] = useState(false);
   const [formatedDate, setFormatedDate] = useState("");
+  const [drpLoad, setDrpLoad] = useState(false);
   
   // console.log(dobData)
 
@@ -485,6 +486,7 @@ const handleNotesOpen = () =>
       });
       // window.history.back(-1);
     }
+    console.log(formData);
     setAttachmentsModal(false);
     // Clear the selected value from the SearchSelect component
     const select = document.querySelector('[data-testid="select-input"]');
@@ -1343,7 +1345,7 @@ console.log(assignedItem)
      record.business_name?.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(cusomizeData);
+
 
   //tags
   console.log(cusomizeData);
@@ -2177,41 +2179,25 @@ const getNoteAssigedData = () => {
     });
 };
 
-const handleCreateNote = (value) => {
-  console.log(value)
-  axios
-      .post(
-        `${config.baseUrl}/contactnotes/`,
-        {
-          title: value.title,
-          discription: value.description,
-          contact_id: id,
-          company_id: 1,
-          created_by: 1,
-          updated_by: 1,
-        },
-        value
-      )
-      .then((response) => {
-        getNoteAssigedData();
-        setCreateNoteActive(false);
-        toast.success("Note Added Successfuly", {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-}
+const handleCreateNote = async (value) => {
+  try {
+    const response = await axios.post(
+      `${config.baseUrl}/contactnotes/`,
+      {
+        title: value.title,
+        discription: value.description,
+        contact_id: id,
+        company_id: 1,
+        created_by: 1,
+        updated_by: 1,
+      },
+      value
+    );
 
-const handleDeleteNote = (id) => {
-  axios.delete(`${config.baseUrl}/contactnotes/${id}/`).then((response) => {
-    setDeleteRecord(null);
-    toast.error("Note Deleted Successfuly", {
-      border: "1px solid red",
+    getNoteAssigedData();
+    setCreateNoteActive(false);
+
+    toast.success("Note Added Successfully", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -2220,31 +2206,22 @@ const handleDeleteNote = (id) => {
       draggable: true,
       progress: undefined,
     });
-    getNoteAssigedData();
-  });
-}
 
-const handleUpdateNote = (value) => {
-  console.log(value)
-  axios.put(
-    `${config.baseUrl}/contactnotes/` + value.id + "/",
-    {
-      "title": value.title,
-      "discription":value.description,
-      "contact_id": id,
-      "company_id": 1,
-      "created_by": 1,
-      "updated_by": 1
-    },
-    value
-  ).then((response) => 
-  {
-      
-      getNoteAssigedData();
-      // setUpdateNoteActive(false);
-      // setIsEditing(false);/
-    
-      toast.success("Note Updated Successfuly", {
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+const handleDeleteNote = (id) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${config.baseUrl}/contactnotes/${id}/`)
+      .then((response) => {
+        setDeleteRecord(null);
+        toast.error("Note Deleted Successfully", {
+          border: "1px solid red",
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -2253,14 +2230,87 @@ const handleUpdateNote = (value) => {
           draggable: true,
           progress: undefined,
         });
-      
-  })
-}
+        getNoteAssigedData();
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+const handleUpdateNote = async (value) => {
+  try {
+    const response = await axios.put(
+      `${config.baseUrl}/contactnotes/` + value.id + "/",
+      {
+        title: value.title,
+        discription: value.description,
+        contact_id: id,
+        company_id: 1,
+        created_by: 1,
+        updated_by: 1,
+      },
+      value
+    );
+
+    getNoteAssigedData();
+
+    toast.success("Note Updated Successfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Failed to update note:", error);
+    throw error;
+  }
+};
+
 
 
 
 
 //#endregion
+
+
+
+const cardRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const shadowTop = card.parentElement.querySelector('.shadow-top');
+    const shadowBottom = card.parentElement.querySelector('.shadow-bottom');
+
+    function handleScroll() {
+      shadowTop.style.opacity = card.scrollTop > 0 ? 1 : 0;
+      shadowBottom.style.opacity =
+        card.scrollHeight - card.scrollTop - card.clientHeight > 0 ? 1 : 0;
+    }
+
+    card.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check for shadows
+
+    return () => {
+      card.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleAssignAccount = () => {
+      setDrpLoad(true);
+      setTimeout(() => {
+        setDrpLoad(false);
+      }
+      , 100);
+  };
+
+
 
   return (
     <div className="contact-preview-main">
@@ -2301,7 +2351,11 @@ const handleUpdateNote = (value) => {
       />
 
       <div className="card-table-container">
-        <div className="card-container">
+      
+        <div className="card-content" >
+        <div className="shadow-top"></div>
+        <div className="shadow-bottom"></div>
+          <div className="card-container" ref={cardRef}>
           <div
             className="mb-10"
             style={{
@@ -2371,27 +2425,10 @@ const handleUpdateNote = (value) => {
               <p className="sc-body-md   dob-add-btn" style={{cursor:"pointer"}} >
                 {getContact.dob && !formatedDate ? <p className="d-flex align-center sc-body-sb gap-6 clr-nt-400">{formatDateWithMonth(getContact.dob)} <img src="/images/icons/edit.svg" alt="" onClick={()=> {setDatePickerOpen(true)}} /></p> : formatedDate ? <p className="d-flex align-center sc-body-sb gap-6 clr-nt-400">{formatDateWithMonth(formatedDate)} <img src="/images/icons/edit.svg" alt="" onClick={()=> {setDatePickerOpen(true)}} /></p>:<p onClick={()=> {setDatePickerOpen(true)}} className="clr-p-100">Add</p>}
               </p>
-            {/* {formatedDate && <div className="save-cancel-btn">
-            <div className="save-btn" ></div>
-                <div className="cancel-btn" ></div>
-            </div>} */}
             </div>
                  <div className="date-picker-container">
                  <DatePicker open={datePickerOpen}  onChange={onChangeDate} onOpenChange={handleOpenChange} name="formatedDate"  renderExtraFooter={() => dateSaveCancelBtn}  />
                  </div>
-                 
-
-
-              {/* {!getContact.dob ?
-              !CalendarVisible  ? <p className="sc-body-md  clr-p-100 dob-add-btn" style={{cursor:"pointer"}} onClick={()=> {setCalendarVisible(true)}}>
-                {`${dobData.dob ? convertedDate :"Add"}`}
-                 {getContact.dob && <img style={{cursor:"pointer"}} src="/images/icons/edit_blue_icon.svg" alt="" />}</p>:
-              <div className="calendar-contaienr">
-                <DatePicker selected={dobData} onChange={onChangeDate} placeholder="Select Date" name="dob" 
-                value={dobData.dob} 
-                />
-                
-              </div>  : convertedDate}  */}
             </div>
 
             <div className="ownership">
@@ -2410,6 +2447,7 @@ const handleUpdateNote = (value) => {
               <p className="caption-md">{formattedDate}</p>
             </div>
           </div>
+        </div>
         </div>
 
         <div className="table-container">
@@ -2495,7 +2533,7 @@ const handleUpdateNote = (value) => {
               {activePage === "related_account" ? (
                 <p
                   className="sc-body-sb assign-account-btn"
-                  onClick={() => setSalesOrderModal(true)}
+                  onClick={() => {setSalesOrderModal(true); handleAssignAccount()}}
                 >
                   + Assign Account
                 </p>
@@ -2638,8 +2676,8 @@ const handleUpdateNote = (value) => {
                       setSelectedRows(selectedRows);
                     },
                   }}
-                  scroll={{ y: 200 }}
-                  dataSource={dataSource}
+                  scroll={{ y: "35vh" }}
+                  dataSource={cusomizeData}
                   columns={columns.filter(col => selectedColumns.includes(col.dataIndex))}
                   pagination={
                   {
@@ -2699,7 +2737,7 @@ const handleUpdateNote = (value) => {
                         Choose customer account by considering the details
                       </p>
                       <hr className="h-line" />
-
+                  {drpLoad ? "" :
                       <SearchSelect
                         width={381}
                         height={400}
@@ -2718,7 +2756,7 @@ const handleUpdateNote = (value) => {
                         //   )?.label
                         // }
                         inputProps={{ "data-testid": "select-input" }}
-                      />
+                      />}
                     </div>
                     {isCustomerSelected && (
                       <div>
@@ -2898,6 +2936,7 @@ const handleUpdateNote = (value) => {
                         </div>}
                   <Upload
                     accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
+                    showUploadList={false}
                     onChange={(info) => {
                       const file = info.file.originFileObj;
                       handleFileUpload(file);
@@ -2951,7 +2990,7 @@ const handleUpdateNote = (value) => {
                         </>}
                     </div>}
                   </Upload>
-                  <div className="mt-20">
+                  <div>
                   <CustomInput
                     width={330}
                     label="Attachment Name"
